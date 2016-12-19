@@ -3,11 +3,11 @@ var webpack = require("webpack");
 
 module.exports = {
     entry: {
-        'legoui': './src/index',
+        'badge': './src/badge/app',
     }, //演示单入口文件
     output: {
-        path: path.join(__dirname, 'dist'), //打包输出的路径
-        publicPath: "./dist/", //html引用路径，在这里是本地地址。
+        path: path.join(__dirname, 'components'), //打包输出的路径
+        publicPath: "./components/", //html引用路径，在这里是本地地址。
         filename: '[name].js', //打包多个
         compact: true
         // chunkFilename: "[name].js"
@@ -20,7 +20,7 @@ module.exports = {
                 exclude: /node_modules/,
                 // include: path.resolve(__dirname, "/page/"),
                 query: {
-                    presets: ['es2015', 'stage-3']
+                    presets: [["es2015", { "modules": false }], "stage-0", "stage-3"]
                 }
             },
             { test: /\.css$/, loader: "style!css" },

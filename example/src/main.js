@@ -1,6 +1,7 @@
 import jQuery from 'jquery';
-// import Lego from 'lego-core';
-import Lego from '../../dist/lego';
+import Lego from 'lego-core';
+import Legoui from '../../components/legoui-all.min';
+// import Legoui from 'lego-ui';
 
 Lego.init({
     alias: 'HBY', //框架实例别名
@@ -9,4 +10,5 @@ Lego.init({
     pageEl: '#container', //页面渲染容器
     defaultApp: 'home', //默认应用
     rootUri: '/example/dist/', //根目录
+    ui: Legoui
 });
