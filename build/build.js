@@ -14,23 +14,23 @@ const istanbul = require('rollup-plugin-istanbul');
 const flow = require('rollup-plugin-flow-no-whitespace');
 const cjs = require('rollup-plugin-commonjs');
 const node = require('rollup-plugin-node-resolve');
-const version = process.env.VERSION || require('../package.json').version
+const version = process.env.VERSION || require('../package.json').version;
 
 if (!fs.existsSync('dist')) {
     fs.mkdirSync('dist');
 }
 const resolve = _path => path.resolve(__dirname, '../', _path);
 build([{
-    alias: 'lego',
+    alias: 'legoui',
     entry: resolve('src/index.js'),
-    dest: resolve('dist/lego.js'),
-    format: 'cjs',
+    dest: resolve('dist/legoui.js'),
+    format: 'iife',
     env: 'development'
 }, {
-    alias: 'lego.min',
+    alias: 'legoui.min',
     entry: resolve('src/index.js'),
-    dest: resolve('dist/lego.min.js'),
-    format: 'cjs',
+    dest: resolve('dist/legoui.min.js'),
+    format: 'iife',
     env: 'development'
 }].map(genConfig));
 
@@ -83,14 +83,14 @@ function genConfig(opts) {
             // flow(),
             // node(),
             // cjs(),
-            async(),
-            regenerator(),
+            // async(),
+            // regenerator(),
             buble(),
             uglify({
                 mangle: false,
-                compress: opts.alias == 'lego.min' ? true : false,
+                compress: opts.alias == 'legoui.min' ? true : false,
                 output: {
-                    beautify: opts.alias == 'lego.min' ? false : true,
+                    beautify: opts.alias == 'legoui.min' ? false : true,
                     comments: function(node, comment) {
                         var text = comment.value;
                         var type = comment.type;
