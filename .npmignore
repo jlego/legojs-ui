@@ -5,4 +5,5 @@ webpack.config.js
 rollup.config.js
 example/
 modules/
+build/
 src/
