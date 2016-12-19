@@ -1,0 +1,13 @@
+.breadcrumb{
+    background-color: transparent;
+    margin-bottom: 0;
+}
+.breadcrumb>li+li:before {
+    padding: 0 3px;
+    content: ">";
+    color: #34495e;
+}
+.breadcrumb > .active,
+.breadcrumb a{
+    color: #34495e;
+}

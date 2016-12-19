@@ -1,0 +1,11 @@
+.chosen-select{
+	background-color: #fff;
+}
+.chosen-single i{
+    color: #999;
+    font-size: 12px;
+    -webkit-transform: scale(0.75);
+}
+.chosen-container .chosen-results li.active-result:hover {
+    background-color: $brand-primary !important;
+}

@@ -1,0 +1,42 @@
+.table > thead > tr > th {
+    border-bottom: 1px solid #ddd;
+    line-height: normal;
+    vertical-align: middle;
+    font-weight: normal;
+    background-color: #f3f3f3;
+}
+
+.table > thead > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > th,
+.table > tbody > tr > td,
+.table > tfoot > tr > th,
+.table > tfoot > tr > td {
+    border-top: none;
+    border-bottom: 1px solid #ddd;
+    vertical-align: middle;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > td {
+    padding: 8px;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+// .table > thead > tr > th > div {
+//     padding: 0;
+//     word-wrap: break-word;
+// }
+
+.table-border-top {
+    border-top: 1px solid #ddd;
+}
+
+.rowDetail > td {
+    border-bottom: none !important;
+}
+
+.rowDetail + tr:hover {
+    background-color: transparent !important;
+}

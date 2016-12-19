@@ -1,0 +1,81 @@
+.datatable .panel {
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.datatable thead > tr > th {
+    padding: 0;
+    border-bottom: none;
+    border-right: 1px solid #ddd;
+    position: relative;
+    height: 37px;
+    text-indent: 8px;
+    font-weight: normal;
+}
+.datatable thead > tr > th > div{
+    padding: 8px;
+    text-indent: 0;
+    cursor: pointer;
+}
+.datatable thead > tr > th > div:first-child:hover{
+    background-color: #ececec;
+    border-top: 1px dashed #ececec;
+    border-bottom: 1px dashed #ececec;
+}
+.datatable thead > tr > th > div.selected {
+    /*border: 1px dashed #ccc;*/
+    visibility: hidden;
+}
+.datatable thead > tr > th > div.dd {
+    border: 1px dashed #3399fe;
+    background-color: #ececec;
+    // margin: -8px;
+    // height: 37px;
+    // line-height: 37px;
+    // text-indent: 8px;
+}
+
+.datatable thead > tr > th[colspan] {
+    border-bottom: 1px solid #ddd;
+}
+
+.datatable thead > tr > th .colHandler {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    z-index: 1;
+    margin-right: -5px;
+}
+
+.datatable thead > tr > th .caret {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    border: 5px solid transparent;
+}
+
+.datatable thead > tr > th .caret.asc {
+    margin-top: -12px;
+    border-bottom: 5px dashed #ccc;
+}
+
+.datatable thead > tr > th .caret.asc.active {
+    border-bottom: 5px dashed $brand-primary;
+}
+
+.datatable thead > tr > th .caret.desc {
+    margin-top: 2px;
+    border-top: 5px dashed #ccc;
+}
+
+.datatable thead > tr > th .caret.desc.active {
+    border-top: 5px dashed $brand-primary;
+}
+
+.datatable .panel-body td {
+    border-bottom: none;
+}
+

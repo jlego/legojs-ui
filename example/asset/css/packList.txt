@@ -1,0 +1,6 @@
+..\..\js\debug\lib\vendor\ui\toastr\toastr.css
+..\..\js\debug\lib\vendor\ui\bootstrap-datetimepicker\bootstrap-datetimepicker.css
+..\..\js\debug\lib\vendor\ui\zTree\css\zTreeStyle.css
+..\..\js\debug\lib\vendor\ui\perfect-scrollbar\perfect-scrollbar.css
+..\..\js\debug\lib\vendor\ui\cityPicker\city-picker.css
+..\..\js\debug\widget\upload\upload.css

@@ -1,0 +1,8 @@
+.npmignore
+.babelrc
+.eslintrc
+webpack.config.js
+rollup.config.js
+example/
+modules/
+src/

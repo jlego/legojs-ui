@@ -1,0 +1,116 @@
+@font-face {
+  font-family: 'hbyicon';
+  src:  url('../fonts/hbyicon.eot?7gthgy');
+  src:  url('../fonts/hbyicon.eot?7gthgy#iefix') format('embedded-opentype'),
+    url('../fonts/hbyicon.ttf?7gthgy') format('truetype'),
+    url('../fonts/hbyicon.woff?7gthgy') format('woff'),
+    url('../fonts/hbyicon.svg?7gthgy#hbyicon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="hby-"], [class*=" hby-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'hbyicon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.hby-staff:before {
+  content: "\e909";
+}
+.hby-minus:before {
+  content: "\e90a";
+}
+.hby-folder:before {
+  content: "\e90b";
+}
+.hby-plus:before {
+  content: "\e90c";
+}
+.hby-drop-down:before {
+  content: "\e908";
+}
+.hby-search:before {
+  content: "\e907";
+}
+.hby-finance:before {
+  content: "\e900";
+}
+.hby-product:before {
+  content: "\e901";
+}
+.hby-order:before {
+  content: "\e902";
+}
+.hby-admin:before {
+  content: "\e903";
+}
+.hby-customer:before {
+  content: "\e904";
+}
+.hby-channel:before {
+  content: "\e905";
+}
+.hby-home:before {
+  content: "\e906";
+}
+.hby-pencil:before {
+  content: "\e90d";
+}
+.hby-file-empty:before {
+  content: "\e924";
+}
+.hby-file-picture:before {
+  content: "\e927";
+}
+.hby-file-music:before {
+  content: "\e928";
+}
+.hby-file-play:before {
+  content: "\e929";
+}
+.hby-file-video:before {
+  content: "\e92a";
+}
+.hby-file-zip:before {
+  content: "\e92b";
+}
+.hby-spinner:before {
+  content: "\e97c";
+}
+.hby-checkbox-checked:before {
+  content: "\ea52";
+}
+.hby-checkbox-unchecked:before {
+  content: "\ea53";
+}
+.hby-radio-checked:before {
+  content: "\ea54";
+}
+.hby-radio-checked2:before {
+  content: "\ea55";
+}
+.hby-radio-unchecked:before {
+  content: "\ea56";
+}
+.hby-file-pdf:before {
+  content: "\eadf";
+}
+.hby-file-openoffice:before {
+  content: "\eae0";
+}
+.hby-file-word:before {
+  content: "\eae1";
+}
+.hby-file-excel:before {
+  content: "\eae2";
+}
