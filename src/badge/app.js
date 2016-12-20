@@ -7,7 +7,7 @@ class Badge extends Lego.View {
                 'click #400': 'theClick'
             }
         };
-        Lego.$.extend(true, options, opts);
+        $.extend(true, options, opts);
         super(options);
     }
     render() {

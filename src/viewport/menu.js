@@ -5,7 +5,7 @@ class Menu extends Lego.View {
                 // 'click nav a': 'clickNav'
             }
         };
-        Lego.$.extend(true, options, opts);
+        $.extend(true, options, opts);
         super(options);
     }
     render() {

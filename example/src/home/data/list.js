@@ -15,7 +15,7 @@ class ListData extends HBY.Data {
                 url: './content.json'
             }
         };
-        HBY.$.extend(true, options, opts);
+        $.extend(true, options, opts);
         super(options);
     }
     parse(datas) {

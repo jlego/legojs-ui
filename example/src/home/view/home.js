@@ -6,7 +6,7 @@ class HomeView extends HBY.View {
                 'click #400': 'theClick'
             }
         };
-        HBY.$.extend(true, options, opts);
+        $.extend(true, options, opts);
         super(options);
     }
     render() {

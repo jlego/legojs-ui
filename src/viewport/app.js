@@ -1,4 +1,3 @@
-// import Lego from "lego-core";
 import Menu from './menu';
 // import './asset/scss/fonts.scss';
 // import './asset/css/style.css';
@@ -19,7 +18,7 @@ class Viewport extends Lego.View {
             }]
         };
         options.components[0].data = options.data.menu;
-        Lego.$.extend(true, options, opts);
+        $.extend(true, options, opts);
         super(options);
     }
     render() {

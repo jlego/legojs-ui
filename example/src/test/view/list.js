@@ -10,7 +10,7 @@ class ListView extends HBY.View {
                 }
             }
         };
-        HBY.$.extend(true, options, opts);
+        $.extend(true, options, opts);
         super(options);
     }
     render() {

@@ -5,7 +5,7 @@ class MainView extends HBY.View {
                 // 'click nav a': 'clickNav'
             }
         };
-        HBY.$.extend(true, options, opts);
+        $.extend(true, options, opts);
         super(options);
     }
     render() {
