@@ -16,20 +16,20 @@ const cjs = require('rollup-plugin-commonjs');
 const node = require('rollup-plugin-node-resolve');
 const version = process.env.VERSION || require('../package.json').version;
 
-if (!fs.existsSync('components')) {
-    fs.mkdirSync('components');
+if (!fs.existsSync('dist')) {
+    fs.mkdirSync('dist');
 }
 const resolve = _path => path.resolve(__dirname, '../', _path);
 build([{
     alias: 'legoui',
     entry: resolve('src/index.js'),
-    dest: resolve('components/legoui-all.js'),
+    dest: resolve('dist/legoui-all.js'),
     format: 'cjs',
     env: 'development'
 }, {
     alias: 'legoui.min',
     entry: resolve('src/index.js'),
-    dest: resolve('components/legoui-all.min.js'),
+    dest: resolve('dist/legoui-all.min.js'),
     format: 'cjs',
     env: 'development'
 }].map(genConfig));

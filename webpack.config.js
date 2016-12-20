@@ -1,57 +1,42 @@
 var path = require("path");
 var webpack = require("webpack");
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: {
-        'badge': './src/badge/app',
-    }, //演示单入口文件
+        'lego-ui': './src/index'
+    },
     output: {
-        path: path.join(__dirname, 'components'), //打包输出的路径
-        publicPath: "./components/", //html引用路径，在这里是本地地址。
+        path: path.join(__dirname, 'dist'), //打包输出的路径
+        publicPath: "./", //发布地址。
         filename: '[name].js', //打包多个
         compact: true
-        // chunkFilename: "[name].js"
+            // chunkFilename: "[name].js"
     },
-    // 新添加的module属性
     module: {
         loaders: [{
-                test: /\.js?$/,
-                loader: "babel-loader",
-                exclude: /node_modules/,
-                // include: path.resolve(__dirname, "/page/"),
-                query: {
-                    presets: [["es2015", { "modules": false }], "stage-0", "stage-3"]
-                }
-            },
-            { test: /\.css$/, loader: "style!css" },
-            { test: /\.(jpg|png)$/, loader: "url?limit=8192" },
-            { test: /\.scss$/, loader: "style!css!sass" },
-            { test: /\.json$/, loader: 'json' },
-            // { test: require.resolve("jquery"), loader: "imports-loader?$=jquery" }
-        ]
-
-        // loaders: [{
-        //     test: /\.css$/,
-        //     loader: 'style-loader!css-loader!autoprefixer-loader?browsers=last 2 versions!'
-        // }, {
-        //     test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        //     loader: "url?limit=10240&minetype=application/font-woff&name=fonts/[name].[md5:hash:hex:7].[ext]"
-        // }, {
-        //     test: /\.(png|jpg|gif)/,
-        //     loader: 'url?prefix=img&limit=10240&name=img/[name].[hash].[ext]'
-        // }, {
-        //     test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        //     loader: "file?name=fonts/[name].[md5:hash:hex:7].[ext]"
-        // }, {
-        //     test: /(admin|index)\.html/,
-        //     loader: "file?name=[name].html"
-        // }, {
-        //     test: /tpl[\/\\].*\.html/,
-        //     loader: 'html-loader!html-minify'
-        // }, {
-        //     test: /\.scss$/,
-        //     loader: 'style!css!autoprefixer-loader?browsers=last 2 versions!sass'
-        // }, ]
+            test: /\.js?$/,
+            loader: "babel-loader",
+            exclude: /node_modules/,
+            query: {
+                presets: ['es2015', 'stage-3']
+            }
+        }, {
+            test: /\.scss$/,
+            loader: ExtractTextPlugin.extract('style', 'css!sass')
+        }, {
+            test: /\.css$/,
+            loader: ExtractTextPlugin.extract('', "css")
+        }, {
+            test: /\.(png|jpe?g)$/,
+            loader: 'url?prefix=img&limit=10240&name=img/[name].[hash].[ext]'
+        }, {
+            test: /\.woff(2)?(\?t=[0-9]\.[0-9]\.[0-9])?$/,
+            loader: "url?limit=10240&minetype=application/font-woff&name=fonts/[name].[ext]"
+        }, {
+            test: /\.(ttf|eot|svg)(\?t=[0-9]\.[0-9]\.[0-9])?$/,
+            loader: "file?name=fonts/[name].[ext]"
+        }]
     },
     resolve: {
         root: ['./src'],
@@ -60,24 +45,42 @@ module.exports = {
         },
         extensions: ["", ".js"]
     },
-    // externals: {
-    //     jquery: 'window.$'
-    // },
     plugins: [
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery"
         }),
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name:'common', // 注意不要.js后缀
-        //     chunks:['main', 'index/app', 'home/app']
-        // }),
-        // css抽取
-        // new extractTextPlugin("[name].css"),
-        // new webpack.IgnorePlugin(/jquery|events|object\.observe/)
+        new webpack.optimize.UglifyJsPlugin({
+            mangle: {
+                except: ['$', 'jQuery']
+            },
+            compress: false,
+            output: {
+                beautify: false,
+                comments: function(node, comment) {
+                    var text = comment.value;
+                    var type = comment.type;
+                    return /@preserve|@license|@cc_on/i.test(text);
+                }
+            },
+        }),
+        // new webpack.HotModuleReplacementPlugin(),
+        new ExtractTextPlugin("lego-ui.css", {
+            allChunks: true
+        }),
     ],
     // devtool: "#source-map",
-    // devServer: {
-    //     contentBase: "./build",
-    // }
+    devServer: {
+        contentBase: "./dist",
+        hot: true,
+        inline: true,
+        //其实很简单的，只要配置这个参数就可以了
+        proxy: {
+            '/api/*': {
+                target: 'http://localhost:5000',
+                secure: false
+            }
+        },
+        port: 3000 //Port Number
+    }
 };
