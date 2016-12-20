@@ -65,7 +65,7 @@ module.exports = {
             },
         }),
         // new webpack.HotModuleReplacementPlugin(),
-        new ExtractTextPlugin("lego-ui.css", {
+        new ExtractTextPlugin("legoui-1.css", {
             allChunks: true
         }),
     ],

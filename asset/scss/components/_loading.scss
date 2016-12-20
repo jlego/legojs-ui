@@ -1,0 +1,75 @@
+.loading-text {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    margin: 40px auto auto -100px;
+}
+
+.icon-spin {
+    -webkit-animation: spin 1.5s infinite linear;
+    -moz-animation: spin 1.5s infinite linear;
+    -o-animation: spin 1.5s infinite linear;
+    animation: spin 1.5s infinite linear;
+    text-align: center;
+    color: #92a0b3;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 32px;
+    line-height: 60px;
+    width: 60px;
+    height: 60px;
+    /*background-color: #ccc;*/
+    margin: -30px auto auto -30px;
+}
+
+@-moz-keyframes spin {
+    0% {
+        -moz-transform: rotate(0)
+    }
+    100% {
+        -moz-transform: rotate(359deg)
+    }
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0)
+    }
+    100% {
+        -webkit-transform: rotate(359deg)
+    }
+}
+
+@-o-keyframes spin {
+    0% {
+        -o-transform: rotate(0)
+    }
+    100% {
+        -o-transform: rotate(359deg)
+    }
+}
+
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0)
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg)
+    }
+}
+
+.icon-sm {
+    font-size: 22px;
+    line-height: 40px;
+    width: 40px;
+    height: 40px;
+    margin: -20px auto auto -20px;
+}
+
+.icon-lg {}

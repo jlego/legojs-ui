@@ -1,7 +1,8 @@
 import jQuery from 'jquery';
-import Lego from 'lego-core';
-import Legoui from '../../dist/lego-ui';
-import '../../dist/lego-ui.css';
+// import Lego from 'lego-core';
+// import Legoui from '../../dist/lego-ui';
+import '../../dist/lego-ui';
+import '../../dist/legoui-1.css';
 // import Legoui from 'lego-ui';
 
 Lego.init({
@@ -11,5 +12,4 @@ Lego.init({
     pageEl: '#container', //页面渲染容器
     defaultApp: 'home', //默认应用
     rootUri: '/example/dist/', //根目录
-    ui: Legoui
 });

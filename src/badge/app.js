@@ -1,5 +1,4 @@
-import './asset/scss/fonts.scss';
-import './asset/css/style.css';
+import './asset/scss/style.scss';
 
 class Badge extends Lego.View {
     constructor(opts = {}) {

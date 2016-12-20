@@ -1,13 +1,9 @@
 // 界面框架入口
-import mainView from './main';
-import menuView from './menu';
+// import mainView from './main';
+// import menuView from './menu';
 
 HBY.create({
     el: 'body',
-    view: mainView,
-    components: [{
-    	el: '#sidebar',
-    	view: menuView
-    }]
+    view: HBY.UI.viewport
 });
 HBY.startApp();

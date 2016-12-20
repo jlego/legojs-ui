@@ -43,16 +43,9 @@ module.exports = {
     },
     resolve: {
         root: ['./src'],
-        alias: {
-            // jquery: "jquery/dist/jquery"
-        },
         extensions: ["", ".js"]
     },
     plugins: [
-        new webpack.ProvidePlugin({
-            $: "jquery",
-            jQuery: "jquery"
-        }),
         new webpack.optimize.UglifyJsPlugin({
             mangle: {
                 except: ['$', 'jQuery']
@@ -67,24 +60,9 @@ module.exports = {
                 }
             },
         }),
-        // new webpack.HotModuleReplacementPlugin(),
         new ExtractTextPlugin("style.css", {
             allChunks: true
         }),
-    ],
-    // devtool: "#source-map",
-    // devServer: {
-    //     contentBase: "./dist",
-    //     hot: true,
-    //     inline: true,
-    //     //其实很简单的，只要配置这个参数就可以了
-    //     proxy: {
-    //         '/api/*': {
-    //             target: 'http://localhost:5000',
-    //             secure: false
-    //         }
-    //     },
-    //     port: 3000 //Port Number
-    // }
+    ]
 };
 
