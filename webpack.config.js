@@ -15,7 +15,12 @@ module.exports = {
         filename: '[name].js', //打包多个
         // chunkFilename: "[name].js"
     },
-    module: {
+    module: {     
+        // preLoaders: [{  
+        //     test: /\.jsx?$/,  
+        //     exclude: /node_modules/,  
+        //     loader: 'eslint-loader'  
+        // }],
         loaders: [{
             test: /\.js?$/,
             loader: "babel-loader",
@@ -47,12 +52,13 @@ module.exports = {
     },
     plugins: [
         new webpack.optimize.UglifyJsPlugin({
-            mangle: {
-                except: ['$', 'jQuery', 'Lego']
-            },
+            // mangle: {
+            //     except: ['$', 'jQuery', 'Lego']
+            // },
+            mangle: false,
             compress: false,
             output: {
-                beautify: false,
+                beautify: true,
                 comments: function(node, comment) {
                     var text = comment.value;
                     var type = comment.type;
@@ -64,6 +70,8 @@ module.exports = {
             allChunks: true
         }),
     ],
+    // devtool: 'inline-source-map',  
+    // debug: true,
     // devServer: {
     //     contentBase: "./dist",
     //     hot: true,

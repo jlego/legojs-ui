@@ -1,4 +1,4 @@
-// import { BaseView } from 'lego-ui';
+// import { BaseView } from '../../../../dist/lego-ui';
 
 class ListView extends HBY.UI.BaseView {
     constructor(opts = {}) {

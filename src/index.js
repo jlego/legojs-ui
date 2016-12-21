@@ -1,4 +1,4 @@
-import '../asset/scss/style.scss';
+require('../asset/scss/style.scss');
 
 import Lego from "lego-core";
 import BaseView from "./common/BaseView";
@@ -10,9 +10,9 @@ Lego.components({
     Viewport: Viewport,
     Badge: Badge
 });
-// console.warn(Viewport);
-// export {
-//     BaseView,
-//     Viewport,
-//     Badge
-// };
+
+export {
+    BaseView,
+    Viewport,
+    Badge
+};

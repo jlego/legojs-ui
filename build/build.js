@@ -14,6 +14,15 @@ const istanbul = require('rollup-plugin-istanbul');
 const flow = require('rollup-plugin-flow-no-whitespace');
 const cjs = require('rollup-plugin-commonjs');
 const node = require('rollup-plugin-node-resolve');
+const eslint = require('rollup-plugin-eslint');
+
+// 样式处理
+const postcss = require('rollup-plugin-postcss');
+const simplevars = require('postcss-simple-vars');
+const nested = require('postcss-nested');
+const cssnext = require('postcss-cssnext');
+const cssnano = require('cssnano');
+
 const version = process.env.VERSION || require('../package.json').version;
 
 if (!fs.existsSync('dist')) {
@@ -22,8 +31,32 @@ if (!fs.existsSync('dist')) {
 const resolve = _path => path.resolve(__dirname, '../', _path);
 build([{
     alias: 'legoui',
-    entry: resolve('src/index.js'),
-    dest: resolve('dist/lego-ui.js'),
+    entry: 'src/index.js',
+    dest: 'dist/lego-ui.js',
+    format: 'cjs',
+    env: 'development'
+},{
+    alias: 'legoui.min',
+    entry: 'src/index.js',
+    dest: 'dist/lego-ui.min.js',
+    format: 'cjs',
+    env: 'development'
+},{
+    alias: 'badge',
+    entry: 'src/badge/app.js',
+    dest: 'dist/component/badge.js',
+    format: 'cjs',
+    env: 'development'
+},{
+    alias: 'viewport',
+    entry: 'src/viewport/app.js',
+    dest: 'dist/component/viewport.js',
+    format: 'cjs',
+    env: 'development'
+},{
+    alias: 'baseView',
+    entry: 'src/common/BaseView.js',
+    dest: 'dist/base/baseView.js',
     format: 'cjs',
     env: 'development'
 }].map(genConfig));
@@ -52,10 +85,13 @@ function makBanner(opts) {
 }
 
 function genConfig(opts) {
+    // if (!fs.existsSync(opts.dest)) {
+    //     fs.mkdirSync(opts.dest);
+    // }
     const banner = makBanner(opts);
     const config = {
-        entry: opts.entry,
-        dest: opts.dest,
+        entry: resolve(opts.entry),
+        dest: resolve(opts.dest),
         format: opts.format,
         banner,
         moduleName: 'LegoJS',
@@ -73,19 +109,34 @@ function genConfig(opts) {
         config.plugins = [async(), regenerator()];
     }
     if (opts.env) {
+        const isMin = /min\.js$/.test(opts.alias);
         config.plugins.push(
+            // simplevars(),
+            // nested(),
+            // cssnext({ warnForDuplicates: false, }),
+            // cssnano(),
+            // postcss({
+            //     extensions: [ '.css' ],
+            // }),
             // flow(),
             // node(),
             // cjs(),
             // async(),
             // regenerator(),
-            babel(),
+            // eslint({
+            //     exclude: [
+            //       'src/styles/**',
+            //     ]
+            // }),
+            babel({
+                exclude: 'node_modules/**',
+            }),
             // buble(),
             uglify({
                 mangle: false,
-                compress: opts.alias == 'legoui.min' ? true : false,
+                compress: isMin,
                 output: {
-                    beautify: opts.alias == 'legoui.min' ? false : true,
+                    beautify: !isMin,
                     comments: function(node, comment) {
                         var text = comment.value;
                         var type = comment.type;
@@ -98,7 +149,7 @@ function genConfig(opts) {
 }
 
 function buildEntry(config) {
-    const isProd = /min\.js$/.test(config.dest)
+    const isProd = /min\.js$/.test(config.dest);
     return rollup.rollup(config).then(bundle => {
         const code = bundle.generate(config).code
         if (isProd) {

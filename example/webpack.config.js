@@ -48,7 +48,7 @@ module.exports = {
     plugins: [
         new webpack.optimize.UglifyJsPlugin({
             mangle: {
-                except: ['$', 'jQuery']
+                except: ['$', 'jQuery', 'Lego']
             },
             compress: false,
             output: {

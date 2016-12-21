@@ -1,10 +1,10 @@
 import jQuery from 'jquery';
 // import Lego from "lego-core";
-// import legoui from '../../dist/lego-ui';
 import '../../dist/lego-ui';
-// import '../../dist/legoui-1.css';
+import '../../dist/legoui-1.css';
 // import 'lego-ui';
-import 'lego-ui/dist/legoui-1.css';
+// import 'lego-ui/dist/legoui-1.css';
+
 Lego.init({
     alias: 'HBY', //框架实例别名
     version: '20161202', //版本号

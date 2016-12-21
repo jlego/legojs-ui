@@ -1,25 +1,19 @@
 /**
- * legoui.js v0.0.4
+ * viewport.js v0.0.4
  * (c) 2016 Ronghui Yu
  * @license MIT
  */
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
 function _interopDefault(ex) {
     return ex && typeof ex === "object" && "default" in ex ? ex["default"] : ex;
 }
-
-var Lego$1 = _interopDefault(require("lego-core"));
 
 var perfectScrollbar_dist_css_perfectScrollbar_css = require("perfect-scrollbar/dist/css/perfect-scrollbar.css");
 
 var perfectScrollbar = _interopDefault(require("perfect-scrollbar"));
 
-var _createClass = function() {
+var _createClass$1 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -36,20 +30,20 @@ var _createClass = function() {
     };
 }();
 
-function _classCallCheck(instance, Constructor) {
+function _classCallCheck$1(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
 }
 
-function _possibleConstructorReturn(self, call) {
+function _possibleConstructorReturn$1(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits(subClass, superClass) {
+function _inherits$1(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -67,15 +61,15 @@ function _inherits(subClass, superClass) {
 window.Ps = perfectScrollbar;
 
 var BaseView = function(_Lego$View) {
-    _inherits(BaseView, _Lego$View);
+    _inherits$1(BaseView, _Lego$View);
     function BaseView() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck(this, BaseView);
+        _classCallCheck$1(this, BaseView);
         var options = {};
         Object.assign(options, opts);
-        return _possibleConstructorReturn(this, (BaseView.__proto__ || Object.getPrototypeOf(BaseView)).call(this, options));
+        return _possibleConstructorReturn$1(this, (BaseView.__proto__ || Object.getPrototypeOf(BaseView)).call(this, options));
     }
-    _createClass(BaseView, [ {
+    _createClass$1(BaseView, [ {
         key: "_renderComponents",
         value: function _renderComponents() {
             var _this2 = this;
@@ -177,7 +171,7 @@ var Menu = function(_BaseView) {
     return Menu;
 }(BaseView);
 
-var _createClass$1 = function() {
+var _createClass = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -204,20 +198,20 @@ function _taggedTemplateLiteral(strings, raw) {
     }));
 }
 
-function _classCallCheck$1(instance, Constructor) {
+function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
 }
 
-function _possibleConstructorReturn$1(self, call) {
+function _possibleConstructorReturn(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$1(subClass, superClass) {
+function _inherits(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -233,10 +227,10 @@ function _inherits$1(subClass, superClass) {
 }
 
 var Viewport = function(_BaseView) {
-    _inherits$1(Viewport, _BaseView);
+    _inherits(Viewport, _BaseView);
     function Viewport() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$1(this, Viewport);
+        _classCallCheck(this, Viewport);
         var options = {
             events: {},
             scrollbar: {},
@@ -252,9 +246,9 @@ var Viewport = function(_BaseView) {
         options.components[0].data = options.data.menu;
         options.components[0].scrollbar = options.scrollbar;
         $.extend(true, options, opts);
-        return _possibleConstructorReturn$1(this, (Viewport.__proto__ || Object.getPrototypeOf(Viewport)).call(this, options));
+        return _possibleConstructorReturn(this, (Viewport.__proto__ || Object.getPrototypeOf(Viewport)).call(this, options));
     }
-    _createClass$1(Viewport, [ {
+    _createClass(Viewport, [ {
         key: "render",
         value: function render() {
             var tmpl = hx(_templateObject, this.data.logoUrl);
@@ -270,107 +264,4 @@ var Viewport = function(_BaseView) {
     return Viewport;
 }(BaseView);
 
-var _createClass$3 = function() {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];
-            descriptor.enumerable = descriptor.enumerable || false;
-            descriptor.configurable = true;
-            if ("value" in descriptor) descriptor.writable = true;
-            Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }
-    return function(Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);
-        if (staticProps) defineProperties(Constructor, staticProps);
-        return Constructor;
-    };
-}();
-
-var _templateObject$2 = _taggedTemplateLiteral$2([ "<div>\n          ", "\n        </div>" ], [ "<div>\n          ", "\n        </div>" ]);
-
-var _templateObject2 = _taggedTemplateLiteral$2([ '<a id="', '" href="#/home" style="display:block;">', "</a>\n" ], [ '<a id="', '" href="#/home" style="display:block;">', "</a>\\n" ]);
-
-function _taggedTemplateLiteral$2(strings, raw) {
-    return Object.freeze(Object.defineProperties(strings, {
-        raw: {
-            value: Object.freeze(raw)
-        }
-    }));
-}
-
-function _classCallCheck$3(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-    }
-}
-
-function _possibleConstructorReturn$3(self, call) {
-    if (!self) {
-        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-    return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits$3(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-    }
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
-        constructor: {
-            value: subClass,
-            enumerable: false,
-            writable: true,
-            configurable: true
-        }
-    });
-    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-var Badge = function(_Lego$View) {
-    _inherits$3(Badge, _Lego$View);
-    function Badge() {
-        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$3(this, Badge);
-        var options = {
-            events: {
-                "click #400": "theClick"
-            }
-        };
-        $.extend(true, options, opts);
-        return _possibleConstructorReturn$3(this, (Badge.__proto__ || Object.getPrototypeOf(Badge)).call(this, options));
-    }
-    _createClass$3(Badge, [ {
-        key: "render",
-        value: function render() {
-            var data = this.data.list || [];
-            var vDom = hx(_templateObject$2, data.map(function(model, i) {
-                return hx(_templateObject2, model.first, model.first);
-            }));
-            return vDom;
-        }
-    }, {
-        key: "theClick",
-        value: function theClick(event) {
-            event.stopPropagation();
-            Lego.trigger("data_update", {
-                aa: 1
-            });
-        }
-    } ]);
-    return Badge;
-}(Lego.View);
-
-require("../asset/scss/style.scss");
-
-Lego$1.components({
-    BaseView: BaseView,
-    Viewport: Viewport,
-    Badge: Badge
-});
-
-exports.BaseView = BaseView;
-
-exports.Viewport = Viewport;
-
-exports.Badge = Badge;
+module.exports = Viewport;
