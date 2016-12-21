@@ -5,14 +5,12 @@ import BaseView from "./common/BaseView";
 import Viewport from "./viewport/app";
 import Badge from "./badge/app";
 
-Lego.components({
+const coms = {
     BaseView: BaseView,
     Viewport: Viewport,
     Badge: Badge
-});
-
-export {
-    BaseView,
-    Viewport,
-    Badge
 };
+
+Lego.components(coms);
+
+export default coms;
