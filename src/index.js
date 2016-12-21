@@ -1,12 +1,18 @@
 import '../asset/scss/style.scss';
-import jQuery from 'jquery';
+
 import Lego from "lego-core";
+import BaseView from "./common/BaseView";
 import Viewport from "./viewport/app";
 import Badge from "./badge/app";
 
-window.$ = jQuery;
-
 Lego.components({
-    viewport: Viewport,
-    badge: Badge
+    BaseView: BaseView,
+    Viewport: Viewport,
+    Badge: Badge
 });
+// console.warn(Viewport);
+// export {
+//     BaseView,
+//     Viewport,
+//     Badge
+// };

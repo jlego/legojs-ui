@@ -1,4 +1,6 @@
-class ListView extends HBY.View {
+// import { BaseView } from 'lego-ui';
+
+class ListView extends HBY.UI.BaseView {
     constructor(opts = {}) {
         const options = {
             events: {

@@ -4,14 +4,16 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: {
+        // 'viewport': './src/viewport/app',
+        // 'badge': './src/badge/app',
+        // 'baseView': './src/common/BaseView',
         'lego-ui': './src/index'
     },
     output: {
         path: path.join(__dirname, 'dist'), //打包输出的路径
         publicPath: "./", //发布地址。
         filename: '[name].js', //打包多个
-        compact: true
-            // chunkFilename: "[name].js"
+        // chunkFilename: "[name].js"
     },
     module: {
         loaders: [{
@@ -19,7 +21,8 @@ module.exports = {
             loader: "babel-loader",
             exclude: /node_modules/,
             query: {
-                presets: ['es2015', 'stage-3']
+                presets: ['es2015', 'stage-3'],
+                compact: false
             }
         }, {
             test: /\.scss$/,
@@ -40,19 +43,12 @@ module.exports = {
     },
     resolve: {
         root: ['./src'],
-        alias: {
-            // jquery: "jquery/dist/jquery"
-        },
         extensions: ["", ".js"]
     },
     plugins: [
-        new webpack.ProvidePlugin({
-            $: "jquery",
-            jQuery: "jquery"
-        }),
         new webpack.optimize.UglifyJsPlugin({
             mangle: {
-                except: ['$', 'jQuery']
+                except: ['$', 'jQuery', 'Lego']
             },
             compress: false,
             output: {
@@ -64,23 +60,21 @@ module.exports = {
                 }
             },
         }),
-        // new webpack.HotModuleReplacementPlugin(),
         new ExtractTextPlugin("legoui-1.css", {
             allChunks: true
         }),
     ],
-    // devtool: "#source-map",
-    devServer: {
-        contentBase: "./dist",
-        hot: true,
-        inline: true,
-        //其实很简单的，只要配置这个参数就可以了
-        proxy: {
-            '/api/*': {
-                target: 'http://localhost:5000',
-                secure: false
-            }
-        },
-        port: 3000 //Port Number
-    }
+    // devServer: {
+    //     contentBase: "./dist",
+    //     hot: true,
+    //     inline: true,
+    //     //其实很简单的，只要配置这个参数就可以了
+    //     proxy: {
+    //         '/api/*': {
+    //             target: 'http://localhost:5000',
+    //             secure: false
+    //         }
+    //     },
+    //     port: 3000 //Port Number
+    // }
 };

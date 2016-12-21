@@ -1,23 +1,24 @@
+import BaseView from '../common/BaseView';
 import Menu from './menu';
-// import './asset/scss/fonts.scss';
-// import './asset/css/style.css';
 
-class Viewport extends Lego.View {
+class Viewport extends BaseView {
     constructor(opts = {}) {
         const options = {
             events: {
                 // 'click nav a': 'clickNav'
             },
+            scrollbar: {},
             data: {
                 logoUrl: 'asset/img/logo.png',
                 menu: []
             },
             components: [{
                 el: '#sidebar',
-                view: Menu
+                view: Menu,
             }]
         };
         options.components[0].data = options.data.menu;
+        options.components[0].scrollbar = options.scrollbar;
         $.extend(true, options, opts);
         super(options);
     }
@@ -35,17 +36,17 @@ class Viewport extends Lego.View {
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-right">
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle"><i class="glyphicon glyphicon-qrcode"></i> 邀请码 </a>
+                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>
                                 <ul class="dropdown-menu">
                                     <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>
                                     <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle"><i class="hby-staff"></i>
+                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i>
                                 <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="javascript:;" id="modifyPassword"><i class="glyphicon glyphicon-lock"></i> 修改密码</a></li>
+                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>
                                     <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>
                                 </ul>
                             </li>

@@ -23,13 +23,7 @@ const resolve = _path => path.resolve(__dirname, '../', _path);
 build([{
     alias: 'legoui',
     entry: resolve('src/index.js'),
-    dest: resolve('dist/legoui-all.js'),
-    format: 'cjs',
-    env: 'development'
-}, {
-    alias: 'legoui.min',
-    entry: resolve('src/index.js'),
-    dest: resolve('dist/legoui-all.min.js'),
+    dest: resolve('dist/lego-ui.js'),
     format: 'cjs',
     env: 'development'
 }].map(genConfig));

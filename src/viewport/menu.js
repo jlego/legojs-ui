@@ -1,11 +1,13 @@
-class Menu extends Lego.View {
+import BaseView from '../common/BaseView';
+
+class Menu extends BaseView {
     constructor(opts = {}) {
         const options = {
             events: {
                 // 'click nav a': 'clickNav'
             }
         };
-        $.extend(true, options, opts);
+        Object.assign(options, opts);
         super(options);
     }
     render() {
@@ -17,7 +19,7 @@ class Menu extends Lego.View {
                         <a href="javascript:Lego.startApp('home');">
                             <div class="item-content">
                                 <div class="item-media">
-                                    <i class="hby-home"></i>
+                                    <i class="icon iconfont icon-home"></i>
                                 </div>
                                 <div class="item-inner">
                                     <span class="title"> 首页 </span>
@@ -29,10 +31,10 @@ class Menu extends Lego.View {
                         <a href="javascript:Lego.startApp('test');">
                             <div class="item-content">
                                 <div class="item-media">
-                                    <i class="glyphicon glyphicon-list-alt"></i>
+                                    <i class="icon iconfont icon-account-info"></i>
                                 </div>
                                 <div class="item-inner">
-                                    <span class="title"> 注册管理 </span>
+                                    <span class="title"> 售后管理 </span>
                                 </div>
                             </div>
                         </a>
@@ -41,7 +43,7 @@ class Menu extends Lego.View {
                         <a href="#customer/">
                             <div class="item-content">
                                 <div class="item-media">
-                                    <i class="hby-customer"></i>
+                                    <i class="icon iconfont icon-teamwork"></i>
                                 </div>
                                 <div class="item-inner">
                                     <span class="title"> 客户管理 </span>
@@ -53,7 +55,7 @@ class Menu extends Lego.View {
                         <a href="#order/">
                             <div class="item-content">
                                 <div class="item-media">
-                                    <i class="hby-order"></i>
+                                    <i class="icon iconfont icon-purchase"></i>
                                 </div>
                                 <div class="item-inner">
                                     <span class="title"> 订单管理 </span>
@@ -65,7 +67,7 @@ class Menu extends Lego.View {
                         <a href="#channel/">
                             <div class="item-content">
                                 <div class="item-media">
-                                    <i class="hby-channel"></i>
+                                    <i class="icon iconfont icon-clues"></i>
                                 </div>
                                 <div class="item-inner">
                                     <span class="title"> 渠道管理 </span>
@@ -77,7 +79,7 @@ class Menu extends Lego.View {
                         <a href="#finance/">
                             <div class="item-content">
                                 <div class="item-media">
-                                    <i class="hby-finance"></i>
+                                    <i class="icon iconfont icon-biz"></i>
                                 </div>
                                 <div class="item-inner">
                                     <span class="title"> 财务管理 </span>
@@ -89,7 +91,7 @@ class Menu extends Lego.View {
                         <a href="#expenses/">
                             <div class="item-content">
                                 <div class="item-media">
-                                    <i class="glyphicon glyphicon-usd"></i>
+                                    <i class="icon iconfont icon-expenses"></i>
                                 </div>
                                 <div class="item-inner">
                                     <span class="title"> 消费记录 </span>
@@ -101,7 +103,7 @@ class Menu extends Lego.View {
                         <a href="#product/">
                             <div class="item-content">
                                 <div class="item-media">
-                                    <i class="hby-product"></i>
+                                    <i class="icon iconfont icon-products"></i>
                                 </div>
                                 <div class="item-inner">
                                     <span class="title"> 产品管理 </span>
@@ -113,7 +115,7 @@ class Menu extends Lego.View {
                         <a href="#operation/">
                             <div class="item-content">
                                 <div class="item-media">
-                                    <i class="glyphicon glyphicon-dashboard"></i>
+                                    <i class="icon iconfont icon-dashboard"></i>
                                 </div>
                                 <div class="item-inner">
                                     <span class="title"> 运营管理 </span>
@@ -125,7 +127,7 @@ class Menu extends Lego.View {
                         <a href="#admin/">
                             <div class="item-content">
                                 <div class="item-media">
-                                    <i class="hby-admin"></i>
+                                    <i class="icon iconfont icon-admin"></i>
                                 </div>
                                 <div class="item-inner">
                                     <span class="title"> 后台管理 </span>
@@ -139,10 +141,5 @@ class Menu extends Lego.View {
         `;
         return tmpl;
     }
-    // clickNav(event){
-    //     const target = Lego.$(event.currentTarget),
-    //         app = target.data('app');
-    //     Lego.startApp(app);
-    // }
 }
 export default Menu;

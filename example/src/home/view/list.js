@@ -1,4 +1,4 @@
-class ListView extends HBY.View {
+class ListView extends HBY.UI.BaseView {
     constructor(opts = {}) {
         const options = {
             events: {

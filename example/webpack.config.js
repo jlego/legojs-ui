@@ -11,10 +11,9 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, 'dist'), //打包输出的路径
-        publicPath: "./dist/", //发布地址。
+        publicPath: "./", //发布地址。
         filename: '[name].js', //打包多个
-        compact: true
-            // chunkFilename: "[name].js"
+        // chunkFilename: "[name].js"
     },
     module: {
         loaders: [{
@@ -22,7 +21,8 @@ module.exports = {
             loader: "babel-loader",
             exclude: /node_modules/,
             query: {
-                presets: ['es2015', 'stage-3']
+                presets: ['es2015', 'stage-3'],
+                compact: false
             }
         }, {
             test: /\.scss$/,

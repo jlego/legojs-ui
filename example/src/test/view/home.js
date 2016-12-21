@@ -1,4 +1,4 @@
-class HomeView extends HBY.View {
+class HomeView extends HBY.UI.BaseView {
     constructor(opts = {}) {
         const options = {
             // el: 'div#uuu88',
