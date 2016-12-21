@@ -5,10 +5,6 @@
  */
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
 function _interopDefault(ex) {
     return ex && typeof ex === "object" && "default" in ex ? ex["default"] : ex;
 }
@@ -361,16 +357,12 @@ var Badge = function(_Lego$View) {
     return Badge;
 }(Lego.View);
 
-require("../asset/scss/style.scss");
-
-Lego$1.components({
+var coms = {
     BaseView: BaseView,
     Viewport: Viewport,
     Badge: Badge
-});
+};
 
-exports.BaseView = BaseView;
+Lego$1.components(coms);
 
-exports.Viewport = Viewport;
-
-exports.Badge = Badge;
+module.exports = coms;

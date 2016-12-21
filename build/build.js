@@ -17,6 +17,7 @@ const node = require('rollup-plugin-node-resolve');
 const eslint = require('rollup-plugin-eslint');
 
 // 样式处理
+const sass = require('rollup-plugin-sass');
 const postcss = require('rollup-plugin-postcss');
 const simplevars = require('postcss-simple-vars');
 const nested = require('postcss-nested');
@@ -128,6 +129,9 @@ function genConfig(opts) {
             //       'src/styles/**',
             //     ]
             // }),
+            sass({
+                output: 'dist/css/legoui-1.css',
+            }),
             babel({
                 exclude: 'node_modules/**',
             }),

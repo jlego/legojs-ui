@@ -1,7 +1,6 @@
 import jQuery from 'jquery';
-// import Lego from "lego-core";
 import '../../dist/lego-ui';
-import '../../dist/legoui-1.css';
+import '../../dist/css/legoui-1.css';
 // import 'lego-ui';
 // import 'lego-ui/dist/legoui-1.css';
 
