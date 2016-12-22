@@ -4,7 +4,8 @@ const zlib = require('zlib');
 const rollup = require('rollup');
 const babel = require('rollup-plugin-babel');
 const babelrc = require('babelrc-rollup');
-const buble = require('rollup-plugin-buble');
+// const buble = require('rollup-plugin-buble');
+// const buba = require('rollup-plugin-buba');
 const replace = require('rollup-plugin-replace');
 const uglify = require('rollup-plugin-uglify');
 const uglifyjs = require('uglify-js');
@@ -15,7 +16,7 @@ const flow = require('rollup-plugin-flow-no-whitespace');
 const cjs = require('rollup-plugin-commonjs');
 const node = require('rollup-plugin-node-resolve');
 const eslint = require('rollup-plugin-eslint');
-const less = require('rollup-plugin-less');
+// const less = require('rollup-plugin-less');
 const sass = require('rollup-plugin-sass');
 // const postcss = require('rollup-plugin-postcss');
 // const simplevars = require('postcss-simple-vars');
@@ -121,27 +122,34 @@ function genConfig(opts) {
             // postcss({
             //     extensions: [ '.css' ],
             // }),
-            // flow(),
+            flow(),
             // node(),
             // cjs(),
             // async(),
             // regenerator(),
+            // istanbul({
+            //     exclude: ['test/**/*.js']
+            // }),
             // eslint({
             //     exclude: [
             //       'src/styles/**',
             //     ]
             // }),
-            less({
-                output: 'dist/css/' + opts.alias + '.css',
-                exclude: 'node_modules/**',
-            }),
+            // less({
+            //     output: 'dist/css/' + opts.alias + '.css',
+            //     exclude: 'node_modules/**',
+            // }),
             sass({
                 output: 'dist/css/' + opts.alias + '.css',
                 exclude: 'node_modules/**',
             }),
+            // buba({
+            //     exclude: 'node_modules/**'
+            // }),
             babel({
                 exclude: 'node_modules/**',
             }),
+            // babel(babelrc()),
             // buble(),
             uglify({
                 mangle: false,
