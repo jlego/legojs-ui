@@ -1,9 +1,10 @@
 // 界面框架入口
 // import { Viewport } from 'lego-ui';
+import Viewport from '../../../dist/Viewport';
 
 HBY.create({
     el: 'body',
-    view: HBY.UI.Viewport,
+    view: Viewport,
     data: {
     	logoUrl: 'dist/img/logo.png',
     }

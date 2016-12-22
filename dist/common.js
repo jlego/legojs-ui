@@ -5,9 +5,15 @@
  */
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 function _interopDefault(ex) {
     return ex && typeof ex === "object" && "default" in ex ? ex["default"] : ex;
 }
+
+var perfectScrollbar_dist_css_perfectScrollbar_css = require("perfect-scrollbar/dist/css/perfect-scrollbar.css");
 
 var perfectScrollbar = _interopDefault(require("perfect-scrollbar"));
 
@@ -93,4 +99,4 @@ var Baseview = function(_Lego$View) {
 
 window.Ps = perfectScrollbar;
 
-Lego.components("Baseview", Baseview);
+exports.Baseview = Baseview;

@@ -38,8 +38,8 @@ class Alert extends Lego.UI.Baseview {
                 break;
         }
         const vDom = hx`
-        <div class="alert alert-${data.type} ${data.description ? 'ant-alert-with-description' : ''}">
-            <i class="anticon ${data.description ? ('anticon-' + iconName + '-circle-o') : ('anticon-' + iconName + '-circle')} lego-alert-icon"></i>
+        <div class="alert alert-${data.type} ${data.description ? 'lego-alert-with-description' : ''} ${data.showIcon ? '' : 'lego-alert-no-icon'}">
+            <i class="anticon ${data.description ? ('anticon-' + iconName + '-circle-o') : ('anticon-' + iconName + '-circle')} lego-alert-icon" style="display:${data.showIcon ? '' : 'none'};"></i>
             <span class="lego-alert-message">${data.message}</span>
             ${data.description ? hx`<span class="lego-alert-description">${data.description}</span>` : ''}
             ${data.closable ? hx`<a class="lego-alert-close-icon"><i class="anticon anticon-cross"></i></a>` : ''}

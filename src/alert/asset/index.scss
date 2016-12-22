@@ -1,4 +1,7 @@
 .alert {
+    position: relative;
+    padding: 8px 48px 8px 38px;
+    border-radius: 4px;
     color: #666;
     font-size: 12px;
     line-height: 16px;
@@ -22,9 +25,12 @@
     left: 16px;
     position: absolute;
 }
-.alert-description {
+.lego-alert-description {
     font-size: 12px;
     line-height: 21px;
+}
+.lego-alert-with-description .lego-alert-description {
+    display: block;
 }
 .alert-success {
     border: 1px solid #e7f6e1;
@@ -42,7 +48,7 @@
     border: 1px solid #ffddcc;
     background-color: #ffeee6;
 }
-.alert-with-description {
+.lego-alert-with-description {
     padding: 16px 16px 16px 60px;
     position: relative;
     border-radius: 4px;
@@ -62,9 +68,35 @@
 .alert-error .lego-alert-icon {
     color: #f50;
 }
-.alert-with-description .lego-alert-icon {
+.lego-alert-with-description .lego-alert-message {
+    font-size: 14px;
+    color: #404040;
+    display: block;
+    margin-bottom: 4px;
+}
+.lego-alert-with-description .lego-alert-icon {
     position: absolute;
     top: 16px;
     left: 20px;
     font-size: 24px;
+}
+.lego-alert-with-description.lego-alert-no-icon {
+    padding: 16px;
+}
+.lego-alert-close-icon {
+    font-size: 12px;
+    position: absolute;
+    right: 16px;
+    top: 10px;
+    height: 12px;
+    line-height: 12px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.lego-alert-with-description .lego-alert-close-icon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    cursor: pointer;
+    font-size: 12px;
 }

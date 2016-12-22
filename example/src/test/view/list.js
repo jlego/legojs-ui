@@ -1,4 +1,5 @@
 // import { Alert } from 'lego-ui';
+import Alert from '../../../../dist/Alert';
 
 class ListView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -12,10 +13,12 @@ class ListView extends Lego.UI.Baseview {
                 }
             },
             components: [{
-                el: '#button',
-                view: Lego.UI.Alert,
+                el: '#alertDiv',
+                view: Alert,
                 data: {
+                    type: 'success',
                     closable: true,
+                    showIcon: true,
                     message: '警告提示内容',
                     description: '警告提示的辅助性文字介绍',
                 }
@@ -26,7 +29,7 @@ class ListView extends Lego.UI.Baseview {
     }
     render() {
         let data = this.data.list || [];
-        let vDom = hx`<div><div id="button"></div></div>`;
+        let vDom = hx`<div><div id="alertDiv"></div></div>`;
         return vDom;
     }
     theClick(event){

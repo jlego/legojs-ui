@@ -1,12 +1,15 @@
 import jQuery from 'jquery';
 import Lego from 'lego-core';
-// ===============加载UI库============
-import '../../dist/common';
-import '../../dist/legoui-all';
+import { Baseview } from '../../dist/common';
 import '../../dist/css/pack.css';
-// import 'lego-ui/dist/Common';
+// import { Baseview } from 'lego-ui';
 // import 'lego-ui/dist/css/pack.css';
 
+// 注册通用基础组件
+Lego.components({
+	Baseview: Baseview
+});
+// 设置全局参数
 Lego.init({
     alias: 'HBY', //框架实例别名
     version: '20161202', //版本号
@@ -15,4 +18,5 @@ Lego.init({
     defaultApp: 'home', //默认应用
     rootUri: '/example/dist/', //根目录
 });
+// 启动应用
 Lego.startApp('index');

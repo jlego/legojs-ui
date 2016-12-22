@@ -22,7 +22,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="alert alert-', " ", '">\n            <i class="anticon ', ' lego-alert-icon"></i>\n            <span class="lego-alert-message">', "</span>\n            ", "\n            ", "\n        </div>\n        " ], [ '\n        <div class="alert alert-', " ", '">\n            <i class="anticon ', ' lego-alert-icon"></i>\n            <span class="lego-alert-message">', "</span>\n            ", "\n            ", "\n        </div>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="alert alert-', " ", " ", '">\n            <i class="anticon ', ' lego-alert-icon" style="display:', ';"></i>\n            <span class="lego-alert-message">', "</span>\n            ", "\n            ", "\n        </div>\n        " ], [ '\n        <div class="alert alert-', " ", " ", '">\n            <i class="anticon ', ' lego-alert-icon" style="display:', ';"></i>\n            <span class="lego-alert-message">', "</span>\n            ", "\n            ", "\n        </div>\n        " ]);
 
 var _templateObject2 = _taggedTemplateLiteral([ '<span class="lego-alert-description">', "</span>" ], [ '<span class="lego-alert-description">', "</span>" ]);
 
@@ -109,7 +109,7 @@ var Alert = function(_Lego$UI$Baseview) {
                 iconName = "cross";
                 break;
             }
-            var vDom = hx(_templateObject, data.type, data.description ? "ant-alert-with-description" : "", data.description ? "anticon-" + iconName + "-circle-o" : "anticon-" + iconName + "-circle", data.message, data.description ? hx(_templateObject2, data.description) : "", data.closable ? hx(_templateObject3) : "");
+            var vDom = hx(_templateObject, data.type, data.description ? "lego-alert-with-description" : "", data.showIcon ? "" : "lego-alert-no-icon", data.description ? "anticon-" + iconName + "-circle-o" : "anticon-" + iconName + "-circle", data.showIcon ? "" : "none", data.message, data.description ? hx(_templateObject2, data.description) : "", data.closable ? hx(_templateObject3) : "");
             return vDom;
         }
     }, {
