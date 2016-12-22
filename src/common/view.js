@@ -1,8 +1,4 @@
-import 'perfect-scrollbar/dist/css/perfect-scrollbar.css';
-import perfectScrollbar from 'perfect-scrollbar';
-window.Ps = perfectScrollbar;
-
-class BaseView extends Lego.View {
+class Baseview extends Lego.View {
     constructor(opts = {}) {
         const options = {};
         Object.assign(options, opts);
@@ -27,4 +23,4 @@ class BaseView extends Lego.View {
         }
     }
 }
-export default BaseView;
+export default Baseview;

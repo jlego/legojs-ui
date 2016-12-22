@@ -1,6 +1,4 @@
-// import { BaseView } from '../../../../dist/lego-ui';
-
-class HomeView extends HBY.UI.BaseView {
+class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             // el: 'div#uuu88',

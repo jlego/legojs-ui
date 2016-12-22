@@ -1,4 +1,8 @@
 {
-  "plugins": ["transform-decorators"],
-  "presets": [ "es2015", "stage-0", "stage-3"]
+	"plugins": [
+  		"transform-decorators",
+  		"syntax-async-generators",
+  		["import", { libraryName: "lego-ui", "libraryDirectory": "dist" }]
+  	],
+	"presets": [["es2015", { "modules": false }], "stage-0", "stage-3"]
 }

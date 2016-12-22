@@ -29,7 +29,7 @@ module.exports = {
             loader: ExtractTextPlugin.extract('style', 'css!sass')
         }, {
             test: /\.css$/,
-            loader: ExtractTextPlugin.extract('', "css")
+            loader: ExtractTextPlugin.extract('style', "css")
         }, {
             test: /\.(png|jpe?g)$/,
             loader: 'url?prefix=img&limit=10240&name=img/[name].[hash].[ext]'
@@ -42,13 +42,12 @@ module.exports = {
         }]
     },
     resolve: {
-        root: ['./src'],
         extensions: ["", ".js"]
     },
     plugins: [
         new webpack.optimize.UglifyJsPlugin({
             mangle: {
-                except: ['$', 'jQuery', 'Lego']
+                except: ['$', 'jQuery']
             },
             compress: false,
             output: {
@@ -60,7 +59,7 @@ module.exports = {
                 }
             },
         }),
-        new ExtractTextPlugin("style.css", {
+        new ExtractTextPlugin("[name].css", {
             allChunks: true
         }),
     ]

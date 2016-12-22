@@ -1,5 +1,5 @@
 /**
- * badge.js v0.0.4
+ * badge.js v0.0.9
  * (c) 2016 Ronghui Yu
  * @license MIT
  */
@@ -62,8 +62,8 @@ function _inherits(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Badge = function(_Lego$View) {
-    _inherits(Badge, _Lego$View);
+var Badge = function(_Lego$UI$Baseview) {
+    _inherits(Badge, _Lego$UI$Baseview);
     function Badge() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Badge);
@@ -94,6 +94,6 @@ var Badge = function(_Lego$View) {
         }
     } ]);
     return Badge;
-}(Lego.View);
+}(Lego.UI.Baseview);
 
 module.exports = Badge;

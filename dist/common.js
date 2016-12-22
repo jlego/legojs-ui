@@ -1,5 +1,5 @@
 /**
- * baseView.js v0.0.4
+ * common.js v0.0.9
  * (c) 2016 Ronghui Yu
  * @license MIT
  */
@@ -8,8 +8,6 @@
 function _interopDefault(ex) {
     return ex && typeof ex === "object" && "default" in ex ? ex["default"] : ex;
 }
-
-var perfectScrollbar_dist_css_perfectScrollbar_css = require("perfect-scrollbar/dist/css/perfect-scrollbar.css");
 
 var perfectScrollbar = _interopDefault(require("perfect-scrollbar"));
 
@@ -58,18 +56,16 @@ function _inherits(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-window.Ps = perfectScrollbar;
-
-var BaseView = function(_Lego$View) {
-    _inherits(BaseView, _Lego$View);
-    function BaseView() {
+var Baseview = function(_Lego$View) {
+    _inherits(Baseview, _Lego$View);
+    function Baseview() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck(this, BaseView);
+        _classCallCheck(this, Baseview);
         var options = {};
         Object.assign(options, opts);
-        return _possibleConstructorReturn(this, (BaseView.__proto__ || Object.getPrototypeOf(BaseView)).call(this, options));
+        return _possibleConstructorReturn(this, (Baseview.__proto__ || Object.getPrototypeOf(Baseview)).call(this, options));
     }
-    _createClass(BaseView, [ {
+    _createClass(Baseview, [ {
         key: "_renderComponents",
         value: function _renderComponents() {
             var _this2 = this;
@@ -92,7 +88,9 @@ var BaseView = function(_Lego$View) {
             }
         }
     } ]);
-    return BaseView;
+    return Baseview;
 }(Lego.View);
 
-module.exports = BaseView;
+window.Ps = perfectScrollbar;
+
+Lego.components("Baseview", Baseview);

@@ -15,14 +15,12 @@ const flow = require('rollup-plugin-flow-no-whitespace');
 const cjs = require('rollup-plugin-commonjs');
 const node = require('rollup-plugin-node-resolve');
 const eslint = require('rollup-plugin-eslint');
-
-// 样式处理
 const sass = require('rollup-plugin-sass');
-const postcss = require('rollup-plugin-postcss');
-const simplevars = require('postcss-simple-vars');
-const nested = require('postcss-nested');
-const cssnext = require('postcss-cssnext');
-const cssnano = require('cssnano');
+// const postcss = require('rollup-plugin-postcss');
+// const simplevars = require('postcss-simple-vars');
+// const nested = require('postcss-nested');
+// const cssnext = require('postcss-cssnext');
+// const cssnano = require('cssnano');
 
 const version = process.env.VERSION || require('../package.json').version;
 
@@ -33,31 +31,31 @@ const resolve = _path => path.resolve(__dirname, '../', _path);
 build([{
     alias: 'legoui',
     entry: 'src/index.js',
-    dest: 'dist/lego-ui.js',
+    dest: 'dist/legoui-all.js',
     format: 'cjs',
     env: 'development'
 },{
     alias: 'legoui.min',
     entry: 'src/index.js',
-    dest: 'dist/lego-ui.min.js',
+    dest: 'dist/legoui-all.min.js',
     format: 'cjs',
     env: 'development'
 },{
     alias: 'badge',
     entry: 'src/badge/app.js',
-    dest: 'dist/component/badge.js',
+    dest: 'dist/Badge.js',
     format: 'cjs',
     env: 'development'
 },{
     alias: 'viewport',
     entry: 'src/viewport/app.js',
-    dest: 'dist/component/viewport.js',
+    dest: 'dist/Viewport.js',
     format: 'cjs',
     env: 'development'
 },{
-    alias: 'baseView',
-    entry: 'src/common/BaseView.js',
-    dest: 'dist/base/baseView.js',
+    alias: 'common',
+    entry: 'src/common/app.js',
+    dest: 'dist/common.js',
     format: 'cjs',
     env: 'development'
 }].map(genConfig));
@@ -86,9 +84,6 @@ function makBanner(opts) {
 }
 
 function genConfig(opts) {
-    // if (!fs.existsSync(opts.dest)) {
-    //     fs.mkdirSync(opts.dest);
-    // }
     const banner = makBanner(opts);
     const config = {
         entry: resolve(opts.entry),

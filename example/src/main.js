@@ -1,8 +1,10 @@
 import jQuery from 'jquery';
-import '../../dist/lego-ui';
-import '../../dist/css/legoui-1.css';
-// import 'lego-ui';
-// import 'lego-ui/dist/legoui-1.css';
+import Lego from 'lego-core';
+// ===============加载UI库============
+// import '../../dist/lego-ui';
+// import '../../dist/css/legoui-1.css';
+import 'lego-ui/dist/Common';
+import 'lego-ui/dist/css/legoui-1.css';
 
 Lego.init({
     alias: 'HBY', //框架实例别名

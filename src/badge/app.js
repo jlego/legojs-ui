@@ -1,6 +1,4 @@
-// import './asset/scss/style.scss';
-
-class Badge extends Lego.View {
+class Badge extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {

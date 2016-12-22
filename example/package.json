@@ -40,7 +40,7 @@
     "events": "^1.1.1",
     "jquery": "^3.1.1",
     "lego-core": "^0.2.0",
-    "lego-ui": "0.0.4",
+    "lego-ui": "^0.1.0",
     "object.observe": "^0.2.6",
     "virtual-dom": "^2.1.1"
   }

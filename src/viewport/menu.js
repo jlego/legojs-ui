@@ -1,6 +1,6 @@
-import BaseView from '../common/BaseView';
+import Baseview from '../common/view';
 
-class Menu extends BaseView {
+class Menu extends Baseview {
     constructor(opts = {}) {
         const options = {
             events: {

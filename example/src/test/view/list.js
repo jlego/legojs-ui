@@ -1,6 +1,4 @@
-// import { BaseView } from '../../../../dist/lego-ui';
-
-class ListView extends HBY.UI.BaseView {
+class ListView extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
