@@ -15,6 +15,7 @@ const flow = require('rollup-plugin-flow-no-whitespace');
 const cjs = require('rollup-plugin-commonjs');
 const node = require('rollup-plugin-node-resolve');
 const eslint = require('rollup-plugin-eslint');
+const less = require('rollup-plugin-less');
 const sass = require('rollup-plugin-sass');
 // const postcss = require('rollup-plugin-postcss');
 // const simplevars = require('postcss-simple-vars');
@@ -41,21 +42,27 @@ build([{
     format: 'cjs',
     env: 'development'
 },{
+    alias: 'common',
+    entry: 'src/common/index.js',
+    dest: 'dist/common.js',
+    format: 'cjs',
+    env: 'development'
+},{
+    alias: 'alert',
+    entry: 'src/alert/index.js',
+    dest: 'dist/Alert.js',
+    format: 'cjs',
+    env: 'development'
+},{
     alias: 'badge',
-    entry: 'src/badge/app.js',
+    entry: 'src/badge/index.js',
     dest: 'dist/Badge.js',
     format: 'cjs',
     env: 'development'
 },{
     alias: 'viewport',
-    entry: 'src/viewport/app.js',
+    entry: 'src/viewport/index.js',
     dest: 'dist/Viewport.js',
-    format: 'cjs',
-    env: 'development'
-},{
-    alias: 'common',
-    entry: 'src/common/app.js',
-    dest: 'dist/common.js',
     format: 'cjs',
     env: 'development'
 }].map(genConfig));
@@ -124,8 +131,13 @@ function genConfig(opts) {
             //       'src/styles/**',
             //     ]
             // }),
+            less({
+                output: 'dist/css/' + opts.alias + '.css',
+                exclude: 'node_modules/**',
+            }),
             sass({
-                output: 'dist/css/legoui-1.css',
+                output: 'dist/css/' + opts.alias + '.css',
+                exclude: 'node_modules/**',
             }),
             babel({
                 exclude: 'node_modules/**',

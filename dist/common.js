@@ -1,5 +1,5 @@
 /**
- * common.js v0.0.9
+ * common.js v0.1.2
  * (c) 2016 Ronghui Yu
  * @license MIT
  */

@@ -39,8 +39,8 @@
     "director": "^1.2.8",
     "events": "^1.1.1",
     "jquery": "^3.1.1",
-    "lego-core": "^0.2.0",
-    "lego-ui": "^0.1.0",
+    "lego-core": "^0.2.2",
+    "lego-ui": "^0.1.2",
     "object.observe": "^0.2.6",
     "virtual-dom": "^2.1.1"
   }

@@ -1,3 +1,5 @@
+// import { Alert } from 'lego-ui';
+
 class ListView extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
@@ -8,18 +10,23 @@ class ListView extends Lego.UI.Baseview {
                 'data_update': (data) => {
                     debug.warn('pppppppppp', data);
                 }
-            }
+            },
+            components: [{
+                el: '#button',
+                view: Lego.UI.Alert,
+                data: {
+                    closable: true,
+                    message: '警告提示内容',
+                    description: '警告提示的辅助性文字介绍',
+                }
+            }]
         };
         $.extend(true, options, opts);
         super(options);
     }
     render() {
         let data = this.data.list || [];
-        let vDom = hx`<div>
-          ${data.map((model, i) => {
-            return hx`<a id="${model.first}" href="#/home/list" style="display:block;">${model.last}</a>\n`
-          })}
-        </div>`;
+        let vDom = hx`<div><div id="button"></div></div>`;
         return vDom;
     }
     theClick(event){
