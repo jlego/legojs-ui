@@ -1,7 +1,7 @@
 import jQuery from 'jquery';
 import Lego from 'lego-core';
 import { Baseview } from '../../dist/common';
-import '../../dist/css/pack.css';
+import '../../dist/css/legoui.css';
 // import { Baseview } from 'lego-ui';
 // import 'lego-ui/dist/css/pack.css';
 

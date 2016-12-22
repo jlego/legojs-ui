@@ -18,6 +18,8 @@ const node = require('rollup-plugin-node-resolve');
 const eslint = require('rollup-plugin-eslint');
 // const less = require('rollup-plugin-less');
 const sass = require('rollup-plugin-sass');
+// const scss = require('rollup-plugin-scss');
+// const css = require('rollup-plugin-css-only');
 // const postcss = require('rollup-plugin-postcss');
 // const simplevars = require('postcss-simple-vars');
 // const nested = require('postcss-nested');
@@ -25,21 +27,18 @@ const sass = require('rollup-plugin-sass');
 // const cssnano = require('cssnano');
 
 const version = process.env.VERSION || require('../package.json').version;
+const buildStyleFile = 'dist/css/legoui.css';
 
 if (!fs.existsSync('dist')) {
     fs.mkdirSync('dist');
 }
+if(fs.existsSync('dist/css/legoui.css')) fs.unlinkSync('dist/css/legoui.css'); 
+
 const resolve = _path => path.resolve(__dirname, '../', _path);
 build([{
     alias: 'legoui',
     entry: 'src/index.js',
     dest: 'dist/legoui-all.js',
-    format: 'cjs',
-    env: 'development'
-},{
-    alias: 'legoui.min',
-    entry: 'src/index.js',
-    dest: 'dist/legoui-all.min.js',
     format: 'cjs',
     env: 'development'
 },{
@@ -140,8 +139,10 @@ function genConfig(opts) {
             //     exclude: 'node_modules/**',
             // }),
             sass({
-                output: 'dist/css/' + opts.alias + '.css',
-                exclude: 'node_modules/**',
+                output: function (styles, styleNodes) {
+                    // fs.writeFileSync('dist/css/legoui.css', styles);
+                    fs.appendFile('dist/css/legoui.css', styles, function (err) {});
+                }
             }),
             // buba({
             //     exclude: 'node_modules/**'
