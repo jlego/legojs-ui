@@ -84,12 +84,14 @@ var Baseview = function(_Lego$View) {
             }
             if (this.options.scrollbar) {
                 (function() {
-                    if (!_this2.$el.css("position")) _this2.$el.css("position", "relative");
-                    var container = _this2.$el.find(".perfect-scrollbar")[0];
-                    Ps.initialize(container, _this2.options.scrollbar);
-                    _this2.$el.off("mousemove.ps").on("mousemove.ps", function() {
-                        Ps.update(container);
-                    });
+                    if (!_this2._$el.css("position")) _this2._$el.css("position", "relative");
+                    var container = _this2.$(".perfect-scrollbar")[0];
+                    if (container) {
+                        Ps.initialize(container, _this2.options.scrollbar);
+                        _this2.$el.off("mousemove.ps").on("mousemove.ps", function() {
+                            Ps.update(container);
+                        });
+                    }
                 })();
             }
         }

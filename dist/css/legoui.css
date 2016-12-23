@@ -7236,8 +7236,8 @@ button.close {
     -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);
     transform: skewX(-0.78125deg) skewY(-0.78125deg); }
   77.7% {
-    -webkit-transform: skewX(0.39062deg) skewY(0.39062deg);
-    transform: skewX(0.39062deg) skewY(0.39062deg); }
+    -webkit-transform: skewX(0.39063deg) skewY(0.39063deg);
+    transform: skewX(0.39063deg) skewY(0.39063deg); }
   88.8% {
     -webkit-transform: skewX(-0.19531deg) skewY(-0.19531deg);
     transform: skewX(-0.19531deg) skewY(-0.19531deg); }
@@ -7265,8 +7265,8 @@ button.close {
     -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);
     transform: skewX(-0.78125deg) skewY(-0.78125deg); }
   77.7% {
-    -webkit-transform: skewX(0.39062deg) skewY(0.39062deg);
-    transform: skewX(0.39062deg) skewY(0.39062deg); }
+    -webkit-transform: skewX(0.39063deg) skewY(0.39063deg);
+    transform: skewX(0.39063deg) skewY(0.39063deg); }
   88.8% {
     -webkit-transform: skewX(-0.19531deg) skewY(-0.19531deg);
     transform: skewX(-0.19531deg) skewY(-0.19531deg); }
@@ -9742,7 +9742,7 @@ ul.sub-menu li ul.sub-menu li ul.sub-menu li a {
 .main-content > .container {
   /*padding-bottom: 50px;*/
   height: 100%;
-  overflow-y: scroll;
+  overflow: hidden;
   bottom: 0;
   position: absolute; }
 
@@ -9929,6 +9929,29 @@ ul.sub-menu li ul.sub-menu li ul.sub-menu li a {
   padding: 5px;
   margin-bottom: 20px;
   min-height: 400px; }
+
+.page-container {
+  height: 100%;
+  overflow: hidden; }
+
+.page-title {
+  font-size: 18px;
+  padding: 10px 0px;
+  margin: 10px 0; }
+
+.page-panel {
+  height: 100%;
+  padding-bottom: 75px; }
+
+.page-content {
+  height: 100%;
+  padding: 15px; }
+
+.page-panel-bg {
+  border-radius: 5px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); }
 .alert {
   position: relative;
   padding: 8px 48px 8px 38px;

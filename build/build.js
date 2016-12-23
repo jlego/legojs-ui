@@ -4,8 +4,6 @@ const zlib = require('zlib');
 const rollup = require('rollup');
 const babel = require('rollup-plugin-babel');
 const babelrc = require('babelrc-rollup');
-// const buble = require('rollup-plugin-buble');
-// const buba = require('rollup-plugin-buba');
 const replace = require('rollup-plugin-replace');
 const uglify = require('rollup-plugin-uglify');
 const uglifyjs = require('uglify-js');
@@ -16,10 +14,9 @@ const flow = require('rollup-plugin-flow-no-whitespace');
 const cjs = require('rollup-plugin-commonjs');
 const node = require('rollup-plugin-node-resolve');
 const eslint = require('rollup-plugin-eslint');
-// const less = require('rollup-plugin-less');
 const sass = require('rollup-plugin-sass');
-// const scss = require('rollup-plugin-scss');
-// const css = require('rollup-plugin-css-only');
+// const buble = require('rollup-plugin-buble');
+// const less = require('rollup-plugin-less');
 // const postcss = require('rollup-plugin-postcss');
 // const simplevars = require('postcss-simple-vars');
 // const nested = require('postcss-nested');
@@ -32,7 +29,7 @@ const buildStyleFile = 'dist/css/legoui.css';
 if (!fs.existsSync('dist')) {
     fs.mkdirSync('dist');
 }
-if(fs.existsSync('dist/css/legoui.css')) fs.unlinkSync('dist/css/legoui.css'); 
+if(fs.existsSync(buildStyleFile)) fs.unlinkSync(buildStyleFile);
 
 const resolve = _path => path.resolve(__dirname, '../', _path);
 build([{
@@ -141,16 +138,12 @@ function genConfig(opts) {
             sass({
                 output: function (styles, styleNodes) {
                     // fs.writeFileSync('dist/css/legoui.css', styles);
-                    fs.appendFile('dist/css/legoui.css', styles, function (err) {});
+                    fs.appendFile(buildStyleFile, styles, function (err) {});
                 }
             }),
-            // buba({
-            //     exclude: 'node_modules/**'
-            // }),
             babel({
                 exclude: 'node_modules/**',
             }),
-            // babel(babelrc()),
             // buble(),
             uglify({
                 mangle: false,

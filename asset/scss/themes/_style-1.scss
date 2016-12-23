@@ -577,7 +577,7 @@ ul.sub-menu li ul.sub-menu li ul.sub-menu li a {
 .main-content > .container {
     /*padding-bottom: 50px;*/
     height: 100%;
-    overflow-y: scroll;
+    overflow: hidden;
     bottom: 0;
     position: absolute;
 }
@@ -775,4 +775,28 @@ ul.sub-menu li ul.sub-menu li ul.sub-menu li a {
     padding: 5px;
     margin-bottom: 20px;
     min-height: 400px;
+}
+// 页面
+.page-container{
+    height: 100%;
+    overflow: hidden;
+}
+.page-title{
+    font-size: 18px;
+    padding: 10px 0px;
+    margin: 10px 0;
+}
+.page-panel {
+    height: 100%;
+    padding-bottom: 75px;
+}
+.page-content{
+    height: 100%;
+    padding: 15px;
+}
+.page-panel-bg {
+    border-radius: 5px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
