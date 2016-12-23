@@ -5,7 +5,7 @@ class ListView extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
-                'click #test': 'theClick'
+                'click .alert': 'theClick'
             },
             listen: {
                 'data_update': (data) => {
