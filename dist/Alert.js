@@ -115,8 +115,11 @@ var Alert = function(_Lego$UI$Baseview) {
     }, {
         key: "onClose",
         value: function onClose(event) {
+            var _this2 = this;
             event.stopPropagation();
-            this.remove();
+            this.$el.slideUp("normal", function() {
+                _this2.remove();
+            });
             if (typeof this.data.onClose === "function") this.data.onClose();
         }
     } ]);

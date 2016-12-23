@@ -7,6 +7,7 @@ HBY.router({
         console.warn('7777777777777');
         HBY.create({
             view: listView,
+            scrollbar: {},
             // dataSource: {
             //     api: ['gg', 'ff'],
             //     server: listData

@@ -32,6 +32,11 @@
 .lego-alert-with-description .lego-alert-description {
     display: block;
 }
+.lego-alert-close-icon .anticon-cross {
+    color: #999;
+    -webkit-transition: color .3s ease;
+    transition: color .3s ease;
+}
 .alert-success {
     border: 1px solid #e7f6e1;
     background-color: #f3faf0;

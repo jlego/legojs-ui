@@ -84,8 +84,9 @@ var Baseview = function(_Lego$View) {
             }
             if (this.options.scrollbar) {
                 (function() {
-                    if (!_this2._$el.css("position")) _this2._$el.css("position", "relative");
-                    var container = _this2.$(".perfect-scrollbar")[0];
+                    var scrollbarEl = _this2.$(".perfect-scrollbar");
+                    var container = scrollbarEl[0];
+                    if (!scrollbarEl.parent().css("position")) scrollbarEl.parent().css("position", "relative");
                     if (container) {
                         Ps.initialize(container, _this2.options.scrollbar);
                         _this2.$el.off("mousemove.ps").on("mousemove.ps", function() {
@@ -239,7 +240,7 @@ var Viewport = function(_Lego$UI$Baseview) {
         _classCallCheck$1(this, Viewport);
         var options = {
             events: {},
-            scrollbar: {},
+            scrollbar: true,
             data: {
                 logoUrl: "asset/img/logo.png",
                 menu: []
@@ -380,8 +381,11 @@ var Alert = function(_Lego$UI$Baseview) {
     }, {
         key: "onClose",
         value: function onClose(event) {
+            var _this2 = this;
             event.stopPropagation();
-            this.remove();
+            this.$el.slideUp("normal", function() {
+                _this2.remove();
+            });
             if (typeof this.data.onClose === "function") this.data.onClose();
         }
     } ]);

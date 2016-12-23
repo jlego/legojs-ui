@@ -143,7 +143,7 @@ var Viewport = function(_Lego$UI$Baseview) {
         _classCallCheck(this, Viewport);
         var options = {
             events: {},
-            scrollbar: {},
+            scrollbar: true,
             data: {
                 logoUrl: "asset/img/logo.png",
                 menu: []

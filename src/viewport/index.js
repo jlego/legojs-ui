@@ -6,7 +6,7 @@ class Viewport extends Lego.UI.Baseview {
             events: {
                 // 'click nav a': 'clickNav'
             },
-            scrollbar: {},
+            scrollbar: true,
             data: {
                 logoUrl: 'asset/img/logo.png',
                 menu: []

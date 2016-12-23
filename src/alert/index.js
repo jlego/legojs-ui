@@ -49,7 +49,9 @@ class Alert extends Lego.UI.Baseview {
     }
     onClose(event){
         event.stopPropagation();
-        this.remove();
+        this.$el.slideUp("normal", () => {
+            this.remove();
+        });
         if(typeof this.data.onClose === 'function') this.data.onClose();
     }
 }

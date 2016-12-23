@@ -12,6 +12,7 @@ class ListView extends Lego.UI.Baseview {
                     debug.warn('pppppppppp', data);
                 }
             },
+            scrollbar: true,
             components: [{
                 el: '#alertDiv',
                 view: Alert,
@@ -63,9 +64,9 @@ class ListView extends Lego.UI.Baseview {
     render() {
         const vDom = hx`
         <div class="page-container">
-            <h1 class="page-title">新注册客户</h1>
+            <h1 class="page-title">工单管理</h1>
             <div class="page-panel">
-                <div class="page-content page-panel-bg">
+                <div class="page-content page-panel-bg perfect-scrollbar">
                     <div id="alertDiv"></div>
                 </div>
             </div>
@@ -74,7 +75,22 @@ class ListView extends Lego.UI.Baseview {
         return vDom;
     }
     theClick(event){
-        debug.warn('66666666666');
+        const target = $(event.currentTarget),
+            theView = HBY.getView(target[0]);
+        switch(theView.data.type){
+            case 'success':
+                theView.data.type = 'info'
+                break;
+            case 'info':
+                theView.data.type = 'warning'
+                break;
+            case 'warning':
+                theView.data.type = 'error'
+                break;
+            case 'error':
+                theView.data.type = 'success'
+                break;
+        }
     }
 }
 export default ListView;

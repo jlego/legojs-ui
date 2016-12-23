@@ -84,8 +84,9 @@ var Baseview = function(_Lego$View) {
             }
             if (this.options.scrollbar) {
                 (function() {
-                    if (!_this2._$el.css("position")) _this2._$el.css("position", "relative");
-                    var container = _this2.$(".perfect-scrollbar")[0];
+                    var scrollbarEl = _this2.$(".perfect-scrollbar");
+                    var container = scrollbarEl[0];
+                    if (!scrollbarEl.parent().css("position")) scrollbarEl.parent().css("position", "relative");
                     if (container) {
                         Ps.initialize(container, _this2.options.scrollbar);
                         _this2.$el.off("mousemove.ps").on("mousemove.ps", function() {
