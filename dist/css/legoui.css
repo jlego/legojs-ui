@@ -6752,7 +6752,8 @@ body {
 .navbar .navbar-collapse {
   background: #3eb7f3; }
 
-.navbar-collapse:before, .navbar-collapse:after {
+.navbar-collapse:before,
+.navbar-collapse:after {
   content: " ";
   display: table; }
 
@@ -7095,13 +7096,13 @@ ul.sub-menu li ul.sub-menu li ul.sub-menu li a {
   padding: 10px;
   position: relative; }
 
-.navbar-form ::-webkit-input-placeholder {
+.navbar-form::-webkit-input-placeholder {
   color: #fff; }
 
-.navbar-form ::-moz-placeholder {
+.navbar-form::-moz-placeholder {
   color: #fff; }
 
-.navbar-form :-ms-input-placeholder {
+.navbar-form:-ms-input-placeholder {
   color: #fff; }
 
 .navbar-form a {
@@ -7248,25 +7249,30 @@ ul.sub-menu li ul.sub-menu li ul.sub-menu li a {
   color: #333333;
   white-space: nowrap; }
 
-.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
   text-decoration: none;
   color: #262626;
   background-color: #f5f5f5; }
 
-.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
   color: #fff;
   text-decoration: none;
   outline: 0;
   background-color: #3399fe; }
 
-.dropdown-menu > .disabled > a, .dropdown-menu > .disabled > a:hover, .dropdown-menu > .disabled > a:focus {
+.dropdown-menu > .disabled > a,
+.dropdown-menu > .disabled > a:hover,
+.dropdown-menu > .disabled > a:focus {
   color: #777777; }
 
-.dropdown-menu > .disabled > a:hover, .dropdown-menu > .disabled > a:focus {
+.dropdown-menu > .disabled > a:hover,
+.dropdown-menu > .disabled > a:focus {
   text-decoration: none;
   background-color: transparent;
   background-image: none;
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
   cursor: not-allowed; }
 
 .open > .dropdown-menu {
@@ -7325,7 +7331,7 @@ ul.sub-menu li ul.sub-menu li ul.sub-menu li a {
     right: auto; } }
 
 /* ---------------------------------------------------------------------- */
-/*  other
+/*  page
 /* ---------------------------------------------------------------------- */
 .page-container {
   height: 100%;
@@ -7350,6 +7356,10 @@ ul.sub-menu li ul.sub-menu li ul.sub-menu li a {
   background-color: #fff;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); }
+
+/* ---------------------------------------------------------------------- */
+/*  other
+/* ---------------------------------------------------------------------- */
 .alert {
   position: relative;
   padding: 8px 48px 8px 38px;
