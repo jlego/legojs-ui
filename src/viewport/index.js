@@ -1,3 +1,4 @@
+import './asset/index.scss';
 import Menu from './menu';
 
 class Viewport extends Lego.UI.Baseview {

@@ -138,7 +138,9 @@ function genConfig(opts) {
             sass({
                 output: function (styles, styleNodes) {
                     // fs.writeFileSync('dist/css/legoui.css', styles);
-                    fs.appendFile(buildStyleFile, styles, function (err) {});
+                    if(opts.alias === 'legoui'){
+                        fs.appendFile(buildStyleFile, styles, function (err) {});
+                    }
                 }
             }),
             babel({
