@@ -7,10 +7,11 @@ HBY.router({
         console.warn('7777777777777');
         HBY.create({
             view: listView,
-            dataSource: {
-                api: ['gg', 'ff'],
-                server: listData
-            },
+            scrollbar: {},
+            // dataSource: {
+            //     api: ['gg', 'ff'],
+            //     server: listData
+            // },
             onAfter(self) {
                 // let i = 0;
                 // HBY.setTimer('theTime2', setInterval(function(){

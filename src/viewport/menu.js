@@ -1,6 +1,6 @@
-import Baseview from '../common/view';
+// import Baseview from '../common/view';
 
-class Menu extends Baseview {
+class Menu extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {

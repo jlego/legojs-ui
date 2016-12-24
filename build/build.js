@@ -4,7 +4,6 @@ const zlib = require('zlib');
 const rollup = require('rollup');
 const babel = require('rollup-plugin-babel');
 const babelrc = require('babelrc-rollup');
-const buble = require('rollup-plugin-buble');
 const replace = require('rollup-plugin-replace');
 const uglify = require('rollup-plugin-uglify');
 const uglifyjs = require('uglify-js');
@@ -16,6 +15,8 @@ const cjs = require('rollup-plugin-commonjs');
 const node = require('rollup-plugin-node-resolve');
 const eslint = require('rollup-plugin-eslint');
 const sass = require('rollup-plugin-sass');
+// const buble = require('rollup-plugin-buble');
+// const less = require('rollup-plugin-less');
 // const postcss = require('rollup-plugin-postcss');
 // const simplevars = require('postcss-simple-vars');
 // const nested = require('postcss-nested');
@@ -23,10 +24,13 @@ const sass = require('rollup-plugin-sass');
 // const cssnano = require('cssnano');
 
 const version = process.env.VERSION || require('../package.json').version;
+const buildStyleFile = 'dist/css/legoui.css';
 
 if (!fs.existsSync('dist')) {
     fs.mkdirSync('dist');
 }
+if(fs.existsSync(buildStyleFile)) fs.unlinkSync(buildStyleFile);
+
 const resolve = _path => path.resolve(__dirname, '../', _path);
 build([{
     alias: 'legoui',
@@ -35,27 +39,27 @@ build([{
     format: 'cjs',
     env: 'development'
 },{
-    alias: 'legoui.min',
-    entry: 'src/index.js',
-    dest: 'dist/legoui-all.min.js',
+    alias: 'common',
+    entry: 'src/common/index.js',
+    dest: 'dist/common.js',
+    format: 'cjs',
+    env: 'development'
+},{
+    alias: 'alert',
+    entry: 'src/alert/index.js',
+    dest: 'dist/Alert.js',
     format: 'cjs',
     env: 'development'
 },{
     alias: 'badge',
-    entry: 'src/badge/app.js',
+    entry: 'src/badge/index.js',
     dest: 'dist/Badge.js',
     format: 'cjs',
     env: 'development'
 },{
     alias: 'viewport',
-    entry: 'src/viewport/app.js',
+    entry: 'src/viewport/index.js',
     dest: 'dist/Viewport.js',
-    format: 'cjs',
-    env: 'development'
-},{
-    alias: 'common',
-    entry: 'src/common/app.js',
-    dest: 'dist/common.js',
     format: 'cjs',
     env: 'development'
 }].map(genConfig));
@@ -114,18 +118,30 @@ function genConfig(opts) {
             // postcss({
             //     extensions: [ '.css' ],
             // }),
-            // flow(),
+            flow(),
             // node(),
             // cjs(),
             // async(),
             // regenerator(),
+            // istanbul({
+            //     exclude: ['test/**/*.js']
+            // }),
             // eslint({
             //     exclude: [
             //       'src/styles/**',
             //     ]
             // }),
+            // less({
+            //     output: 'dist/css/' + opts.alias + '.css',
+            //     exclude: 'node_modules/**',
+            // }),
             sass({
-                output: 'dist/css/legoui-1.css',
+                output: function (styles, styleNodes) {
+                    // fs.writeFileSync('dist/css/legoui.css', styles);
+                    if(opts.alias === 'legoui'){
+                        fs.appendFile(buildStyleFile, styles, function (err) {});
+                    }
+                }
             }),
             babel({
                 exclude: 'node_modules/**',

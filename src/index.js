@@ -1,16 +1,13 @@
 import '../asset/scss/style.scss';
-import Lego from "lego-core";
-import Viewport from "./viewport/app";
-import Badge from "./badge/app";
 
-const coms = {
-    Viewport: Viewport,
-    Badge: Badge
-};
-
-Lego.components(coms);
+import { Baseview } from "./common/index";
+import Viewport from "./viewport/index";
+import Alert from "./alert/index";
+import Badge from "./badge/index";
 
 export {
+	Baseview,
     Viewport,
+    Alert,
     Badge
 };

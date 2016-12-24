@@ -1,13 +1,19 @@
 /**
- * common.js v0.0.9
+ * common.js v0.1.2
  * (c) 2016 Ronghui Yu
  * @license MIT
  */
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 function _interopDefault(ex) {
     return ex && typeof ex === "object" && "default" in ex ? ex["default"] : ex;
 }
+
+var perfectScrollbar_dist_css_perfectScrollbar_css = require("perfect-scrollbar/dist/css/perfect-scrollbar.css");
 
 var perfectScrollbar = _interopDefault(require("perfect-scrollbar"));
 
@@ -78,12 +84,15 @@ var Baseview = function(_Lego$View) {
             }
             if (this.options.scrollbar) {
                 (function() {
-                    if (!_this2.$el.css("position")) _this2.$el.css("position", "relative");
-                    var container = _this2.$el.find(".perfect-scrollbar")[0];
-                    Ps.initialize(container, _this2.options.scrollbar);
-                    _this2.$el.off("mousemove.ps").on("mousemove.ps", function() {
-                        Ps.update(container);
-                    });
+                    var scrollbarEl = _this2.$(".perfect-scrollbar");
+                    var container = scrollbarEl[0];
+                    if (!scrollbarEl.parent().css("position")) scrollbarEl.parent().css("position", "relative");
+                    if (container) {
+                        Ps.initialize(container, _this2.options.scrollbar);
+                        _this2.$el.off("mousemove.ps").on("mousemove.ps", function() {
+                            Ps.update(container);
+                        });
+                    }
                 })();
             }
         }
@@ -93,4 +102,4 @@ var Baseview = function(_Lego$View) {
 
 window.Ps = perfectScrollbar;
 
-Lego.components("Baseview", Baseview);
+exports.Baseview = Baseview;
