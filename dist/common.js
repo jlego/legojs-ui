@@ -84,7 +84,7 @@ var Baseview = function(_Lego$View) {
             }
             if (this.options.scrollbar) {
                 (function() {
-                    var scrollbarEl = _this2.$(".perfect-scrollbar");
+                    var scrollbarEl = _this2.$(".scrollbar");
                     var container = scrollbarEl[0];
                     if (!scrollbarEl.parent().css("position")) scrollbarEl.parent().css("position", "relative");
                     if (container) {

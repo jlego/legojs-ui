@@ -14,7 +14,7 @@ class Baseview extends Lego.View {
         }
         // 是否渲染滚动条
         if (this.options.scrollbar) {
-            const scrollbarEl = this.$('.perfect-scrollbar');
+            const scrollbarEl = this.$('.scrollbar');
             const container = scrollbarEl[0];
             if (!scrollbarEl.parent().css('position')) scrollbarEl.parent().css('position', 'relative');
             if(container){

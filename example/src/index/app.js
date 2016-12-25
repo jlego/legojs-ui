@@ -5,6 +5,7 @@ import Viewport from '../../../dist/Viewport';
 HBY.create({
     el: 'body',
     view: Viewport,
+    scrollbar: {},
     data: {
     	logoUrl: 'dist/img/logo.png',
     }

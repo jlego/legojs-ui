@@ -7,7 +7,6 @@ class Viewport extends Lego.UI.Baseview {
             events: {
                 // 'click nav a': 'clickNav'
             },
-            scrollbar: true,
             data: {
                 logoUrl: 'asset/img/logo.png',
                 menu: []
@@ -25,7 +24,7 @@ class Viewport extends Lego.UI.Baseview {
     render() {
         const tmpl = hx`
         <div id="app" class="app-navbar-fixed app-sidebar-fixed">
-            <div class="sidebar app-aside" id="sidebar"></div>
+            <div id="sidebar"></div>
             <div class="app-content">
                 <header class="navbar navbar-default navbar-static-top">
                     <div class="navbar-header">

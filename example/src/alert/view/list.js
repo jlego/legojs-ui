@@ -7,11 +7,9 @@ class ListView extends Lego.UI.Baseview {
             events: {
                 // 'click .alert': 'theClick'
             },
-            scrollbar: true,
             components: [{
-                el: '#buttonDiv',
+                el: '#button1',
                 view: Button,
-                insert: 'append',
                 data: {
                     type: 'default',
                     onClick(){
@@ -22,9 +20,8 @@ class ListView extends Lego.UI.Baseview {
                     marginRight: 10
                 }
             }, {
-                el: '#buttonDiv',
+                el: '#button2',
                 view: Button,
-                insert: 'append',
                 data: {
                     type: 'primary',
                     onClick(){
@@ -35,9 +32,8 @@ class ListView extends Lego.UI.Baseview {
                     marginRight: 10
                 }
             }, {
-                el: '#buttonDiv',
+                el: '#button3',
                 view: Button,
-                insert: 'append',
                 data: {
                     type: 'dashed',
                     onClick(){
@@ -48,9 +44,8 @@ class ListView extends Lego.UI.Baseview {
                     marginRight: 10
                 }
             }, {
-                el: '#buttonDiv',
+                el: '#button4',
                 view: Button,
-                insert: 'append',
                 data: {
                     type: 'ghost',
                     onClick(){
@@ -61,9 +56,8 @@ class ListView extends Lego.UI.Baseview {
                     marginRight: 10
                 }
             }, {
-                el: '#buttonDiv',
+                el: '#button5',
                 view: Button,
-                insert: 'append',
                 data: {
                     type: 'success',
                     onClick(){
@@ -74,9 +68,8 @@ class ListView extends Lego.UI.Baseview {
                     marginRight: 10
                 }
             }, {
-                el: '#buttonDiv',
+                el: '#button6',
                 view: Button,
-                insert: 'append',
                 data: {
                     type: 'warning',
                     onClick(){
@@ -87,9 +80,8 @@ class ListView extends Lego.UI.Baseview {
                     marginRight: 10
                 }
             }, {
-                el: '#buttonDiv',
+                el: '#button7',
                 view: Button,
-                insert: 'append',
                 data: {
                     type: 'danger',
                     onClick(){
@@ -122,8 +114,16 @@ class ListView extends Lego.UI.Baseview {
     }
     render() {
         const vDom = hx`
-        <div class="page-content page-panel-bg perfect-scrollbar">
-            <div id="buttonDiv"></div>
+        <div id="pageContent">
+            <div>
+                <button id="button1"></button>
+                <button id="button2"></button>
+                <button id="button3"></button>
+                <button id="button4"></button>
+                <button id="button5"></button>
+                <button id="button6"></button>
+                <button id="button7"></button>
+            </div>
             <div id="md" style="margin-top: 20px;"></div>
             sdfasd<code>img</code>fa
             <div id="tableDiv" class="markdown"></div>

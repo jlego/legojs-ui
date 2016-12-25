@@ -7,9 +7,8 @@ class HomeView extends Lego.UI.Baseview {
             events: {
                 'click .alert': 'theClick'
             },
-            scrollbar: true,
             components: [{
-                el: '#alertDiv',
+                el: '#alert1',
                 view: Alert,
                 data: {
                     type: 'success',
@@ -19,9 +18,8 @@ class HomeView extends Lego.UI.Baseview {
                     // description: '警告提示的辅助性文字介绍',
                 }
             }, {
-                el: '#alertDiv',
+                el: '#alert2',
                 view: Alert,
-                insert: 'append',
                 data: {
                     type: 'info',
                     closable: true,
@@ -30,9 +28,8 @@ class HomeView extends Lego.UI.Baseview {
                     // description: '警告提示的辅助性文字介绍',
                 }
             }, {
-                el: '#alertDiv',
+                el: '#alert3',
                 view: Alert,
-                insert: 'append',
                 data: {
                     type: 'warning',
                     closable: true,
@@ -41,9 +38,8 @@ class HomeView extends Lego.UI.Baseview {
                     description: '警告提示的辅助性文字介绍',
                 }
             }, {
-                el: '#alertDiv',
+                el: '#alert4',
                 view: Alert,
-                insert: 'append',
                 data: {
                     type: 'error',
                     closable: true,
@@ -58,8 +54,11 @@ class HomeView extends Lego.UI.Baseview {
     }
     render() {
         const vDom = hx`
-        <div class="page-content page-panel-bg perfect-scrollbar">
-            <div id="alertDiv"></div>
+        <div id="pageContent">
+            <alert id="alert1"></alert>
+            <alert id="alert2"></alert>
+            <alert id="alert3"></alert>
+            <alert id="alert4"></alert>
         </div>
         `;
         return vDom;

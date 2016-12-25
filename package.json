@@ -62,7 +62,7 @@
     "whatwg-fetch": "^2.0.1"
   },
   "dependencies": {
-    "lego-core": "^0.3.0"
+    "lego-core": "^0.3.4"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

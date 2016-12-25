@@ -12,7 +12,8 @@ class Menu extends Lego.UI.Baseview {
     }
     render() {
         const tmpl = hx`
-        <div class="sidebar-container perfect-scrollbar ps-container ps-active-y">
+        <div class="sidebar app-aside" id="sidebar">
+        <div class="sidebar-container scrollbar ps-container ps-active-y">
             <nav>
                 <ul class="main-navigation-menu">
                     <li data-permis='{"module":"Home", "operate":"Query", "hide":1}' id="nav_home">
@@ -137,6 +138,7 @@ class Menu extends Lego.UI.Baseview {
                     </li>
                 </ul>
             </nav>
+        </div>
         </div>
         `;
         return tmpl;
