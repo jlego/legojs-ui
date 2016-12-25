@@ -1,28 +1,32 @@
+import IndexView from './view/index';
 import homeView from './view/home';
 import listView from './view/list';
 import listData from './data/list';
 
-HBY.router({
-    '/alert' () {
-        console.warn('7777777777777');
-        HBY.create({
-            view: listView,
-            scrollbar: {},
-            // dataSource: {
-            //     api: ['gg', 'ff'],
-            //     server: listData
-            // },
-            onAfter(self) {
-                // let i = 0;
-                // HBY.setTimer('theTime2', setInterval(function(){
-                //     self.data.list[0].last = i;
-                //     self.refresh();
-                //     i++;
-                // }, 3000));
+let viewObj;
+function index(){
+    if(!viewObj){
+        viewObj = HBY.create({
+            view: IndexView,
+            data: {
+                currentTab: 0
             }
         });
-    },
-    '/alert/list' () {
+    }
+}
+function tabs(tabs = 0){
+    viewObj.data.currentTab = tabs || 0;
+    const appArray = [homeView, listView];
+    HBY.create({
+        el: '#pageContent',
+        view: appArray[tabs]
+    });
+}
+
+HBY.router({
+    '/alert': [index, tabs],
+    '/alert/:tabs': [index, tabs],
+    '/alert/list/ff' () {
         HBY.create({
             view: listView,
             data: {
@@ -47,8 +51,5 @@ HBY.router({
                 ]
             }]
         });
-    },
-    '/alert/detail/:id' (id) {
-        console.warn('pppppppppp');
     }
 });

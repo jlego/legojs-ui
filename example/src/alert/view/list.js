@@ -1,64 +1,15 @@
 // import { Alert } from 'lego-ui';
-import Alert from '../../../../dist/Alert';
 import Button from '../../../../dist/Button';
 
 class ListView extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
-                'click .alert': 'theClick'
-            },
-            listen: {
-                'data_update': (data) => {
-                    debug.warn('pppppppppp', data);
-                }
+                // 'click .alert': 'theClick'
             },
             scrollbar: true,
             components: [{
-                el: '#alertDiv',
-                view: Alert,
-                data: {
-                    type: 'success',
-                    closable: true,
-                    showIcon: false,
-                    message: '警告提示内容',
-                    // description: '警告提示的辅助性文字介绍',
-                }
-            }, {
-                el: '#alertDiv',
-                view: Alert,
-                insert: 'append',
-                data: {
-                    type: 'info',
-                    closable: true,
-                    showIcon: true,
-                    message: '警告提示内容',
-                    // description: '警告提示的辅助性文字介绍',
-                }
-            }, {
-                el: '#alertDiv',
-                view: Alert,
-                insert: 'append',
-                data: {
-                    type: 'warning',
-                    closable: true,
-                    showIcon: false,
-                    message: '警告提示内容',
-                    description: '警告提示的辅助性文字介绍',
-                }
-            }, {
-                el: '#alertDiv',
-                view: Alert,
-                insert: 'append',
-                data: {
-                    type: 'error',
-                    closable: true,
-                    showIcon: true,
-                    message: '警告提示内容',
-                    description: '警告提示的辅助性文字介绍',
-                }
-            }, {
-                el: '#alertDiv',
+                el: '#buttonDiv',
                 view: Button,
                 insert: 'append',
                 data: {
@@ -71,7 +22,7 @@ class ListView extends Lego.UI.Baseview {
                     marginRight: 10
                 }
             }, {
-                el: '#alertDiv',
+                el: '#buttonDiv',
                 view: Button,
                 insert: 'append',
                 data: {
@@ -84,7 +35,7 @@ class ListView extends Lego.UI.Baseview {
                     marginRight: 10
                 }
             }, {
-                el: '#alertDiv',
+                el: '#buttonDiv',
                 view: Button,
                 insert: 'append',
                 data: {
@@ -97,7 +48,7 @@ class ListView extends Lego.UI.Baseview {
                     marginRight: 10
                 }
             }, {
-                el: '#alertDiv',
+                el: '#buttonDiv',
                 view: Button,
                 insert: 'append',
                 data: {
@@ -110,7 +61,7 @@ class ListView extends Lego.UI.Baseview {
                     marginRight: 10
                 }
             }, {
-                el: '#alertDiv',
+                el: '#buttonDiv',
                 view: Button,
                 insert: 'append',
                 data: {
@@ -123,7 +74,7 @@ class ListView extends Lego.UI.Baseview {
                     marginRight: 10
                 }
             }, {
-                el: '#alertDiv',
+                el: '#buttonDiv',
                 view: Button,
                 insert: 'append',
                 data: {
@@ -136,7 +87,7 @@ class ListView extends Lego.UI.Baseview {
                     marginRight: 10
                 }
             }, {
-                el: '#alertDiv',
+                el: '#buttonDiv',
                 view: Button,
                 insert: 'append',
                 data: {
@@ -157,45 +108,28 @@ class ListView extends Lego.UI.Baseview {
         nickName: "自由鱼",    
         site: "https://github.com/jlego/legojs"
     }`;
+        const table = `
+| h1    |    h2   |      h3 |
+|:------|:-------:|--------:|
+| 100   | [a][1]  | ![b][2] |
+| *foo* | **bar** | ~~baz~~ |
+        `;
         this.$('#md').html(markdown.makeHtml( text ));
+        this.$('#tableDiv').html(markdown.makeHtml( table ));
         this.$('pre').each(function(i, block) {
             hljs.highlightBlock(block);
         });
     }
     render() {
         const vDom = hx`
-        <div class="page-container">
-            <h1 class="page-title">
-                <a href="">Alert警告提示</a>
-            </h1>
-            <div class="page-panel">
-                <div class="page-content page-panel-bg perfect-scrollbar">
-                    <div id="alertDiv"></div>
-                    <div id="md" style="margin-top: 20px;"></div>
-                    sdfasd<code>img</code>fa
-                </div>
-            </div>
+        <div class="page-content page-panel-bg perfect-scrollbar">
+            <div id="buttonDiv"></div>
+            <div id="md" style="margin-top: 20px;"></div>
+            sdfasd<code>img</code>fa
+            <div id="tableDiv" class="markdown"></div>
         </div>
         `;
         return vDom;
-    }
-    theClick(event){
-        const target = $(event.currentTarget),
-            theView = HBY.getView(target);
-        switch(theView.data.type){
-            case 'success':
-                theView.data.type = 'info'
-                break;
-            case 'info':
-                theView.data.type = 'warning'
-                break;
-            case 'warning':
-                theView.data.type = 'error'
-                break;
-            case 'error':
-                theView.data.type = 'success'
-                break;
-        }
     }
 }
 export default ListView;

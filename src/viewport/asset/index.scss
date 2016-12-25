@@ -811,6 +811,15 @@ ul.sub-menu li ul.sub-menu li ul.sub-menu li a {
     margin: 10px 0;
 }
 
+.page-title a{
+    color: #999;
+    margin-right: 15px;
+    display: inline-block;
+}
+.page-title .active{
+    color: #34495e;
+}
+
 .page-panel {
     height: 100%;
     padding-bottom: 75px;
