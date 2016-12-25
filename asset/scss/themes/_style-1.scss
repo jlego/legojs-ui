@@ -8,3 +8,12 @@ $sidebar-nav-hover: #242e39 !default;
 $sidebar-nav-active: #242e39 !default;
 $text-color: #34495e !default;
 $main-content-bg: #f0f5f7 !default;
+
+pre{
+	padding: 15px !important;
+	border: 0;
+	background: #f7f7f7 !important;
+}
+pre p{
+	margin: 0;
+}

@@ -29,40 +29,28 @@ const buildStyleFile = 'dist/css/legoui.css';
 if (!fs.existsSync('dist')) {
     fs.mkdirSync('dist');
 }
-if(fs.existsSync(buildStyleFile)) fs.unlinkSync(buildStyleFile);
+if (fs.existsSync(buildStyleFile)) fs.unlinkSync(buildStyleFile);
 
 const resolve = _path => path.resolve(__dirname, '../', _path);
 build([{
     alias: 'legoui',
     entry: 'src/index.js',
-    dest: 'dist/legoui-all.js',
-    format: 'cjs',
-    env: 'development'
-},{
-    alias: 'common',
-    entry: 'src/common/index.js',
-    dest: 'dist/common.js',
-    format: 'cjs',
-    env: 'development'
-},{
-    alias: 'alert',
-    entry: 'src/alert/index.js',
-    dest: 'dist/Alert.js',
-    format: 'cjs',
-    env: 'development'
-},{
-    alias: 'badge',
-    entry: 'src/badge/index.js',
-    dest: 'dist/Badge.js',
-    format: 'cjs',
-    env: 'development'
-},{
-    alias: 'viewport',
-    entry: 'src/viewport/index.js',
-    dest: 'dist/Viewport.js',
-    format: 'cjs',
-    env: 'development'
-}].map(genConfig));
+    dest: 'dist/legoui.js'
+}, 
+{alias: 'common'}, 
+{alias: 'alert'}, 
+{alias: 'badge'}, 
+{alias: 'viewport'}, 
+{alias: 'button'}
+].map(genConfig));
+
+function ucfirst(str) {
+    var str = str.toLowerCase();
+    str = str.replace(/\b\w+\b/g, function(word) {
+        return word.substring(0, 1).toUpperCase() + word.substring(1);
+    });
+    return str;
+}
 
 function build(builds) {
     let built = 0
@@ -89,10 +77,14 @@ function makBanner(opts) {
 
 function genConfig(opts) {
     const banner = makBanner(opts);
+    const entry = 'src/' + opts.alias + '/index.js';
+    const dest = 'dist/' + ucfirst(opts.alias) + '.js';
+    const format = 'cjs';
+    opts.env = opts.env || 'development';
     const config = {
-        entry: resolve(opts.entry),
-        dest: resolve(opts.dest),
-        format: opts.format,
+        entry: resolve(opts.entry || entry),
+        dest: resolve(opts.dest || dest),
+        format: opts.format || format,
         banner,
         moduleName: 'LegoJS',
         plugins: [
@@ -136,10 +128,10 @@ function genConfig(opts) {
             //     exclude: 'node_modules/**',
             // }),
             sass({
-                output: function (styles, styleNodes) {
+                output: function(styles, styleNodes) {
                     // fs.writeFileSync('dist/css/legoui.css', styles);
-                    if(opts.alias === 'legoui'){
-                        fs.appendFile(buildStyleFile, styles, function (err) {});
+                    if (opts.alias === 'legoui') {
+                        fs.appendFile(buildStyleFile, styles, function(err) {});
                     }
                 }
             }),
