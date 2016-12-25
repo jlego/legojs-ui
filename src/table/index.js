@@ -1,6 +1,6 @@
 import './asset/index.scss';
 
-class Button extends Lego.UI.Baseview {
+class Table extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             data: {
@@ -35,4 +35,4 @@ class Button extends Lego.UI.Baseview {
         if(typeof this.data.onClick === 'function') this.data.onClick(event);
     }
 }
-export default Button;
+export default Table;
