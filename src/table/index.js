@@ -11,6 +11,10 @@ import './asset/index.scss';
 class Table extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
+            events: {
+                'click tbody .lego-checkbox': 'selectOne',
+                'click thead .lego-checkbox > input': 'selectAll'
+            },
             className: '',
             rowSelection: null, //列表项是否可选择
             pagination: null,   //分页器，配置项参考 pagination，设为 false 时不展示和进行分页
@@ -43,29 +47,30 @@ class Table extends Lego.UI.Baseview {
             scroll: {} //横向或纵向支持滚动，也可用于指定滚动区域的宽高度：{{ x: true, y: 300 }}
         };
         Object.assign(options, opts);
-        options.columns.map((col) => {
-            col = Object.assign({
-                title: '',  //列头显示文字
-                isHide: false, //是否隐藏
-                dataIndex: '',  //列数据在数据项中对应的 key，支持 a.b.c 的嵌套写法
-                render(){},  //生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return里面可以设置表格行/列合并
-                filters: [],  //表头的筛选菜单项
-                onFilter(){},  //本地模式下，确定筛选的运行函数
-                filterMultiple: false,  //是否多选
-                filterDropdown: null,  //可以自定义筛选菜单，此函数只负责渲染图层，需要自行编写各种交互
-                filterDropdownVisible: false,  //用于控制自定义筛选菜单是否可见
-                onFilterDropdownVisibleChange(){},  //自定义筛选菜单可见变化时调用
-                filteredValue: [],  //筛选的受控属性，外界可用此控制列的筛选状态，值为已筛选的 value 数组
-                sorter(){},  //排序函数，本地排序使用一个函数，需要服务端排序可设为 true
-                colSpan: 0,  //表头列合并,设置为 0 时，不渲染
-                width: '',  //列宽度
-                className: '',  //列的 className
-                fixed: false,  //列是否固定，可选 true(等效于 left) 'left' 'right'
-                sortOrder: '',  //排序的受控属性，外界可用此控制列的排序，可设置为 'ascend' 'descend' false
-                onCellClick(){}  //单元格点击回调
-            }, col);
-        });
+        // options.columns.map((col) => {
+        //     col = Object.assign({
+        //         title: '',  //列头显示文字
+        //         isHide: false, //是否隐藏
+        //         dataIndex: '',  //列数据在数据项中对应的 key，支持 a.b.c 的嵌套写法
+        //         render(){},  //生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return里面可以设置表格行/列合并
+        //         filters: [],  //表头的筛选菜单项
+        //         onFilter(){},  //本地模式下，确定筛选的运行函数
+        //         filterMultiple: false,  //是否多选
+        //         filterDropdown: null,  //可以自定义筛选菜单，此函数只负责渲染图层，需要自行编写各种交互
+        //         filterDropdownVisible: false,  //用于控制自定义筛选菜单是否可见
+        //         onFilterDropdownVisibleChange(){},  //自定义筛选菜单可见变化时调用
+        //         filteredValue: [],  //筛选的受控属性，外界可用此控制列的筛选状态，值为已筛选的 value 数组
+        //         sorter(){},  //排序函数，本地排序使用一个函数，需要服务端排序可设为 true
+        //         colSpan: 0,  //表头列合并,设置为 0 时，不渲染
+        //         width: '',  //列宽度
+        //         className: '',  //列的 className
+        //         fixed: false,  //列是否固定，可选 true(等效于 left) 'left' 'right'
+        //         sortOrder: '',  //排序的受控属性，外界可用此控制列的排序，可设置为 'ascend' 'descend' false
+        //         onCellClick(){}  //单元格点击回调
+        //     }, col);
+        // });
         super(options);
+        this.selectedAll = false;
     }
     render() {
         const options = this.options;
@@ -91,14 +96,16 @@ class Table extends Lego.UI.Baseview {
         return vDom;
     }
     _renderSelection(row = {}, tagName = 'td'){
-        const options = this.options;
+        const options = this.options,
+            theType = options.type || 'checkbox',
+            that = this;
         function getHx(){
             return hx`
             <span>
-                <label class="lego-checkbox-wrapper">
-                    <span class="lego-checkbox ${row.selected ? 'lego-checkbox-checked lego-checkbox-checked-1' : ''}">
+                <label class="lego-${theType}-wrapper">
+                    <span class="lego-checkbox ${(row.selected || (tagName === 'th' && that.selectedAll)) ? 'lego-checkbox-checked lego-checkbox-checked-1' : ''}">
                         <span class="lego-checkbox-inner"></span>
-                        <input type="checkbox" class="lego-checkbox-input" value="on">
+                        <input type="${theType}" class="lego-checkbox-input" value="on">
                     </span>
                 </label>
             </span>
@@ -127,14 +134,15 @@ class Table extends Lego.UI.Baseview {
         const options = this.options;
         const vDom = hx`
         <tbody class="lego-table-tbody">
-            ${options.data.map(row => hx`
-                <tr class="${options.rowClassName}">
+            ${options.data.map((row, i) => {
+                row.key = Lego.randomKey(16);
+                return hx`<tr class="${options.rowClassName}" id="${row.key}">
                 ${options.rowSelection ? this._renderSelection(row, 'td') : ''}
                 ${options.columns.map(col => hx`
-                    <td>${row[col.dataIndex]}</td>
+                    <td>${typeof col.render === 'function' ? col.render(row[col.dataIndex], row, row.key) : row[col.dataIndex]}</td>
                 `)}
-                </tr>
-            `)}
+                </tr>`;
+            })}
         </tbody>
         `;
         return vDom;
@@ -146,9 +154,47 @@ class Table extends Lego.UI.Baseview {
         `;
         return vDom;
     }
-    // onClick(event){
-    //     event.stopPropagation();
-    //     if(typeof this.options.onClick === 'function') this.options.onClick(event);
-    // }
+    // 选中一条
+    selectOne(event) {
+        event.stopPropagation();
+        const target = $(event.currentTarget),
+            trEl = target.closest('tr'),
+            id = trEl.attr('id'),
+            that = this;
+        if (this.options.rowSelection) {
+            const row = this.options.data.find(function(value, index, arr) {
+                    return value.key === id;
+                });
+            if(row) row.selected = !row.selected;
+            const hasSelected = this.options.data.find(function(value, index, arr) {
+                    return value.selected;
+                });
+            this.selectedAll = !!hasSelected;
+            this.refresh();
+        }
+    }
+    selectAll(event){
+        event.stopPropagation();
+        const target = $(event.currentTarget);
+        if (this.options.rowSelection) {
+            const isChecked = target.is(':checked');
+            const isSelected = isChecked ? true : false;
+            this.selectedAll = isSelected;
+            this.options.data.map((row, index) => {
+                row.selected = isSelected;
+            });
+            this.refresh();
+        }
+    }
+    // 获取
+    getSelected() {
+        let rows = [];
+        if (Array.isArray(this.options.data)) {
+            this.options.data.map((row) => {
+                if(row.selected) rows.push(row);
+            });
+        }
+        return rows;
+    }
 }
 export default Table;

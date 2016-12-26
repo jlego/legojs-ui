@@ -12,9 +12,9 @@ class TableView extends Lego.UI.Baseview {
                 rowSelection: {
                     type: 'checkbox'
                 },
-                bordered: true,
+                // bordered: true,
                 showHeader: true, //是否显示表头
-                showFooter: true, //是否显示表尾
+                // showFooter: true, //是否显示表尾
                 title(){
                     return '表格标题';
                 },
@@ -29,6 +29,16 @@ class TableView extends Lego.UI.Baseview {
                 }, {
                     key: '2',
                     name: '胡彦祖',
+                    age: 42,
+                    address: '西湖区湖底公园1号'
+                }, {
+                    key: '3',
+                    name: '胡彦斌2',
+                    age: 32,
+                    address: '西湖区湖底公园1号'
+                }, {
+                    key: '4',
+                    name: '胡彦祖3',
                     age: 42,
                     address: '西湖区湖底公园1号'
                 }],

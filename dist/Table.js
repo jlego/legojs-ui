@@ -28,7 +28,7 @@ var _templateObject2 = _taggedTemplateLiteral([ '<div class="lego-table-title">'
 
 var _templateObject3 = _taggedTemplateLiteral([ '<div class="lego-table-footer">', "</div>" ], [ '<div class="lego-table-footer">', "</div>" ]);
 
-var _templateObject4 = _taggedTemplateLiteral([ '\n            <span>\n                <label class="lego-checkbox-wrapper">\n                    <span class="lego-checkbox ', '">\n                        <span class="lego-checkbox-inner"></span>\n                        <input type="checkbox" class="lego-checkbox-input" value="on">\n                    </span>\n                </label>\n            </span>\n            ' ], [ '\n            <span>\n                <label class="lego-checkbox-wrapper">\n                    <span class="lego-checkbox ', '">\n                        <span class="lego-checkbox-inner"></span>\n                        <input type="checkbox" class="lego-checkbox-input" value="on">\n                    </span>\n                </label>\n            </span>\n            ' ]);
+var _templateObject4 = _taggedTemplateLiteral([ '\n            <span>\n                <label class="lego-', '-wrapper">\n                    <span class="lego-checkbox ', '">\n                        <span class="lego-checkbox-inner"></span>\n                        <input type="', '" class="lego-checkbox-input" value="on">\n                    </span>\n                </label>\n            </span>\n            ' ], [ '\n            <span>\n                <label class="lego-', '-wrapper">\n                    <span class="lego-checkbox ', '">\n                        <span class="lego-checkbox-inner"></span>\n                        <input type="', '" class="lego-checkbox-input" value="on">\n                    </span>\n                </label>\n            </span>\n            ' ]);
 
 var _templateObject5 = _taggedTemplateLiteral([ "\n        ", "\n        " ], [ "\n        ", "\n        " ]);
 
@@ -42,7 +42,7 @@ var _templateObject9 = _taggedTemplateLiteral([ "\n                <th><span>", 
 
 var _templateObject10 = _taggedTemplateLiteral([ '\n        <tbody class="lego-table-tbody">\n            ', "\n        </tbody>\n        " ], [ '\n        <tbody class="lego-table-tbody">\n            ', "\n        </tbody>\n        " ]);
 
-var _templateObject11 = _taggedTemplateLiteral([ '\n                <tr class="', '">\n                ', "\n                ", "\n                </tr>\n            " ], [ '\n                <tr class="', '">\n                ', "\n                ", "\n                </tr>\n            " ]);
+var _templateObject11 = _taggedTemplateLiteral([ '<tr class="', '" id="', '">\n                ', "\n                ", "\n                </tr>" ], [ '<tr class="', '" id="', '">\n                ', "\n                ", "\n                </tr>" ]);
 
 var _templateObject12 = _taggedTemplateLiteral([ "\n                    <td>", "</td>\n                " ], [ "\n                    <td>", "</td>\n                " ]);
 
@@ -90,6 +90,10 @@ var Table = function(_Lego$UI$Baseview) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Table);
         var options = {
+            events: {
+                "click tbody .lego-checkbox": "selectOne",
+                "click thead .lego-checkbox > input": "selectAll"
+            },
             className: "",
             rowSelection: null,
             pagination: null,
@@ -122,29 +126,9 @@ var Table = function(_Lego$UI$Baseview) {
             scroll: {}
         };
         Object.assign(options, opts);
-        options.columns.map(function(col) {
-            col = Object.assign({
-                title: "",
-                isHide: false,
-                dataIndex: "",
-                render: function render() {},
-                filters: [],
-                onFilter: function onFilter() {},
-                filterMultiple: false,
-                filterDropdown: null,
-                filterDropdownVisible: false,
-                onFilterDropdownVisibleChange: function onFilterDropdownVisibleChange() {},
-                filteredValue: [],
-                sorter: function sorter() {},
-                colSpan: 0,
-                width: "",
-                className: "",
-                fixed: false,
-                sortOrder: "",
-                onCellClick: function onCellClick() {}
-            }, col);
-        });
-        return _possibleConstructorReturn(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this, options));
+        var _this = _possibleConstructorReturn(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this, options));
+        _this.selectedAll = false;
+        return _this;
     }
     _createClass(Table, [ {
         key: "render",
@@ -158,9 +142,9 @@ var Table = function(_Lego$UI$Baseview) {
         value: function _renderSelection() {
             var row = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
             var tagName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "td";
-            var options = this.options;
+            var options = this.options, theType = options.type || "checkbox", that = this;
             function getHx() {
-                return hx(_templateObject4, row.selected ? "lego-checkbox-checked lego-checkbox-checked-1" : "");
+                return hx(_templateObject4, theType, row.selected || tagName === "th" && that.selectedAll ? "lego-checkbox-checked lego-checkbox-checked-1" : "", theType);
             }
             var vDom = hx(_templateObject5, tagName == "th" ? hx(_templateObject6, getHx()) : hx(_templateObject7, getHx()));
             return vDom;
@@ -179,9 +163,10 @@ var Table = function(_Lego$UI$Baseview) {
         value: function _renderBodyer() {
             var _this2 = this;
             var options = this.options;
-            var vDom = hx(_templateObject10, options.data.map(function(row) {
-                return hx(_templateObject11, options.rowClassName, options.rowSelection ? _this2._renderSelection(row, "td") : "", options.columns.map(function(col) {
-                    return hx(_templateObject12, row[col.dataIndex]);
+            var vDom = hx(_templateObject10, options.data.map(function(row, i) {
+                row.key = Lego.randomKey(16);
+                return hx(_templateObject11, options.rowClassName, row.key, options.rowSelection ? _this2._renderSelection(row, "td") : "", options.columns.map(function(col) {
+                    return hx(_templateObject12, typeof col.render === "function" ? col.render(row[col.dataIndex], row, row.key) : row[col.dataIndex]);
                 }));
             }));
             return vDom;
@@ -192,6 +177,52 @@ var Table = function(_Lego$UI$Baseview) {
             var options = this.options;
             var vDom = hx(_templateObject13);
             return vDom;
+        }
+    }, {
+        key: "selectOne",
+        value: function selectOne(event) {
+            event.stopPropagation();
+            var target = $(event.currentTarget), trEl = target.closest("tr"), id = trEl.attr("id"), that = this;
+            if (this.options.rowSelection) {
+                var row = this.options.data.find(function(value, index, arr) {
+                    return value.key === id;
+                });
+                if (row) row.selected = !row.selected;
+                var hasSelected = this.options.data.find(function(value, index, arr) {
+                    return value.selected;
+                });
+                this.selectedAll = !!hasSelected;
+                this.refresh();
+            }
+        }
+    }, {
+        key: "selectAll",
+        value: function selectAll(event) {
+            var _this3 = this;
+            event.stopPropagation();
+            var target = $(event.currentTarget);
+            if (this.options.rowSelection) {
+                (function() {
+                    var isChecked = target.is(":checked");
+                    var isSelected = isChecked ? true : false;
+                    _this3.selectedAll = isSelected;
+                    _this3.options.data.map(function(row, index) {
+                        row.selected = isSelected;
+                    });
+                    _this3.refresh();
+                })();
+            }
+        }
+    }, {
+        key: "getSelected",
+        value: function getSelected() {
+            var rows = [];
+            if (Array.isArray(this.options.data)) {
+                this.options.data.map(function(row) {
+                    if (row.selected) rows.push(row);
+                });
+            }
+            return rows;
         }
     } ]);
     return Table;
