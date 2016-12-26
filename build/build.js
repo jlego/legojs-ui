@@ -36,12 +36,13 @@ build([{
     alias: 'legoui',
     entry: 'src/index.js',
     dest: 'dist/legoui.js'
-}, 
-{alias: 'common'}, 
-{alias: 'alert'}, 
-{alias: 'badge'}, 
-{alias: 'viewport'}, 
-{alias: 'button'}
+},
+{alias: 'common'},
+{alias: 'alert'},
+{alias: 'badge'},
+{alias: 'viewport'},
+{alias: 'button'},
+{alias: 'table'}
 ].map(genConfig));
 
 function ucfirst(str) {

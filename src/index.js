@@ -5,11 +5,13 @@ import Viewport from "./viewport/index";
 import Alert from "./alert/index";
 import Badge from "./badge/index";
 import Button from "./button/index";
+import Table from "./table/index";
 
 export {
 	Baseview,
     Viewport,
     Alert,
     Badge,
-    Button
+    Button,
+    Table
 };

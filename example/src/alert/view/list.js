@@ -13,7 +13,7 @@ class ListView extends Lego.UI.Baseview {
                 el: '#button1',
                 type: 'default',
                 onClick(){
-                    console.warn('点击了此按钮');
+                    console.warn('点击了此按钮button1');
                 },
                 style: {
                     marginRight: 10
@@ -22,7 +22,7 @@ class ListView extends Lego.UI.Baseview {
                 el: '#button2',
                 type: 'primary',
                 onClick(){
-                    console.warn('点击了此按钮');
+                    console.warn('点击了此按钮button2');
                 },
                 style: {
                     marginRight: 10
@@ -31,7 +31,7 @@ class ListView extends Lego.UI.Baseview {
                 el: '#button3',
                 type: 'dashed',
                 onClick(){
-                    console.warn('点击了此按钮');
+                    console.warn('点击了此按钮button3');
                 },
                 style: {
                     marginRight: 10
@@ -40,7 +40,7 @@ class ListView extends Lego.UI.Baseview {
                 el: '#button4',
                 type: 'ghost',
                 onClick(){
-                    console.warn('点击了此按钮');
+                    console.warn('点击了此按钮button4');
                 },
                 style: {
                     marginRight: 10
@@ -49,7 +49,7 @@ class ListView extends Lego.UI.Baseview {
                 el: '#button5',
                 type: 'success',
                 onClick(){
-                    console.warn('点击了此按钮');
+                    console.warn('点击了此按钮button5');
                 },
                 style: {
                     marginRight: 10
@@ -58,7 +58,7 @@ class ListView extends Lego.UI.Baseview {
                 el: '#button6',
                 type: 'warning',
                 onClick(){
-                    console.warn('点击了此按钮');
+                    console.warn('点击了此按钮button6');
                 },
                 style: {
                     marginRight: 10
@@ -67,7 +67,7 @@ class ListView extends Lego.UI.Baseview {
                 el: '#button7',
                 type: 'danger',
                 onClick(){
-                    console.warn('点击了此按钮');
+                    console.warn('点击了此按钮button7');
                 },
                 style: {
                     marginRight: 10
@@ -76,17 +76,19 @@ class ListView extends Lego.UI.Baseview {
         };
         Object.assign(options, opts);
         super(options);
-        const text = `
-    var ihubo = {
-        nickName: "自由鱼",
+
+const text = `
+    var legojs = {
+        nickName: "freefish",
         site: "https://github.com/jlego/legojs"
     }`;
-        const table = `
+const table = `
 | h1    |    h2   |      h3 |
 |:------|:-------:|--------:|
 | 100   | [a][1]  | ![b][2] |
 | *foo* | **bar** | ~~baz~~ |
-        `;
+`;
+
         this.$('#md').html(markdown.makeHtml( text ));
         this.$('#tableDiv').html(markdown.makeHtml( table ));
         this.$('pre').each(function(i, block) {
