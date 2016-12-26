@@ -39,10 +39,12 @@
     "core-decorators": "^0.14.0",
     "director": "^1.2.8",
     "events": "^1.1.1",
+    "highlight.js": "^9.9.0",
     "jquery": "^3.1.1",
-    "lego-core": "^0.2.9",
+    "lego-core": "^0.3.8",
     "lego-ui": "^0.1.2",
     "object.observe": "^0.2.6",
+    "showdown": "^1.5.4",
     "virtual-dom": "^2.1.1"
   }
 }

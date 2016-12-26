@@ -10,10 +10,10 @@ class HomeView extends Lego.UI.Baseview {
         super(options);
     }
     render() {
-        let data = this.data.list || [];
+        let options = this.options.data || [];
         let vDom = hx`<div>
-          ${data.map((model, i) => {
-            return hx`<a id="${model.first}" href="#/home" style="display:block;">${model.first}</a>\n`
+          ${options.map((model, i) => {
+            return hx`<a href="#/home" style="display:block;">${model.first}</a>\n`
           })}
         </div>`;
         return vDom;

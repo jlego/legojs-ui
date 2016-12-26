@@ -1,36 +1,32 @@
 import './asset/index.scss';
 import Menu from './menu';
 
+Lego.components('menu', Menu);
+
 class Viewport extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
                 // 'click nav a': 'clickNav'
             },
-            scrollbar: true,
-            data: {
-                logoUrl: 'asset/img/logo.png',
-                menu: []
-            },
+            logoUrl: 'asset/img/logo.png',
+            menu: [],
             components: [{
-                el: '#sidebar',
-                view: Menu,
+                el: '#sidebar'
             }]
         };
-        options.components[0].data = options.data.menu;
-        options.components[0].scrollbar = options.scrollbar;
-        $.extend(true, options, opts);
+        Object.assign(options, opts);
         super(options);
     }
     render() {
         const tmpl = hx`
         <div id="app" class="app-navbar-fixed app-sidebar-fixed">
-            <div class="sidebar app-aside" id="sidebar"></div>
+            <menu id="sidebar"></menu>
             <div class="app-content">
                 <header class="navbar navbar-default navbar-static-top">
                     <div class="navbar-header">
                         <a class="navbar-brand" href="#">
-                            <img src="${this.data.logoUrl}" alt="" />
+                            <img src="${this.options.logoUrl}" alt="" />
                         </a>
                     </div>
                     <div class="navbar-collapse collapse">

@@ -1,6 +1,6 @@
 $header-height: 65px !default;
 $header-bg: #3eb7f3 !default;
-$header-hover-bg: #3399fe !default;
+$header-hover-bg: #40a5ed !default;
 $sidebar-width: 140px !default;
 $sidebar-bg: #1d252e !default;
 $sidebar-text-color: #9aa7af !default;
@@ -809,6 +809,15 @@ ul.sub-menu li ul.sub-menu li ul.sub-menu li a {
     font-size: 18px;
     padding: 10px 0px;
     margin: 10px 0;
+}
+
+.page-title a{
+    color: #999;
+    margin-right: 15px;
+    display: inline-block;
+}
+.page-title .active{
+    color: #34495e;
 }
 
 .page-panel {

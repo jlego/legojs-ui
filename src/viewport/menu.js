@@ -12,7 +12,8 @@ class Menu extends Lego.UI.Baseview {
     }
     render() {
         const tmpl = hx`
-        <div class="sidebar-container perfect-scrollbar ps-container ps-active-y">
+        <div class="sidebar app-aside" id="sidebar">
+        <div class="sidebar-container scrollbar ps-container ps-active-y">
             <nav>
                 <ul class="main-navigation-menu">
                     <li data-permis='{"module":"Home", "operate":"Query", "hide":1}' id="nav_home">
@@ -28,25 +29,25 @@ class Menu extends Lego.UI.Baseview {
                         </a>
                     </li>
                     <li data-permis='{"module":"Register", "operate":"Query", "hide":1}' id="nav_register">
-                        <a href="javascript:Lego.startApp('test');">
+                        <a href="javascript:Lego.startApp('alert');">
                             <div class="item-content">
                                 <div class="item-media">
                                     <i class="icon iconfont icon-account-info"></i>
                                 </div>
                                 <div class="item-inner">
-                                    <span class="title"> 售后管理 </span>
+                                    <span class="title"> 警告框 </span>
                                 </div>
                             </div>
                         </a>
                     </li>
                     <li data-permis='{"module":"Customer", "operate":"Query", "hide":1}' id="nav_customer">
-                        <a href="#customer/">
+                        <a href="javascript:Lego.startApp('button');">
                             <div class="item-content">
                                 <div class="item-media">
                                     <i class="icon iconfont icon-teamwork"></i>
                                 </div>
                                 <div class="item-inner">
-                                    <span class="title"> 客户管理 </span>
+                                    <span class="title"> 按钮 </span>
                                 </div>
                             </div>
                         </a>
@@ -137,6 +138,7 @@ class Menu extends Lego.UI.Baseview {
                     </li>
                 </ul>
             </nav>
+        </div>
         </div>
         `;
         return tmpl;

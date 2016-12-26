@@ -2,7 +2,7 @@
   "name": "lego-ui",
   "version": "0.1.2",
   "description": "legojs ui library",
-  "main": "dist/legoui-all.js",
+  "main": "dist/legoui.js",
   "directories": {
     "example": "example"
   },
@@ -62,7 +62,9 @@
     "whatwg-fetch": "^2.0.1"
   },
   "dependencies": {
-    "lego-core": "^0.2.9"
+    "highlight.js": "^9.9.0",
+    "lego-core": "^0.3.8",
+    "showdown": "^1.5.4"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

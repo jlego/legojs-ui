@@ -1,5 +1,5 @@
 /**
- * badge.js v0.1.2
+ * button.js v0.1.2
  * (c) 2016 Ronghui Yu
  * @license MIT
  */
@@ -22,9 +22,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ "<div>\n          ", "\n        </div>" ], [ "<div>\n          ", "\n        </div>" ]);
-
-var _templateObject2 = _taggedTemplateLiteral([ '<a id="', '" href="#/home" style="display:block;">', "</a>\n" ], [ '<a id="', '" href="#/home" style="display:block;">', "</a>\\n" ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <button type="', '" class="btn btn-', " lego-btn lego-btn-", '">\n            <span>', "</span>\n        </button>\n        " ], [ '\n        <button type="', '" class="btn btn-', " lego-btn lego-btn-", '">\n            <span>', "</span>\n        </button>\n        " ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -62,38 +60,43 @@ function _inherits(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Badge = function(_Lego$UI$Baseview) {
-    _inherits(Badge, _Lego$UI$Baseview);
-    function Badge() {
+var Button = function(_Lego$UI$Baseview) {
+    _inherits(Button, _Lego$UI$Baseview);
+    function Button() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck(this, Badge);
+        _classCallCheck(this, Button);
         var options = {
-            events: {
-                "click #400": "theClick"
-            }
+            text: "button",
+            type: "default",
+            htmlType: "button",
+            icon: "",
+            shape: "",
+            size: "default",
+            loading: false,
+            onClick: function onClick() {}
         };
         $.extend(true, options, opts);
-        return _possibleConstructorReturn(this, (Badge.__proto__ || Object.getPrototypeOf(Badge)).call(this, options));
+        if (typeof options.onClick == "function") {
+            options.events = options.events || {};
+            options.events["click"] = "onClick";
+        }
+        return _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).call(this, options));
     }
-    _createClass(Badge, [ {
+    _createClass(Button, [ {
         key: "render",
         value: function render() {
-            var options = this.options || [];
-            var vDom = hx(_templateObject, options.map(function(model, i) {
-                return hx(_templateObject2, model.first, model.first);
-            }));
+            var options = this.options || {};
+            var vDom = hx(_templateObject, options.htmlType, options.type, options.type, options.html || options.text);
             return vDom;
         }
     }, {
-        key: "theClick",
-        value: function theClick(event) {
+        key: "onClick",
+        value: function onClick(event) {
             event.stopPropagation();
-            Lego.trigger("data_update", {
-                aa: 1
-            });
+            if (typeof this.options.onClick === "function") this.options.onClick(event);
         }
     } ]);
-    return Badge;
+    return Button;
 }(Lego.UI.Baseview);
 
-module.exports = Badge;
+module.exports = Button;

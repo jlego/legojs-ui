@@ -14,13 +14,14 @@ class ListView extends Lego.UI.Baseview {
         super(options);
     }
     render() {
-        let data = this.data.list || [];
-        debug.warn('更新了视图', data);
+        let options = this.options.data || [];
+        debug.warn('更新了视图', options);
         let vDom = hx`<div>
           <h1>hello world!</h1>
-          ${data.map((model, i) => {
-            return hx`<a id="${model.first}" href="#/home/list" style="display:block;">${model.last}</a>\n`
+          ${options.map((model, i) => {
+            return hx`<a href="#/home/list" style="display:block;">${model.last}</a>\n`
           })}
+          <home id="test"></home>
         </div>`;
         return vDom;
     }
