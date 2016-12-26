@@ -76,11 +76,14 @@ var Baseview = function(_Lego$View) {
         value: function _renderComponents() {
             var _this2 = this;
             var that = this;
-            if (this.options.components.length && !this.isloaded) {
-                this.isloaded = true;
-                this.options.components.forEach(function(item, i) {
-                    Lego.create(item);
-                });
+            if (this.options.components) {
+                if (this.options.components.length && !this.isloaded) {
+                    this.isloaded = true;
+                    this.options.components.forEach(function(item, i) {
+                        var tagName = item.el ? that.$(item.el)[0].tagName : "";
+                        if (tagName) Lego.create(Lego.UI[tagName.toLowerCase()], item);
+                    });
+                }
             }
             if (this.options.scrollbar) {
                 (function() {

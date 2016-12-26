@@ -78,8 +78,8 @@ var Badge = function(_Lego$UI$Baseview) {
     _createClass(Badge, [ {
         key: "render",
         value: function render() {
-            var data = this.data.list || [];
-            var vDom = hx(_templateObject, data.map(function(model, i) {
+            var options = this.options || [];
+            var vDom = hx(_templateObject, options.map(function(model, i) {
                 return hx(_templateObject2, model.first, model.first);
             }));
             return vDom;

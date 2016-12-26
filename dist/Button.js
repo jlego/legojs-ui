@@ -66,19 +66,17 @@ var Button = function(_Lego$UI$Baseview) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Button);
         var options = {
-            data: {
-                text: "button",
-                type: "default",
-                htmlType: "button",
-                icon: "",
-                shape: "",
-                size: "default",
-                loading: false,
-                onClick: function onClick() {}
-            }
+            text: "button",
+            type: "default",
+            htmlType: "button",
+            icon: "",
+            shape: "",
+            size: "default",
+            loading: false,
+            onClick: function onClick() {}
         };
         $.extend(true, options, opts);
-        if (typeof options.data.onClick == "function") {
+        if (typeof options.onClick == "function") {
             options.events = options.events || {};
             options.events["click"] = "onClick";
         }
@@ -87,15 +85,15 @@ var Button = function(_Lego$UI$Baseview) {
     _createClass(Button, [ {
         key: "render",
         value: function render() {
-            var data = this.data || {};
-            var vDom = hx(_templateObject, data.htmlType, data.type, data.type, data.html || data.text);
+            var options = this.options || {};
+            var vDom = hx(_templateObject, options.htmlType, options.type, options.type, options.html || options.text);
             return vDom;
         }
     }, {
         key: "onClick",
         value: function onClick(event) {
             event.stopPropagation();
-            if (typeof this.data.onClick === "function") this.data.onClick(event);
+            if (typeof this.options.onClick === "function") this.options.onClick(event);
         }
     } ]);
     return Button;

@@ -1,6 +1,8 @@
 // import { Alert } from 'lego-ui';
 import Button from '../../../../dist/Button';
 
+Lego.components('button', Button);
+
 class ListView extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
@@ -9,95 +11,74 @@ class ListView extends Lego.UI.Baseview {
             },
             components: [{
                 el: '#button1',
-                view: Button,
-                data: {
-                    type: 'default',
-                    onClick(){
-                        console.warn('点击了此按钮');
-                    }
+                type: 'default',
+                onClick(){
+                    console.warn('点击了此按钮');
                 },
                 style: {
                     marginRight: 10
                 }
             }, {
                 el: '#button2',
-                view: Button,
-                data: {
-                    type: 'primary',
-                    onClick(){
-                        console.warn('点击了此按钮');
-                    }
+                type: 'primary',
+                onClick(){
+                    console.warn('点击了此按钮');
                 },
                 style: {
                     marginRight: 10
                 }
             }, {
                 el: '#button3',
-                view: Button,
-                data: {
-                    type: 'dashed',
-                    onClick(){
-                        console.warn('点击了此按钮');
-                    }
+                type: 'dashed',
+                onClick(){
+                    console.warn('点击了此按钮');
                 },
                 style: {
                     marginRight: 10
                 }
             }, {
                 el: '#button4',
-                view: Button,
-                data: {
-                    type: 'ghost',
-                    onClick(){
-                        console.warn('点击了此按钮');
-                    }
+                type: 'ghost',
+                onClick(){
+                    console.warn('点击了此按钮');
                 },
                 style: {
                     marginRight: 10
                 }
             }, {
                 el: '#button5',
-                view: Button,
-                data: {
-                    type: 'success',
-                    onClick(){
-                        console.warn('点击了此按钮');
-                    }
+                type: 'success',
+                onClick(){
+                    console.warn('点击了此按钮');
                 },
                 style: {
                     marginRight: 10
                 }
             }, {
                 el: '#button6',
-                view: Button,
-                data: {
-                    type: 'warning',
-                    onClick(){
-                        console.warn('点击了此按钮');
-                    }
+                type: 'warning',
+                onClick(){
+                    console.warn('点击了此按钮');
                 },
                 style: {
                     marginRight: 10
                 }
             }, {
                 el: '#button7',
-                view: Button,
-                data: {
-                    type: 'danger',
-                    onClick(){
-                        console.warn('点击了此按钮');
-                    }
+                type: 'danger',
+                onClick(){
+                    console.warn('点击了此按钮');
                 },
                 style: {
                     marginRight: 10
                 }
             }]
         };
-        $.extend(true, options, opts);
+        Object.assign(options, opts);
         super(options);
         const text = `
-    var ihubo = {   
-        nickName: "自由鱼",    
+    var ihubo = {
+        nickName: "自由鱼",
         site: "https://github.com/jlego/legojs"
     }`;
         const table = `

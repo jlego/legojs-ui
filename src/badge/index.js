@@ -9,9 +9,9 @@ class Badge extends Lego.UI.Baseview {
         super(options);
     }
     render() {
-        let data = this.data.list || [];
+        let options = this.options || [];
         let vDom = hx`<div>
-          ${data.map((model, i) => {
+          ${options.map((model, i) => {
             return hx`<a id="${model.first}" href="#/home" style="display:block;">${model.first}</a>\n`
           })}
         </div>`;

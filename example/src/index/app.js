@@ -2,12 +2,9 @@
 // import { Viewport } from 'lego-ui';
 import Viewport from '../../../dist/Viewport';
 
-HBY.create({
+HBY.create(Viewport, {
     el: 'body',
-    view: Viewport,
     scrollbar: {},
-    data: {
-    	logoUrl: 'dist/img/logo.png',
-    }
+    logoUrl: 'dist/img/logo.png',
 });
 HBY.startApp();

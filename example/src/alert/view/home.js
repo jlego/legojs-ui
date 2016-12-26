@@ -1,6 +1,8 @@
 // import { Alert } from 'lego-ui';
 import Alert from '../../../../dist/Alert';
 
+Lego.components('alert', Alert);
+
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
@@ -9,44 +11,30 @@ class HomeView extends Lego.UI.Baseview {
             },
             components: [{
                 el: '#alert1',
-                view: Alert,
-                data: {
-                    type: 'success',
-                    closable: true,
-                    showIcon: false,
-                    message: '警告提示内容',
-                    // description: '警告提示的辅助性文字介绍',
-                }
+                type: 'success',
+                closable: true,
+                showIcon: false,
+                message: '警告提示内容',
             }, {
                 el: '#alert2',
-                view: Alert,
-                data: {
-                    type: 'info',
-                    closable: true,
-                    showIcon: true,
-                    message: '警告提示内容',
-                    // description: '警告提示的辅助性文字介绍',
-                }
+                type: 'info',
+                closable: true,
+                showIcon: true,
+                message: '警告提示内容',
             }, {
                 el: '#alert3',
-                view: Alert,
-                data: {
-                    type: 'warning',
-                    closable: true,
-                    showIcon: false,
-                    message: '警告提示内容',
-                    description: '警告提示的辅助性文字介绍',
-                }
+                type: 'warning',
+                closable: true,
+                showIcon: false,
+                message: '警告提示内容',
+                description: '警告提示的辅助性文字介绍',
             }, {
                 el: '#alert4',
-                view: Alert,
-                data: {
-                    type: 'error',
-                    closable: true,
-                    showIcon: true,
-                    message: '警告提示内容',
-                    description: '警告提示的辅助性文字介绍',
-                }
+                type: 'error',
+                closable: true,
+                showIcon: true,
+                message: '警告提示内容',
+                description: '警告提示的辅助性文字介绍',
             }]
         };
         $.extend(true, options, opts);
@@ -66,18 +54,18 @@ class HomeView extends Lego.UI.Baseview {
     theClick(event){
         const target = $(event.currentTarget),
             theView = HBY.getView(target);
-        switch(theView.data.type){
+        switch(theView.options.type){
             case 'success':
-                theView.data.type = 'info'
+                theView.options.type = 'info'
                 break;
             case 'info':
-                theView.data.type = 'warning'
+                theView.options.type = 'warning'
                 break;
             case 'warning':
-                theView.data.type = 'error'
+                theView.options.type = 'error'
                 break;
             case 'error':
-                theView.data.type = 'success'
+                theView.options.type = 'success'
                 break;
         }
     }

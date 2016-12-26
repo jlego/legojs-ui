@@ -11,20 +11,16 @@ class alertRouter {
         };
     }
     index(){
-        this.viewObj = HBY.create({
-            view: IndexView,
+        this.viewObj = HBY.create(IndexView, {
             // scrollbar: {},
-            data: {
-                currentTab: 0
-            }
+            currentTab: 0
         });
     }
     tabs(tabs = 0){
-        this.viewObj.data.currentTab = tabs || 0;
+        this.viewObj.options.currentTab = tabs || 0;
         const appArray = [homeView, listView];
-        HBY.create({
-            el: '#pageContent',
-            view: appArray[tabs]
+        HBY.create(appArray[tabs], {
+            el: '#pageContent'
         });
     }
 }
