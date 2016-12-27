@@ -5,12 +5,25 @@ Lego.components('table', Table);
 
 class TableView extends Lego.UI.Baseview {
     constructor(opts = {}) {
+        const theData = [];
+        for(let i = 0; i < 10; i++){
+            theData.push({
+                key: i,
+                name: '胡彦斌' + i,
+                age: 32 + i,
+                // disabled: true,
+                address: '西湖区湖底公园1号'
+            });
+        }
         const options = {
             components: [{
                 el: '#table1',
-                className: '',
+                className: 'table-striped',
                 rowSelection: {
                     type: 'checkbox'
+                },
+                pagination: {
+
                 },
                 // bordered: true,
                 showHeader: true, //是否显示表头
@@ -21,35 +34,28 @@ class TableView extends Lego.UI.Baseview {
                 footer(){
                     return '表格尾部';
                 },
-                data: [{
-                    key: '1',
-                    name: '胡彦斌',
-                    age: 32,
-                    address: '西湖区湖底公园1号'
-                }, {
-                    key: '2',
-                    name: '胡彦祖',
-                    age: 42,
-                    address: '西湖区湖底公园1号'
-                }, {
-                    key: '3',
-                    name: '胡彦斌2',
-                    age: 32,
-                    address: '西湖区湖底公园1号'
-                }, {
-                    key: '4',
-                    name: '胡彦祖3',
-                    age: 42,
-                    address: '西湖区湖底公园1号'
-                }],
+                data: theData,
                 columns: [{
                     title: '姓名',
                     dataIndex: 'name',
                     key: 'name',
+                    filter(col){
+                        console.warn('点击了筛选', col);
+                    },
+                    // isHide: true
                 }, {
                     title: '年龄',
                     dataIndex: 'age',
                     key: 'age',
+                    onCellClick(row, col){
+                        console.warn(row, col);
+                    },
+                    filter(col){
+                        console.warn('点击了筛选', col);
+                    },
+                    sorter(col){
+                        console.warn('点击了排序', col);
+                    }
                 }, {
                     title: '住址',
                     dataIndex: 'address',

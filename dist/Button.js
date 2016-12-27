@@ -66,6 +66,9 @@ var Button = function(_Lego$UI$Baseview) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Button);
         var options = {
+            events: {
+                click: "onClick"
+            },
             text: "button",
             type: "default",
             htmlType: "button",
@@ -75,11 +78,7 @@ var Button = function(_Lego$UI$Baseview) {
             loading: false,
             onClick: function onClick() {}
         };
-        $.extend(true, options, opts);
-        if (typeof options.onClick == "function") {
-            options.events = options.events || {};
-            options.events["click"] = "onClick";
-        }
+        Object.assign(options, opts);
         return _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).call(this, options));
     }
     _createClass(Button, [ {

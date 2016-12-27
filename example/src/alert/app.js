@@ -13,6 +13,7 @@ class alertRouter {
     }
     index(){
         this.viewObj = HBY.create(IndexView, {
+            scrollbar: {},
             currentTab: 0
         });
     }

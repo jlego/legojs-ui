@@ -28,9 +28,9 @@ module.exports = {
             test: /\.scss$/,
             loader: ExtractTextPlugin.extract('style', 'css!sass')
         }, {
-            test: /\.css$/, 
-            loader: "style!css"
-            // loader: ExtractTextPlugin.extract('style', "css")
+            test: /\.css$/,
+            // loader: "style!css"
+            loader: ExtractTextPlugin.extract('style', "css")
         }, {
             test: /\.(png|jpe?g)$/,
             loader: 'url?prefix=img&limit=10240&name=img/[name].[hash].[ext]'

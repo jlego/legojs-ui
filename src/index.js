@@ -6,6 +6,7 @@ import Alert from "./alert/index";
 import Badge from "./badge/index";
 import Button from "./button/index";
 import Table from "./table/index";
+import Pagination from "./pagination/index";
 
 export {
 	Baseview,
@@ -13,5 +14,6 @@ export {
     Alert,
     Badge,
     Button,
-    Table
+    Table,
+    Pagination
 };

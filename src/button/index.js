@@ -3,6 +3,9 @@ import './asset/index.scss';
 class Button extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
+            events: {
+                'click': 'onClick'
+            },
             text: 'button', //text/html
             type: 'default',   //设置按钮类型，可选值为 primary ghost dashed 或者不设
             htmlType: 'button', //设置 button 原生的 type 值
@@ -12,11 +15,7 @@ class Button extends Lego.UI.Baseview {
             loading: false,    //设置按钮载入状态
             onClick(){}   //click 事件的 handler
         };
-        $.extend(true, options, opts);
-        if(typeof options.onClick == 'function'){
-            options.events = options.events || {};
-            options.events['click'] = 'onClick';
-        }
+        Object.assign(options, opts);
         super(options);
     }
     render() {

@@ -4,7 +4,6 @@ class IndexView extends Lego.UI.Baseview {
             events: {
                 // 'click .alert': 'theClick'
             },
-            scrollbar: {},
             currentTab: 0
         };
         $.extend(true, options, opts);
