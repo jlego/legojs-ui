@@ -6,7 +6,7 @@ Lego.components('table', Table);
 class TableView extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const theData = [];
-        for(let i = 0; i < 10; i++){
+        for(let i = 0; i < 50; i++){
             theData.push({
                 key: i,
                 name: '胡彦斌' + i,
@@ -34,11 +34,15 @@ class TableView extends Lego.UI.Baseview {
                 footer(){
                     return '表格尾部';
                 },
+                style: {
+                    height: '100%'
+                },
                 data: theData,
                 columns: [{
                     title: '姓名',
                     dataIndex: 'name',
                     key: 'name',
+                    width: '200px',
                     filter(col){
                         console.warn('点击了筛选', col);
                     },
@@ -47,6 +51,7 @@ class TableView extends Lego.UI.Baseview {
                     title: '年龄',
                     dataIndex: 'age',
                     key: 'age',
+                    width: '200px',
                     onCellClick(row, col){
                         console.warn(row, col);
                     },
@@ -60,6 +65,7 @@ class TableView extends Lego.UI.Baseview {
                     title: '住址',
                     dataIndex: 'address',
                     key: 'address',
+                    width: '200px',
                 }],
             }]
         };
@@ -68,7 +74,7 @@ class TableView extends Lego.UI.Baseview {
     }
     render() {
         const vDom = hx `
-        <div id="pageContent">
+        <div id="pageContent" style="height:100%">
             <table id="table1"></table>
         </div>
         `;

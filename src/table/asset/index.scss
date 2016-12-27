@@ -79,8 +79,8 @@
 }
 
 .lego-table-footer {
-    padding: 16px 8px;
-    background: #f7f7f7;
+    padding: 8px;
+    background: #fff;
     border-radius: 0 0 4px 4px;
     position: relative;
 }
@@ -88,7 +88,7 @@
 .lego-table-footer:before {
     content: '';
     height: 1px;
-    background: #f7f7f7;
+    background: #fff;
     position: absolute;
     top: -1px;
     width: 100%;
@@ -304,7 +304,34 @@
     border-right: 0;
     border-bottom: 0;
 }
-
+.lego-table-fixed-header .lego-table-content{
+    padding-bottom: 48px;
+    height: 100%;
+}
+.lego-table-fixed-header .lego-table-scroll{
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.lego-table-fixed-header .lego-table-header {
+    overflow: scroll;    
+    position: absolute;
+    width: 100%;
+    padding-bottom: 0px;
+    margin-bottom: -15px;
+}
+.lego-table-fixed-header .lego-table-body{
+    top: 48px;
+    bottom: 45px;
+    width: 100%;
+    position: absolute;
+    overflow: auto;
+}
+.lego-table-fixed-header .lego-table-footer{
+    bottom: 0px;
+    width: 100%;
+    position: absolute;
+}
 .lego-table-bordered.lego-table-fixed-header .lego-table-header > table {
     border-bottom: 0;
 }
@@ -373,7 +400,7 @@
 
 .lego-table-pagination {
     padding-left: 0px;
-    margin: 16px 0;
+    margin: 0;
     // float: right;
 }
 
@@ -507,7 +534,7 @@ tr.lego-table-expanded-row:hover {
 }
 
 .lego-table-fixed-header .lego-table-body {
-    position: relative;
+    // position: relative;
     background: #fff;
 }
 

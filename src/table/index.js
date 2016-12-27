@@ -17,8 +17,9 @@ class Table extends Lego.UI.Baseview {
                 'click thead .lego-checkbox > input': 'selectAll',
                 'click .lego-table-column-sorter': 'clickSorter',
                 'click .anticon-filter': 'clickFilter',
-                'click .lego-table-tbody td': 'clickTd'
+                'click .lego-table-tbody td': 'clickItem'
             },
+            scrollbar: {},
             className: '',
             rowSelection: null, //列表项是否可选择
             pagination: null,   //分页器，配置项参考 pagination，设为 false 时不展示和进行分页
@@ -43,12 +44,12 @@ class Table extends Lego.UI.Baseview {
             indentSize: 0, //展示树形数据时，每层缩进的宽度，以 px 为单位
             onRowClick(){}, //处理行点击事件
             bordered: false, //是否展示外边框和列边框
-            showHeader: true, //是否显示表头
+            showHeader: false, //是否显示表头
             showBodyer: true, //是否显示表体
             showFooter: false, //是否显示表尾
-            footer(){}, //表格尾部
+            // footer(){}, //表格尾部
             // title(){}, //表格标题
-            scroll: {}, //横向或纵向支持滚动，也可用于指定滚动区域的宽高度：{{ x: true, y: 300 }}
+            // scroll: {}, //横向或纵向支持滚动，也可用于指定滚动区域的宽高度：{{ x: true, y: 300 }}
             // components: []
         };
         Object.assign(options, opts);
@@ -76,42 +77,55 @@ class Table extends Lego.UI.Baseview {
             const theOpt = {...options.pagination, el: '#paginationId'};
             Lego.create(Pagination, theOpt);
         }
+        // 同步横向滚动
+        const header = this.$('.lego-table-header');
+        this.$('.lego-table-body').scroll(function() {
+            header.scrollLeft($(this).scrollLeft());
+        });
     }
     render() {
         const options = this.options;
         const vDom = hx`
-        <div class="clearfix">
-            <div class="lego-spin-nested-loading">
-                <div class="lego-spin-container">
-                    <div class="lego-table lego-table-${options.size} ${options.bordered ? 'lego-table-bordered' : ''} lego-table-scroll-position-left">
-                        ${options.title ? hx`<div class="lego-table-title">${options.title()}</div>` : ''}
-                        <div class="lego-table-content">
-                            <div class="${options.showHeader ? 'lego-table-scroll' : ''}">
-                                <span>
-                                ${options.showHeader ? hx`
-                                <div class="lego-table-header" style="margin-bottom: -17px; padding-bottom: 0px;">
-                                    <table class="">
-                                        ${this._renderHeader()}
-                                    </table>
-                                </div>
-                                `
-                                 : ''}
-                                <div class="lego-table-body">
-                                    <table class="${options.className}">
-                                        ${!options.showHeader ? this._renderHeader() : ''}
-                                        ${this._renderBodyer()}
-                                        ${this._renderFooter()}
-                                    </table>
-                                </div>
-                                </span>
-                                ${options.showFooter ? hx`<div class="lego-table-footer">${options.footer()}</div>` : ''}
-                            </div>
-                        </div>
+        <div class="clearfix lego-table lego-table-${options.size} ${options.bordered ? 'lego-table-bordered' : ''} ${options.showHeader ? 'lego-table-fixed-header' : ''} lego-table-scroll-position-left">
+            ${options.title ? hx`<div class="lego-table-title">${options.title()}</div>` : ''}
+            <div class="lego-table-content">
+                <div class="lego-table-scroll">
+                ${options.showHeader ? hx`
+                <div class="lego-table-header">
+                    <table class="">
+                        ${this._renderColgroup()}
+                        ${this._renderHeader()}
+                    </table>
+                </div>
+                ` : ''}
+                <div class="lego-table-body ${options.showHeader ? 'scrollbar' : ''}">
+                    <table class="${options.className}">
+                        ${this._renderColgroup()}
+                        ${!options.showHeader ? this._renderHeader() : ''}
+                        ${this._renderBodyer()}
+                        ${this._renderFooter()}
+                    </table>
+                </div>
+                ${options.pagination ? hx`
+                    <div class="lego-table-footer">
+                    <pagination id="paginationId"></pagination>
                     </div>
+                ` : ''}
                 </div>
             </div>
-            ${options.pagination ? hx`<pagination id="paginationId"></pagination>` : ''}
         </div>
+        `;
+        return vDom;
+    }
+    _renderColgroup(){
+        const vDom = hx`
+        <colgroup>
+            ${this.options.rowSelection ? hx`<col style="width: 30px;">` : ''}
+            ${this.options.columns.map((col, index) => hx`
+                ${index === this.options.columns.length -1 ? hx`<col>` : 
+                hx`<col style="width: ${col.width};">`}
+            `)}
+        </colgroup>
         `;
         return vDom;
     }
@@ -197,7 +211,7 @@ class Table extends Lego.UI.Baseview {
         return vDom;
     }
     _renderFilter(col = {}){
-        return col.filter ? hx`<i title="Filter Menu" class="anticon anticon-filter lego-dropdown-trigger"></i>` : '';
+        return col.filter ? hx`<i title="filter" class="anticon anticon-filter"></i>` : '';
     }
     clickSorter(event){
         event.stopPropagation();
@@ -221,15 +235,20 @@ class Table extends Lego.UI.Baseview {
             if(typeof col.sorter === 'function') col.sorter(col);
         }
     }
-    clickTd(event){
+    clickItem(event){
         event.stopPropagation();
         const target = $(event.currentTarget),
             rowKey = target.parent().attr('id'),
-            colKey = target.closest('tbody').prev('thead').find('th').eq(event.currentTarget.cellIndex).attr('id');
+            colKey = this.$('thead').find('th').eq(event.currentTarget.cellIndex).attr('id');
         const row = this.options.data.find(val => val.key === rowKey);
         const col = this.options.columns.find(val => val.key === colKey);
         if(row && col){
-            if(typeof col.onCellClick === 'function') col.onCellClick(row, col);
+            if(this.options.onRowClick){
+                if(typeof col.onRowClick === 'function') col.onRowClick(row);
+            }
+            if(col.onCellClick){
+                if(typeof col.onCellClick === 'function') col.onCellClick(row, col);
+            }
         }
     }
     clickFilter(event){

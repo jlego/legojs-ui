@@ -690,39 +690,47 @@ var _createClass$6 = function() {
     };
 }();
 
-var _templateObject$5 = _taggedTemplateLiteral$5([ '\n        <div class="clearfix">\n            <div class="lego-spin-nested-loading">\n                <div class="lego-spin-container">\n                    <div class="lego-table lego-table-', " ", ' lego-table-scroll-position-left">\n                        ', '\n                        <div class="lego-table-content">\n                            <div class="', '">\n                                <span>\n                                ', '\n                                <div class="lego-table-body">\n                                    <table class="', '">\n                                        ', "\n                                        ", "\n                                        ", "\n                                    </table>\n                                </div>\n                                </span>\n                                ", "\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ", "\n        </div>\n        " ], [ '\n        <div class="clearfix">\n            <div class="lego-spin-nested-loading">\n                <div class="lego-spin-container">\n                    <div class="lego-table lego-table-', " ", ' lego-table-scroll-position-left">\n                        ', '\n                        <div class="lego-table-content">\n                            <div class="', '">\n                                <span>\n                                ', '\n                                <div class="lego-table-body">\n                                    <table class="', '">\n                                        ', "\n                                        ", "\n                                        ", "\n                                    </table>\n                                </div>\n                                </span>\n                                ", "\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ", "\n        </div>\n        " ]);
+var _templateObject$5 = _taggedTemplateLiteral$5([ '\n        <div class="clearfix lego-table lego-table-', " ", " ", ' lego-table-scroll-position-left">\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body ', '">\n                    <table class="', '">\n                        ', "\n                        ", "\n                        ", "\n                        ", "\n                    </table>\n                </div>\n                ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="clearfix lego-table lego-table-', " ", " ", ' lego-table-scroll-position-left">\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body ', '">\n                    <table class="', '">\n                        ', "\n                        ", "\n                        ", "\n                        ", "\n                    </table>\n                </div>\n                ", "\n                </div>\n            </div>\n        </div>\n        " ]);
 
 var _templateObject2$2 = _taggedTemplateLiteral$5([ '<div class="lego-table-title">', "</div>" ], [ '<div class="lego-table-title">', "</div>" ]);
 
-var _templateObject3$1 = _taggedTemplateLiteral$5([ '\n                                <div class="lego-table-header" style="margin-bottom: -17px; padding-bottom: 0px;">\n                                    <table class="">\n                                        ', "\n                                    </table>\n                                </div>\n                                " ], [ '\n                                <div class="lego-table-header" style="margin-bottom: -17px; padding-bottom: 0px;">\n                                    <table class="">\n                                        ', "\n                                    </table>\n                                </div>\n                                " ]);
+var _templateObject3$1 = _taggedTemplateLiteral$5([ '\n                <div class="lego-table-header">\n                    <table class="">\n                        ', "\n                        ", "\n                    </table>\n                </div>\n                " ], [ '\n                <div class="lego-table-header">\n                    <table class="">\n                        ', "\n                        ", "\n                    </table>\n                </div>\n                " ]);
 
-var _templateObject4 = _taggedTemplateLiteral$5([ '<div class="lego-table-footer">', "</div>" ], [ '<div class="lego-table-footer">', "</div>" ]);
+var _templateObject4 = _taggedTemplateLiteral$5([ '\n                    <div class="lego-table-footer">\n                    <pagination id="paginationId"></pagination>\n                    </div>\n                ' ], [ '\n                    <div class="lego-table-footer">\n                    <pagination id="paginationId"></pagination>\n                    </div>\n                ' ]);
 
-var _templateObject5 = _taggedTemplateLiteral$5([ '<pagination id="paginationId"></pagination>' ], [ '<pagination id="paginationId"></pagination>' ]);
+var _templateObject5 = _taggedTemplateLiteral$5([ "\n        <colgroup>\n            ", "\n            ", "\n        </colgroup>\n        " ], [ "\n        <colgroup>\n            ", "\n            ", "\n        </colgroup>\n        " ]);
 
-var _templateObject6 = _taggedTemplateLiteral$5([ '\n            <span>\n                <label class="lego-', '-wrapper">\n                    <span class="lego-checkbox ', " ", '">\n                        <span class="lego-checkbox-inner"></span>\n                        <input type="', '" ', ' class="lego-checkbox-input" value="', '">\n                    </span>\n                </label>\n            </span>\n            ' ], [ '\n            <span>\n                <label class="lego-', '-wrapper">\n                    <span class="lego-checkbox ', " ", '">\n                        <span class="lego-checkbox-inner"></span>\n                        <input type="', '" ', ' class="lego-checkbox-input" value="', '">\n                    </span>\n                </label>\n            </span>\n            ' ]);
+var _templateObject6 = _taggedTemplateLiteral$5([ '<col style="width: 30px;">' ], [ '<col style="width: 30px;">' ]);
 
-var _templateObject7 = _taggedTemplateLiteral$5([ "\n        ", "\n        " ], [ "\n        ", "\n        " ]);
+var _templateObject7 = _taggedTemplateLiteral$5([ "\n                ", "\n            " ], [ "\n                ", "\n            " ]);
 
-var _templateObject8 = _taggedTemplateLiteral$5([ '<th class="lego-table-selection-column">', "</th>" ], [ '<th class="lego-table-selection-column">', "</th>" ]);
+var _templateObject8 = _taggedTemplateLiteral$5([ "<col>" ], [ "<col>" ]);
 
-var _templateObject9 = _taggedTemplateLiteral$5([ '<td class="lego-table-selection-column">', "</td>" ], [ '<td class="lego-table-selection-column">', "</td>" ]);
+var _templateObject9 = _taggedTemplateLiteral$5([ '<col style="width: ', ';">' ], [ '<col style="width: ', ';">' ]);
 
-var _templateObject10 = _taggedTemplateLiteral$5([ '\n        <thead class="lego-table-thead">\n            <tr>\n            ', "\n            ", "\n            </tr>\n        </thead>\n        " ], [ '\n        <thead class="lego-table-thead">\n            <tr>\n            ', "\n            ", "\n            </tr>\n        </thead>\n        " ]);
+var _templateObject10 = _taggedTemplateLiteral$5([ '\n            <span>\n                <label class="lego-', '-wrapper">\n                    <span class="lego-checkbox ', " ", '">\n                        <span class="lego-checkbox-inner"></span>\n                        <input type="', '" ', ' class="lego-checkbox-input" value="', '">\n                    </span>\n                </label>\n            </span>\n            ' ], [ '\n            <span>\n                <label class="lego-', '-wrapper">\n                    <span class="lego-checkbox ', " ", '">\n                        <span class="lego-checkbox-inner"></span>\n                        <input type="', '" ', ' class="lego-checkbox-input" value="', '">\n                    </span>\n                </label>\n            </span>\n            ' ]);
 
-var _templateObject11 = _taggedTemplateLiteral$5([ '<th class="', '" id="', '"><span>', "\n                ", "", "</span></th>" ], [ '<th class="', '" id="', '"><span>', "\n                ", "", "</span></th>" ]);
+var _templateObject11 = _taggedTemplateLiteral$5([ "\n        ", "\n        " ], [ "\n        ", "\n        " ]);
 
-var _templateObject12 = _taggedTemplateLiteral$5([ '\n        <tbody class="lego-table-tbody">\n            ', "\n        </tbody>\n        " ], [ '\n        <tbody class="lego-table-tbody">\n            ', "\n        </tbody>\n        " ]);
+var _templateObject12 = _taggedTemplateLiteral$5([ '<th class="lego-table-selection-column">', "</th>" ], [ '<th class="lego-table-selection-column">', "</th>" ]);
 
-var _templateObject13 = _taggedTemplateLiteral$5([ '<tr class="', '" id="', '">\n                ', "\n                ", "\n                </tr>" ], [ '<tr class="', '" id="', '">\n                ', "\n                ", "\n                </tr>" ]);
+var _templateObject13 = _taggedTemplateLiteral$5([ '<td class="lego-table-selection-column">', "</td>" ], [ '<td class="lego-table-selection-column">', "</td>" ]);
 
-var _templateObject14 = _taggedTemplateLiteral$5([ "<td>", "</td>" ], [ "<td>", "</td>" ]);
+var _templateObject14 = _taggedTemplateLiteral$5([ '\n        <thead class="lego-table-thead">\n            <tr>\n            ', "\n            ", "\n            </tr>\n        </thead>\n        " ], [ '\n        <thead class="lego-table-thead">\n            <tr>\n            ', "\n            ", "\n            </tr>\n        </thead>\n        " ]);
 
-var _templateObject15 = _taggedTemplateLiteral$5([ '\n        <tfoot class="lego-table-tfoot"><foot></foot></tfoot>\n        ' ], [ '\n        <tfoot class="lego-table-tfoot"><foot></foot></tfoot>\n        ' ]);
+var _templateObject15 = _taggedTemplateLiteral$5([ '<th class="', '" id="', '"><span>', "\n                ", "", "</span></th>" ], [ '<th class="', '" id="', '"><span>', "\n                ", "", "</span></th>" ]);
 
-var _templateObject16 = _taggedTemplateLiteral$5([ '\n        <div class="lego-table-column-sorter">\n            <span class="lego-table-column-sorter-up ', '" title="↑">\n                <i class="anticon anticon-caret-up"></i>\n            </span>\n            <span class="lego-table-column-sorter-down ', '" title="↓">\n                <i class="anticon anticon-caret-down"></i>\n            </span>\n        </div>\n        ' ], [ '\n        <div class="lego-table-column-sorter">\n            <span class="lego-table-column-sorter-up ', '" title="↑">\n                <i class="anticon anticon-caret-up"></i>\n            </span>\n            <span class="lego-table-column-sorter-down ', '" title="↓">\n                <i class="anticon anticon-caret-down"></i>\n            </span>\n        </div>\n        ' ]);
+var _templateObject16 = _taggedTemplateLiteral$5([ '\n        <tbody class="lego-table-tbody">\n            ', "\n        </tbody>\n        " ], [ '\n        <tbody class="lego-table-tbody">\n            ', "\n        </tbody>\n        " ]);
 
-var _templateObject17 = _taggedTemplateLiteral$5([ '<i title="Filter Menu" class="anticon anticon-filter lego-dropdown-trigger"></i>' ], [ '<i title="Filter Menu" class="anticon anticon-filter lego-dropdown-trigger"></i>' ]);
+var _templateObject17 = _taggedTemplateLiteral$5([ '<tr class="', '" id="', '">\n                ', "\n                ", "\n                </tr>" ], [ '<tr class="', '" id="', '">\n                ', "\n                ", "\n                </tr>" ]);
+
+var _templateObject18 = _taggedTemplateLiteral$5([ "<td>", "</td>" ], [ "<td>", "</td>" ]);
+
+var _templateObject19 = _taggedTemplateLiteral$5([ '\n        <tfoot class="lego-table-tfoot"><foot></foot></tfoot>\n        ' ], [ '\n        <tfoot class="lego-table-tfoot"><foot></foot></tfoot>\n        ' ]);
+
+var _templateObject20 = _taggedTemplateLiteral$5([ '\n        <div class="lego-table-column-sorter">\n            <span class="lego-table-column-sorter-up ', '" title="↑">\n                <i class="anticon anticon-caret-up"></i>\n            </span>\n            <span class="lego-table-column-sorter-down ', '" title="↓">\n                <i class="anticon anticon-caret-down"></i>\n            </span>\n        </div>\n        ' ], [ '\n        <div class="lego-table-column-sorter">\n            <span class="lego-table-column-sorter-up ', '" title="↑">\n                <i class="anticon anticon-caret-up"></i>\n            </span>\n            <span class="lego-table-column-sorter-down ', '" title="↓">\n                <i class="anticon anticon-caret-down"></i>\n            </span>\n        </div>\n        ' ]);
+
+var _templateObject21 = _taggedTemplateLiteral$5([ '<i title="filter" class="anticon anticon-filter"></i>' ], [ '<i title="filter" class="anticon anticon-filter"></i>' ]);
 
 function _taggedTemplateLiteral$5(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -771,8 +779,9 @@ var Table = function(_Lego$UI$Baseview) {
                 "click thead .lego-checkbox > input": "selectAll",
                 "click .lego-table-column-sorter": "clickSorter",
                 "click .anticon-filter": "clickFilter",
-                "click .lego-table-tbody td": "clickTd"
+                "click .lego-table-tbody td": "clickItem"
             },
+            scrollbar: {},
             className: "",
             rowSelection: null,
             pagination: null,
@@ -797,11 +806,9 @@ var Table = function(_Lego$UI$Baseview) {
             indentSize: 0,
             onRowClick: function onRowClick() {},
             bordered: false,
-            showHeader: true,
+            showHeader: false,
             showBodyer: true,
-            showFooter: false,
-            footer: function footer() {},
-            scroll: {}
+            showFooter: false
         };
         Object.assign(options, opts);
         options.columns.map(function(col) {
@@ -825,13 +832,26 @@ var Table = function(_Lego$UI$Baseview) {
             });
             Lego.create(Pagination, theOpt);
         }
+        var header = _this.$(".lego-table-header");
+        _this.$(".lego-table-body").scroll(function() {
+            header.scrollLeft($(this).scrollLeft());
+        });
         return _this;
     }
     _createClass$6(Table, [ {
         key: "render",
         value: function render() {
             var options = this.options;
-            var vDom = hx(_templateObject$5, options.size, options.bordered ? "lego-table-bordered" : "", options.title ? hx(_templateObject2$2, options.title()) : "", options.showHeader ? "lego-table-scroll" : "", options.showHeader ? hx(_templateObject3$1, this._renderHeader()) : "", options.className, !options.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), options.showFooter ? hx(_templateObject4, options.footer()) : "", options.pagination ? hx(_templateObject5) : "");
+            var vDom = hx(_templateObject$5, options.size, options.bordered ? "lego-table-bordered" : "", options.showHeader ? "lego-table-fixed-header" : "", options.title ? hx(_templateObject2$2, options.title()) : "", options.showHeader ? hx(_templateObject3$1, this._renderColgroup(), this._renderHeader()) : "", options.showHeader ? "scrollbar" : "", options.className, this._renderColgroup(), !options.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), options.pagination ? hx(_templateObject4) : "");
+            return vDom;
+        }
+    }, {
+        key: "_renderColgroup",
+        value: function _renderColgroup() {
+            var _this2 = this;
+            var vDom = hx(_templateObject5, this.options.rowSelection ? hx(_templateObject6) : "", this.options.columns.map(function(col, index) {
+                return hx(_templateObject7, index === _this2.options.columns.length - 1 ? hx(_templateObject8) : hx(_templateObject9, col.width));
+            }));
             return vDom;
         }
     }, {
@@ -842,30 +862,30 @@ var Table = function(_Lego$UI$Baseview) {
             var options = this.options, theType = options.type || "checkbox", that = this;
             var isChecked = row.selected || tagName === "th" && this.selectedAll === 1, isHarf = tagName === "th" && that.selectedAll === 2 ? true : false;
             function getHx() {
-                return hx(_templateObject6, theType, row.disabled ? "lego-checkbox-disabled" : "", isChecked ? "lego-checkbox-checked lego-checkbox-checked-1" : isHarf ? "lego-checkbox-indeterminate" : "", theType, row.disabled ? "disabled" : "", isChecked ? "on" : "");
+                return hx(_templateObject10, theType, row.disabled ? "lego-checkbox-disabled" : "", isChecked ? "lego-checkbox-checked lego-checkbox-checked-1" : isHarf ? "lego-checkbox-indeterminate" : "", theType, row.disabled ? "disabled" : "", isChecked ? "on" : "");
             }
-            var vDom = hx(_templateObject7, tagName == "th" ? hx(_templateObject8, getHx()) : hx(_templateObject9, getHx()));
+            var vDom = hx(_templateObject11, tagName == "th" ? hx(_templateObject12, getHx()) : hx(_templateObject13, getHx()));
             return vDom;
         }
     }, {
         key: "_renderHeader",
         value: function _renderHeader() {
-            var _this2 = this;
+            var _this3 = this;
             var options = this.options;
-            var vDom = hx(_templateObject10, options.rowSelection ? this._renderSelection({}, "th") : "", options.columns.map(function(col) {
-                return !col.isHide ? hx(_templateObject11, col.sortOrder ? "lego-table-column-sort" : "", col.key, col.title, col.sorter ? _this2._renderSorter(col) : "", _this2._renderFilter(col)) : "";
+            var vDom = hx(_templateObject14, options.rowSelection ? this._renderSelection({}, "th") : "", options.columns.map(function(col) {
+                return !col.isHide ? hx(_templateObject15, col.sortOrder ? "lego-table-column-sort" : "", col.key, col.title, col.sorter ? _this3._renderSorter(col) : "", _this3._renderFilter(col)) : "";
             }));
             return vDom;
         }
     }, {
         key: "_renderBodyer",
         value: function _renderBodyer() {
-            var _this3 = this;
+            var _this4 = this;
             var options = this.options;
-            var vDom = hx(_templateObject12, options.data.map(function(row, i) {
+            var vDom = hx(_templateObject16, options.data.map(function(row, i) {
                 row.key = Lego.randomKey(32);
-                return hx(_templateObject13, options.rowClassName, row.key, options.rowSelection ? _this3._renderSelection(row, "td") : "", options.columns.map(function(col) {
-                    return !col.isHide ? hx(_templateObject14, typeof col.render === "function" ? col.render(row[col.dataIndex], row, col) : row[col.dataIndex]) : "";
+                return hx(_templateObject17, options.rowClassName, row.key, options.rowSelection ? _this4._renderSelection(row, "td") : "", options.columns.map(function(col) {
+                    return !col.isHide ? hx(_templateObject18, typeof col.render === "function" ? col.render(row[col.dataIndex], row, col) : row[col.dataIndex]) : "";
                 }));
             }));
             return vDom;
@@ -874,7 +894,7 @@ var Table = function(_Lego$UI$Baseview) {
         key: "_renderFooter",
         value: function _renderFooter() {
             var options = this.options;
-            var vDom = hx(_templateObject15);
+            var vDom = hx(_templateObject19);
             return vDom;
         }
     }, {
@@ -882,14 +902,14 @@ var Table = function(_Lego$UI$Baseview) {
         value: function _renderSorter() {
             var col = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
             var options = this.options;
-            var vDom = hx(_templateObject16, col.sortOrder === "asc" ? "on" : "off", col.sortOrder === "desc" ? "on" : "off");
+            var vDom = hx(_templateObject20, col.sortOrder === "asc" ? "on" : "off", col.sortOrder === "desc" ? "on" : "off");
             return vDom;
         }
     }, {
         key: "_renderFilter",
         value: function _renderFilter() {
             var col = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-            return col.filter ? hx(_templateObject17) : "";
+            return col.filter ? hx(_templateObject21) : "";
         }
     }, {
         key: "clickSorter",
@@ -918,10 +938,10 @@ var Table = function(_Lego$UI$Baseview) {
             }
         }
     }, {
-        key: "clickTd",
-        value: function clickTd(event) {
+        key: "clickItem",
+        value: function clickItem(event) {
             event.stopPropagation();
-            var target = $(event.currentTarget), rowKey = target.parent().attr("id"), colKey = target.closest("tbody").prev("thead").find("th").eq(event.currentTarget.cellIndex).attr("id");
+            var target = $(event.currentTarget), rowKey = target.parent().attr("id"), colKey = this.$("thead").find("th").eq(event.currentTarget.cellIndex).attr("id");
             var row = this.options.data.find(function(val) {
                 return val.key === rowKey;
             });
@@ -929,7 +949,12 @@ var Table = function(_Lego$UI$Baseview) {
                 return val.key === colKey;
             });
             if (row && col) {
-                if (typeof col.onCellClick === "function") col.onCellClick(row, col);
+                if (this.options.onRowClick) {
+                    if (typeof col.onRowClick === "function") col.onRowClick(row);
+                }
+                if (col.onCellClick) {
+                    if (typeof col.onCellClick === "function") col.onCellClick(row, col);
+                }
             }
         }
     }, {
@@ -963,18 +988,18 @@ var Table = function(_Lego$UI$Baseview) {
     }, {
         key: "selectAll",
         value: function selectAll(event) {
-            var _this4 = this;
+            var _this5 = this;
             event.stopPropagation();
             var target = $(event.currentTarget);
             if (this.options.rowSelection) {
                 (function() {
                     var isChecked = target.is(":checked");
                     var isSelected = isChecked ? 1 : 0;
-                    _this4.selectedAll = isSelected;
-                    _this4.options.data.map(function(row, index) {
+                    _this5.selectedAll = isSelected;
+                    _this5.options.data.map(function(row, index) {
                         row.selected = !!isSelected;
                     });
-                    _this4.refresh();
+                    _this5.refresh();
                 })();
             }
         }
