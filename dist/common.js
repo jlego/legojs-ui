@@ -92,6 +92,19 @@ var Baseview = function(_Lego$View) {
                 })();
             }
         }
+    } ], [ {
+        key: "getDirection",
+        value: function getDirection(el, dropEl) {
+            console.warn(dropEl);
+            el = el ? el instanceof $ ? el : $(el) : $("body");
+            var windowW = $(window).width(), windowH = $(window).height(), _X = el.offset().left, _Y = el.offset().top, elW = el.width(), elH = el.height(), dropW = dropEl.width(), dropH = dropEl.height(), upDown = "", leftRight = "", elHeight = el.height();
+            upDown = dropH > windowH - _Y - elH ? "up" : "bottom";
+            leftRight = dropW > windowW - _X ? "Left" : "Right";
+            return {
+                _x: leftRight,
+                _y: upDown
+            };
+        }
     } ]);
     return Baseview;
 }(Lego.View);

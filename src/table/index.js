@@ -17,7 +17,8 @@ class Table extends Lego.UI.Baseview {
                 'click thead .lego-checkbox > input': 'selectAll',
                 'click .lego-table-column-sorter': 'clickSorter',
                 'click .anticon-filter': 'clickFilter',
-                'click .lego-table-tbody td': 'clickItem'
+                'click .lego-table-tbody td': 'clickItem',
+                'click .lego-table-header .lego-btn-circle': 'clickSetting'
             },
             scrollbar: {},
             className: '',
@@ -47,6 +48,7 @@ class Table extends Lego.UI.Baseview {
             showHeader: false, //是否显示表头
             showBodyer: true, //是否显示表体
             showFooter: false, //是否显示表尾
+            // colSetting(){}  //列设置
             // footer(){}, //表格尾部
             // title(){}, //表格标题
             // scroll: {}, //横向或纵向支持滚动，也可用于指定滚动区域的宽高度：{{ x: true, y: 300 }}
@@ -74,7 +76,7 @@ class Table extends Lego.UI.Baseview {
         this.selectedAll = 0;
         // 分页
         if(options.pagination){
-            const theOpt = {...options.pagination, el: '#paginationId'};
+            const theOpt = {...options.pagination, el: '#' + options.vid + '-paginationId'};
             Lego.create(Pagination, theOpt);
         }
         // 同步横向滚动
@@ -82,11 +84,13 @@ class Table extends Lego.UI.Baseview {
         this.$('.lego-table-body').scroll(function() {
             header.scrollLeft($(this).scrollLeft());
         });
+        this.$('.lego-table-tfoot>tr>td').attr('colspan', this.options.columns.length);
     }
     render() {
         const options = this.options;
         const vDom = hx`
-        <div class="clearfix lego-table lego-table-${options.size} ${options.bordered ? 'lego-table-bordered' : ''} ${options.showHeader ? 'lego-table-fixed-header' : ''} lego-table-scroll-position-left">
+        <div class="clearfix lego-table lego-table-${options.size} ${options.bordered ? 'lego-table-bordered' : ''}
+        ${options.showHeader ? 'lego-table-fixed-header' : ''} lego-table-scroll-position-left">
             ${options.title ? hx`<div class="lego-table-title">${options.title()}</div>` : ''}
             <div class="lego-table-content">
                 <div class="lego-table-scroll">
@@ -96,6 +100,9 @@ class Table extends Lego.UI.Baseview {
                         ${this._renderColgroup()}
                         ${this._renderHeader()}
                     </table>
+                    ${options.colSetting ? hx`
+                        <button type="button" class="lego-btn lego-btn-ghost lego-btn-circle lego-btn-icon-only">
+                        <i class="anticon anticon-ellipsis"></i></button>` : ''}
                 </div>
                 ` : ''}
                 <div class="lego-table-body ${options.showHeader ? 'scrollbar' : ''}">
@@ -108,7 +115,7 @@ class Table extends Lego.UI.Baseview {
                 </div>
                 ${options.pagination ? hx`
                     <div class="lego-table-footer">
-                    <pagination id="paginationId"></pagination>
+                    <pagination id="${options.vid}-paginationId"></pagination>
                     </div>
                 ` : ''}
                 </div>
@@ -117,12 +124,17 @@ class Table extends Lego.UI.Baseview {
         `;
         return vDom;
     }
+    _getRowKey(str = ''){
+        this.rowKey = this.rowKey || 0;
+        this.rowKey++;
+        return str + this.rowKey;
+    }
     _renderColgroup(){
         const vDom = hx`
         <colgroup>
             ${this.options.rowSelection ? hx`<col style="width: 30px;">` : ''}
             ${this.options.columns.map((col, index) => hx`
-                ${index === this.options.columns.length -1 ? hx`<col>` : 
+                ${index === this.options.columns.length -1 ? hx`<col>` :
                 hx`<col style="width: ${col.width};">`}
             `)}
         </colgroup>
@@ -140,7 +152,8 @@ class Table extends Lego.UI.Baseview {
             return hx`
             <span>
                 <label class="lego-${theType}-wrapper">
-                    <span class="lego-checkbox ${row.disabled ? 'lego-checkbox-disabled' : ''} ${isChecked ? 'lego-checkbox-checked lego-checkbox-checked-1' : (isHarf ? 'lego-checkbox-indeterminate' : '')}">
+                    <span class="lego-checkbox ${row.disabled ? 'lego-checkbox-disabled' : ''} ${isChecked ?
+                        'lego-checkbox-checked lego-checkbox-checked-1' : (isHarf ? 'lego-checkbox-indeterminate' : '')}">
                         <span class="lego-checkbox-inner"></span>
                         <input type="${theType}" ${row.disabled ? 'disabled' : ''} class="lego-checkbox-input" value="${isChecked ? 'on' : ''}">
                     </span>
@@ -175,7 +188,7 @@ class Table extends Lego.UI.Baseview {
         const vDom = hx`
         <tbody class="lego-table-tbody">
             ${options.data.map((row, i) => {
-                row.key = Lego.randomKey(32);
+                row.key = row.id || this._getRowKey('row_');
                 return hx`<tr class="${options.rowClassName}" id="${row.key}">
                 ${options.rowSelection ? this._renderSelection(row, 'td') : ''}
                 ${options.columns.map(col => {
@@ -191,7 +204,7 @@ class Table extends Lego.UI.Baseview {
     _renderFooter(){
         const options = this.options;
         const vDom = hx`
-        <tfoot class="lego-table-tfoot"><foot></foot></tfoot>
+        <tfoot class="lego-table-tfoot"><tr><td>${options.footer ? options.footer() : ''}</td></tr></tfoot>
         `;
         return vDom;
     }
@@ -259,6 +272,10 @@ class Table extends Lego.UI.Baseview {
         if(col){
             if(typeof col.filter === 'function') col.filter(col);
         }
+    }
+    clickSetting(event){
+        event.stopPropagation();
+        if(typeof this.options.colSetting === 'function') this.options.colSetting();
     }
     // 选中一条
     selectOne(event) {

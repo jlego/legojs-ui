@@ -42,7 +42,9 @@ build([{
 {alias: 'badge'},
 {alias: 'viewport'},
 {alias: 'button'},
-{alias: 'table'}
+{alias: 'table'},
+{alias: 'pagination'},
+{alias: 'dropdown'}
 ].map(genConfig));
 
 function ucfirst(str) {

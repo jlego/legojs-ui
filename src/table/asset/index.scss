@@ -314,7 +314,8 @@
     overflow: hidden;
 }
 .lego-table-fixed-header .lego-table-header {
-    overflow: scroll;    
+    overflow-x: scroll;
+    overflow-y: hidden;
     position: absolute;
     width: 100%;
     padding-bottom: 0px;
@@ -331,6 +332,17 @@
     bottom: 0px;
     width: 100%;
     position: absolute;
+}
+
+.lego-table-fixed-header .lego-table-header .lego-btn-circle{
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    border: none;
+    font-weight: bold;
 }
 .lego-table-bordered.lego-table-fixed-header .lego-table-header > table {
     border-bottom: 0;
@@ -543,7 +555,7 @@ tr.lego-table-expanded-row:hover {
 }
 
 .lego-table-fixed-header .lego-table-scroll .lego-table-header {
-    overflow: scroll;
+    // overflow: scroll;
     padding-bottom: 20px;
     margin-bottom: -20px;
 }
