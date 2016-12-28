@@ -1,6 +1,5 @@
 import '../asset/scss/style.scss';
 
-import _ from 'lodash';
 import { Baseview } from "./common/index";
 import Viewport from "./viewport/index";
 import Alert from "./alert/index";

@@ -1,5 +1,6 @@
 import './asset/index.scss';
 import Dropdown from '../dropdown/index';
+Lego.components('dropdown', Dropdown);
 
 class Pagination extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -23,29 +24,28 @@ class Pagination extends Lego.UI.Baseview {
             showQuickJumper: false,    //是否可以快速跳转至某页
             size: '',    //当为「small」时，是小尺寸分页
             simple: null,    //当添加该属性时，显示为简单分页
-            showTotal(){}  //用于显示数据总量和当前数据顺序
+            showTotal(){},  //用于显示数据总量和当前数据顺序
         };
         Object.assign(options, opts);
-        super(options);
-        const that = this;
-        this.jumped = false;
-        if(options.showSizeChanger){
-            let theData = [];
-            options.pageSizeOptions.map(val => {
-                theData.push[{
+        if(!options.simple && options.showSizeChanger){
+            let theData = options.pageSizeOptions.map(val => {
+                return {
                     key: val,
                     title: val + ' / 页'
-                }];
+                };
             });
-            // Lego.create({
-            //     el: '#dropdown' + options.vid,
-            //     data: theData,
-            //     onChange(result){
-            //         console.warn(result);
-            //         options.pageSize = parseInt(result);
-            //     }
-            // });
+            options.components = [{
+                el: '#' + options.vid + '-dropdown',
+                trigger: '#' + options.vid + '-select',
+                data: theData,
+                onChange(result){
+                    Lego.getView(options.vid).options.current = 1;
+                    Lego.getView(options.vid).options.pageSize = parseInt(result);
+                }
+            }];
         }
+        super(options);
+        this.jumped = false;
     }
     render() {
         const options = this.options || {};
@@ -88,15 +88,15 @@ class Pagination extends Lego.UI.Baseview {
             ${!options.simple ? hx`
             <div class="lego-pagination-options">
                 ${options.showSizeChanger ? hx`
-                <div class="lego-pagination-options-size-changer lego-select lego-select-enabled">
-                    <div class="lego-select-selection lego-select-selection--single">
+                <div class="lego-pagination-options-size-changer lego-select lego-select-enabled" id="${options.vid}-select">
+                    <div class="lego-select-selection lego-select-selection-single">
                         <div class="lego-select-selection__rendered">
                             <div class="lego-select-selection-selected-value" title="${options.pageSize} / 页" style="display: block; opacity: 1;">
                             ${options.pageSize} / 页</div>
                         </div>
                         <span class="lego-select-arrow" style="user-select: none;"><b></b></span>
                     </div>
-                    <dropdown id="dropdown${options.vid}"></dropdown>
+                    <dropdown id="${options.vid}-dropdown"></dropdown>
                 </div>
                 ` : ''}
                 ${options.showQuickJumper ? hx`

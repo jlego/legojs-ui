@@ -15,7 +15,7 @@ class Alert extends Lego.UI.Baseview {
             showIcon: false,    //是否显示辅助图标
             banner: false   //是否用作顶部公告
         };
-        $.extend(true, options, opts);
+        Object.assign(options, opts);
         super(options);
     }
     render() {

@@ -72,7 +72,7 @@ var Badge = function(_Lego$UI$Baseview) {
                 "click #400": "theClick"
             }
         };
-        $.extend(true, options, opts);
+        Object.assign(options, opts);
         return _possibleConstructorReturn(this, (Badge.__proto__ || Object.getPrototypeOf(Badge)).call(this, options));
     }
     _createClass(Badge, [ {
