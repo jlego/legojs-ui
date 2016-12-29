@@ -82,7 +82,7 @@ var Alert = function(_Lego$UI$Baseview) {
             showIcon: false,
             banner: false
         };
-        $.extend(true, options, opts);
+        Object.assign(options, opts);
         return _possibleConstructorReturn(this, (Alert.__proto__ || Object.getPrototypeOf(Alert)).call(this, options));
     }
     _createClass(Alert, [ {

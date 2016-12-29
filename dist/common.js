@@ -69,28 +69,21 @@ var Baseview = function(_Lego$View) {
         _classCallCheck(this, Baseview);
         var options = {};
         Object.assign(options, opts);
-        return _possibleConstructorReturn(this, (Baseview.__proto__ || Object.getPrototypeOf(Baseview)).call(this, options));
+        var _this = _possibleConstructorReturn(this, (Baseview.__proto__ || Object.getPrototypeOf(Baseview)).call(this, options));
+        _this.renderScroll();
+        return _this;
     }
     _createClass(Baseview, [ {
-        key: "_renderComponents",
-        value: function _renderComponents() {
+        key: "renderScroll",
+        value: function renderScroll() {
             var _this2 = this;
-            var that = this;
-            if (this.options.components) {
-                if (this.options.components.length && !this.isloaded) {
-                    this.isloaded = true;
-                    this.options.components.forEach(function(item, i) {
-                        var tagName = item.el ? that.$(item.el)[0].tagName : "";
-                        if (tagName) Lego.create(Lego.UI[tagName.toLowerCase()], item);
-                    });
-                }
-            }
             if (this.options.scrollbar) {
                 (function() {
                     var scrollbarEl = _this2.$(".scrollbar");
                     var container = scrollbarEl[0];
-                    if (!scrollbarEl.parent().css("position")) scrollbarEl.parent().css("position", "relative");
-                    if (container) {
+                    var posi = scrollbarEl.parent().css("position");
+                    if (!posi || posi !== "fixed") scrollbarEl.parent().css("position", "relative");
+                    if (scrollbarEl.length) {
                         Ps.initialize(container, _this2.options.scrollbar);
                         _this2.$el.off("mousemove.ps").on("mousemove.ps", function() {
                             Ps.update(container);
@@ -98,6 +91,16 @@ var Baseview = function(_Lego$View) {
                     }
                 })();
             }
+        }
+    } ], [ {
+        key: "getDirection",
+        value: function getDirection(el, dropEl) {
+            el = el instanceof $ ? el : $(el);
+            var windowW = $(window).width(), windowH = $(window).height(), _X = el.offset().left, _Y = el.offset().top, elW = el.width(), elH = el.height(), dropW = dropEl.width(), dropH = dropEl.height(), upDown = dropH > windowH - _Y - elH ? "top" : "bottom", leftRight = dropW > windowW - _X - elW ? "Right" : "Left";
+            return {
+                _x: leftRight,
+                _y: upDown
+            };
         }
     } ]);
     return Baseview;

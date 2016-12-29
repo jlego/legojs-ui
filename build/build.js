@@ -15,8 +15,8 @@ const cjs = require('rollup-plugin-commonjs');
 const node = require('rollup-plugin-node-resolve');
 const eslint = require('rollup-plugin-eslint');
 const sass = require('rollup-plugin-sass');
+const less = require('rollup-plugin-less');
 // const buble = require('rollup-plugin-buble');
-// const less = require('rollup-plugin-less');
 // const postcss = require('rollup-plugin-postcss');
 // const simplevars = require('postcss-simple-vars');
 // const nested = require('postcss-nested');
@@ -36,12 +36,15 @@ build([{
     alias: 'legoui',
     entry: 'src/index.js',
     dest: 'dist/legoui.js'
-}, 
-{alias: 'common'}, 
-{alias: 'alert'}, 
-{alias: 'badge'}, 
-{alias: 'viewport'}, 
-{alias: 'button'}
+},
+{alias: 'common'},
+{alias: 'alert'},
+{alias: 'badge'},
+{alias: 'viewport'},
+{alias: 'button'},
+{alias: 'table'},
+{alias: 'pagination'},
+{alias: 'dropdown'}
 ].map(genConfig));
 
 function ucfirst(str) {
@@ -124,7 +127,12 @@ function genConfig(opts) {
             //     ]
             // }),
             // less({
-            //     output: 'dist/css/' + opts.alias + '.css',
+            //     output: function(styles, styleNodes) {
+            //         if (opts.alias === 'legoui') {
+            //         console.warn(buildStyleFile);
+            //             fs.appendFile(buildStyleFile, styles, function(err) {});
+            //         }
+            //     },
             //     exclude: 'node_modules/**',
             // }),
             sass({
@@ -135,6 +143,10 @@ function genConfig(opts) {
                     }
                 }
             }),
+            // less({
+            //     output: 'dist/css/' + opts.alias + '.css',
+            //     exclude: 'node_modules/**',
+            // }),
             babel({
                 exclude: 'node_modules/**',
             }),
