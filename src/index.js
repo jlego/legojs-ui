@@ -12,7 +12,6 @@ import Modal from "./modal/index";
 
 export {
 	Baseview,
-	Util,
     Viewport,
     Alert,
     Badge,

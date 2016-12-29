@@ -3,6 +3,13 @@ import '../vendor/bootstrap/modal';
 
 class Modal extends Lego.UI.Baseview {
     constructor(opts = {}) {
+        const typeArr = {
+            success: 'anticon anticon-check-circle-o',
+            info: 'anticon anticon-info-circle-o',
+            warning: 'anticon anticon-exclamation-circle-o',
+            error: 'anticon anticon-cross-circle-o',
+            alert: 'anticon anticon-question-circle-o'
+        };
         const options = {
             events: {
                 'click .modal-footer button.ok': 'clickOk',
@@ -11,6 +18,7 @@ class Modal extends Lego.UI.Baseview {
                 'click .modal-dialog': function(event){event.stopPropagation()},
                 'click': 'close'
             },
+            msgType: '',
             title: 'modal title',
             size: '', //lg,md,sm
             type: 'modal', //类型 modal, dialog, confirm
@@ -35,6 +43,12 @@ class Modal extends Lego.UI.Baseview {
             }
         };
         Object.assign(options, opts);
+
+        if (typeArr[options.msgType] && typeof options.content == 'string') {
+            options.content = '<span class="' + typeArr[options.msgType] + ' dialog-icon"></span>' +
+                '<div class="dialog-content">' + options.content + '</div>';
+        }
+        
         const modalEl = options.position ? '#lego-submodal' : '#lego-modal';
         const container = options.position ? 
             '<submodal id="lego-submodal"></submodal>' : 

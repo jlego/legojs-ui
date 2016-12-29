@@ -7847,53 +7847,6 @@ pre p {
 
 .lego-checkbox-group-item {
   display: inline-block; }
-.modal-backdrop {
-  background-color: #000;
-  bottom: 0;
-  position: fixed; }
-
-.modal-backdrop.in {
-  opacity: 0.4; }
-
-.modal-backdrop {
-  z-index: 9998 !important; }
-
-.modal,
-.modal-dialog {
-  z-index: 9999 !important; }
-
-.right-modal {
-  z-index: 1000 !important; }
-
-.right-modal .modal-dialog {
-  position: 'absolute';
-  top: 0;
-  right: 0;
-  bottom: 0;
-  height: '100%';
-  margin: 0; }
-
-.right-modal .modal-content {
-  height: 100%;
-  border-radius: 0;
-  border: none;
-  background-color: #fff;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5); }
-
-.right-modal .modal-body {
-  position: absolute;
-  top: 56px;
-  bottom: 65px;
-  width: 100%;
-  overflow-y: auto; }
-
-.right-modal .modal-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%; }
-
-.right-modalBg .modal-backdrop {
-  opacity: 0.01; }
 html,
 body {
   height: 100%;
@@ -9419,3 +9372,50 @@ tr.lego-table-expanded-row:hover {
 .dropdown-menu.droptop {
   top: inherit;
   bottom: 100%; }
+.modal-backdrop {
+  background-color: #000;
+  bottom: 0;
+  position: fixed; }
+
+.modal-backdrop.in {
+  opacity: 0.4; }
+
+.modal-backdrop {
+  z-index: 9998 !important; }
+
+.modal,
+.modal-dialog {
+  z-index: 9999 !important; }
+
+.right-modal {
+  z-index: 1000 !important; }
+
+.right-modal .modal-dialog {
+  position: 'absolute';
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: '100%';
+  margin: 0; }
+
+.right-modal .modal-content {
+  height: 100%;
+  border-radius: 0;
+  border: none;
+  background-color: #fff;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5); }
+
+.right-modal .modal-body {
+  position: absolute;
+  top: 56px;
+  bottom: 65px;
+  width: 100%;
+  overflow-y: auto; }
+
+.right-modal .modal-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%; }
+
+.right-modalBg .modal-backdrop {
+  opacity: 0.01; }

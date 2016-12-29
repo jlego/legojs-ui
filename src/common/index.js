@@ -8,7 +8,7 @@ window.Ps = perfectScrollbar;
 
 Lego.components({
 	'Util': Util,
-	'dialog': Util.dialog
+	// 'dialog': Util.dialog
 });
 
 export { Baseview };

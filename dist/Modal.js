@@ -5,8 +5,6 @@
  */
 "use strict";
 
-var jquery = require("jquery");
-
 var Util = function($) {
     var transition = false;
     var MAX_UID = 1e6;
@@ -610,6 +608,13 @@ var Modal = function(_Lego$UI$Baseview) {
     function Modal() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Modal);
+        var typeArr = {
+            success: "anticon anticon-check-circle-o",
+            info: "anticon anticon-info-circle-o",
+            warning: "anticon anticon-exclamation-circle-o",
+            error: "anticon anticon-cross-circle-o",
+            alert: "anticon anticon-question-circle-o"
+        };
         var options = {
             events: {
                 "click .modal-footer button.ok": "clickOk",
@@ -620,6 +625,7 @@ var Modal = function(_Lego$UI$Baseview) {
                 },
                 click: "close"
             },
+            msgType: "",
             title: "modal title",
             size: "",
             type: "modal",
@@ -642,6 +648,9 @@ var Modal = function(_Lego$UI$Baseview) {
             }
         };
         Object.assign(options, opts);
+        if (typeArr[options.msgType] && typeof options.content == "string") {
+            options.content = '<span class="' + typeArr[options.msgType] + ' dialog-icon"></span>' + '<div class="dialog-content">' + options.content + "</div>";
+        }
         var modalEl = options.position ? "#lego-submodal" : "#lego-modal";
         var container = options.position ? '<submodal id="lego-submodal"></submodal>' : '<modal id="lego-modal"></modal>';
         if (!options.el) options.el = modalEl;

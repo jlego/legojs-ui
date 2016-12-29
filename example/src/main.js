@@ -15,7 +15,7 @@ import 'highlight.js/styles/atom-one-light.css';
 hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'));
 window.hljs = hljs;
 window._ = lo;
-window.jQuery = jQuery;
+window.$ = window.jQuery = jQuery;
 
 // 注册通用基础组件
 Lego.components({

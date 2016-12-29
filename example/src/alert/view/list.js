@@ -1,6 +1,8 @@
 // import { Alert } from 'lego-ui';
 import Button from '../../../../dist/Button';
+import Modal from '../../../../dist/Modal';
 
+// Lego.components('modal', Modal);
 Lego.components('button', Button);
 
 class ListView extends Lego.UI.Baseview {
@@ -15,7 +17,7 @@ class ListView extends Lego.UI.Baseview {
                 text: '模态框',
                 onClick(){
                     console.warn('点击了此按钮button1');
-                    Lego.create(Lego.UI.Modal, {
+                    Lego.create(Modal, {
                         position: 'right',
                         content: '这是内容啊'
                     });
@@ -26,11 +28,11 @@ class ListView extends Lego.UI.Baseview {
             }, {
                 el: '#button2',
                 type: 'primary',
-                className: 'btn-sm',
+                // className: 'btn-sm',
                 text: '对话框',
                 onClick(){
                     console.warn('点击了此按钮button2');
-                    Lego.UI.dialog({
+                    Lego.create(Modal, {
                         msgType: 'success',
                         content: '成功了！',
                         confirm: true,
