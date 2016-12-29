@@ -28,7 +28,7 @@ var _templateObject2 = _taggedTemplateLiteral([ '\n                <ul class="le
 
 var _templateObject3 = _taggedTemplateLiteral([ '<li class="lego-dropdown-menu-item">', "</li>" ], [ '<li class="lego-dropdown-menu-item">', "</li>" ]);
 
-var _templateObject4 = _taggedTemplateLiteral([ '\n        <div class="lego-dropdown ', " lego-dropdown-", '">\n            <ul class="lego-dropdown-menu lego-dropdown-menu-vertical  lego-dropdown-menu-light lego-dropdown-menu-root">\n            ', "\n            </ul>\n        </div>\n        " ], [ '\n        <div class="lego-dropdown ', " lego-dropdown-", '">\n            <ul class="lego-dropdown-menu lego-dropdown-menu-vertical  lego-dropdown-menu-light lego-dropdown-menu-root">\n            ', "\n            </ul>\n        </div>\n        " ]);
+var _templateObject4 = _taggedTemplateLiteral([ '\n        <div class="lego-dropdown lego-dropdown-placement-', " ", '">\n            <ul class="lego-dropdown-menu lego-dropdown-menu-vertical  lego-dropdown-menu-light lego-dropdown-menu-root">\n            ', "\n            </ul>\n        </div>\n        " ], [ '\n        <div class="lego-dropdown lego-dropdown-placement-', " ", '">\n            <ul class="lego-dropdown-menu lego-dropdown-menu-vertical  lego-dropdown-menu-light lego-dropdown-menu-root">\n            ', "\n            </ul>\n        </div>\n        " ]);
 
 var _templateObject5 = _taggedTemplateLiteral([ '<li class="lego-dropdown-menu-item" id="', '">', "</li>" ], [ '<li class="lego-dropdown-menu-item" id="', '">', "</li>" ]);
 
@@ -75,7 +75,6 @@ var Dropdown = function(_Lego$UI$Baseview) {
         _classCallCheck(this, Dropdown);
         var options = {
             events: {
-                "mouseleave .lego-dropdown": "close",
                 "click .lego-dropdown-menu-item": "clickItem",
                 "mouseenter .lego-dropdown-menu-item": "inMenu",
                 "mouseleave .lego-dropdown-menu-item": "outMenu",
@@ -83,9 +82,8 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 "mouseleave .lego-dropdown-menu-submenu": "hideSubMenu"
             },
             disabled: false,
-            eventName: "mouseenter",
+            eventName: "hover",
             trigger: "",
-            container: "body",
             visible: false,
             direction: "",
             onChange: function onChange() {},
@@ -95,12 +93,17 @@ var Dropdown = function(_Lego$UI$Baseview) {
         var _this = _possibleConstructorReturn(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
         _this.result = "";
         var that = _this;
-        var trigger = trigger instanceof $ ? trigger : $(trigger);
-        var eventName = options.eventName + "." + options.vid;
-        trigger.off(eventName).on(eventName, function() {
-            var directionResp = Lego.UI.Baseview.getDirection(options.container, that.$el);
-            options.direction = directionResp._y + directionResp._x || "bottomLeft";
+        options.trigger = options.trigger instanceof $ ? options.trigger : $(options.trigger);
+        options.trigger[options.eventName](function() {
+            var directionResp = Lego.UI.Baseview.getDirection(options.trigger, that.$el);
+            that.options.direction = directionResp._y + directionResp._x || "bottomLeft";
             that.show();
+            options.trigger.mouseleave(function() {
+                that.close();
+            });
+            that.$(".lego-dropdown-menu").mouseleave(function() {
+                that.close();
+            });
         });
         return _this;
     }
@@ -109,17 +112,17 @@ var Dropdown = function(_Lego$UI$Baseview) {
         value: function render() {
             var options = this.options || {};
             function loopNav(data) {
-                return hx(_templateObject, data.key, data.title || "", data.children ? hx(_templateObject2, data.visible ? "" : "lego-dropdown-menu-hidden", data.children.map(function(item) {
+                return hx(_templateObject, data.key, data.title, data.children ? hx(_templateObject2, data.visible ? "" : "lego-dropdown-menu-hidden", data.children.map(function(item) {
                     if (!item.children) {
-                        hx(_templateObject3, item.title || "");
+                        return hx(_templateObject3, item.title);
                     } else {
-                        loopNav(item);
+                        return loopNav(item);
                     }
                 })) : "");
             }
-            var vDom = hx(_templateObject4, options.direction ? "lego-dropdown-placement-${options.direction}" : "", options.visible ? "show" : "hidden", options.data.forEach(function(item) {
+            var vDom = hx(_templateObject4, options.direction ? options.direction : "", options.visible ? "" : "lego-dropdown-hidden", options.data.map(function(item) {
                 if (!item.children) {
-                    return hx(_templateObject5, item.key, item.title || "");
+                    return hx(_templateObject5, item.key, item.title);
                 } else {
                     return loopNav(item);
                 }
@@ -144,32 +147,29 @@ var Dropdown = function(_Lego$UI$Baseview) {
             var target = $(event.currentTarget);
             this.result = target.attr("id");
             this.options.onChange(this.result);
+            this.close();
         }
     }, {
         key: "inMenu",
         value: function inMenu(event) {
-            event.stopPropagation();
             var target = $(event.currentTarget);
             target.addClass("lego-dropdown-menu-item-active");
         }
     }, {
         key: "outMenu",
         value: function outMenu(event) {
-            event.stopPropagation();
             var target = $(event.currentTarget);
             target.removeClass("lego-dropdown-menu-item-active");
         }
     }, {
         key: "showSubMenu",
         value: function showSubMenu(event) {
-            event.stopPropagation();
             var target = $(event.currentTarget);
             target.addClass("lego-dropdown-menu-submenu-open lego-dropdown-menu-submenu-active");
         }
     }, {
         key: "hideSubMenu",
         value: function hideSubMenu(event) {
-            event.stopPropagation();
             var target = $(event.currentTarget);
             target.removeClass("lego-dropdown-menu-submenu-open lego-dropdown-menu-submenu-active");
         }

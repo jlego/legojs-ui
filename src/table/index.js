@@ -1,5 +1,6 @@
 import './asset/index.scss';
 import Pagination from '../pagination/index';
+Lego.components('pagination', Pagination);
 /**
  * rowSelection
  * type = '' 多选/单选，checkbox or radio
@@ -25,7 +26,6 @@ class Table extends Lego.UI.Baseview {
             rowSelection: null, //列表项是否可选择
             pagination: null,   //分页器，配置项参考 pagination，设为 false 时不展示和进行分页
             size: 'default', //正常或迷你类型，default or small middle
-            dataSource: {},  //数据源
             columns: [],    //表格列的配置描述，具体项见下表
             rowKey: '',    //表格行 key 的取值，可以是字符串或一个函数
             rowClassName: '',    //表格行的类名
@@ -52,9 +52,12 @@ class Table extends Lego.UI.Baseview {
             // footer(){}, //表格尾部
             // title(){}, //表格标题
             // scroll: {}, //横向或纵向支持滚动，也可用于指定滚动区域的宽高度：{{ x: true, y: 300 }}
-            // components: []
+            components: [{
+                ...opts.pagination, 
+                el: '#' + opts.vid + '-paginationId'
+            }]
         };
-        Object.assign(options, opts);
+        $.extend(true, options, opts);
         options.columns.map((col) => {
             col = Object.assign({
                 title: '',  //列头显示文字
@@ -74,11 +77,6 @@ class Table extends Lego.UI.Baseview {
         });
         super(options);
         this.selectedAll = 0;
-        // 分页
-        if(options.pagination){
-            const theOpt = {...options.pagination, el: '#' + options.vid + '-paginationId'};
-            Lego.create(Pagination, theOpt);
-        }
         // 同步横向滚动
         const header = this.$('.lego-table-header');
         this.$('.lego-table-body').scroll(function() {

@@ -74,7 +74,7 @@ class ListView extends Lego.UI.Baseview {
                 }
             }]
         };
-        Object.assign(options, opts);
+        $.extend(true, options, opts);
         super(options);
 
 const text = `

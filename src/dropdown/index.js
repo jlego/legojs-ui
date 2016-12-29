@@ -4,7 +4,6 @@ class Dropdown extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
-                'mouseleave .lego-dropdown': 'close',
                 'click .lego-dropdown-menu-item': 'clickItem',
                 'mouseenter .lego-dropdown-menu-item': 'inMenu',
                 'mouseleave .lego-dropdown-menu-item': 'outMenu',
@@ -12,9 +11,9 @@ class Dropdown extends Lego.UI.Baseview {
                 'mouseleave .lego-dropdown-menu-submenu': 'hideSubMenu',
             },
             disabled: false,
-            eventName: 'mouseenter', //['click'] or ['mouseenter']
+            eventName: 'hover', //['click'] or ['hover']
             trigger: '', //触发对象
-            container: 'body', //渲染父节点
+            // container: 'body', //渲染父节点
             visible: false,  //是否显示
             direction: '',  //显示方向
             onChange(){},  //改变值时调用
@@ -24,12 +23,17 @@ class Dropdown extends Lego.UI.Baseview {
         super(options);
         this.result = '';
         const that = this;
-        const trigger = trigger instanceof $ ? trigger : $(trigger);
-        const eventName = options.eventName + '.' + options.vid;
-        trigger.off(eventName).on(eventName, function(){
-            const directionResp = Lego.UI.Baseview.getDirection(options.container, that.$el);
-            options.direction = (directionResp._y + directionResp._x) || 'bottomLeft';
+        options.trigger = options.trigger instanceof $ ? options.trigger : $(options.trigger);
+        options.trigger[options.eventName](function(){
+            const directionResp = Lego.UI.Baseview.getDirection(options.trigger, that.$el);
+            that.options.direction = (directionResp._y + directionResp._x) || 'bottomLeft';
             that.show();
+            options.trigger.mouseleave(function(){
+                that.close();
+            });
+            that.$('.lego-dropdown-menu').mouseleave(function(){
+                that.close();
+            });
         });
     }
     render() {
@@ -37,14 +41,14 @@ class Dropdown extends Lego.UI.Baseview {
         function loopNav(data){
             return hx`
             <li class="lego-dropdown-menu-submenu-vertical lego-dropdown-menu-submenu">
-                <div class="lego-dropdown-menu-submenu-title" id="${data.key}">${data.title || ''}</div>
+                <div class="lego-dropdown-menu-submenu-title" id="${data.key}">${data.title}</div>
                 ${data.children ? hx`
                 <ul class="lego-dropdown-menu lego-dropdown-menu-vertical lego-dropdown-menu-sub ${data.visible ? '' : 'lego-dropdown-menu-hidden'}">
                     ${data.children.map((item) => {
                         if(!item.children){
-                            hx`<li class="lego-dropdown-menu-item">${item.title || ''}</li>`;
+                            return hx`<li class="lego-dropdown-menu-item">${item.title}</li>`;
                         }else{
-                            loopNav(item);
+                            return loopNav(item);
                         }
                     })}
                 </ul>
@@ -53,11 +57,11 @@ class Dropdown extends Lego.UI.Baseview {
             `;
         }
         const vDom = hx`
-        <div class="lego-dropdown ${options.direction ? 'lego-dropdown-placement-${options.direction}' : ''} lego-dropdown-${options.visible ? 'show' : 'hidden'}">
+        <div class="lego-dropdown lego-dropdown-placement-${options.direction ? options.direction : ''} ${options.visible ? '' : 'lego-dropdown-hidden'}">
             <ul class="lego-dropdown-menu lego-dropdown-menu-vertical  lego-dropdown-menu-light lego-dropdown-menu-root">
-            ${options.data.forEach(item => {
+            ${options.data.map(item => {
                 if(!item.children){
-                    return hx`<li class="lego-dropdown-menu-item" id="${item.key}">${item.title || ''}</li>`;
+                    return hx`<li class="lego-dropdown-menu-item" id="${item.key}">${item.title}</li>`;
                 }else{
                     return loopNav(item);
                 }
@@ -79,24 +83,21 @@ class Dropdown extends Lego.UI.Baseview {
         const target = $(event.currentTarget);
         this.result = target.attr('id');
         this.options.onChange(this.result);
+        this.close();
     }
     inMenu(event){
-        event.stopPropagation();
         const target = $(event.currentTarget);
         target.addClass('lego-dropdown-menu-item-active');
     }
     outMenu(event){
-        event.stopPropagation();
         const target = $(event.currentTarget);
         target.removeClass('lego-dropdown-menu-item-active');
     }
     showSubMenu(event){
-        event.stopPropagation();
         const target = $(event.currentTarget);
         target.addClass('lego-dropdown-menu-submenu-open lego-dropdown-menu-submenu-active');
     }
     hideSubMenu(event){
-        event.stopPropagation();
         const target = $(event.currentTarget);
         target.removeClass('lego-dropdown-menu-submenu-open lego-dropdown-menu-submenu-active');
     }

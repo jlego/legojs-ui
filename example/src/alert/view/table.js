@@ -1,6 +1,5 @@
 // import { Alert } from 'lego-ui';
 import Table from '../../../../dist/Table';
-
 Lego.components('table', Table);
 
 class TableView extends Lego.UI.Baseview {
@@ -85,7 +84,7 @@ class TableView extends Lego.UI.Baseview {
                 }],
             }]
         };
-        $.extend(true, options, opts);
+        Object.assign(options, opts);
         super(options);
     }
     render() {

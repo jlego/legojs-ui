@@ -1,5 +1,6 @@
 import jQuery from 'jquery';
 import Lego from 'lego-core';
+import lo from 'lodash';
 import { Baseview } from '../../dist/Common';
 import '../../dist/css/legoui.css';
 // import { Baseview } from 'lego-ui';
@@ -12,6 +13,7 @@ import hljs from 'highlight.js/lib/highlight';
 import 'highlight.js/styles/atom-one-light.css';
 hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'));
 window.hljs = hljs;
+window._ = lo;
 
 // 注册通用基础组件
 Lego.components({

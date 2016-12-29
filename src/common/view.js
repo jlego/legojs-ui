@@ -22,8 +22,7 @@ class Baseview extends Lego.View {
     }
     // 取层飘浮方向
     static getDirection(el, dropEl) {
-        console.warn(dropEl);
-        el = el ? (el instanceof $ ? el : $(el)) : $('body');
+        el = el instanceof $ ? el : $(el);
         let windowW = $(window).width(),
             windowH = $(window).height(),
             _X = el.offset().left,
@@ -32,11 +31,9 @@ class Baseview extends Lego.View {
             elH = el.height(),
             dropW = dropEl.width(),
             dropH = dropEl.height(),
-            upDown = '',
-            leftRight = '',
-            elHeight = el.height();
-        upDown = dropH > (windowH - _Y - elH) ? 'up' : 'bottom';
-        leftRight = dropW > (windowW - _X) ? 'Left' : 'Right';
+            upDown = dropH > (windowH - _Y - elH) ? 'top' : 'bottom',
+            leftRight = dropW > (windowW - _X - elW) ? 'Right' : 'Left';
+        // console.warn(dropH, windowH, _Y, elH);
         return {
             _x: leftRight,
             _y: upDown
