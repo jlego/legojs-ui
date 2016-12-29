@@ -1,6 +1,5 @@
 import Util from './util'
 
-
 /**
  * --------------------------------------------------------------------------
  * Bootstrap (v4.0.0-alpha.5): modal.js
@@ -8,7 +7,7 @@ import Util from './util'
  * --------------------------------------------------------------------------
  */
 
-const Modal = (() => {
+const Modal = (($) => {
 
 
     /**
@@ -526,6 +525,6 @@ const Modal = (() => {
 
     return Modal
 
-})()
+})(jQuery)
 
 export default Modal

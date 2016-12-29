@@ -4,7 +4,11 @@ import perfectScrollbar from 'perfect-scrollbar';
 import Baseview from "./view";
 import Util from "../util/util";
 
-Lego.UI.Util = Util;
 window.Ps = perfectScrollbar;
+
+Lego.components({
+	'Util': Util,
+	'dialog': Util.dialog
+});
 
 export { Baseview };

@@ -96,20 +96,126 @@ var Baseview = function(_Lego$View) {
     return Baseview;
 }(Lego.View);
 
-var Util$1 = {
-    getDirection: function getDirection(el, dropEl) {
-        el = el instanceof $ ? el : $(el);
-        var windowW = $(window).width(), windowH = $(window).height(), _X = el.offset().left, _Y = el.offset().top, elW = el.width(), elH = el.height(), dropW = dropEl.width(), dropH = dropEl.height(), upDown = dropH > windowH - _Y - elH ? "top" : "bottom", leftRight = dropW > windowW - _X - elW ? "Right" : "Left";
-        return {
-            _x: leftRight,
-            _y: upDown
-        };
+var transition = false;
+
+var MAX_UID = 1e6;
+
+var TransitionEndEvent = {
+    WebkitTransition: "webkitTransitionEnd",
+    MozTransition: "transitionend",
+    OTransition: "oTransitionEnd otransitionend",
+    transition: "transitionend"
+};
+
+function toType(obj) {
+    return {}.toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+}
+
+function isElement(obj) {
+    return (obj[0] || obj).nodeType;
+}
+
+function getSpecialTransitionEndEvent() {
+    return {
+        bindType: transition.end,
+        delegateType: transition.end,
+        handle: function handle(event) {
+            if (Lego.$(event.target).is(this)) {
+                return event.handleObj.handler.apply(this, arguments);
+            }
+            return undefined;
+        }
+    };
+}
+
+function transitionEndTest() {
+    if (window.QUnit) {
+        return false;
+    }
+    var el = document.createElement("bootstrap");
+    for (var name in TransitionEndEvent) {
+        if (el.style[name] !== undefined) {
+            return {
+                end: TransitionEndEvent[name]
+            };
+        }
+    }
+    return false;
+}
+
+function transitionEndEmulator(duration) {
+    var _this = this;
+    var called = false;
+    Lego.$(this).one(Util$3.TRANSITION_END, function() {
+        called = true;
+    });
+    setTimeout(function() {
+        if (!called) {
+            Util$3.triggerTransitionEnd(_this);
+        }
+    }, duration);
+    return this;
+}
+
+function setTransitionEndSupport() {
+    transition = transitionEndTest();
+    Lego.$.fn.emulateTransitionEnd = transitionEndEmulator;
+    if (Util$3.supportsTransitionEnd()) {
+        Lego.$.event.special[Util$3.TRANSITION_END] = getSpecialTransitionEndEvent();
+    }
+}
+
+var Util$3 = {
+    TRANSITION_END: "bsTransitionEnd",
+    getUID: function getUID(prefix) {
+        do {
+            prefix += ~~(Math.random() * MAX_UID);
+        } while (document.getElementById(prefix));
+        return prefix;
+    },
+    getSelectorFromElement: function getSelectorFromElement(element) {
+        var selector = element.getAttribute("data-target");
+        if (!selector) {
+            selector = element.getAttribute("href") || "";
+            selector = /^#[a-z]/i.test(selector) ? selector : null;
+        }
+        return selector;
+    },
+    reflow: function reflow(element) {
+        new Function("bs", "return bs")(element.offsetHeight);
+    },
+    triggerTransitionEnd: function triggerTransitionEnd(element) {
+        Lego.$(element).trigger(transition.end);
+    },
+    supportsTransitionEnd: function supportsTransitionEnd() {
+        return Boolean(transition);
+    },
+    typeCheckConfig: function typeCheckConfig(componentName, config, configTypes) {
+        for (var property in configTypes) {
+            if (configTypes.hasOwnProperty(property)) {
+                var expectedTypes = configTypes[property];
+                var value = config[property];
+                var valueType = void 0;
+                if (value && isElement(value)) {
+                    valueType = "element";
+                } else {
+                    valueType = toType(value);
+                }
+                if (!new RegExp(expectedTypes).test(valueType)) {
+                    throw new Error("Lego." + componentName.toUpperCase() + ": " + ('Option "' + property + '" provided type "' + valueType + '" ') + ('but expected type "' + expectedTypes + '".'));
+                }
+            }
+        }
     }
 };
 
-Lego.UI.Util = Util$1;
+setTransitionEndSupport();
 
-window.Ps = perfectScrollbar;
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
+    return typeof obj;
+} : function(obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
 
 var _createClass$2 = function() {
     function defineProperties(target, props) {
@@ -128,64 +234,428 @@ var _createClass$2 = function() {
     };
 }();
 
-var _templateObject$1 = _taggedTemplateLiteral$1([ '\n        <div class="sidebar app-aside" id="sidebar">\n        <div class="sidebar-container scrollbar ps-container ps-active-y">\n            <nav>\n                <ul class="main-navigation-menu">\n                    <li data-permis=\'{"module":"Home", "operate":"Query", "hide":1}\' id="nav_home">\n                        <a href="javascript:Lego.startApp(\'home\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-home"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 首页 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Register", "operate":"Query", "hide":1}\' id="nav_register">\n                        <a href="javascript:Lego.startApp(\'alert\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-account-info"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 警告框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Customer", "operate":"Query", "hide":1}\' id="nav_customer">\n                        <a href="javascript:Lego.startApp(\'button\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-teamwork"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 按钮 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Order", "operate":"Query", "hide":1}\' id="nav_order">\n                        <a href="#order/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-purchase"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 订单管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Channel", "operate":"Query", "hide":1}\' id="nav_channel">\n                        <a href="#channel/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-clues"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 渠道管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Finance", "operate":"Query", "hide":1}\' id="nav_finance">\n                        <a href="#finance/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-biz"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 财务管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Consumption", "operate":"Query", "hide":1}\' id="nav_expenses">\n                        <a href="#expenses/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-expenses"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 消费记录 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Product", "operate":"Query", "hide":1}\' id="nav_product">\n                        <a href="#product/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-products"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 产品管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Operation", "operate":"Query", "hide":1}\' id="nav_operation">\n                        <a href="#operation/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-dashboard"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 运营管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Organization", "operate":"Query", "hide":1}\' id="nav_organization">\n                        <a href="#admin/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-admin"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 后台管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                </ul>\n            </nav>\n        </div>\n        </div>\n        ' ], [ '\n        <div class="sidebar app-aside" id="sidebar">\n        <div class="sidebar-container scrollbar ps-container ps-active-y">\n            <nav>\n                <ul class="main-navigation-menu">\n                    <li data-permis=\'{"module":"Home", "operate":"Query", "hide":1}\' id="nav_home">\n                        <a href="javascript:Lego.startApp(\'home\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-home"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 首页 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Register", "operate":"Query", "hide":1}\' id="nav_register">\n                        <a href="javascript:Lego.startApp(\'alert\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-account-info"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 警告框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Customer", "operate":"Query", "hide":1}\' id="nav_customer">\n                        <a href="javascript:Lego.startApp(\'button\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-teamwork"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 按钮 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Order", "operate":"Query", "hide":1}\' id="nav_order">\n                        <a href="#order/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-purchase"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 订单管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Channel", "operate":"Query", "hide":1}\' id="nav_channel">\n                        <a href="#channel/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-clues"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 渠道管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Finance", "operate":"Query", "hide":1}\' id="nav_finance">\n                        <a href="#finance/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-biz"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 财务管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Consumption", "operate":"Query", "hide":1}\' id="nav_expenses">\n                        <a href="#expenses/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-expenses"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 消费记录 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Product", "operate":"Query", "hide":1}\' id="nav_product">\n                        <a href="#product/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-products"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 产品管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Operation", "operate":"Query", "hide":1}\' id="nav_operation">\n                        <a href="#operation/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-dashboard"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 运营管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Organization", "operate":"Query", "hide":1}\' id="nav_organization">\n                        <a href="#admin/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-admin"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 后台管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                </ul>\n            </nav>\n        </div>\n        </div>\n        ' ]);
-
-function _taggedTemplateLiteral$1(strings, raw) {
-    return Object.freeze(Object.defineProperties(strings, {
-        raw: {
-            value: Object.freeze(raw)
-        }
-    }));
-}
-
 function _classCallCheck$2(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
 }
 
-function _possibleConstructorReturn$2(self, call) {
-    if (!self) {
-        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-    return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
+var NAME = "modal";
 
-function _inherits$2(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+var VERSION = "4.0.0-alpha.5";
+
+var DATA_KEY = "bs.modal";
+
+var EVENT_KEY = "." + DATA_KEY;
+
+var DATA_API_KEY = ".data-api";
+
+var JQUERY_NO_CONFLICT = Lego.$.fn[NAME];
+
+var TRANSITION_DURATION = 300;
+
+var BACKDROP_TRANSITION_DURATION = 150;
+
+var ESCAPE_KEYCODE = 27;
+
+var Default = {
+    backdrop: true,
+    keyboard: true,
+    focus: true,
+    show: true
+};
+
+var DefaultType = {
+    backdrop: "(boolean|string)",
+    keyboard: "boolean",
+    focus: "boolean",
+    show: "boolean"
+};
+
+var Event = {
+    HIDE: "hide" + EVENT_KEY,
+    HIDDEN: "hidden" + EVENT_KEY,
+    SHOW: "show" + EVENT_KEY,
+    SHOWN: "shown" + EVENT_KEY,
+    FOCUSIN: "focusin" + EVENT_KEY,
+    RESIZE: "resize" + EVENT_KEY,
+    CLICK_DISMISS: "click.dismiss" + EVENT_KEY,
+    KEYDOWN_DISMISS: "keydown.dismiss" + EVENT_KEY,
+    MOUSEUP_DISMISS: "mouseup.dismiss" + EVENT_KEY,
+    MOUSEDOWN_DISMISS: "mousedown.dismiss" + EVENT_KEY,
+    CLICK_DATA_API: "click" + EVENT_KEY + DATA_API_KEY
+};
+
+var ClassName = {
+    SCROLLBAR_MEASURER: "modal-scrollbar-measure",
+    BACKDROP: "modal-backdrop",
+    OPEN: "modal-open",
+    FADE: "fade",
+    IN: "in"
+};
+
+var Selector = {
+    DIALOG: ".modal-dialog",
+    DATA_TOGGLE: '[data-toggle="modal"]',
+    DATA_DISMISS: '[data-dismiss="modal"]',
+    FIXED_CONTENT: ".navbar-fixed-top, .navbar-fixed-bottom, .is-fixed"
+};
+
+var Modal$2 = function() {
+    function Modal(element, config) {
+        _classCallCheck$2(this, Modal);
+        this._config = this._getConfig(config);
+        this._element = element;
+        this._dialog = $(element).find(Selector.DIALOG)[0];
+        this._backdrop = null;
+        this._isShown = false;
+        this._isBodyOverflowing = false;
+        this._ignoreBackdropClick = false;
+        this._originalBodyPadding = 0;
+        this._scrollbarWidth = 0;
     }
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
-        constructor: {
-            value: subClass,
-            enumerable: false,
-            writable: true,
-            configurable: true
+    _createClass$2(Modal, [ {
+        key: "toggle",
+        value: function toggle(relatedTarget) {
+            return this._isShown ? this.hide() : this.show(relatedTarget);
         }
-    });
-    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-var Menu = function(_Lego$UI$Baseview) {
-    _inherits$2(Menu, _Lego$UI$Baseview);
-    function Menu() {
-        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$2(this, Menu);
-        var options = {
-            events: {}
-        };
-        Object.assign(options, opts);
-        return _possibleConstructorReturn$2(this, (Menu.__proto__ || Object.getPrototypeOf(Menu)).call(this, options));
-    }
-    _createClass$2(Menu, [ {
-        key: "render",
-        value: function render() {
-            var tmpl = hx(_templateObject$1);
-            return tmpl;
+    }, {
+        key: "show",
+        value: function show(relatedTarget) {
+            var _this = this;
+            var showEvent = $.Event(Event.SHOW, {
+                relatedTarget: relatedTarget
+            });
+            $(this._element).trigger(showEvent);
+            if (this._isShown || showEvent.isDefaultPrevented()) {
+                return;
+            }
+            this._isShown = true;
+            this._checkScrollbar();
+            this._setScrollbar();
+            $(document.body).addClass(ClassName.OPEN);
+            this._setEscapeEvent();
+            this._setResizeEvent();
+            $(this._element).on(Event.CLICK_DISMISS, Selector.DATA_DISMISS, $.proxy(this.hide, this));
+            $(this._dialog).on(Event.MOUSEDOWN_DISMISS, function() {
+                $(_this._element).one(Event.MOUSEUP_DISMISS, function(event) {
+                    if ($(event.target).is(_this._element)) {
+                        _this._ignoreBackdropClick = true;
+                    }
+                });
+            });
+            this._showBackdrop($.proxy(this._showElement, this, relatedTarget));
+        }
+    }, {
+        key: "hide",
+        value: function hide(event) {
+            if (event) {
+                event.preventDefault();
+            }
+            var hideEvent = $.Event(Event.HIDE);
+            $(this._element).trigger(hideEvent);
+            if (!this._isShown || hideEvent.isDefaultPrevented()) {
+                return;
+            }
+            this._isShown = false;
+            this._setEscapeEvent();
+            this._setResizeEvent();
+            $(document).off(Event.FOCUSIN);
+            $(this._element).removeClass(ClassName.IN);
+            $(this._element).off(Event.CLICK_DISMISS);
+            $(this._dialog).off(Event.MOUSEDOWN_DISMISS);
+            if (Util$3.supportsTransitionEnd() && $(this._element).hasClass(ClassName.FADE)) {
+                $(this._element).one(Util$3.TRANSITION_END, $.proxy(this._hideModal, this)).emulateTransitionEnd(TRANSITION_DURATION);
+            } else {
+                this._hideModal();
+            }
+        }
+    }, {
+        key: "dispose",
+        value: function dispose() {
+            $.removeData(this._element, DATA_KEY);
+            $(window).off(EVENT_KEY);
+            $(document).off(EVENT_KEY);
+            $(this._element).off(EVENT_KEY);
+            $(this._backdrop).off(EVENT_KEY);
+            this._config = null;
+            this._element = null;
+            this._dialog = null;
+            this._backdrop = null;
+            this._isShown = null;
+            this._isBodyOverflowing = null;
+            this._ignoreBackdropClick = null;
+            this._originalBodyPadding = null;
+            this._scrollbarWidth = null;
+        }
+    }, {
+        key: "_getConfig",
+        value: function _getConfig(config) {
+            config = $.extend({}, Default, config);
+            Util$3.typeCheckConfig(NAME, config, DefaultType);
+            return config;
+        }
+    }, {
+        key: "_showElement",
+        value: function _showElement(relatedTarget) {
+            var _this2 = this;
+            var transition = Util$3.supportsTransitionEnd() && $(this._element).hasClass(ClassName.FADE);
+            if (!this._element.parentNode || this._element.parentNode.nodeType !== Node.ELEMENT_NODE) {
+                document.body.appendChild(this._element);
+            }
+            this._element.style.display = "block";
+            this._element.removeAttribute("aria-hidden");
+            this._element.scrollTop = 0;
+            if (transition) {
+                Util$3.reflow(this._element);
+            }
+            $(this._element).addClass(ClassName.IN);
+            if (this._config.focus) {
+                this._enforceFocus();
+            }
+            var shownEvent = $.Event(Event.SHOWN, {
+                relatedTarget: relatedTarget
+            });
+            var transitionComplete = function transitionComplete() {
+                if (_this2._config.focus) {
+                    _this2._element.focus();
+                }
+                $(_this2._element).trigger(shownEvent);
+            };
+            if (transition) {
+                $(this._dialog).one(Util$3.TRANSITION_END, transitionComplete).emulateTransitionEnd(TRANSITION_DURATION);
+            } else {
+                transitionComplete();
+            }
+        }
+    }, {
+        key: "_enforceFocus",
+        value: function _enforceFocus() {
+            var _this3 = this;
+            $(document).off(Event.FOCUSIN).on(Event.FOCUSIN, function(event) {
+                if (document !== event.target && _this3._element !== event.target && !$(_this3._element).has(event.target).length) {
+                    _this3._element.focus();
+                }
+            });
+        }
+    }, {
+        key: "_setEscapeEvent",
+        value: function _setEscapeEvent() {
+            var _this4 = this;
+            if (this._isShown && this._config.keyboard) {
+                $(this._element).on(Event.KEYDOWN_DISMISS, function(event) {
+                    if (event.which === ESCAPE_KEYCODE) {
+                        _this4.hide();
+                    }
+                });
+            } else if (!this._isShown) {
+                $(this._element).off(Event.KEYDOWN_DISMISS);
+            }
+        }
+    }, {
+        key: "_setResizeEvent",
+        value: function _setResizeEvent() {
+            if (this._isShown) {
+                $(window).on(Event.RESIZE, $.proxy(this._handleUpdate, this));
+            } else {
+                $(window).off(Event.RESIZE);
+            }
+        }
+    }, {
+        key: "_hideModal",
+        value: function _hideModal() {
+            var _this5 = this;
+            this._element.style.display = "none";
+            this._element.setAttribute("aria-hidden", "true");
+            this._showBackdrop(function() {
+                $(document.body).removeClass(ClassName.OPEN);
+                _this5._resetAdjustments();
+                _this5._resetScrollbar();
+                $(_this5._element).trigger(Event.HIDDEN);
+            });
+        }
+    }, {
+        key: "_removeBackdrop",
+        value: function _removeBackdrop() {
+            if (this._backdrop) {
+                $(this._backdrop).remove();
+                this._backdrop = null;
+            }
+        }
+    }, {
+        key: "_showBackdrop",
+        value: function _showBackdrop(callback) {
+            var _this6 = this;
+            var animate = $(this._element).hasClass(ClassName.FADE) ? ClassName.FADE : "";
+            if (this._isShown && this._config.backdrop) {
+                var doAnimate = Util$3.supportsTransitionEnd() && animate;
+                this._backdrop = document.createElement("div");
+                this._backdrop.className = ClassName.BACKDROP;
+                if (animate) {
+                    $(this._backdrop).addClass(animate);
+                }
+                $(this._backdrop).appendTo(document.body);
+                $(this._element).on(Event.CLICK_DISMISS, function(event) {
+                    if (_this6._ignoreBackdropClick) {
+                        _this6._ignoreBackdropClick = false;
+                        return;
+                    }
+                    if (event.target !== event.currentTarget) {
+                        return;
+                    }
+                    if (_this6._config.backdrop === "static") {
+                        _this6._element.focus();
+                    } else {
+                        _this6.hide();
+                    }
+                });
+                if (doAnimate) {
+                    Util$3.reflow(this._backdrop);
+                }
+                $(this._backdrop).addClass(ClassName.IN);
+                if (!callback) {
+                    return;
+                }
+                if (!doAnimate) {
+                    callback();
+                    return;
+                }
+                $(this._backdrop).one(Util$3.TRANSITION_END, callback).emulateTransitionEnd(BACKDROP_TRANSITION_DURATION);
+            } else if (!this._isShown && this._backdrop) {
+                $(this._backdrop).removeClass(ClassName.IN);
+                var callbackRemove = function callbackRemove() {
+                    _this6._removeBackdrop();
+                    if (callback) {
+                        callback();
+                    }
+                };
+                if (Util$3.supportsTransitionEnd() && $(this._element).hasClass(ClassName.FADE)) {
+                    $(this._backdrop).one(Util$3.TRANSITION_END, callbackRemove).emulateTransitionEnd(BACKDROP_TRANSITION_DURATION);
+                } else {
+                    callbackRemove();
+                }
+            } else if (callback) {
+                callback();
+            }
+        }
+    }, {
+        key: "_handleUpdate",
+        value: function _handleUpdate() {
+            this._adjustDialog();
+        }
+    }, {
+        key: "_adjustDialog",
+        value: function _adjustDialog() {
+            var isModalOverflowing = this._element.scrollHeight > document.documentElement.clientHeight;
+            if (!this._isBodyOverflowing && isModalOverflowing) {
+                this._element.style.paddingLeft = this._scrollbarWidth + "px";
+            }
+            if (this._isBodyOverflowing && !isModalOverflowing) {
+                this._element.style.paddingRight = this._scrollbarWidth + "px";
+            }
+        }
+    }, {
+        key: "_resetAdjustments",
+        value: function _resetAdjustments() {
+            this._element.style.paddingLeft = "";
+            this._element.style.paddingRight = "";
+        }
+    }, {
+        key: "_checkScrollbar",
+        value: function _checkScrollbar() {
+            this._isBodyOverflowing = document.body.clientWidth < window.innerWidth;
+            this._scrollbarWidth = this._getScrollbarWidth();
+        }
+    }, {
+        key: "_setScrollbar",
+        value: function _setScrollbar() {
+            var bodyPadding = parseInt($(Selector.FIXED_CONTENT).css("padding-right") || 0, 10);
+            this._originalBodyPadding = document.body.style.paddingRight || "";
+            if (this._isBodyOverflowing) {
+                document.body.style.paddingRight = bodyPadding + this._scrollbarWidth + "px";
+            }
+        }
+    }, {
+        key: "_resetScrollbar",
+        value: function _resetScrollbar() {
+            document.body.style.paddingRight = this._originalBodyPadding;
+        }
+    }, {
+        key: "_getScrollbarWidth",
+        value: function _getScrollbarWidth() {
+            var scrollDiv = document.createElement("div");
+            scrollDiv.className = ClassName.SCROLLBAR_MEASURER;
+            document.body.appendChild(scrollDiv);
+            var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+            document.body.removeChild(scrollDiv);
+            return scrollbarWidth;
+        }
+    } ], [ {
+        key: "_jQueryInterface",
+        value: function _jQueryInterface(config, relatedTarget) {
+            return this.each(function() {
+                var data = $(this).data(DATA_KEY);
+                var _config = $.extend({}, Modal.Default, Lego.$(this).data(), (typeof config === "undefined" ? "undefined" : _typeof(config)) === "object" && config);
+                if (!data) {
+                    data = new Modal(this, _config);
+                    $(this).data(DATA_KEY, data);
+                }
+                if (typeof config === "string") {
+                    if (data[config] === undefined) {
+                        throw new Error('No method named "' + config + '"');
+                    }
+                    data[config](relatedTarget);
+                } else if (_config.show) {
+                    data.show(relatedTarget);
+                }
+            });
+        }
+    }, {
+        key: "VERSION",
+        get: function get() {
+            return VERSION;
+        }
+    }, {
+        key: "Default",
+        get: function get() {
+            return Default;
         }
     } ]);
-    return Menu;
-}(Lego.UI.Baseview);
+    return Modal;
+}();
+
+$(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function(event) {
+    var _this7 = this;
+    var target = void 0;
+    var selector = Util$3.getSelectorFromElement(this);
+    if (selector) {
+        target = Lego.$(selector)[0];
+    }
+    var config = Lego.$(target).data(DATA_KEY) ? "toggle" : Lego.$.extend({}, Lego.$(target).data(), Lego.$(this).data());
+    if (this.tagName === "A") {
+        event.preventDefault();
+    }
+    var $target = Lego.$(target).one(Event.SHOW, function(showEvent) {
+        if (showEvent.isDefaultPrevented()) {
+            return;
+        }
+        $target.one(Event.HIDDEN, function() {
+            if ($(_this7).is(":visible")) {
+                _this7.focus();
+            }
+        });
+    });
+    Modal$2._jQueryInterface.call($(target), config, this);
+});
+
+Lego.$.fn[NAME] = Modal$2._jQueryInterface;
+
+Lego.$.fn[NAME].Constructor = Modal$2;
+
+Lego.$.fn[NAME].noConflict = function() {
+    Lego.$.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Modal$2._jQueryInterface;
+};
 
 var _createClass$1 = function() {
     function defineProperties(target, props) {
@@ -204,7 +674,11 @@ var _createClass$1 = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container"></div>\n                    <submodal id="lego-submodal"></submodal>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n            <modal id="lego-modal"></modal>\n        </div>\n        ' ], [ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container"></div>\n                    <submodal id="lego-submodal"></submodal>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n            <modal id="lego-modal"></modal>\n        </div>\n        ' ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="modal ', " ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '" style="', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ], [ '\n        <div class="modal ', " ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '" style="', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ]);
+
+var _templateObject2 = _taggedTemplateLiteral([ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ], [ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ]);
+
+var _templateObject3 = _taggedTemplateLiteral([ '<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">', '</button>\n                <button type="button" class="btn btn-primary ok">', "</button></div>" ], [ '<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">', '</button>\n                <button type="button" class="btn btn-primary ok">', "</button></div>" ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -242,41 +716,200 @@ function _inherits$1(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-Lego.components("menu", Menu);
-
-var Viewport = function(_Lego$UI$Baseview) {
-    _inherits$1(Viewport, _Lego$UI$Baseview);
-    function Viewport() {
+var Modal = function(_Lego$UI$Baseview) {
+    _inherits$1(Modal, _Lego$UI$Baseview);
+    function Modal() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$1(this, Viewport);
+        _classCallCheck$1(this, Modal);
         var options = {
-            events: {},
-            logoUrl: "asset/img/logo.png",
-            menu: [],
-            components: [ {
-                el: "#sidebar"
-            } ]
+            events: {
+                "click .modal-footer button.ok": "clickOk",
+                "click .modal-footer button.cancel": "clickCancel",
+                "click .close": "close",
+                "click .modal-dialog": function clickModalDialog(event) {
+                    event.stopPropagation();
+                },
+                click: "close"
+            },
+            title: "modal title",
+            size: "",
+            type: "modal",
+            position: "",
+            animate: "fade",
+            closable: true,
+            showHeader: true,
+            showFooter: true,
+            backdrop: true,
+            keyboard: true,
+            content: "",
+            footer: null,
+            confirm: false,
+            okText: "确定",
+            cancelText: "取消",
+            onHidden: function onHidden() {},
+            animates: {
+                fadeIn: "fadeOut",
+                slideInRight: "slideOutRight"
+            }
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$1(this, (Viewport.__proto__ || Object.getPrototypeOf(Viewport)).call(this, options));
+        var modalEl = options.position ? "#lego-submodal" : "#lego-modal";
+        var container = options.position ? '<submodal id="lego-submodal"></submodal>' : '<modal id="lego-modal"></modal>';
+        if (!options.el) options.el = modalEl;
+        if (options.position) options.animate = "slideInRight";
+        var _this = _possibleConstructorReturn$1(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, options));
+        var that = _this;
+        _this._renderStyle(options);
+        _this.$el.modal({
+            backdrop: options.position ? !options.backdrop : options.backdrop,
+            keyboard: options.keyboard,
+            show: true
+        });
+        _this.$el.on("hidden.bs.modal", function(e) {
+            that.remove();
+            $(Lego.config.pageEl).after(container);
+            console.warn("关闭了");
+            if (typeof options.onHidden === "function") options.onHidden();
+        });
+        if (options.animate) {
+            var animateName = options.animate ? options.animate : "fadeIn";
+            _this.$el.data("animate", animateName);
+            Lego.UI.Util.animateCss(_this.$el, "animated " + animateName);
+        }
+        return _this;
     }
-    _createClass$1(Viewport, [ {
-        key: "render",
-        value: function render() {
-            var tmpl = hx(_templateObject, this.options.logoUrl);
-            return tmpl;
+    _createClass$1(Modal, [ {
+        key: "_renderStyle",
+        value: function _renderStyle(options) {
+            var style = {};
+            if (options.position == "right") {
+                var headerHeight = $("header").height();
+                style = {
+                    position: "absolute",
+                    width: options.width || 700,
+                    padding: headerHeight + "px 0 0"
+                };
+            } else if (options.width && options.height || !options.position) {
+                style = {
+                    width: options.width || undefined,
+                    height: options.height || undefined,
+                    position: "absolute",
+                    marginTop: -(options.height || 200) / 2,
+                    marginLeft: -(options.width || (options.size == "sm" ? 300 : options.size == "lg" ? 900 : 600)) / 2,
+                    top: "45%",
+                    left: "50%"
+                };
+            }
+            this.$(".modal-dialog").css(style);
         }
     }, {
-        key: "clickNav",
-        value: function clickNav(event) {
-            var target = HBY.$(event.currentTarget), app = target.data("app");
-            HBY.startApp(app);
+        key: "render",
+        value: function render() {
+            var options = this.options || {};
+            var vDom = hx(_templateObject, options.position == "right" ? "right-modal" : "", options.size ? "bs-example-modal-" + options.size : "", options.el.replace(/#/, ""), options.closable ? hx(_templateObject2) : "", options.title, options.type == "modal" ? "scrollbar" : "", options.type == "modal" ? 'position:"absolute"' : "", options.content, options.footer ? options.footer : hx(_templateObject3, options.cancelText, options.okText));
+            return vDom;
+        }
+    }, {
+        key: "close",
+        value: function close() {
+            var animateName = this.options.animate, that = this;
+            if (animateName) {
+                Lego.UI.Util.animateCss(that.$el, "animated " + that.options.animates[animateName], function() {
+                    that.$el.modal("hide");
+                });
+                $(".modal-backdrop").fadeOut();
+            } else {
+                this.$el.modal("hide");
+            }
+        }
+    }, {
+        key: "_onConfirm",
+        value: function _onConfirm() {
+            var that = this;
+            Lego.UI.dialog({
+                msgType: this.options.msgType || "warning",
+                content: this.options.content || "你确定退出?",
+                onOk: function onOk(e) {
+                    that.close();
+                    Lego.getView($("#lego-modal")).close();
+                }
+            });
+        }
+    }, {
+        key: "clickOk",
+        value: function clickOk(event) {
+            event.stopPropagation();
+            if (this.options.confirm && this.options.onOk) {
+                _onConfirm();
+            } else {
+                this.close();
+            }
+            if (typeof this.options.onOk === "function") this.options.onOk(event);
+        }
+    }, {
+        key: "clickCancel",
+        value: function clickCancel(event) {
+            event.stopPropagation();
+            if (this.options.confirm && this.options.onCancel) {
+                _onConfirm();
+            } else {
+                this.close();
+            }
+            if (typeof this.options.onCancel === "function") this.options.onCancel(event);
         }
     } ]);
-    return Viewport;
+    return Modal;
 }(Lego.UI.Baseview);
 
-var _createClass$3 = function() {
+var Util$1 = {
+    getDirection: function getDirection(el, dropEl) {
+        el = el instanceof $ ? el : $(el);
+        var windowW = $(window).width(), windowH = $(window).height(), _X = el.offset().left, _Y = el.offset().top, elW = el.width(), elH = el.height(), dropW = dropEl.width(), dropH = dropEl.height(), upDown = dropH > windowH - _Y - elH ? "top" : "bottom", leftRight = dropW > windowW - _X - elW ? "Right" : "Left";
+        return {
+            _x: leftRight,
+            _y: upDown
+        };
+    },
+    animateCss: function animateCss(el, animationName, callback) {
+        el = el instanceof $ ? el : $(el);
+        var animationEnd = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
+        el.addClass(animationName).one(animationEnd, function() {
+            el.removeClass(animationName);
+            if (typeof callback == "function") callback();
+        });
+    },
+    dialog: function dialog(option) {
+        var typeArr = {
+            success: "anticon anticon-check-circle-o",
+            info: "anticon anticon-info-circle-o",
+            warning: "anticon anticon-exclamation-circle-o",
+            error: "anticon anticon-cross-circle-o",
+            alert: "anticon anticon-question-circle-o"
+        };
+        var options = {
+            msgType: "",
+            type: "dialog",
+            title: "信息提示",
+            size: "",
+            content: "",
+            onOk: function onOk() {},
+            onCancel: function onCancel() {}
+        };
+        if (typeArr[options.msgType] && typeof options.content == "string") {
+            options.content = '<span class="' + typeArr[options.msgType] + ' dialog-icon"></span>' + '<div class="dialog-content">' + options.content + "</div>";
+        }
+        Object.assign(options, opts);
+        Lego.create(Modal, options);
+    }
+};
+
+window.Ps = perfectScrollbar;
+
+Lego.components({
+    Util: Util$1
+});
+
+var _createClass$4 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -293,11 +926,7 @@ var _createClass$3 = function() {
     };
 }();
 
-var _templateObject$2 = _taggedTemplateLiteral$2([ '\n        <div class="alert alert-', " ", " ", '">\n            <i class="anticon ', " lego-alert", '-icon" style="display:', ';"></i>\n            <span class="lego-alert-message">', "</span>\n            ", "\n            ", "\n        </div>\n        " ], [ '\n        <div class="alert alert-', " ", " ", '">\n            <i class="anticon ', " lego-alert", '-icon" style="display:', ';"></i>\n            <span class="lego-alert-message">', "</span>\n            ", "\n            ", "\n        </div>\n        " ]);
-
-var _templateObject2 = _taggedTemplateLiteral$2([ '<span class="lego-alert-description">', "</span>" ], [ '<span class="lego-alert-description">', "</span>" ]);
-
-var _templateObject3 = _taggedTemplateLiteral$2([ '<a class="lego-alert-close-icon"><i class="anticon anticon-cross"></i></a>' ], [ '<a class="lego-alert-close-icon"><i class="anticon anticon-cross"></i></a>' ]);
+var _templateObject$2 = _taggedTemplateLiteral$2([ '\n        <div class="sidebar app-aside" id="sidebar">\n        <div class="sidebar-container scrollbar ps-container ps-active-y">\n            <nav>\n                <ul class="main-navigation-menu">\n                    <li data-permis=\'{"module":"Home", "operate":"Query", "hide":1}\' id="nav_home">\n                        <a href="javascript:Lego.startApp(\'home\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-home"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 首页 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Register", "operate":"Query", "hide":1}\' id="nav_register">\n                        <a href="javascript:Lego.startApp(\'alert\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-account-info"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 警告框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Customer", "operate":"Query", "hide":1}\' id="nav_customer">\n                        <a href="javascript:Lego.startApp(\'button\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-teamwork"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 按钮 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Order", "operate":"Query", "hide":1}\' id="nav_order">\n                        <a href="#order/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-purchase"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 订单管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Channel", "operate":"Query", "hide":1}\' id="nav_channel">\n                        <a href="#channel/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-clues"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 渠道管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Finance", "operate":"Query", "hide":1}\' id="nav_finance">\n                        <a href="#finance/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-biz"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 财务管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Consumption", "operate":"Query", "hide":1}\' id="nav_expenses">\n                        <a href="#expenses/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-expenses"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 消费记录 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Product", "operate":"Query", "hide":1}\' id="nav_product">\n                        <a href="#product/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-products"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 产品管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Operation", "operate":"Query", "hide":1}\' id="nav_operation">\n                        <a href="#operation/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-dashboard"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 运营管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Organization", "operate":"Query", "hide":1}\' id="nav_organization">\n                        <a href="#admin/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-admin"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 后台管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                </ul>\n            </nav>\n        </div>\n        </div>\n        ' ], [ '\n        <div class="sidebar app-aside" id="sidebar">\n        <div class="sidebar-container scrollbar ps-container ps-active-y">\n            <nav>\n                <ul class="main-navigation-menu">\n                    <li data-permis=\'{"module":"Home", "operate":"Query", "hide":1}\' id="nav_home">\n                        <a href="javascript:Lego.startApp(\'home\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-home"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 首页 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Register", "operate":"Query", "hide":1}\' id="nav_register">\n                        <a href="javascript:Lego.startApp(\'alert\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-account-info"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 警告框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Customer", "operate":"Query", "hide":1}\' id="nav_customer">\n                        <a href="javascript:Lego.startApp(\'button\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-teamwork"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 按钮 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Order", "operate":"Query", "hide":1}\' id="nav_order">\n                        <a href="#order/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-purchase"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 订单管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Channel", "operate":"Query", "hide":1}\' id="nav_channel">\n                        <a href="#channel/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-clues"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 渠道管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Finance", "operate":"Query", "hide":1}\' id="nav_finance">\n                        <a href="#finance/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-biz"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 财务管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Consumption", "operate":"Query", "hide":1}\' id="nav_expenses">\n                        <a href="#expenses/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-expenses"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 消费记录 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Product", "operate":"Query", "hide":1}\' id="nav_product">\n                        <a href="#product/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-products"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 产品管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Operation", "operate":"Query", "hide":1}\' id="nav_operation">\n                        <a href="#operation/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-dashboard"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 运营管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Organization", "operate":"Query", "hide":1}\' id="nav_organization">\n                        <a href="#admin/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-admin"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 后台管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                </ul>\n            </nav>\n        </div>\n        </div>\n        ' ]);
 
 function _taggedTemplateLiteral$2(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -307,7 +936,7 @@ function _taggedTemplateLiteral$2(strings, raw) {
     }));
 }
 
-function _classCallCheck$3(instance, Constructor) {
+function _classCallCheck$4(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
@@ -335,67 +964,28 @@ function _inherits$3(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Alert = function(_Lego$UI$Baseview) {
-    _inherits$3(Alert, _Lego$UI$Baseview);
-    function Alert() {
+var Menu = function(_Lego$UI$Baseview) {
+    _inherits$3(Menu, _Lego$UI$Baseview);
+    function Menu() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$3(this, Alert);
+        _classCallCheck$4(this, Menu);
         var options = {
-            events: {
-                "click .lego-alert-close-icon": "onClose"
-            },
-            type: "info",
-            closable: false,
-            closeText: "",
-            message: "",
-            description: "",
-            onClose: function onClose() {},
-            showIcon: false,
-            banner: false
+            events: {}
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$3(this, (Alert.__proto__ || Object.getPrototypeOf(Alert)).call(this, options));
+        return _possibleConstructorReturn$3(this, (Menu.__proto__ || Object.getPrototypeOf(Menu)).call(this, options));
     }
-    _createClass$3(Alert, [ {
+    _createClass$4(Menu, [ {
         key: "render",
         value: function render() {
-            var options = this.options || {};
-            var iconName = "";
-            switch (options.type) {
-              case "success":
-                iconName = "check";
-                break;
-
-              case "info":
-                iconName = "info";
-                break;
-
-              case "warning":
-                iconName = "exclamation";
-                break;
-
-              case "error":
-                iconName = "cross";
-                break;
-            }
-            var vDom = hx(_templateObject$2, options.type, options.description ? "lego-alert-with-description" : "", options.showIcon ? "" : "lego-alert-no-icon", options.description ? "anticon-" + iconName + "-circle-o" : "anticon-" + iconName + "-circle", options.showIcon ? "" : "-no", options.showIcon ? "" : "none", options.message, options.description ? hx(_templateObject2, options.description) : "", options.closable ? hx(_templateObject3) : "");
-            return vDom;
-        }
-    }, {
-        key: "onClose",
-        value: function onClose(event) {
-            var _this2 = this;
-            event.stopPropagation();
-            this.$el.slideUp("normal", function() {
-                _this2.remove();
-            });
-            if (typeof this.options.onClose === "function") this.options.onClose(event);
+            var tmpl = hx(_templateObject$2);
+            return tmpl;
         }
     } ]);
-    return Alert;
+    return Menu;
 }(Lego.UI.Baseview);
 
-var _createClass$4 = function() {
+var _createClass$3 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -412,9 +1002,100 @@ var _createClass$4 = function() {
     };
 }();
 
-var _templateObject$3 = _taggedTemplateLiteral$3([ "<div>\n          ", "\n        </div>" ], [ "<div>\n          ", "\n        </div>" ]);
+var _templateObject$1 = _taggedTemplateLiteral$1([ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container"></div>\n                    <submodal id="lego-submodal"></submodal>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n            <modal id="lego-modal"></modal>\n        </div>\n        ' ], [ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container"></div>\n                    <submodal id="lego-submodal"></submodal>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n            <modal id="lego-modal"></modal>\n        </div>\n        ' ]);
 
-var _templateObject2$1 = _taggedTemplateLiteral$3([ '<a id="', '" href="#/home" style="display:block;">', "</a>\n" ], [ '<a id="', '" href="#/home" style="display:block;">', "</a>\\n" ]);
+function _taggedTemplateLiteral$1(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+}
+
+function _classCallCheck$3(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$2(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$2(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+Lego.components("menu", Menu);
+
+var Viewport = function(_Lego$UI$Baseview) {
+    _inherits$2(Viewport, _Lego$UI$Baseview);
+    function Viewport() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$3(this, Viewport);
+        var options = {
+            events: {},
+            logoUrl: "asset/img/logo.png",
+            menu: [],
+            components: [ {
+                el: "#sidebar"
+            } ]
+        };
+        Object.assign(options, opts);
+        return _possibleConstructorReturn$2(this, (Viewport.__proto__ || Object.getPrototypeOf(Viewport)).call(this, options));
+    }
+    _createClass$3(Viewport, [ {
+        key: "render",
+        value: function render() {
+            var tmpl = hx(_templateObject$1, this.options.logoUrl);
+            return tmpl;
+        }
+    }, {
+        key: "clickNav",
+        value: function clickNav(event) {
+            var target = HBY.$(event.currentTarget), app = target.data("app");
+            HBY.startApp(app);
+        }
+    } ]);
+    return Viewport;
+}(Lego.UI.Baseview);
+
+var _createClass$5 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+var _templateObject$3 = _taggedTemplateLiteral$3([ '\n        <div class="alert alert-', " ", " ", '">\n            <i class="anticon ', " lego-alert", '-icon" style="display:', ';"></i>\n            <span class="lego-alert-message">', "</span>\n            ", "\n            ", "\n        </div>\n        " ], [ '\n        <div class="alert alert-', " ", " ", '">\n            <i class="anticon ', " lego-alert", '-icon" style="display:', ';"></i>\n            <span class="lego-alert-message">', "</span>\n            ", "\n            ", "\n        </div>\n        " ]);
+
+var _templateObject2$1 = _taggedTemplateLiteral$3([ '<span class="lego-alert-description">', "</span>" ], [ '<span class="lego-alert-description">', "</span>" ]);
+
+var _templateObject3$1 = _taggedTemplateLiteral$3([ '<a class="lego-alert-close-icon"><i class="anticon anticon-cross"></i></a>' ], [ '<a class="lego-alert-close-icon"><i class="anticon anticon-cross"></i></a>' ]);
 
 function _taggedTemplateLiteral$3(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -424,7 +1105,7 @@ function _taggedTemplateLiteral$3(strings, raw) {
     }));
 }
 
-function _classCallCheck$4(instance, Constructor) {
+function _classCallCheck$5(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
@@ -452,41 +1133,67 @@ function _inherits$4(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Badge = function(_Lego$UI$Baseview) {
-    _inherits$4(Badge, _Lego$UI$Baseview);
-    function Badge() {
+var Alert = function(_Lego$UI$Baseview) {
+    _inherits$4(Alert, _Lego$UI$Baseview);
+    function Alert() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$4(this, Badge);
+        _classCallCheck$5(this, Alert);
         var options = {
             events: {
-                "click #400": "theClick"
-            }
+                "click .lego-alert-close-icon": "onClose"
+            },
+            type: "info",
+            closable: false,
+            closeText: "",
+            message: "",
+            description: "",
+            onClose: function onClose() {},
+            showIcon: false,
+            banner: false
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$4(this, (Badge.__proto__ || Object.getPrototypeOf(Badge)).call(this, options));
+        return _possibleConstructorReturn$4(this, (Alert.__proto__ || Object.getPrototypeOf(Alert)).call(this, options));
     }
-    _createClass$4(Badge, [ {
+    _createClass$5(Alert, [ {
         key: "render",
         value: function render() {
-            var options = this.options || [];
-            var vDom = hx(_templateObject$3, options.map(function(model, i) {
-                return hx(_templateObject2$1, model.first, model.first);
-            }));
+            var options = this.options || {};
+            var iconName = "";
+            switch (options.type) {
+              case "success":
+                iconName = "check";
+                break;
+
+              case "info":
+                iconName = "info";
+                break;
+
+              case "warning":
+                iconName = "exclamation";
+                break;
+
+              case "error":
+                iconName = "cross";
+                break;
+            }
+            var vDom = hx(_templateObject$3, options.type, options.description ? "lego-alert-with-description" : "", options.showIcon ? "" : "lego-alert-no-icon", options.description ? "anticon-" + iconName + "-circle-o" : "anticon-" + iconName + "-circle", options.showIcon ? "" : "-no", options.showIcon ? "" : "none", options.message, options.description ? hx(_templateObject2$1, options.description) : "", options.closable ? hx(_templateObject3$1) : "");
             return vDom;
         }
     }, {
-        key: "theClick",
-        value: function theClick(event) {
+        key: "onClose",
+        value: function onClose(event) {
+            var _this2 = this;
             event.stopPropagation();
-            Lego.trigger("data_update", {
-                aa: 1
+            this.$el.slideUp("normal", function() {
+                _this2.remove();
             });
+            if (typeof this.options.onClose === "function") this.options.onClose(event);
         }
     } ]);
-    return Badge;
+    return Alert;
 }(Lego.UI.Baseview);
 
-var _createClass$5 = function() {
+var _createClass$6 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -503,7 +1210,9 @@ var _createClass$5 = function() {
     };
 }();
 
-var _templateObject$4 = _taggedTemplateLiteral$4([ '\n        <button type="', '" class="btn btn-', '">\n            <span>', "</span>\n        </button>\n        " ], [ '\n        <button type="', '" class="btn btn-', '">\n            <span>', "</span>\n        </button>\n        " ]);
+var _templateObject$4 = _taggedTemplateLiteral$4([ "<div>\n          ", "\n        </div>" ], [ "<div>\n          ", "\n        </div>" ]);
+
+var _templateObject2$2 = _taggedTemplateLiteral$4([ '<a id="', '" href="#/home" style="display:block;">', "</a>\n" ], [ '<a id="', '" href="#/home" style="display:block;">', "</a>\\n" ]);
 
 function _taggedTemplateLiteral$4(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -513,7 +1222,7 @@ function _taggedTemplateLiteral$4(strings, raw) {
     }));
 }
 
-function _classCallCheck$5(instance, Constructor) {
+function _classCallCheck$6(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
@@ -541,45 +1250,41 @@ function _inherits$5(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Button = function(_Lego$UI$Baseview) {
-    _inherits$5(Button, _Lego$UI$Baseview);
-    function Button() {
+var Badge = function(_Lego$UI$Baseview) {
+    _inherits$5(Badge, _Lego$UI$Baseview);
+    function Badge() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$5(this, Button);
+        _classCallCheck$6(this, Badge);
         var options = {
             events: {
-                click: "onClick"
-            },
-            text: "button",
-            type: "default",
-            htmlType: "button",
-            icon: "",
-            shape: "",
-            size: "default",
-            loading: false,
-            onClick: function onClick() {}
+                "click #400": "theClick"
+            }
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$5(this, (Button.__proto__ || Object.getPrototypeOf(Button)).call(this, options));
+        return _possibleConstructorReturn$5(this, (Badge.__proto__ || Object.getPrototypeOf(Badge)).call(this, options));
     }
-    _createClass$5(Button, [ {
+    _createClass$6(Badge, [ {
         key: "render",
         value: function render() {
-            var options = this.options || {};
-            var vDom = hx(_templateObject$4, options.htmlType, options.type, options.html || options.text);
+            var options = this.options || [];
+            var vDom = hx(_templateObject$4, options.map(function(model, i) {
+                return hx(_templateObject2$2, model.first, model.first);
+            }));
             return vDom;
         }
     }, {
-        key: "onClick",
-        value: function onClick(event) {
+        key: "theClick",
+        value: function theClick(event) {
             event.stopPropagation();
-            if (typeof this.options.onClick === "function") this.options.onClick(event);
+            Lego.trigger("data_update", {
+                aa: 1
+            });
         }
     } ]);
-    return Button;
+    return Badge;
 }(Lego.UI.Baseview);
 
-var _createClass$8 = function() {
+var _createClass$7 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -596,17 +1301,9 @@ var _createClass$8 = function() {
     };
 }();
 
-var _templateObject$7 = _taggedTemplateLiteral$7([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
+var _templateObject$5 = _taggedTemplateLiteral$5([ '\n        <button type="', '" class="btn btn-', '">\n            <span>', "</span>\n        </button>\n        " ], [ '\n        <button type="', '" class="btn btn-', '">\n            <span>', "</span>\n        </button>\n        " ]);
 
-var _templateObject2$4 = _taggedTemplateLiteral$7([ '<li id="', '" class="', '">\n                    <a href="', '">', "</a></li>" ], [ '<li id="', '" class="', '">\n                    <a href="', '">', "</a></li>" ]);
-
-var _templateObject3$3 = _taggedTemplateLiteral$7([ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ]);
-
-var _templateObject4$2 = _taggedTemplateLiteral$7([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
-
-var _templateObject5$2 = _taggedTemplateLiteral$7([ '\n        <ul class="dropdown-menu ', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', '">\n            ', "\n        </ul>\n        " ]);
-
-function _taggedTemplateLiteral$7(strings, raw) {
+function _taggedTemplateLiteral$5(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
         raw: {
             value: Object.freeze(raw)
@@ -614,20 +1311,121 @@ function _taggedTemplateLiteral$7(strings, raw) {
     }));
 }
 
-function _classCallCheck$8(instance, Constructor) {
+function _classCallCheck$7(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
 }
 
-function _possibleConstructorReturn$8(self, call) {
+function _possibleConstructorReturn$6(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$8(subClass, superClass) {
+function _inherits$6(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var Button = function(_Lego$UI$Baseview) {
+    _inherits$6(Button, _Lego$UI$Baseview);
+    function Button() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$7(this, Button);
+        var options = {
+            events: {
+                click: "onClick"
+            },
+            text: "button",
+            type: "default",
+            htmlType: "button",
+            icon: "",
+            shape: "",
+            size: "default",
+            loading: false,
+            onClick: function onClick() {}
+        };
+        Object.assign(options, opts);
+        return _possibleConstructorReturn$6(this, (Button.__proto__ || Object.getPrototypeOf(Button)).call(this, options));
+    }
+    _createClass$7(Button, [ {
+        key: "render",
+        value: function render() {
+            var options = this.options || {};
+            var vDom = hx(_templateObject$5, options.htmlType, options.type, options.html || options.text);
+            return vDom;
+        }
+    }, {
+        key: "onClick",
+        value: function onClick(event) {
+            event.stopPropagation();
+            if (typeof this.options.onClick === "function") this.options.onClick(event);
+        }
+    } ]);
+    return Button;
+}(Lego.UI.Baseview);
+
+var _createClass$10 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+var _templateObject$8 = _taggedTemplateLiteral$8([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
+
+var _templateObject2$5 = _taggedTemplateLiteral$8([ '<li id="', '" class="', '">\n                    <a href="', '">', "</a></li>" ], [ '<li id="', '" class="', '">\n                    <a href="', '">', "</a></li>" ]);
+
+var _templateObject3$4 = _taggedTemplateLiteral$8([ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ]);
+
+var _templateObject4$2 = _taggedTemplateLiteral$8([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
+
+var _templateObject5$2 = _taggedTemplateLiteral$8([ '\n        <ul class="dropdown-menu ', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', '">\n            ', "\n        </ul>\n        " ]);
+
+function _taggedTemplateLiteral$8(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+}
+
+function _classCallCheck$10(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$9(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$9(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -643,10 +1441,10 @@ function _inherits$8(subClass, superClass) {
 }
 
 var Dropdown = function(_Lego$UI$Baseview) {
-    _inherits$8(Dropdown, _Lego$UI$Baseview);
+    _inherits$9(Dropdown, _Lego$UI$Baseview);
     function Dropdown() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$8(this, Dropdown);
+        _classCallCheck$10(this, Dropdown);
         var options = {
             events: {
                 "click li": "clickItem"
@@ -660,7 +1458,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             onVisibleChange: function onVisibleChange() {}
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn$8(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
+        var _this = _possibleConstructorReturn$9(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
         _this.result = "";
         var that = _this;
         _this.options.trigger = _this.options.trigger instanceof $ ? _this.options.trigger : $(_this.options.trigger);
@@ -677,23 +1475,23 @@ var Dropdown = function(_Lego$UI$Baseview) {
         });
         return _this;
     }
-    _createClass$8(Dropdown, [ {
+    _createClass$10(Dropdown, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
             function itemNav(item) {
                 if (item.divider) {
-                    return hx(_templateObject$7);
+                    return hx(_templateObject$8);
                 } else {
                     if (!item.children) {
-                        return hx(_templateObject2$4, item.key, item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", item.title);
+                        return hx(_templateObject2$5, item.key, item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", item.title);
                     } else {
                         return loopNav(item);
                     }
                 }
             }
             function loopNav(data) {
-                return hx(_templateObject3$3, data.title, data.children ? hx(_templateObject4$2, data.children.map(function(item) {
+                return hx(_templateObject3$4, data.title, data.children ? hx(_templateObject4$2, data.children.map(function(item) {
                     itemNav(item);
                 })) : "");
             }
@@ -736,7 +1534,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
     return Dropdown;
 }(Lego.UI.Baseview);
 
-var _createClass$7 = function() {
+var _createClass$9 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -753,25 +1551,25 @@ var _createClass$7 = function() {
     };
 }();
 
-var _templateObject$6 = _taggedTemplateLiteral$6([ '\n        <ul class="pagination ', " ", '">\n            <li class="prev ', '">\n                <a href="javascript:void(0)" title="上一页"><i class="icon iconfont icon-arrow-left"></i></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ], [ '\n        <ul class="pagination ', " ", '">\n            <li class="prev ', '">\n                <a href="javascript:void(0)" title="上一页"><i class="icon iconfont icon-arrow-left"></i></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ]);
+var _templateObject$7 = _taggedTemplateLiteral$7([ '\n        <ul class="pagination ', " ", '">\n            <li class="prev ', '">\n                <a href="javascript:void(0)" title="上一页"><i class="icon iconfont icon-arrow-left"></i></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ], [ '\n        <ul class="pagination ', " ", '">\n            <li class="prev ', '">\n                <a href="javascript:void(0)" title="上一页"><i class="icon iconfont icon-arrow-left"></i></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ]);
 
-var _templateObject2$3 = _taggedTemplateLiteral$6([ '\n            <div title="', "/", '" class="lego-pagination-simple-pager">\n                <input type="text" value="', '"><span class="lego-pagination-slash">／</span>\n            </div>\n            ' ], [ '\n            <div title="', "/", '" class="lego-pagination-simple-pager">\n                <input type="text" value="', '"><span class="lego-pagination-slash">／</span>\n            </div>\n            ' ]);
+var _templateObject2$4 = _taggedTemplateLiteral$7([ '\n            <div title="', "/", '" class="lego-pagination-simple-pager">\n                <input type="text" value="', '"><span class="lego-pagination-slash">／</span>\n            </div>\n            ' ], [ '\n            <div title="', "/", '" class="lego-pagination-simple-pager">\n                <input type="text" value="', '"><span class="lego-pagination-slash">／</span>\n            </div>\n            ' ]);
 
-var _templateObject3$2 = _taggedTemplateLiteral$6([ '\n            <li title="', '" class="page page-item ', '"><a href="javascript:void(0)">', "</a></li>\n            " ], [ '\n            <li title="', '" class="page page-item ', '"><a href="javascript:void(0)">', "</a></li>\n            " ]);
+var _templateObject3$3 = _taggedTemplateLiteral$7([ '\n            <li title="', '" class="page page-item ', '"><a href="javascript:void(0)">', "</a></li>\n            " ], [ '\n            <li title="', '" class="page page-item ', '"><a href="javascript:void(0)">', "</a></li>\n            " ]);
 
-var _templateObject4$1 = _taggedTemplateLiteral$6([ '\n            <li title="下 ', ' 页" class="page morepage"><a href="javascript:void(0)"><i class="icon iconfont icon-more-1"></a></i></li>\n            ' ], [ '\n            <li title="下 ', ' 页" class="page morepage"><a href="javascript:void(0)"><i class="icon iconfont icon-more-1"></a></i></li>\n            ' ]);
+var _templateObject4$1 = _taggedTemplateLiteral$7([ '\n            <li title="下 ', ' 页" class="page morepage"><a href="javascript:void(0)"><i class="icon iconfont icon-more-1"></a></i></li>\n            ' ], [ '\n            <li title="下 ', ' 页" class="page morepage"><a href="javascript:void(0)"><i class="icon iconfont icon-more-1"></a></i></li>\n            ' ]);
 
-var _templateObject5$1 = _taggedTemplateLiteral$6([ '<li title="', '" class="page page-item"><a href="javascript:void(0)">', "</a></li>" ], [ '<li title="', '" class="page page-item"><a href="javascript:void(0)">', "</a></li>" ]);
+var _templateObject5$1 = _taggedTemplateLiteral$7([ '<li title="', '" class="page page-item"><a href="javascript:void(0)">', "</a></li>" ], [ '<li title="', '" class="page page-item"><a href="javascript:void(0)">', "</a></li>" ]);
 
-var _templateObject6$1 = _taggedTemplateLiteral$6([ '\n            <li class="next ', '">\n                <a href="javascript:void(0)" title="下一页"><i class="icon iconfont icon-arrow-right"></i></a>\n            </li>\n            ' ], [ '\n            <li class="next ', '">\n                <a href="javascript:void(0)" title="下一页"><i class="icon iconfont icon-arrow-right"></i></a>\n            </li>\n            ' ]);
+var _templateObject6$1 = _taggedTemplateLiteral$7([ '\n            <li class="next ', '">\n                <a href="javascript:void(0)" title="下一页"><i class="icon iconfont icon-arrow-right"></i></a>\n            </li>\n            ' ], [ '\n            <li class="next ', '">\n                <a href="javascript:void(0)" title="下一页"><i class="icon iconfont icon-arrow-right"></i></a>\n            </li>\n            ' ]);
 
-var _templateObject7$1 = _taggedTemplateLiteral$6([ '\n            <li class="pageSize">\n                <span class="info" id="', '-select">\n                <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                <dropdown id="', '-dropdown"></dropdown>\n                </span>\n            </li>\n            ' ], [ '\n            <li class="pageSize">\n                <span class="info" id="', '-select">\n                <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                <dropdown id="', '-dropdown"></dropdown>\n                </span>\n            </li>\n            ' ]);
+var _templateObject7$1 = _taggedTemplateLiteral$7([ '\n            <li class="pageSize">\n                <span class="info" id="', '-select">\n                <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                <dropdown id="', '-dropdown"></dropdown>\n                </span>\n            </li>\n            ' ], [ '\n            <li class="pageSize">\n                <span class="info" id="', '-select">\n                <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                <dropdown id="', '-dropdown"></dropdown>\n                </span>\n            </li>\n            ' ]);
 
-var _templateObject8$1 = _taggedTemplateLiteral$6([ '\n            <li><span class="info">\n                    跳转至\n                    <input type="text" class="form-control pageJump" value="', '">\n                </span>\n                ', "\n            </li>\n            " ], [ '\n            <li><span class="info">\n                    跳转至\n                    <input type="text" class="form-control pageJump" value="', '">\n                </span>\n                ', "\n            </li>\n            " ]);
+var _templateObject8$1 = _taggedTemplateLiteral$7([ '\n            <li><span class="info">\n                    跳转至\n                    <input type="text" class="form-control pageJump" value="', '">\n                </span>\n                ', "\n            </li>\n            " ], [ '\n            <li><span class="info">\n                    跳转至\n                    <input type="text" class="form-control pageJump" value="', '">\n                </span>\n                ', "\n            </li>\n            " ]);
 
-var _templateObject9$1 = _taggedTemplateLiteral$6([ '\n                <span class="info">\n                ', "\n                </span>\n                " ], [ '\n                <span class="info">\n                ', "\n                </span>\n                " ]);
+var _templateObject9$1 = _taggedTemplateLiteral$7([ '\n                <span class="info">\n                ', "\n                </span>\n                " ], [ '\n                <span class="info">\n                ', "\n                </span>\n                " ]);
 
-function _taggedTemplateLiteral$6(strings, raw) {
+function _taggedTemplateLiteral$7(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
         raw: {
             value: Object.freeze(raw)
@@ -779,20 +1577,20 @@ function _taggedTemplateLiteral$6(strings, raw) {
     }));
 }
 
-function _classCallCheck$7(instance, Constructor) {
+function _classCallCheck$9(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
 }
 
-function _possibleConstructorReturn$7(self, call) {
+function _possibleConstructorReturn$8(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$7(subClass, superClass) {
+function _inherits$8(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -810,10 +1608,10 @@ function _inherits$7(subClass, superClass) {
 Lego.components("dropdown", Dropdown);
 
 var Pagination = function(_Lego$UI$Baseview) {
-    _inherits$7(Pagination, _Lego$UI$Baseview);
+    _inherits$8(Pagination, _Lego$UI$Baseview);
     function Pagination() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$7(this, Pagination);
+        _classCallCheck$9(this, Pagination);
         var options = {
             events: {
                 "click .prev:not(.disabled)": "clickPrevPage",
@@ -854,11 +1652,11 @@ var Pagination = function(_Lego$UI$Baseview) {
                 }
             } ];
         }
-        var _this = _possibleConstructorReturn$7(this, (Pagination.__proto__ || Object.getPrototypeOf(Pagination)).call(this, options));
+        var _this = _possibleConstructorReturn$8(this, (Pagination.__proto__ || Object.getPrototypeOf(Pagination)).call(this, options));
         _this.jumped = false;
         return _this;
     }
-    _createClass$7(Pagination, [ {
+    _createClass$9(Pagination, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
@@ -870,8 +1668,8 @@ var Pagination = function(_Lego$UI$Baseview) {
             for (var i = startPage; i <= endPage; i++) {
                 pagesArr.push(i);
             }
-            var vDom = hx(_templateObject$6, options.simple ? "pagination-simple" : "", options.size == "small" ? "mini" : "", options.current <= 1 ? "disabled" : "", options.simple ? hx(_templateObject2$3, options.current, options.endPage, options.current) : "", !options.simple ? pagesArr.map(function(x) {
-                return hx(_templateObject3$2, x, x == options.current ? "active" : "", x);
+            var vDom = hx(_templateObject$7, options.simple ? "pagination-simple" : "", options.size == "small" ? "mini" : "", options.current <= 1 ? "disabled" : "", options.simple ? hx(_templateObject2$4, options.current, options.endPage, options.current) : "", !options.simple ? pagesArr.map(function(x) {
+                return hx(_templateObject3$3, x, x == options.current ? "active" : "", x);
             }) : "", showEllipsis ? hx(_templateObject4$1, options.pageSize) : "", !options.simple && showEllipsis ? hx(_templateObject5$1, options.totalPages, options.totalPages) : "", !options.simple ? hx(_templateObject6$1, options.current >= options.totalPages ? "disabled" : "") : "", !options.simple && options.showSizeChanger ? hx(_templateObject7$1, options.vid, options.pageSize, options.vid) : "", !options.simple && options.showQuickJumper ? hx(_templateObject8$1, this.jumped ? options.current : "1", options.isShowTotal ? hx(_templateObject9$1, typeof options.showTotal === "function" ? options.showTotal(options.total) : "总数 " + options.total) : "") : "");
             this.jumped = false;
             return vDom;
@@ -944,7 +1742,7 @@ var _extends = Object.assign || function(target) {
     return target;
 };
 
-var _createClass$6 = function() {
+var _createClass$8 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -961,51 +1759,51 @@ var _createClass$6 = function() {
     };
 }();
 
-var _templateObject$5 = _taggedTemplateLiteral$5([ '\n        <div class="clearfix lego-table lego-table-', " ", "\n        ", ' lego-table-scroll-position-left">\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body ', '">\n                    <table class="', '">\n                        ', "\n                        ", "\n                        ", "\n                        ", "\n                    </table>\n                </div>\n                ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="clearfix lego-table lego-table-', " ", "\n        ", ' lego-table-scroll-position-left">\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body ', '">\n                    <table class="', '">\n                        ', "\n                        ", "\n                        ", "\n                        ", "\n                    </table>\n                </div>\n                ", "\n                </div>\n            </div>\n        </div>\n        " ]);
+var _templateObject$6 = _taggedTemplateLiteral$6([ '\n        <div class="clearfix lego-table lego-table-', " ", "\n        ", ' lego-table-scroll-position-left">\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body ', '">\n                    <table class="', '">\n                        ', "\n                        ", "\n                        ", "\n                        ", "\n                    </table>\n                </div>\n                ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="clearfix lego-table lego-table-', " ", "\n        ", ' lego-table-scroll-position-left">\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body ', '">\n                    <table class="', '">\n                        ', "\n                        ", "\n                        ", "\n                        ", "\n                    </table>\n                </div>\n                ", "\n                </div>\n            </div>\n        </div>\n        " ]);
 
-var _templateObject2$2 = _taggedTemplateLiteral$5([ '<div class="lego-table-title">', "</div>" ], [ '<div class="lego-table-title">', "</div>" ]);
+var _templateObject2$3 = _taggedTemplateLiteral$6([ '<div class="lego-table-title">', "</div>" ], [ '<div class="lego-table-title">', "</div>" ]);
 
-var _templateObject3$1 = _taggedTemplateLiteral$5([ '\n                <div class="lego-table-header">\n                    <table class="">\n                        ', "\n                        ", "\n                    </table>\n                    ", "\n                </div>\n                " ], [ '\n                <div class="lego-table-header">\n                    <table class="">\n                        ', "\n                        ", "\n                    </table>\n                    ", "\n                </div>\n                " ]);
+var _templateObject3$2 = _taggedTemplateLiteral$6([ '\n                <div class="lego-table-header">\n                    <table class="">\n                        ', "\n                        ", "\n                    </table>\n                    ", "\n                </div>\n                " ], [ '\n                <div class="lego-table-header">\n                    <table class="">\n                        ', "\n                        ", "\n                    </table>\n                    ", "\n                </div>\n                " ]);
 
-var _templateObject4 = _taggedTemplateLiteral$5([ '\n                        <button type="button" class="btn btn-default noborder">\n                        <i class="anticon anticon-ellipsis"></i></button>' ], [ '\n                        <button type="button" class="btn btn-default noborder">\n                        <i class="anticon anticon-ellipsis"></i></button>' ]);
+var _templateObject4 = _taggedTemplateLiteral$6([ '\n                        <button type="button" class="btn btn-default noborder">\n                        <i class="anticon anticon-ellipsis"></i></button>' ], [ '\n                        <button type="button" class="btn btn-default noborder">\n                        <i class="anticon anticon-ellipsis"></i></button>' ]);
 
-var _templateObject5 = _taggedTemplateLiteral$5([ '\n                    <div class="lego-table-footer">\n                    <pagination id="', '-paginationId"></pagination>\n                    </div>\n                ' ], [ '\n                    <div class="lego-table-footer">\n                    <pagination id="', '-paginationId"></pagination>\n                    </div>\n                ' ]);
+var _templateObject5 = _taggedTemplateLiteral$6([ '\n                    <div class="lego-table-footer">\n                    <pagination id="', '-paginationId"></pagination>\n                    </div>\n                ' ], [ '\n                    <div class="lego-table-footer">\n                    <pagination id="', '-paginationId"></pagination>\n                    </div>\n                ' ]);
 
-var _templateObject6 = _taggedTemplateLiteral$5([ "\n        <colgroup>\n            ", "\n            ", "\n        </colgroup>\n        " ], [ "\n        <colgroup>\n            ", "\n            ", "\n        </colgroup>\n        " ]);
+var _templateObject6 = _taggedTemplateLiteral$6([ "\n        <colgroup>\n            ", "\n            ", "\n        </colgroup>\n        " ], [ "\n        <colgroup>\n            ", "\n            ", "\n        </colgroup>\n        " ]);
 
-var _templateObject7 = _taggedTemplateLiteral$5([ '<col style="width: 30px;">' ], [ '<col style="width: 30px;">' ]);
+var _templateObject7 = _taggedTemplateLiteral$6([ '<col style="width: 30px;">' ], [ '<col style="width: 30px;">' ]);
 
-var _templateObject8 = _taggedTemplateLiteral$5([ "\n                ", "\n            " ], [ "\n                ", "\n            " ]);
+var _templateObject8 = _taggedTemplateLiteral$6([ "\n                ", "\n            " ], [ "\n                ", "\n            " ]);
 
-var _templateObject9 = _taggedTemplateLiteral$5([ "<col>" ], [ "<col>" ]);
+var _templateObject9 = _taggedTemplateLiteral$6([ "<col>" ], [ "<col>" ]);
 
-var _templateObject10 = _taggedTemplateLiteral$5([ '<col style="width: ', ';">' ], [ '<col style="width: ', ';">' ]);
+var _templateObject10 = _taggedTemplateLiteral$6([ '<col style="width: ', ';">' ], [ '<col style="width: ', ';">' ]);
 
-var _templateObject11 = _taggedTemplateLiteral$5([ '\n            <span>\n                <label class="lego-', '-wrapper">\n                    <span class="lego-checkbox ', " ", '">\n                        <span class="lego-checkbox-inner"></span>\n                        <input type="', '" ', ' class="lego-checkbox-input" value="', '">\n                    </span>\n                </label>\n            </span>\n            ' ], [ '\n            <span>\n                <label class="lego-', '-wrapper">\n                    <span class="lego-checkbox ', " ", '">\n                        <span class="lego-checkbox-inner"></span>\n                        <input type="', '" ', ' class="lego-checkbox-input" value="', '">\n                    </span>\n                </label>\n            </span>\n            ' ]);
+var _templateObject11 = _taggedTemplateLiteral$6([ '\n            <span>\n                <label class="lego-', '-wrapper">\n                    <span class="lego-checkbox ', " ", '">\n                        <span class="lego-checkbox-inner"></span>\n                        <input type="', '" ', ' class="lego-checkbox-input" value="', '">\n                    </span>\n                </label>\n            </span>\n            ' ], [ '\n            <span>\n                <label class="lego-', '-wrapper">\n                    <span class="lego-checkbox ', " ", '">\n                        <span class="lego-checkbox-inner"></span>\n                        <input type="', '" ', ' class="lego-checkbox-input" value="', '">\n                    </span>\n                </label>\n            </span>\n            ' ]);
 
-var _templateObject12 = _taggedTemplateLiteral$5([ "\n        ", "\n        " ], [ "\n        ", "\n        " ]);
+var _templateObject12 = _taggedTemplateLiteral$6([ "\n        ", "\n        " ], [ "\n        ", "\n        " ]);
 
-var _templateObject13 = _taggedTemplateLiteral$5([ '<th class="lego-table-selection-column">', "</th>" ], [ '<th class="lego-table-selection-column">', "</th>" ]);
+var _templateObject13 = _taggedTemplateLiteral$6([ '<th class="lego-table-selection-column">', "</th>" ], [ '<th class="lego-table-selection-column">', "</th>" ]);
 
-var _templateObject14 = _taggedTemplateLiteral$5([ '<td class="lego-table-selection-column">', "</td>" ], [ '<td class="lego-table-selection-column">', "</td>" ]);
+var _templateObject14 = _taggedTemplateLiteral$6([ '<td class="lego-table-selection-column">', "</td>" ], [ '<td class="lego-table-selection-column">', "</td>" ]);
 
-var _templateObject15 = _taggedTemplateLiteral$5([ '\n        <thead class="lego-table-thead">\n            <tr>\n            ', "\n            ", "\n            </tr>\n        </thead>\n        " ], [ '\n        <thead class="lego-table-thead">\n            <tr>\n            ', "\n            ", "\n            </tr>\n        </thead>\n        " ]);
+var _templateObject15 = _taggedTemplateLiteral$6([ '\n        <thead class="lego-table-thead">\n            <tr>\n            ', "\n            ", "\n            </tr>\n        </thead>\n        " ], [ '\n        <thead class="lego-table-thead">\n            <tr>\n            ', "\n            ", "\n            </tr>\n        </thead>\n        " ]);
 
-var _templateObject16 = _taggedTemplateLiteral$5([ '<th class="', '" id="', '"><span>', "\n                ", "", "</span></th>" ], [ '<th class="', '" id="', '"><span>', "\n                ", "", "</span></th>" ]);
+var _templateObject16 = _taggedTemplateLiteral$6([ '<th class="', '" id="', '"><span>', "\n                ", "", "</span></th>" ], [ '<th class="', '" id="', '"><span>', "\n                ", "", "</span></th>" ]);
 
-var _templateObject17 = _taggedTemplateLiteral$5([ '\n        <tbody class="lego-table-tbody">\n            ', "\n        </tbody>\n        " ], [ '\n        <tbody class="lego-table-tbody">\n            ', "\n        </tbody>\n        " ]);
+var _templateObject17 = _taggedTemplateLiteral$6([ '\n        <tbody class="lego-table-tbody">\n            ', "\n        </tbody>\n        " ], [ '\n        <tbody class="lego-table-tbody">\n            ', "\n        </tbody>\n        " ]);
 
-var _templateObject18 = _taggedTemplateLiteral$5([ '<tr class="', '" id="', '">\n                ', "\n                ", "\n                </tr>" ], [ '<tr class="', '" id="', '">\n                ', "\n                ", "\n                </tr>" ]);
+var _templateObject18 = _taggedTemplateLiteral$6([ '<tr class="', '" id="', '">\n                ', "\n                ", "\n                </tr>" ], [ '<tr class="', '" id="', '">\n                ', "\n                ", "\n                </tr>" ]);
 
-var _templateObject19 = _taggedTemplateLiteral$5([ "<td>", "</td>" ], [ "<td>", "</td>" ]);
+var _templateObject19 = _taggedTemplateLiteral$6([ "<td>", "</td>" ], [ "<td>", "</td>" ]);
 
-var _templateObject20 = _taggedTemplateLiteral$5([ '\n        <tfoot class="lego-table-tfoot"><tr><td>', "</td></tr></tfoot>\n        " ], [ '\n        <tfoot class="lego-table-tfoot"><tr><td>', "</td></tr></tfoot>\n        " ]);
+var _templateObject20 = _taggedTemplateLiteral$6([ '\n        <tfoot class="lego-table-tfoot"><tr><td>', "</td></tr></tfoot>\n        " ], [ '\n        <tfoot class="lego-table-tfoot"><tr><td>', "</td></tr></tfoot>\n        " ]);
 
-var _templateObject21 = _taggedTemplateLiteral$5([ '\n        <div class="lego-table-column-sorter">\n            <span class="lego-table-column-sorter-up ', '" title="↑">\n                <i class="anticon anticon-caret-up"></i>\n            </span>\n            <span class="lego-table-column-sorter-down ', '" title="↓">\n                <i class="anticon anticon-caret-down"></i>\n            </span>\n        </div>\n        ' ], [ '\n        <div class="lego-table-column-sorter">\n            <span class="lego-table-column-sorter-up ', '" title="↑">\n                <i class="anticon anticon-caret-up"></i>\n            </span>\n            <span class="lego-table-column-sorter-down ', '" title="↓">\n                <i class="anticon anticon-caret-down"></i>\n            </span>\n        </div>\n        ' ]);
+var _templateObject21 = _taggedTemplateLiteral$6([ '\n        <div class="lego-table-column-sorter">\n            <span class="lego-table-column-sorter-up ', '" title="↑">\n                <i class="anticon anticon-caret-up"></i>\n            </span>\n            <span class="lego-table-column-sorter-down ', '" title="↓">\n                <i class="anticon anticon-caret-down"></i>\n            </span>\n        </div>\n        ' ], [ '\n        <div class="lego-table-column-sorter">\n            <span class="lego-table-column-sorter-up ', '" title="↑">\n                <i class="anticon anticon-caret-up"></i>\n            </span>\n            <span class="lego-table-column-sorter-down ', '" title="↓">\n                <i class="anticon anticon-caret-down"></i>\n            </span>\n        </div>\n        ' ]);
 
-var _templateObject22 = _taggedTemplateLiteral$5([ '<i title="filter" class="anticon anticon-filter"></i>' ], [ '<i title="filter" class="anticon anticon-filter"></i>' ]);
+var _templateObject22 = _taggedTemplateLiteral$6([ '<i title="filter" class="anticon anticon-filter"></i>' ], [ '<i title="filter" class="anticon anticon-filter"></i>' ]);
 
-function _taggedTemplateLiteral$5(strings, raw) {
+function _taggedTemplateLiteral$6(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
         raw: {
             value: Object.freeze(raw)
@@ -1013,20 +1811,20 @@ function _taggedTemplateLiteral$5(strings, raw) {
     }));
 }
 
-function _classCallCheck$6(instance, Constructor) {
+function _classCallCheck$8(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
 }
 
-function _possibleConstructorReturn$6(self, call) {
+function _possibleConstructorReturn$7(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$6(subClass, superClass) {
+function _inherits$7(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -1044,10 +1842,10 @@ function _inherits$6(subClass, superClass) {
 Lego.components("pagination", Pagination);
 
 var Table = function(_Lego$UI$Baseview) {
-    _inherits$6(Table, _Lego$UI$Baseview);
+    _inherits$7(Table, _Lego$UI$Baseview);
     function Table() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$6(this, Table);
+        _classCallCheck$8(this, Table);
         var options = {
             events: {
                 "click tbody .lego-checkbox": "selectOne",
@@ -1102,7 +1900,7 @@ var Table = function(_Lego$UI$Baseview) {
                 sortOrder: ""
             }, col);
         });
-        var _this = _possibleConstructorReturn$6(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this, options));
+        var _this = _possibleConstructorReturn$7(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this, options));
         _this.selectedAll = 0;
         var header = _this.$(".lego-table-header");
         _this.$(".lego-table-body").scroll(function() {
@@ -1111,11 +1909,11 @@ var Table = function(_Lego$UI$Baseview) {
         _this.$(".lego-table-tfoot>tr>td").attr("colspan", _this.options.columns.length);
         return _this;
     }
-    _createClass$6(Table, [ {
+    _createClass$8(Table, [ {
         key: "render",
         value: function render() {
             var options = this.options;
-            var vDom = hx(_templateObject$5, options.size, options.bordered ? "lego-table-bordered" : "", options.showHeader ? "lego-table-fixed-header" : "", options.title ? hx(_templateObject2$2, options.title()) : "", options.showHeader ? hx(_templateObject3$1, this._renderColgroup(), this._renderHeader(), options.colSetting ? hx(_templateObject4) : "") : "", options.showHeader ? "scrollbar" : "", options.className, this._renderColgroup(), !options.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), options.pagination ? hx(_templateObject5, options.vid) : "");
+            var vDom = hx(_templateObject$6, options.size, options.bordered ? "lego-table-bordered" : "", options.showHeader ? "lego-table-fixed-header" : "", options.title ? hx(_templateObject2$3, options.title()) : "", options.showHeader ? hx(_templateObject3$2, this._renderColgroup(), this._renderHeader(), options.colSetting ? hx(_templateObject4) : "") : "", options.showHeader ? "scrollbar" : "", options.className, this._renderColgroup(), !options.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), options.pagination ? hx(_templateObject5, options.vid) : "");
             return vDom;
         }
     }, {
@@ -1303,716 +2101,6 @@ var Table = function(_Lego$UI$Baseview) {
         }
     } ]);
     return Table;
-}(Lego.UI.Baseview);
-
-var Util$3 = function($) {
-    var transition = false;
-    var MAX_UID = 1e6;
-    var TransitionEndEvent = {
-        WebkitTransition: "webkitTransitionEnd",
-        MozTransition: "transitionend",
-        OTransition: "oTransitionEnd otransitionend",
-        transition: "transitionend"
-    };
-    function toType(obj) {
-        return {}.toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
-    }
-    function isElement(obj) {
-        return (obj[0] || obj).nodeType;
-    }
-    function getSpecialTransitionEndEvent() {
-        return {
-            bindType: transition.end,
-            delegateType: transition.end,
-            handle: function handle(event) {
-                if ($(event.target).is(this)) {
-                    return event.handleObj.handler.apply(this, arguments);
-                }
-                return undefined;
-            }
-        };
-    }
-    function transitionEndTest() {
-        if (window.QUnit) {
-            return false;
-        }
-        var el = document.createElement("bootstrap");
-        for (var name in TransitionEndEvent) {
-            if (el.style[name] !== undefined) {
-                return {
-                    end: TransitionEndEvent[name]
-                };
-            }
-        }
-        return false;
-    }
-    function transitionEndEmulator(duration) {
-        var _this = this;
-        var called = false;
-        $(this).one(Util.TRANSITION_END, function() {
-            called = true;
-        });
-        setTimeout(function() {
-            if (!called) {
-                Util.triggerTransitionEnd(_this);
-            }
-        }, duration);
-        return this;
-    }
-    function setTransitionEndSupport() {
-        transition = transitionEndTest();
-        $.fn.emulateTransitionEnd = transitionEndEmulator;
-        if (Util.supportsTransitionEnd()) {
-            $.event.special[Util.TRANSITION_END] = getSpecialTransitionEndEvent();
-        }
-    }
-    var Util = {
-        TRANSITION_END: "bsTransitionEnd",
-        getUID: function getUID(prefix) {
-            do {
-                prefix += ~~(Math.random() * MAX_UID);
-            } while (document.getElementById(prefix));
-            return prefix;
-        },
-        getSelectorFromElement: function getSelectorFromElement(element) {
-            var selector = element.getAttribute("data-target");
-            if (!selector) {
-                selector = element.getAttribute("href") || "";
-                selector = /^#[a-z]/i.test(selector) ? selector : null;
-            }
-            return selector;
-        },
-        reflow: function reflow(element) {
-            new Function("bs", "return bs")(element.offsetHeight);
-        },
-        triggerTransitionEnd: function triggerTransitionEnd(element) {
-            $(element).trigger(transition.end);
-        },
-        supportsTransitionEnd: function supportsTransitionEnd() {
-            return Boolean(transition);
-        },
-        typeCheckConfig: function typeCheckConfig(componentName, config, configTypes) {
-            for (var property in configTypes) {
-                if (configTypes.hasOwnProperty(property)) {
-                    var expectedTypes = configTypes[property];
-                    var value = config[property];
-                    var valueType = void 0;
-                    if (value && isElement(value)) {
-                        valueType = "element";
-                    } else {
-                        valueType = toType(value);
-                    }
-                    if (!new RegExp(expectedTypes).test(valueType)) {
-                        throw new Error(componentName.toUpperCase() + ": " + ('Option "' + property + '" provided type "' + valueType + '" ') + ('but expected type "' + expectedTypes + '".'));
-                    }
-                }
-            }
-        }
-    };
-    setTransitionEndSupport();
-    return Util;
-}(jQuery);
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
-    return typeof obj;
-} : function(obj) {
-    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-};
-
-var _createClass$10 = function() {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];
-            descriptor.enumerable = descriptor.enumerable || false;
-            descriptor.configurable = true;
-            if ("value" in descriptor) descriptor.writable = true;
-            Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }
-    return function(Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);
-        if (staticProps) defineProperties(Constructor, staticProps);
-        return Constructor;
-    };
-}();
-
-function _classCallCheck$10(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-    }
-}
-
-var Modal$2 = function() {
-    var NAME = "modal";
-    var VERSION = "4.0.0-alpha.5";
-    var DATA_KEY = "bs.modal";
-    var EVENT_KEY = "." + DATA_KEY;
-    var DATA_API_KEY = ".data-api";
-    var JQUERY_NO_CONFLICT = $.fn[NAME];
-    var TRANSITION_DURATION = 300;
-    var BACKDROP_TRANSITION_DURATION = 150;
-    var ESCAPE_KEYCODE = 27;
-    var Default = {
-        backdrop: true,
-        keyboard: true,
-        focus: true,
-        show: true
-    };
-    var DefaultType = {
-        backdrop: "(boolean|string)",
-        keyboard: "boolean",
-        focus: "boolean",
-        show: "boolean"
-    };
-    var Event = {
-        HIDE: "hide" + EVENT_KEY,
-        HIDDEN: "hidden" + EVENT_KEY,
-        SHOW: "show" + EVENT_KEY,
-        SHOWN: "shown" + EVENT_KEY,
-        FOCUSIN: "focusin" + EVENT_KEY,
-        RESIZE: "resize" + EVENT_KEY,
-        CLICK_DISMISS: "click.dismiss" + EVENT_KEY,
-        KEYDOWN_DISMISS: "keydown.dismiss" + EVENT_KEY,
-        MOUSEUP_DISMISS: "mouseup.dismiss" + EVENT_KEY,
-        MOUSEDOWN_DISMISS: "mousedown.dismiss" + EVENT_KEY,
-        CLICK_DATA_API: "click" + EVENT_KEY + DATA_API_KEY
-    };
-    var ClassName = {
-        SCROLLBAR_MEASURER: "modal-scrollbar-measure",
-        BACKDROP: "modal-backdrop",
-        OPEN: "modal-open",
-        FADE: "fade",
-        IN: "in"
-    };
-    var Selector = {
-        DIALOG: ".modal-dialog",
-        DATA_TOGGLE: '[data-toggle="modal"]',
-        DATA_DISMISS: '[data-dismiss="modal"]',
-        FIXED_CONTENT: ".navbar-fixed-top, .navbar-fixed-bottom, .is-fixed"
-    };
-    var Modal = function() {
-        function Modal(element, config) {
-            _classCallCheck$10(this, Modal);
-            this._config = this._getConfig(config);
-            this._element = element;
-            this._dialog = $(element).find(Selector.DIALOG)[0];
-            this._backdrop = null;
-            this._isShown = false;
-            this._isBodyOverflowing = false;
-            this._ignoreBackdropClick = false;
-            this._originalBodyPadding = 0;
-            this._scrollbarWidth = 0;
-        }
-        _createClass$10(Modal, [ {
-            key: "toggle",
-            value: function toggle(relatedTarget) {
-                return this._isShown ? this.hide() : this.show(relatedTarget);
-            }
-        }, {
-            key: "show",
-            value: function show(relatedTarget) {
-                var _this = this;
-                var showEvent = $.Event(Event.SHOW, {
-                    relatedTarget: relatedTarget
-                });
-                $(this._element).trigger(showEvent);
-                if (this._isShown || showEvent.isDefaultPrevented()) {
-                    return;
-                }
-                this._isShown = true;
-                this._checkScrollbar();
-                this._setScrollbar();
-                $(document.body).addClass(ClassName.OPEN);
-                this._setEscapeEvent();
-                this._setResizeEvent();
-                $(this._element).on(Event.CLICK_DISMISS, Selector.DATA_DISMISS, $.proxy(this.hide, this));
-                $(this._dialog).on(Event.MOUSEDOWN_DISMISS, function() {
-                    $(_this._element).one(Event.MOUSEUP_DISMISS, function(event) {
-                        if ($(event.target).is(_this._element)) {
-                            _this._ignoreBackdropClick = true;
-                        }
-                    });
-                });
-                this._showBackdrop($.proxy(this._showElement, this, relatedTarget));
-            }
-        }, {
-            key: "hide",
-            value: function hide(event) {
-                if (event) {
-                    event.preventDefault();
-                }
-                var hideEvent = $.Event(Event.HIDE);
-                $(this._element).trigger(hideEvent);
-                if (!this._isShown || hideEvent.isDefaultPrevented()) {
-                    return;
-                }
-                this._isShown = false;
-                this._setEscapeEvent();
-                this._setResizeEvent();
-                $(document).off(Event.FOCUSIN);
-                $(this._element).removeClass(ClassName.IN);
-                $(this._element).off(Event.CLICK_DISMISS);
-                $(this._dialog).off(Event.MOUSEDOWN_DISMISS);
-                if (Util$3.supportsTransitionEnd() && $(this._element).hasClass(ClassName.FADE)) {
-                    $(this._element).one(Util$3.TRANSITION_END, $.proxy(this._hideModal, this)).emulateTransitionEnd(TRANSITION_DURATION);
-                } else {
-                    this._hideModal();
-                }
-            }
-        }, {
-            key: "dispose",
-            value: function dispose() {
-                $.removeData(this._element, DATA_KEY);
-                $(window).off(EVENT_KEY);
-                $(document).off(EVENT_KEY);
-                $(this._element).off(EVENT_KEY);
-                $(this._backdrop).off(EVENT_KEY);
-                this._config = null;
-                this._element = null;
-                this._dialog = null;
-                this._backdrop = null;
-                this._isShown = null;
-                this._isBodyOverflowing = null;
-                this._ignoreBackdropClick = null;
-                this._originalBodyPadding = null;
-                this._scrollbarWidth = null;
-            }
-        }, {
-            key: "_getConfig",
-            value: function _getConfig(config) {
-                config = $.extend({}, Default, config);
-                Util$3.typeCheckConfig(NAME, config, DefaultType);
-                return config;
-            }
-        }, {
-            key: "_showElement",
-            value: function _showElement(relatedTarget) {
-                var _this2 = this;
-                var transition = Util$3.supportsTransitionEnd() && $(this._element).hasClass(ClassName.FADE);
-                if (!this._element.parentNode || this._element.parentNode.nodeType !== Node.ELEMENT_NODE) {
-                    document.body.appendChild(this._element);
-                }
-                this._element.style.display = "block";
-                this._element.removeAttribute("aria-hidden");
-                this._element.scrollTop = 0;
-                if (transition) {
-                    Util$3.reflow(this._element);
-                }
-                $(this._element).addClass(ClassName.IN);
-                if (this._config.focus) {
-                    this._enforceFocus();
-                }
-                var shownEvent = $.Event(Event.SHOWN, {
-                    relatedTarget: relatedTarget
-                });
-                var transitionComplete = function transitionComplete() {
-                    if (_this2._config.focus) {
-                        _this2._element.focus();
-                    }
-                    $(_this2._element).trigger(shownEvent);
-                };
-                if (transition) {
-                    $(this._dialog).one(Util$3.TRANSITION_END, transitionComplete).emulateTransitionEnd(TRANSITION_DURATION);
-                } else {
-                    transitionComplete();
-                }
-            }
-        }, {
-            key: "_enforceFocus",
-            value: function _enforceFocus() {
-                var _this3 = this;
-                $(document).off(Event.FOCUSIN).on(Event.FOCUSIN, function(event) {
-                    if (document !== event.target && _this3._element !== event.target && !$(_this3._element).has(event.target).length) {
-                        _this3._element.focus();
-                    }
-                });
-            }
-        }, {
-            key: "_setEscapeEvent",
-            value: function _setEscapeEvent() {
-                var _this4 = this;
-                if (this._isShown && this._config.keyboard) {
-                    $(this._element).on(Event.KEYDOWN_DISMISS, function(event) {
-                        if (event.which === ESCAPE_KEYCODE) {
-                            _this4.hide();
-                        }
-                    });
-                } else if (!this._isShown) {
-                    $(this._element).off(Event.KEYDOWN_DISMISS);
-                }
-            }
-        }, {
-            key: "_setResizeEvent",
-            value: function _setResizeEvent() {
-                if (this._isShown) {
-                    $(window).on(Event.RESIZE, $.proxy(this._handleUpdate, this));
-                } else {
-                    $(window).off(Event.RESIZE);
-                }
-            }
-        }, {
-            key: "_hideModal",
-            value: function _hideModal() {
-                var _this5 = this;
-                this._element.style.display = "none";
-                this._element.setAttribute("aria-hidden", "true");
-                this._showBackdrop(function() {
-                    $(document.body).removeClass(ClassName.OPEN);
-                    _this5._resetAdjustments();
-                    _this5._resetScrollbar();
-                    $(_this5._element).trigger(Event.HIDDEN);
-                });
-            }
-        }, {
-            key: "_removeBackdrop",
-            value: function _removeBackdrop() {
-                if (this._backdrop) {
-                    $(this._backdrop).remove();
-                    this._backdrop = null;
-                }
-            }
-        }, {
-            key: "_showBackdrop",
-            value: function _showBackdrop(callback) {
-                var _this6 = this;
-                var animate = $(this._element).hasClass(ClassName.FADE) ? ClassName.FADE : "";
-                if (this._isShown && this._config.backdrop) {
-                    var doAnimate = Util$3.supportsTransitionEnd() && animate;
-                    this._backdrop = document.createElement("div");
-                    this._backdrop.className = ClassName.BACKDROP;
-                    if (animate) {
-                        $(this._backdrop).addClass(animate);
-                    }
-                    $(this._backdrop).appendTo(document.body);
-                    $(this._element).on(Event.CLICK_DISMISS, function(event) {
-                        if (_this6._ignoreBackdropClick) {
-                            _this6._ignoreBackdropClick = false;
-                            return;
-                        }
-                        if (event.target !== event.currentTarget) {
-                            return;
-                        }
-                        if (_this6._config.backdrop === "static") {
-                            _this6._element.focus();
-                        } else {
-                            _this6.hide();
-                        }
-                    });
-                    if (doAnimate) {
-                        Util$3.reflow(this._backdrop);
-                    }
-                    $(this._backdrop).addClass(ClassName.IN);
-                    if (!callback) {
-                        return;
-                    }
-                    if (!doAnimate) {
-                        callback();
-                        return;
-                    }
-                    $(this._backdrop).one(Util$3.TRANSITION_END, callback).emulateTransitionEnd(BACKDROP_TRANSITION_DURATION);
-                } else if (!this._isShown && this._backdrop) {
-                    $(this._backdrop).removeClass(ClassName.IN);
-                    var callbackRemove = function callbackRemove() {
-                        _this6._removeBackdrop();
-                        if (callback) {
-                            callback();
-                        }
-                    };
-                    if (Util$3.supportsTransitionEnd() && $(this._element).hasClass(ClassName.FADE)) {
-                        $(this._backdrop).one(Util$3.TRANSITION_END, callbackRemove).emulateTransitionEnd(BACKDROP_TRANSITION_DURATION);
-                    } else {
-                        callbackRemove();
-                    }
-                } else if (callback) {
-                    callback();
-                }
-            }
-        }, {
-            key: "_handleUpdate",
-            value: function _handleUpdate() {
-                this._adjustDialog();
-            }
-        }, {
-            key: "_adjustDialog",
-            value: function _adjustDialog() {
-                var isModalOverflowing = this._element.scrollHeight > document.documentElement.clientHeight;
-                if (!this._isBodyOverflowing && isModalOverflowing) {
-                    this._element.style.paddingLeft = this._scrollbarWidth + "px";
-                }
-                if (this._isBodyOverflowing && !isModalOverflowing) {
-                    this._element.style.paddingRight = this._scrollbarWidth + "px";
-                }
-            }
-        }, {
-            key: "_resetAdjustments",
-            value: function _resetAdjustments() {
-                this._element.style.paddingLeft = "";
-                this._element.style.paddingRight = "";
-            }
-        }, {
-            key: "_checkScrollbar",
-            value: function _checkScrollbar() {
-                this._isBodyOverflowing = document.body.clientWidth < window.innerWidth;
-                this._scrollbarWidth = this._getScrollbarWidth();
-            }
-        }, {
-            key: "_setScrollbar",
-            value: function _setScrollbar() {
-                var bodyPadding = parseInt($(Selector.FIXED_CONTENT).css("padding-right") || 0, 10);
-                this._originalBodyPadding = document.body.style.paddingRight || "";
-                if (this._isBodyOverflowing) {
-                    document.body.style.paddingRight = bodyPadding + this._scrollbarWidth + "px";
-                }
-            }
-        }, {
-            key: "_resetScrollbar",
-            value: function _resetScrollbar() {
-                document.body.style.paddingRight = this._originalBodyPadding;
-            }
-        }, {
-            key: "_getScrollbarWidth",
-            value: function _getScrollbarWidth() {
-                var scrollDiv = document.createElement("div");
-                scrollDiv.className = ClassName.SCROLLBAR_MEASURER;
-                document.body.appendChild(scrollDiv);
-                var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-                document.body.removeChild(scrollDiv);
-                return scrollbarWidth;
-            }
-        } ], [ {
-            key: "_jQueryInterface",
-            value: function _jQueryInterface(config, relatedTarget) {
-                return this.each(function() {
-                    var data = $(this).data(DATA_KEY);
-                    var _config = $.extend({}, Modal.Default, $(this).data(), (typeof config === "undefined" ? "undefined" : _typeof(config)) === "object" && config);
-                    if (!data) {
-                        data = new Modal(this, _config);
-                        $(this).data(DATA_KEY, data);
-                    }
-                    if (typeof config === "string") {
-                        if (data[config] === undefined) {
-                            throw new Error('No method named "' + config + '"');
-                        }
-                        data[config](relatedTarget);
-                    } else if (_config.show) {
-                        data.show(relatedTarget);
-                    }
-                });
-            }
-        }, {
-            key: "VERSION",
-            get: function get() {
-                return VERSION;
-            }
-        }, {
-            key: "Default",
-            get: function get() {
-                return Default;
-            }
-        } ]);
-        return Modal;
-    }();
-    $(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function(event) {
-        var _this7 = this;
-        var target = void 0;
-        var selector = Util$3.getSelectorFromElement(this);
-        if (selector) {
-            target = $(selector)[0];
-        }
-        var config = $(target).data(DATA_KEY) ? "toggle" : $.extend({}, $(target).data(), $(this).data());
-        if (this.tagName === "A") {
-            event.preventDefault();
-        }
-        var $target = $(target).one(Event.SHOW, function(showEvent) {
-            if (showEvent.isDefaultPrevented()) {
-                return;
-            }
-            $target.one(Event.HIDDEN, function() {
-                if ($(_this7).is(":visible")) {
-                    _this7.focus();
-                }
-            });
-        });
-        Modal._jQueryInterface.call($(target), config, this);
-    });
-    $.fn[NAME] = Modal._jQueryInterface;
-    $.fn[NAME].Constructor = Modal;
-    $.fn[NAME].noConflict = function() {
-        $.fn[NAME] = JQUERY_NO_CONFLICT;
-        return Modal._jQueryInterface;
-    };
-    return Modal;
-}();
-
-var _createClass$9 = function() {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];
-            descriptor.enumerable = descriptor.enumerable || false;
-            descriptor.configurable = true;
-            if ("value" in descriptor) descriptor.writable = true;
-            Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }
-    return function(Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);
-        if (staticProps) defineProperties(Constructor, staticProps);
-        return Constructor;
-    };
-}();
-
-var _templateObject$8 = _taggedTemplateLiteral$8([ '\n        <div class="modal ', " ", " \n        ", " ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '" style="', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ], [ '\n        <div class="modal ', " ", " \n        ", " ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '" style="', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ]);
-
-var _templateObject2$5 = _taggedTemplateLiteral$8([ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ], [ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ]);
-
-var _templateObject3$4 = _taggedTemplateLiteral$8([ '<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">', '</button>\n                <button type="button" class="btn btn-primary ok">', "</button></div>" ], [ '<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">', '</button>\n                <button type="button" class="btn btn-primary ok">', "</button></div>" ]);
-
-function _taggedTemplateLiteral$8(strings, raw) {
-    return Object.freeze(Object.defineProperties(strings, {
-        raw: {
-            value: Object.freeze(raw)
-        }
-    }));
-}
-
-function _classCallCheck$9(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-    }
-}
-
-function _possibleConstructorReturn$9(self, call) {
-    if (!self) {
-        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-    return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits$9(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-    }
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
-        constructor: {
-            value: subClass,
-            enumerable: false,
-            writable: true,
-            configurable: true
-        }
-    });
-    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-var Modal = function(_Lego$UI$Baseview) {
-    _inherits$9(Modal, _Lego$UI$Baseview);
-    function Modal() {
-        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$9(this, Modal);
-        var options = {
-            events: {
-                "click .modal-footer button.ok": "clickOk",
-                "click .modal-footer button.cancel": "clickCancel",
-                "click .close": "close"
-            },
-            title: "modal title",
-            size: "",
-            type: "modal",
-            position: "",
-            animates: "fade",
-            closable: true,
-            showHeader: true,
-            showFooter: true,
-            backdrop: true,
-            keyboard: true,
-            content: "",
-            footer: null,
-            okText: "关闭",
-            cancelText: "取消",
-            onOk: function onOk() {},
-            onCancel: function onCancel() {},
-            onHidden: function onHidden() {}
-        };
-        Object.assign(options, opts);
-        var containerEl = options.position ? "#lego-submodal" : "#lego-modal";
-        var container = options.position ? '<submodal id="lego-submodal"></submodal>' : '<modal id="lego-modal"></modal>';
-        if (!options.el) options.el = containerEl;
-        var _this = _possibleConstructorReturn$9(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, options));
-        var that = _this;
-        _this._renderStyle(options);
-        _this.options.containerEl = containerEl;
-        $(containerEl).modal({
-            backdrop: options.position ? !options.backdrop : options.backdrop,
-            keyboard: options.keyboard,
-            show: true
-        });
-        $(containerEl).on("hidden.bs.modal", function(e) {
-            that.remove();
-            $(Lego.config.pageEl).after(container);
-            console.warn("关闭了");
-            if (typeof options.onHidden === "function") options.onHidden();
-        });
-        return _this;
-    }
-    _createClass$9(Modal, [ {
-        key: "_renderStyle",
-        value: function _renderStyle(options) {
-            var style = {};
-            if (options.position == "right") {
-                var headerHeight = $("header").height();
-                style = {
-                    position: "absolute",
-                    width: options.width || 700,
-                    padding: headerHeight + "px 0 0"
-                };
-            } else if (options.width && options.height || !options.position) {
-                style = {
-                    width: options.width || undefined,
-                    height: options.height || undefined,
-                    position: "absolute",
-                    marginTop: -(options.height || 200) / 2,
-                    marginLeft: -(options.width || (options.size == "sm" ? 300 : options.size == "lg" ? 900 : 600)) / 2,
-                    top: "45%",
-                    left: "50%"
-                };
-            }
-            this.options.visible = true;
-            this.$(".modal-dialog").css(style);
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var options = this.options || {};
-            var vDom = hx(_templateObject$8, options.position == "right" ? "right-modal" : "", options.size ? "bs-example-modal-" + options.size : "", options.animates ? options.animates : "", !!options.visible ? "in" : "hide", options.el.replace(/#/, ""), options.closable ? hx(_templateObject2$5) : "", options.title, options.type == "modal" ? "scrollbar" : "", options.type == "modal" ? 'position:"absolute"' : "", options.content, options.footer ? options.footer : hx(_templateObject3$4, options.cancelText, options.okText));
-            return vDom;
-        }
-    }, {
-        key: "show",
-        value: function show(event) {
-            this.options.visible = true;
-        }
-    }, {
-        key: "close",
-        value: function close(event) {
-            this.options.visible = false;
-            console.warn("ffffffff", this.options.visible);
-            this.refresh();
-        }
-    }, {
-        key: "clickOk",
-        value: function clickOk(event) {
-            event.stopPropagation();
-            this.close();
-            if (typeof this.options.onOk === "function") this.options.onOk(event);
-        }
-    }, {
-        key: "clickCancel",
-        value: function clickCancel(event) {
-            event.stopPropagation();
-            this.close();
-            if (typeof this.options.onCancel === "function") this.options.onCancel(event);
-        }
-    } ]);
-    return Modal;
 }(Lego.UI.Baseview);
 
 exports.Baseview = Baseview;
