@@ -92,19 +92,22 @@ var Baseview = function(_Lego$View) {
                 })();
             }
         }
-    } ], [ {
-        key: "getDirection",
-        value: function getDirection(el, dropEl) {
-            el = el instanceof $ ? el : $(el);
-            var windowW = $(window).width(), windowH = $(window).height(), _X = el.offset().left, _Y = el.offset().top, elW = el.width(), elH = el.height(), dropW = dropEl.width(), dropH = dropEl.height(), upDown = dropH > windowH - _Y - elH ? "top" : "bottom", leftRight = dropW > windowW - _X - elW ? "Right" : "Left";
-            return {
-                _x: leftRight,
-                _y: upDown
-            };
-        }
     } ]);
     return Baseview;
 }(Lego.View);
+
+var Util$1 = {
+    getDirection: function getDirection(el, dropEl) {
+        el = el instanceof $ ? el : $(el);
+        var windowW = $(window).width(), windowH = $(window).height(), _X = el.offset().left, _Y = el.offset().top, elW = el.width(), elH = el.height(), dropW = dropEl.width(), dropH = dropEl.height(), upDown = dropH > windowH - _Y - elH ? "top" : "bottom", leftRight = dropW > windowW - _X - elW ? "Right" : "Left";
+        return {
+            _x: leftRight,
+            _y: upDown
+        };
+    }
+};
+
+Lego.UI.Util = Util$1;
 
 window.Ps = perfectScrollbar;
 
@@ -201,7 +204,7 @@ var _createClass$1 = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i>\n                                <span class="caret"></span></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container">\n                    </div>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n        </div>\n        ' ], [ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i>\n                                <span class="caret"></span></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container">\n                    </div>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n        </div>\n        ' ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container"></div>\n                    <submodal id="lego-submodal"></submodal>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n            <modal id="lego-modal"></modal>\n        </div>\n        ' ], [ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container"></div>\n                    <submodal id="lego-submodal"></submodal>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n            <modal id="lego-modal"></modal>\n        </div>\n        ' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -500,7 +503,7 @@ var _createClass$5 = function() {
     };
 }();
 
-var _templateObject$4 = _taggedTemplateLiteral$4([ '\n        <button type="', '" class="btn btn-', " lego-btn lego-btn-", '">\n            <span>', "</span>\n        </button>\n        " ], [ '\n        <button type="', '" class="btn btn-', " lego-btn lego-btn-", '">\n            <span>', "</span>\n        </button>\n        " ]);
+var _templateObject$4 = _taggedTemplateLiteral$4([ '\n        <button type="', '" class="btn btn-', '">\n            <span>', "</span>\n        </button>\n        " ], [ '\n        <button type="', '" class="btn btn-', '">\n            <span>', "</span>\n        </button>\n        " ]);
 
 function _taggedTemplateLiteral$4(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -563,7 +566,7 @@ var Button = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject$4, options.htmlType, options.type, options.type, options.html || options.text);
+            var vDom = hx(_templateObject$4, options.htmlType, options.type, options.html || options.text);
             return vDom;
         }
     }, {
@@ -593,15 +596,15 @@ var _createClass$8 = function() {
     };
 }();
 
-var _templateObject$7 = _taggedTemplateLiteral$7([ '\n            <li class="lego-dropdown-menu-submenu-vertical lego-dropdown-menu-submenu">\n                <div class="lego-dropdown-menu-submenu-title" id="', '">', "</div>\n                ", "\n            </li>\n            " ], [ '\n            <li class="lego-dropdown-menu-submenu-vertical lego-dropdown-menu-submenu">\n                <div class="lego-dropdown-menu-submenu-title" id="', '">', "</div>\n                ", "\n            </li>\n            " ]);
+var _templateObject$7 = _taggedTemplateLiteral$7([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
 
-var _templateObject2$4 = _taggedTemplateLiteral$7([ '\n                <ul class="lego-dropdown-menu lego-dropdown-menu-vertical lego-dropdown-menu-sub ', '">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="lego-dropdown-menu lego-dropdown-menu-vertical lego-dropdown-menu-sub ', '">\n                    ', "\n                </ul>\n                " ]);
+var _templateObject2$4 = _taggedTemplateLiteral$7([ '<li id="', '" class="', '">\n                    <a href="', '">', "</a></li>" ], [ '<li id="', '" class="', '">\n                    <a href="', '">', "</a></li>" ]);
 
-var _templateObject3$3 = _taggedTemplateLiteral$7([ '<li class="lego-dropdown-menu-item">', "</li>" ], [ '<li class="lego-dropdown-menu-item">', "</li>" ]);
+var _templateObject3$3 = _taggedTemplateLiteral$7([ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ]);
 
-var _templateObject4$2 = _taggedTemplateLiteral$7([ '\n        <div class="lego-dropdown lego-dropdown-placement-', " ", '">\n            <ul class="lego-dropdown-menu lego-dropdown-menu-vertical  lego-dropdown-menu-light lego-dropdown-menu-root">\n            ', "\n            </ul>\n        </div>\n        " ], [ '\n        <div class="lego-dropdown lego-dropdown-placement-', " ", '">\n            <ul class="lego-dropdown-menu lego-dropdown-menu-vertical  lego-dropdown-menu-light lego-dropdown-menu-root">\n            ', "\n            </ul>\n        </div>\n        " ]);
+var _templateObject4$2 = _taggedTemplateLiteral$7([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5$2 = _taggedTemplateLiteral$7([ '<li class="lego-dropdown-menu-item" id="', '">', "</li>" ], [ '<li class="lego-dropdown-menu-item" id="', '">', "</li>" ]);
+var _templateObject5$2 = _taggedTemplateLiteral$7([ '\n        <ul class="dropdown-menu ', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', '">\n            ', "\n        </ul>\n        " ]);
 
 function _taggedTemplateLiteral$7(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -646,11 +649,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
         _classCallCheck$8(this, Dropdown);
         var options = {
             events: {
-                "click .lego-dropdown-menu-item": "clickItem",
-                "mouseenter .lego-dropdown-menu-item": "inMenu",
-                "mouseleave .lego-dropdown-menu-item": "outMenu",
-                "mouseenter .lego-dropdown-menu-submenu": "showSubMenu",
-                "mouseleave .lego-dropdown-menu-submenu": "hideSubMenu"
+                "click li": "clickItem"
             },
             disabled: false,
             eventName: "hover",
@@ -664,15 +663,15 @@ var Dropdown = function(_Lego$UI$Baseview) {
         var _this = _possibleConstructorReturn$8(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
         _this.result = "";
         var that = _this;
-        options.trigger = options.trigger instanceof $ ? options.trigger : $(options.trigger);
-        options.trigger[options.eventName](function() {
-            var directionResp = Lego.UI.Baseview.getDirection(options.trigger, that.$el);
-            that.options.direction = directionResp._y + directionResp._x || "bottomLeft";
+        _this.options.trigger = _this.options.trigger instanceof $ ? _this.options.trigger : $(_this.options.trigger);
+        _this.options.trigger[options.eventName](function() {
+            var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
+            that.options.direction = directionResp._y || "bottom";
             that.show();
-            options.trigger.mouseleave(function() {
+            that.options.trigger.mouseleave(function() {
                 that.close();
             });
-            that.$(".lego-dropdown-menu").mouseleave(function() {
+            that.$(".dropdown-menu").mouseleave(function() {
                 that.close();
             });
         });
@@ -682,34 +681,47 @@ var Dropdown = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            function loopNav(data) {
-                return hx(_templateObject$7, data.key, data.title, data.children ? hx(_templateObject2$4, data.visible ? "" : "lego-dropdown-menu-hidden", data.children.map(function(item) {
+            function itemNav(item) {
+                if (item.divider) {
+                    return hx(_templateObject$7);
+                } else {
                     if (!item.children) {
-                        return hx(_templateObject3$3, item.title);
+                        return hx(_templateObject2$4, item.key, item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", item.title);
                     } else {
                         return loopNav(item);
                     }
+                }
+            }
+            function loopNav(data) {
+                return hx(_templateObject3$3, data.title, data.children ? hx(_templateObject4$2, data.children.map(function(item) {
+                    itemNav(item);
                 })) : "");
             }
-            var vDom = hx(_templateObject4$2, options.direction ? options.direction : "", options.visible ? "" : "lego-dropdown-hidden", options.data.map(function(item) {
-                if (!item.children) {
-                    return hx(_templateObject5$2, item.key, item.title);
-                } else {
-                    return loopNav(item);
-                }
+            var vDom = hx(_templateObject5$2, options.direction ? "drop" + options.direction : "", options.data.map(function(item) {
+                return itemNav(item);
             }));
             return vDom;
         }
     }, {
+        key: "_getAlign",
+        value: function _getAlign(parent, el) {
+            var _X = parent.offset().left, _Y = parent.offset().top - el.height(), windowWidth = $(window).width() - 20, elWidth = el.width();
+            if (windowWidth > _X + elWidth) {
+                return "left";
+            } else {
+                return "right";
+            }
+        }
+    }, {
         key: "show",
         value: function show(event) {
-            this.options.visible = true;
+            this.options.trigger.addClass("dropdown open");
             this.options.onVisibleChange(true);
         }
     }, {
         key: "close",
         value: function close(event) {
-            this.options.visible = false;
+            this.options.trigger.removeClass("dropdown open");
             this.options.onVisibleChange(false);
         }
     }, {
@@ -719,30 +731,6 @@ var Dropdown = function(_Lego$UI$Baseview) {
             this.result = target.attr("id");
             this.options.onChange(this.result);
             this.close();
-        }
-    }, {
-        key: "inMenu",
-        value: function inMenu(event) {
-            var target = $(event.currentTarget);
-            target.addClass("lego-dropdown-menu-item-active");
-        }
-    }, {
-        key: "outMenu",
-        value: function outMenu(event) {
-            var target = $(event.currentTarget);
-            target.removeClass("lego-dropdown-menu-item-active");
-        }
-    }, {
-        key: "showSubMenu",
-        value: function showSubMenu(event) {
-            var target = $(event.currentTarget);
-            target.addClass("lego-dropdown-menu-submenu-open lego-dropdown-menu-submenu-active");
-        }
-    }, {
-        key: "hideSubMenu",
-        value: function hideSubMenu(event) {
-            var target = $(event.currentTarget);
-            target.removeClass("lego-dropdown-menu-submenu-open lego-dropdown-menu-submenu-active");
         }
     } ]);
     return Dropdown;
@@ -765,25 +753,23 @@ var _createClass$7 = function() {
     };
 }();
 
-var _templateObject$6 = _taggedTemplateLiteral$6([ '\n        <ul class="lego-pagination lego-table-pagination ', " ", '">\n            <li title="上一页" class="lego-pagination-prev ', '">\n                <a></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ], [ '\n        <ul class="lego-pagination lego-table-pagination ', " ", '">\n            <li title="上一页" class="lego-pagination-prev ', '">\n                <a></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ]);
+var _templateObject$6 = _taggedTemplateLiteral$6([ '\n        <ul class="pagination ', " ", '">\n            <li class="prev ', '">\n                <a href="javascript:void(0)" title="上一页"><i class="icon iconfont icon-arrow-left"></i></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ], [ '\n        <ul class="pagination ', " ", '">\n            <li class="prev ', '">\n                <a href="javascript:void(0)" title="上一页"><i class="icon iconfont icon-arrow-left"></i></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ]);
 
 var _templateObject2$3 = _taggedTemplateLiteral$6([ '\n            <div title="', "/", '" class="lego-pagination-simple-pager">\n                <input type="text" value="', '"><span class="lego-pagination-slash">／</span>\n            </div>\n            ' ], [ '\n            <div title="', "/", '" class="lego-pagination-simple-pager">\n                <input type="text" value="', '"><span class="lego-pagination-slash">／</span>\n            </div>\n            ' ]);
 
-var _templateObject3$2 = _taggedTemplateLiteral$6([ '\n            <li title="', '" class="lego-pagination-item ', '"><a>', "</a></li>\n            " ], [ '\n            <li title="', '" class="lego-pagination-item ', '"><a>', "</a></li>\n            " ]);
+var _templateObject3$2 = _taggedTemplateLiteral$6([ '\n            <li title="', '" class="page page-item ', '"><a href="javascript:void(0)">', "</a></li>\n            " ], [ '\n            <li title="', '" class="page page-item ', '"><a href="javascript:void(0)">', "</a></li>\n            " ]);
 
-var _templateObject4$1 = _taggedTemplateLiteral$6([ '\n            <li title="下 ', ' 页" class="lego-pagination-jump-next">\n                <a></a>\n            </li>\n            ' ], [ '\n            <li title="下 ', ' 页" class="lego-pagination-jump-next">\n                <a></a>\n            </li>\n            ' ]);
+var _templateObject4$1 = _taggedTemplateLiteral$6([ '\n            <li title="下 ', ' 页" class="page morepage"><a href="javascript:void(0)"><i class="icon iconfont icon-more-1"></a></i></li>\n            ' ], [ '\n            <li title="下 ', ' 页" class="page morepage"><a href="javascript:void(0)"><i class="icon iconfont icon-more-1"></a></i></li>\n            ' ]);
 
-var _templateObject5$1 = _taggedTemplateLiteral$6([ '<li title="', '" class="lego-pagination-item"><a>', "</a></li>" ], [ '<li title="', '" class="lego-pagination-item"><a>', "</a></li>" ]);
+var _templateObject5$1 = _taggedTemplateLiteral$6([ '<li title="', '" class="page page-item"><a href="javascript:void(0)">', "</a></li>" ], [ '<li title="', '" class="page page-item"><a href="javascript:void(0)">', "</a></li>" ]);
 
-var _templateObject6$1 = _taggedTemplateLiteral$6([ '\n            <li title="下一页" class=" lego-pagination-next ', '">\n                <a></a>\n            </li>\n            ' ], [ '\n            <li title="下一页" class=" lego-pagination-next ', '">\n                <a></a>\n            </li>\n            ' ]);
+var _templateObject6$1 = _taggedTemplateLiteral$6([ '\n            <li class="next ', '">\n                <a href="javascript:void(0)" title="下一页"><i class="icon iconfont icon-arrow-right"></i></a>\n            </li>\n            ' ], [ '\n            <li class="next ', '">\n                <a href="javascript:void(0)" title="下一页"><i class="icon iconfont icon-arrow-right"></i></a>\n            </li>\n            ' ]);
 
-var _templateObject7$1 = _taggedTemplateLiteral$6([ '\n            <div class="lego-pagination-options">\n                ', "\n                ", "\n                ", "\n            </div>\n            " ], [ '\n            <div class="lego-pagination-options">\n                ', "\n                ", "\n                ", "\n            </div>\n            " ]);
+var _templateObject7$1 = _taggedTemplateLiteral$6([ '\n            <li class="pageSize">\n                <span class="info" id="', '-select">\n                <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                <dropdown id="', '-dropdown"></dropdown>\n                </span>\n            </li>\n            ' ], [ '\n            <li class="pageSize">\n                <span class="info" id="', '-select">\n                <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                <dropdown id="', '-dropdown"></dropdown>\n                </span>\n            </li>\n            ' ]);
 
-var _templateObject8$1 = _taggedTemplateLiteral$6([ '\n                <div class="lego-pagination-options-size-changer lego-select lego-select-enabled" id="', '-select">\n                    <div class="lego-select-selection lego-select-selection-single">\n                        <div class="lego-select-selection__rendered">\n                            <div class="lego-select-selection-selected-value" title="', ' / 页" style="display: block; opacity: 1;">\n                            ', ' / 页</div>\n                        </div>\n                        <span class="lego-select-arrow" style="user-select: none;"><b></b></span>\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n                ' ], [ '\n                <div class="lego-pagination-options-size-changer lego-select lego-select-enabled" id="', '-select">\n                    <div class="lego-select-selection lego-select-selection-single">\n                        <div class="lego-select-selection__rendered">\n                            <div class="lego-select-selection-selected-value" title="', ' / 页" style="display: block; opacity: 1;">\n                            ', ' / 页</div>\n                        </div>\n                        <span class="lego-select-arrow" style="user-select: none;"><b></b></span>\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n                ' ]);
+var _templateObject8$1 = _taggedTemplateLiteral$6([ '\n            <li><span class="info">\n                    跳转至\n                    <input type="text" class="form-control pageJump" value="', '">\n                </span>\n                ', "\n            </li>\n            " ], [ '\n            <li><span class="info">\n                    跳转至\n                    <input type="text" class="form-control pageJump" value="', '">\n                </span>\n                ', "\n            </li>\n            " ]);
 
-var _templateObject9$1 = _taggedTemplateLiteral$6([ '\n                <div class="lego-pagination-options-quick-jumper">\n                    跳转至\n                    <input type="text" value="', '">\n                </div>\n                ' ], [ '\n                <div class="lego-pagination-options-quick-jumper">\n                    跳转至\n                    <input type="text" value="', '">\n                </div>\n                ' ]);
-
-var _templateObject10$1 = _taggedTemplateLiteral$6([ '<span class="lego-pagination-total-text">\n                ', "\n                </span>" ], [ '<span class="lego-pagination-total-text">\n                ', "\n                </span>" ]);
+var _templateObject9$1 = _taggedTemplateLiteral$6([ '\n                <span class="info">\n                ', "\n                </span>\n                " ], [ '\n                <span class="info">\n                ', "\n                </span>\n                " ]);
 
 function _taggedTemplateLiteral$6(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -830,11 +816,11 @@ var Pagination = function(_Lego$UI$Baseview) {
         _classCallCheck$7(this, Pagination);
         var options = {
             events: {
-                "click .lego-pagination-prev:not(.lego-pagination-disabled)": "clickPrevPage",
-                "click .lego-pagination-item": "clickItemPage",
-                "click .lego-pagination-next:not(.lego-pagination-disabled)": "clickNextPage",
-                "click .lego-pagination-jump-next": "clickMorePage",
-                "keydown .lego-pagination-options-quick-jumper>input": "_enterSearch"
+                "click .prev:not(.disabled)": "clickPrevPage",
+                "click .page-item": "clickItemPage",
+                "click .next:not(.disabled)": "clickNextPage",
+                "click .morepage": "clickMorePage",
+                'keydown .info>input[type="text"]': "_enterSearch"
             },
             current: 1,
             total: 0,
@@ -848,7 +834,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             showQuickJumper: false,
             size: "",
             simple: null,
-            showTotal: function showTotal() {}
+            isShowTotal: true
         };
         Object.assign(options, opts);
         if (!options.simple && options.showSizeChanger) {
@@ -884,9 +870,9 @@ var Pagination = function(_Lego$UI$Baseview) {
             for (var i = startPage; i <= endPage; i++) {
                 pagesArr.push(i);
             }
-            var vDom = hx(_templateObject$6, options.simple ? "lego-table-simple" : "", options.size == "small" ? "mini" : "", options.current <= 1 ? "lego-pagination-disabled" : "", options.simple ? hx(_templateObject2$3, options.current, options.endPage, options.current) : "", !options.simple ? pagesArr.map(function(x) {
-                return hx(_templateObject3$2, x, x == options.current ? "lego-pagination-item-active" : "", x);
-            }) : "", showEllipsis ? hx(_templateObject4$1, options.pageSize) : "", !options.simple && showEllipsis ? hx(_templateObject5$1, options.totalPages, options.totalPages) : "", !options.simple ? hx(_templateObject6$1, options.current >= options.totalPages ? "lego-pagination-disabled" : "") : "", !options.simple ? hx(_templateObject7$1, options.showSizeChanger ? hx(_templateObject8$1, options.vid, options.pageSize, options.pageSize, options.vid) : "", options.showQuickJumper ? hx(_templateObject9$1, this.jumped ? options.current : "1") : "", options.showTotal ? hx(_templateObject10$1, typeof options.showTotal === "function" ? options.showTotal(options.total) : "总数" + options.total) : "") : "");
+            var vDom = hx(_templateObject$6, options.simple ? "pagination-simple" : "", options.size == "small" ? "mini" : "", options.current <= 1 ? "disabled" : "", options.simple ? hx(_templateObject2$3, options.current, options.endPage, options.current) : "", !options.simple ? pagesArr.map(function(x) {
+                return hx(_templateObject3$2, x, x == options.current ? "active" : "", x);
+            }) : "", showEllipsis ? hx(_templateObject4$1, options.pageSize) : "", !options.simple && showEllipsis ? hx(_templateObject5$1, options.totalPages, options.totalPages) : "", !options.simple ? hx(_templateObject6$1, options.current >= options.totalPages ? "disabled" : "") : "", !options.simple && options.showSizeChanger ? hx(_templateObject7$1, options.vid, options.pageSize, options.vid) : "", !options.simple && options.showQuickJumper ? hx(_templateObject8$1, this.jumped ? options.current : "1", options.isShowTotal ? hx(_templateObject9$1, typeof options.showTotal === "function" ? options.showTotal(options.total) : "总数 " + options.total) : "") : "");
             this.jumped = false;
             return vDom;
         }
@@ -981,7 +967,7 @@ var _templateObject2$2 = _taggedTemplateLiteral$5([ '<div class="lego-table-titl
 
 var _templateObject3$1 = _taggedTemplateLiteral$5([ '\n                <div class="lego-table-header">\n                    <table class="">\n                        ', "\n                        ", "\n                    </table>\n                    ", "\n                </div>\n                " ], [ '\n                <div class="lego-table-header">\n                    <table class="">\n                        ', "\n                        ", "\n                    </table>\n                    ", "\n                </div>\n                " ]);
 
-var _templateObject4 = _taggedTemplateLiteral$5([ '\n                        <button type="button" class="lego-btn lego-btn-ghost lego-btn-circle lego-btn-icon-only">\n                        <i class="anticon anticon-ellipsis"></i></button>' ], [ '\n                        <button type="button" class="lego-btn lego-btn-ghost lego-btn-circle lego-btn-icon-only">\n                        <i class="anticon anticon-ellipsis"></i></button>' ]);
+var _templateObject4 = _taggedTemplateLiteral$5([ '\n                        <button type="button" class="btn btn-default noborder">\n                        <i class="anticon anticon-ellipsis"></i></button>' ], [ '\n                        <button type="button" class="btn btn-default noborder">\n                        <i class="anticon anticon-ellipsis"></i></button>' ]);
 
 var _templateObject5 = _taggedTemplateLiteral$5([ '\n                    <div class="lego-table-footer">\n                    <pagination id="', '-paginationId"></pagination>\n                    </div>\n                ' ], [ '\n                    <div class="lego-table-footer">\n                    <pagination id="', '-paginationId"></pagination>\n                    </div>\n                ' ]);
 
@@ -1319,7 +1305,719 @@ var Table = function(_Lego$UI$Baseview) {
     return Table;
 }(Lego.UI.Baseview);
 
+var Util$3 = function($) {
+    var transition = false;
+    var MAX_UID = 1e6;
+    var TransitionEndEvent = {
+        WebkitTransition: "webkitTransitionEnd",
+        MozTransition: "transitionend",
+        OTransition: "oTransitionEnd otransitionend",
+        transition: "transitionend"
+    };
+    function toType(obj) {
+        return {}.toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+    }
+    function isElement(obj) {
+        return (obj[0] || obj).nodeType;
+    }
+    function getSpecialTransitionEndEvent() {
+        return {
+            bindType: transition.end,
+            delegateType: transition.end,
+            handle: function handle(event) {
+                if ($(event.target).is(this)) {
+                    return event.handleObj.handler.apply(this, arguments);
+                }
+                return undefined;
+            }
+        };
+    }
+    function transitionEndTest() {
+        if (window.QUnit) {
+            return false;
+        }
+        var el = document.createElement("bootstrap");
+        for (var name in TransitionEndEvent) {
+            if (el.style[name] !== undefined) {
+                return {
+                    end: TransitionEndEvent[name]
+                };
+            }
+        }
+        return false;
+    }
+    function transitionEndEmulator(duration) {
+        var _this = this;
+        var called = false;
+        $(this).one(Util.TRANSITION_END, function() {
+            called = true;
+        });
+        setTimeout(function() {
+            if (!called) {
+                Util.triggerTransitionEnd(_this);
+            }
+        }, duration);
+        return this;
+    }
+    function setTransitionEndSupport() {
+        transition = transitionEndTest();
+        $.fn.emulateTransitionEnd = transitionEndEmulator;
+        if (Util.supportsTransitionEnd()) {
+            $.event.special[Util.TRANSITION_END] = getSpecialTransitionEndEvent();
+        }
+    }
+    var Util = {
+        TRANSITION_END: "bsTransitionEnd",
+        getUID: function getUID(prefix) {
+            do {
+                prefix += ~~(Math.random() * MAX_UID);
+            } while (document.getElementById(prefix));
+            return prefix;
+        },
+        getSelectorFromElement: function getSelectorFromElement(element) {
+            var selector = element.getAttribute("data-target");
+            if (!selector) {
+                selector = element.getAttribute("href") || "";
+                selector = /^#[a-z]/i.test(selector) ? selector : null;
+            }
+            return selector;
+        },
+        reflow: function reflow(element) {
+            new Function("bs", "return bs")(element.offsetHeight);
+        },
+        triggerTransitionEnd: function triggerTransitionEnd(element) {
+            $(element).trigger(transition.end);
+        },
+        supportsTransitionEnd: function supportsTransitionEnd() {
+            return Boolean(transition);
+        },
+        typeCheckConfig: function typeCheckConfig(componentName, config, configTypes) {
+            for (var property in configTypes) {
+                if (configTypes.hasOwnProperty(property)) {
+                    var expectedTypes = configTypes[property];
+                    var value = config[property];
+                    var valueType = void 0;
+                    if (value && isElement(value)) {
+                        valueType = "element";
+                    } else {
+                        valueType = toType(value);
+                    }
+                    if (!new RegExp(expectedTypes).test(valueType)) {
+                        throw new Error(componentName.toUpperCase() + ": " + ('Option "' + property + '" provided type "' + valueType + '" ') + ('but expected type "' + expectedTypes + '".'));
+                    }
+                }
+            }
+        }
+    };
+    setTransitionEndSupport();
+    return Util;
+}(jQuery);
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
+    return typeof obj;
+} : function(obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+var _createClass$10 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+function _classCallCheck$10(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+var Modal$2 = function() {
+    var NAME = "modal";
+    var VERSION = "4.0.0-alpha.5";
+    var DATA_KEY = "bs.modal";
+    var EVENT_KEY = "." + DATA_KEY;
+    var DATA_API_KEY = ".data-api";
+    var JQUERY_NO_CONFLICT = $.fn[NAME];
+    var TRANSITION_DURATION = 300;
+    var BACKDROP_TRANSITION_DURATION = 150;
+    var ESCAPE_KEYCODE = 27;
+    var Default = {
+        backdrop: true,
+        keyboard: true,
+        focus: true,
+        show: true
+    };
+    var DefaultType = {
+        backdrop: "(boolean|string)",
+        keyboard: "boolean",
+        focus: "boolean",
+        show: "boolean"
+    };
+    var Event = {
+        HIDE: "hide" + EVENT_KEY,
+        HIDDEN: "hidden" + EVENT_KEY,
+        SHOW: "show" + EVENT_KEY,
+        SHOWN: "shown" + EVENT_KEY,
+        FOCUSIN: "focusin" + EVENT_KEY,
+        RESIZE: "resize" + EVENT_KEY,
+        CLICK_DISMISS: "click.dismiss" + EVENT_KEY,
+        KEYDOWN_DISMISS: "keydown.dismiss" + EVENT_KEY,
+        MOUSEUP_DISMISS: "mouseup.dismiss" + EVENT_KEY,
+        MOUSEDOWN_DISMISS: "mousedown.dismiss" + EVENT_KEY,
+        CLICK_DATA_API: "click" + EVENT_KEY + DATA_API_KEY
+    };
+    var ClassName = {
+        SCROLLBAR_MEASURER: "modal-scrollbar-measure",
+        BACKDROP: "modal-backdrop",
+        OPEN: "modal-open",
+        FADE: "fade",
+        IN: "in"
+    };
+    var Selector = {
+        DIALOG: ".modal-dialog",
+        DATA_TOGGLE: '[data-toggle="modal"]',
+        DATA_DISMISS: '[data-dismiss="modal"]',
+        FIXED_CONTENT: ".navbar-fixed-top, .navbar-fixed-bottom, .is-fixed"
+    };
+    var Modal = function() {
+        function Modal(element, config) {
+            _classCallCheck$10(this, Modal);
+            this._config = this._getConfig(config);
+            this._element = element;
+            this._dialog = $(element).find(Selector.DIALOG)[0];
+            this._backdrop = null;
+            this._isShown = false;
+            this._isBodyOverflowing = false;
+            this._ignoreBackdropClick = false;
+            this._originalBodyPadding = 0;
+            this._scrollbarWidth = 0;
+        }
+        _createClass$10(Modal, [ {
+            key: "toggle",
+            value: function toggle(relatedTarget) {
+                return this._isShown ? this.hide() : this.show(relatedTarget);
+            }
+        }, {
+            key: "show",
+            value: function show(relatedTarget) {
+                var _this = this;
+                var showEvent = $.Event(Event.SHOW, {
+                    relatedTarget: relatedTarget
+                });
+                $(this._element).trigger(showEvent);
+                if (this._isShown || showEvent.isDefaultPrevented()) {
+                    return;
+                }
+                this._isShown = true;
+                this._checkScrollbar();
+                this._setScrollbar();
+                $(document.body).addClass(ClassName.OPEN);
+                this._setEscapeEvent();
+                this._setResizeEvent();
+                $(this._element).on(Event.CLICK_DISMISS, Selector.DATA_DISMISS, $.proxy(this.hide, this));
+                $(this._dialog).on(Event.MOUSEDOWN_DISMISS, function() {
+                    $(_this._element).one(Event.MOUSEUP_DISMISS, function(event) {
+                        if ($(event.target).is(_this._element)) {
+                            _this._ignoreBackdropClick = true;
+                        }
+                    });
+                });
+                this._showBackdrop($.proxy(this._showElement, this, relatedTarget));
+            }
+        }, {
+            key: "hide",
+            value: function hide(event) {
+                if (event) {
+                    event.preventDefault();
+                }
+                var hideEvent = $.Event(Event.HIDE);
+                $(this._element).trigger(hideEvent);
+                if (!this._isShown || hideEvent.isDefaultPrevented()) {
+                    return;
+                }
+                this._isShown = false;
+                this._setEscapeEvent();
+                this._setResizeEvent();
+                $(document).off(Event.FOCUSIN);
+                $(this._element).removeClass(ClassName.IN);
+                $(this._element).off(Event.CLICK_DISMISS);
+                $(this._dialog).off(Event.MOUSEDOWN_DISMISS);
+                if (Util$3.supportsTransitionEnd() && $(this._element).hasClass(ClassName.FADE)) {
+                    $(this._element).one(Util$3.TRANSITION_END, $.proxy(this._hideModal, this)).emulateTransitionEnd(TRANSITION_DURATION);
+                } else {
+                    this._hideModal();
+                }
+            }
+        }, {
+            key: "dispose",
+            value: function dispose() {
+                $.removeData(this._element, DATA_KEY);
+                $(window).off(EVENT_KEY);
+                $(document).off(EVENT_KEY);
+                $(this._element).off(EVENT_KEY);
+                $(this._backdrop).off(EVENT_KEY);
+                this._config = null;
+                this._element = null;
+                this._dialog = null;
+                this._backdrop = null;
+                this._isShown = null;
+                this._isBodyOverflowing = null;
+                this._ignoreBackdropClick = null;
+                this._originalBodyPadding = null;
+                this._scrollbarWidth = null;
+            }
+        }, {
+            key: "_getConfig",
+            value: function _getConfig(config) {
+                config = $.extend({}, Default, config);
+                Util$3.typeCheckConfig(NAME, config, DefaultType);
+                return config;
+            }
+        }, {
+            key: "_showElement",
+            value: function _showElement(relatedTarget) {
+                var _this2 = this;
+                var transition = Util$3.supportsTransitionEnd() && $(this._element).hasClass(ClassName.FADE);
+                if (!this._element.parentNode || this._element.parentNode.nodeType !== Node.ELEMENT_NODE) {
+                    document.body.appendChild(this._element);
+                }
+                this._element.style.display = "block";
+                this._element.removeAttribute("aria-hidden");
+                this._element.scrollTop = 0;
+                if (transition) {
+                    Util$3.reflow(this._element);
+                }
+                $(this._element).addClass(ClassName.IN);
+                if (this._config.focus) {
+                    this._enforceFocus();
+                }
+                var shownEvent = $.Event(Event.SHOWN, {
+                    relatedTarget: relatedTarget
+                });
+                var transitionComplete = function transitionComplete() {
+                    if (_this2._config.focus) {
+                        _this2._element.focus();
+                    }
+                    $(_this2._element).trigger(shownEvent);
+                };
+                if (transition) {
+                    $(this._dialog).one(Util$3.TRANSITION_END, transitionComplete).emulateTransitionEnd(TRANSITION_DURATION);
+                } else {
+                    transitionComplete();
+                }
+            }
+        }, {
+            key: "_enforceFocus",
+            value: function _enforceFocus() {
+                var _this3 = this;
+                $(document).off(Event.FOCUSIN).on(Event.FOCUSIN, function(event) {
+                    if (document !== event.target && _this3._element !== event.target && !$(_this3._element).has(event.target).length) {
+                        _this3._element.focus();
+                    }
+                });
+            }
+        }, {
+            key: "_setEscapeEvent",
+            value: function _setEscapeEvent() {
+                var _this4 = this;
+                if (this._isShown && this._config.keyboard) {
+                    $(this._element).on(Event.KEYDOWN_DISMISS, function(event) {
+                        if (event.which === ESCAPE_KEYCODE) {
+                            _this4.hide();
+                        }
+                    });
+                } else if (!this._isShown) {
+                    $(this._element).off(Event.KEYDOWN_DISMISS);
+                }
+            }
+        }, {
+            key: "_setResizeEvent",
+            value: function _setResizeEvent() {
+                if (this._isShown) {
+                    $(window).on(Event.RESIZE, $.proxy(this._handleUpdate, this));
+                } else {
+                    $(window).off(Event.RESIZE);
+                }
+            }
+        }, {
+            key: "_hideModal",
+            value: function _hideModal() {
+                var _this5 = this;
+                this._element.style.display = "none";
+                this._element.setAttribute("aria-hidden", "true");
+                this._showBackdrop(function() {
+                    $(document.body).removeClass(ClassName.OPEN);
+                    _this5._resetAdjustments();
+                    _this5._resetScrollbar();
+                    $(_this5._element).trigger(Event.HIDDEN);
+                });
+            }
+        }, {
+            key: "_removeBackdrop",
+            value: function _removeBackdrop() {
+                if (this._backdrop) {
+                    $(this._backdrop).remove();
+                    this._backdrop = null;
+                }
+            }
+        }, {
+            key: "_showBackdrop",
+            value: function _showBackdrop(callback) {
+                var _this6 = this;
+                var animate = $(this._element).hasClass(ClassName.FADE) ? ClassName.FADE : "";
+                if (this._isShown && this._config.backdrop) {
+                    var doAnimate = Util$3.supportsTransitionEnd() && animate;
+                    this._backdrop = document.createElement("div");
+                    this._backdrop.className = ClassName.BACKDROP;
+                    if (animate) {
+                        $(this._backdrop).addClass(animate);
+                    }
+                    $(this._backdrop).appendTo(document.body);
+                    $(this._element).on(Event.CLICK_DISMISS, function(event) {
+                        if (_this6._ignoreBackdropClick) {
+                            _this6._ignoreBackdropClick = false;
+                            return;
+                        }
+                        if (event.target !== event.currentTarget) {
+                            return;
+                        }
+                        if (_this6._config.backdrop === "static") {
+                            _this6._element.focus();
+                        } else {
+                            _this6.hide();
+                        }
+                    });
+                    if (doAnimate) {
+                        Util$3.reflow(this._backdrop);
+                    }
+                    $(this._backdrop).addClass(ClassName.IN);
+                    if (!callback) {
+                        return;
+                    }
+                    if (!doAnimate) {
+                        callback();
+                        return;
+                    }
+                    $(this._backdrop).one(Util$3.TRANSITION_END, callback).emulateTransitionEnd(BACKDROP_TRANSITION_DURATION);
+                } else if (!this._isShown && this._backdrop) {
+                    $(this._backdrop).removeClass(ClassName.IN);
+                    var callbackRemove = function callbackRemove() {
+                        _this6._removeBackdrop();
+                        if (callback) {
+                            callback();
+                        }
+                    };
+                    if (Util$3.supportsTransitionEnd() && $(this._element).hasClass(ClassName.FADE)) {
+                        $(this._backdrop).one(Util$3.TRANSITION_END, callbackRemove).emulateTransitionEnd(BACKDROP_TRANSITION_DURATION);
+                    } else {
+                        callbackRemove();
+                    }
+                } else if (callback) {
+                    callback();
+                }
+            }
+        }, {
+            key: "_handleUpdate",
+            value: function _handleUpdate() {
+                this._adjustDialog();
+            }
+        }, {
+            key: "_adjustDialog",
+            value: function _adjustDialog() {
+                var isModalOverflowing = this._element.scrollHeight > document.documentElement.clientHeight;
+                if (!this._isBodyOverflowing && isModalOverflowing) {
+                    this._element.style.paddingLeft = this._scrollbarWidth + "px";
+                }
+                if (this._isBodyOverflowing && !isModalOverflowing) {
+                    this._element.style.paddingRight = this._scrollbarWidth + "px";
+                }
+            }
+        }, {
+            key: "_resetAdjustments",
+            value: function _resetAdjustments() {
+                this._element.style.paddingLeft = "";
+                this._element.style.paddingRight = "";
+            }
+        }, {
+            key: "_checkScrollbar",
+            value: function _checkScrollbar() {
+                this._isBodyOverflowing = document.body.clientWidth < window.innerWidth;
+                this._scrollbarWidth = this._getScrollbarWidth();
+            }
+        }, {
+            key: "_setScrollbar",
+            value: function _setScrollbar() {
+                var bodyPadding = parseInt($(Selector.FIXED_CONTENT).css("padding-right") || 0, 10);
+                this._originalBodyPadding = document.body.style.paddingRight || "";
+                if (this._isBodyOverflowing) {
+                    document.body.style.paddingRight = bodyPadding + this._scrollbarWidth + "px";
+                }
+            }
+        }, {
+            key: "_resetScrollbar",
+            value: function _resetScrollbar() {
+                document.body.style.paddingRight = this._originalBodyPadding;
+            }
+        }, {
+            key: "_getScrollbarWidth",
+            value: function _getScrollbarWidth() {
+                var scrollDiv = document.createElement("div");
+                scrollDiv.className = ClassName.SCROLLBAR_MEASURER;
+                document.body.appendChild(scrollDiv);
+                var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+                document.body.removeChild(scrollDiv);
+                return scrollbarWidth;
+            }
+        } ], [ {
+            key: "_jQueryInterface",
+            value: function _jQueryInterface(config, relatedTarget) {
+                return this.each(function() {
+                    var data = $(this).data(DATA_KEY);
+                    var _config = $.extend({}, Modal.Default, $(this).data(), (typeof config === "undefined" ? "undefined" : _typeof(config)) === "object" && config);
+                    if (!data) {
+                        data = new Modal(this, _config);
+                        $(this).data(DATA_KEY, data);
+                    }
+                    if (typeof config === "string") {
+                        if (data[config] === undefined) {
+                            throw new Error('No method named "' + config + '"');
+                        }
+                        data[config](relatedTarget);
+                    } else if (_config.show) {
+                        data.show(relatedTarget);
+                    }
+                });
+            }
+        }, {
+            key: "VERSION",
+            get: function get() {
+                return VERSION;
+            }
+        }, {
+            key: "Default",
+            get: function get() {
+                return Default;
+            }
+        } ]);
+        return Modal;
+    }();
+    $(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function(event) {
+        var _this7 = this;
+        var target = void 0;
+        var selector = Util$3.getSelectorFromElement(this);
+        if (selector) {
+            target = $(selector)[0];
+        }
+        var config = $(target).data(DATA_KEY) ? "toggle" : $.extend({}, $(target).data(), $(this).data());
+        if (this.tagName === "A") {
+            event.preventDefault();
+        }
+        var $target = $(target).one(Event.SHOW, function(showEvent) {
+            if (showEvent.isDefaultPrevented()) {
+                return;
+            }
+            $target.one(Event.HIDDEN, function() {
+                if ($(_this7).is(":visible")) {
+                    _this7.focus();
+                }
+            });
+        });
+        Modal._jQueryInterface.call($(target), config, this);
+    });
+    $.fn[NAME] = Modal._jQueryInterface;
+    $.fn[NAME].Constructor = Modal;
+    $.fn[NAME].noConflict = function() {
+        $.fn[NAME] = JQUERY_NO_CONFLICT;
+        return Modal._jQueryInterface;
+    };
+    return Modal;
+}();
+
+var _createClass$9 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+var _templateObject$8 = _taggedTemplateLiteral$8([ '\n        <div class="modal ', " ", " \n        ", " ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '" style="', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ], [ '\n        <div class="modal ', " ", " \n        ", " ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '" style="', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ]);
+
+var _templateObject2$5 = _taggedTemplateLiteral$8([ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ], [ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ]);
+
+var _templateObject3$4 = _taggedTemplateLiteral$8([ '<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">', '</button>\n                <button type="button" class="btn btn-primary ok">', "</button></div>" ], [ '<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">', '</button>\n                <button type="button" class="btn btn-primary ok">', "</button></div>" ]);
+
+function _taggedTemplateLiteral$8(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+}
+
+function _classCallCheck$9(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$9(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$9(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var Modal = function(_Lego$UI$Baseview) {
+    _inherits$9(Modal, _Lego$UI$Baseview);
+    function Modal() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$9(this, Modal);
+        var options = {
+            events: {
+                "click .modal-footer button.ok": "clickOk",
+                "click .modal-footer button.cancel": "clickCancel",
+                "click .close": "close"
+            },
+            title: "modal title",
+            size: "",
+            type: "modal",
+            position: "",
+            animates: "fade",
+            closable: true,
+            showHeader: true,
+            showFooter: true,
+            backdrop: true,
+            keyboard: true,
+            content: "",
+            footer: null,
+            okText: "关闭",
+            cancelText: "取消",
+            onOk: function onOk() {},
+            onCancel: function onCancel() {},
+            onHidden: function onHidden() {}
+        };
+        Object.assign(options, opts);
+        var containerEl = options.position ? "#lego-submodal" : "#lego-modal";
+        var container = options.position ? '<submodal id="lego-submodal"></submodal>' : '<modal id="lego-modal"></modal>';
+        if (!options.el) options.el = containerEl;
+        var _this = _possibleConstructorReturn$9(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, options));
+        var that = _this;
+        _this._renderStyle(options);
+        _this.options.containerEl = containerEl;
+        $(containerEl).modal({
+            backdrop: options.position ? !options.backdrop : options.backdrop,
+            keyboard: options.keyboard,
+            show: true
+        });
+        $(containerEl).on("hidden.bs.modal", function(e) {
+            that.remove();
+            $(Lego.config.pageEl).after(container);
+            console.warn("关闭了");
+            if (typeof options.onHidden === "function") options.onHidden();
+        });
+        return _this;
+    }
+    _createClass$9(Modal, [ {
+        key: "_renderStyle",
+        value: function _renderStyle(options) {
+            var style = {};
+            if (options.position == "right") {
+                var headerHeight = $("header").height();
+                style = {
+                    position: "absolute",
+                    width: options.width || 700,
+                    padding: headerHeight + "px 0 0"
+                };
+            } else if (options.width && options.height || !options.position) {
+                style = {
+                    width: options.width || undefined,
+                    height: options.height || undefined,
+                    position: "absolute",
+                    marginTop: -(options.height || 200) / 2,
+                    marginLeft: -(options.width || (options.size == "sm" ? 300 : options.size == "lg" ? 900 : 600)) / 2,
+                    top: "45%",
+                    left: "50%"
+                };
+            }
+            this.options.visible = true;
+            this.$(".modal-dialog").css(style);
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            var options = this.options || {};
+            var vDom = hx(_templateObject$8, options.position == "right" ? "right-modal" : "", options.size ? "bs-example-modal-" + options.size : "", options.animates ? options.animates : "", !!options.visible ? "in" : "hide", options.el.replace(/#/, ""), options.closable ? hx(_templateObject2$5) : "", options.title, options.type == "modal" ? "scrollbar" : "", options.type == "modal" ? 'position:"absolute"' : "", options.content, options.footer ? options.footer : hx(_templateObject3$4, options.cancelText, options.okText));
+            return vDom;
+        }
+    }, {
+        key: "show",
+        value: function show(event) {
+            this.options.visible = true;
+        }
+    }, {
+        key: "close",
+        value: function close(event) {
+            this.options.visible = false;
+            console.warn("ffffffff", this.options.visible);
+            this.refresh();
+        }
+    }, {
+        key: "clickOk",
+        value: function clickOk(event) {
+            event.stopPropagation();
+            this.close();
+            if (typeof this.options.onOk === "function") this.options.onOk(event);
+        }
+    }, {
+        key: "clickCancel",
+        value: function clickCancel(event) {
+            event.stopPropagation();
+            this.close();
+            if (typeof this.options.onCancel === "function") this.options.onCancel(event);
+        }
+    } ]);
+    return Modal;
+}(Lego.UI.Baseview);
+
 exports.Baseview = Baseview;
+
+exports.Util = Util;
 
 exports.Viewport = Viewport;
 
@@ -1334,3 +2032,5 @@ exports.Table = Table;
 exports.Pagination = Pagination;
 
 exports.Dropdown = Dropdown;
+
+exports.Modal = Modal;

@@ -12,7 +12,9 @@ class TableView extends Lego.UI.Baseview {
                     name: '胡彦斌' + i,
                     age: 32 + i,
                     // disabled: true,
-                    address: '西湖区湖底公园1号'
+                    address: '西湖区湖底公园1号',
+                    // render(value, row, col){
+                    // }
                 });
             }
             return theData;

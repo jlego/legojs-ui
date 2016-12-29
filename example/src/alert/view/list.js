@@ -1,6 +1,8 @@
 // import { Alert } from 'lego-ui';
 import Button from '../../../../dist/Button';
 
+import Modal from '../../../../dist/Modal';
+
 Lego.components('button', Button);
 
 class ListView extends Lego.UI.Baseview {
@@ -11,9 +13,13 @@ class ListView extends Lego.UI.Baseview {
             },
             components: [{
                 el: '#button1',
-                type: 'default',
+                type: 'info',
                 onClick(){
                     console.warn('点击了此按钮button1');
+                    Lego.create(Modal, {
+                        position: 'right',
+                        content: '这是内容啊'
+                    });
                 },
                 style: {
                     marginRight: 10
@@ -21,6 +27,7 @@ class ListView extends Lego.UI.Baseview {
             }, {
                 el: '#button2',
                 type: 'primary',
+                className: 'btn-sm',
                 onClick(){
                     console.warn('点击了此按钮button2');
                 },
@@ -29,7 +36,7 @@ class ListView extends Lego.UI.Baseview {
                 }
             }, {
                 el: '#button3',
-                type: 'dashed',
+                type: 'secondary',
                 onClick(){
                     console.warn('点击了此按钮button3');
                 },
@@ -38,7 +45,7 @@ class ListView extends Lego.UI.Baseview {
                 }
             }, {
                 el: '#button4',
-                type: 'ghost',
+                type: 'link',
                 onClick(){
                     console.warn('点击了此按钮button4');
                 },

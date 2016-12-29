@@ -6,7 +6,7 @@ HBY.components('home', homeView);
 
 HBY.router({
     '/home' () {
-        console.warn('ppppppppppppppppp');
+        console.warn('ppppppppppppp ppp');
         HBY.create(listView, {
             dataSource: {
                 api: ['test', 'ok'],

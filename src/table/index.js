@@ -53,7 +53,7 @@ class Table extends Lego.UI.Baseview {
             // title(){}, //表格标题
             // scroll: {}, //横向或纵向支持滚动，也可用于指定滚动区域的宽高度：{{ x: true, y: 300 }}
             components: [{
-                ...opts.pagination, 
+                ...opts.pagination,
                 el: '#' + opts.vid + '-paginationId'
             }]
         };
@@ -99,7 +99,7 @@ class Table extends Lego.UI.Baseview {
                         ${this._renderHeader()}
                     </table>
                     ${options.colSetting ? hx`
-                        <button type="button" class="lego-btn lego-btn-ghost lego-btn-circle lego-btn-icon-only">
+                        <button type="button" class="btn btn-default noborder">
                         <i class="anticon anticon-ellipsis"></i></button>` : ''}
                 </div>
                 ` : ''}
