@@ -2,7 +2,7 @@ import jQuery from 'jquery';
 import Lego from 'lego-core';
 import lo from 'lodash';
 import { Baseview } from '../../dist/Common';
-import Util from "../ux/util/util";
+import "../ux/util/util";
 import '../../dist/css/legoui.css';
 // import { Baseview } from 'lego-ui';
 // import 'lego-ui/dist/css/pack.css';
@@ -17,17 +17,12 @@ window.hljs = hljs;
 window._ = lo;
 window.$ = window.jQuery = jQuery;
 
-// 注册通用基础组件
-Lego.components({
-	Baseview: Baseview
-});
-Lego.Ux.Util = Util;
 // 设置全局参数
 Lego.init({
     alias: 'HBY', //框架实例别名
     version: _.now(), //版本号
     $: jQuery,
-    pageEl: '#container', //页面渲染容器
+    pageEl: '#page-container', //页面渲染容器
     defaultApp: 'home', //默认应用
     rootUri: '/example/dist/', //根目录
 });

@@ -98,4 +98,6 @@ var Button = function(_Lego$UI$Baseview) {
     return Button;
 }(Lego.UI.Baseview);
 
+Lego.components("button", Button);
+
 module.exports = Button;

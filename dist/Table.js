@@ -162,6 +162,8 @@ var Dropdown = function(_Lego$UI$Baseview) {
     return Dropdown;
 }(Lego.UI.Baseview);
 
+Lego.components("dropdown", Dropdown);
+
 var _createClass$1 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
@@ -233,8 +235,6 @@ function _inherits$1(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-Lego.components("dropdown", Dropdown);
-
 var Pagination = function(_Lego$UI$Baseview) {
     _inherits$1(Pagination, _Lego$UI$Baseview);
     function Pagination() {
@@ -275,8 +275,11 @@ var Pagination = function(_Lego$UI$Baseview) {
                 trigger: "#" + options.vid + "-select",
                 data: theData,
                 onChange: function onChange(result) {
-                    Lego.getView(options.vid).options.current = 1;
-                    Lego.getView(options.vid).options.pageSize = parseInt(result);
+                    var theView = Lego.getView("[view-id=" + options.vid + "]");
+                    if (theView) {
+                        theView.options.current = 1;
+                        theView.options.pageSize = parseInt(result);
+                    }
                 }
             } ];
         }
@@ -357,6 +360,8 @@ var Pagination = function(_Lego$UI$Baseview) {
     } ]);
     return Pagination;
 }(Lego.UI.Baseview);
+
+Lego.components("pagination", Pagination);
 
 var _extends = Object.assign || function(target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -466,8 +471,6 @@ function _inherits(subClass, superClass) {
     });
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
-
-Lego.components("pagination", Pagination);
 
 var Table = function(_Lego$UI$Baseview) {
     _inherits(Table, _Lego$UI$Baseview);
@@ -730,5 +733,7 @@ var Table = function(_Lego$UI$Baseview) {
     } ]);
     return Table;
 }(Lego.UI.Baseview);
+
+Lego.components("table", Table);
 
 module.exports = Table;

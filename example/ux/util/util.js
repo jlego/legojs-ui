@@ -1,5 +1,5 @@
-
-const Util = {
-
+Lego.Ux.Util = {
+	dd(){
+		return 'ddddddddddddddd';
+	}
 };
-export default Util;

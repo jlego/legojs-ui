@@ -21,4 +21,5 @@ class Baseview extends Lego.View {
         }
     }
 }
+Lego.components('Baseview', Baseview);
 export default Baseview;

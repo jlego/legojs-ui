@@ -96,6 +96,8 @@ var Baseview = function(_Lego$View) {
     return Baseview;
 }(Lego.View);
 
+Lego.components("Baseview", Baseview);
+
 var Util = {
     getDirection: function getDirection(el, dropEl) {
         el = el instanceof $ ? el : $(el);
@@ -214,7 +216,7 @@ var _createClass$1 = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container"></div>\n                    <submodal id="lego-submodal"></submodal>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n            <modal id="lego-modal"></modal>\n        </div>\n        ' ], [ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container"></div>\n                    <submodal id="lego-submodal"></submodal>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n            <modal id="lego-modal"></modal>\n        </div>\n        ' ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container">\n                        <div id="page-container"></div>\n                    </div>\n                    <submodal id="lego-submodal"></submodal>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n            <modal id="lego-modal"></modal>\n        </div>\n        ' ], [ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container">\n                        <div id="page-container"></div>\n                    </div>\n                    <submodal id="lego-submodal"></submodal>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n            <modal id="lego-modal"></modal>\n        </div>\n        ' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -352,7 +354,7 @@ var Alert = function(_Lego$UI$Baseview) {
         _classCallCheck$3(this, Alert);
         var options = {
             events: {
-                "click .lego-alert-close-icon": "onClose"
+                "click .lego-alert-close-icon": "close"
             },
             type: "info",
             closable: false,
@@ -360,7 +362,7 @@ var Alert = function(_Lego$UI$Baseview) {
             message: "",
             description: "",
             onClose: function onClose() {},
-            showIcon: false,
+            showIcon: true,
             banner: false
         };
         Object.assign(options, opts);
@@ -388,12 +390,12 @@ var Alert = function(_Lego$UI$Baseview) {
                 iconName = "cross";
                 break;
             }
-            var vDom = hx(_templateObject$2, options.type, options.description ? "lego-alert-with-description" : "", options.showIcon ? "" : "lego-alert-no-icon", options.description ? "anticon-" + iconName + "-circle-o" : "anticon-" + iconName + "-circle", options.showIcon ? "" : "-no", options.showIcon ? "" : "none", options.message, options.description ? hx(_templateObject2, options.description) : "", options.closable ? hx(_templateObject3) : "");
+            var vDom = hx(_templateObject$2, options.type, options.description ? "lego-alert-with-description" : "", options.showIcon ? "" : "lego-alert-no-icon", options.description ? "anticon-" + iconName + "-circle-o" : "anticon-" + iconName + "-circle", options.showIcon ? "" : "-no", options.showIcon ? "" : "none", options.message, options.description ? hx(_templateObject2, typeof options.description == "string" ? options.description : "") : "", options.closable ? hx(_templateObject3) : "");
             return vDom;
         }
     }, {
-        key: "onClose",
-        value: function onClose(event) {
+        key: "close",
+        value: function close(event) {
             var _this2 = this;
             event.stopPropagation();
             this.$el.slideUp("normal", function() {
@@ -404,6 +406,8 @@ var Alert = function(_Lego$UI$Baseview) {
     } ]);
     return Alert;
 }(Lego.UI.Baseview);
+
+Lego.components("alert", Alert);
 
 var _createClass$4 = function() {
     function defineProperties(target, props) {
@@ -589,6 +593,8 @@ var Button = function(_Lego$UI$Baseview) {
     return Button;
 }(Lego.UI.Baseview);
 
+Lego.components("button", Button);
+
 var _createClass$8 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
@@ -746,6 +752,8 @@ var Dropdown = function(_Lego$UI$Baseview) {
     return Dropdown;
 }(Lego.UI.Baseview);
 
+Lego.components("dropdown", Dropdown);
+
 var _createClass$7 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
@@ -817,8 +825,6 @@ function _inherits$7(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-Lego.components("dropdown", Dropdown);
-
 var Pagination = function(_Lego$UI$Baseview) {
     _inherits$7(Pagination, _Lego$UI$Baseview);
     function Pagination() {
@@ -859,8 +865,11 @@ var Pagination = function(_Lego$UI$Baseview) {
                 trigger: "#" + options.vid + "-select",
                 data: theData,
                 onChange: function onChange(result) {
-                    Lego.getView(options.vid).options.current = 1;
-                    Lego.getView(options.vid).options.pageSize = parseInt(result);
+                    var theView = Lego.getView("[view-id=" + options.vid + "]");
+                    if (theView) {
+                        theView.options.current = 1;
+                        theView.options.pageSize = parseInt(result);
+                    }
                 }
             } ];
         }
@@ -941,6 +950,8 @@ var Pagination = function(_Lego$UI$Baseview) {
     } ]);
     return Pagination;
 }(Lego.UI.Baseview);
+
+Lego.components("pagination", Pagination);
 
 var _extends = Object.assign || function(target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -1050,8 +1061,6 @@ function _inherits$6(subClass, superClass) {
     });
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
-
-Lego.components("pagination", Pagination);
 
 var Table = function(_Lego$UI$Baseview) {
     _inherits$6(Table, _Lego$UI$Baseview);
@@ -1314,6 +1323,8 @@ var Table = function(_Lego$UI$Baseview) {
     } ]);
     return Table;
 }(Lego.UI.Baseview);
+
+Lego.components("table", Table);
 
 var Util$2 = function($) {
     var transition = false;
@@ -1871,7 +1882,7 @@ var _createClass$9 = function() {
     };
 }();
 
-var _templateObject$8 = _taggedTemplateLiteral$8([ '\n        <div class="modal ', " ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '" style="', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ], [ '\n        <div class="modal ', " ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '" style="', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ]);
+var _templateObject$8 = _taggedTemplateLiteral$8([ '\n        <div class="modal ', " ", "\n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ], [ '\n        <div class="modal ', " ", "\n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ]);
 
 var _templateObject2$5 = _taggedTemplateLiteral$8([ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ], [ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ]);
 
@@ -1919,7 +1930,7 @@ var Modal = function(_Lego$UI$Baseview) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck$9(this, Modal);
         var typeArr = {
-            success: "anticon anticon-check-circle-o",
+            success: "anticon anticon-check-circle-o ",
             info: "anticon anticon-info-circle-o",
             warning: "anticon anticon-exclamation-circle-o",
             error: "anticon anticon-cross-circle-o",
@@ -1936,11 +1947,11 @@ var Modal = function(_Lego$UI$Baseview) {
                 click: "close"
             },
             msgType: "",
-            title: "modal title",
+            title: "这是标题",
             size: "",
             type: "modal",
             position: "",
-            animate: "fade",
+            animate: "fadeIn",
             closable: true,
             showHeader: true,
             showFooter: true,
@@ -1948,7 +1959,7 @@ var Modal = function(_Lego$UI$Baseview) {
             keyboard: true,
             content: "",
             footer: null,
-            confirm: false,
+            confirm: null,
             okText: "确定",
             cancelText: "取消",
             onHidden: function onHidden() {},
@@ -1958,63 +1969,41 @@ var Modal = function(_Lego$UI$Baseview) {
             }
         };
         Object.assign(options, opts);
-        if (typeArr[options.msgType] && typeof options.content == "string") {
-            options.content = '<span class="' + typeArr[options.msgType] + ' dialog-icon"></span>' + '<div class="dialog-content">' + options.content + "</div>";
-        }
         var modalEl = options.position ? "#lego-submodal" : "#lego-modal";
-        var container = options.position ? '<submodal id="lego-submodal"></submodal>' : '<modal id="lego-modal"></modal>';
+        if (typeArr[options.msgType] && typeof options.content == "string") {
+            var alertObj = Lego.create(Alert, {
+                type: options.msgType,
+                closable: false,
+                message: options.content,
+                description: true
+            });
+            options.content = alertObj.render();
+        }
         if (!options.el) options.el = modalEl;
         if (options.position) options.animate = "slideInRight";
         var _this = _possibleConstructorReturn$9(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, options));
         var that = _this;
-        _this._renderStyle(options);
         _this.$el.modal({
             backdrop: options.position ? !options.backdrop : options.backdrop,
             keyboard: options.keyboard,
             show: true
         });
         _this.$el.on("hidden.bs.modal", function(e) {
-            that.remove();
-            $(Lego.config.pageEl).after(container);
-            console.warn("关闭了");
+            var container = options.position ? '<submodal id="lego-submodal"></submodal>' : '<modal id="lego-modal"></modal>';
+            that.$el.replaceWith(container);
             if (typeof options.onHidden === "function") options.onHidden();
         });
         if (options.animate) {
-            var animateName = options.animate ? options.animate : "fadeIn";
-            _this.$el.data("animate", animateName);
-            Lego.UI.Util.animateCss(_this.$el, "animated " + animateName);
+            _this.$el.data("animate", options.animate);
+            Lego.UI.Util.animateCss(_this.$el, "animated " + options.animate);
         }
         return _this;
     }
     _createClass$9(Modal, [ {
-        key: "_renderStyle",
-        value: function _renderStyle(options) {
-            var style = {};
-            if (options.position == "right") {
-                var headerHeight = $("header").height();
-                style = {
-                    position: "absolute",
-                    width: options.width || 700,
-                    padding: headerHeight + "px 0 0"
-                };
-            } else if (options.width && options.height || !options.position) {
-                style = {
-                    width: options.width || undefined,
-                    height: options.height || undefined,
-                    position: "absolute",
-                    marginTop: -(options.height || 200) / 2,
-                    marginLeft: -(options.width || (options.size == "sm" ? 300 : options.size == "lg" ? 900 : 600)) / 2,
-                    top: "45%",
-                    left: "50%"
-                };
-            }
-            this.$(".modal-dialog").css(style);
-        }
-    }, {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject$8, options.position == "right" ? "right-modal" : "", options.size ? "bs-example-modal-" + options.size : "", options.el.replace(/#/, ""), options.closable ? hx(_templateObject2$5) : "", options.title, options.type == "modal" ? "scrollbar" : "", options.type == "modal" ? 'position:"absolute"' : "", options.content, options.footer ? options.footer : hx(_templateObject3$4, options.cancelText, options.okText));
+            var vDom = hx(_templateObject$8, options.position == "right" ? "right-modal" : "", options.msgType ? "dialog-modal" : "", options.size ? "modal-size-" + options.size : "", options.el.replace(/#/, ""), options.closable ? hx(_templateObject2$5) : "", options.title, !options.msgType ? "scrollbar" : "", options.content, options.footer ? options.footer : hx(_templateObject3$4, options.cancelText, options.okText));
             return vDom;
         }
     }, {
@@ -2034,12 +2023,13 @@ var Modal = function(_Lego$UI$Baseview) {
         key: "_showDialog",
         value: function _showDialog() {
             var that = this;
-            Lego.UI.dialog({
-                msgType: this.options.msgType || "warning",
-                content: this.options.content || "你确定退出?",
+            Lego.create(Modal, {
+                msgType: this.options.confirm.msgType || "warning",
+                content: this.options.confirm.content || "",
+                backdrop: false,
                 onOk: function onOk(e) {
                     that.close();
-                    Lego.getView($("#lego-modal")).close();
+                    if (Lego.getView($("#lego-modal"))) Lego.getView($("#lego-modal")).close();
                 }
             });
         }
@@ -2068,6 +2058,8 @@ var Modal = function(_Lego$UI$Baseview) {
     } ]);
     return Modal;
 }(Lego.UI.Baseview);
+
+Lego.components("modal", Modal);
 
 exports.Baseview = Baseview;
 

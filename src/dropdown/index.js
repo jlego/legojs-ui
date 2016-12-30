@@ -94,4 +94,5 @@ class Dropdown extends Lego.UI.Baseview {
         this.close();
     }
 }
+Lego.components('dropdown', Dropdown);
 export default Dropdown;

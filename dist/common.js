@@ -96,6 +96,8 @@ var Baseview = function(_Lego$View) {
     return Baseview;
 }(Lego.View);
 
+Lego.components("Baseview", Baseview);
+
 var Util = {
     getDirection: function getDirection(el, dropEl) {
         el = el instanceof $ ? el : $(el);

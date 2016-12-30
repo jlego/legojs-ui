@@ -2,6 +2,7 @@ import IndexView from './view/index';
 import homeView from './view/home';
 import listView from './view/list';
 import tableView from './view/table';
+
 import listData from './data/list';
 
 class alertRouter {
@@ -13,6 +14,7 @@ class alertRouter {
     }
     index(){
         this.viewObj = HBY.create(IndexView, {
+            el: HBY.config.pageEl,
             scrollbar: {},
             currentTab: 0
         });
@@ -24,9 +26,7 @@ class alertRouter {
             listView,
             tableView
         ];
-        HBY.create(appArray[tabs], {
-            el: '#pageContent'
-        });
+        HBY.create(appArray[tabs], { el: '#pageContent' });
     }
 }
 HBY.router(new alertRouter());

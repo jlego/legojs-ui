@@ -1,6 +1,5 @@
 // import { Alert } from 'lego-ui';
 import Alert from '../../../../dist/Alert';
-Lego.components('alert', Alert);
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {

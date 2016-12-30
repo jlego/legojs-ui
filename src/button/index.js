@@ -32,4 +32,5 @@ class Button extends Lego.UI.Baseview {
         if(typeof this.options.onClick === 'function') this.options.onClick(event);
     }
 }
+Lego.components('button', Button);
 export default Button;

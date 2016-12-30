@@ -162,4 +162,6 @@ var Dropdown = function(_Lego$UI$Baseview) {
     return Dropdown;
 }(Lego.UI.Baseview);
 
+Lego.components("dropdown", Dropdown);
+
 module.exports = Dropdown;

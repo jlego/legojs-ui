@@ -12,7 +12,7 @@ class IndexView extends Lego.UI.Baseview {
     render() {
         const options = this.options;
         const vDom = hx`
-        <div class="page-container">
+        <div class="page-container" id="page-container">
             <h1 class="page-title">
                 <a href="#/alert/0" class="${options.currentTab == 0 ? 'active' : ''}">Alert警告提示</a>
                 <a href="#/alert/1" class="${options.currentTab == 1 ? 'active' : ''}">Button按钮</a>

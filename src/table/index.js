@@ -1,6 +1,5 @@
 import './asset/index.scss';
 import Pagination from '../pagination/index';
-Lego.components('pagination', Pagination);
 /**
  * rowSelection
  * type = '' 多选/单选，checkbox or radio
@@ -319,4 +318,5 @@ class Table extends Lego.UI.Baseview {
         return rows;
     }
 }
+Lego.components('table', Table);
 export default Table;

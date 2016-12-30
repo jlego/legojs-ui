@@ -1,6 +1,5 @@
 import './asset/index.scss';
 import Dropdown from '../dropdown/index';
-Lego.components('dropdown', Dropdown);
 
 class Pagination extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -40,8 +39,11 @@ class Pagination extends Lego.UI.Baseview {
                 trigger: '#' + options.vid + '-select',
                 data: theData,
                 onChange(result){
-                    Lego.getView(options.vid).options.current = 1;
-                    Lego.getView(options.vid).options.pageSize = parseInt(result);
+                    const theView = Lego.getView('[view-id=' + options.vid + ']');
+                    if(theView){
+                        theView.options.current = 1;
+                        theView.options.pageSize = parseInt(result);
+                    }
                 }
             }];
         }
@@ -155,4 +157,5 @@ class Pagination extends Lego.UI.Baseview {
         }
     }
 }
+Lego.components('pagination', Pagination);
 export default Pagination;
