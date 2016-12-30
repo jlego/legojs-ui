@@ -9,6 +9,7 @@ import Table from "./table/index";
 import Pagination from "./pagination/index";
 import Dropdown from "./dropdown/index";
 import Modal from "./modal/index";
+import Navs from "./navs/index";
 
 export {
 	Baseview,
@@ -19,5 +20,6 @@ export {
     Table,
     Pagination,
     Dropdown,
-    Modal
+    Modal,
+    Navs
 };

@@ -45,7 +45,8 @@ build([{
 {alias: 'table'},
 {alias: 'pagination'},
 {alias: 'dropdown'},
-{alias: 'modal'}
+{alias: 'modal'},
+{alias: 'navs'}
 ].map(genConfig));
 
 function ucfirst(str) {

@@ -7,6 +7,7 @@ module.exports = {
         'index/app': './src/index/app',
         'home/app': './src/home/app',
         'alert/app': './src/alert/app',
+        'navs/app': './src/navs/app',
         'main': './src/main',
     },
     output: {
