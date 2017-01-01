@@ -4625,9 +4625,9 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
 
 @font-face {
   font-family: 'anticon';
-  src: url("https://at.alicdn.com/t/font_r5u29ls31bgldi.eot");
+  src: url("../fonts/anticon/anticon.eot");
   /* IE9*/
-  src: url("https://at.alicdn.com/t/font_r5u29ls31bgldi.eot?#iefix") format("embedded-opentype"), url("https://at.alicdn.com/t/font_r5u29ls31bgldi.woff") format("woff"), url("https://at.alicdn.com/t/font_r5u29ls31bgldi.ttf") format("truetype"), url("https://at.alicdn.com/t/font_r5u29ls31bgldi.svg#iconfont") format("svg");
+  src: url("../fonts/anticon/anticon.eot?#iefix") format("embedded-opentype"), url("../fonts/anticon/anticon.woff") format("woff"), url("../fonts/anticon/anticon.ttf") format("truetype"), url("../fonts/anticon/anticon.svg#iconfont") format("svg");
   /* iOS 4.1- */ }
 
 .anticon {
@@ -9564,3 +9564,8 @@ tr.lego-table-expanded-row:hover {
 .modal-body > .alert > i {
   top: 0;
   font-size: 250%; }
+.search .dropdown-toggle {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 120px; }

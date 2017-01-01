@@ -6,7 +6,7 @@ class IndexView extends Lego.UI.Baseview {
             },
             currentTab: 0
         };
-        $.extend(true, options, opts);
+        Object.assign(options, opts);
         super(options);
     }
     render() {

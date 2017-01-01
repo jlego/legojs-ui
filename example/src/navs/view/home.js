@@ -1,18 +1,34 @@
 import Navs from '../../../../dist/Navs';
+import Tabs from '../../../../dist/Tabs';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const data = [{
-            key: 'mav1',
-            title: '菜单一'
+            key: 'nav1',
+            title: '菜单一',
+            content: 'Raw denim you probably haven heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.'
         },{
-            key: 'mav2',
-            title: '菜单二'
+            key: 'nav2',
+            title: '菜单二',
+            content: 'ood truck fixie locavore, accusamus mcsweeneys marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scen'
         },{
-            key: 'mav3',
-            title: '菜单三'
+            key: 'nav3',
+            title: '菜单三',
+            children: [{
+                key: 'subnav1',
+                title: '子菜单一',
+                content: 'ccccccc'
+            }, {
+                key: 'subnav2',
+                title: '子菜单二'
+            }, {
+                divider: true
+            }, {
+                key: 'subnav3',
+                title: '子菜单三'
+            }]
         },{
-            key: 'mav4',
+            key: 'nav4',
             title: '菜单四',
             disabled: true
         }];
@@ -20,7 +36,7 @@ class HomeView extends Lego.UI.Baseview {
             components: [{
                 el: '#navs1',
                 type: 'base',
-                defaultActiveKey: 'mav1',
+                defaultActiveKey: 'nav1',
                 onClick(e, item){
                     console.warn('点击了菜单1', item);
                 },
@@ -28,7 +44,7 @@ class HomeView extends Lego.UI.Baseview {
             }, {
                 el: '#navs2',
                 type: 'inline',
-                defaultActiveKey: 'mav2',
+                defaultActiveKey: 'nav2',
                 onClick(e, item){
                     console.warn('点击了菜单2', item);
                 },
@@ -36,7 +52,7 @@ class HomeView extends Lego.UI.Baseview {
             }, {
                 el: '#navs3',
                 type: 'tabs',
-                defaultActiveKey: 'mav2',
+                defaultActiveKey: 'nav2',
                 onClick(e, item){
                     console.warn('点击了菜单3', item);
                 },
@@ -44,7 +60,7 @@ class HomeView extends Lego.UI.Baseview {
             }, {
                 el: '#navs4',
                 type: 'pills',
-                defaultActiveKey: 'mav3',
+                defaultActiveKey: 'nav1',
                 onClick(e, item){
                     console.warn('点击了菜单4', item);
                 },
@@ -52,10 +68,16 @@ class HomeView extends Lego.UI.Baseview {
             }, {
                 el: '#navs5',
                 type: 'pills-stacked',
-                defaultActiveKey: 'mav2',
+                defaultActiveKey: 'nav2',
                 onClick(e, item){
                     console.warn('点击了菜单5', item);
                 },
+                data: data
+            }, {
+                el: '#tabs6',
+                type: 'tabs',
+                defaultActiveKey: 'nav2',
+                animate: 'fade',
                 data: data
             }]
         };
@@ -86,7 +108,7 @@ class HomeView extends Lego.UI.Baseview {
               <navs id="navs5"></navs>
             </div>
             <div class="col-sm-6">
-              <navs id="navs6"></navs>
+              <tabs id="tabs6"></tabs>
             </div>
           </div>
         </div>

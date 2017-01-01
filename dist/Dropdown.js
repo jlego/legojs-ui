@@ -1,6 +1,6 @@
 /**
  * dropdown.js v0.1.2
- * (c) 2016 Ronghui Yu
+ * (c) 2017 Ronghui Yu
  * @license MIT
  */
 "use strict";
@@ -79,6 +79,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             },
             disabled: false,
             eventName: "hover",
+            selectedKey: "",
             trigger: "",
             visible: false,
             direction: "",
@@ -87,9 +88,8 @@ var Dropdown = function(_Lego$UI$Baseview) {
         };
         Object.assign(options, opts);
         var _this = _possibleConstructorReturn(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
-        _this.result = "";
         var that = _this;
-        _this.options.trigger = _this.options.trigger instanceof $ ? _this.options.trigger : $(_this.options.trigger);
+        _this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
         _this.options.trigger[options.eventName](function() {
             var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
             that.options.direction = directionResp._y || "bottom";
@@ -154,8 +154,8 @@ var Dropdown = function(_Lego$UI$Baseview) {
         key: "clickItem",
         value: function clickItem(event) {
             var target = $(event.currentTarget);
-            this.result = target.attr("id");
-            this.options.onChange(this.result);
+            this.options.selectedKey = target.attr("id");
+            this.options.onChange(this.options.selectedKey);
             this.close();
         }
     } ]);

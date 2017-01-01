@@ -41,13 +41,13 @@ class Menu extends Lego.UI.Baseview {
                         </a>
                     </li>
                     <li data-permis='{"module":"Customer", "operate":"Query", "hide":1}' id="nav_customer">
-                        <a href="javascript:Lego.startApp('button');">
+                        <a href="javascript:Lego.startApp('forms');">
                             <div class="item-content">
                                 <div class="item-media">
                                     <i class="icon iconfont icon-teamwork"></i>
                                 </div>
                                 <div class="item-inner">
-                                    <span class="title"> 按钮 </span>
+                                    <span class="title"> 表单 </span>
                                 </div>
                             </div>
                         </a>

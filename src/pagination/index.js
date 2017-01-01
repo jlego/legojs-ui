@@ -35,11 +35,11 @@ class Pagination extends Lego.UI.Baseview {
                 };
             });
             options.components = [{
-                el: '#' + options.vid + '-dropdown',
-                trigger: '#' + options.vid + '-select',
+                el: '#' + opts.vid + '-dropdown',
+                trigger: '#' + opts.vid + '-select',
                 data: theData,
                 onChange(result){
-                    const theView = Lego.getView('[view-id=' + options.vid + ']');
+                    const theView = Lego.getView(opts.el);
                     if(theView){
                         theView.options.current = 1;
                         theView.options.pageSize = parseInt(result);

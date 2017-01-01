@@ -8,6 +8,7 @@ class Dropdown extends Lego.UI.Baseview {
             },
             disabled: false,
             eventName: 'hover', //['click'] or ['hover']
+            selectedKey: '',
             trigger: '', //触发对象
             visible: false,  //是否显示
             direction: '',  //显示方向
@@ -16,9 +17,8 @@ class Dropdown extends Lego.UI.Baseview {
         };
         Object.assign(options, opts);
         super(options);
-        this.result = '';
         const that = this;
-        this.options.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
+        this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
         this.options.trigger[options.eventName](function(){
             const directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
             that.options.direction = directionResp._y || 'bottom';
@@ -89,8 +89,8 @@ class Dropdown extends Lego.UI.Baseview {
     }
     clickItem(event){
         const target = $(event.currentTarget);
-        this.result = target.attr('id');
-        this.options.onChange(this.result);
+        this.options.selectedKey = target.attr('id');
+        this.options.onChange(this.options.selectedKey);
         this.close();
     }
 }

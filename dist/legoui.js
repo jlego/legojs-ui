@@ -1,6 +1,6 @@
 /**
  * legoui.js v0.1.2
- * (c) 2016 Ronghui Yu
+ * (c) 2017 Ronghui Yu
  * @license MIT
  */
 "use strict";
@@ -140,7 +140,7 @@ var _createClass$2 = function() {
     };
 }();
 
-var _templateObject$1 = _taggedTemplateLiteral$1([ '\n        <div class="sidebar app-aside" id="sidebar">\n        <div class="sidebar-container scrollbar ps-container ps-active-y">\n            <nav>\n                <ul class="main-navigation-menu">\n                    <li data-permis=\'{"module":"Home", "operate":"Query", "hide":1}\' id="nav_home">\n                        <a href="javascript:Lego.startApp(\'home\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-home"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 首页 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Register", "operate":"Query", "hide":1}\' id="nav_register">\n                        <a href="javascript:Lego.startApp(\'alert\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-account-info"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 警告框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Customer", "operate":"Query", "hide":1}\' id="nav_customer">\n                        <a href="javascript:Lego.startApp(\'button\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-teamwork"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 按钮 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Order", "operate":"Query", "hide":1}\' id="nav_order">\n                        <a href="javascript:Lego.startApp(\'navs\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-purchase"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 导航菜单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Channel", "operate":"Query", "hide":1}\' id="nav_channel">\n                        <a href="#channel/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-clues"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 渠道管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Finance", "operate":"Query", "hide":1}\' id="nav_finance">\n                        <a href="#finance/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-biz"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 财务管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Consumption", "operate":"Query", "hide":1}\' id="nav_expenses">\n                        <a href="#expenses/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-expenses"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 消费记录 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Product", "operate":"Query", "hide":1}\' id="nav_product">\n                        <a href="#product/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-products"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 产品管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Operation", "operate":"Query", "hide":1}\' id="nav_operation">\n                        <a href="#operation/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-dashboard"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 运营管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Organization", "operate":"Query", "hide":1}\' id="nav_organization">\n                        <a href="#admin/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-admin"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 后台管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                </ul>\n            </nav>\n        </div>\n        </div>\n        ' ], [ '\n        <div class="sidebar app-aside" id="sidebar">\n        <div class="sidebar-container scrollbar ps-container ps-active-y">\n            <nav>\n                <ul class="main-navigation-menu">\n                    <li data-permis=\'{"module":"Home", "operate":"Query", "hide":1}\' id="nav_home">\n                        <a href="javascript:Lego.startApp(\'home\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-home"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 首页 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Register", "operate":"Query", "hide":1}\' id="nav_register">\n                        <a href="javascript:Lego.startApp(\'alert\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-account-info"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 警告框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Customer", "operate":"Query", "hide":1}\' id="nav_customer">\n                        <a href="javascript:Lego.startApp(\'button\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-teamwork"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 按钮 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Order", "operate":"Query", "hide":1}\' id="nav_order">\n                        <a href="javascript:Lego.startApp(\'navs\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-purchase"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 导航菜单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Channel", "operate":"Query", "hide":1}\' id="nav_channel">\n                        <a href="#channel/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-clues"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 渠道管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Finance", "operate":"Query", "hide":1}\' id="nav_finance">\n                        <a href="#finance/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-biz"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 财务管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Consumption", "operate":"Query", "hide":1}\' id="nav_expenses">\n                        <a href="#expenses/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-expenses"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 消费记录 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Product", "operate":"Query", "hide":1}\' id="nav_product">\n                        <a href="#product/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-products"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 产品管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Operation", "operate":"Query", "hide":1}\' id="nav_operation">\n                        <a href="#operation/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-dashboard"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 运营管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Organization", "operate":"Query", "hide":1}\' id="nav_organization">\n                        <a href="#admin/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-admin"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 后台管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                </ul>\n            </nav>\n        </div>\n        </div>\n        ' ]);
+var _templateObject$1 = _taggedTemplateLiteral$1([ '\n        <div class="sidebar app-aside" id="sidebar">\n        <div class="sidebar-container scrollbar ps-container ps-active-y">\n            <nav>\n                <ul class="main-navigation-menu">\n                    <li data-permis=\'{"module":"Home", "operate":"Query", "hide":1}\' id="nav_home">\n                        <a href="javascript:Lego.startApp(\'home\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-home"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 首页 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Register", "operate":"Query", "hide":1}\' id="nav_register">\n                        <a href="javascript:Lego.startApp(\'alert\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-account-info"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 警告框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Customer", "operate":"Query", "hide":1}\' id="nav_customer">\n                        <a href="javascript:Lego.startApp(\'forms\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-teamwork"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 表单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Order", "operate":"Query", "hide":1}\' id="nav_order">\n                        <a href="javascript:Lego.startApp(\'navs\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-purchase"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 导航菜单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Channel", "operate":"Query", "hide":1}\' id="nav_channel">\n                        <a href="#channel/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-clues"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 渠道管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Finance", "operate":"Query", "hide":1}\' id="nav_finance">\n                        <a href="#finance/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-biz"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 财务管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Consumption", "operate":"Query", "hide":1}\' id="nav_expenses">\n                        <a href="#expenses/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-expenses"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 消费记录 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Product", "operate":"Query", "hide":1}\' id="nav_product">\n                        <a href="#product/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-products"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 产品管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Operation", "operate":"Query", "hide":1}\' id="nav_operation">\n                        <a href="#operation/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-dashboard"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 运营管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Organization", "operate":"Query", "hide":1}\' id="nav_organization">\n                        <a href="#admin/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-admin"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 后台管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                </ul>\n            </nav>\n        </div>\n        </div>\n        ' ], [ '\n        <div class="sidebar app-aside" id="sidebar">\n        <div class="sidebar-container scrollbar ps-container ps-active-y">\n            <nav>\n                <ul class="main-navigation-menu">\n                    <li data-permis=\'{"module":"Home", "operate":"Query", "hide":1}\' id="nav_home">\n                        <a href="javascript:Lego.startApp(\'home\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-home"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 首页 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Register", "operate":"Query", "hide":1}\' id="nav_register">\n                        <a href="javascript:Lego.startApp(\'alert\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-account-info"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 警告框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Customer", "operate":"Query", "hide":1}\' id="nav_customer">\n                        <a href="javascript:Lego.startApp(\'forms\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-teamwork"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 表单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Order", "operate":"Query", "hide":1}\' id="nav_order">\n                        <a href="javascript:Lego.startApp(\'navs\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-purchase"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 导航菜单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Channel", "operate":"Query", "hide":1}\' id="nav_channel">\n                        <a href="#channel/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-clues"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 渠道管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Finance", "operate":"Query", "hide":1}\' id="nav_finance">\n                        <a href="#finance/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-biz"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 财务管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Consumption", "operate":"Query", "hide":1}\' id="nav_expenses">\n                        <a href="#expenses/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-expenses"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 消费记录 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Product", "operate":"Query", "hide":1}\' id="nav_product">\n                        <a href="#product/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-products"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 产品管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Operation", "operate":"Query", "hide":1}\' id="nav_operation">\n                        <a href="#operation/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-dashboard"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 运营管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Organization", "operate":"Query", "hide":1}\' id="nav_organization">\n                        <a href="#admin/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-admin"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 后台管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                </ul>\n            </nav>\n        </div>\n        </div>\n        ' ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -669,6 +669,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             },
             disabled: false,
             eventName: "hover",
+            selectedKey: "",
             trigger: "",
             visible: false,
             direction: "",
@@ -677,9 +678,8 @@ var Dropdown = function(_Lego$UI$Baseview) {
         };
         Object.assign(options, opts);
         var _this = _possibleConstructorReturn$8(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
-        _this.result = "";
         var that = _this;
-        _this.options.trigger = _this.options.trigger instanceof $ ? _this.options.trigger : $(_this.options.trigger);
+        _this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
         _this.options.trigger[options.eventName](function() {
             var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
             that.options.direction = directionResp._y || "bottom";
@@ -744,8 +744,8 @@ var Dropdown = function(_Lego$UI$Baseview) {
         key: "clickItem",
         value: function clickItem(event) {
             var target = $(event.currentTarget);
-            this.result = target.attr("id");
-            this.options.onChange(this.result);
+            this.options.selectedKey = target.attr("id");
+            this.options.onChange(this.options.selectedKey);
             this.close();
         }
     } ]);
@@ -861,11 +861,11 @@ var Pagination = function(_Lego$UI$Baseview) {
                 };
             });
             options.components = [ {
-                el: "#" + options.vid + "-dropdown",
-                trigger: "#" + options.vid + "-select",
+                el: "#" + opts.vid + "-dropdown",
+                trigger: "#" + opts.vid + "-select",
                 data: theData,
                 onChange: function onChange(result) {
-                    var theView = Lego.getView("[view-id=" + options.vid + "]");
+                    var theView = Lego.getView(opts.el);
                     if (theView) {
                         theView.options.current = 1;
                         theView.options.pageSize = parseInt(result);
@@ -1107,7 +1107,7 @@ var Table = function(_Lego$UI$Baseview) {
                 el: "#" + opts.vid + "-paginationId"
             }) ]
         };
-        $.extend(true, options, opts);
+        Object.assign(options, opts);
         options.columns.map(function(col) {
             col = Object.assign({
                 title: "",
@@ -2061,6 +2061,407 @@ var Modal = function(_Lego$UI$Baseview) {
 
 Lego.components("modal", Modal);
 
+var _createClass$11 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+var _templateObject$9 = _taggedTemplateLiteral$9([ '\n            <li class="nav-item ', '">\n                <a class="nav-link ', " ", " ", '" href="', '" id="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="nav-item ', '">\n                <a class="nav-link ', " ", " ", '" href="', '" id="', '">', "</a>\n                ", "\n            </li>\n            " ]);
+
+var _templateObject2$6 = _taggedTemplateLiteral$9([ '\n                <div class="dropdown-menu ', '">\n                ', "\n                </div>\n                " ], [ '\n                <div class="dropdown-menu ', '">\n                ', "\n                </div>\n                " ]);
+
+var _templateObject3$5 = _taggedTemplateLiteral$9([ "\n                    ", "\n                " ], [ "\n                    ", "\n                " ]);
+
+var _templateObject4$3 = _taggedTemplateLiteral$9([ '<div class="dropdown-divider"></div>' ], [ '<div class="dropdown-divider"></div>' ]);
+
+var _templateObject5$3 = _taggedTemplateLiteral$9([ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "/a>" ], [ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "/a>" ]);
+
+var _templateObject6$2 = _taggedTemplateLiteral$9([ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ]);
+
+function _taggedTemplateLiteral$9(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+}
+
+function _classCallCheck$11(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$10(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$10(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var Navs = function(_Lego$UI$Baseview) {
+    _inherits$10(Navs, _Lego$UI$Baseview);
+    function Navs() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$11(this, Navs);
+        var options = {
+            events: {
+                "click .nav-link:not(.disabled)": "clickItem",
+                "click .dropdown-item:not(.disabled)": "clickSubItem"
+            },
+            eventName: "click",
+            type: "base",
+            activeKey: opts.defaultActiveKey,
+            defaultActiveKey: "",
+            direction: "",
+            onClick: function onClick() {},
+            data: []
+        };
+        Object.assign(options, opts);
+        var _this = _possibleConstructorReturn$10(this, (Navs.__proto__ || Object.getPrototypeOf(Navs)).call(this, options));
+        var that = _this;
+        _this.$(".dropdown")[options.eventName](function() {
+            var directionResp = Lego.UI.Util.getDirection($(this), $(this).children(".dropdown-menu"));
+            that.options.direction = directionResp._y || "bottom";
+            $(this).addClass("open");
+            $(this).mouseleave(function() {
+                $(this).removeClass("open");
+            });
+        });
+        return _this;
+    }
+    _createClass$11(Navs, [ {
+        key: "render",
+        value: function render() {
+            var options = this.options || {};
+            function makeItem(data, i) {
+                var itemDom = hx(_templateObject$9, data.children ? "dropdown" : "", data.key === options.activeKey ? "active" : "", data.disabled ? "disabled" : "", data.children ? "dropdown-toggle" : "", data.href ? data.href : "javascript:;", data.key ? data.key : "nav-item-" + i, data.title ? data.title : "", Array.isArray(data.children) ? hx(_templateObject2$6, options.direction ? "drop" + options.direction : "", data.children.map(function(subItem, x) {
+                    return hx(_templateObject3$5, subItem.divider ? hx(_templateObject4$3) : hx(_templateObject5$3, subItem.active ? "active" : "", subItem.disabled ? "disabled" : "", subItem.href ? subItem.href : "javascript:;", subItem.key ? subItem.key : "nav-sub-item-" + x, subItem.title ? subItem.title : ""));
+                })) : "");
+                return itemDom;
+            }
+            var vDom = hx(_templateObject6$2, options.type === "inline" ? "nav-inline" : options.type === "tabs" ? "nav-tabs" : options.type === "pills" ? "nav-pills" : "", options.type === "pills-stacked" ? "nav-pills nav-stacked" : "", options.data.map(function(item, i) {
+                return makeItem(item, i);
+            }));
+            return vDom;
+        }
+    }, {
+        key: "clickItem",
+        value: function clickItem(event) {
+            event.stopPropagation();
+            var target = $(event.currentTarget), key = target.attr("id");
+            this.options.activeKey = key;
+            var model = this.options.data.find(function(item) {
+                return item.key === key;
+            });
+            if (typeof this.options.onClick === "function") this.options.onClick(model);
+        }
+    }, {
+        key: "clickSubItem",
+        value: function clickSubItem(event) {
+            var _this2 = this;
+            event.stopPropagation();
+            var target = $(event.currentTarget), key = target.attr("id");
+            var model = this.options.data.find(function(item) {
+                return item.key === _this2.options.activeKey;
+            });
+            if (model) {
+                model.children.forEach(function(subItem, i) {
+                    subItem.active = subItem.key === key ? true : false;
+                });
+                this.refresh();
+            }
+            if (typeof this.options.onClick === "function") this.options.onClick(model);
+        }
+    } ]);
+    return Navs;
+}(Lego.UI.Baseview);
+
+Lego.components("navs", Navs);
+
+var _createClass$12 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+var _templateObject$10 = _taggedTemplateLiteral$10([ '\n        <div class="tabs">\n            <navs id="', '"></navs>\n            <div class="tab-content">\n            ', "\n            </div>\n        </div>\n        " ], [ '\n        <div class="tabs">\n            <navs id="', '"></navs>\n            <div class="tab-content">\n            ', "\n            </div>\n        </div>\n        " ]);
+
+var _templateObject2$7 = _taggedTemplateLiteral$10([ '<div class="tab-pane ', " ", '" id="', '-pane">', "</div>" ], [ '<div class="tab-pane ', " ", '" id="', '-pane">', "</div>" ]);
+
+function _taggedTemplateLiteral$10(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+}
+
+function _classCallCheck$12(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$11(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$11(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var Tabs = function(_Lego$UI$Baseview) {
+    _inherits$11(Tabs, _Lego$UI$Baseview);
+    function Tabs() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$12(this, Tabs);
+        var options = {
+            events: {},
+            eventName: "click",
+            type: "line",
+            size: "default",
+            closable: false,
+            activeKey: opts.defaultActiveKey,
+            defaultActiveKey: "",
+            onClose: function onClose() {},
+            tabPosition: "top",
+            onEdit: function onEdit() {},
+            hideAdd: false,
+            animate: "",
+            data: [],
+            components: [ {
+                el: "#" + opts.vid + "-navs",
+                eventName: opts.eventName || "click",
+                type: "tabs",
+                activeKey: opts.activeKey || opts.defaultActiveKey,
+                defaultActiveKey: opts.defaultActiveKey,
+                direction: opts.activeKey,
+                onClick: function onClick(item) {
+                    var view = Lego.getView(opts.el);
+                    if (view) {
+                        if (!item.children) {
+                            view.options.activeKey = item.key;
+                        } else {
+                            (function() {
+                                var theModel = item.children.find(function(subItem) {
+                                    return subItem.active == true;
+                                });
+                                if (theModel) {
+                                    view.options.data.forEach(function(model) {
+                                        if (model.key == item.key) {
+                                            if (theModel.content) {
+                                                model.content = theModel.content;
+                                                view.options.activeKey = item.key;
+                                            }
+                                        }
+                                    });
+                                }
+                            })();
+                        }
+                    }
+                },
+                data: opts.data
+            } ]
+        };
+        Object.assign(options, opts);
+        return _possibleConstructorReturn$11(this, (Tabs.__proto__ || Object.getPrototypeOf(Tabs)).call(this, options));
+    }
+    _createClass$12(Tabs, [ {
+        key: "render",
+        value: function render() {
+            var options = this.options || {};
+            var vDom = hx(_templateObject$10, options.vid + "-navs", options.data.map(function(item) {
+                if (!item.disabled && item.content) {
+                    return hx(_templateObject2$7, options.animate ? options.animate : "", item.key === options.activeKey ? "active in" : "", item.key, item.content ? item.content : "");
+                }
+            }));
+            return vDom;
+        }
+    }, {
+        key: "close",
+        value: function close(event) {
+            var _this2 = this;
+            event.stopPropagation();
+            this.$el.slideUp("normal", function() {
+                _this2.remove();
+            });
+            if (typeof this.options.onClose === "function") this.options.onClose(event);
+        }
+    } ]);
+    return Tabs;
+}(Lego.UI.Baseview);
+
+Lego.components("tabs", Tabs);
+
+var _createClass$13 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+var _templateObject$11 = _taggedTemplateLiteral$11([ '\n        <div class="input-group search">\n        ', '\n          <input type="text" class="form-control search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group search">\n        ', '\n          <input type="text" class="form-control search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
+
+var _templateObject2$8 = _taggedTemplateLiteral$11([ '\n          <div class="input-group-btn dropdown" id="', '-select">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="', '-dropdown"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="', '-select">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="', '-dropdown"></dropdown>\n          </div>\n        ' ]);
+
+function _taggedTemplateLiteral$11(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+}
+
+function _classCallCheck$13(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$12(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$12(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var Search = function(_Lego$UI$Baseview) {
+    _inherits$12(Search, _Lego$UI$Baseview);
+    function Search() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$13(this, Search);
+        var options = {
+            events: {
+                "click .search-button": "clickSearch"
+            },
+            placeholder: "输入关键字搜索",
+            selectedKey: "",
+            selectedTitle: "",
+            hasSelect: false,
+            onClick: function onClick() {},
+            components: [ {
+                el: "#" + opts.vid + "-dropdown",
+                trigger: "#" + opts.vid + "-select",
+                data: opts.data,
+                onChange: function onChange(key) {
+                    var theView = Lego.getView(opts.el);
+                    if (theView) {
+                        theView.options.selectedKey = key;
+                        var model = opts.data.find(function(Item) {
+                            return Item.key == key;
+                        });
+                        if (model) {
+                            theView.options.selectedTitle = model.title;
+                        }
+                    }
+                }
+            } ]
+        };
+        Object.assign(options, opts);
+        return _possibleConstructorReturn$12(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, options));
+    }
+    _createClass$13(Search, [ {
+        key: "render",
+        value: function render() {
+            var options = this.options || {};
+            var vDom = hx(_templateObject$11, options.hasSelect ? hx(_templateObject2$8, options.vid, options.selectedTitle || "请选择", options.vid) : "", options.placeholder);
+            return vDom;
+        }
+    }, {
+        key: "clickSearch",
+        value: function clickSearch(event) {
+            event.stopPropagation();
+            var value = this.$(".search-input").val();
+            if (typeof this.options.onClick === "function") this.options.onClick({
+                key: this.options.selectedKey,
+                title: this.options.selectedTitle,
+                value: value
+            });
+        }
+    } ]);
+    return Search;
+}(Lego.UI.Baseview);
+
+Lego.components("search", Search);
+
 exports.Baseview = Baseview;
 
 exports.Viewport = Viewport;
@@ -2078,3 +2479,9 @@ exports.Pagination = Pagination;
 exports.Dropdown = Dropdown;
 
 exports.Modal = Modal;
+
+exports.Navs = Navs;
+
+exports.Tabs = Tabs;
+
+exports.Search = Search;

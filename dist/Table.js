@@ -1,6 +1,6 @@
 /**
  * table.js v0.1.2
- * (c) 2016 Ronghui Yu
+ * (c) 2017 Ronghui Yu
  * @license MIT
  */
 "use strict";
@@ -79,6 +79,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             },
             disabled: false,
             eventName: "hover",
+            selectedKey: "",
             trigger: "",
             visible: false,
             direction: "",
@@ -87,9 +88,8 @@ var Dropdown = function(_Lego$UI$Baseview) {
         };
         Object.assign(options, opts);
         var _this = _possibleConstructorReturn$2(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
-        _this.result = "";
         var that = _this;
-        _this.options.trigger = _this.options.trigger instanceof $ ? _this.options.trigger : $(_this.options.trigger);
+        _this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
         _this.options.trigger[options.eventName](function() {
             var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
             that.options.direction = directionResp._y || "bottom";
@@ -154,8 +154,8 @@ var Dropdown = function(_Lego$UI$Baseview) {
         key: "clickItem",
         value: function clickItem(event) {
             var target = $(event.currentTarget);
-            this.result = target.attr("id");
-            this.options.onChange(this.result);
+            this.options.selectedKey = target.attr("id");
+            this.options.onChange(this.options.selectedKey);
             this.close();
         }
     } ]);
@@ -271,11 +271,11 @@ var Pagination = function(_Lego$UI$Baseview) {
                 };
             });
             options.components = [ {
-                el: "#" + options.vid + "-dropdown",
-                trigger: "#" + options.vid + "-select",
+                el: "#" + opts.vid + "-dropdown",
+                trigger: "#" + opts.vid + "-select",
                 data: theData,
                 onChange: function onChange(result) {
-                    var theView = Lego.getView("[view-id=" + options.vid + "]");
+                    var theView = Lego.getView(opts.el);
                     if (theView) {
                         theView.options.current = 1;
                         theView.options.pageSize = parseInt(result);
@@ -517,7 +517,7 @@ var Table = function(_Lego$UI$Baseview) {
                 el: "#" + opts.vid + "-paginationId"
             }) ]
         };
-        $.extend(true, options, opts);
+        Object.assign(options, opts);
         options.columns.map(function(col) {
             col = Object.assign({
                 title: "",

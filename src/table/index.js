@@ -56,7 +56,7 @@ class Table extends Lego.UI.Baseview {
                 el: '#' + opts.vid + '-paginationId'
             }]
         };
-        $.extend(true, options, opts);
+        Object.assign(options, opts);
         options.columns.map((col) => {
             col = Object.assign({
                 title: '',  //列头显示文字
