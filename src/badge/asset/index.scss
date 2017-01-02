@@ -1,6 +1,30 @@
-a {
-  background-color: transparent;
+@import "../../../asset/scss/bootstrap/variables";
+
+.badge {
+  background-color: $label-default-bg;
+  font-weight: normal;
 }
-.dd{
-	background-image: url(../img/default-user.png);
+
+.badge-default {
+  @include label-variant($label-default-bg);
+}
+
+.badge-primary {
+  @include label-variant($label-primary-bg);
+}
+
+.badge-success {
+  @include label-variant($label-success-bg);
+}
+
+.badge-info {
+  @include label-variant($label-info-bg);
+}
+
+.badge-warning {
+  @include label-variant($label-warning-bg);
+}
+
+.badge-danger {
+  @include label-variant($label-danger-bg);
 }

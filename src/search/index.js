@@ -13,22 +13,19 @@ class Search extends Lego.UI.Baseview {
                 'click .search-button': 'clickSearch'
             },
             placeholder: '输入关键字搜索',
-            selectedKey: '',  //选中的key
-            selectedTitle: '',
+            activeKey: '',  //选中的key
+            activeValue: '',
             hasSelect: false,   //是否有下拉菜单
             onClick(){}, //点击的回调
             components: [{
                 el: '#' + opts.vid + '-dropdown',
                 trigger: '#' + opts.vid + '-select',
                 data: opts.data,
-                onChange(key){
+                onChange(model){
                     const theView = Lego.getView(opts.el);
                     if(theView){
-                        theView.options.selectedKey = key;
-                        const model = opts.data.find(Item => Item.key == key);
-                        if(model){
-                            theView.options.selectedTitle = model.title;
-                        }
+                        theView.options.activeKey = model.key;
+                        theView.options.activeValue = model.value;
                     }
                 }
             }]
@@ -43,7 +40,7 @@ class Search extends Lego.UI.Baseview {
         ${options.hasSelect ? hx`
           <div class="input-group-btn dropdown" id="${options.vid}-select">
             <button type="button" class="btn btn-secondary dropdown-toggle">
-              ${options.selectedTitle || '请选择'}
+              ${options.activeValue || '请选择'}
             </button>
             <dropdown id="${options.vid}-dropdown"></dropdown>
           </div>
@@ -60,11 +57,11 @@ class Search extends Lego.UI.Baseview {
     }
     clickSearch(event) {
         event.stopPropagation();
-        const value = this.$('.search-input').val(); 
+        const keyword = this.$('.search-input').val(); 
         if (typeof this.options.onClick === 'function') this.options.onClick({
-            key: this.options.selectedKey,
-            title: this.options.selectedTitle,
-            value: value
+            key: this.options.activeKey,
+            value: this.options.activeValue,
+            keyword: keyword
         });
     }
 }

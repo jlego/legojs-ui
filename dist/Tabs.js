@@ -82,8 +82,8 @@ var Navs = function(_Lego$UI$Baseview) {
             },
             eventName: "click",
             type: "base",
-            activeKey: opts.defaultActiveKey,
-            defaultActiveKey: "",
+            activeKey: "",
+            activeValue: "",
             direction: "",
             onClick: function onClick() {},
             data: []
@@ -106,8 +106,8 @@ var Navs = function(_Lego$UI$Baseview) {
         value: function render() {
             var options = this.options || {};
             function makeItem(data, i) {
-                var itemDom = hx(_templateObject$1, data.children ? "dropdown" : "", data.key === options.activeKey ? "active" : "", data.disabled ? "disabled" : "", data.children ? "dropdown-toggle" : "", data.href ? data.href : "javascript:;", data.key ? data.key : "nav-item-" + i, data.title ? data.title : "", Array.isArray(data.children) ? hx(_templateObject2$1, options.direction ? "drop" + options.direction : "", data.children.map(function(subItem, x) {
-                    return hx(_templateObject3, subItem.divider ? hx(_templateObject4) : hx(_templateObject5, subItem.active ? "active" : "", subItem.disabled ? "disabled" : "", subItem.href ? subItem.href : "javascript:;", subItem.key ? subItem.key : "nav-sub-item-" + x, subItem.title ? subItem.title : ""));
+                var itemDom = hx(_templateObject$1, data.children ? "dropdown" : "", data.key === options.activeKey ? "active" : "", data.disabled ? "disabled" : "", data.children ? "dropdown-toggle" : "", data.href ? data.href : "javascript:;", data.key ? data.key : "nav-item-" + i, data.value ? data.value : "", Array.isArray(data.children) ? hx(_templateObject2$1, options.direction ? "drop" + options.direction : "", data.children.map(function(subItem, x) {
+                    return hx(_templateObject3, subItem.divider ? hx(_templateObject4) : hx(_templateObject5, subItem.active ? "active" : "", subItem.disabled ? "disabled" : "", subItem.href ? subItem.href : "javascript:;", subItem.key ? subItem.key : "nav-sub-item-" + x, subItem.value ? subItem.value : ""));
                 })) : "");
                 return itemDom;
             }
@@ -218,8 +218,7 @@ var Tabs = function(_Lego$UI$Baseview) {
             type: "line",
             size: "default",
             closable: false,
-            activeKey: opts.defaultActiveKey,
-            defaultActiveKey: "",
+            activeKey: "",
             onClose: function onClose() {},
             tabPosition: "top",
             onEdit: function onEdit() {},
@@ -230,9 +229,7 @@ var Tabs = function(_Lego$UI$Baseview) {
                 el: "#" + opts.vid + "-navs",
                 eventName: opts.eventName || "click",
                 type: "tabs",
-                activeKey: opts.activeKey || opts.defaultActiveKey,
-                defaultActiveKey: opts.defaultActiveKey,
-                direction: opts.activeKey,
+                activeKey: opts.activeKey,
                 onClick: function onClick(item) {
                     var view = Lego.getView(opts.el);
                     if (view) {

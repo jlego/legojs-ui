@@ -79,7 +79,8 @@ var Dropdown = function(_Lego$UI$Baseview) {
             },
             disabled: false,
             eventName: "hover",
-            selectedKey: "",
+            activeKey: "",
+            activeValue: "",
             trigger: "",
             visible: false,
             direction: "",
@@ -90,17 +91,19 @@ var Dropdown = function(_Lego$UI$Baseview) {
         var _this = _possibleConstructorReturn(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
         var that = _this;
         _this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
-        _this.options.trigger[options.eventName](function() {
-            var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
-            that.options.direction = directionResp._y || "bottom";
-            that.show();
-            that.options.trigger.mouseleave(function() {
-                that.close();
+        if (!_this.options.disabled) {
+            _this.options.trigger[options.eventName](function() {
+                var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
+                that.options.direction = directionResp._y || "bottom";
+                that.show();
+                that.options.trigger.mouseleave(function() {
+                    that.close();
+                });
+                that.$(".dropdown-menu").mouseleave(function() {
+                    that.close();
+                });
             });
-            that.$(".dropdown-menu").mouseleave(function() {
-                that.close();
-            });
-        });
+        }
         return _this;
     }
     _createClass(Dropdown, [ {
@@ -112,14 +115,14 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     return hx(_templateObject);
                 } else {
                     if (!item.children) {
-                        return hx(_templateObject2, item.key, item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", item.title);
+                        return hx(_templateObject2, item.key, item.disabled || item.selected ? "disabled" : "", item.href ? item.href : "javascript:;", item.value);
                     } else {
                         return loopNav(item);
                     }
                 }
             }
             function loopNav(data) {
-                return hx(_templateObject3, data.title, data.children ? hx(_templateObject4, data.children.map(function(item) {
+                return hx(_templateObject3, data.value, data.children ? hx(_templateObject4, data.children.map(function(item) {
                     itemNav(item);
                 })) : "");
             }
@@ -154,8 +157,14 @@ var Dropdown = function(_Lego$UI$Baseview) {
         key: "clickItem",
         value: function clickItem(event) {
             var target = $(event.currentTarget);
-            this.options.selectedKey = target.attr("id");
-            this.options.onChange(this.options.selectedKey);
+            var model = this.options.data.find(function(Item) {
+                return Item.key === target.attr("id");
+            });
+            if (model) {
+                this.options.onChange(model);
+                this.options.activeKey = model.key;
+                this.options.activeValue = model.value;
+            }
             this.close();
         }
     } ]);

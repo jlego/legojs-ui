@@ -23,8 +23,7 @@ class Tabs extends Lego.UI.Baseview {
             type: 'line', //页签的基本样式，可选 line、card editable-card 类型
             size: 'default',   //大小，提供 default 和 small 两种大小，仅当 type="line" 时生效
             closable: false, //默认不显示关闭按钮
-            activeKey: opts.defaultActiveKey, //当前激活的面板key
-            defaultActiveKey: '', //初始化选中面板的 key，如果没有设置 activeKey
+            activeKey: '', //当前激活的面板key
             onClose(){}, //tab 被点击的回调
             tabPosition: 'top',    //页签位置，可选值有 top right bottom left
             onEdit(){},  //新增和删除页签的回调，在 type="editable-card" 时有效
@@ -35,9 +34,8 @@ class Tabs extends Lego.UI.Baseview {
                 el: '#' + opts.vid + '-navs',
                 eventName: opts.eventName || 'click',
                 type: 'tabs', //菜单类型，现在支持垂直、水平、和内嵌模式三种base, inline, tabs, pills, pills-stacked
-                activeKey: opts.activeKey || opts.defaultActiveKey, //当前激活的key
-                defaultActiveKey: opts.defaultActiveKey, //初始化选中的 key，如果没有设置 activeKey
-                direction: opts.activeKey,  //显示方向
+                activeKey: opts.activeKey, //当前激活的key
+                // direction: '',  //显示方向
                 onClick(item){
                     const view = Lego.getView(opts.el);
                     if(view){

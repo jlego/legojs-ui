@@ -8,7 +8,8 @@ class Dropdown extends Lego.UI.Baseview {
             },
             disabled: false,
             eventName: 'hover', //['click'] or ['hover']
-            selectedKey: '',
+            activeKey: '',
+            activeValue: '',
             trigger: '', //触发对象
             visible: false,  //是否显示
             direction: '',  //显示方向
@@ -19,17 +20,19 @@ class Dropdown extends Lego.UI.Baseview {
         super(options);
         const that = this;
         this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
-        this.options.trigger[options.eventName](function(){
-            const directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
-            that.options.direction = directionResp._y || 'bottom';
-            that.show();
-            that.options.trigger.mouseleave(function(){
-                that.close();
+        if(!this.options.disabled){
+            this.options.trigger[options.eventName](function(){
+                const directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
+                that.options.direction = directionResp._y || 'bottom';
+                that.show();
+                that.options.trigger.mouseleave(function(){
+                    that.close();
+                });
+                that.$('.dropdown-menu').mouseleave(function(){
+                    that.close();
+                });
             });
-            that.$('.dropdown-menu').mouseleave(function(){
-                that.close();
-            });
-        });
+        }
     }
     render() {
         const options = this.options || {};
@@ -38,8 +41,8 @@ class Dropdown extends Lego.UI.Baseview {
                 return hx`<li class="divider"></li>`;
             }else{
                 if(!item.children){
-                    return hx`<li id="${item.key}" class="${item.disabled ? 'disabled' : ''}">
-                    <a href="${item.href ? item.href : 'javascript:;'}">${item.title}</a></li>`;
+                    return hx`<li id="${item.key}" class="${item.disabled || item.selected ? 'disabled' : ''}">
+                    <a href="${item.href ? item.href : 'javascript:;'}">${item.value}</a></li>`;
                 }else{
                     return loopNav(item);
                 }
@@ -48,7 +51,7 @@ class Dropdown extends Lego.UI.Baseview {
         function loopNav(data){
             return hx`
             <li class="dropdown">
-                ${data.title}
+                ${data.value}
                 ${data.children ? hx`
                 <ul class="dropdown-menu">
                     ${data.children.map((item) => {
@@ -89,8 +92,12 @@ class Dropdown extends Lego.UI.Baseview {
     }
     clickItem(event){
         const target = $(event.currentTarget);
-        this.options.selectedKey = target.attr('id');
-        this.options.onChange(this.options.selectedKey);
+        const model = this.options.data.find(Item => Item.key === target.attr('id'));
+        if(model){
+            this.options.onChange(model);
+            this.options.activeKey = model.key;
+            this.options.activeValue = model.value;
+        }
         this.close();
     }
 }

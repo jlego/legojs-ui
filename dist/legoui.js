@@ -669,7 +669,8 @@ var Dropdown = function(_Lego$UI$Baseview) {
             },
             disabled: false,
             eventName: "hover",
-            selectedKey: "",
+            activeKey: "",
+            activeValue: "",
             trigger: "",
             visible: false,
             direction: "",
@@ -680,17 +681,19 @@ var Dropdown = function(_Lego$UI$Baseview) {
         var _this = _possibleConstructorReturn$8(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
         var that = _this;
         _this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
-        _this.options.trigger[options.eventName](function() {
-            var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
-            that.options.direction = directionResp._y || "bottom";
-            that.show();
-            that.options.trigger.mouseleave(function() {
-                that.close();
+        if (!_this.options.disabled) {
+            _this.options.trigger[options.eventName](function() {
+                var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
+                that.options.direction = directionResp._y || "bottom";
+                that.show();
+                that.options.trigger.mouseleave(function() {
+                    that.close();
+                });
+                that.$(".dropdown-menu").mouseleave(function() {
+                    that.close();
+                });
             });
-            that.$(".dropdown-menu").mouseleave(function() {
-                that.close();
-            });
-        });
+        }
         return _this;
     }
     _createClass$8(Dropdown, [ {
@@ -702,14 +705,14 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     return hx(_templateObject$7);
                 } else {
                     if (!item.children) {
-                        return hx(_templateObject2$4, item.key, item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", item.title);
+                        return hx(_templateObject2$4, item.key, item.disabled || item.selected ? "disabled" : "", item.href ? item.href : "javascript:;", item.value);
                     } else {
                         return loopNav(item);
                     }
                 }
             }
             function loopNav(data) {
-                return hx(_templateObject3$3, data.title, data.children ? hx(_templateObject4$2, data.children.map(function(item) {
+                return hx(_templateObject3$3, data.value, data.children ? hx(_templateObject4$2, data.children.map(function(item) {
                     itemNav(item);
                 })) : "");
             }
@@ -744,8 +747,14 @@ var Dropdown = function(_Lego$UI$Baseview) {
         key: "clickItem",
         value: function clickItem(event) {
             var target = $(event.currentTarget);
-            this.options.selectedKey = target.attr("id");
-            this.options.onChange(this.options.selectedKey);
+            var model = this.options.data.find(function(Item) {
+                return Item.key === target.attr("id");
+            });
+            if (model) {
+                this.options.onChange(model);
+                this.options.activeKey = model.key;
+                this.options.activeValue = model.value;
+            }
             this.close();
         }
     } ]);
@@ -2138,8 +2147,8 @@ var Navs = function(_Lego$UI$Baseview) {
             },
             eventName: "click",
             type: "base",
-            activeKey: opts.defaultActiveKey,
-            defaultActiveKey: "",
+            activeKey: "",
+            activeValue: "",
             direction: "",
             onClick: function onClick() {},
             data: []
@@ -2162,8 +2171,8 @@ var Navs = function(_Lego$UI$Baseview) {
         value: function render() {
             var options = this.options || {};
             function makeItem(data, i) {
-                var itemDom = hx(_templateObject$9, data.children ? "dropdown" : "", data.key === options.activeKey ? "active" : "", data.disabled ? "disabled" : "", data.children ? "dropdown-toggle" : "", data.href ? data.href : "javascript:;", data.key ? data.key : "nav-item-" + i, data.title ? data.title : "", Array.isArray(data.children) ? hx(_templateObject2$6, options.direction ? "drop" + options.direction : "", data.children.map(function(subItem, x) {
-                    return hx(_templateObject3$5, subItem.divider ? hx(_templateObject4$3) : hx(_templateObject5$3, subItem.active ? "active" : "", subItem.disabled ? "disabled" : "", subItem.href ? subItem.href : "javascript:;", subItem.key ? subItem.key : "nav-sub-item-" + x, subItem.title ? subItem.title : ""));
+                var itemDom = hx(_templateObject$9, data.children ? "dropdown" : "", data.key === options.activeKey ? "active" : "", data.disabled ? "disabled" : "", data.children ? "dropdown-toggle" : "", data.href ? data.href : "javascript:;", data.key ? data.key : "nav-item-" + i, data.value ? data.value : "", Array.isArray(data.children) ? hx(_templateObject2$6, options.direction ? "drop" + options.direction : "", data.children.map(function(subItem, x) {
+                    return hx(_templateObject3$5, subItem.divider ? hx(_templateObject4$3) : hx(_templateObject5$3, subItem.active ? "active" : "", subItem.disabled ? "disabled" : "", subItem.href ? subItem.href : "javascript:;", subItem.key ? subItem.key : "nav-sub-item-" + x, subItem.value ? subItem.value : ""));
                 })) : "");
                 return itemDom;
             }
@@ -2274,8 +2283,7 @@ var Tabs = function(_Lego$UI$Baseview) {
             type: "line",
             size: "default",
             closable: false,
-            activeKey: opts.defaultActiveKey,
-            defaultActiveKey: "",
+            activeKey: "",
             onClose: function onClose() {},
             tabPosition: "top",
             onEdit: function onEdit() {},
@@ -2286,9 +2294,7 @@ var Tabs = function(_Lego$UI$Baseview) {
                 el: "#" + opts.vid + "-navs",
                 eventName: opts.eventName || "click",
                 type: "tabs",
-                activeKey: opts.activeKey || opts.defaultActiveKey,
-                defaultActiveKey: opts.defaultActiveKey,
-                direction: opts.activeKey,
+                activeKey: opts.activeKey,
                 onClick: function onClick(item) {
                     var view = Lego.getView(opts.el);
                     if (view) {
@@ -2413,24 +2419,19 @@ var Search = function(_Lego$UI$Baseview) {
                 "click .search-button": "clickSearch"
             },
             placeholder: "输入关键字搜索",
-            selectedKey: "",
-            selectedTitle: "",
+            activeKey: "",
+            activeValue: "",
             hasSelect: false,
             onClick: function onClick() {},
             components: [ {
                 el: "#" + opts.vid + "-dropdown",
                 trigger: "#" + opts.vid + "-select",
                 data: opts.data,
-                onChange: function onChange(key) {
+                onChange: function onChange(model) {
                     var theView = Lego.getView(opts.el);
                     if (theView) {
-                        theView.options.selectedKey = key;
-                        var model = opts.data.find(function(Item) {
-                            return Item.key == key;
-                        });
-                        if (model) {
-                            theView.options.selectedTitle = model.title;
-                        }
+                        theView.options.activeKey = model.key;
+                        theView.options.activeValue = model.value;
                     }
                 }
             } ]
@@ -2442,18 +2443,18 @@ var Search = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject$11, options.hasSelect ? hx(_templateObject2$8, options.vid, options.selectedTitle || "请选择", options.vid) : "", options.placeholder);
+            var vDom = hx(_templateObject$11, options.hasSelect ? hx(_templateObject2$8, options.vid, options.activeValue || "请选择", options.vid) : "", options.placeholder);
             return vDom;
         }
     }, {
         key: "clickSearch",
         value: function clickSearch(event) {
             event.stopPropagation();
-            var value = this.$(".search-input").val();
+            var keyword = this.$(".search-input").val();
             if (typeof this.options.onClick === "function") this.options.onClick({
-                key: this.options.selectedKey,
-                title: this.options.selectedTitle,
-                value: value
+                key: this.options.activeKey,
+                value: this.options.activeValue,
+                keyword: keyword
             });
         }
     } ]);
@@ -2461,6 +2462,211 @@ var Search = function(_Lego$UI$Baseview) {
 }(Lego.UI.Baseview);
 
 Lego.components("search", Search);
+
+var _createClass$14 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+var _templateObject$12 = _taggedTemplateLiteral$12([ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ], [ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ]);
+
+var _templateObject2$9 = _taggedTemplateLiteral$12([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
+
+var _templateObject3$6 = _taggedTemplateLiteral$12([ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n\n            </div>\n            ' ]);
+
+var _templateObject4$4 = _taggedTemplateLiteral$12([ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ]);
+
+function _taggedTemplateLiteral$12(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+}
+
+function _classCallCheck$14(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$13(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$13(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var Select = function(_Lego$UI$Baseview) {
+    _inherits$13(Select, _Lego$UI$Baseview);
+    function Select() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$14(this, Select);
+        var options = {
+            events: {
+                "click .select-tag-close": "clickItemClose"
+            },
+            value: [],
+            multiple: false,
+            eventName: "hover",
+            filterOption: true,
+            tags: false,
+            onSelect: function onSelect() {},
+            onDeselect: function onDeselect() {},
+            onChange: function onChange() {},
+            onSearch: function onSearch() {},
+            placeholder: "",
+            notFoundContent: "",
+            dropdownMatchSelectWidth: true,
+            optionFilterProp: "",
+            combobox: false,
+            size: "",
+            showSearch: false,
+            disabled: false,
+            defaultActiveFirstOption: false,
+            dropdownStyle: null,
+            dropdownClassName: "",
+            splitString: "",
+            components: [ {
+                el: "#" + opts.vid + "-dropdown",
+                trigger: "#" + opts.vid + "-select",
+                eventName: opts.eventName || "hover",
+                disabled: opts.disabled || false,
+                style: Object.assign({
+                    width: opts.dropdownMatchSelectWidth === false ? "auto" : "100%"
+                }, opts.dropdownStyle || {}),
+                className: opts.dropdownClassName,
+                data: opts.data,
+                onChange: function onChange(model) {
+                    var theView = Lego.getView(opts.el);
+                    if (theView) {
+                        if (model.key !== "0" && opts.multiple) {
+                            theView.getValue();
+                            if (!theView.options.value.includes(model)) {
+                                model.selected = true;
+                                theView.options.value.push(model);
+                            }
+                        } else {
+                            theView.options.data.forEach(function(item) {
+                                return item.selected = false;
+                            });
+                            theView.options.value = [ model ];
+                        }
+                        theView.options.onSelect(model);
+                        theView.options.onChange(model);
+                        theView.refresh();
+                    }
+                }
+            } ]
+        };
+        Object.assign(options, opts);
+        if (options.value.length) {
+            options.value.forEach(function(item) {
+                var model = options.data.find(function(model) {
+                    return model.key === item.key;
+                });
+                if (model) model.selected = true;
+            });
+        }
+        return _possibleConstructorReturn$13(this, (Select.__proto__ || Object.getPrototypeOf(Select)).call(this, options));
+    }
+    _createClass$14(Select, [ {
+        key: "render",
+        value: function render() {
+            var options = this.options || {};
+            var vDom = "";
+            function getTags(data) {
+                if (data.length) {
+                    return hx(_templateObject$12, data.map(function(item) {
+                        return hx(_templateObject2$9, item.key, item.value, item.value);
+                    }));
+                } else {
+                    return "";
+                }
+            }
+            var theValueArr = Array.isArray(options.value) ? options.value.length ? options.value.map(function(item) {
+                return item.value;
+            }) : [] : [ options.value.value ];
+            if (!options.multiple) {
+                vDom = hx(_templateObject3$6, options.vid, options.disabled ? "disabled" : "", options.placeholder, theValueArr.join(","), options.vid);
+            } else {
+                vDom = hx(_templateObject4$4, options.vid, theValueArr.length ? "select-hasValue" : "", theValueArr.length ? "" : options.placeholder, theValueArr.join(","), theValueArr.length ? "select-tags-div-border" : "", getTags(options.value), options.vid);
+            }
+            return vDom;
+        }
+    }, {
+        key: "clickItemClose",
+        value: function clickItemClose(event) {
+            event.stopPropagation();
+            var target = $(event.currentTarget).parent(), key = target.attr("id"), value = target.attr("title");
+            this.options.data.forEach(function(item) {
+                if (item.key === key) item.selected = false;
+            });
+            this.getValue();
+            this.refresh();
+            Lego.getView("#" + this.options.vid + "-dropdown").refresh();
+            if (typeof this.options.onDeselect === "function") this.options.onDeselect({
+                key: key,
+                value: value
+            });
+        }
+    }, {
+        key: "setValue",
+        value: function setValue(value) {
+            var data = this.options.data;
+            if (value.length) {
+                value.forEach(function(item) {
+                    var model = data.find(function(model) {
+                        return model.key === item.key;
+                    });
+                    if (model) {
+                        Object.assign(model, item);
+                    } else {
+                        data.push(item);
+                    }
+                });
+            }
+        }
+    }, {
+        key: "getValue",
+        value: function getValue() {
+            this.options.value = this.options.data.filter(function(item) {
+                return item.selected === true && item.key !== "0";
+            });
+            return this.options.value;
+        }
+    } ]);
+    return Select;
+}(Lego.UI.Baseview);
+
+Lego.components("select", Select);
 
 exports.Baseview = Baseview;
 
@@ -2485,3 +2691,5 @@ exports.Navs = Navs;
 exports.Tabs = Tabs;
 
 exports.Search = Search;
+
+exports.Select = Select;

@@ -12,6 +12,7 @@ import Modal from "./modal/index";
 import Navs from "./navs/index";
 import Tabs from "./tabs/index";
 import Search from "./search/index";
+import Select from "./select/index";
 
 export {
 	Baseview,
@@ -25,5 +26,6 @@ export {
     Modal,
     Navs,
     Tabs,
-    Search
+    Search,
+    Select
 };
