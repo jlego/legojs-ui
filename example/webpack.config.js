@@ -55,11 +55,7 @@ module.exports = {
             compress: false,
             output: {
                 beautify: false,
-                comments: function(node, comment) {
-                    var text = comment.value;
-                    var type = comment.type;
-                    return /@preserve|@license|@cc_on/i.test(text);
-                }
+                comments: false
             },
         }),
         new ExtractTextPlugin("[name].css", {
