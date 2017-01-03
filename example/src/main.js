@@ -1,11 +1,11 @@
 import jQuery from 'jquery';
 import Lego from 'lego-core';
 import lo from 'lodash';
-import { Baseview } from '../../dist/Common';
 import "../ux/util/util";
+import { Baseview } from '../../dist/Common';
 import '../../dist/css/legoui.css';
-// import { Baseview } from 'lego-ui';
-// import 'lego-ui/dist/css/pack.css';
+// import { Baseview } from 'lego-ui/dist/Common';
+// import 'lego-ui/dist/css/legoui.css';
 import showdown from 'showdown';
 window.markdown = new showdown.Converter();
 markdown.setFlavor('github');

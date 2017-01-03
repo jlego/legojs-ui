@@ -1,5 +1,5 @@
 /**
- * legoui.js v0.1.2
+ * legoui.js v0.1.3
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -9,121 +9,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-function _interopDefault(ex) {
-    return ex && typeof ex === "object" && "default" in ex ? ex["default"] : ex;
-}
-
-var perfectScrollbar_dist_css_perfectScrollbar_css = require("perfect-scrollbar/dist/css/perfect-scrollbar.css");
-
-var perfectScrollbar = _interopDefault(require("perfect-scrollbar"));
-
-var _createClass = function() {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];
-            descriptor.enumerable = descriptor.enumerable || false;
-            descriptor.configurable = true;
-            if ("value" in descriptor) descriptor.writable = true;
-            Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }
-    return function(Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);
-        if (staticProps) defineProperties(Constructor, staticProps);
-        return Constructor;
-    };
-}();
-
-function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-    }
-}
-
-function _possibleConstructorReturn(self, call) {
-    if (!self) {
-        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-    return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-    }
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
-        constructor: {
-            value: subClass,
-            enumerable: false,
-            writable: true,
-            configurable: true
-        }
-    });
-    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-var Baseview = function(_Lego$View) {
-    _inherits(Baseview, _Lego$View);
-    function Baseview() {
-        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck(this, Baseview);
-        var options = {};
-        Object.assign(options, opts);
-        var _this = _possibleConstructorReturn(this, (Baseview.__proto__ || Object.getPrototypeOf(Baseview)).call(this, options));
-        _this.renderScroll();
-        return _this;
-    }
-    _createClass(Baseview, [ {
-        key: "renderScroll",
-        value: function renderScroll() {
-            var _this2 = this;
-            if (this.options.scrollbar) {
-                (function() {
-                    var scrollbarEl = _this2.$(".scrollbar");
-                    var container = scrollbarEl[0];
-                    var posi = scrollbarEl.parent().css("position");
-                    if (!posi || posi !== "fixed") scrollbarEl.parent().css("position", "relative");
-                    if (scrollbarEl.length) {
-                        Ps.initialize(container, _this2.options.scrollbar);
-                        _this2.$el.off("mousemove.ps").on("mousemove.ps", function() {
-                            Ps.update(container);
-                        });
-                    }
-                })();
-            }
-        }
-    } ]);
-    return Baseview;
-}(Lego.View);
-
-Lego.components("Baseview", Baseview);
-
-var Util = {
-    getDirection: function getDirection(el, dropEl) {
-        el = el instanceof $ ? el : $(el);
-        var windowW = $(window).width(), windowH = $(window).height(), _X = el.offset().left, _Y = el.offset().top, elW = el.width(), elH = el.height(), dropW = dropEl.width(), dropH = dropEl.height(), upDown = dropH > windowH - _Y - elH ? "top" : "bottom", leftRight = dropW > windowW - _X - elW ? "Right" : "Left";
-        return {
-            _x: leftRight,
-            _y: upDown
-        };
-    },
-    animateCss: function animateCss(el, animationName, callback) {
-        el = el instanceof $ ? el : $(el);
-        var animationEnd = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
-        el.addClass(animationName).one(animationEnd, function() {
-            el.removeClass(animationName);
-            if (typeof callback == "function") callback();
-        });
-    }
-};
-
-window.Ps = perfectScrollbar;
-
-Lego.components({
-    Util: Util
-});
-
-var _createClass$2 = function() {
+var _createClass$1 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -143,82 +29,6 @@ var _createClass$2 = function() {
 var _templateObject$1 = _taggedTemplateLiteral$1([ '\n        <div class="sidebar app-aside" id="sidebar">\n        <div class="sidebar-container scrollbar ps-container ps-active-y">\n            <nav>\n                <ul class="main-navigation-menu">\n                    <li data-permis=\'{"module":"Home", "operate":"Query", "hide":1}\' id="nav_home">\n                        <a href="javascript:Lego.startApp(\'home\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-home"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 首页 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Register", "operate":"Query", "hide":1}\' id="nav_register">\n                        <a href="javascript:Lego.startApp(\'alert\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-account-info"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 警告框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Customer", "operate":"Query", "hide":1}\' id="nav_customer">\n                        <a href="javascript:Lego.startApp(\'forms\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-teamwork"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 表单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Order", "operate":"Query", "hide":1}\' id="nav_order">\n                        <a href="javascript:Lego.startApp(\'navs\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-purchase"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 导航菜单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Channel", "operate":"Query", "hide":1}\' id="nav_channel">\n                        <a href="#channel/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-clues"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 渠道管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Finance", "operate":"Query", "hide":1}\' id="nav_finance">\n                        <a href="#finance/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-biz"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 财务管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Consumption", "operate":"Query", "hide":1}\' id="nav_expenses">\n                        <a href="#expenses/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-expenses"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 消费记录 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Product", "operate":"Query", "hide":1}\' id="nav_product">\n                        <a href="#product/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-products"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 产品管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Operation", "operate":"Query", "hide":1}\' id="nav_operation">\n                        <a href="#operation/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-dashboard"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 运营管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Organization", "operate":"Query", "hide":1}\' id="nav_organization">\n                        <a href="#admin/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-admin"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 后台管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                </ul>\n            </nav>\n        </div>\n        </div>\n        ' ], [ '\n        <div class="sidebar app-aside" id="sidebar">\n        <div class="sidebar-container scrollbar ps-container ps-active-y">\n            <nav>\n                <ul class="main-navigation-menu">\n                    <li data-permis=\'{"module":"Home", "operate":"Query", "hide":1}\' id="nav_home">\n                        <a href="javascript:Lego.startApp(\'home\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-home"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 首页 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Register", "operate":"Query", "hide":1}\' id="nav_register">\n                        <a href="javascript:Lego.startApp(\'alert\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-account-info"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 警告框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Customer", "operate":"Query", "hide":1}\' id="nav_customer">\n                        <a href="javascript:Lego.startApp(\'forms\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-teamwork"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 表单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Order", "operate":"Query", "hide":1}\' id="nav_order">\n                        <a href="javascript:Lego.startApp(\'navs\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-purchase"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 导航菜单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Channel", "operate":"Query", "hide":1}\' id="nav_channel">\n                        <a href="#channel/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-clues"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 渠道管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Finance", "operate":"Query", "hide":1}\' id="nav_finance">\n                        <a href="#finance/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-biz"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 财务管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Consumption", "operate":"Query", "hide":1}\' id="nav_expenses">\n                        <a href="#expenses/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-expenses"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 消费记录 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Product", "operate":"Query", "hide":1}\' id="nav_product">\n                        <a href="#product/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-products"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 产品管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Operation", "operate":"Query", "hide":1}\' id="nav_operation">\n                        <a href="#operation/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-dashboard"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 运营管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Organization", "operate":"Query", "hide":1}\' id="nav_organization">\n                        <a href="#admin/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-admin"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 后台管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                </ul>\n            </nav>\n        </div>\n        </div>\n        ' ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
-    return Object.freeze(Object.defineProperties(strings, {
-        raw: {
-            value: Object.freeze(raw)
-        }
-    }));
-}
-
-function _classCallCheck$2(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-    }
-}
-
-function _possibleConstructorReturn$2(self, call) {
-    if (!self) {
-        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-    return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits$2(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-    }
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
-        constructor: {
-            value: subClass,
-            enumerable: false,
-            writable: true,
-            configurable: true
-        }
-    });
-    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-var Menu = function(_Lego$UI$Baseview) {
-    _inherits$2(Menu, _Lego$UI$Baseview);
-    function Menu() {
-        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$2(this, Menu);
-        var options = {
-            events: {}
-        };
-        Object.assign(options, opts);
-        return _possibleConstructorReturn$2(this, (Menu.__proto__ || Object.getPrototypeOf(Menu)).call(this, options));
-    }
-    _createClass$2(Menu, [ {
-        key: "render",
-        value: function render() {
-            var tmpl = hx(_templateObject$1);
-            return tmpl;
-        }
-    } ]);
-    return Menu;
-}(Lego.UI.Baseview);
-
-var _createClass$1 = function() {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];
-            descriptor.enumerable = descriptor.enumerable || false;
-            descriptor.configurable = true;
-            if ("value" in descriptor) descriptor.writable = true;
-            Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }
-    return function(Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);
-        if (staticProps) defineProperties(Constructor, staticProps);
-        return Constructor;
-    };
-}();
-
-var _templateObject = _taggedTemplateLiteral([ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container">\n                        <div id="page-container"></div>\n                    </div>\n                    <submodal id="lego-submodal"></submodal>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n            <modal id="lego-modal"></modal>\n        </div>\n        ' ], [ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container">\n                        <div id="page-container"></div>\n                    </div>\n                    <submodal id="lego-submodal"></submodal>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n            <modal id="lego-modal"></modal>\n        </div>\n        ' ]);
-
-function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
         raw: {
             value: Object.freeze(raw)
@@ -254,13 +64,89 @@ function _inherits$1(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
+var Menu = function(_Lego$UI$Baseview) {
+    _inherits$1(Menu, _Lego$UI$Baseview);
+    function Menu() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$1(this, Menu);
+        var options = {
+            events: {}
+        };
+        Object.assign(options, opts);
+        return _possibleConstructorReturn$1(this, (Menu.__proto__ || Object.getPrototypeOf(Menu)).call(this, options));
+    }
+    _createClass$1(Menu, [ {
+        key: "render",
+        value: function render() {
+            var tmpl = hx(_templateObject$1);
+            return tmpl;
+        }
+    } ]);
+    return Menu;
+}(Lego.UI.Baseview);
+
+var _createClass = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+var _templateObject = _taggedTemplateLiteral([ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container">\n                        <div id="page-container"></div>\n                    </div>\n                    <submodal id="lego-submodal"></submodal>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n            <modal id="lego-modal"></modal>\n        </div>\n        ' ], [ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container">\n                        <div id="page-container"></div>\n                    </div>\n                    <submodal id="lego-submodal"></submodal>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n            <modal id="lego-modal"></modal>\n        </div>\n        ' ]);
+
+function _taggedTemplateLiteral(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+}
+
+function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
 Lego.components("menu", Menu);
 
 var Viewport = function(_Lego$UI$Baseview) {
-    _inherits$1(Viewport, _Lego$UI$Baseview);
+    _inherits(Viewport, _Lego$UI$Baseview);
     function Viewport() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$1(this, Viewport);
+        _classCallCheck(this, Viewport);
         var options = {
             events: {},
             logoUrl: "asset/img/logo.png",
@@ -270,9 +156,9 @@ var Viewport = function(_Lego$UI$Baseview) {
             } ]
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$1(this, (Viewport.__proto__ || Object.getPrototypeOf(Viewport)).call(this, options));
+        return _possibleConstructorReturn(this, (Viewport.__proto__ || Object.getPrototypeOf(Viewport)).call(this, options));
     }
-    _createClass$1(Viewport, [ {
+    _createClass(Viewport, [ {
         key: "render",
         value: function render() {
             var tmpl = hx(_templateObject, this.options.logoUrl);
@@ -288,7 +174,7 @@ var Viewport = function(_Lego$UI$Baseview) {
     return Viewport;
 }(Lego.UI.Baseview);
 
-var _createClass$3 = function() {
+var _createClass$2 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -319,20 +205,20 @@ function _taggedTemplateLiteral$2(strings, raw) {
     }));
 }
 
-function _classCallCheck$3(instance, Constructor) {
+function _classCallCheck$2(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
 }
 
-function _possibleConstructorReturn$3(self, call) {
+function _possibleConstructorReturn$2(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$3(subClass, superClass) {
+function _inherits$2(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -348,10 +234,10 @@ function _inherits$3(subClass, superClass) {
 }
 
 var Alert = function(_Lego$UI$Baseview) {
-    _inherits$3(Alert, _Lego$UI$Baseview);
+    _inherits$2(Alert, _Lego$UI$Baseview);
     function Alert() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$3(this, Alert);
+        _classCallCheck$2(this, Alert);
         var options = {
             events: {
                 "click .lego-alert-close-icon": "close"
@@ -366,9 +252,9 @@ var Alert = function(_Lego$UI$Baseview) {
             banner: false
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$3(this, (Alert.__proto__ || Object.getPrototypeOf(Alert)).call(this, options));
+        return _possibleConstructorReturn$2(this, (Alert.__proto__ || Object.getPrototypeOf(Alert)).call(this, options));
     }
-    _createClass$3(Alert, [ {
+    _createClass$2(Alert, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
@@ -409,7 +295,7 @@ var Alert = function(_Lego$UI$Baseview) {
 
 Lego.components("alert", Alert);
 
-var _createClass$4 = function() {
+var _createClass$3 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -431,6 +317,95 @@ var _templateObject$3 = _taggedTemplateLiteral$3([ "<div>\n          ", "\n     
 var _templateObject2$1 = _taggedTemplateLiteral$3([ '<a id="', '" href="#/home" style="display:block;">', "</a>\n" ], [ '<a id="', '" href="#/home" style="display:block;">', "</a>\\n" ]);
 
 function _taggedTemplateLiteral$3(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+}
+
+function _classCallCheck$3(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$3(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$3(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var Badge = function(_Lego$UI$Baseview) {
+    _inherits$3(Badge, _Lego$UI$Baseview);
+    function Badge() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$3(this, Badge);
+        var options = {
+            events: {
+                "click #400": "theClick"
+            }
+        };
+        Object.assign(options, opts);
+        return _possibleConstructorReturn$3(this, (Badge.__proto__ || Object.getPrototypeOf(Badge)).call(this, options));
+    }
+    _createClass$3(Badge, [ {
+        key: "render",
+        value: function render() {
+            var options = this.options || [];
+            var vDom = hx(_templateObject$3, options.map(function(model, i) {
+                return hx(_templateObject2$1, model.first, model.first);
+            }));
+            return vDom;
+        }
+    }, {
+        key: "theClick",
+        value: function theClick(event) {
+            event.stopPropagation();
+            Lego.trigger("data_update", {
+                aa: 1
+            });
+        }
+    } ]);
+    return Badge;
+}(Lego.UI.Baseview);
+
+var _createClass$4 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+var _templateObject$4 = _taggedTemplateLiteral$4([ '\n        <button type="', '" class="btn btn-', '">\n            <span>', "</span>\n        </button>\n        " ], [ '\n        <button type="', '" class="btn btn-', '">\n            <span>', "</span>\n        </button>\n        " ]);
+
+function _taggedTemplateLiteral$4(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
         raw: {
             value: Object.freeze(raw)
@@ -466,100 +441,11 @@ function _inherits$4(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Badge = function(_Lego$UI$Baseview) {
-    _inherits$4(Badge, _Lego$UI$Baseview);
-    function Badge() {
-        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$4(this, Badge);
-        var options = {
-            events: {
-                "click #400": "theClick"
-            }
-        };
-        Object.assign(options, opts);
-        return _possibleConstructorReturn$4(this, (Badge.__proto__ || Object.getPrototypeOf(Badge)).call(this, options));
-    }
-    _createClass$4(Badge, [ {
-        key: "render",
-        value: function render() {
-            var options = this.options || [];
-            var vDom = hx(_templateObject$3, options.map(function(model, i) {
-                return hx(_templateObject2$1, model.first, model.first);
-            }));
-            return vDom;
-        }
-    }, {
-        key: "theClick",
-        value: function theClick(event) {
-            event.stopPropagation();
-            Lego.trigger("data_update", {
-                aa: 1
-            });
-        }
-    } ]);
-    return Badge;
-}(Lego.UI.Baseview);
-
-var _createClass$5 = function() {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];
-            descriptor.enumerable = descriptor.enumerable || false;
-            descriptor.configurable = true;
-            if ("value" in descriptor) descriptor.writable = true;
-            Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }
-    return function(Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);
-        if (staticProps) defineProperties(Constructor, staticProps);
-        return Constructor;
-    };
-}();
-
-var _templateObject$4 = _taggedTemplateLiteral$4([ '\n        <button type="', '" class="btn btn-', '">\n            <span>', "</span>\n        </button>\n        " ], [ '\n        <button type="', '" class="btn btn-', '">\n            <span>', "</span>\n        </button>\n        " ]);
-
-function _taggedTemplateLiteral$4(strings, raw) {
-    return Object.freeze(Object.defineProperties(strings, {
-        raw: {
-            value: Object.freeze(raw)
-        }
-    }));
-}
-
-function _classCallCheck$5(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-    }
-}
-
-function _possibleConstructorReturn$5(self, call) {
-    if (!self) {
-        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-    return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits$5(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-    }
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
-        constructor: {
-            value: subClass,
-            enumerable: false,
-            writable: true,
-            configurable: true
-        }
-    });
-    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
 var Button = function(_Lego$UI$Baseview) {
-    _inherits$5(Button, _Lego$UI$Baseview);
+    _inherits$4(Button, _Lego$UI$Baseview);
     function Button() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$5(this, Button);
+        _classCallCheck$4(this, Button);
         var options = {
             events: {
                 click: "onClick"
@@ -574,9 +460,9 @@ var Button = function(_Lego$UI$Baseview) {
             onClick: function onClick() {}
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$5(this, (Button.__proto__ || Object.getPrototypeOf(Button)).call(this, options));
+        return _possibleConstructorReturn$4(this, (Button.__proto__ || Object.getPrototypeOf(Button)).call(this, options));
     }
-    _createClass$5(Button, [ {
+    _createClass$4(Button, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
@@ -595,7 +481,7 @@ var Button = function(_Lego$UI$Baseview) {
 
 Lego.components("button", Button);
 
-var _createClass$8 = function() {
+var _createClass$7 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -630,20 +516,20 @@ function _taggedTemplateLiteral$7(strings, raw) {
     }));
 }
 
-function _classCallCheck$8(instance, Constructor) {
+function _classCallCheck$7(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
 }
 
-function _possibleConstructorReturn$8(self, call) {
+function _possibleConstructorReturn$7(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$8(subClass, superClass) {
+function _inherits$7(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -659,10 +545,10 @@ function _inherits$8(subClass, superClass) {
 }
 
 var Dropdown = function(_Lego$UI$Baseview) {
-    _inherits$8(Dropdown, _Lego$UI$Baseview);
+    _inherits$7(Dropdown, _Lego$UI$Baseview);
     function Dropdown() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$8(this, Dropdown);
+        _classCallCheck$7(this, Dropdown);
         var options = {
             events: {
                 "click li": "clickItem"
@@ -678,7 +564,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             onVisibleChange: function onVisibleChange() {}
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn$8(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
+        var _this = _possibleConstructorReturn$7(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
         var that = _this;
         _this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
         if (!_this.options.disabled) {
@@ -702,7 +588,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
         }
         return _this;
     }
-    _createClass$8(Dropdown, [ {
+    _createClass$7(Dropdown, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
@@ -769,7 +655,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
 
 Lego.components("dropdown", Dropdown);
 
-var _createClass$7 = function() {
+var _createClass$6 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -812,20 +698,20 @@ function _taggedTemplateLiteral$6(strings, raw) {
     }));
 }
 
-function _classCallCheck$7(instance, Constructor) {
+function _classCallCheck$6(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
 }
 
-function _possibleConstructorReturn$7(self, call) {
+function _possibleConstructorReturn$6(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$7(subClass, superClass) {
+function _inherits$6(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -841,10 +727,10 @@ function _inherits$7(subClass, superClass) {
 }
 
 var Pagination = function(_Lego$UI$Baseview) {
-    _inherits$7(Pagination, _Lego$UI$Baseview);
+    _inherits$6(Pagination, _Lego$UI$Baseview);
     function Pagination() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$7(this, Pagination);
+        _classCallCheck$6(this, Pagination);
         var options = {
             events: {
                 "click .prev:not(.disabled)": "clickPrevPage",
@@ -888,11 +774,11 @@ var Pagination = function(_Lego$UI$Baseview) {
                 }
             } ];
         }
-        var _this = _possibleConstructorReturn$7(this, (Pagination.__proto__ || Object.getPrototypeOf(Pagination)).call(this, options));
+        var _this = _possibleConstructorReturn$6(this, (Pagination.__proto__ || Object.getPrototypeOf(Pagination)).call(this, options));
         _this.jumped = false;
         return _this;
     }
-    _createClass$7(Pagination, [ {
+    _createClass$6(Pagination, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
@@ -980,7 +866,7 @@ var _extends = Object.assign || function(target) {
     return target;
 };
 
-var _createClass$6 = function() {
+var _createClass$5 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -1049,20 +935,20 @@ function _taggedTemplateLiteral$5(strings, raw) {
     }));
 }
 
-function _classCallCheck$6(instance, Constructor) {
+function _classCallCheck$5(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
 }
 
-function _possibleConstructorReturn$6(self, call) {
+function _possibleConstructorReturn$5(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$6(subClass, superClass) {
+function _inherits$5(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -1078,10 +964,10 @@ function _inherits$6(subClass, superClass) {
 }
 
 var Table = function(_Lego$UI$Baseview) {
-    _inherits$6(Table, _Lego$UI$Baseview);
+    _inherits$5(Table, _Lego$UI$Baseview);
     function Table() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$6(this, Table);
+        _classCallCheck$5(this, Table);
         var options = {
             events: {
                 "click tbody .lego-checkbox": "selectOne",
@@ -1136,7 +1022,7 @@ var Table = function(_Lego$UI$Baseview) {
                 sortOrder: ""
             }, col);
         });
-        var _this = _possibleConstructorReturn$6(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this, options));
+        var _this = _possibleConstructorReturn$5(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this, options));
         _this.selectedAll = 0;
         var header = _this.$(".lego-table-header");
         _this.$(".lego-table-body").scroll(function() {
@@ -1145,7 +1031,7 @@ var Table = function(_Lego$UI$Baseview) {
         _this.$(".lego-table-tfoot>tr>td").attr("colspan", _this.options.columns.length);
         return _this;
     }
-    _createClass$6(Table, [ {
+    _createClass$5(Table, [ {
         key: "render",
         value: function render() {
             var options = this.options;
@@ -1341,7 +1227,7 @@ var Table = function(_Lego$UI$Baseview) {
 
 Lego.components("table", Table);
 
-var Util$2 = function($) {
+var Util = function($) {
     var transition = false;
     var MAX_UID = 1e6;
     var TransitionEndEvent = {
@@ -1455,7 +1341,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
 
-var _createClass$10 = function() {
+var _createClass$9 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -1472,7 +1358,7 @@ var _createClass$10 = function() {
     };
 }();
 
-function _classCallCheck$10(instance, Constructor) {
+function _classCallCheck$9(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
@@ -1528,7 +1414,7 @@ var Modal$2 = function($) {
     };
     var Modal = function() {
         function Modal(element, config) {
-            _classCallCheck$10(this, Modal);
+            _classCallCheck$9(this, Modal);
             this._config = this._getConfig(config);
             this._element = element;
             this._dialog = $(element).find(Selector.DIALOG)[0];
@@ -1539,7 +1425,7 @@ var Modal$2 = function($) {
             this._originalBodyPadding = 0;
             this._scrollbarWidth = 0;
         }
-        _createClass$10(Modal, [ {
+        _createClass$9(Modal, [ {
             key: "toggle",
             value: function toggle(relatedTarget) {
                 return this._isShown ? this.hide() : this.show(relatedTarget);
@@ -1589,8 +1475,8 @@ var Modal$2 = function($) {
                 $(this._element).removeClass(ClassName.IN);
                 $(this._element).off(Event.CLICK_DISMISS);
                 $(this._dialog).off(Event.MOUSEDOWN_DISMISS);
-                if (Util$2.supportsTransitionEnd() && $(this._element).hasClass(ClassName.FADE)) {
-                    $(this._element).one(Util$2.TRANSITION_END, $.proxy(this._hideModal, this)).emulateTransitionEnd(TRANSITION_DURATION);
+                if (Util.supportsTransitionEnd() && $(this._element).hasClass(ClassName.FADE)) {
+                    $(this._element).one(Util.TRANSITION_END, $.proxy(this._hideModal, this)).emulateTransitionEnd(TRANSITION_DURATION);
                 } else {
                     this._hideModal();
                 }
@@ -1617,14 +1503,14 @@ var Modal$2 = function($) {
             key: "_getConfig",
             value: function _getConfig(config) {
                 config = $.extend({}, Default, config);
-                Util$2.typeCheckConfig(NAME, config, DefaultType);
+                Util.typeCheckConfig(NAME, config, DefaultType);
                 return config;
             }
         }, {
             key: "_showElement",
             value: function _showElement(relatedTarget) {
                 var _this2 = this;
-                var transition = Util$2.supportsTransitionEnd() && $(this._element).hasClass(ClassName.FADE);
+                var transition = Util.supportsTransitionEnd() && $(this._element).hasClass(ClassName.FADE);
                 if (!this._element.parentNode || this._element.parentNode.nodeType !== Node.ELEMENT_NODE) {
                     document.body.appendChild(this._element);
                 }
@@ -1632,7 +1518,7 @@ var Modal$2 = function($) {
                 this._element.removeAttribute("aria-hidden");
                 this._element.scrollTop = 0;
                 if (transition) {
-                    Util$2.reflow(this._element);
+                    Util.reflow(this._element);
                 }
                 $(this._element).addClass(ClassName.IN);
                 if (this._config.focus) {
@@ -1648,7 +1534,7 @@ var Modal$2 = function($) {
                     $(_this2._element).trigger(shownEvent);
                 };
                 if (transition) {
-                    $(this._dialog).one(Util$2.TRANSITION_END, transitionComplete).emulateTransitionEnd(TRANSITION_DURATION);
+                    $(this._dialog).one(Util.TRANSITION_END, transitionComplete).emulateTransitionEnd(TRANSITION_DURATION);
                 } else {
                     transitionComplete();
                 }
@@ -1713,7 +1599,7 @@ var Modal$2 = function($) {
                 var _this6 = this;
                 var animate = $(this._element).hasClass(ClassName.FADE) ? ClassName.FADE : "";
                 if (this._isShown && this._config.backdrop) {
-                    var doAnimate = Util$2.supportsTransitionEnd() && animate;
+                    var doAnimate = Util.supportsTransitionEnd() && animate;
                     this._backdrop = document.createElement("div");
                     this._backdrop.className = ClassName.BACKDROP;
                     if (animate) {
@@ -1735,7 +1621,7 @@ var Modal$2 = function($) {
                         }
                     });
                     if (doAnimate) {
-                        Util$2.reflow(this._backdrop);
+                        Util.reflow(this._backdrop);
                     }
                     $(this._backdrop).addClass(ClassName.IN);
                     if (!callback) {
@@ -1745,7 +1631,7 @@ var Modal$2 = function($) {
                         callback();
                         return;
                     }
-                    $(this._backdrop).one(Util$2.TRANSITION_END, callback).emulateTransitionEnd(BACKDROP_TRANSITION_DURATION);
+                    $(this._backdrop).one(Util.TRANSITION_END, callback).emulateTransitionEnd(BACKDROP_TRANSITION_DURATION);
                 } else if (!this._isShown && this._backdrop) {
                     $(this._backdrop).removeClass(ClassName.IN);
                     var callbackRemove = function callbackRemove() {
@@ -1754,8 +1640,8 @@ var Modal$2 = function($) {
                             callback();
                         }
                     };
-                    if (Util$2.supportsTransitionEnd() && $(this._element).hasClass(ClassName.FADE)) {
-                        $(this._backdrop).one(Util$2.TRANSITION_END, callbackRemove).emulateTransitionEnd(BACKDROP_TRANSITION_DURATION);
+                    if (Util.supportsTransitionEnd() && $(this._element).hasClass(ClassName.FADE)) {
+                        $(this._backdrop).one(Util.TRANSITION_END, callbackRemove).emulateTransitionEnd(BACKDROP_TRANSITION_DURATION);
                     } else {
                         callbackRemove();
                     }
@@ -1851,7 +1737,7 @@ var Modal$2 = function($) {
     $(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function(event) {
         var _this7 = this;
         var target = void 0;
-        var selector = Util$2.getSelectorFromElement(this);
+        var selector = Util.getSelectorFromElement(this);
         if (selector) {
             target = $(selector)[0];
         }
@@ -1880,7 +1766,7 @@ var Modal$2 = function($) {
     return Modal;
 }(jQuery);
 
-var _createClass$9 = function() {
+var _createClass$8 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -1911,20 +1797,20 @@ function _taggedTemplateLiteral$8(strings, raw) {
     }));
 }
 
-function _classCallCheck$9(instance, Constructor) {
+function _classCallCheck$8(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
 }
 
-function _possibleConstructorReturn$9(self, call) {
+function _possibleConstructorReturn$8(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$9(subClass, superClass) {
+function _inherits$8(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -1940,10 +1826,10 @@ function _inherits$9(subClass, superClass) {
 }
 
 var Modal = function(_Lego$UI$Baseview) {
-    _inherits$9(Modal, _Lego$UI$Baseview);
+    _inherits$8(Modal, _Lego$UI$Baseview);
     function Modal() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$9(this, Modal);
+        _classCallCheck$8(this, Modal);
         var typeArr = {
             success: "anticon anticon-check-circle-o ",
             info: "anticon anticon-info-circle-o",
@@ -1996,7 +1882,7 @@ var Modal = function(_Lego$UI$Baseview) {
         }
         if (!options.el) options.el = modalEl;
         if (options.position) options.animate = "slideInRight";
-        var _this = _possibleConstructorReturn$9(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, options));
+        var _this = _possibleConstructorReturn$8(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, options));
         var that = _this;
         _this.$el.modal({
             backdrop: options.position ? !options.backdrop : options.backdrop,
@@ -2014,7 +1900,7 @@ var Modal = function(_Lego$UI$Baseview) {
         }
         return _this;
     }
-    _createClass$9(Modal, [ {
+    _createClass$8(Modal, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
@@ -2076,7 +1962,7 @@ var Modal = function(_Lego$UI$Baseview) {
 
 Lego.components("modal", Modal);
 
-var _createClass$11 = function() {
+var _createClass$10 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -2113,20 +1999,20 @@ function _taggedTemplateLiteral$9(strings, raw) {
     }));
 }
 
-function _classCallCheck$11(instance, Constructor) {
+function _classCallCheck$10(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
 }
 
-function _possibleConstructorReturn$10(self, call) {
+function _possibleConstructorReturn$9(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$10(subClass, superClass) {
+function _inherits$9(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -2142,10 +2028,10 @@ function _inherits$10(subClass, superClass) {
 }
 
 var Navs = function(_Lego$UI$Baseview) {
-    _inherits$10(Navs, _Lego$UI$Baseview);
+    _inherits$9(Navs, _Lego$UI$Baseview);
     function Navs() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$11(this, Navs);
+        _classCallCheck$10(this, Navs);
         var options = {
             events: {
                 "click .nav-link:not(.disabled)": "clickItem",
@@ -2160,7 +2046,7 @@ var Navs = function(_Lego$UI$Baseview) {
             data: []
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn$10(this, (Navs.__proto__ || Object.getPrototypeOf(Navs)).call(this, options));
+        var _this = _possibleConstructorReturn$9(this, (Navs.__proto__ || Object.getPrototypeOf(Navs)).call(this, options));
         var that = _this;
         _this.$(".dropdown")[options.eventName](function() {
             var directionResp = Lego.UI.Util.getDirection($(this), $(this).children(".dropdown-menu"));
@@ -2172,7 +2058,7 @@ var Navs = function(_Lego$UI$Baseview) {
         });
         return _this;
     }
-    _createClass$11(Navs, [ {
+    _createClass$10(Navs, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
@@ -2221,7 +2107,7 @@ var Navs = function(_Lego$UI$Baseview) {
 
 Lego.components("navs", Navs);
 
-var _createClass$12 = function() {
+var _createClass$11 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -2250,20 +2136,20 @@ function _taggedTemplateLiteral$10(strings, raw) {
     }));
 }
 
-function _classCallCheck$12(instance, Constructor) {
+function _classCallCheck$11(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
 }
 
-function _possibleConstructorReturn$11(self, call) {
+function _possibleConstructorReturn$10(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$11(subClass, superClass) {
+function _inherits$10(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -2279,10 +2165,10 @@ function _inherits$11(subClass, superClass) {
 }
 
 var Tabs = function(_Lego$UI$Baseview) {
-    _inherits$11(Tabs, _Lego$UI$Baseview);
+    _inherits$10(Tabs, _Lego$UI$Baseview);
     function Tabs() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$12(this, Tabs);
+        _classCallCheck$11(this, Tabs);
         var options = {
             events: {},
             eventName: "click",
@@ -2329,9 +2215,9 @@ var Tabs = function(_Lego$UI$Baseview) {
             } ]
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$11(this, (Tabs.__proto__ || Object.getPrototypeOf(Tabs)).call(this, options));
+        return _possibleConstructorReturn$10(this, (Tabs.__proto__ || Object.getPrototypeOf(Tabs)).call(this, options));
     }
-    _createClass$12(Tabs, [ {
+    _createClass$11(Tabs, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
@@ -2358,7 +2244,7 @@ var Tabs = function(_Lego$UI$Baseview) {
 
 Lego.components("tabs", Tabs);
 
-var _createClass$13 = function() {
+var _createClass$12 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -2380,6 +2266,121 @@ var _templateObject$11 = _taggedTemplateLiteral$11([ '\n        <div class="inpu
 var _templateObject2$8 = _taggedTemplateLiteral$11([ '\n          <div class="input-group-btn dropdown" id="', '-select">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="', '-dropdown"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="', '-select">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="', '-dropdown"></dropdown>\n          </div>\n        ' ]);
 
 function _taggedTemplateLiteral$11(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+}
+
+function _classCallCheck$12(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$11(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$11(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var Search = function(_Lego$UI$Baseview) {
+    _inherits$11(Search, _Lego$UI$Baseview);
+    function Search() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$12(this, Search);
+        var options = {
+            events: {
+                "click .search-button": "clickSearch"
+            },
+            placeholder: "输入关键字搜索",
+            activeKey: "",
+            activeValue: "",
+            hasSelect: false,
+            onClick: function onClick() {},
+            components: [ {
+                el: "#" + opts.vid + "-dropdown",
+                trigger: "#" + opts.vid + "-select",
+                data: opts.data,
+                onChange: function onChange(model) {
+                    var theView = Lego.getView(opts.el);
+                    if (theView) {
+                        theView.options.activeKey = model.key;
+                        theView.options.activeValue = model.value;
+                    }
+                }
+            } ]
+        };
+        Object.assign(options, opts);
+        return _possibleConstructorReturn$11(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, options));
+    }
+    _createClass$12(Search, [ {
+        key: "render",
+        value: function render() {
+            var options = this.options || {};
+            var vDom = hx(_templateObject$11, options.hasSelect ? hx(_templateObject2$8, options.vid, options.activeValue || "请选择", options.vid) : "", options.placeholder);
+            return vDom;
+        }
+    }, {
+        key: "clickSearch",
+        value: function clickSearch(event) {
+            event.stopPropagation();
+            var keyword = this.$(".search-input").val();
+            if (typeof this.options.onClick === "function") this.options.onClick({
+                key: this.options.activeKey,
+                value: this.options.activeValue,
+                keyword: keyword
+            });
+        }
+    } ]);
+    return Search;
+}(Lego.UI.Baseview);
+
+Lego.components("search", Search);
+
+var _createClass$13 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+var _templateObject$12 = _taggedTemplateLiteral$12([ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ], [ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ]);
+
+var _templateObject2$9 = _taggedTemplateLiteral$12([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
+
+var _templateObject3$6 = _taggedTemplateLiteral$12([ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n\n            </div>\n            ' ]);
+
+var _templateObject4$4 = _taggedTemplateLiteral$12([ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ]);
+
+function _taggedTemplateLiteral$12(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
         raw: {
             value: Object.freeze(raw)
@@ -2415,126 +2416,11 @@ function _inherits$12(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Search = function(_Lego$UI$Baseview) {
-    _inherits$12(Search, _Lego$UI$Baseview);
-    function Search() {
-        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$13(this, Search);
-        var options = {
-            events: {
-                "click .search-button": "clickSearch"
-            },
-            placeholder: "输入关键字搜索",
-            activeKey: "",
-            activeValue: "",
-            hasSelect: false,
-            onClick: function onClick() {},
-            components: [ {
-                el: "#" + opts.vid + "-dropdown",
-                trigger: "#" + opts.vid + "-select",
-                data: opts.data,
-                onChange: function onChange(model) {
-                    var theView = Lego.getView(opts.el);
-                    if (theView) {
-                        theView.options.activeKey = model.key;
-                        theView.options.activeValue = model.value;
-                    }
-                }
-            } ]
-        };
-        Object.assign(options, opts);
-        return _possibleConstructorReturn$12(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, options));
-    }
-    _createClass$13(Search, [ {
-        key: "render",
-        value: function render() {
-            var options = this.options || {};
-            var vDom = hx(_templateObject$11, options.hasSelect ? hx(_templateObject2$8, options.vid, options.activeValue || "请选择", options.vid) : "", options.placeholder);
-            return vDom;
-        }
-    }, {
-        key: "clickSearch",
-        value: function clickSearch(event) {
-            event.stopPropagation();
-            var keyword = this.$(".search-input").val();
-            if (typeof this.options.onClick === "function") this.options.onClick({
-                key: this.options.activeKey,
-                value: this.options.activeValue,
-                keyword: keyword
-            });
-        }
-    } ]);
-    return Search;
-}(Lego.UI.Baseview);
-
-Lego.components("search", Search);
-
-var _createClass$14 = function() {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];
-            descriptor.enumerable = descriptor.enumerable || false;
-            descriptor.configurable = true;
-            if ("value" in descriptor) descriptor.writable = true;
-            Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }
-    return function(Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);
-        if (staticProps) defineProperties(Constructor, staticProps);
-        return Constructor;
-    };
-}();
-
-var _templateObject$12 = _taggedTemplateLiteral$12([ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ], [ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ]);
-
-var _templateObject2$9 = _taggedTemplateLiteral$12([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
-
-var _templateObject3$6 = _taggedTemplateLiteral$12([ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n\n            </div>\n            ' ]);
-
-var _templateObject4$4 = _taggedTemplateLiteral$12([ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ]);
-
-function _taggedTemplateLiteral$12(strings, raw) {
-    return Object.freeze(Object.defineProperties(strings, {
-        raw: {
-            value: Object.freeze(raw)
-        }
-    }));
-}
-
-function _classCallCheck$14(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-    }
-}
-
-function _possibleConstructorReturn$13(self, call) {
-    if (!self) {
-        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-    return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits$13(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-    }
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
-        constructor: {
-            value: subClass,
-            enumerable: false,
-            writable: true,
-            configurable: true
-        }
-    });
-    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
 var Select = function(_Lego$UI$Baseview) {
-    _inherits$13(Select, _Lego$UI$Baseview);
+    _inherits$12(Select, _Lego$UI$Baseview);
     function Select() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$14(this, Select);
+        _classCallCheck$13(this, Select);
         var options = {
             events: {
                 "click .select-tag-close": "clickItemClose"
@@ -2601,9 +2487,9 @@ var Select = function(_Lego$UI$Baseview) {
                 if (model) model.selected = true;
             });
         }
-        return _possibleConstructorReturn$13(this, (Select.__proto__ || Object.getPrototypeOf(Select)).call(this, options));
+        return _possibleConstructorReturn$12(this, (Select.__proto__ || Object.getPrototypeOf(Select)).call(this, options));
     }
-    _createClass$14(Select, [ {
+    _createClass$13(Select, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
@@ -2673,8 +2559,6 @@ var Select = function(_Lego$UI$Baseview) {
 }(Lego.UI.Baseview);
 
 Lego.components("select", Select);
-
-exports.Baseview = Baseview;
 
 exports.Viewport = Viewport;
 

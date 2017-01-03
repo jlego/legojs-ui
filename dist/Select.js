@@ -1,5 +1,5 @@
 /**
- * select.js v0.1.2
+ * select.js v0.1.3
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

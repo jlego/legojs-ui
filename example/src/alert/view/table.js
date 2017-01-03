@@ -1,4 +1,4 @@
-// import { Alert } from 'lego-ui';
+// import Table from 'lego-ui/dist/Table';
 import Table from '../../../../dist/Table';
 
 class TableView extends Lego.UI.Baseview {

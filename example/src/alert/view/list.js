@@ -1,4 +1,4 @@
-// import { Alert } from 'lego-ui';
+// import { Button, Modal } from 'lego-ui';
 import Button from '../../../../dist/Button';
 import Modal from '../../../../dist/Modal';
 
