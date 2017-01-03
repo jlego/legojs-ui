@@ -1,6 +1,6 @@
 /**
  * table.js v0.1.2
- * (c) 2016 Ronghui Yu
+ * (c) 2017 Ronghui Yu
  * @license MIT
  */
 "use strict";
@@ -22,15 +22,15 @@ var _createClass$2 = function() {
     };
 }();
 
-var _templateObject$2 = _taggedTemplateLiteral$2([ '\n            <li class="lego-dropdown-menu-submenu-vertical lego-dropdown-menu-submenu">\n                <div class="lego-dropdown-menu-submenu-title" id="', '">', "</div>\n                ", "\n            </li>\n            " ], [ '\n            <li class="lego-dropdown-menu-submenu-vertical lego-dropdown-menu-submenu">\n                <div class="lego-dropdown-menu-submenu-title" id="', '">', "</div>\n                ", "\n            </li>\n            " ]);
+var _templateObject$2 = _taggedTemplateLiteral$2([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
 
-var _templateObject2$2 = _taggedTemplateLiteral$2([ '\n                <ul class="lego-dropdown-menu lego-dropdown-menu-vertical lego-dropdown-menu-sub ', '">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="lego-dropdown-menu lego-dropdown-menu-vertical lego-dropdown-menu-sub ', '">\n                    ', "\n                </ul>\n                " ]);
+var _templateObject2$2 = _taggedTemplateLiteral$2([ '<li id="', '" class="', '">\n                    <a href="', '">', "</a></li>" ], [ '<li id="', '" class="', '">\n                    <a href="', '">', "</a></li>" ]);
 
-var _templateObject3$2 = _taggedTemplateLiteral$2([ '<li class="lego-dropdown-menu-item">', "</li>" ], [ '<li class="lego-dropdown-menu-item">', "</li>" ]);
+var _templateObject3$2 = _taggedTemplateLiteral$2([ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ]);
 
-var _templateObject4$2 = _taggedTemplateLiteral$2([ '\n        <div class="lego-dropdown lego-dropdown-placement-', " ", '">\n            <ul class="lego-dropdown-menu lego-dropdown-menu-vertical  lego-dropdown-menu-light lego-dropdown-menu-root">\n            ', "\n            </ul>\n        </div>\n        " ], [ '\n        <div class="lego-dropdown lego-dropdown-placement-', " ", '">\n            <ul class="lego-dropdown-menu lego-dropdown-menu-vertical  lego-dropdown-menu-light lego-dropdown-menu-root">\n            ', "\n            </ul>\n        </div>\n        " ]);
+var _templateObject4$2 = _taggedTemplateLiteral$2([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5$2 = _taggedTemplateLiteral$2([ '<li class="lego-dropdown-menu-item" id="', '">', "</li>" ], [ '<li class="lego-dropdown-menu-item" id="', '">', "</li>" ]);
+var _templateObject5$2 = _taggedTemplateLiteral$2([ '\n        <ul class="dropdown-menu ', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', '">\n            ', "\n        </ul>\n        " ]);
 
 function _taggedTemplateLiteral$2(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -75,14 +75,12 @@ var Dropdown = function(_Lego$UI$Baseview) {
         _classCallCheck$2(this, Dropdown);
         var options = {
             events: {
-                "click .lego-dropdown-menu-item": "clickItem",
-                "mouseenter .lego-dropdown-menu-item": "inMenu",
-                "mouseleave .lego-dropdown-menu-item": "outMenu",
-                "mouseenter .lego-dropdown-menu-submenu": "showSubMenu",
-                "mouseleave .lego-dropdown-menu-submenu": "hideSubMenu"
+                "click li": "clickItem"
             },
             disabled: false,
             eventName: "hover",
+            activeKey: "",
+            activeValue: "",
             trigger: "",
             visible: false,
             direction: "",
@@ -91,91 +89,95 @@ var Dropdown = function(_Lego$UI$Baseview) {
         };
         Object.assign(options, opts);
         var _this = _possibleConstructorReturn$2(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
-        _this.result = "";
         var that = _this;
-        options.trigger = options.trigger instanceof $ ? options.trigger : $(options.trigger);
-        options.trigger[options.eventName](function() {
-            var directionResp = Lego.UI.Baseview.getDirection(options.trigger, that.$el);
-            that.options.direction = directionResp._y + directionResp._x || "bottomLeft";
-            that.show();
-            options.trigger.mouseleave(function() {
-                that.close();
+        _this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
+        if (!_this.options.disabled) {
+            if (options.eventName == "click") {
+                var _eventName = "click.dropdown_" + opts.vid;
+                $("body").off(_eventName).on(_eventName, function() {
+                    that.close();
+                });
+            }
+            _this.options.trigger[options.eventName](function() {
+                event.stopPropagation();
+                var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
+                that.options.direction = directionResp._y || "bottom";
+                that.show();
+                if (options.eventName == "hover") {
+                    that.options.trigger.mouseleave(function() {
+                        that.close();
+                    });
+                }
             });
-            that.$(".lego-dropdown-menu").mouseleave(function() {
-                that.close();
-            });
-        });
+        }
         return _this;
     }
     _createClass$2(Dropdown, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            function loopNav(data) {
-                return hx(_templateObject$2, data.key, data.title, data.children ? hx(_templateObject2$2, data.visible ? "" : "lego-dropdown-menu-hidden", data.children.map(function(item) {
+            function itemNav(item) {
+                if (item.divider) {
+                    return hx(_templateObject$2);
+                } else {
                     if (!item.children) {
-                        return hx(_templateObject3$2, item.title);
+                        return hx(_templateObject2$2, item.key, item.disabled || item.selected ? "disabled" : "", item.href ? item.href : "javascript:;", item.value);
                     } else {
                         return loopNav(item);
                     }
+                }
+            }
+            function loopNav(data) {
+                return hx(_templateObject3$2, data.value, data.children ? hx(_templateObject4$2, data.children.map(function(item) {
+                    itemNav(item);
                 })) : "");
             }
-            var vDom = hx(_templateObject4$2, options.direction ? options.direction : "", options.visible ? "" : "lego-dropdown-hidden", options.data.map(function(item) {
-                if (!item.children) {
-                    return hx(_templateObject5$2, item.key, item.title);
-                } else {
-                    return loopNav(item);
-                }
+            var vDom = hx(_templateObject5$2, options.direction ? "drop" + options.direction : "", options.data.map(function(item) {
+                return itemNav(item);
             }));
             return vDom;
         }
     }, {
+        key: "_getAlign",
+        value: function _getAlign(parent, el) {
+            var _X = parent.offset().left, _Y = parent.offset().top - el.height(), windowWidth = $(window).width() - 20, elWidth = el.width();
+            if (windowWidth > _X + elWidth) {
+                return "left";
+            } else {
+                return "right";
+            }
+        }
+    }, {
         key: "show",
         value: function show(event) {
-            this.options.visible = true;
+            this.options.trigger.addClass("dropdown open");
             this.options.onVisibleChange(true);
         }
     }, {
         key: "close",
         value: function close(event) {
-            this.options.visible = false;
+            this.options.trigger.removeClass("dropdown open");
             this.options.onVisibleChange(false);
         }
     }, {
         key: "clickItem",
         value: function clickItem(event) {
             var target = $(event.currentTarget);
-            this.result = target.attr("id");
-            this.options.onChange(this.result);
+            var model = this.options.data.find(function(Item) {
+                return Item.key === target.attr("id");
+            });
+            if (model) {
+                this.options.onChange(model);
+                this.options.activeKey = model.key;
+                this.options.activeValue = model.value;
+            }
             this.close();
-        }
-    }, {
-        key: "inMenu",
-        value: function inMenu(event) {
-            var target = $(event.currentTarget);
-            target.addClass("lego-dropdown-menu-item-active");
-        }
-    }, {
-        key: "outMenu",
-        value: function outMenu(event) {
-            var target = $(event.currentTarget);
-            target.removeClass("lego-dropdown-menu-item-active");
-        }
-    }, {
-        key: "showSubMenu",
-        value: function showSubMenu(event) {
-            var target = $(event.currentTarget);
-            target.addClass("lego-dropdown-menu-submenu-open lego-dropdown-menu-submenu-active");
-        }
-    }, {
-        key: "hideSubMenu",
-        value: function hideSubMenu(event) {
-            var target = $(event.currentTarget);
-            target.removeClass("lego-dropdown-menu-submenu-open lego-dropdown-menu-submenu-active");
         }
     } ]);
     return Dropdown;
 }(Lego.UI.Baseview);
+
+Lego.components("dropdown", Dropdown);
 
 var _createClass$1 = function() {
     function defineProperties(target, props) {
@@ -194,25 +196,23 @@ var _createClass$1 = function() {
     };
 }();
 
-var _templateObject$1 = _taggedTemplateLiteral$1([ '\n        <ul class="lego-pagination lego-table-pagination ', " ", '">\n            <li title="上一页" class="lego-pagination-prev ', '">\n                <a></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ], [ '\n        <ul class="lego-pagination lego-table-pagination ', " ", '">\n            <li title="上一页" class="lego-pagination-prev ', '">\n                <a></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ]);
+var _templateObject$1 = _taggedTemplateLiteral$1([ '\n        <ul class="pagination ', " ", '">\n            <li class="prev ', '">\n                <a href="javascript:void(0)" title="上一页"><i class="icon iconfont icon-arrow-left"></i></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ], [ '\n        <ul class="pagination ', " ", '">\n            <li class="prev ', '">\n                <a href="javascript:void(0)" title="上一页"><i class="icon iconfont icon-arrow-left"></i></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ]);
 
 var _templateObject2$1 = _taggedTemplateLiteral$1([ '\n            <div title="', "/", '" class="lego-pagination-simple-pager">\n                <input type="text" value="', '"><span class="lego-pagination-slash">／</span>\n            </div>\n            ' ], [ '\n            <div title="', "/", '" class="lego-pagination-simple-pager">\n                <input type="text" value="', '"><span class="lego-pagination-slash">／</span>\n            </div>\n            ' ]);
 
-var _templateObject3$1 = _taggedTemplateLiteral$1([ '\n            <li title="', '" class="lego-pagination-item ', '"><a>', "</a></li>\n            " ], [ '\n            <li title="', '" class="lego-pagination-item ', '"><a>', "</a></li>\n            " ]);
+var _templateObject3$1 = _taggedTemplateLiteral$1([ '\n            <li title="', '" class="page page-item ', '"><a href="javascript:void(0)">', "</a></li>\n            " ], [ '\n            <li title="', '" class="page page-item ', '"><a href="javascript:void(0)">', "</a></li>\n            " ]);
 
-var _templateObject4$1 = _taggedTemplateLiteral$1([ '\n            <li title="下 ', ' 页" class="lego-pagination-jump-next">\n                <a></a>\n            </li>\n            ' ], [ '\n            <li title="下 ', ' 页" class="lego-pagination-jump-next">\n                <a></a>\n            </li>\n            ' ]);
+var _templateObject4$1 = _taggedTemplateLiteral$1([ '\n            <li title="下 ', ' 页" class="page morepage"><a href="javascript:void(0)"><i class="icon iconfont icon-more-1"></a></i></li>\n            ' ], [ '\n            <li title="下 ', ' 页" class="page morepage"><a href="javascript:void(0)"><i class="icon iconfont icon-more-1"></a></i></li>\n            ' ]);
 
-var _templateObject5$1 = _taggedTemplateLiteral$1([ '<li title="', '" class="lego-pagination-item"><a>', "</a></li>" ], [ '<li title="', '" class="lego-pagination-item"><a>', "</a></li>" ]);
+var _templateObject5$1 = _taggedTemplateLiteral$1([ '<li title="', '" class="page page-item"><a href="javascript:void(0)">', "</a></li>" ], [ '<li title="', '" class="page page-item"><a href="javascript:void(0)">', "</a></li>" ]);
 
-var _templateObject6$1 = _taggedTemplateLiteral$1([ '\n            <li title="下一页" class=" lego-pagination-next ', '">\n                <a></a>\n            </li>\n            ' ], [ '\n            <li title="下一页" class=" lego-pagination-next ', '">\n                <a></a>\n            </li>\n            ' ]);
+var _templateObject6$1 = _taggedTemplateLiteral$1([ '\n            <li class="next ', '">\n                <a href="javascript:void(0)" title="下一页"><i class="icon iconfont icon-arrow-right"></i></a>\n            </li>\n            ' ], [ '\n            <li class="next ', '">\n                <a href="javascript:void(0)" title="下一页"><i class="icon iconfont icon-arrow-right"></i></a>\n            </li>\n            ' ]);
 
-var _templateObject7$1 = _taggedTemplateLiteral$1([ '\n            <div class="lego-pagination-options">\n                ', "\n                ", "\n                ", "\n            </div>\n            " ], [ '\n            <div class="lego-pagination-options">\n                ', "\n                ", "\n                ", "\n            </div>\n            " ]);
+var _templateObject7$1 = _taggedTemplateLiteral$1([ '\n            <li class="pageSize">\n                <span class="info" id="', '-select">\n                <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                <dropdown id="', '-dropdown"></dropdown>\n                </span>\n            </li>\n            ' ], [ '\n            <li class="pageSize">\n                <span class="info" id="', '-select">\n                <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                <dropdown id="', '-dropdown"></dropdown>\n                </span>\n            </li>\n            ' ]);
 
-var _templateObject8$1 = _taggedTemplateLiteral$1([ '\n                <div class="lego-pagination-options-size-changer lego-select lego-select-enabled" id="', '-select">\n                    <div class="lego-select-selection lego-select-selection-single">\n                        <div class="lego-select-selection__rendered">\n                            <div class="lego-select-selection-selected-value" title="', ' / 页" style="display: block; opacity: 1;">\n                            ', ' / 页</div>\n                        </div>\n                        <span class="lego-select-arrow" style="user-select: none;"><b></b></span>\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n                ' ], [ '\n                <div class="lego-pagination-options-size-changer lego-select lego-select-enabled" id="', '-select">\n                    <div class="lego-select-selection lego-select-selection-single">\n                        <div class="lego-select-selection__rendered">\n                            <div class="lego-select-selection-selected-value" title="', ' / 页" style="display: block; opacity: 1;">\n                            ', ' / 页</div>\n                        </div>\n                        <span class="lego-select-arrow" style="user-select: none;"><b></b></span>\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n                ' ]);
+var _templateObject8$1 = _taggedTemplateLiteral$1([ '\n            <li><span class="info">\n                    跳转至\n                    <input type="text" class="form-control pageJump" value="', '">\n                </span>\n                ', "\n            </li>\n            " ], [ '\n            <li><span class="info">\n                    跳转至\n                    <input type="text" class="form-control pageJump" value="', '">\n                </span>\n                ', "\n            </li>\n            " ]);
 
-var _templateObject9$1 = _taggedTemplateLiteral$1([ '\n                <div class="lego-pagination-options-quick-jumper">\n                    跳转至\n                    <input type="text" value="', '">\n                </div>\n                ' ], [ '\n                <div class="lego-pagination-options-quick-jumper">\n                    跳转至\n                    <input type="text" value="', '">\n                </div>\n                ' ]);
-
-var _templateObject10$1 = _taggedTemplateLiteral$1([ '<span class="lego-pagination-total-text">\n                ', "\n                </span>" ], [ '<span class="lego-pagination-total-text">\n                ', "\n                </span>" ]);
+var _templateObject9$1 = _taggedTemplateLiteral$1([ '\n                <span class="info">\n                ', "\n                </span>\n                " ], [ '\n                <span class="info">\n                ', "\n                </span>\n                " ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -250,8 +250,6 @@ function _inherits$1(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-Lego.components("dropdown", Dropdown);
-
 var Pagination = function(_Lego$UI$Baseview) {
     _inherits$1(Pagination, _Lego$UI$Baseview);
     function Pagination() {
@@ -259,11 +257,11 @@ var Pagination = function(_Lego$UI$Baseview) {
         _classCallCheck$1(this, Pagination);
         var options = {
             events: {
-                "click .lego-pagination-prev:not(.lego-pagination-disabled)": "clickPrevPage",
-                "click .lego-pagination-item": "clickItemPage",
-                "click .lego-pagination-next:not(.lego-pagination-disabled)": "clickNextPage",
-                "click .lego-pagination-jump-next": "clickMorePage",
-                "keydown .lego-pagination-options-quick-jumper>input": "_enterSearch"
+                "click .prev:not(.disabled)": "clickPrevPage",
+                "click .page-item": "clickItemPage",
+                "click .next:not(.disabled)": "clickNextPage",
+                "click .morepage": "clickMorePage",
+                'keydown .info>input[type="text"]': "_enterSearch"
             },
             current: 1,
             total: 0,
@@ -277,7 +275,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             showQuickJumper: false,
             size: "",
             simple: null,
-            showTotal: function showTotal() {}
+            isShowTotal: true
         };
         Object.assign(options, opts);
         if (!options.simple && options.showSizeChanger) {
@@ -288,12 +286,15 @@ var Pagination = function(_Lego$UI$Baseview) {
                 };
             });
             options.components = [ {
-                el: "#" + options.vid + "-dropdown",
-                trigger: "#" + options.vid + "-select",
+                el: "#" + opts.vid + "-dropdown",
+                trigger: "#" + opts.vid + "-select",
                 data: theData,
                 onChange: function onChange(result) {
-                    Lego.getView(options.vid).options.current = 1;
-                    Lego.getView(options.vid).options.pageSize = parseInt(result);
+                    var theView = Lego.getView(opts.el);
+                    if (theView) {
+                        theView.options.current = 1;
+                        theView.options.pageSize = parseInt(result);
+                    }
                 }
             } ];
         }
@@ -313,9 +314,9 @@ var Pagination = function(_Lego$UI$Baseview) {
             for (var i = startPage; i <= endPage; i++) {
                 pagesArr.push(i);
             }
-            var vDom = hx(_templateObject$1, options.simple ? "lego-table-simple" : "", options.size == "small" ? "mini" : "", options.current <= 1 ? "lego-pagination-disabled" : "", options.simple ? hx(_templateObject2$1, options.current, options.endPage, options.current) : "", !options.simple ? pagesArr.map(function(x) {
-                return hx(_templateObject3$1, x, x == options.current ? "lego-pagination-item-active" : "", x);
-            }) : "", showEllipsis ? hx(_templateObject4$1, options.pageSize) : "", !options.simple && showEllipsis ? hx(_templateObject5$1, options.totalPages, options.totalPages) : "", !options.simple ? hx(_templateObject6$1, options.current >= options.totalPages ? "lego-pagination-disabled" : "") : "", !options.simple ? hx(_templateObject7$1, options.showSizeChanger ? hx(_templateObject8$1, options.vid, options.pageSize, options.pageSize, options.vid) : "", options.showQuickJumper ? hx(_templateObject9$1, this.jumped ? options.current : "1") : "", options.showTotal ? hx(_templateObject10$1, typeof options.showTotal === "function" ? options.showTotal(options.total) : "总数" + options.total) : "") : "");
+            var vDom = hx(_templateObject$1, options.simple ? "pagination-simple" : "", options.size == "small" ? "mini" : "", options.current <= 1 ? "disabled" : "", options.simple ? hx(_templateObject2$1, options.current, options.endPage, options.current) : "", !options.simple ? pagesArr.map(function(x) {
+                return hx(_templateObject3$1, x, x == options.current ? "active" : "", x);
+            }) : "", showEllipsis ? hx(_templateObject4$1, options.pageSize) : "", !options.simple && showEllipsis ? hx(_templateObject5$1, options.totalPages, options.totalPages) : "", !options.simple ? hx(_templateObject6$1, options.current >= options.totalPages ? "disabled" : "") : "", !options.simple && options.showSizeChanger ? hx(_templateObject7$1, options.vid, options.pageSize, options.vid) : "", !options.simple && options.showQuickJumper ? hx(_templateObject8$1, this.jumped ? options.current : "1", options.isShowTotal ? hx(_templateObject9$1, typeof options.showTotal === "function" ? options.showTotal(options.total) : "总数 " + options.total) : "") : "");
             this.jumped = false;
             return vDom;
         }
@@ -375,6 +376,8 @@ var Pagination = function(_Lego$UI$Baseview) {
     return Pagination;
 }(Lego.UI.Baseview);
 
+Lego.components("pagination", Pagination);
+
 var _extends = Object.assign || function(target) {
     for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
@@ -410,7 +413,7 @@ var _templateObject2 = _taggedTemplateLiteral([ '<div class="lego-table-title">'
 
 var _templateObject3 = _taggedTemplateLiteral([ '\n                <div class="lego-table-header">\n                    <table class="">\n                        ', "\n                        ", "\n                    </table>\n                    ", "\n                </div>\n                " ], [ '\n                <div class="lego-table-header">\n                    <table class="">\n                        ', "\n                        ", "\n                    </table>\n                    ", "\n                </div>\n                " ]);
 
-var _templateObject4 = _taggedTemplateLiteral([ '\n                        <button type="button" class="lego-btn lego-btn-ghost lego-btn-circle lego-btn-icon-only">\n                        <i class="anticon anticon-ellipsis"></i></button>' ], [ '\n                        <button type="button" class="lego-btn lego-btn-ghost lego-btn-circle lego-btn-icon-only">\n                        <i class="anticon anticon-ellipsis"></i></button>' ]);
+var _templateObject4 = _taggedTemplateLiteral([ '\n                        <button type="button" class="btn btn-default noborder">\n                        <i class="anticon anticon-ellipsis"></i></button>' ], [ '\n                        <button type="button" class="btn btn-default noborder">\n                        <i class="anticon anticon-ellipsis"></i></button>' ]);
 
 var _templateObject5 = _taggedTemplateLiteral([ '\n                    <div class="lego-table-footer">\n                    <pagination id="', '-paginationId"></pagination>\n                    </div>\n                ' ], [ '\n                    <div class="lego-table-footer">\n                    <pagination id="', '-paginationId"></pagination>\n                    </div>\n                ' ]);
 
@@ -484,8 +487,6 @@ function _inherits(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-Lego.components("pagination", Pagination);
-
 var Table = function(_Lego$UI$Baseview) {
     _inherits(Table, _Lego$UI$Baseview);
     function Table() {
@@ -531,7 +532,7 @@ var Table = function(_Lego$UI$Baseview) {
                 el: "#" + opts.vid + "-paginationId"
             }) ]
         };
-        $.extend(true, options, opts);
+        Object.assign(options, opts);
         options.columns.map(function(col) {
             col = Object.assign({
                 title: "",
@@ -747,5 +748,7 @@ var Table = function(_Lego$UI$Baseview) {
     } ]);
     return Table;
 }(Lego.UI.Baseview);
+
+Lego.components("table", Table);
 
 module.exports = Table;

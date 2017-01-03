@@ -1,6 +1,6 @@
 /**
  * common.js v0.1.2
- * (c) 2016 Ronghui Yu
+ * (c) 2017 Ronghui Yu
  * @license MIT
  */
 "use strict";
@@ -92,20 +92,35 @@ var Baseview = function(_Lego$View) {
                 })();
             }
         }
-    } ], [ {
-        key: "getDirection",
-        value: function getDirection(el, dropEl) {
-            el = el instanceof $ ? el : $(el);
-            var windowW = $(window).width(), windowH = $(window).height(), _X = el.offset().left, _Y = el.offset().top, elW = el.width(), elH = el.height(), dropW = dropEl.width(), dropH = dropEl.height(), upDown = dropH > windowH - _Y - elH ? "top" : "bottom", leftRight = dropW > windowW - _X - elW ? "Right" : "Left";
-            return {
-                _x: leftRight,
-                _y: upDown
-            };
-        }
     } ]);
     return Baseview;
 }(Lego.View);
 
+Lego.components("Baseview", Baseview);
+
+var Util = {
+    getDirection: function getDirection(el, dropEl) {
+        el = el instanceof $ ? el : $(el);
+        var windowW = $(window).width(), windowH = $(window).height(), _X = el.offset().left, _Y = el.offset().top, elW = el.width(), elH = el.height(), dropW = dropEl.width(), dropH = dropEl.height(), upDown = dropH > windowH - _Y - elH ? "top" : "bottom", leftRight = dropW > windowW - _X - elW ? "Right" : "Left";
+        return {
+            _x: leftRight,
+            _y: upDown
+        };
+    },
+    animateCss: function animateCss(el, animationName, callback) {
+        el = el instanceof $ ? el : $(el);
+        var animationEnd = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
+        el.addClass(animationName).one(animationEnd, function() {
+            el.removeClass(animationName);
+            if (typeof callback == "function") callback();
+        });
+    }
+};
+
 window.Ps = perfectScrollbar;
+
+Lego.components({
+    Util: Util
+});
 
 exports.Baseview = Baseview;

@@ -1,8 +1,6 @@
 // import { Alert } from 'lego-ui';
 import Alert from '../../../../dist/Alert';
 
-Lego.components('alert', Alert);
-
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
@@ -37,7 +35,7 @@ class HomeView extends Lego.UI.Baseview {
                 description: '警告提示的辅助性文字介绍',
             }]
         };
-        $.extend(true, options, opts);
+        Object.assign(options, opts);
         super(options);
     }
     render() {

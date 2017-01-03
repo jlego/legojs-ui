@@ -6,7 +6,7 @@ class HomeView extends Lego.UI.Baseview {
                 'click #400': 'theClick'
             }
         };
-        $.extend(true, options, opts);
+        Object.assign(options, opts);
         super(options);
     }
     render() {

@@ -1,16 +1,15 @@
 import './asset/index.scss';
 import Dropdown from '../dropdown/index';
-Lego.components('dropdown', Dropdown);
 
 class Pagination extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
-                'click .lego-pagination-prev:not(.lego-pagination-disabled)': 'clickPrevPage',
-                'click .lego-pagination-item': 'clickItemPage',
-                'click .lego-pagination-next:not(.lego-pagination-disabled)': 'clickNextPage',
-                'click .lego-pagination-jump-next': 'clickMorePage',
-                'keydown .lego-pagination-options-quick-jumper>input': '_enterSearch',
+                'click .prev:not(.disabled)': 'clickPrevPage',
+                'click .page-item': 'clickItemPage',
+                'click .next:not(.disabled)': 'clickNextPage',
+                'click .morepage': 'clickMorePage',
+                'keydown .info>input[type="text"]': '_enterSearch',
             },
             current: 1, //当前页数
             total: 0, //数据总数
@@ -24,7 +23,8 @@ class Pagination extends Lego.UI.Baseview {
             showQuickJumper: false,    //是否可以快速跳转至某页
             size: '',    //当为「small」时，是小尺寸分页
             simple: null,    //当添加该属性时，显示为简单分页
-            showTotal(){},  //用于显示数据总量和当前数据顺序
+            isShowTotal: true,  //用于显示数据总量和当前数据顺序
+            // showTotal(){}
         };
         Object.assign(options, opts);
         if(!options.simple && options.showSizeChanger){
@@ -35,12 +35,15 @@ class Pagination extends Lego.UI.Baseview {
                 };
             });
             options.components = [{
-                el: '#' + options.vid + '-dropdown',
-                trigger: '#' + options.vid + '-select',
+                el: '#' + opts.vid + '-dropdown',
+                trigger: '#' + opts.vid + '-select',
                 data: theData,
                 onChange(result){
-                    Lego.getView(options.vid).options.current = 1;
-                    Lego.getView(options.vid).options.pageSize = parseInt(result);
+                    const theView = Lego.getView(opts.el);
+                    if(theView){
+                        theView.options.current = 1;
+                        theView.options.pageSize = parseInt(result);
+                    }
                 }
             }];
         }
@@ -62,9 +65,9 @@ class Pagination extends Lego.UI.Baseview {
             pagesArr.push(i);
         }
         const vDom = hx`
-        <ul class="lego-pagination lego-table-pagination ${options.simple ? 'lego-table-simple' : ''} ${options.size == 'small' ? 'mini' : ''}">
-            <li title="上一页" class="lego-pagination-prev ${ options.current <= 1 ? 'lego-pagination-disabled' : ''}">
-                <a></a>
+        <ul class="pagination ${options.simple ? 'pagination-simple' : ''} ${options.size == 'small' ? 'mini' : ''}">
+            <li class="prev ${ options.current <= 1 ? 'disabled' : ''}">
+                <a href="javascript:void(0)" title="上一页"><i class="icon iconfont icon-arrow-left"></i></a>
             </li>
             ${options.simple ? hx`
             <div title="${options.current}/${options.endPage}" class="lego-pagination-simple-pager">
@@ -72,43 +75,36 @@ class Pagination extends Lego.UI.Baseview {
             </div>
             ` : ''}
             ${!options.simple ? pagesArr.map(x => hx`
-            <li title="${x}" class="lego-pagination-item ${ x == options.current ? 'lego-pagination-item-active' : ''}"><a>${x}</a></li>
+            <li title="${x}" class="page page-item ${ x == options.current ? 'active' : ''}"><a href="javascript:void(0)">${x}</a></li>
             `) : ''}
             ${showEllipsis ? hx`
-            <li title="下 ${options.pageSize} 页" class="lego-pagination-jump-next">
-                <a></a>
+            <li title="下 ${options.pageSize} 页" class="page morepage"><a href="javascript:void(0)"><i class="icon iconfont icon-more-1"></a></i></li>
+            ` : ''}
+            ${!options.simple && showEllipsis ? hx`<li title="${options.totalPages}" class="page page-item"><a href="javascript:void(0)">${options.totalPages}</a></li>` : ''}
+            ${!options.simple ? hx`
+            <li class="next ${ options.current >= options.totalPages ? 'disabled' : ''}">
+                <a href="javascript:void(0)" title="下一页"><i class="icon iconfont icon-arrow-right"></i></a>
             </li>
             ` : ''}
-            ${!options.simple && showEllipsis ? hx`<li title="${options.totalPages}" class="lego-pagination-item"><a>${options.totalPages}</a></li>` : ''}
-            ${!options.simple ? hx`
-            <li title="下一页" class=" lego-pagination-next ${ options.current >= options.totalPages ? 'lego-pagination-disabled' : ''}">
-                <a></a>
+            ${!options.simple && options.showSizeChanger ? hx`
+            <li class="pageSize">
+                <span class="info" id="${options.vid}-select">
+                <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">${options.pageSize} / 页 </button>
+                <dropdown id="${options.vid}-dropdown"></dropdown>
+                </span>
             </li>
             ` : ''}
-            ${!options.simple ? hx`
-            <div class="lego-pagination-options">
-                ${options.showSizeChanger ? hx`
-                <div class="lego-pagination-options-size-changer lego-select lego-select-enabled" id="${options.vid}-select">
-                    <div class="lego-select-selection lego-select-selection-single">
-                        <div class="lego-select-selection__rendered">
-                            <div class="lego-select-selection-selected-value" title="${options.pageSize} / 页" style="display: block; opacity: 1;">
-                            ${options.pageSize} / 页</div>
-                        </div>
-                        <span class="lego-select-arrow" style="user-select: none;"><b></b></span>
-                    </div>
-                    <dropdown id="${options.vid}-dropdown"></dropdown>
-                </div>
-                ` : ''}
-                ${options.showQuickJumper ? hx`
-                <div class="lego-pagination-options-quick-jumper">
+            ${!options.simple && options.showQuickJumper ? hx`
+            <li><span class="info">
                     跳转至
-                    <input type="text" value="${this.jumped ? options.current : '1'}">
-                </div>
+                    <input type="text" class="form-control pageJump" value="${this.jumped ? options.current : '1'}">
+                </span>
+                ${options.isShowTotal ? hx`
+                <span class="info">
+                ${typeof options.showTotal === 'function' ? options.showTotal(options.total) : ('总数 ' + options.total)}
+                </span>
                 ` : ''}
-                ${options.showTotal ? hx`<span class="lego-pagination-total-text">
-                ${typeof options.showTotal === 'function' ? options.showTotal(options.total) : ('总数' + options.total)}
-                </span>` : ''}
-            </div>
+            </li>
             ` : ''}
         </ul>
         `;
@@ -161,4 +157,5 @@ class Pagination extends Lego.UI.Baseview {
         }
     }
 }
+Lego.components('pagination', Pagination);
 export default Pagination;

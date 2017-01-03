@@ -22,6 +22,7 @@
 
 .lego-table-thead > tr > th {
     background: #fff;
+    height: 44px;
     font-weight: bold;
     -webkit-transition: background .3s ease;
     transition: background .3s ease;
@@ -133,6 +134,11 @@
 .lego-table-tbody > tr > td {
     padding: 10px 8px;
     word-break: break-all;
+}
+
+.lego-table-thead > tr > th.lego-table-selection-column label,
+.lego-table-tbody > tr > td.lego-table-selection-column label{
+    margin: 0.3rem;
 }
 
 .lego-table-thead > tr > th.lego-table-selection-column,
@@ -322,7 +328,7 @@
     margin-bottom: -15px;
 }
 .lego-table-fixed-header .lego-table-body{
-    top: 48px;
+    top: 51px;
     bottom: 45px;
     width: 100%;
     position: absolute;
@@ -334,15 +340,22 @@
     position: absolute;
 }
 
-.lego-table-fixed-header .lego-table-header .lego-btn-circle{
+.lego-table-fixed-header .lego-table-header .btn.noborder{
     position: absolute;
-    top: 4px;
+    top: 6px;
     right: 5px;
     width: 40px;
     height: 40px;
     font-size: 20px;
     border: none;
     font-weight: bold;
+    padding: 5px;
+    background: transparent;
+    border-radius: 50%;
+}
+.lego-table-fixed-header .lego-table-header .btn.noborder:hover{
+    color: #108ee9;
+    background: #f3f3f3;
 }
 .lego-table-bordered.lego-table-fixed-header .lego-table-header > table {
     border-bottom: 0;

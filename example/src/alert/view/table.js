@@ -1,6 +1,5 @@
 // import { Alert } from 'lego-ui';
 import Table from '../../../../dist/Table';
-Lego.components('table', Table);
 
 class TableView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -12,7 +11,9 @@ class TableView extends Lego.UI.Baseview {
                     name: '胡彦斌' + i,
                     age: 32 + i,
                     // disabled: true,
-                    address: '西湖区湖底公园1号'
+                    address: '西湖区湖底公园1号',
+                    // render(value, row, col){
+                    // }
                 });
             }
             return theData;
@@ -31,9 +32,9 @@ class TableView extends Lego.UI.Baseview {
                     showSizeChanger: true,
                     showQuickJumper: true,
                     onChange(num){
-                        const el = $('#theTable');
-                        Lego.getView(el).options.data = getData(num);
-                        Lego.getView(el).refresh();
+                        const theView = Lego.getView('#theTable');
+                        theView.options.data = getData(num);
+                        theView.refresh();
                         // Lego.getView('#table1').fetch();
                     }
                 },

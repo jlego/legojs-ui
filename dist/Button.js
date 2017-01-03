@@ -1,6 +1,6 @@
 /**
  * button.js v0.1.2
- * (c) 2016 Ronghui Yu
+ * (c) 2017 Ronghui Yu
  * @license MIT
  */
 "use strict";
@@ -22,7 +22,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <button type="', '" class="btn btn-', " lego-btn lego-btn-", '">\n            <span>', "</span>\n        </button>\n        " ], [ '\n        <button type="', '" class="btn btn-', " lego-btn lego-btn-", '">\n            <span>', "</span>\n        </button>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <button type="', '" class="btn btn-', '">\n            <span>', "</span>\n        </button>\n        " ], [ '\n        <button type="', '" class="btn btn-', '">\n            <span>', "</span>\n        </button>\n        " ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -85,7 +85,7 @@ var Button = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject, options.htmlType, options.type, options.type, options.html || options.text);
+            var vDom = hx(_templateObject, options.htmlType, options.type, options.html || options.text);
             return vDom;
         }
     }, {
@@ -97,5 +97,7 @@ var Button = function(_Lego$UI$Baseview) {
     } ]);
     return Button;
 }(Lego.UI.Baseview);
+
+Lego.components("button", Button);
 
 module.exports = Button;

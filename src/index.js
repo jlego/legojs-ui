@@ -8,6 +8,11 @@ import Button from "./button/index";
 import Table from "./table/index";
 import Pagination from "./pagination/index";
 import Dropdown from "./dropdown/index";
+import Modal from "./modal/index";
+import Navs from "./navs/index";
+import Tabs from "./tabs/index";
+import Search from "./search/index";
+import Select from "./select/index";
 
 export {
 	Baseview,
@@ -17,5 +22,10 @@ export {
     Button,
     Table,
     Pagination,
-    Dropdown
+    Dropdown,
+    Modal,
+    Navs,
+    Tabs,
+    Search,
+    Select
 };

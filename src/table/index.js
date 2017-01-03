@@ -1,6 +1,5 @@
 import './asset/index.scss';
 import Pagination from '../pagination/index';
-Lego.components('pagination', Pagination);
 /**
  * rowSelection
  * type = '' 多选/单选，checkbox or radio
@@ -53,11 +52,11 @@ class Table extends Lego.UI.Baseview {
             // title(){}, //表格标题
             // scroll: {}, //横向或纵向支持滚动，也可用于指定滚动区域的宽高度：{{ x: true, y: 300 }}
             components: [{
-                ...opts.pagination, 
+                ...opts.pagination,
                 el: '#' + opts.vid + '-paginationId'
             }]
         };
-        $.extend(true, options, opts);
+        Object.assign(options, opts);
         options.columns.map((col) => {
             col = Object.assign({
                 title: '',  //列头显示文字
@@ -99,7 +98,7 @@ class Table extends Lego.UI.Baseview {
                         ${this._renderHeader()}
                     </table>
                     ${options.colSetting ? hx`
-                        <button type="button" class="lego-btn lego-btn-ghost lego-btn-circle lego-btn-icon-only">
+                        <button type="button" class="btn btn-default noborder">
                         <i class="anticon anticon-ellipsis"></i></button>` : ''}
                 </div>
                 ` : ''}
@@ -319,4 +318,5 @@ class Table extends Lego.UI.Baseview {
         return rows;
     }
 }
+Lego.components('table', Table);
 export default Table;

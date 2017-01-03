@@ -41,7 +41,7 @@
     "events": "^1.1.1",
     "highlight.js": "^9.9.0",
     "jquery": "^3.1.1",
-    "lego-core": "^0.4.2",
+    "lego-core": "^0.5.3",
     "lego-ui": "^0.1.2",
     "lodash": "^4.17.3",
     "object.observe": "^0.2.6",
