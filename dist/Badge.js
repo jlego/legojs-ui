@@ -1,6 +1,6 @@
 /**
  * badge.js v0.1.2
- * (c) 2016 Ronghui Yu
+ * (c) 2017 Ronghui Yu
  * @license MIT
  */
 "use strict";

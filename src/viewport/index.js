@@ -29,7 +29,7 @@ class Viewport extends Lego.UI.Baseview {
                             <img src="${this.options.logoUrl}" alt="" />
                         </a>
                     </div>
-                    <div class="navbar-collapse collapse">
+                    <div class="navbar-collapse">
                         <ul class="nav navbar-right">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>
@@ -39,8 +39,7 @@ class Viewport extends Lego.UI.Baseview {
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i>
-                                <span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>
                                     <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>
@@ -67,7 +66,9 @@ class Viewport extends Lego.UI.Baseview {
                 </header>
                 <div class="main-content">
                     <div class="wrap-content container-fluid" id="container">
+                        <div id="page-container"></div>
                     </div>
+                    <submodal id="lego-submodal"></submodal>
                 </div>
             </div>
             <footer>
@@ -80,6 +81,7 @@ class Viewport extends Lego.UI.Baseview {
                     </div>
                 </div>
             </footer>
+            <modal id="lego-modal"></modal>
         </div>
         `;
         return tmpl;

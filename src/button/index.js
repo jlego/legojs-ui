@@ -1,4 +1,4 @@
-import './asset/index.scss';
+// import './asset/index.scss';
 
 class Button extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -21,7 +21,7 @@ class Button extends Lego.UI.Baseview {
     render() {
         const options = this.options || {};
         const vDom = hx`
-        <button type="${options.htmlType}" class="btn btn-${options.type} lego-btn lego-btn-${options.type}">
+        <button type="${options.htmlType}" class="btn btn-${options.type}">
             <span>${options.html || options.text}</span>
         </button>
         `;
@@ -32,4 +32,5 @@ class Button extends Lego.UI.Baseview {
         if(typeof this.options.onClick === 'function') this.options.onClick(event);
     }
 }
+Lego.components('button', Button);
 export default Button;

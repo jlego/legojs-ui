@@ -7,4 +7,5 @@ HBY.create(Viewport, {
     scrollbar: {},
     logoUrl: 'dist/img/logo.png',
 });
+
 HBY.startApp();

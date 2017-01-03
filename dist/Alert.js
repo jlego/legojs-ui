@@ -1,6 +1,6 @@
 /**
  * alert.js v0.1.2
- * (c) 2016 Ronghui Yu
+ * (c) 2017 Ronghui Yu
  * @license MIT
  */
 "use strict";
@@ -71,7 +71,7 @@ var Alert = function(_Lego$UI$Baseview) {
         _classCallCheck(this, Alert);
         var options = {
             events: {
-                "click .lego-alert-close-icon": "onClose"
+                "click .lego-alert-close-icon": "close"
             },
             type: "info",
             closable: false,
@@ -79,7 +79,7 @@ var Alert = function(_Lego$UI$Baseview) {
             message: "",
             description: "",
             onClose: function onClose() {},
-            showIcon: false,
+            showIcon: true,
             banner: false
         };
         Object.assign(options, opts);
@@ -107,12 +107,12 @@ var Alert = function(_Lego$UI$Baseview) {
                 iconName = "cross";
                 break;
             }
-            var vDom = hx(_templateObject, options.type, options.description ? "lego-alert-with-description" : "", options.showIcon ? "" : "lego-alert-no-icon", options.description ? "anticon-" + iconName + "-circle-o" : "anticon-" + iconName + "-circle", options.showIcon ? "" : "-no", options.showIcon ? "" : "none", options.message, options.description ? hx(_templateObject2, options.description) : "", options.closable ? hx(_templateObject3) : "");
+            var vDom = hx(_templateObject, options.type, options.description ? "lego-alert-with-description" : "", options.showIcon ? "" : "lego-alert-no-icon", options.description ? "anticon-" + iconName + "-circle-o" : "anticon-" + iconName + "-circle", options.showIcon ? "" : "-no", options.showIcon ? "" : "none", options.message, options.description ? hx(_templateObject2, typeof options.description == "string" ? options.description : "") : "", options.closable ? hx(_templateObject3) : "");
             return vDom;
         }
     }, {
-        key: "onClose",
-        value: function onClose(event) {
+        key: "close",
+        value: function close(event) {
             var _this2 = this;
             event.stopPropagation();
             this.$el.slideUp("normal", function() {
@@ -123,5 +123,7 @@ var Alert = function(_Lego$UI$Baseview) {
     } ]);
     return Alert;
 }(Lego.UI.Baseview);
+
+Lego.components("alert", Alert);
 
 module.exports = Alert;

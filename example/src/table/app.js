@@ -5,6 +5,7 @@ let viewObj;
 function index(){
     if(!viewObj){
         viewObj = HBY.create({
+            el: HBY.config.pageEl,
             view: IndexView,
             data: {
                 currentTab: 0
