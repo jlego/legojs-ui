@@ -92,16 +92,22 @@ var Dropdown = function(_Lego$UI$Baseview) {
         var that = _this;
         _this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
         if (!_this.options.disabled) {
+            if (options.eventName == "click") {
+                var _eventName = "click.dropdown_" + opts.vid;
+                $("body").off(_eventName).on(_eventName, function() {
+                    that.close();
+                });
+            }
             _this.options.trigger[options.eventName](function() {
+                event.stopPropagation();
                 var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
                 that.options.direction = directionResp._y || "bottom";
                 that.show();
-                that.options.trigger.mouseleave(function() {
-                    that.close();
-                });
-                that.$(".dropdown-menu").mouseleave(function() {
-                    that.close();
-                });
+                if (options.eventName == "hover") {
+                    that.options.trigger.mouseleave(function() {
+                        that.close();
+                    });
+                }
             });
         }
         return _this;

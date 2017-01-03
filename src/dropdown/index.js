@@ -21,16 +21,22 @@ class Dropdown extends Lego.UI.Baseview {
         const that = this;
         this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
         if(!this.options.disabled){
+            if(options.eventName == 'click'){
+                const _eventName = 'click.dropdown_' + opts.vid;
+                $('body').off(_eventName).on(_eventName, function(){
+                    that.close();
+                });
+            }
             this.options.trigger[options.eventName](function(){
+                event.stopPropagation();
                 const directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
                 that.options.direction = directionResp._y || 'bottom';
                 that.show();
-                that.options.trigger.mouseleave(function(){
-                    that.close();
-                });
-                that.$('.dropdown-menu').mouseleave(function(){
-                    that.close();
-                });
+                if(options.eventName == 'hover'){
+                    that.options.trigger.mouseleave(function(){
+                        that.close();
+                    });
+                }
             });
         }
     }

@@ -12,7 +12,7 @@ class Select extends Lego.UI.Baseview {
             },
             value: [],   //指定当前选中的条目object/Array
             multiple: false,  //支持多选
-            eventName: 'hover',
+            eventName: 'click',
             // showResultType: 'tag', //text, tag 多选时有效
             // allowClear: false,  //支持清除, 单选模式有效
             filterOption: true,  //是否根据输入项进行筛选。当其为一个函数时，会接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。
@@ -36,7 +36,7 @@ class Select extends Lego.UI.Baseview {
             components: [{
                 el: '#' + opts.vid + '-dropdown',
                 trigger: '#' + opts.vid + '-select',
-                eventName: opts.eventName || 'hover',
+                eventName: opts.eventName || 'click',
                 disabled: opts.disabled || false,
                 style: Object.assign({
                     width: opts.dropdownMatchSelectWidth === false ? 'auto' : '100%'
