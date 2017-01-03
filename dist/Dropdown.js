@@ -1,5 +1,5 @@
 /**
- * dropdown.js v0.1.3
+ * dropdown.js v0.1.6
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -92,13 +92,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
         var that = _this;
         _this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
         if (!_this.options.disabled) {
-            if (options.eventName == "click") {
-                var _eventName = "click.dropdown_" + opts.vid;
-                $("body").off(_eventName).on(_eventName, function() {
-                    that.close();
-                });
-            }
-            _this.options.trigger[options.eventName](function() {
+            var handler = function handler(event) {
                 event.stopPropagation();
                 var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
                 that.options.direction = directionResp._y || "bottom";
@@ -108,7 +102,16 @@ var Dropdown = function(_Lego$UI$Baseview) {
                         that.close();
                     });
                 }
-            });
+            };
+            if (options.eventName == "click") {
+                var _eventName = "click.dropdown_" + opts.vid;
+                $("body").off(_eventName).on(_eventName, function() {
+                    that.close();
+                });
+                _this.options.trigger.off(_eventName).on(_eventName, handler);
+            } else {
+                _this.options.trigger[options.eventName](handler);
+            }
         }
         return _this;
     }

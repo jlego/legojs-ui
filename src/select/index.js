@@ -8,7 +8,7 @@ class Select extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
-                'click .select-tag-close': 'clickItemClose'
+                // 'click .select-tag-close': 'clickItemClose'
             },
             value: [],   //指定当前选中的条目object/Array
             multiple: false,  //支持多选
@@ -71,6 +71,9 @@ class Select extends Lego.UI.Baseview {
             });
         }
         super(options);
+        const eventName = 'click.select_' + opts.vid,
+            callback = this.clickItemClose.bind(this);
+        this.$('.select-tags-div').off(eventName).on(eventName, '.select-tag-close', callback);
     }
     render() {
         const options = this.options || {};

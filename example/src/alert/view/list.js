@@ -1,4 +1,5 @@
-// import { Button, Modal } from 'lego-ui';
+// import Button from 'lego-ui/dist/Button';
+// import Modal from 'lego-ui/dist/Modal';
 import Button from '../../../../dist/Button';
 import Modal from '../../../../dist/Modal';
 

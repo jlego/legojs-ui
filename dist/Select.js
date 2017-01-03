@@ -1,5 +1,5 @@
 /**
- * select.js v0.1.3
+ * select.js v0.1.6
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -92,13 +92,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
         var that = _this;
         _this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
         if (!_this.options.disabled) {
-            if (options.eventName == "click") {
-                var _eventName = "click.dropdown_" + opts.vid;
-                $("body").off(_eventName).on(_eventName, function() {
-                    that.close();
-                });
-            }
-            _this.options.trigger[options.eventName](function() {
+            var handler = function handler(event) {
                 event.stopPropagation();
                 var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
                 that.options.direction = directionResp._y || "bottom";
@@ -108,7 +102,16 @@ var Dropdown = function(_Lego$UI$Baseview) {
                         that.close();
                     });
                 }
-            });
+            };
+            if (options.eventName == "click") {
+                var _eventName = "click.dropdown_" + opts.vid;
+                $("body").off(_eventName).on(_eventName, function() {
+                    that.close();
+                });
+                _this.options.trigger.off(_eventName).on(_eventName, handler);
+            } else {
+                _this.options.trigger[options.eventName](handler);
+            }
         }
         return _this;
     }
@@ -246,9 +249,7 @@ var Select = function(_Lego$UI$Baseview) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Select);
         var options = {
-            events: {
-                "click .select-tag-close": "clickItemClose"
-            },
+            events: {},
             value: [],
             multiple: false,
             eventName: "click",
@@ -311,7 +312,10 @@ var Select = function(_Lego$UI$Baseview) {
                 if (model) model.selected = true;
             });
         }
-        return _possibleConstructorReturn(this, (Select.__proto__ || Object.getPrototypeOf(Select)).call(this, options));
+        var _this = _possibleConstructorReturn(this, (Select.__proto__ || Object.getPrototypeOf(Select)).call(this, options));
+        var eventName = "click.select_" + opts.vid, callback = _this.clickItemClose.bind(_this);
+        _this.$(".select-tags-div").off(eventName).on(eventName, ".select-tag-close", callback);
+        return _this;
     }
     _createClass(Select, [ {
         key: "render",

@@ -21,13 +21,7 @@ class Dropdown extends Lego.UI.Baseview {
         const that = this;
         this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
         if(!this.options.disabled){
-            if(options.eventName == 'click'){
-                const _eventName = 'click.dropdown_' + opts.vid;
-                $('body').off(_eventName).on(_eventName, function(){
-                    that.close();
-                });
-            }
-            this.options.trigger[options.eventName](function(){
+            function handler(event){
                 event.stopPropagation();
                 const directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
                 that.options.direction = directionResp._y || 'bottom';
@@ -37,7 +31,16 @@ class Dropdown extends Lego.UI.Baseview {
                         that.close();
                     });
                 }
-            });
+            }
+            if(options.eventName == 'click'){
+                const _eventName = 'click.dropdown_' + opts.vid;
+                $('body').off(_eventName).on(_eventName, function(){
+                    that.close();
+                });
+                this.options.trigger.off(_eventName).on(_eventName, handler);
+            }else{
+                this.options.trigger[options.eventName](handler);
+            }
         }
     }
     render() {
