@@ -31,7 +31,7 @@ class Pagination extends Lego.UI.Baseview {
             let theData = options.pageSizeOptions.map(val => {
                 return {
                     key: val,
-                    title: val + ' / 页'
+                    value: val + ' / 页'
                 };
             });
             options.components = [{
@@ -42,7 +42,7 @@ class Pagination extends Lego.UI.Baseview {
                     const theView = Lego.getView(opts.el);
                     if(theView){
                         theView.options.current = 1;
-                        theView.options.pageSize = parseInt(result);
+                        theView.options.pageSize = parseInt(result.key);
                     }
                 }
             }];
@@ -89,8 +89,8 @@ class Pagination extends Lego.UI.Baseview {
             ${!options.simple && options.showSizeChanger ? hx`
             <li class="pageSize">
                 <span class="info" id="${options.vid}-select">
-                <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">${options.pageSize} / 页 </button>
-                <dropdown id="${options.vid}-dropdown"></dropdown>
+                    <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">${options.pageSize} / 页 </button>
+                    <dropdown id="${options.vid}-dropdown"></dropdown>
                 </span>
             </li>
             ` : ''}

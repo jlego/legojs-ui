@@ -30,7 +30,7 @@ var _templateObject3 = _taggedTemplateLiteral([ '\n            <li class="dropdo
 
 var _templateObject4 = _taggedTemplateLiteral([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5 = _taggedTemplateLiteral([ '\n        <ul class="dropdown-menu ', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject5 = _taggedTemplateLiteral([ '\n        <ul class="dropdown-menu clearfix ', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu clearfix ', '">\n            ', "\n        </ul>\n        " ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -164,7 +164,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
         value: function clickItem(event) {
             var target = $(event.currentTarget);
             var model = this.options.data.find(function(Item) {
-                return Item.key === target.attr("id");
+                return Item.key == target.attr("id");
             });
             if (model) {
                 this.options.onChange(model);

@@ -69,7 +69,7 @@ class Dropdown extends Lego.UI.Baseview {
             `;
         }
         const vDom = hx`
-        <ul class="dropdown-menu ${options.direction ? ('drop' + options.direction) : ''}">
+        <ul class="dropdown-menu clearfix ${options.direction ? ('drop' + options.direction) : ''}">
             ${options.data.map(item => {
                 return itemNav(item);
             })}
@@ -98,7 +98,7 @@ class Dropdown extends Lego.UI.Baseview {
     }
     clickItem(event){
         const target = $(event.currentTarget);
-        const model = this.options.data.find(Item => Item.key === target.attr('id'));
+        const model = this.options.data.find(Item => Item.key == target.attr('id'));
         if(model){
             this.options.onChange(model);
             this.options.activeKey = model.key;
