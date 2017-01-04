@@ -53,39 +53,40 @@ class Pagination extends Lego.UI.Baseview {
         this.jumped = false;
     }
     render() {
-        const options = this.options || {};
+        const options = this.options || {},
+            current = parseInt(options.current);
+        let pageRang = parseInt(options.pageRang);
         let totalCount = typeof options.total === 'function' ? options.total() : options.total;
         options.totalPages = Math.ceil(totalCount / options.pageSize);
-        options.pageRang = options.pageRang > options.totalPages ? options.totalPages : options.pageRang;
-        let baseTimes = options.pageRang ? Math.floor((options.current - 1) / options.pageRang) : 0,
-            startPage = baseTimes * options.pageRang + 1,
-            endPage = startPage + options.pageRang - 1,
-            showEllipsis = options.totalPages - options.current >= options.pageRang ? true : false,
+        pageRang = pageRang >= options.totalPages ? options.totalPages : pageRang;
+        let baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0,
+            startPage = baseTimes * pageRang + 1,
+            endPage = startPage + pageRang - 1,
+            showEllipsis = options.totalPages - current > pageRang ? true : false,
             pagesArr = [];
-        endPage = endPage <= 0 ? 1 : endPage;
-        endPage = endPage > options.totalPages ? options.totalPages : endPage;
+        endPage = endPage >= options.totalPages ? options.totalPages : endPage;
         for(let i = startPage; i <= endPage; i++) {
             pagesArr.push(i);
         }
         const vDom = hx`
         <ul class="pagination ${options.simple ? 'pagination-simple' : ''} ${options.size == 'small' ? 'mini' : ''}">
-            <li class="prev ${ options.current <= 1 ? 'disabled' : ''}">
+            <li class="prev ${ current <= 1 ? 'disabled' : ''}">
                 <a href="javascript:void(0)" title="上一页"><i class="icon iconfont icon-arrow-left"></i></a>
             </li>
             ${options.simple ? hx`
-            <div title="${options.current}/${options.endPage}" class="lego-pagination-simple-pager">
-                <input type="text" value="${options.current}"><span class="lego-pagination-slash">／</span>
+            <div title="${current}/${options.endPage}" class="lego-pagination-simple-pager">
+                <input type="text" value="${current}"><span class="lego-pagination-slash">／</span>
             </div>
             ` : ''}
             ${!options.simple ? pagesArr.map(x => hx`
-            <li title="${x}" class="page page-item ${ x == options.current ? 'active' : ''}"><a href="javascript:void(0)">${x}</a></li>
+            <li title="${x}" class="page page-item ${ x == current ? 'active' : ''}"><a href="javascript:void(0)">${x}</a></li>
             `) : ''}
             ${showEllipsis ? hx`
             <li title="下 ${options.pageSize} 页" class="page morepage"><a href="javascript:void(0)"><i class="icon iconfont icon-more-1"></a></i></li>
             ` : ''}
             ${!options.simple && showEllipsis ? hx`<li title="${options.totalPages}" class="page page-item"><a href="javascript:void(0)">${options.totalPages}</a></li>` : ''}
             ${!options.simple ? hx`
-            <li class="next ${ options.current >= options.totalPages ? 'disabled' : ''}">
+            <li class="next ${ current >= options.totalPages ? 'disabled' : ''}">
                 <a href="javascript:void(0)" title="下一页"><i class="icon iconfont icon-arrow-right"></i></a>
             </li>
             ` : ''}
@@ -100,7 +101,7 @@ class Pagination extends Lego.UI.Baseview {
             ${!options.simple && options.showQuickJumper ? hx`
             <li><span class="info">
                     跳转至
-                    <input type="text" class="form-control pageJump" value="${this.jumped ? options.current : '1'}">
+                    <input type="text" class="form-control pageJump" value="${this.jumped ? current : '1'}">
                 </span>
                 ${options.isShowTotal ? hx`
                 <span class="info">

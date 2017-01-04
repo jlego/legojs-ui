@@ -310,19 +310,19 @@ var Pagination = function(_Lego$UI$Baseview) {
     _createClass(Pagination, [ {
         key: "render",
         value: function render() {
-            var options = this.options || {};
+            var options = this.options || {}, current = parseInt(options.current);
+            var pageRang = parseInt(options.pageRang);
             var totalCount = typeof options.total === "function" ? options.total() : options.total;
             options.totalPages = Math.ceil(totalCount / options.pageSize);
-            options.pageRang = options.pageRang > options.totalPages ? options.totalPages : options.pageRang;
-            var baseTimes = options.pageRang ? Math.floor((options.current - 1) / options.pageRang) : 0, startPage = baseTimes * options.pageRang + 1, endPage = startPage + options.pageRang - 1, showEllipsis = options.totalPages - options.current >= options.pageRang ? true : false, pagesArr = [];
-            endPage = endPage <= 0 ? 1 : endPage;
-            endPage = endPage > options.totalPages ? options.totalPages : endPage;
+            pageRang = pageRang >= options.totalPages ? options.totalPages : pageRang;
+            var baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0, startPage = baseTimes * pageRang + 1, endPage = startPage + pageRang - 1, showEllipsis = options.totalPages - current > pageRang ? true : false, pagesArr = [];
+            endPage = endPage >= options.totalPages ? options.totalPages : endPage;
             for (var i = startPage; i <= endPage; i++) {
                 pagesArr.push(i);
             }
-            var vDom = hx(_templateObject, options.simple ? "pagination-simple" : "", options.size == "small" ? "mini" : "", options.current <= 1 ? "disabled" : "", options.simple ? hx(_templateObject2, options.current, options.endPage, options.current) : "", !options.simple ? pagesArr.map(function(x) {
-                return hx(_templateObject3, x, x == options.current ? "active" : "", x);
-            }) : "", showEllipsis ? hx(_templateObject4, options.pageSize) : "", !options.simple && showEllipsis ? hx(_templateObject5, options.totalPages, options.totalPages) : "", !options.simple ? hx(_templateObject6, options.current >= options.totalPages ? "disabled" : "") : "", !options.simple && options.showSizeChanger ? hx(_templateObject7, options.vid, options.pageSize, options.vid) : "", !options.simple && options.showQuickJumper ? hx(_templateObject8, this.jumped ? options.current : "1", options.isShowTotal ? hx(_templateObject9, typeof options.showTotal === "function" ? options.showTotal(totalCount) : "总数 " + totalCount) : "") : "");
+            var vDom = hx(_templateObject, options.simple ? "pagination-simple" : "", options.size == "small" ? "mini" : "", current <= 1 ? "disabled" : "", options.simple ? hx(_templateObject2, current, options.endPage, current) : "", !options.simple ? pagesArr.map(function(x) {
+                return hx(_templateObject3, x, x == current ? "active" : "", x);
+            }) : "", showEllipsis ? hx(_templateObject4, options.pageSize) : "", !options.simple && showEllipsis ? hx(_templateObject5, options.totalPages, options.totalPages) : "", !options.simple ? hx(_templateObject6, current >= options.totalPages ? "disabled" : "") : "", !options.simple && options.showSizeChanger ? hx(_templateObject7, options.vid, options.pageSize, options.vid) : "", !options.simple && options.showQuickJumper ? hx(_templateObject8, this.jumped ? current : "1", options.isShowTotal ? hx(_templateObject9, typeof options.showTotal === "function" ? options.showTotal(totalCount) : "总数 " + totalCount) : "") : "");
             this.jumped = false;
             return vDom;
         }
