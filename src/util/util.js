@@ -28,4 +28,7 @@ const Util = {
         });
     }
 };
+window.val = function(value){
+    return value ? value : '';
+};
 export default Util;

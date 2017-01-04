@@ -117,6 +117,10 @@ var Util = {
     }
 };
 
+window.val = function(value) {
+    return value ? value : "";
+};
+
 window.Ps = perfectScrollbar;
 
 Lego.components({

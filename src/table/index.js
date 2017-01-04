@@ -110,7 +110,7 @@ class Table extends Lego.UI.Baseview {
                         ${this._renderFooter()}
                     </table>
                 </div>
-                ${options.pagination ? hx`
+                ${options.pagination && options.data ? hx`
                     <div class="lego-table-footer">
                     <pagination id="${options.vid}-paginationId"></pagination>
                     </div>
@@ -182,6 +182,7 @@ class Table extends Lego.UI.Baseview {
     // 渲染表主体
     _renderBodyer(){
         const options = this.options;
+        if(!options.data) return;
         const vDom = hx`
         <tbody class="lego-table-tbody">
             ${options.data.map((row, i) => {

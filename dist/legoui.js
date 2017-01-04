@@ -117,6 +117,10 @@ var Util = {
     }
 };
 
+window.val = function(value) {
+    return value ? value : "";
+};
+
 window.Ps = perfectScrollbar;
 
 Lego.components({
@@ -864,7 +868,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             onChange: function onChange() {},
             showSizeChanger: false,
             pageSizeOptions: [ 10, 20, 30, 40, 50 ],
-            onShowSizeChange: function onShowSizeChange() {},
+            onPageSizeChange: function onPageSizeChange() {},
             showQuickJumper: false,
             size: "",
             simple: null,
@@ -884,9 +888,11 @@ var Pagination = function(_Lego$UI$Baseview) {
                 data: theData,
                 onChange: function onChange(result) {
                     var theView = Lego.getView(opts.el);
+                    var num = parseInt(result.key);
                     if (theView) {
                         theView.options.current = 1;
-                        theView.options.pageSize = parseInt(result.key);
+                        theView.options.pageSize = num;
+                        theView.options.onPageSizeChange(num);
                     }
                 }
             } ];
@@ -899,7 +905,8 @@ var Pagination = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            options.totalPages = Math.ceil(options.total / options.pageSize);
+            var totalCount = typeof options.total === "function" ? options.total() : options.total;
+            options.totalPages = Math.ceil(totalCount / options.pageSize);
             options.pageRang = options.pageRang > options.totalPages ? options.totalPages : options.pageRang;
             var baseTimes = options.pageRang ? Math.floor((options.current - 1) / options.pageRang) : 0, startPage = baseTimes * options.pageRang + 1, endPage = startPage + options.pageRang - 1, showEllipsis = options.totalPages - options.current >= options.pageRang ? true : false, pagesArr = [];
             endPage = endPage <= 0 ? 1 : endPage;
@@ -909,7 +916,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             }
             var vDom = hx(_templateObject$6, options.simple ? "pagination-simple" : "", options.size == "small" ? "mini" : "", options.current <= 1 ? "disabled" : "", options.simple ? hx(_templateObject2$3, options.current, options.endPage, options.current) : "", !options.simple ? pagesArr.map(function(x) {
                 return hx(_templateObject3$2, x, x == options.current ? "active" : "", x);
-            }) : "", showEllipsis ? hx(_templateObject4$1, options.pageSize) : "", !options.simple && showEllipsis ? hx(_templateObject5$1, options.totalPages, options.totalPages) : "", !options.simple ? hx(_templateObject6$1, options.current >= options.totalPages ? "disabled" : "") : "", !options.simple && options.showSizeChanger ? hx(_templateObject7$1, options.vid, options.pageSize, options.vid) : "", !options.simple && options.showQuickJumper ? hx(_templateObject8$1, this.jumped ? options.current : "1", options.isShowTotal ? hx(_templateObject9$1, typeof options.showTotal === "function" ? options.showTotal(options.total) : "总数 " + options.total) : "") : "");
+            }) : "", showEllipsis ? hx(_templateObject4$1, options.pageSize) : "", !options.simple && showEllipsis ? hx(_templateObject5$1, options.totalPages, options.totalPages) : "", !options.simple ? hx(_templateObject6$1, options.current >= options.totalPages ? "disabled" : "") : "", !options.simple && options.showSizeChanger ? hx(_templateObject7$1, options.vid, options.pageSize, options.vid) : "", !options.simple && options.showQuickJumper ? hx(_templateObject8$1, this.jumped ? options.current : "1", options.isShowTotal ? hx(_templateObject9$1, typeof options.showTotal === "function" ? options.showTotal(totalCount) : "总数 " + totalCount) : "") : "");
             this.jumped = false;
             return vDom;
         }
@@ -1152,7 +1159,7 @@ var Table = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options;
-            var vDom = hx(_templateObject$5, options.size, options.bordered ? "lego-table-bordered" : "", options.showHeader ? "lego-table-fixed-header" : "", options.title ? hx(_templateObject2$2, options.title()) : "", options.showHeader ? hx(_templateObject3$1, this._renderColgroup(), this._renderHeader(), options.colSetting ? hx(_templateObject4) : "") : "", options.showHeader ? "scrollbar" : "", options.className, this._renderColgroup(), !options.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), options.pagination ? hx(_templateObject5, options.vid) : "");
+            var vDom = hx(_templateObject$5, options.size, options.bordered ? "lego-table-bordered" : "", options.showHeader ? "lego-table-fixed-header" : "", options.title ? hx(_templateObject2$2, options.title()) : "", options.showHeader ? hx(_templateObject3$1, this._renderColgroup(), this._renderHeader(), options.colSetting ? hx(_templateObject4) : "") : "", options.showHeader ? "scrollbar" : "", options.className, this._renderColgroup(), !options.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), options.pagination && options.data ? hx(_templateObject5, options.vid) : "");
             return vDom;
         }
     }, {
@@ -1200,6 +1207,7 @@ var Table = function(_Lego$UI$Baseview) {
         value: function _renderBodyer() {
             var _this4 = this;
             var options = this.options;
+            if (!options.data) return;
             var vDom = hx(_templateObject17, options.data.map(function(row, i) {
                 row.key = row.id || _this4._getRowKey("row_");
                 return hx(_templateObject18, options.rowClassName, row.key, options.rowSelection ? _this4._renderSelection(row, "td") : "", options.columns.map(function(col) {

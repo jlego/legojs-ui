@@ -19,7 +19,7 @@ class Pagination extends Lego.UI.Baseview {
             onChange(){},    //页码改变的回调，参数是改变后的页码
             showSizeChanger: false,    //是否可以改变 pageSize
             pageSizeOptions: [10, 20, 30, 40, 50],   //指定每页可以显示多少条
-            onShowSizeChange(){},    //pageSize 变化的回调
+            onPageSizeChange(){},    //pageSize 变化的回调
             showQuickJumper: false,    //是否可以快速跳转至某页
             size: '',    //当为「small」时，是小尺寸分页
             simple: null,    //当添加该属性时，显示为简单分页
@@ -40,9 +40,11 @@ class Pagination extends Lego.UI.Baseview {
                 data: theData,
                 onChange(result){
                     const theView = Lego.getView(opts.el);
+                    const num = parseInt(result.key);
                     if(theView){
                         theView.options.current = 1;
-                        theView.options.pageSize = parseInt(result.key);
+                        theView.options.pageSize = num;
+                        theView.options.onPageSizeChange(num);
                     }
                 }
             }];
@@ -52,7 +54,8 @@ class Pagination extends Lego.UI.Baseview {
     }
     render() {
         const options = this.options || {};
-        options.totalPages = Math.ceil(options.total / options.pageSize);
+        let totalCount = typeof options.total === 'function' ? options.total() : options.total;
+        options.totalPages = Math.ceil(totalCount / options.pageSize);
         options.pageRang = options.pageRang > options.totalPages ? options.totalPages : options.pageRang;
         let baseTimes = options.pageRang ? Math.floor((options.current - 1) / options.pageRang) : 0,
             startPage = baseTimes * options.pageRang + 1,
@@ -101,7 +104,7 @@ class Pagination extends Lego.UI.Baseview {
                 </span>
                 ${options.isShowTotal ? hx`
                 <span class="info">
-                ${typeof options.showTotal === 'function' ? options.showTotal(options.total) : ('总数 ' + options.total)}
+                ${typeof options.showTotal === 'function' ? options.showTotal(totalCount) : ('总数 ' + totalCount)}
                 </span>
                 ` : ''}
             </li>

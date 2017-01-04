@@ -64,7 +64,7 @@
   "dependencies": {
     "eonasdan-bootstrap-datetimepicker": "^4.17.43",
     "highlight.js": "^9.9.0",
-    "lego-core": "^0.5.3",
+    "lego-core": "^0.6.0",
     "lodash": "^4.17.3",
     "showdown": "^1.5.4",
     "toastr": "^2.1.2"
