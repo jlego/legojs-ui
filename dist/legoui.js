@@ -1242,7 +1242,7 @@ var Table = function(_Lego$UI$Baseview) {
         value: function clickSorter(event) {
             event.stopPropagation();
             var target = $(event.currentTarget), key = target.closest("th").attr("id"), col = this.options.columns.find(function(val) {
-                return val.key === key;
+                return val.key == key;
             });
             if (col) {
                 col.sortOrder = col.sortOrder || "";
@@ -1269,10 +1269,10 @@ var Table = function(_Lego$UI$Baseview) {
             event.stopPropagation();
             var target = $(event.currentTarget), rowKey = target.parent().attr("id"), colKey = this.$("thead").find("th").eq(event.currentTarget.cellIndex).attr("id");
             var row = this.options.data.find(function(val) {
-                return val.key === rowKey;
+                return val.key == rowKey;
             });
             var col = this.options.columns.find(function(val) {
-                return val.key === colKey;
+                return val.key == colKey;
             });
             if (row && col) {
                 if (this.options.onRowClick) {
@@ -1307,7 +1307,7 @@ var Table = function(_Lego$UI$Baseview) {
             var target = $(event.currentTarget), trEl = target.closest("tr"), id = trEl.attr("id"), that = this;
             if (this.options.rowSelection) {
                 var row = this.options.data.find(function(value, index, arr) {
-                    return value.key === id;
+                    return value.key == id;
                 });
                 if (row) row.selected = !row.selected;
                 var hasSelectedArr = this.options.data.filter(function(value) {

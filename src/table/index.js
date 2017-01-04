@@ -228,7 +228,7 @@ class Table extends Lego.UI.Baseview {
         event.stopPropagation();
         const target = $(event.currentTarget),
             key = target.closest('th').attr('id'),
-            col = this.options.columns.find((val) => val.key === key);
+            col = this.options.columns.find((val) => val.key == key);
         if(col){
             col.sortOrder = col.sortOrder || '';
             switch(col.sortOrder){
@@ -251,8 +251,8 @@ class Table extends Lego.UI.Baseview {
         const target = $(event.currentTarget),
             rowKey = target.parent().attr('id'),
             colKey = this.$('thead').find('th').eq(event.currentTarget.cellIndex).attr('id');
-        const row = this.options.data.find(val => val.key === rowKey);
-        const col = this.options.columns.find(val => val.key === colKey);
+        const row = this.options.data.find(val => val.key == rowKey);
+        const col = this.options.columns.find(val => val.key == colKey);
         if(row && col){
             if(this.options.onRowClick){
                 if(typeof col.onRowClick === 'function') col.onRowClick(row);
@@ -284,7 +284,7 @@ class Table extends Lego.UI.Baseview {
             that = this;
         if (this.options.rowSelection) {
             const row = this.options.data.find(function(value, index, arr) {
-                    return value.key === id;
+                    return value.key == id;
                 });
             if(row) row.selected = !row.selected;
             const hasSelectedArr = this.options.data.filter((value) => {
