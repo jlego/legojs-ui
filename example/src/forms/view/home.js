@@ -1,7 +1,6 @@
 import Search from '../../../../dist/Search';
 import Select from '../../../../dist/Select';
 import Datepicker from '../../../../dist/Datepicker';
-import Test from '../../../../dist/Test';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -119,11 +118,6 @@ class HomeView extends Lego.UI.Baseview {
                 onChange(result) {
                     console.warn('点击了时间选项框6', result);
                 }
-            }, {
-                el: '#test9',
-                onChange(result) {
-                    console.warn('点击了时间选项框9', result);
-                }
             }]
         };
         Object.assign(options, opts);
@@ -166,7 +160,6 @@ class HomeView extends Lego.UI.Baseview {
           </div>
           <div class="row" style="margin-bottom: 20px;">
             <div class="col-sm-6">
-              <test id="test9"></test>
             </div>
             <div class="col-sm-6">
             </div>

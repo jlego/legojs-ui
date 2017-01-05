@@ -35,7 +35,7 @@ class Search extends Lego.UI.Baseview {
     }
     render() {
         const options = this.options || {};
-        const vDom = hx `
+        const vDom = hx`
         <div class="input-group search">
         ${options.hasSelect ? hx`
           <div class="input-group-btn dropdown" id="${options.vid}-select">

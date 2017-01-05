@@ -22,7 +22,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '<div id="#date_', '"></div>' ], [ '<div id="#date_', '"></div>' ]);
+var _templateObject = _taggedTemplateLiteral([ "<div>大工土大木</div>" ], [ "<div>大工土大木</div>" ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -60,8 +60,8 @@ function _inherits(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Test = function(_Lego$View) {
-    _inherits(Test, _Lego$View);
+var Test = function(_Lego$UI$Baseview) {
+    _inherits(Test, _Lego$UI$Baseview);
     function Test() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Test);
@@ -72,15 +72,12 @@ var Test = function(_Lego$View) {
     _createClass(Test, [ {
         key: "render",
         value: function render() {
-            var options = this.options || {};
-            console.warn("yyyyyyyyyyyyyy", options.vid);
-            var vDom = "";
-            vDom = hx(_templateObject, options.vid);
-            return vDom;
+            console.warn("yyyyyyyyyyyyyy", this.options.vid);
+            return hx(_templateObject);
         }
     } ]);
     return Test;
-}(Lego.View);
+}(Lego.UI.Baseview);
 
 Lego.components("test", Test);
 

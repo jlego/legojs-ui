@@ -28,11 +28,11 @@ module.exports = {
             }
         }, {
             test: /\.scss$/,
-            loader: "style!css!sass"
+            loader: "style!css!sass",
             // loader: ExtractTextPlugin.extract('style', 'css!sass')
         }, {
             test: /\.css$/,
-            loader: "style!css"
+            loader: "style!css",
             // loader: ExtractTextPlugin.extract('style', "css")
         }, {
             test: /\.(png|jpe?g)$/,
@@ -46,9 +46,18 @@ module.exports = {
         }]
     },
     resolve: {
-        extensions: ["", ".js"]
+        extensions: ["", ".js"],
+        // alias: {
+        //     'jquery': path.join(__dirname, 'node_modules/jquery/src/jquery'),
+        //     // 'datetimepicker': 'eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js'
+        // }
     },
     plugins: [
+        // new webpack.ProvidePlugin({
+        //     $: 'jquery',
+        //     jQuery: 'jquery',
+        //     'windows.jQuery': 'jquery'
+        // }),
         new webpack.optimize.UglifyJsPlugin({
             mangle: {
                 except: ['$', 'jQuery']
@@ -64,4 +73,3 @@ module.exports = {
         // }),
     ]
 };
-
