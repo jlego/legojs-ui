@@ -5,7 +5,7 @@
 // import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
 // $.fn.datetimepicker = datetimepicker;
 
-class Datepicker extends Lego.View {
+class Test extends Lego.View {
     constructor(opts = {}) {
         const options = {
             // type: 'date', //date, time, range
@@ -84,7 +84,7 @@ class Datepicker extends Lego.View {
     // }
     render() {
         const options = this.options || {};
-        console.warn('vvvvvvvvvvvv', options.vid);
+        console.warn('yyyyyyyyyyyyyy', options.vid);
         // debugger;
         let vDom = '';
         // if (options.type == 'range' && !options.startInputEl && !options.endInputEl) {
@@ -117,5 +117,5 @@ class Datepicker extends Lego.View {
         return vDom;
     }
 }
-Lego.components('datepicker', Datepicker);
-export default Datepicker;
+Lego.components('test', Test);
+export default Test;

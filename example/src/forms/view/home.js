@@ -1,5 +1,7 @@
 import Search from '../../../../dist/Search';
 import Select from '../../../../dist/Select';
+import Datepicker from '../../../../dist/Datepicker';
+import Test from '../../../../dist/Test';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -103,26 +105,25 @@ class HomeView extends Lego.UI.Baseview {
                     value: '选项三'
                 }]
             }, {
-                el: '#select7',
-                placeholder: '请选择',
-                multiple: true,
-                showResultType: 'text',
+                el: '#datepicker7',
+                type: 'date',
+                name: 'datepicker1',
                 onChange(result) {
-                    console.warn('点击了选项框5', result);
-                },
-                data: [{
-                    key: '0',
-                    value: '不限'
-                }, {
-                    key: 'so1',
-                    value: '选项一'
-                }, {
-                    key: 'so2',
-                    value: '选项二选项二选项二fffdf'
-                }, {
-                    key: 'so3',
-                    value: '选项三'
-                }]
+                    console.warn('点击了时间选项框5', result);
+                }
+            }, {
+                el: '#datepicker8',
+                type: 'range',
+                startName: 'datepicker2',
+                endName: 'datepicker3',
+                onChange(result) {
+                    console.warn('点击了时间选项框6', result);
+                }
+            }, {
+                el: '#test9',
+                onChange(result) {
+                    console.warn('点击了时间选项框9', result);
+                }
             }]
         };
         Object.assign(options, opts);
@@ -157,7 +158,15 @@ class HomeView extends Lego.UI.Baseview {
           </div>
           <div class="row" style="margin-bottom: 20px;">
             <div class="col-sm-6">
-              <select id="select7"></select>
+              <datepicker id="datepicker7"></datepicker>
+            </div>
+            <div class="col-sm-6">
+              <datepicker id="datepicker8"></datepicker>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 20px;">
+            <div class="col-sm-6">
+              <test id="test9"></test>
             </div>
             <div class="col-sm-6">
             </div>

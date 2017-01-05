@@ -2686,6 +2686,164 @@ var Select = function(_Lego$UI$Baseview) {
 
 Lego.components("select", Select);
 
+var _createClass$15 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+var _templateObject$13 = _taggedTemplateLiteral$13([ '<div id="#date_', '"></div>' ], [ '<div id="#date_', '"></div>' ]);
+
+function _taggedTemplateLiteral$13(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+}
+
+function _classCallCheck$15(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$14(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$14(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var Datepicker = function(_Lego$View) {
+    _inherits$14(Datepicker, _Lego$View);
+    function Datepicker() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$15(this, Datepicker);
+        var options = {};
+        Object.assign(options, opts);
+        return _possibleConstructorReturn$14(this, (Datepicker.__proto__ || Object.getPrototypeOf(Datepicker)).call(this, options));
+    }
+    _createClass$15(Datepicker, [ {
+        key: "render",
+        value: function render() {
+            var options = this.options || {};
+            console.warn("vvvvvvvvvvvv", options.vid);
+            var vDom = "";
+            vDom = hx(_templateObject$13, options.vid);
+            return vDom;
+        }
+    } ]);
+    return Datepicker;
+}(Lego.View);
+
+Lego.components("datepicker", Datepicker);
+
+var _createClass$16 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+var _templateObject$14 = _taggedTemplateLiteral$14([ '<div id="#date_', '"></div>' ], [ '<div id="#date_', '"></div>' ]);
+
+function _taggedTemplateLiteral$14(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+}
+
+function _classCallCheck$16(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$15(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$15(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var Test = function(_Lego$View) {
+    _inherits$15(Test, _Lego$View);
+    function Test() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$16(this, Test);
+        var options = {};
+        Object.assign(options, opts);
+        return _possibleConstructorReturn$15(this, (Test.__proto__ || Object.getPrototypeOf(Test)).call(this, options));
+    }
+    _createClass$16(Test, [ {
+        key: "render",
+        value: function render() {
+            var options = this.options || {};
+            console.warn("yyyyyyyyyyyyyy", options.vid);
+            var vDom = "";
+            vDom = hx(_templateObject$14, options.vid);
+            return vDom;
+        }
+    } ]);
+    return Test;
+}(Lego.View);
+
+Lego.components("test", Test);
+
 exports.Viewport = Viewport;
 
 exports.Alert = Alert;
@@ -2709,5 +2867,9 @@ exports.Tabs = Tabs;
 exports.Search = Search;
 
 exports.Select = Select;
+
+exports.Datepicker = Datepicker;
+
+exports.Test = Test;
 
 exports.Baseview = Baseview;

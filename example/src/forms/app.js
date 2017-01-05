@@ -1,11 +1,11 @@
 import IndexView from './view/index';
 import homeView from './view/home';
 
-class navsRouter {
+class Router {
     constructor() {
         return {
             '/forms': [this.index, this.tabs],
-            '/forms/:tabs': [this.index, this.tabs]
+            // '/forms/:tabs': [this.index, this.tabs]
         };
     }
     index(){
@@ -21,4 +21,4 @@ class navsRouter {
         HBY.create(appArray[tabs], { el: '#pageContent' });
     }
 }
-HBY.router(new navsRouter());
+HBY.router(new Router());

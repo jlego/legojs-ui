@@ -31,6 +31,9 @@
     border: 1px solid #ddd;
 }
 .search.input-group .search-input:active, .input-group .search-input:focus, .input-group .search-input:hover{
-    border: 1px solid #ddd;
     border-right: none;
+}
+.input-group.search .search-input:focus,
+.input-group.search .search-input:focus ~ .input-group-btn .btn{
+    border-color: #66afe9 !important;
 }

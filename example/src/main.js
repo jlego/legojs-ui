@@ -20,7 +20,7 @@ window.$ = window.jQuery = jQuery;
 // 设置全局参数
 Lego.init({
     alias: 'HBY', //框架实例别名
-    version: _.now(), //版本号
+    version: '2016' || _.now(), //版本号
     $: jQuery,
     pageEl: '#page-container', //页面渲染容器
     defaultApp: 'home', //默认应用

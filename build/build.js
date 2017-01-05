@@ -49,7 +49,9 @@ build([{
 {alias: 'navs'},
 {alias: 'tabs'},
 {alias: 'search'},
-{alias: 'select'}
+{alias: 'select'},
+{alias: 'datepicker'},
+{alias: 'test'}
 ].map(genConfig));
 
 function ucfirst(str) {

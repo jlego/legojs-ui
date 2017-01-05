@@ -13,3 +13,5 @@ export Navs from "./navs/index";
 export Tabs from "./tabs/index";
 export Search from "./search/index";
 export Select from "./select/index";
+export Datepicker from "./datepicker/index";
+export Test from "./test/index";

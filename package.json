@@ -66,6 +66,7 @@
     "highlight.js": "^9.9.0",
     "lego-core": "^0.6.0",
     "lodash": "^4.17.3",
+    "moment": "^2.17.1",
     "showdown": "^1.5.4",
     "toastr": "^2.1.2"
   },

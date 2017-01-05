@@ -13,7 +13,7 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, 'dist'), //打包输出的路径
-        publicPath: "./", //发布地址。
+        publicPath: "./dist/", //发布地址。
         filename: '[name].js', //打包多个
         // chunkFilename: "[name].js"
     },
@@ -28,11 +28,12 @@ module.exports = {
             }
         }, {
             test: /\.scss$/,
-            loader: ExtractTextPlugin.extract('style', 'css!sass')
+            loader: "style!css!sass"
+            // loader: ExtractTextPlugin.extract('style', 'css!sass')
         }, {
             test: /\.css$/,
-            // loader: "style!css"
-            loader: ExtractTextPlugin.extract('style', "css")
+            loader: "style!css"
+            // loader: ExtractTextPlugin.extract('style', "css")
         }, {
             test: /\.(png|jpe?g)$/,
             loader: 'url?prefix=img&limit=10240&name=img/[name].[hash].[ext]'
@@ -58,9 +59,9 @@ module.exports = {
                 comments: false
             },
         }),
-        new ExtractTextPlugin("[name].css", {
-            allChunks: true
-        }),
+        // new ExtractTextPlugin("[name].css", {
+        //     allChunks: true
+        // }),
     ]
 };
 
