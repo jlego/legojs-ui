@@ -65,13 +65,13 @@ class Menu extends Lego.UI.Baseview {
                         </a>
                     </li>
                     <li data-permis='{"module":"Channel", "operate":"Query", "hide":1}' id="nav_channel">
-                        <a href="#channel/">
+                        <a href="javascript:Lego.startApp('tips');">
                             <div class="item-content">
                                 <div class="item-media">
                                     <i class="icon iconfont icon-clues"></i>
                                 </div>
                                 <div class="item-inner">
-                                    <span class="title"> 渠道管理 </span>
+                                    <span class="title"> 提示框 </span>
                                 </div>
                             </div>
                         </a>

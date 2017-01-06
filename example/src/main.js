@@ -21,7 +21,6 @@ window.$ = window.jQuery = jQuery;
 Lego.init({
     alias: 'HBY', //框架实例别名
     version: '2016' || _.now(), //版本号
-    $: jQuery,
     pageEl: '#page-container', //页面渲染容器
     defaultApp: 'home', //默认应用
     rootUri: '/example/dist/', //根目录

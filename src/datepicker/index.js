@@ -1,9 +1,8 @@
 import './asset/index.scss';
 import 'moment';
 import 'moment/locale/zh-cn';
-import datetimepicker from 'eonasdan-bootstrap-datetimepicker';
-import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
-$.fn.datetimepicker = datetimepicker;
+import 'bootstrap-datetimepicker-cjs';
+import 'bootstrap-datetimepicker-cjs/css/bootstrap-datetimepicker.css';
 
 class Datepicker extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -33,12 +32,14 @@ class Datepicker extends Lego.UI.Baseview {
     }
     initDatepicker() {
         const options = this.options;
-        Object.assign(options.setting, {format: options.format, inline: options.inline, vid: options.vid});
+        Object.assign(options.setting, {format: options.format, inline: options.inline});
         const that = this,
-            theEl = options.inline ? ('#date_' + options.vid) : '.input-group input';
+            theEl = options.inline ? options.el : '.input-group input';
         if (options.type !== 'range') {
-            this.$(theEl).datetimepicker(options.setting);
-            this.$(theEl).on('dp.change', function(e) {
+            let $theEl = this.$(theEl);
+            if(options.inline) $theEl = this.$el;
+            $theEl.datetimepicker(options.setting);
+            $theEl.on('dp.change', function(e) {
                 if (typeof options.onChange == 'function') options.onChange($(this).val());
             });
         } else {
@@ -105,7 +106,7 @@ class Datepicker extends Lego.UI.Baseview {
             </div>
             `;
         }
-        if(options.inline) vDom = hx`<div id="#date_${options.vid}"></div>`;
+        if(options.inline) vDom = hx`<div></div>`;
         return vDom;
     }
 }

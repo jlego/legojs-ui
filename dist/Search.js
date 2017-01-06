@@ -1,5 +1,5 @@
 /**
- * search.js v0.1.6
+ * search.js v0.2.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -246,7 +246,8 @@ var Search = function(_Lego$UI$Baseview) {
         _classCallCheck(this, Search);
         var options = {
             events: {
-                "click .search-button": "clickSearch"
+                "click .search-button": "clickSearch",
+                "keydown .search-input": "_enterSearch"
             },
             placeholder: "输入关键字搜索",
             activeKey: "",
@@ -275,6 +276,13 @@ var Search = function(_Lego$UI$Baseview) {
             var options = this.options || {};
             var vDom = hx(_templateObject, options.hasSelect ? hx(_templateObject2, options.vid, options.activeValue || "请选择", options.vid) : "", options.placeholder);
             return vDom;
+        }
+    }, {
+        key: "_enterSearch",
+        value: function _enterSearch(event) {
+            if (event.keyCode == 13) {
+                this.clickSearch(event);
+            }
         }
     }, {
         key: "clickSearch",

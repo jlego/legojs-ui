@@ -10,7 +10,8 @@ class Search extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
-                'click .search-button': 'clickSearch'
+                'click .search-button': 'clickSearch',
+                'keydown .search-input': '_enterSearch'
             },
             placeholder: '输入关键字搜索',
             activeKey: '',  //选中的key
@@ -55,9 +56,14 @@ class Search extends Lego.UI.Baseview {
         `;
         return vDom;
     }
+    _enterSearch(event) {
+        if (event.keyCode == 13) {
+            this.clickSearch(event);
+        }
+    }
     clickSearch(event) {
         event.stopPropagation();
-        const keyword = this.$('.search-input').val(); 
+        const keyword = this.$('.search-input').val();
         if (typeof this.options.onClick === 'function') this.options.onClick({
             key: this.options.activeKey,
             value: this.options.activeValue,

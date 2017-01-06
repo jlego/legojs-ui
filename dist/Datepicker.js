@@ -1,21 +1,17 @@
 /**
- * datepicker.js v0.1.6
+ * datepicker.js v0.2.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
 "use strict";
 
-function _interopDefault(ex) {
-    return ex && typeof ex === "object" && "default" in ex ? ex["default"] : ex;
-}
-
 var moment = require("moment");
 
 var moment_locale_zhCn = require("moment/locale/zh-cn");
 
-var datetimepicker = _interopDefault(require("eonasdan-bootstrap-datetimepicker"));
+var bootstrapDatetimepickerCjs = require("bootstrap-datetimepicker-cjs");
 
-var eonasdanBootstrapDatetimepicker_build_css_bootstrapDatetimepicker_css = require("eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css");
+var bootstrapDatetimepickerCjs_css_bootstrapDatetimepicker_css = require("bootstrap-datetimepicker-cjs/css/bootstrap-datetimepicker.css");
 
 var _extends = Object.assign || function(target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -50,7 +46,7 @@ var _templateObject = _taggedTemplateLiteral([ '\n            <div class="bootst
 
 var _templateObject2 = _taggedTemplateLiteral([ '\n            <div class="bootstrap-datetimepicker-widget">\n                <div class="input-group date">\n                    <input class="form-control dp-input ', '" type="text" name="', '" placeholder="', '">\n                    <span class="input-group-addon">\n                        <i class="anticon anticon-', '"></i>\n                    </span>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="bootstrap-datetimepicker-widget">\n                <div class="input-group date">\n                    <input class="form-control dp-input ', '" type="text" name="', '" placeholder="', '">\n                    <span class="input-group-addon">\n                        <i class="anticon anticon-', '"></i>\n                    </span>\n                </div>\n            </div>\n            ' ]);
 
-var _templateObject3 = _taggedTemplateLiteral([ '<div id="#date_', '"></div>' ], [ '<div id="#date_', '"></div>' ]);
+var _templateObject3 = _taggedTemplateLiteral([ "<div></div>" ], [ "<div></div>" ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -88,14 +84,11 @@ function _inherits(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-$.fn.datetimepicker = datetimepicker;
-
 var Datepicker = function(_Lego$UI$Baseview) {
     _inherits(Datepicker, _Lego$UI$Baseview);
     function Datepicker() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Datepicker);
-        Lego.$.dpMap = Lego.$.dpMap || new Map();
         var options = {
             type: "date",
             name: "",
@@ -128,15 +121,14 @@ var Datepicker = function(_Lego$UI$Baseview) {
             var options = this.options;
             Object.assign(options.setting, {
                 format: options.format,
-                inline: options.inline,
-                vid: options.vid
+                inline: options.inline
             });
-            var that = this, theEl = options.inline ? "#date_" + options.vid : ".input-group input";
+            var that = this, theEl = options.inline ? options.el : ".input-group input";
             if (options.type !== "range") {
-                this.$(theEl).datetimepicker(options.setting);
-                console.warn(Lego.$.dpMap.get(options.vid), this.$(theEl).data("DateTimePicker"));
-                this.$(theEl).on("dp.change", function(e) {
-                    console.warn("ooooooooo", that.$(theEl).data("DateTimePicker"));
+                var $theEl = this.$(theEl);
+                if (options.inline) $theEl = this.$el;
+                $theEl.datetimepicker(options.setting);
+                $theEl.on("dp.change", function(e) {
                     if (typeof options.onChange == "function") options.onChange($(this).val());
                 });
             } else {
@@ -191,7 +183,7 @@ var Datepicker = function(_Lego$UI$Baseview) {
             if (options.type !== "range" || options.type == "range" && options.startInputEl && options.endInputEl) {
                 vDom = hx(_templateObject2, options.disabled ? "disabled" : "", options.name, options.placeholder, options.type == "time" ? "clock-circle-o" : "calendar");
             }
-            if (options.inline) vDom = hx(_templateObject3, options.vid);
+            if (options.inline) vDom = hx(_templateObject3);
             return vDom;
         }
     } ]);

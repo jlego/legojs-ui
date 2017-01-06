@@ -1,5 +1,5 @@
 /**
- * legoui.js v0.1.6
+ * legoui.js v0.2.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -21,9 +21,11 @@ var moment = require("moment");
 
 var moment_locale_zhCn = require("moment/locale/zh-cn");
 
-var datetimepicker = _interopDefault(require("eonasdan-bootstrap-datetimepicker"));
+var bootstrapDatetimepickerCjs = require("bootstrap-datetimepicker-cjs");
 
-var eonasdanBootstrapDatetimepicker_build_css_bootstrapDatetimepicker_css = require("eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css");
+var bootstrapDatetimepickerCjs_css_bootstrapDatetimepicker_css = require("bootstrap-datetimepicker-cjs/css/bootstrap-datetimepicker.css");
+
+var Tether = _interopDefault(require("tether"));
 
 var _createClass = function() {
     function defineProperties(target, props) {
@@ -152,7 +154,7 @@ var _createClass$2 = function() {
     };
 }();
 
-var _templateObject$1 = _taggedTemplateLiteral$1([ '\n        <div class="sidebar app-aside" id="sidebar">\n        <div class="sidebar-container scrollbar ps-container ps-active-y">\n            <nav>\n                <ul class="main-navigation-menu">\n                    <li data-permis=\'{"module":"Home", "operate":"Query", "hide":1}\' id="nav_home">\n                        <a href="javascript:Lego.startApp(\'home\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-home"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 首页 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Register", "operate":"Query", "hide":1}\' id="nav_register">\n                        <a href="javascript:Lego.startApp(\'alert\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-account-info"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 警告框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Customer", "operate":"Query", "hide":1}\' id="nav_customer">\n                        <a href="javascript:Lego.startApp(\'forms\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-teamwork"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 表单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Order", "operate":"Query", "hide":1}\' id="nav_order">\n                        <a href="javascript:Lego.startApp(\'navs\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-purchase"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 导航菜单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Channel", "operate":"Query", "hide":1}\' id="nav_channel">\n                        <a href="#channel/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-clues"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 渠道管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Finance", "operate":"Query", "hide":1}\' id="nav_finance">\n                        <a href="#finance/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-biz"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 财务管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Consumption", "operate":"Query", "hide":1}\' id="nav_expenses">\n                        <a href="#expenses/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-expenses"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 消费记录 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Product", "operate":"Query", "hide":1}\' id="nav_product">\n                        <a href="#product/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-products"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 产品管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Operation", "operate":"Query", "hide":1}\' id="nav_operation">\n                        <a href="#operation/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-dashboard"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 运营管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Organization", "operate":"Query", "hide":1}\' id="nav_organization">\n                        <a href="#admin/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-admin"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 后台管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                </ul>\n            </nav>\n        </div>\n        </div>\n        ' ], [ '\n        <div class="sidebar app-aside" id="sidebar">\n        <div class="sidebar-container scrollbar ps-container ps-active-y">\n            <nav>\n                <ul class="main-navigation-menu">\n                    <li data-permis=\'{"module":"Home", "operate":"Query", "hide":1}\' id="nav_home">\n                        <a href="javascript:Lego.startApp(\'home\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-home"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 首页 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Register", "operate":"Query", "hide":1}\' id="nav_register">\n                        <a href="javascript:Lego.startApp(\'alert\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-account-info"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 警告框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Customer", "operate":"Query", "hide":1}\' id="nav_customer">\n                        <a href="javascript:Lego.startApp(\'forms\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-teamwork"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 表单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Order", "operate":"Query", "hide":1}\' id="nav_order">\n                        <a href="javascript:Lego.startApp(\'navs\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-purchase"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 导航菜单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Channel", "operate":"Query", "hide":1}\' id="nav_channel">\n                        <a href="#channel/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-clues"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 渠道管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Finance", "operate":"Query", "hide":1}\' id="nav_finance">\n                        <a href="#finance/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-biz"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 财务管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Consumption", "operate":"Query", "hide":1}\' id="nav_expenses">\n                        <a href="#expenses/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-expenses"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 消费记录 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Product", "operate":"Query", "hide":1}\' id="nav_product">\n                        <a href="#product/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-products"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 产品管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Operation", "operate":"Query", "hide":1}\' id="nav_operation">\n                        <a href="#operation/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-dashboard"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 运营管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Organization", "operate":"Query", "hide":1}\' id="nav_organization">\n                        <a href="#admin/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-admin"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 后台管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                </ul>\n            </nav>\n        </div>\n        </div>\n        ' ]);
+var _templateObject$1 = _taggedTemplateLiteral$1([ '\n        <div class="sidebar app-aside" id="sidebar">\n        <div class="sidebar-container scrollbar ps-container ps-active-y">\n            <nav>\n                <ul class="main-navigation-menu">\n                    <li data-permis=\'{"module":"Home", "operate":"Query", "hide":1}\' id="nav_home">\n                        <a href="javascript:Lego.startApp(\'home\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-home"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 首页 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Register", "operate":"Query", "hide":1}\' id="nav_register">\n                        <a href="javascript:Lego.startApp(\'alert\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-account-info"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 警告框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Customer", "operate":"Query", "hide":1}\' id="nav_customer">\n                        <a href="javascript:Lego.startApp(\'forms\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-teamwork"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 表单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Order", "operate":"Query", "hide":1}\' id="nav_order">\n                        <a href="javascript:Lego.startApp(\'navs\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-purchase"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 导航菜单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Channel", "operate":"Query", "hide":1}\' id="nav_channel">\n                        <a href="javascript:Lego.startApp(\'tips\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-clues"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 提示框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Finance", "operate":"Query", "hide":1}\' id="nav_finance">\n                        <a href="#finance/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-biz"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 财务管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Consumption", "operate":"Query", "hide":1}\' id="nav_expenses">\n                        <a href="#expenses/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-expenses"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 消费记录 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Product", "operate":"Query", "hide":1}\' id="nav_product">\n                        <a href="#product/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-products"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 产品管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Operation", "operate":"Query", "hide":1}\' id="nav_operation">\n                        <a href="#operation/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-dashboard"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 运营管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Organization", "operate":"Query", "hide":1}\' id="nav_organization">\n                        <a href="#admin/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-admin"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 后台管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                </ul>\n            </nav>\n        </div>\n        </div>\n        ' ], [ '\n        <div class="sidebar app-aside" id="sidebar">\n        <div class="sidebar-container scrollbar ps-container ps-active-y">\n            <nav>\n                <ul class="main-navigation-menu">\n                    <li data-permis=\'{"module":"Home", "operate":"Query", "hide":1}\' id="nav_home">\n                        <a href="javascript:Lego.startApp(\'home\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-home"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 首页 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Register", "operate":"Query", "hide":1}\' id="nav_register">\n                        <a href="javascript:Lego.startApp(\'alert\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-account-info"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 警告框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Customer", "operate":"Query", "hide":1}\' id="nav_customer">\n                        <a href="javascript:Lego.startApp(\'forms\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-teamwork"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 表单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Order", "operate":"Query", "hide":1}\' id="nav_order">\n                        <a href="javascript:Lego.startApp(\'navs\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-purchase"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 导航菜单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Channel", "operate":"Query", "hide":1}\' id="nav_channel">\n                        <a href="javascript:Lego.startApp(\'tips\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-clues"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 提示框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Finance", "operate":"Query", "hide":1}\' id="nav_finance">\n                        <a href="#finance/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-biz"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 财务管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Consumption", "operate":"Query", "hide":1}\' id="nav_expenses">\n                        <a href="#expenses/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-expenses"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 消费记录 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Product", "operate":"Query", "hide":1}\' id="nav_product">\n                        <a href="#product/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-products"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 产品管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Operation", "operate":"Query", "hide":1}\' id="nav_operation">\n                        <a href="#operation/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-dashboard"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 运营管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Organization", "operate":"Query", "hide":1}\' id="nav_organization">\n                        <a href="#admin/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-admin"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 后台管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                </ul>\n            </nav>\n        </div>\n        </div>\n        ' ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -2441,7 +2443,8 @@ var Search = function(_Lego$UI$Baseview) {
         _classCallCheck$13(this, Search);
         var options = {
             events: {
-                "click .search-button": "clickSearch"
+                "click .search-button": "clickSearch",
+                "keydown .search-input": "_enterSearch"
             },
             placeholder: "输入关键字搜索",
             activeKey: "",
@@ -2470,6 +2473,13 @@ var Search = function(_Lego$UI$Baseview) {
             var options = this.options || {};
             var vDom = hx(_templateObject$11, options.hasSelect ? hx(_templateObject2$8, options.vid, options.activeValue || "请选择", options.vid) : "", options.placeholder);
             return vDom;
+        }
+    }, {
+        key: "_enterSearch",
+        value: function _enterSearch(event) {
+            if (event.keyCode == 13) {
+                this.clickSearch(event);
+            }
         }
     }, {
         key: "clickSearch",
@@ -2727,7 +2737,7 @@ var _templateObject$13 = _taggedTemplateLiteral$13([ '\n            <div class="
 
 var _templateObject2$10 = _taggedTemplateLiteral$13([ '\n            <div class="bootstrap-datetimepicker-widget">\n                <div class="input-group date">\n                    <input class="form-control dp-input ', '" type="text" name="', '" placeholder="', '">\n                    <span class="input-group-addon">\n                        <i class="anticon anticon-', '"></i>\n                    </span>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="bootstrap-datetimepicker-widget">\n                <div class="input-group date">\n                    <input class="form-control dp-input ', '" type="text" name="', '" placeholder="', '">\n                    <span class="input-group-addon">\n                        <i class="anticon anticon-', '"></i>\n                    </span>\n                </div>\n            </div>\n            ' ]);
 
-var _templateObject3$7 = _taggedTemplateLiteral$13([ '<div id="#date_', '"></div>' ], [ '<div id="#date_', '"></div>' ]);
+var _templateObject3$7 = _taggedTemplateLiteral$13([ "<div></div>" ], [ "<div></div>" ]);
 
 function _taggedTemplateLiteral$13(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -2765,14 +2775,11 @@ function _inherits$14(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-$.fn.datetimepicker = datetimepicker;
-
 var Datepicker = function(_Lego$UI$Baseview) {
     _inherits$14(Datepicker, _Lego$UI$Baseview);
     function Datepicker() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck$15(this, Datepicker);
-        Lego.$.dpMap = Lego.$.dpMap || new Map();
         var options = {
             type: "date",
             name: "",
@@ -2805,15 +2812,14 @@ var Datepicker = function(_Lego$UI$Baseview) {
             var options = this.options;
             Object.assign(options.setting, {
                 format: options.format,
-                inline: options.inline,
-                vid: options.vid
+                inline: options.inline
             });
-            var that = this, theEl = options.inline ? "#date_" + options.vid : ".input-group input";
+            var that = this, theEl = options.inline ? options.el : ".input-group input";
             if (options.type !== "range") {
-                this.$(theEl).datetimepicker(options.setting);
-                console.warn(Lego.$.dpMap.get(options.vid), this.$(theEl).data("DateTimePicker"));
-                this.$(theEl).on("dp.change", function(e) {
-                    console.warn("ooooooooo", that.$(theEl).data("DateTimePicker"));
+                var $theEl = this.$(theEl);
+                if (options.inline) $theEl = this.$el;
+                $theEl.datetimepicker(options.setting);
+                $theEl.on("dp.change", function(e) {
                     if (typeof options.onChange == "function") options.onChange($(this).val());
                 });
             } else {
@@ -2868,7 +2874,7 @@ var Datepicker = function(_Lego$UI$Baseview) {
             if (options.type !== "range" || options.type == "range" && options.startInputEl && options.endInputEl) {
                 vDom = hx(_templateObject2$10, options.disabled ? "disabled" : "", options.name, options.placeholder, options.type == "time" ? "clock-circle-o" : "calendar");
             }
-            if (options.inline) vDom = hx(_templateObject3$7, options.vid);
+            if (options.inline) vDom = hx(_templateObject3$7);
             return vDom;
         }
     } ]);
@@ -2894,7 +2900,15 @@ var _createClass$16 = function() {
     };
 }();
 
-var _templateObject$14 = _taggedTemplateLiteral$14([ "<div>大工土大木</div>" ], [ "<div>大工土大木</div>" ]);
+var _templateObject$14 = _taggedTemplateLiteral$14([ "<div></div>" ], [ "<div></div>" ]);
+
+var _templateObject2$11 = _taggedTemplateLiteral$14([ '\n            <div class="input-group ', '">\n              ', '\n              <input type="', '" class="form-control" placeholder="', '"\n              value="', '" name="', '" ', " ", "/>\n              ", "\n            </div>\n            " ], [ '\n            <div class="input-group ', '">\n              ', '\n              <input type="', '" class="form-control" placeholder="', '"\n              value="', '" name="', '" ', " ", "/>\n              ", "\n            </div>\n            " ]);
+
+var _templateObject3$8 = _taggedTemplateLiteral$14([ '<span class="input-group-addon">', "</span>" ], [ '<span class="input-group-addon">', "</span>" ]);
+
+var _templateObject4$5 = _taggedTemplateLiteral$14([ '\n                  <textarea type="textarea" class="form-control ', '" placeholder="', '" name="', '"\n                  ', " ", ">", "</textarea>\n                " ], [ '\n                  <textarea type="textarea" class="form-control ', '" placeholder="', '" name="', '"\n                  ', " ", ">", "</textarea>\n                " ]);
+
+var _templateObject5$4 = _taggedTemplateLiteral$14([ '\n                  <input type="', '" class="form-control ', '" placeholder="', '"\n                  value="', '" name="', '" ', " ", "/>\n                " ], [ '\n                  <input type="', '" class="form-control ', '" placeholder="', '"\n                  value="', '" name="', '" ', " ", "/>\n                " ]);
 
 function _taggedTemplateLiteral$14(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -2932,26 +2946,936 @@ function _inherits$15(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Test = function(_Lego$UI$Baseview) {
-    _inherits$15(Test, _Lego$UI$Baseview);
-    function Test() {
+var Input = function(_Lego$UI$Baseview) {
+    _inherits$15(Input, _Lego$UI$Baseview);
+    function Input() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$16(this, Test);
-        var options = {};
+        _classCallCheck$16(this, Input);
+        var options = {
+            events: {
+                keydown: "onEnter",
+                change: "onChange"
+            },
+            type: "text",
+            value: "",
+            placeholder: "",
+            name: "",
+            disabled: false,
+            readonly: false,
+            addonBefore: "",
+            addonAfter: "",
+            prefix: "",
+            suffix: "",
+            size: "",
+            onChange: function onChange() {},
+            onEnter: function onEnter() {}
+        };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$15(this, (Test.__proto__ || Object.getPrototypeOf(Test)).call(this, options));
+        var _this = _possibleConstructorReturn$15(this, (Input.__proto__ || Object.getPrototypeOf(Input)).call(this, options));
+        var that = _this;
+        if (options.addonBefore || options.addonAfter) {
+            var onEnterFun = _this.onEnter.bind(_this);
+            var onChangeFun = _this.onChange.bind(_this);
+            _this.$("input").keydown(onEnterFun);
+            _this.$("input").change(onChangeFun);
+        }
+        return _this;
     }
-    _createClass$16(Test, [ {
+    _createClass$16(Input, [ {
         key: "render",
         value: function render() {
-            console.warn("yyyyyyyyyyyyyy", this.options.vid);
-            return hx(_templateObject$14);
+            var options = this.options || {};
+            var vDom = hx(_templateObject$14);
+            if (options.addonBefore || options.addonAfter) {
+                vDom = hx(_templateObject2$11, options.size ? "input-group-" + options.size : "", options.addonBefore ? hx(_templateObject3$8, options.prefix) : "", options.type, options.placeholder, options.value, options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", options.addonAfter ? hx(_templateObject3$8, options.suffix) : "");
+            } else {
+                if (options.type == "textarea") {
+                    vDom = hx(_templateObject4$5, options.size ? "form-control-" + options.size : "", options.placeholder, options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", options.value);
+                } else {
+                    vDom = hx(_templateObject5$4, options.type, options.size ? "form-control-" + options.size : "", options.placeholder, options.value, options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "");
+                }
+            }
+            return vDom;
+        }
+    }, {
+        key: "onEnter",
+        value: function onEnter(event) {
+            var target = $(event.currentTarget), value = target.val();
+            if (event.keyCode == 13) {
+                if (typeof this.options.onEnter === "function") this.options.onEnter(value, event);
+            }
+        }
+    }, {
+        key: "onChange",
+        value: function onChange(event) {
+            var target = $(event.currentTarget), value = target.val();
+            if (typeof this.options.onChange === "function") this.options.onChange(value, event);
         }
     } ]);
-    return Test;
+    return Input;
 }(Lego.UI.Baseview);
 
-Lego.components("test", Test);
+Lego.components("input", Input);
+
+var _typeof$1 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
+    return typeof obj;
+} : function(obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+var _createClass$18 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+function _classCallCheck$18(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+window.Tether = Tether;
+
+var Tooltip$2 = function($) {
+    if (window.Tether === undefined) {
+        throw new Error("Bootstrap tooltips require Tether (http://tether.io/)");
+    }
+    var NAME = "tooltip";
+    var VERSION = "4.0.0-alpha.5";
+    var DATA_KEY = "bs.tooltip";
+    var EVENT_KEY = "." + DATA_KEY;
+    var JQUERY_NO_CONFLICT = $.fn[NAME];
+    var TRANSITION_DURATION = 150;
+    var CLASS_PREFIX = "bs-tether";
+    var Default = {
+        animation: true,
+        template: '<div class="tooltip" role="tooltip">' + '<div class="tooltip-inner"></div></div>',
+        trigger: "hover focus",
+        title: "",
+        delay: 0,
+        html: false,
+        selector: false,
+        placement: "top",
+        offset: "0 0",
+        constraints: []
+    };
+    var DefaultType = {
+        animation: "boolean",
+        template: "string",
+        title: "(string|element|function)",
+        trigger: "string",
+        delay: "(number|object)",
+        html: "boolean",
+        selector: "(string|boolean)",
+        placement: "(string|function)",
+        offset: "string",
+        constraints: "array"
+    };
+    var AttachmentMap = {
+        TOP: "bottom center",
+        RIGHT: "middle left",
+        BOTTOM: "top center",
+        LEFT: "middle right"
+    };
+    var HoverState = {
+        IN: "in",
+        OUT: "out"
+    };
+    var Event = {
+        HIDE: "hide" + EVENT_KEY,
+        HIDDEN: "hidden" + EVENT_KEY,
+        SHOW: "show" + EVENT_KEY,
+        SHOWN: "shown" + EVENT_KEY,
+        INSERTED: "inserted" + EVENT_KEY,
+        CLICK: "click" + EVENT_KEY,
+        FOCUSIN: "focusin" + EVENT_KEY,
+        FOCUSOUT: "focusout" + EVENT_KEY,
+        MOUSEENTER: "mouseenter" + EVENT_KEY,
+        MOUSELEAVE: "mouseleave" + EVENT_KEY
+    };
+    var ClassName = {
+        FADE: "fade",
+        IN: "in"
+    };
+    var Selector = {
+        TOOLTIP: ".tooltip",
+        TOOLTIP_INNER: ".tooltip-inner"
+    };
+    var TetherClass = {
+        element: false,
+        enabled: false
+    };
+    var Trigger = {
+        HOVER: "hover",
+        FOCUS: "focus",
+        CLICK: "click",
+        MANUAL: "manual"
+    };
+    var Tooltip = function() {
+        function Tooltip(element, config) {
+            _classCallCheck$18(this, Tooltip);
+            this._isEnabled = true;
+            this._timeout = 0;
+            this._hoverState = "";
+            this._activeTrigger = {};
+            this._tether = null;
+            this.element = element;
+            this.config = this._getConfig(config);
+            this.tip = null;
+            this._setListeners();
+        }
+        _createClass$18(Tooltip, [ {
+            key: "enable",
+            value: function enable() {
+                this._isEnabled = true;
+            }
+        }, {
+            key: "disable",
+            value: function disable() {
+                this._isEnabled = false;
+            }
+        }, {
+            key: "toggleEnabled",
+            value: function toggleEnabled() {
+                this._isEnabled = !this._isEnabled;
+            }
+        }, {
+            key: "toggle",
+            value: function toggle(event) {
+                if (event) {
+                    var dataKey = this.constructor.DATA_KEY;
+                    var context = $(event.currentTarget).data(dataKey);
+                    if (!context) {
+                        context = new this.constructor(event.currentTarget, this._getDelegateConfig());
+                        $(event.currentTarget).data(dataKey, context);
+                    }
+                    context._activeTrigger.click = !context._activeTrigger.click;
+                    if (context._isWithActiveTrigger()) {
+                        context._enter(null, context);
+                    } else {
+                        context._leave(null, context);
+                    }
+                } else {
+                    if ($(this.getTipElement()).hasClass(ClassName.IN)) {
+                        this._leave(null, this);
+                        return;
+                    }
+                    this._enter(null, this);
+                }
+            }
+        }, {
+            key: "dispose",
+            value: function dispose() {
+                clearTimeout(this._timeout);
+                this.cleanupTether();
+                $.removeData(this.element, this.constructor.DATA_KEY);
+                $(this.element).off(this.constructor.EVENT_KEY);
+                if (this.tip) {
+                    $(this.tip).remove();
+                }
+                this._isEnabled = null;
+                this._timeout = null;
+                this._hoverState = null;
+                this._activeTrigger = null;
+                this._tether = null;
+                this.element = null;
+                this.config = null;
+                this.tip = null;
+            }
+        }, {
+            key: "show",
+            value: function show() {
+                var _this = this;
+                var showEvent = $.Event(this.constructor.Event.SHOW);
+                if (this.isWithContent() && this._isEnabled) {
+                    $(this.element).trigger(showEvent);
+                    var isInTheDom = $.contains(this.element.ownerDocument.documentElement, this.element);
+                    if (showEvent.isDefaultPrevented() || !isInTheDom) {
+                        return;
+                    }
+                    var tip = this.getTipElement();
+                    var tipId = Util$2.getUID(this.constructor.NAME);
+                    tip.setAttribute("id", tipId);
+                    this.element.setAttribute("aria-describedby", tipId);
+                    this.setContent();
+                    if (this.config.animation) {
+                        $(tip).addClass(ClassName.FADE);
+                    }
+                    var placement = typeof this.config.placement === "function" ? this.config.placement.call(this, tip, this.element) : this.config.placement;
+                    var attachment = this._getAttachment(placement);
+                    $(tip).data(this.constructor.DATA_KEY, this).appendTo(document.body);
+                    $(this.element).trigger(this.constructor.Event.INSERTED);
+                    this._tether = new Tether({
+                        attachment: attachment,
+                        element: tip,
+                        target: this.element,
+                        classes: TetherClass,
+                        classPrefix: CLASS_PREFIX,
+                        offset: this.config.offset,
+                        constraints: this.config.constraints,
+                        addTargetClasses: false
+                    });
+                    Util$2.reflow(tip);
+                    this._tether.position();
+                    $(tip).addClass(ClassName.IN);
+                    var complete = function complete() {
+                        var prevHoverState = _this._hoverState;
+                        _this._hoverState = null;
+                        $(_this.element).trigger(_this.constructor.Event.SHOWN);
+                        if (prevHoverState === HoverState.OUT) {
+                            _this._leave(null, _this);
+                        }
+                    };
+                    if (Util$2.supportsTransitionEnd() && $(this.tip).hasClass(ClassName.FADE)) {
+                        $(this.tip).one(Util$2.TRANSITION_END, complete).emulateTransitionEnd(Tooltip._TRANSITION_DURATION);
+                        return;
+                    }
+                    complete();
+                }
+            }
+        }, {
+            key: "hide",
+            value: function hide(callback) {
+                var _this2 = this;
+                var tip = this.getTipElement();
+                var hideEvent = $.Event(this.constructor.Event.HIDE);
+                var complete = function complete() {
+                    if (_this2._hoverState !== HoverState.IN && tip.parentNode) {
+                        tip.parentNode.removeChild(tip);
+                    }
+                    _this2.element.removeAttribute("aria-describedby");
+                    $(_this2.element).trigger(_this2.constructor.Event.HIDDEN);
+                    _this2.cleanupTether();
+                    if (callback) {
+                        callback();
+                    }
+                };
+                $(this.element).trigger(hideEvent);
+                if (hideEvent.isDefaultPrevented()) {
+                    return;
+                }
+                $(tip).removeClass(ClassName.IN);
+                if (Util$2.supportsTransitionEnd() && $(this.tip).hasClass(ClassName.FADE)) {
+                    $(tip).one(Util$2.TRANSITION_END, complete).emulateTransitionEnd(TRANSITION_DURATION);
+                } else {
+                    complete();
+                }
+                this._hoverState = "";
+            }
+        }, {
+            key: "isWithContent",
+            value: function isWithContent() {
+                return Boolean(this.getTitle());
+            }
+        }, {
+            key: "getTipElement",
+            value: function getTipElement() {
+                return this.tip = this.tip || $(this.config.template)[0];
+            }
+        }, {
+            key: "setContent",
+            value: function setContent() {
+                var $tip = $(this.getTipElement());
+                this.setElementContent($tip.find(Selector.TOOLTIP_INNER), this.getTitle());
+                $tip.removeClass(ClassName.FADE).removeClass(ClassName.IN);
+                this.cleanupTether();
+            }
+        }, {
+            key: "setElementContent",
+            value: function setElementContent($element, content) {
+                var html = this.config.html;
+                if ((typeof content === "undefined" ? "undefined" : _typeof$1(content)) === "object" && (content.nodeType || content.jquery)) {
+                    if (html) {
+                        if (!$(content).parent().is($element)) {
+                            $element.empty().append(content);
+                        }
+                    } else {
+                        $element.text($(content).text());
+                    }
+                } else {
+                    $element[html ? "html" : "text"](content);
+                }
+            }
+        }, {
+            key: "getTitle",
+            value: function getTitle() {
+                var title = this.element.getAttribute("data-original-title");
+                if (!title) {
+                    title = typeof this.config.title === "function" ? this.config.title.call(this.element) : this.config.title;
+                }
+                return title;
+            }
+        }, {
+            key: "cleanupTether",
+            value: function cleanupTether() {
+                if (this._tether) {
+                    this._tether.destroy();
+                }
+            }
+        }, {
+            key: "_getAttachment",
+            value: function _getAttachment(placement) {
+                return AttachmentMap[placement.toUpperCase()];
+            }
+        }, {
+            key: "_setListeners",
+            value: function _setListeners() {
+                var _this3 = this;
+                var triggers = this.config.trigger.split(" ");
+                triggers.forEach(function(trigger) {
+                    if (trigger === "click") {
+                        $(_this3.element).on(_this3.constructor.Event.CLICK, _this3.config.selector, $.proxy(_this3.toggle, _this3));
+                    } else if (trigger !== Trigger.MANUAL) {
+                        var eventIn = trigger === Trigger.HOVER ? _this3.constructor.Event.MOUSEENTER : _this3.constructor.Event.FOCUSIN;
+                        var eventOut = trigger === Trigger.HOVER ? _this3.constructor.Event.MOUSELEAVE : _this3.constructor.Event.FOCUSOUT;
+                        $(_this3.element).on(eventIn, _this3.config.selector, $.proxy(_this3._enter, _this3)).on(eventOut, _this3.config.selector, $.proxy(_this3._leave, _this3));
+                    }
+                });
+                if (this.config.selector) {
+                    this.config = $.extend({}, this.config, {
+                        trigger: "manual",
+                        selector: ""
+                    });
+                } else {
+                    this._fixTitle();
+                }
+            }
+        }, {
+            key: "_fixTitle",
+            value: function _fixTitle() {
+                var titleType = _typeof$1(this.element.getAttribute("data-original-title"));
+                if (this.element.getAttribute("title") || titleType !== "string") {
+                    this.element.setAttribute("data-original-title", this.element.getAttribute("title") || "");
+                    this.element.setAttribute("title", "");
+                }
+            }
+        }, {
+            key: "_enter",
+            value: function _enter(event, context) {
+                var dataKey = this.constructor.DATA_KEY;
+                context = context || $(event.currentTarget).data(dataKey);
+                if (!context) {
+                    context = new this.constructor(event.currentTarget, this._getDelegateConfig());
+                    $(event.currentTarget).data(dataKey, context);
+                }
+                if (event) {
+                    context._activeTrigger[event.type === "focusin" ? Trigger.FOCUS : Trigger.HOVER] = true;
+                }
+                if ($(context.getTipElement()).hasClass(ClassName.IN) || context._hoverState === HoverState.IN) {
+                    context._hoverState = HoverState.IN;
+                    return;
+                }
+                clearTimeout(context._timeout);
+                context._hoverState = HoverState.IN;
+                if (!context.config.delay || !context.config.delay.show) {
+                    context.show();
+                    return;
+                }
+                context._timeout = setTimeout(function() {
+                    if (context._hoverState === HoverState.IN) {
+                        context.show();
+                    }
+                }, context.config.delay.show);
+            }
+        }, {
+            key: "_leave",
+            value: function _leave(event, context) {
+                var dataKey = this.constructor.DATA_KEY;
+                context = context || $(event.currentTarget).data(dataKey);
+                if (!context) {
+                    context = new this.constructor(event.currentTarget, this._getDelegateConfig());
+                    $(event.currentTarget).data(dataKey, context);
+                }
+                if (event) {
+                    context._activeTrigger[event.type === "focusout" ? Trigger.FOCUS : Trigger.HOVER] = false;
+                }
+                if (context._isWithActiveTrigger()) {
+                    return;
+                }
+                clearTimeout(context._timeout);
+                context._hoverState = HoverState.OUT;
+                if (!context.config.delay || !context.config.delay.hide) {
+                    context.hide();
+                    return;
+                }
+                context._timeout = setTimeout(function() {
+                    if (context._hoverState === HoverState.OUT) {
+                        context.hide();
+                    }
+                }, context.config.delay.hide);
+            }
+        }, {
+            key: "_isWithActiveTrigger",
+            value: function _isWithActiveTrigger() {
+                for (var trigger in this._activeTrigger) {
+                    if (this._activeTrigger[trigger]) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }, {
+            key: "_getConfig",
+            value: function _getConfig(config) {
+                config = $.extend({}, this.constructor.Default, $(this.element).data(), config);
+                if (config.delay && typeof config.delay === "number") {
+                    config.delay = {
+                        show: config.delay,
+                        hide: config.delay
+                    };
+                }
+                Util$2.typeCheckConfig(NAME, config, this.constructor.DefaultType);
+                return config;
+            }
+        }, {
+            key: "_getDelegateConfig",
+            value: function _getDelegateConfig() {
+                var config = {};
+                if (this.config) {
+                    for (var key in this.config) {
+                        if (this.constructor.Default[key] !== this.config[key]) {
+                            config[key] = this.config[key];
+                        }
+                    }
+                }
+                return config;
+            }
+        } ], [ {
+            key: "_jQueryInterface",
+            value: function _jQueryInterface(config) {
+                return this.each(function() {
+                    var data = $(this).data(DATA_KEY);
+                    var _config = (typeof config === "undefined" ? "undefined" : _typeof$1(config)) === "object" ? config : null;
+                    if (!data && /dispose|hide/.test(config)) {
+                        return;
+                    }
+                    if (!data) {
+                        data = new Tooltip(this, _config);
+                        $(this).data(DATA_KEY, data);
+                    }
+                    if (typeof config === "string") {
+                        if (data[config] === undefined) {
+                            throw new Error('No method named "' + config + '"');
+                        }
+                        data[config]();
+                    }
+                });
+            }
+        }, {
+            key: "VERSION",
+            get: function get() {
+                return VERSION;
+            }
+        }, {
+            key: "Default",
+            get: function get() {
+                return Default;
+            }
+        }, {
+            key: "NAME",
+            get: function get() {
+                return NAME;
+            }
+        }, {
+            key: "DATA_KEY",
+            get: function get() {
+                return DATA_KEY;
+            }
+        }, {
+            key: "Event",
+            get: function get() {
+                return Event;
+            }
+        }, {
+            key: "EVENT_KEY",
+            get: function get() {
+                return EVENT_KEY;
+            }
+        }, {
+            key: "DefaultType",
+            get: function get() {
+                return DefaultType;
+            }
+        } ]);
+        return Tooltip;
+    }();
+    $.fn[NAME] = Tooltip._jQueryInterface;
+    $.fn[NAME].Constructor = Tooltip;
+    $.fn[NAME].noConflict = function() {
+        $.fn[NAME] = JQUERY_NO_CONFLICT;
+        return Tooltip._jQueryInterface;
+    };
+    return Tooltip;
+}(jQuery);
+
+var _createClass$17 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+function _classCallCheck$17(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+var Tooltip = function() {
+    function Tooltip() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$17(this, Tooltip);
+        var options = {
+            el: "",
+            selector: false,
+            title: "",
+            content: "",
+            animation: true,
+            container: false,
+            delay: 0,
+            html: false,
+            placement: "top",
+            template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
+            eventName: "hover focus",
+            constraints: [],
+            offset: "0 0",
+            onHidden: function onHidden() {}
+        };
+        Object.assign(options, opts);
+        this.el = options.el;
+        this.onHidden = options.onHidden;
+        this.options = {
+            selector: options.selector,
+            title: options.title,
+            content: options.content,
+            animation: options.animation,
+            container: options.container,
+            delay: options.delay,
+            html: options.html,
+            placement: options.placement,
+            template: options.template,
+            constraints: options.constraints,
+            trigger: options.eventName,
+            offset: options.offset
+        };
+        this.render();
+    }
+    _createClass$17(Tooltip, [ {
+        key: "render",
+        value: function render() {
+            var that = this;
+            var el = this.el instanceof $ ? this.el : $(this.el);
+            if (el.length) {
+                el.tooltip(this.options);
+                el.on("hidden.bs.tooltip", function() {
+                    if (typeof that.onHidden === "function") that.onHidden(event);
+                });
+            }
+            return el;
+        }
+    } ]);
+    return Tooltip;
+}();
+
+Lego.components("tooltip", function(opts) {
+    return new Tooltip(opts);
+});
+
+var _typeof$2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
+    return typeof obj;
+} : function(obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+var _createClass$20 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+function _classCallCheck$20(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$17(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$17(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var Popover$2 = function($) {
+    var NAME = "popover";
+    var VERSION = "4.0.0-alpha.5";
+    var DATA_KEY = "bs.popover";
+    var EVENT_KEY = "." + DATA_KEY;
+    var JQUERY_NO_CONFLICT = $.fn[NAME];
+    var Default = $.extend({}, Tooltip$2.Default, {
+        placement: "right",
+        trigger: "click",
+        content: "",
+        template: '<div class="popover" role="tooltip">' + '<h3 class="popover-title"></h3>' + '<div class="popover-content"></div></div>'
+    });
+    var DefaultType = $.extend({}, Tooltip$2.DefaultType, {
+        content: "(string|element|function)"
+    });
+    var ClassName = {
+        FADE: "fade",
+        IN: "in"
+    };
+    var Selector = {
+        TITLE: ".popover-title",
+        CONTENT: ".popover-content"
+    };
+    var Event = {
+        HIDE: "hide" + EVENT_KEY,
+        HIDDEN: "hidden" + EVENT_KEY,
+        SHOW: "show" + EVENT_KEY,
+        SHOWN: "shown" + EVENT_KEY,
+        INSERTED: "inserted" + EVENT_KEY,
+        CLICK: "click" + EVENT_KEY,
+        FOCUSIN: "focusin" + EVENT_KEY,
+        FOCUSOUT: "focusout" + EVENT_KEY,
+        MOUSEENTER: "mouseenter" + EVENT_KEY,
+        MOUSELEAVE: "mouseleave" + EVENT_KEY
+    };
+    var Popover = function(_Tooltip) {
+        _inherits$17(Popover, _Tooltip);
+        function Popover() {
+            _classCallCheck$20(this, Popover);
+            return _possibleConstructorReturn$17(this, (Popover.__proto__ || Object.getPrototypeOf(Popover)).apply(this, arguments));
+        }
+        _createClass$20(Popover, [ {
+            key: "isWithContent",
+            value: function isWithContent() {
+                return this.getTitle() || this._getContent();
+            }
+        }, {
+            key: "getTipElement",
+            value: function getTipElement() {
+                return this.tip = this.tip || $(this.config.template)[0];
+            }
+        }, {
+            key: "setContent",
+            value: function setContent() {
+                var $tip = $(this.getTipElement());
+                this.setElementContent($tip.find(Selector.TITLE), this.getTitle());
+                this.setElementContent($tip.find(Selector.CONTENT), this._getContent());
+                $tip.removeClass(ClassName.FADE).removeClass(ClassName.IN);
+                this.cleanupTether();
+            }
+        }, {
+            key: "_getContent",
+            value: function _getContent() {
+                return this.element.getAttribute("data-content") || (typeof this.config.content === "function" ? this.config.content.call(this.element) : this.config.content);
+            }
+        } ], [ {
+            key: "_jQueryInterface",
+            value: function _jQueryInterface(config) {
+                return this.each(function() {
+                    var data = $(this).data(DATA_KEY);
+                    var _config = (typeof config === "undefined" ? "undefined" : _typeof$2(config)) === "object" ? config : null;
+                    if (!data && /destroy|hide/.test(config)) {
+                        return;
+                    }
+                    if (!data) {
+                        data = new Popover(this, _config);
+                        $(this).data(DATA_KEY, data);
+                    }
+                    if (typeof config === "string") {
+                        if (data[config] === undefined) {
+                            throw new Error('No method named "' + config + '"');
+                        }
+                        data[config]();
+                    }
+                });
+            }
+        }, {
+            key: "VERSION",
+            get: function get() {
+                return VERSION;
+            }
+        }, {
+            key: "Default",
+            get: function get() {
+                return Default;
+            }
+        }, {
+            key: "NAME",
+            get: function get() {
+                return NAME;
+            }
+        }, {
+            key: "DATA_KEY",
+            get: function get() {
+                return DATA_KEY;
+            }
+        }, {
+            key: "Event",
+            get: function get() {
+                return Event;
+            }
+        }, {
+            key: "EVENT_KEY",
+            get: function get() {
+                return EVENT_KEY;
+            }
+        }, {
+            key: "DefaultType",
+            get: function get() {
+                return DefaultType;
+            }
+        } ]);
+        return Popover;
+    }(Tooltip$2);
+    $.fn[NAME] = Popover._jQueryInterface;
+    $.fn[NAME].Constructor = Popover;
+    $.fn[NAME].noConflict = function() {
+        $.fn[NAME] = JQUERY_NO_CONFLICT;
+        return Popover._jQueryInterface;
+    };
+    return Popover;
+}(jQuery);
+
+var _createClass$19 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+function _classCallCheck$19(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$16(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$16(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var Popover = function(_Tooltip) {
+    _inherits$16(Popover, _Tooltip);
+    function Popover() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$19(this, Popover);
+        var options = {
+            el: "",
+            selector: false,
+            title: "",
+            content: "",
+            animation: true,
+            container: false,
+            delay: 0,
+            html: false,
+            placement: "right",
+            template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
+            eventName: "click",
+            constraints: [ "hover", "focus" ],
+            offset: "",
+            onHidden: function onHidden() {}
+        };
+        Object.assign(options, opts);
+        return _possibleConstructorReturn$16(this, (Popover.__proto__ || Object.getPrototypeOf(Popover)).call(this, options));
+    }
+    _createClass$19(Popover, [ {
+        key: "render",
+        value: function render() {
+            var that = this;
+            var el = this.el instanceof $ ? this.el : $(this.el);
+            if (el.length) {
+                el.popover(this.options);
+                el.on("hidden.bs.popover", function() {
+                    if (typeof that.onHidden === "function") that.onHidden(event);
+                });
+            }
+            return el;
+        }
+    } ]);
+    return Popover;
+}(Tooltip);
+
+Lego.components("popover", function(opts) {
+    return new Popover(opts);
+});
 
 exports.Viewport = Viewport;
 
@@ -2979,6 +3903,10 @@ exports.Select = Select;
 
 exports.Datepicker = Datepicker;
 
-exports.Test = Test;
+exports.Input = Input;
+
+exports.Tooltip = Tooltip;
+
+exports.Popover = Popover;
 
 exports.Baseview = Baseview;

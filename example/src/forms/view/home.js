@@ -1,6 +1,7 @@
 import Search from '../../../../dist/Search';
 import Select from '../../../../dist/Select';
 import Datepicker from '../../../../dist/Datepicker';
+import Input from '../../../../dist/Input';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -86,7 +87,7 @@ class HomeView extends Lego.UI.Baseview {
                 value: [{
                     key: 'so2',
                     value: '选项二选项二选项二'
-                },{
+                }, {
                     key: 'so3',
                     value: '选项三'
                 }],
@@ -117,6 +118,42 @@ class HomeView extends Lego.UI.Baseview {
                 endName: 'datepicker3',
                 onChange(result) {
                     console.warn('点击了时间选项框6', result);
+                }
+            }, {
+                el: '#datepicker9',
+                inline: true,
+                onChange(result) {
+                    console.warn('点击了时间选项框7', result);
+                }
+            }, {
+                el: '#input10',
+                placeholder: '这是输入框',
+                onChange(result) {
+                    console.warn('点击了输入框1', result);
+                },
+                style: {
+                    marginBottom: 20
+                }
+            }, {
+                el: '#input11',
+                placeholder: '这是输入框',
+                addonBefore: true,
+                addonAfter: true,
+                prefix: 'Http://',
+                suffix: hx`<i class="anticon anticon-setting"></i>`,
+                onChange(result) {
+                    console.warn('点击了输入框2', result);
+                },
+                style: {
+                    marginBottom: 20
+                }
+            }, {
+                el: '#input12',
+                type: 'textarea',
+                placeholder: '这是文本框',
+                rows: 10,
+                onChange(result) {
+                    console.warn('点击了文本框2', result);
                 }
             }]
         };
@@ -160,8 +197,12 @@ class HomeView extends Lego.UI.Baseview {
           </div>
           <div class="row" style="margin-bottom: 20px;">
             <div class="col-sm-6">
+                <datepicker id="datepicker9"></datepicker>
             </div>
             <div class="col-sm-6">
+                <input id="input10">
+                <input id="input11">
+                <input id="input12">
             </div>
           </div>
         </div>

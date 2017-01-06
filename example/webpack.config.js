@@ -9,6 +9,7 @@ module.exports = {
         'alert/app': './src/alert/app',
         'navs/app': './src/navs/app',
         'forms/app': './src/forms/app',
+        'tips/app': './src/tips/app',
         'main': './src/main',
     },
     output: {
@@ -59,12 +60,10 @@ module.exports = {
         //     'windows.jQuery': 'jquery'
         // }),
         new webpack.optimize.UglifyJsPlugin({
-            mangle: {
-                except: ['$', 'jQuery']
-            },
+            mangle: true,
             compress: false,
             output: {
-                beautify: false,
+                beautify: true,
                 comments: false
             },
         }),
