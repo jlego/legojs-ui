@@ -38,11 +38,48 @@ class HomeView extends Lego.UI.Baseview {
                 console.warn('隐藏提示4');
             }
         });
+        Lego.UI.popover({
+            el: '#popover1',
+            title: '提示1',
+            content: '弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。',
+            placement: 'top',
+            onHidden() {
+                console.warn('隐藏提示1');
+            }
+        });
+        Lego.UI.popover({
+            el: '#popover2',
+            title: '提示2',
+            content: '弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。',
+            placement: 'bottom',
+            onHidden() {
+                console.warn('隐藏提示2');
+            }
+        });
+        Lego.UI.popover({
+            el: '#popover3',
+            title: '提示3',
+            content: '弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。',
+            placement: 'left',
+            onHidden() {
+                console.warn('隐藏提示3');
+            }
+        });
+        Lego.UI.popover({
+            el: '#popover4',
+            title: '提示4',
+            content: '弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。',
+            placement: 'right',
+            container: 'body',
+            onHidden() {
+                console.warn('隐藏提示4');
+            }
+        });
     }
     render() {
         const vDom = hx `
         <div id="pageContent" class="container">
-          <div class="row" style="margin-bottom: 20px;">
+          <div class="row" style="margin-bottom: 40px;">
             <div class="col-sm-3">
               <button type="button" class="btn btn-secondary" id="tooltip1">Top</button>
             </div>
@@ -54,6 +91,20 @@ class HomeView extends Lego.UI.Baseview {
             </div>
             <div class="col-sm-3">
               <button type="button" class="btn btn-secondary" id="tooltip4">Right</button>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 20px;">
+            <div class="col-sm-3">
+              <button type="button" class="btn btn-secondary" id="popover1">Top</button>
+            </div>
+            <div class="col-sm-3">
+              <button type="button" class="btn btn-secondary" id="popover2">Bottom</button>
+            </div>
+            <div class="col-sm-3">
+              <button type="button" class="btn btn-secondary" id="popover3">Left</button>
+            </div>
+            <div class="col-sm-3">
+              <button type="button" class="btn btn-secondary" id="popover4">Right</button>
             </div>
           </div>
         </div>

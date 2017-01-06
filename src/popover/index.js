@@ -21,8 +21,8 @@ class Popover extends Tooltip{
             placement: 'right', //显示位置
             template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
             eventName: 'click',
-            constraints: ['hover', 'focus'], //'hover focus'
-            offset: '', //0, 0
+            constraints: [], //'hover focus'
+            offset: '0 0', //0, 0
             onHidden() {} //隐藏回调
         };
         Object.assign(options, opts);

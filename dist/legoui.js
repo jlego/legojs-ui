@@ -3849,8 +3849,8 @@ var Popover = function(_Tooltip) {
             placement: "right",
             template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
             eventName: "click",
-            constraints: [ "hover", "focus" ],
-            offset: "",
+            constraints: [],
+            offset: "0 0",
             onHidden: function onHidden() {}
         };
         Object.assign(options, opts);

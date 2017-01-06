@@ -178,7 +178,7 @@
                 return e;
             };
         }();
-        var r = u([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip4">Right</button>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip4">Right</button>\n            </div>\n          </div>\n        </div>\n        ' ]);
+        var r = u([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip4">Right</button>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover4">Right</button>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip4">Right</button>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover4">Right</button>\n            </div>\n          </div>\n        </div>\n        ' ]);
         var o = n(233);
         var a = l(o);
         var s = n(235);
@@ -256,6 +256,43 @@
                     el: "#tooltip4",
                     title: "提示4",
                     placement: "right",
+                    onHidden: function t() {
+                        console.warn("隐藏提示4");
+                    }
+                });
+                Lego.UI.popover({
+                    el: "#popover1",
+                    title: "提示1",
+                    content: "弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。",
+                    placement: "top",
+                    onHidden: function t() {
+                        console.warn("隐藏提示1");
+                    }
+                });
+                Lego.UI.popover({
+                    el: "#popover2",
+                    title: "提示2",
+                    content: "弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。",
+                    placement: "bottom",
+                    onHidden: function t() {
+                        console.warn("隐藏提示2");
+                    }
+                });
+                Lego.UI.popover({
+                    el: "#popover3",
+                    title: "提示3",
+                    content: "弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。",
+                    placement: "left",
+                    onHidden: function t() {
+                        console.warn("隐藏提示3");
+                    }
+                });
+                Lego.UI.popover({
+                    el: "#popover4",
+                    title: "提示4",
+                    content: "弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。",
+                    placement: "right",
+                    container: "body",
                     onHidden: function t() {
                         console.warn("隐藏提示4");
                     }
@@ -1545,7 +1582,7 @@
                     top: i
                 };
             };
-            function Y() {
+            function B() {
                 var t = {
                     top: 0,
                     left: 0
@@ -1567,7 +1604,7 @@
                 });
                 return t;
             }
-            function B(t, e) {
+            function Y(t, e) {
                 if (typeof t.left === "string" && t.left.indexOf("%") !== -1) {
                     t.left = parseFloat(t.left, 10) / 100 * e.width;
                 }
@@ -1890,18 +1927,18 @@
                             return e.getTargetBounds();
                         });
                         var u = l;
-                        var c = B(W(this.attachment), {
+                        var c = Y(W(this.attachment), {
                             width: a,
                             height: s
                         });
-                        var h = B(W(i), u);
-                        var v = B(this.offset, {
+                        var h = Y(W(i), u);
+                        var v = Y(this.offset, {
                             width: a,
                             height: s
                         });
-                        var m = B(this.targetOffset, u);
-                        c = Y(c, v);
-                        h = Y(h, m);
+                        var m = Y(this.targetOffset, u);
+                        c = B(c, v);
+                        h = B(h, m);
                         var y = l.left + h.left - c.left;
                         var b = l.top + h.top - c.top;
                         for (var E = 0; E < o.modules.length; ++E) {
@@ -3549,8 +3586,8 @@
                     placement: "right",
                     template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
                     eventName: "click",
-                    constraints: [ "hover", "focus" ],
-                    offset: "",
+                    constraints: [],
+                    offset: "0 0",
                     onHidden: function t() {}
                 };
                 Object.assign(n, t);
