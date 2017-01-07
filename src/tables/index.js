@@ -9,7 +9,7 @@ import Pagination from '../pagination/index';
  * onSelect(){}  用户手动选择/取消选择某列的回调
  * onSelectAll(){}  用户手动选择/取消选择所有列的回调
  */
-class Table extends Lego.UI.Baseview {
+class Tables extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
@@ -319,5 +319,5 @@ class Table extends Lego.UI.Baseview {
         return rows;
     }
 }
-Lego.components('table', Table);
-export default Table;
+Lego.components('tables', Tables);
+export default Tables;

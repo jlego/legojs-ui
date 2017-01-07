@@ -4,7 +4,7 @@ import Dropdown from '../dropdown/index';
  * item {key: '', value: '', selected: false}
  */
 
-class Select extends Lego.UI.Baseview {
+class Selects extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
@@ -158,5 +158,5 @@ class Select extends Lego.UI.Baseview {
         return this.options.value;
     }
 }
-Lego.components('select', Select);
-export default Select;
+Lego.components('selects', Selects);
+export default Selects;

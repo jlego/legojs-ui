@@ -1,5 +1,5 @@
 /**
- * input.js v0.2.0
+ * inputs.js v0.2.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -68,11 +68,11 @@ function _inherits(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Input = function(_Lego$UI$Baseview) {
-    _inherits(Input, _Lego$UI$Baseview);
-    function Input() {
+var Inputs = function(_Lego$UI$Baseview) {
+    _inherits(Inputs, _Lego$UI$Baseview);
+    function Inputs() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck(this, Input);
+        _classCallCheck(this, Inputs);
         var options = {
             events: {
                 keydown: "onEnter",
@@ -93,7 +93,7 @@ var Input = function(_Lego$UI$Baseview) {
             onEnter: function onEnter() {}
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn(this, (Input.__proto__ || Object.getPrototypeOf(Input)).call(this, options));
+        var _this = _possibleConstructorReturn(this, (Inputs.__proto__ || Object.getPrototypeOf(Inputs)).call(this, options));
         var that = _this;
         if (options.addonBefore || options.addonAfter) {
             var onEnterFun = _this.onEnter.bind(_this);
@@ -103,7 +103,7 @@ var Input = function(_Lego$UI$Baseview) {
         }
         return _this;
     }
-    _createClass(Input, [ {
+    _createClass(Inputs, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
@@ -134,9 +134,9 @@ var Input = function(_Lego$UI$Baseview) {
             if (typeof this.options.onChange === "function") this.options.onChange(value, event);
         }
     } ]);
-    return Input;
+    return Inputs;
 }(Lego.UI.Baseview);
 
-Lego.components("input", Input);
+Lego.components("inputs", Inputs);
 
-module.exports = Input;
+module.exports = Inputs;

@@ -1,4 +1,4 @@
-import Table from '../../../../dist/Table';
+import Tables from '../../../../dist/Tables';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -9,7 +9,6 @@ class HomeView extends Lego.UI.Baseview {
             scrollbar: true,
             components: [{
                 el: '#comsDiv',
-                view: Table,
                 data: {
                     type: 'success',
                     closable: true,
@@ -25,7 +24,7 @@ class HomeView extends Lego.UI.Baseview {
     render() {
         const vDom = hx`
         <div class="page-content page-panel-bg perfect-scrollbar">
-            <div id="comsDiv"></div>
+            <tables id="comsDiv"></tables>
         </div>
         `;
         return vDom;

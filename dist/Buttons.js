@@ -1,5 +1,5 @@
 /**
- * button.js v0.2.0
+ * buttons.js v0.2.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -60,11 +60,11 @@ function _inherits(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Button = function(_Lego$UI$Baseview) {
-    _inherits(Button, _Lego$UI$Baseview);
-    function Button() {
+var Buttons = function(_Lego$UI$Baseview) {
+    _inherits(Buttons, _Lego$UI$Baseview);
+    function Buttons() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck(this, Button);
+        _classCallCheck(this, Buttons);
         var options = {
             events: {
                 click: "onClick"
@@ -79,9 +79,9 @@ var Button = function(_Lego$UI$Baseview) {
             onClick: function onClick() {}
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).call(this, options));
+        return _possibleConstructorReturn(this, (Buttons.__proto__ || Object.getPrototypeOf(Buttons)).call(this, options));
     }
-    _createClass(Button, [ {
+    _createClass(Buttons, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
@@ -95,9 +95,9 @@ var Button = function(_Lego$UI$Baseview) {
             if (typeof this.options.onClick === "function") this.options.onClick(event);
         }
     } ]);
-    return Button;
+    return Buttons;
 }(Lego.UI.Baseview);
 
-Lego.components("button", Button);
+Lego.components("buttons", Buttons);
 
-module.exports = Button;
+module.exports = Buttons;

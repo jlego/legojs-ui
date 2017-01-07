@@ -1,5 +1,5 @@
 /**
- * select.js v0.2.0
+ * selects.js v0.2.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -243,11 +243,11 @@ function _inherits(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Select = function(_Lego$UI$Baseview) {
-    _inherits(Select, _Lego$UI$Baseview);
-    function Select() {
+var Selects = function(_Lego$UI$Baseview) {
+    _inherits(Selects, _Lego$UI$Baseview);
+    function Selects() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck(this, Select);
+        _classCallCheck(this, Selects);
         var options = {
             events: {},
             value: [],
@@ -312,12 +312,12 @@ var Select = function(_Lego$UI$Baseview) {
                 if (model) model.selected = true;
             });
         }
-        var _this = _possibleConstructorReturn(this, (Select.__proto__ || Object.getPrototypeOf(Select)).call(this, options));
+        var _this = _possibleConstructorReturn(this, (Selects.__proto__ || Object.getPrototypeOf(Selects)).call(this, options));
         var eventName = "click.select_" + opts.vid, callback = _this.clickItemClose.bind(_this);
         _this.$(".select-tags-div").off(eventName).on(eventName, ".select-tag-close", callback);
         return _this;
     }
-    _createClass(Select, [ {
+    _createClass(Selects, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
@@ -383,9 +383,9 @@ var Select = function(_Lego$UI$Baseview) {
             return this.options.value;
         }
     } ]);
-    return Select;
+    return Selects;
 }(Lego.UI.Baseview);
 
-Lego.components("select", Select);
+Lego.components("selects", Selects);
 
-module.exports = Select;
+module.exports = Selects;

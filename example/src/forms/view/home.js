@@ -1,7 +1,7 @@
 import Search from '../../../../dist/Search';
-import Select from '../../../../dist/Select';
+import Selects from '../../../../dist/Selects';
 import Datepicker from '../../../../dist/Datepicker';
-import Input from '../../../../dist/Input';
+import Inputs from '../../../../dist/Inputs';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -173,18 +173,18 @@ class HomeView extends Lego.UI.Baseview {
           </div>
           <div class="row" style="margin-bottom: 20px;">
             <div class="col-sm-6">
-              <select id="select3"></select>
+              <selects id="select3"></selects>
             </div>
             <div class="col-sm-6">
-              <select id="select4"></select>
+              <selects id="select4"></selects>
             </div>
           </div>
           <div class="row" style="margin-bottom: 20px;">
             <div class="col-sm-6">
-              <select id="select5"></select>
+              <selects id="select5"></selects>
             </div>
             <div class="col-sm-6">
-              <select id="select6"></select>
+              <selects id="select6"></selects>
             </div>
           </div>
           <div class="row" style="margin-bottom: 20px;">
@@ -200,9 +200,9 @@ class HomeView extends Lego.UI.Baseview {
                 <datepicker id="datepicker9"></datepicker>
             </div>
             <div class="col-sm-6">
-                <input id="input10">
-                <input id="input11">
-                <input id="input12">
+                <inputs id="input10"></inputs>
+                <inputs id="input11"></inputs>
+                <inputs id="input12"></inputs>
             </div>
           </div>
         </div>

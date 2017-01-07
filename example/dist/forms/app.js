@@ -174,14 +174,14 @@
             return t;
         };
     }();
-    var r = h([ '<i class="anticon anticon-setting"></i>' ], [ '<i class="anticon anticon-setting"></i>' ]), i = h([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <search id="search1"></search>\n            </div>\n            <div class="col-sm-6">\n              <search id="search2"></search>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <select id="select3"></select>\n            </div>\n            <div class="col-sm-6">\n              <select id="select4"></select>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <select id="select5"></select>\n            </div>\n            <div class="col-sm-6">\n              <select id="select6"></select>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <datepicker id="datepicker7"></datepicker>\n            </div>\n            <div class="col-sm-6">\n              <datepicker id="datepicker8"></datepicker>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n                <datepicker id="datepicker9"></datepicker>\n            </div>\n            <div class="col-sm-6">\n                <input id="input10">\n                <input id="input11">\n                <input id="input12">\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <search id="search1"></search>\n            </div>\n            <div class="col-sm-6">\n              <search id="search2"></search>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <select id="select3"></select>\n            </div>\n            <div class="col-sm-6">\n              <select id="select4"></select>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <select id="select5"></select>\n            </div>\n            <div class="col-sm-6">\n              <select id="select6"></select>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <datepicker id="datepicker7"></datepicker>\n            </div>\n            <div class="col-sm-6">\n              <datepicker id="datepicker8"></datepicker>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n                <datepicker id="datepicker9"></datepicker>\n            </div>\n            <div class="col-sm-6">\n                <input id="input10">\n                <input id="input11">\n                <input id="input12">\n            </div>\n          </div>\n        </div>\n        ' ]);
+    var r = h([ '<i class="anticon anticon-setting"></i>' ], [ '<i class="anticon anticon-setting"></i>' ]), i = h([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <search id="search1"></search>\n            </div>\n            <div class="col-sm-6">\n              <search id="search2"></search>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <selects id="select3"></selects>\n            </div>\n            <div class="col-sm-6">\n              <selects id="select4"></selects>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <selects id="select5"></selects>\n            </div>\n            <div class="col-sm-6">\n              <selects id="select6"></selects>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <datepicker id="datepicker7"></datepicker>\n            </div>\n            <div class="col-sm-6">\n              <datepicker id="datepicker8"></datepicker>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n                <datepicker id="datepicker9"></datepicker>\n            </div>\n            <div class="col-sm-6">\n                <inputs id="input10"></inputs>\n                <inputs id="input11"></inputs>\n                <inputs id="input12"></inputs>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <search id="search1"></search>\n            </div>\n            <div class="col-sm-6">\n              <search id="search2"></search>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <selects id="select3"></selects>\n            </div>\n            <div class="col-sm-6">\n              <selects id="select4"></selects>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <selects id="select5"></selects>\n            </div>\n            <div class="col-sm-6">\n              <selects id="select6"></selects>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <datepicker id="datepicker7"></datepicker>\n            </div>\n            <div class="col-sm-6">\n              <datepicker id="datepicker8"></datepicker>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n                <datepicker id="datepicker9"></datepicker>\n            </div>\n            <div class="col-sm-6">\n                <inputs id="input10"></inputs>\n                <inputs id="input11"></inputs>\n                <inputs id="input12"></inputs>\n            </div>\n          </div>\n        </div>\n        ' ]);
     var s = n(12);
     var o = f(s);
-    var d = n(13);
+    var d = n(236);
     var u = f(d);
     var l = n(14);
     var _ = f(l);
-    var m = n(131);
+    var m = n(237);
     var c = f(m);
     function f(e) {
         return e && e.__esModule ? e : {
@@ -667,375 +667,7 @@
     }(Lego.UI.Baseview);
     Lego.components("search", v);
     e.exports = v;
-}, function(e, t) {
-    "use strict";
-    var n = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
-        return typeof e;
-    } : function(e) {
-        return e && typeof Symbol === "function" && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e;
-    };
-    var a = function() {
-        function e(e, t) {
-            for (var n = 0; n < t.length; n++) {
-                var a = t[n];
-                a.enumerable = a.enumerable || false;
-                a.configurable = true;
-                if ("value" in a) a.writable = true;
-                Object.defineProperty(e, a.key, a);
-            }
-        }
-        return function(t, n, a) {
-            if (n) e(t.prototype, n);
-            if (a) e(t, a);
-            return t;
-        };
-    }();
-    var r = u([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
-    var i = u([ '<li id="', '" class="', '">\n                    <a href="', '">', "</a></li>" ], [ '<li id="', '" class="', '">\n                    <a href="', '">', "</a></li>" ]);
-    var s = u([ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ]);
-    var o = u([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
-    var d = u([ '\n        <ul class="dropdown-menu clearfix ', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu clearfix ', '">\n            ', "\n        </ul>\n        " ]);
-    function u(e, t) {
-        return Object.freeze(Object.defineProperties(e, {
-            raw: {
-                value: Object.freeze(t)
-            }
-        }));
-    }
-    function l(e, t) {
-        if (!(e instanceof t)) {
-            throw new TypeError("Cannot call a class as a function");
-        }
-    }
-    function _(e, t) {
-        if (!e) {
-            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-        }
-        return t && ((typeof t === "undefined" ? "undefined" : n(t)) === "object" || typeof t === "function") ? t : e;
-    }
-    function m(e, t) {
-        if (typeof t !== "function" && t !== null) {
-            throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : n(t)));
-        }
-        e.prototype = Object.create(t && t.prototype, {
-            constructor: {
-                value: e,
-                enumerable: false,
-                writable: true,
-                configurable: true
-            }
-        });
-        if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
-    }
-    var c = function(e) {
-        m(t, e);
-        function t() {
-            var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-            l(this, t);
-            var n = {
-                events: {
-                    "click li": "clickItem"
-                },
-                disabled: false,
-                eventName: "hover",
-                activeKey: "",
-                activeValue: "",
-                trigger: "",
-                visible: false,
-                direction: "",
-                onChange: function e() {},
-                onVisibleChange: function e() {}
-            };
-            Object.assign(n, e);
-            var a = _(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
-            var r = a;
-            a.options.trigger = e.trigger instanceof $ ? e.trigger : $(e.trigger);
-            if (!a.options.disabled) {
-                var i = function e(t) {
-                    t.stopPropagation();
-                    var a = Lego.UI.Util.getDirection(r.options.trigger, r.$el);
-                    r.options.direction = a._y || "bottom";
-                    r.show();
-                    if (n.eventName == "hover") {
-                        r.options.trigger.mouseleave(function() {
-                            r.close();
-                        });
-                    }
-                };
-                if (n.eventName == "click") {
-                    var s = "click.dropdown_" + e.vid;
-                    $("body").off(s).on(s, function() {
-                        r.close();
-                    });
-                    a.options.trigger.off(s).on(s, i);
-                } else {
-                    a.options.trigger[n.eventName](i);
-                }
-            }
-            return a;
-        }
-        a(t, [ {
-            key: "render",
-            value: function e() {
-                var t = this.options || {};
-                function n(e) {
-                    if (e.divider) {
-                        return hx(r);
-                    } else {
-                        if (!e.children) {
-                            return hx(i, e.key, e.disabled || e.selected ? "disabled" : "", e.href ? e.href : "javascript:;", e.value);
-                        } else {
-                            return a(e);
-                        }
-                    }
-                }
-                function a(e) {
-                    return hx(s, e.value, e.children ? hx(o, e.children.map(function(e) {
-                        n(e);
-                    })) : "");
-                }
-                var u = hx(d, t.direction ? "drop" + t.direction : "", t.data.map(function(e) {
-                    return n(e);
-                }));
-                return u;
-            }
-        }, {
-            key: "_getAlign",
-            value: function e(t, n) {
-                var a = t.offset().left, r = t.offset().top - n.height(), i = $(window).width() - 20, s = n.width();
-                if (i > a + s) {
-                    return "left";
-                } else {
-                    return "right";
-                }
-            }
-        }, {
-            key: "show",
-            value: function e(t) {
-                this.options.trigger.addClass("dropdown open");
-                this.options.onVisibleChange(true);
-            }
-        }, {
-            key: "close",
-            value: function e(t) {
-                this.options.trigger.removeClass("dropdown open");
-                this.options.onVisibleChange(false);
-            }
-        }, {
-            key: "clickItem",
-            value: function e(t) {
-                var n = $(t.currentTarget);
-                var a = this.options.data.find(function(e) {
-                    return e.key == n.attr("id");
-                });
-                if (a) {
-                    this.options.onChange(a);
-                    this.options.activeKey = a.key;
-                    this.options.activeValue = a.value;
-                }
-                this.close();
-            }
-        } ]);
-        return t;
-    }(Lego.UI.Baseview);
-    Lego.components("dropdown", c);
-    var f = function() {
-        function e(e, t) {
-            for (var n = 0; n < t.length; n++) {
-                var a = t[n];
-                a.enumerable = a.enumerable || false;
-                a.configurable = true;
-                if ("value" in a) a.writable = true;
-                Object.defineProperty(e, a.key, a);
-            }
-        }
-        return function(t, n, a) {
-            if (n) e(t.prototype, n);
-            if (a) e(t, a);
-            return t;
-        };
-    }();
-    var h = L([ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ], [ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ]);
-    var p = L([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
-    var M = L([ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n\n            </div>\n            ' ]);
-    var y = L([ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ]);
-    function L(e, t) {
-        return Object.freeze(Object.defineProperties(e, {
-            raw: {
-                value: Object.freeze(t)
-            }
-        }));
-    }
-    function Y(e, t) {
-        if (!(e instanceof t)) {
-            throw new TypeError("Cannot call a class as a function");
-        }
-    }
-    function v(e, t) {
-        if (!e) {
-            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-        }
-        return t && ((typeof t === "undefined" ? "undefined" : n(t)) === "object" || typeof t === "function") ? t : e;
-    }
-    function g(e, t) {
-        if (typeof t !== "function" && t !== null) {
-            throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : n(t)));
-        }
-        e.prototype = Object.create(t && t.prototype, {
-            constructor: {
-                value: e,
-                enumerable: false,
-                writable: true,
-                configurable: true
-            }
-        });
-        if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
-    }
-    var k = function(e) {
-        g(t, e);
-        function t() {
-            var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-            Y(this, t);
-            var n = {
-                events: {},
-                value: [],
-                multiple: false,
-                eventName: "click",
-                filterOption: true,
-                tags: false,
-                onSelect: function e() {},
-                onDeselect: function e() {},
-                onChange: function e() {},
-                onSearch: function e() {},
-                placeholder: "",
-                notFoundContent: "",
-                dropdownMatchSelectWidth: true,
-                optionFilterProp: "",
-                combobox: false,
-                size: "",
-                showSearch: false,
-                disabled: false,
-                defaultActiveFirstOption: false,
-                dropdownStyle: null,
-                dropdownClassName: "",
-                splitString: "",
-                components: [ {
-                    el: "#" + e.vid + "-dropdown",
-                    trigger: "#" + e.vid + "-select",
-                    eventName: e.eventName || "click",
-                    disabled: e.disabled || false,
-                    style: Object.assign({
-                        width: e.dropdownMatchSelectWidth === false ? "auto" : "100%"
-                    }, e.dropdownStyle || {}),
-                    className: e.dropdownClassName,
-                    data: e.data,
-                    onChange: function t(n) {
-                        var a = Lego.getView(e.el);
-                        if (a) {
-                            if (n.key !== "0" && e.multiple) {
-                                a.getValue();
-                                if (!a.options.value.includes(n)) {
-                                    n.selected = true;
-                                    a.options.value.push(n);
-                                }
-                            } else {
-                                a.options.data.forEach(function(e) {
-                                    return e.selected = false;
-                                });
-                                a.options.value = [ n ];
-                            }
-                            a.options.onSelect(n);
-                            a.options.onChange(n);
-                            a.refresh();
-                        }
-                    }
-                } ]
-            };
-            Object.assign(n, e);
-            if (n.value.length) {
-                n.value.forEach(function(e) {
-                    var t = n.data.find(function(t) {
-                        return t.key === e.key;
-                    });
-                    if (t) t.selected = true;
-                });
-            }
-            var a = v(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
-            var r = "click.select_" + e.vid, i = a.clickItemClose.bind(a);
-            a.$(".select-tags-div").off(r).on(r, ".select-tag-close", i);
-            return a;
-        }
-        f(t, [ {
-            key: "render",
-            value: function e() {
-                var t = this.options || {};
-                var n = "";
-                function a(e) {
-                    if (e.length) {
-                        return hx(h, e.map(function(e) {
-                            return hx(p, e.key, e.value, e.value);
-                        }));
-                    } else {
-                        return "";
-                    }
-                }
-                var r = Array.isArray(t.value) ? t.value.length ? t.value.map(function(e) {
-                    return e.value;
-                }) : [] : [ t.value.value ];
-                if (!t.multiple) {
-                    n = hx(M, t.vid, t.disabled ? "disabled" : "", t.placeholder, r.join(","), t.vid);
-                } else {
-                    n = hx(y, t.vid, r.length ? "select-hasValue" : "", r.length ? "" : t.placeholder, r.join(","), r.length ? "select-tags-div-border" : "", a(t.value), t.vid);
-                }
-                return n;
-            }
-        }, {
-            key: "clickItemClose",
-            value: function e(t) {
-                t.stopPropagation();
-                var n = $(t.currentTarget).parent(), a = n.attr("id"), r = n.attr("title");
-                this.options.data.forEach(function(e) {
-                    if (e.key === a) e.selected = false;
-                });
-                this.getValue();
-                this.refresh();
-                Lego.getView("#" + this.options.vid + "-dropdown").refresh();
-                if (typeof this.options.onDeselect === "function") this.options.onDeselect({
-                    key: a,
-                    value: r
-                });
-            }
-        }, {
-            key: "setValue",
-            value: function e(t) {
-                var n = this.options.data;
-                if (t.length) {
-                    t.forEach(function(e) {
-                        var t = n.find(function(t) {
-                            return t.key === e.key;
-                        });
-                        if (t) {
-                            Object.assign(t, e);
-                        } else {
-                            n.push(e);
-                        }
-                    });
-                }
-            }
-        }, {
-            key: "getValue",
-            value: function e() {
-                this.options.value = this.options.data.filter(function(e) {
-                    return e.selected === true && e.key !== "0";
-                });
-                return this.options.value;
-            }
-        } ]);
-        return t;
-    }(Lego.UI.Baseview);
-    Lego.components("select", k);
-    e.exports = k;
-}, function(e, t, n) {
+}, , function(e, t, n) {
     "use strict";
     var a = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
         return typeof e;
@@ -15478,6 +15110,374 @@
         e.href = URL.createObjectURL(r);
         if (i) URL.revokeObjectURL(i);
     }
+}, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , function(e, t) {
+    "use strict";
+    var n = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
+        return typeof e;
+    } : function(e) {
+        return e && typeof Symbol === "function" && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e;
+    };
+    var a = function() {
+        function e(e, t) {
+            for (var n = 0; n < t.length; n++) {
+                var a = t[n];
+                a.enumerable = a.enumerable || false;
+                a.configurable = true;
+                if ("value" in a) a.writable = true;
+                Object.defineProperty(e, a.key, a);
+            }
+        }
+        return function(t, n, a) {
+            if (n) e(t.prototype, n);
+            if (a) e(t, a);
+            return t;
+        };
+    }();
+    var r = u([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
+    var i = u([ '<li id="', '" class="', '">\n                    <a href="', '">', "</a></li>" ], [ '<li id="', '" class="', '">\n                    <a href="', '">', "</a></li>" ]);
+    var s = u([ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ]);
+    var o = u([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
+    var d = u([ '\n        <ul class="dropdown-menu clearfix ', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu clearfix ', '">\n            ', "\n        </ul>\n        " ]);
+    function u(e, t) {
+        return Object.freeze(Object.defineProperties(e, {
+            raw: {
+                value: Object.freeze(t)
+            }
+        }));
+    }
+    function l(e, t) {
+        if (!(e instanceof t)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+    function _(e, t) {
+        if (!e) {
+            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        }
+        return t && ((typeof t === "undefined" ? "undefined" : n(t)) === "object" || typeof t === "function") ? t : e;
+    }
+    function m(e, t) {
+        if (typeof t !== "function" && t !== null) {
+            throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : n(t)));
+        }
+        e.prototype = Object.create(t && t.prototype, {
+            constructor: {
+                value: e,
+                enumerable: false,
+                writable: true,
+                configurable: true
+            }
+        });
+        if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
+    }
+    var c = function(e) {
+        m(t, e);
+        function t() {
+            var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+            l(this, t);
+            var n = {
+                events: {
+                    "click li": "clickItem"
+                },
+                disabled: false,
+                eventName: "hover",
+                activeKey: "",
+                activeValue: "",
+                trigger: "",
+                visible: false,
+                direction: "",
+                onChange: function e() {},
+                onVisibleChange: function e() {}
+            };
+            Object.assign(n, e);
+            var a = _(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
+            var r = a;
+            a.options.trigger = e.trigger instanceof $ ? e.trigger : $(e.trigger);
+            if (!a.options.disabled) {
+                var i = function e(t) {
+                    t.stopPropagation();
+                    var a = Lego.UI.Util.getDirection(r.options.trigger, r.$el);
+                    r.options.direction = a._y || "bottom";
+                    r.show();
+                    if (n.eventName == "hover") {
+                        r.options.trigger.mouseleave(function() {
+                            r.close();
+                        });
+                    }
+                };
+                if (n.eventName == "click") {
+                    var s = "click.dropdown_" + e.vid;
+                    $("body").off(s).on(s, function() {
+                        r.close();
+                    });
+                    a.options.trigger.off(s).on(s, i);
+                } else {
+                    a.options.trigger[n.eventName](i);
+                }
+            }
+            return a;
+        }
+        a(t, [ {
+            key: "render",
+            value: function e() {
+                var t = this.options || {};
+                function n(e) {
+                    if (e.divider) {
+                        return hx(r);
+                    } else {
+                        if (!e.children) {
+                            return hx(i, e.key, e.disabled || e.selected ? "disabled" : "", e.href ? e.href : "javascript:;", e.value);
+                        } else {
+                            return a(e);
+                        }
+                    }
+                }
+                function a(e) {
+                    return hx(s, e.value, e.children ? hx(o, e.children.map(function(e) {
+                        n(e);
+                    })) : "");
+                }
+                var u = hx(d, t.direction ? "drop" + t.direction : "", t.data.map(function(e) {
+                    return n(e);
+                }));
+                return u;
+            }
+        }, {
+            key: "_getAlign",
+            value: function e(t, n) {
+                var a = t.offset().left, r = t.offset().top - n.height(), i = $(window).width() - 20, s = n.width();
+                if (i > a + s) {
+                    return "left";
+                } else {
+                    return "right";
+                }
+            }
+        }, {
+            key: "show",
+            value: function e(t) {
+                this.options.trigger.addClass("dropdown open");
+                this.options.onVisibleChange(true);
+            }
+        }, {
+            key: "close",
+            value: function e(t) {
+                this.options.trigger.removeClass("dropdown open");
+                this.options.onVisibleChange(false);
+            }
+        }, {
+            key: "clickItem",
+            value: function e(t) {
+                var n = $(t.currentTarget);
+                var a = this.options.data.find(function(e) {
+                    return e.key == n.attr("id");
+                });
+                if (a) {
+                    this.options.onChange(a);
+                    this.options.activeKey = a.key;
+                    this.options.activeValue = a.value;
+                }
+                this.close();
+            }
+        } ]);
+        return t;
+    }(Lego.UI.Baseview);
+    Lego.components("dropdown", c);
+    var f = function() {
+        function e(e, t) {
+            for (var n = 0; n < t.length; n++) {
+                var a = t[n];
+                a.enumerable = a.enumerable || false;
+                a.configurable = true;
+                if ("value" in a) a.writable = true;
+                Object.defineProperty(e, a.key, a);
+            }
+        }
+        return function(t, n, a) {
+            if (n) e(t.prototype, n);
+            if (a) e(t, a);
+            return t;
+        };
+    }();
+    var h = L([ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ], [ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ]);
+    var p = L([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
+    var M = L([ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n\n            </div>\n            ' ]);
+    var y = L([ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ]);
+    function L(e, t) {
+        return Object.freeze(Object.defineProperties(e, {
+            raw: {
+                value: Object.freeze(t)
+            }
+        }));
+    }
+    function Y(e, t) {
+        if (!(e instanceof t)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+    function v(e, t) {
+        if (!e) {
+            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        }
+        return t && ((typeof t === "undefined" ? "undefined" : n(t)) === "object" || typeof t === "function") ? t : e;
+    }
+    function g(e, t) {
+        if (typeof t !== "function" && t !== null) {
+            throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : n(t)));
+        }
+        e.prototype = Object.create(t && t.prototype, {
+            constructor: {
+                value: e,
+                enumerable: false,
+                writable: true,
+                configurable: true
+            }
+        });
+        if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
+    }
+    var k = function(e) {
+        g(t, e);
+        function t() {
+            var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+            Y(this, t);
+            var n = {
+                events: {},
+                value: [],
+                multiple: false,
+                eventName: "click",
+                filterOption: true,
+                tags: false,
+                onSelect: function e() {},
+                onDeselect: function e() {},
+                onChange: function e() {},
+                onSearch: function e() {},
+                placeholder: "",
+                notFoundContent: "",
+                dropdownMatchSelectWidth: true,
+                optionFilterProp: "",
+                combobox: false,
+                size: "",
+                showSearch: false,
+                disabled: false,
+                defaultActiveFirstOption: false,
+                dropdownStyle: null,
+                dropdownClassName: "",
+                splitString: "",
+                components: [ {
+                    el: "#" + e.vid + "-dropdown",
+                    trigger: "#" + e.vid + "-select",
+                    eventName: e.eventName || "click",
+                    disabled: e.disabled || false,
+                    style: Object.assign({
+                        width: e.dropdownMatchSelectWidth === false ? "auto" : "100%"
+                    }, e.dropdownStyle || {}),
+                    className: e.dropdownClassName,
+                    data: e.data,
+                    onChange: function t(n) {
+                        var a = Lego.getView(e.el);
+                        if (a) {
+                            if (n.key !== "0" && e.multiple) {
+                                a.getValue();
+                                if (!a.options.value.includes(n)) {
+                                    n.selected = true;
+                                    a.options.value.push(n);
+                                }
+                            } else {
+                                a.options.data.forEach(function(e) {
+                                    return e.selected = false;
+                                });
+                                a.options.value = [ n ];
+                            }
+                            a.options.onSelect(n);
+                            a.options.onChange(n);
+                            a.refresh();
+                        }
+                    }
+                } ]
+            };
+            Object.assign(n, e);
+            if (n.value.length) {
+                n.value.forEach(function(e) {
+                    var t = n.data.find(function(t) {
+                        return t.key === e.key;
+                    });
+                    if (t) t.selected = true;
+                });
+            }
+            var a = v(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
+            var r = "click.select_" + e.vid, i = a.clickItemClose.bind(a);
+            a.$(".select-tags-div").off(r).on(r, ".select-tag-close", i);
+            return a;
+        }
+        f(t, [ {
+            key: "render",
+            value: function e() {
+                var t = this.options || {};
+                var n = "";
+                function a(e) {
+                    if (e.length) {
+                        return hx(h, e.map(function(e) {
+                            return hx(p, e.key, e.value, e.value);
+                        }));
+                    } else {
+                        return "";
+                    }
+                }
+                var r = Array.isArray(t.value) ? t.value.length ? t.value.map(function(e) {
+                    return e.value;
+                }) : [] : [ t.value.value ];
+                if (!t.multiple) {
+                    n = hx(M, t.vid, t.disabled ? "disabled" : "", t.placeholder, r.join(","), t.vid);
+                } else {
+                    n = hx(y, t.vid, r.length ? "select-hasValue" : "", r.length ? "" : t.placeholder, r.join(","), r.length ? "select-tags-div-border" : "", a(t.value), t.vid);
+                }
+                return n;
+            }
+        }, {
+            key: "clickItemClose",
+            value: function e(t) {
+                t.stopPropagation();
+                var n = $(t.currentTarget).parent(), a = n.attr("id"), r = n.attr("title");
+                this.options.data.forEach(function(e) {
+                    if (e.key === a) e.selected = false;
+                });
+                this.getValue();
+                this.refresh();
+                Lego.getView("#" + this.options.vid + "-dropdown").refresh();
+                if (typeof this.options.onDeselect === "function") this.options.onDeselect({
+                    key: a,
+                    value: r
+                });
+            }
+        }, {
+            key: "setValue",
+            value: function e(t) {
+                var n = this.options.data;
+                if (t.length) {
+                    t.forEach(function(e) {
+                        var t = n.find(function(t) {
+                            return t.key === e.key;
+                        });
+                        if (t) {
+                            Object.assign(t, e);
+                        } else {
+                            n.push(e);
+                        }
+                    });
+                }
+            }
+        }, {
+            key: "getValue",
+            value: function e() {
+                this.options.value = this.options.data.filter(function(e) {
+                    return e.selected === true && e.key !== "0";
+                });
+                return this.options.value;
+            }
+        } ]);
+        return t;
+    }(Lego.UI.Baseview);
+    Lego.components("selects", k);
+    e.exports = k;
 }, function(e, t) {
     "use strict";
     var n = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
@@ -15606,6 +15606,6 @@
         } ]);
         return t;
     }(Lego.UI.Baseview);
-    Lego.components("input", c);
+    Lego.components("inputs", c);
     e.exports = c;
 } ]);

@@ -5,7 +5,7 @@
  */
 // import './asset/index.scss';
 
-class Input extends Lego.UI.Baseview {
+class Inputs extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
@@ -76,5 +76,5 @@ class Input extends Lego.UI.Baseview {
         if(typeof this.options.onChange === 'function') this.options.onChange(value, event);
     }
 }
-Lego.components('input', Input);
-export default Input;
+Lego.components('inputs', Inputs);
+export default Inputs;

@@ -1,5 +1,5 @@
 /**
- * table.js v0.2.0
+ * tables.js v0.2.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -493,11 +493,11 @@ function _inherits(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Table = function(_Lego$UI$Baseview) {
-    _inherits(Table, _Lego$UI$Baseview);
-    function Table() {
+var Tables = function(_Lego$UI$Baseview) {
+    _inherits(Tables, _Lego$UI$Baseview);
+    function Tables() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck(this, Table);
+        _classCallCheck(this, Tables);
         var options = {
             events: {
                 "click tbody .lego-checkbox": "selectOne",
@@ -552,7 +552,7 @@ var Table = function(_Lego$UI$Baseview) {
                 sortOrder: ""
             }, col);
         });
-        var _this = _possibleConstructorReturn(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this, options));
+        var _this = _possibleConstructorReturn(this, (Tables.__proto__ || Object.getPrototypeOf(Tables)).call(this, options));
         _this.selectedAll = 0;
         var header = _this.$(".lego-table-header");
         _this.$(".lego-table-body").scroll(function() {
@@ -561,7 +561,7 @@ var Table = function(_Lego$UI$Baseview) {
         _this.$(".lego-table-tfoot>tr>td").attr("colspan", _this.options.columns.length);
         return _this;
     }
-    _createClass(Table, [ {
+    _createClass(Tables, [ {
         key: "render",
         value: function render() {
             var options = this.options;
@@ -753,9 +753,9 @@ var Table = function(_Lego$UI$Baseview) {
             return rows;
         }
     } ]);
-    return Table;
+    return Tables;
 }(Lego.UI.Baseview);
 
-Lego.components("table", Table);
+Lego.components("tables", Tables);
 
-module.exports = Table;
+module.exports = Tables;

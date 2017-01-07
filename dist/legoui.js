@@ -569,11 +569,11 @@ function _inherits$5(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Button = function(_Lego$UI$Baseview) {
-    _inherits$5(Button, _Lego$UI$Baseview);
-    function Button() {
+var Buttons = function(_Lego$UI$Baseview) {
+    _inherits$5(Buttons, _Lego$UI$Baseview);
+    function Buttons() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$5(this, Button);
+        _classCallCheck$5(this, Buttons);
         var options = {
             events: {
                 click: "onClick"
@@ -588,9 +588,9 @@ var Button = function(_Lego$UI$Baseview) {
             onClick: function onClick() {}
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$5(this, (Button.__proto__ || Object.getPrototypeOf(Button)).call(this, options));
+        return _possibleConstructorReturn$5(this, (Buttons.__proto__ || Object.getPrototypeOf(Buttons)).call(this, options));
     }
-    _createClass$5(Button, [ {
+    _createClass$5(Buttons, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
@@ -604,10 +604,10 @@ var Button = function(_Lego$UI$Baseview) {
             if (typeof this.options.onClick === "function") this.options.onClick(event);
         }
     } ]);
-    return Button;
+    return Buttons;
 }(Lego.UI.Baseview);
 
-Lego.components("button", Button);
+Lego.components("buttons", Buttons);
 
 var _createClass$8 = function() {
     function defineProperties(target, props) {
@@ -1097,11 +1097,11 @@ function _inherits$6(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Table = function(_Lego$UI$Baseview) {
-    _inherits$6(Table, _Lego$UI$Baseview);
-    function Table() {
+var Tables = function(_Lego$UI$Baseview) {
+    _inherits$6(Tables, _Lego$UI$Baseview);
+    function Tables() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$6(this, Table);
+        _classCallCheck$6(this, Tables);
         var options = {
             events: {
                 "click tbody .lego-checkbox": "selectOne",
@@ -1156,7 +1156,7 @@ var Table = function(_Lego$UI$Baseview) {
                 sortOrder: ""
             }, col);
         });
-        var _this = _possibleConstructorReturn$6(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this, options));
+        var _this = _possibleConstructorReturn$6(this, (Tables.__proto__ || Object.getPrototypeOf(Tables)).call(this, options));
         _this.selectedAll = 0;
         var header = _this.$(".lego-table-header");
         _this.$(".lego-table-body").scroll(function() {
@@ -1165,7 +1165,7 @@ var Table = function(_Lego$UI$Baseview) {
         _this.$(".lego-table-tfoot>tr>td").attr("colspan", _this.options.columns.length);
         return _this;
     }
-    _createClass$6(Table, [ {
+    _createClass$6(Tables, [ {
         key: "render",
         value: function render() {
             var options = this.options;
@@ -1357,10 +1357,10 @@ var Table = function(_Lego$UI$Baseview) {
             return rows;
         }
     } ]);
-    return Table;
+    return Tables;
 }(Lego.UI.Baseview);
 
-Lego.components("table", Table);
+Lego.components("tables", Tables);
 
 var Util$2 = function($) {
     var transition = false;
@@ -2559,11 +2559,11 @@ function _inherits$13(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Select = function(_Lego$UI$Baseview) {
-    _inherits$13(Select, _Lego$UI$Baseview);
-    function Select() {
+var Selects = function(_Lego$UI$Baseview) {
+    _inherits$13(Selects, _Lego$UI$Baseview);
+    function Selects() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$14(this, Select);
+        _classCallCheck$14(this, Selects);
         var options = {
             events: {},
             value: [],
@@ -2628,12 +2628,12 @@ var Select = function(_Lego$UI$Baseview) {
                 if (model) model.selected = true;
             });
         }
-        var _this = _possibleConstructorReturn$13(this, (Select.__proto__ || Object.getPrototypeOf(Select)).call(this, options));
+        var _this = _possibleConstructorReturn$13(this, (Selects.__proto__ || Object.getPrototypeOf(Selects)).call(this, options));
         var eventName = "click.select_" + opts.vid, callback = _this.clickItemClose.bind(_this);
         _this.$(".select-tags-div").off(eventName).on(eventName, ".select-tag-close", callback);
         return _this;
     }
-    _createClass$14(Select, [ {
+    _createClass$14(Selects, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
@@ -2699,10 +2699,10 @@ var Select = function(_Lego$UI$Baseview) {
             return this.options.value;
         }
     } ]);
-    return Select;
+    return Selects;
 }(Lego.UI.Baseview);
 
-Lego.components("select", Select);
+Lego.components("selects", Selects);
 
 var _extends$1 = Object.assign || function(target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -2946,11 +2946,11 @@ function _inherits$15(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Input = function(_Lego$UI$Baseview) {
-    _inherits$15(Input, _Lego$UI$Baseview);
-    function Input() {
+var Inputs = function(_Lego$UI$Baseview) {
+    _inherits$15(Inputs, _Lego$UI$Baseview);
+    function Inputs() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$16(this, Input);
+        _classCallCheck$16(this, Inputs);
         var options = {
             events: {
                 keydown: "onEnter",
@@ -2971,7 +2971,7 @@ var Input = function(_Lego$UI$Baseview) {
             onEnter: function onEnter() {}
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn$15(this, (Input.__proto__ || Object.getPrototypeOf(Input)).call(this, options));
+        var _this = _possibleConstructorReturn$15(this, (Inputs.__proto__ || Object.getPrototypeOf(Inputs)).call(this, options));
         var that = _this;
         if (options.addonBefore || options.addonAfter) {
             var onEnterFun = _this.onEnter.bind(_this);
@@ -2981,7 +2981,7 @@ var Input = function(_Lego$UI$Baseview) {
         }
         return _this;
     }
-    _createClass$16(Input, [ {
+    _createClass$16(Inputs, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
@@ -3012,10 +3012,10 @@ var Input = function(_Lego$UI$Baseview) {
             if (typeof this.options.onChange === "function") this.options.onChange(value, event);
         }
     } ]);
-    return Input;
+    return Inputs;
 }(Lego.UI.Baseview);
 
-Lego.components("input", Input);
+Lego.components("inputs", Inputs);
 
 var _typeof$1 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
     return typeof obj;
@@ -3883,9 +3883,9 @@ exports.Alert = Alert;
 
 exports.Badge = Badge;
 
-exports.Button = Button;
+exports.Buttons = Buttons;
 
-exports.Table = Table;
+exports.Tables = Tables;
 
 exports.Pagination = Pagination;
 
@@ -3899,11 +3899,11 @@ exports.Tabs = Tabs;
 
 exports.Search = Search;
 
-exports.Select = Select;
+exports.Selects = Selects;
 
 exports.Datepicker = Datepicker;
 
-exports.Input = Input;
+exports.Inputs = Inputs;
 
 exports.Tooltip = Tooltip;
 
