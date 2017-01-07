@@ -1,36 +1,49 @@
+/**
+ * 树型
+ * ronghui Yu
+ * 2017/1/7
+ */
+import ztree from 'ztree';
+import 'ztree/css/awesomeStyle/awesome.css';
 // import './asset/index.scss';
 
-class Button extends Lego.UI.Baseview {
+class Tree extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
-            events: {
-                'click': 'onClick'
-            },
-            text: 'button', //text/html
-            type: 'default',   //设置按钮类型，可选值为 primary ghost dashed 或者不设
-            htmlType: 'button', //设置 button 原生的 type 值
-            icon: '',  //设置按钮的图标类型
-            shape: '',    //设置按钮形状，可选值为 circle 或者不设
-            size: 'default',    //设置按钮大小，可选值为 small large 或者不设
-            loading: false,    //设置按钮载入状态
-            onClick(){}   //click 事件的 handler
+            setting: {
+                check: {
+                    // enable: true,
+                    // chkStyle: "radio",
+                    // radioType: "level"
+                },
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
+                },
+                callback: {
+                    // beforeClick: beforeClick,
+                    // onCheck: onCheck
+                }
+            }
         };
         Object.assign(options, opts);
         super(options);
+        $.fn.zTree.init(this.$el, this.options.setting, this.options.data);
     }
     render() {
-        const options = this.options || {};
-        const vDom = hx`
-        <button type="${options.htmlType}" class="btn btn-${options.type}">
-            <span>${options.html || options.text}</span>
-        </button>
-        `;
-        return vDom;
+        return hx`<ul></ul>`;
     }
-    onClick(event){
-        event.stopPropagation();
-        if(typeof this.options.onClick === 'function') this.options.onClick(event);
+    // 取消选择
+    clearChecked(field, data) {
+        const ztree = $.fn.zTree.getZTreeObj(this.options.id);
+        if (data.treeId) {
+            const node = ztree.getNodeByParam(field, data.treeId, null);
+            if (node) {
+                ztree.checkNode(node, false, false);
+            }
+        }
     }
 }
-Lego.components('button', Button);
-export default Button;
+Lego.components('tree', Tree);
+export default Tree;

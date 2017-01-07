@@ -17,3 +17,4 @@ export Datepicker from "./datepicker/index";
 export Inputs from "./inputs/index";
 export Tooltip from "./tooltip/index";
 export Popover from "./popover/index";
+export Notification from "./notification/index";

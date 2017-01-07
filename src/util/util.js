@@ -28,7 +28,9 @@ const Util = {
         });
     }
 };
+// 判断是否空值(主要用于视图模板)
 window.val = function(value){
     return value ? value : '';
 };
+Lego.components('Util', Util);
 export default Util;

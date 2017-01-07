@@ -440,7 +440,7 @@
             };
         }();
         var i = u([ '\n        <div id="pageContent">\n            <div>\n                <buttons id="button1"></buttons>\n                <buttons id="button2"></buttons>\n                <buttons id="button3"></buttons>\n                <buttons id="button4"></buttons>\n                <buttons id="button5"></buttons>\n                <buttons id="button6"></buttons>\n                <buttons id="button7"></buttons>\n            </div>\n            <div id="md" style="margin-top: 20px;"></div>\n            sdfasd<code>img</code>fa\n            <div id="tableDiv" class="markdown"></div>\n        </div>\n        ' ], [ '\n        <div id="pageContent">\n            <div>\n                <buttons id="button1"></buttons>\n                <buttons id="button2"></buttons>\n                <buttons id="button3"></buttons>\n                <buttons id="button4"></buttons>\n                <buttons id="button5"></buttons>\n                <buttons id="button6"></buttons>\n                <buttons id="button7"></buttons>\n            </div>\n            <div id="md" style="margin-top: 20px;"></div>\n            sdfasd<code>img</code>fa\n            <div id="tableDiv" class="markdown"></div>\n        </div>\n        ' ]);
-        var r = n(238);
+        var r = n(236);
         var a = c(r);
         var s = n(6);
         var l = c(s);
@@ -1461,7 +1461,7 @@
             };
         }();
         var i = l([ '\n        <div id="pageContent" style="height:100%">\n            <tables id="theTable"></tables>\n        </div>\n        ' ], [ '\n        <div id="pageContent" style="height:100%">\n            <tables id="theTable"></tables>\n        </div>\n        ' ]);
-        var r = n(239);
+        var r = n(237);
         var a = s(r);
         function s(e) {
             return e && e.__esModule ? e : {
@@ -1670,7 +1670,7 @@
         }(HBY.Data);
         t.default = new a();
     },
-    238: function(e, t) {
+    236: function(e, t) {
         "use strict";
         var n = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
             return typeof e;
@@ -1766,7 +1766,7 @@
         Lego.components("buttons", c);
         e.exports = c;
     },
-    239: function(e, t) {
+    237: function(e, t) {
         "use strict";
         var n = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
             return typeof e;

@@ -3,7 +3,22 @@ import Popover from '../../../../dist/Popover';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
-        const options = {};
+        const options = {
+            events: {
+                'click #notification1': function(){
+                    Lego.UI.notification('success', '系统提示1');
+                },
+                'click #notification2': function(){
+                    Lego.UI.notification('info', '系统提示2');
+                },
+                'click #notification3': function(){
+                    Lego.UI.notification('warning', '系统提示3');
+                },
+                'click #notification4': function(){
+                    Lego.UI.notification('error', '系统提示4');
+                }
+            }
+        };
         Object.assign(options, opts);
         super(options);
         Lego.UI.tooltip({
@@ -93,7 +108,7 @@ class HomeView extends Lego.UI.Baseview {
               <button type="button" class="btn btn-secondary" id="tooltip4">Right</button>
             </div>
           </div>
-          <div class="row" style="margin-bottom: 20px;">
+          <div class="row" style="margin-bottom: 40px;">
             <div class="col-sm-3">
               <button type="button" class="btn btn-secondary" id="popover1">Top</button>
             </div>
@@ -105,6 +120,20 @@ class HomeView extends Lego.UI.Baseview {
             </div>
             <div class="col-sm-3">
               <button type="button" class="btn btn-secondary" id="popover4">Right</button>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 40px;">
+            <div class="col-sm-3">
+              <button type="button" class="btn btn-primary" id="notification1">系统提示1</button>
+            </div>
+            <div class="col-sm-3">
+              <button type="button" class="btn btn-primary" id="notification2">系统提示2</button>
+            </div>
+            <div class="col-sm-3">
+              <button type="button" class="btn btn-primary" id="notification3">系统提示3</button>
+            </div>
+            <div class="col-sm-3">
+              <button type="button" class="btn btn-primary" id="notification4">系统提示4</button>
             </div>
           </div>
         </div>

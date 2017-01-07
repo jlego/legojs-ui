@@ -2,14 +2,14 @@
     var e = {};
     function n(i) {
         if (e[i]) return e[i].exports;
-        var r = e[i] = {
+        var o = e[i] = {
             exports: {},
             id: i,
             loaded: false
         };
-        t[i].call(r.exports, r, r.exports, n);
-        r.loaded = true;
-        return r.exports;
+        t[i].call(o.exports, o, o.exports, n);
+        o.loaded = true;
+        return o.exports;
     }
     n.m = t;
     n.c = e;
@@ -34,8 +34,8 @@
                 return e;
             };
         }();
-        var r = n(231);
-        var o = f(r);
+        var o = n(231);
+        var r = f(o);
         var a = n(232);
         var s = f(a);
         function f(t) {
@@ -59,7 +59,7 @@
             i(t, [ {
                 key: "index",
                 value: function t() {
-                    this.viewObj = HBY.create(o.default, {
+                    this.viewObj = HBY.create(r.default, {
                         el: HBY.config.pageEl,
                         scrollbar: {},
                         currentTab: 0
@@ -101,15 +101,15 @@
                 return e;
             };
         }();
-        var i = r([ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/tips/0" class="', '">Tips 提示框</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ], [ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/tips/0" class="', '">Tips 提示框</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ]);
-        function r(t, e) {
+        var i = o([ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/tips/0" class="', '">Tips 提示框</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ], [ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/tips/0" class="', '">Tips 提示框</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ]);
+        function o(t, e) {
             return Object.freeze(Object.defineProperties(t, {
                 raw: {
                     value: Object.freeze(e)
                 }
             }));
         }
-        function o(t, e) {
+        function r(t, e) {
             if (!(t instanceof e)) {
                 throw new TypeError("Cannot call a class as a function");
             }
@@ -138,7 +138,7 @@
             s(e, t);
             function e() {
                 var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-                o(this, e);
+                r(this, e);
                 var n = {
                     currentTab: 0
                 };
@@ -178,9 +178,9 @@
                 return e;
             };
         }();
-        var r = u([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip4">Right</button>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover4">Right</button>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip4">Right</button>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover4">Right</button>\n            </div>\n          </div>\n        </div>\n        ' ]);
-        var o = n(233);
-        var a = l(o);
+        var o = u([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip4">Right</button>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover4">Right</button>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification1">系统提示1</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification2">系统提示2</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification3">系统提示3</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification4">系统提示4</button>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip4">Right</button>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover4">Right</button>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification1">系统提示1</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification2">系统提示2</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification3">系统提示3</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification4">系统提示4</button>\n            </div>\n          </div>\n        </div>\n        ' ]);
+        var r = n(233);
+        var a = l(r);
         var s = n(235);
         var f = l(s);
         function l(t) {
@@ -225,7 +225,22 @@
             function e() {
                 var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
                 c(this, e);
-                var n = {};
+                var n = {
+                    events: {
+                        "click #notification1": function t() {
+                            Lego.UI.notification("success", "系统提示1");
+                        },
+                        "click #notification2": function t() {
+                            Lego.UI.notification("info", "系统提示2");
+                        },
+                        "click #notification3": function t() {
+                            Lego.UI.notification("warning", "系统提示3");
+                        },
+                        "click #notification4": function t() {
+                            Lego.UI.notification("error", "系统提示4");
+                        }
+                    }
+                };
                 Object.assign(n, t);
                 var i = h(this, (e.__proto__ || Object.getPrototypeOf(e)).call(this, n));
                 Lego.UI.tooltip({
@@ -302,7 +317,7 @@
             i(e, [ {
                 key: "render",
                 value: function t() {
-                    var e = hx(r);
+                    var e = hx(o);
                     return e;
                 }
             } ]);
@@ -317,10 +332,10 @@
         } : function(t) {
             return t && typeof Symbol === "function" && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : typeof t;
         };
-        function r(t) {
+        function o(t) {
             return t && (typeof t === "undefined" ? "undefined" : i(t)) === "object" && "default" in t ? t["default"] : t;
         }
-        var o = r(n(234));
+        var r = o(n(234));
         var a = function(t) {
             var e = false;
             var n = 1e6;
@@ -330,10 +345,10 @@
                 OTransition: "oTransitionEnd otransitionend",
                 transition: "transitionend"
             };
-            function r(t) {
+            function o(t) {
                 return {}.toString.call(t).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
             }
-            function o(t) {
+            function r(t) {
                 return (t[0] || t).nodeType;
             }
             function a() {
@@ -413,10 +428,10 @@
                             var s = i[a];
                             var f = n[a];
                             var l = void 0;
-                            if (f && o(f)) {
+                            if (f && r(f)) {
                                 l = "element";
                             } else {
-                                l = r(f);
+                                l = o(f);
                             }
                             if (!new RegExp(s).test(l)) {
                                 throw new Error(e.toUpperCase() + ": " + ('Option "' + a + '" provided type "' + l + '" ') + ('but expected type "' + s + '".'));
@@ -454,7 +469,7 @@
                 throw new TypeError("Cannot call a class as a function");
             }
         }
-        window.Tether = o;
+        window.Tether = r;
         var u = function(t) {
             if (window.Tether === undefined) {
                 throw new Error("Bootstrap tooltips require Tether (http://tether.io/)");
@@ -462,7 +477,7 @@
             var e = "tooltip";
             var n = "4.0.0-alpha.5";
             var i = "bs.tooltip";
-            var r = "." + i;
+            var o = "." + i;
             var u = t.fn[e];
             var c = 150;
             var h = "bs-tether";
@@ -501,16 +516,16 @@
                 OUT: "out"
             };
             var m = {
-                HIDE: "hide" + r,
-                HIDDEN: "hidden" + r,
-                SHOW: "show" + r,
-                SHOWN: "shown" + r,
-                INSERTED: "inserted" + r,
-                CLICK: "click" + r,
-                FOCUSIN: "focusin" + r,
-                FOCUSOUT: "focusout" + r,
-                MOUSEENTER: "mouseenter" + r,
-                MOUSELEAVE: "mouseleave" + r
+                HIDE: "hide" + o,
+                HIDDEN: "hidden" + o,
+                SHOW: "show" + o,
+                SHOWN: "shown" + o,
+                INSERTED: "inserted" + o,
+                CLICK: "click" + o,
+                FOCUSIN: "focusin" + o,
+                FOCUSOUT: "focusout" + o,
+                MOUSEENTER: "mouseenter" + o,
+                MOUSELEAVE: "mouseleave" + o
             };
             var y = {
                 FADE: "fade",
@@ -563,16 +578,16 @@
                     value: function e(n) {
                         if (n) {
                             var i = this.constructor.DATA_KEY;
-                            var r = t(n.currentTarget).data(i);
-                            if (!r) {
-                                r = new this.constructor(n.currentTarget, this._getDelegateConfig());
-                                t(n.currentTarget).data(i, r);
+                            var o = t(n.currentTarget).data(i);
+                            if (!o) {
+                                o = new this.constructor(n.currentTarget, this._getDelegateConfig());
+                                t(n.currentTarget).data(i, o);
                             }
-                            r._activeTrigger.click = !r._activeTrigger.click;
-                            if (r._isWithActiveTrigger()) {
-                                r._enter(null, r);
+                            o._activeTrigger.click = !o._activeTrigger.click;
+                            if (o._isWithActiveTrigger()) {
+                                o._enter(null, o);
                             } else {
-                                r._leave(null, r);
+                                o._leave(null, o);
                             }
                         } else {
                             if (t(this.getTipElement()).hasClass(y.IN)) {
@@ -608,8 +623,8 @@
                         var i = t.Event(this.constructor.Event.SHOW);
                         if (this.isWithContent() && this._isEnabled) {
                             t(this.element).trigger(i);
-                            var r = t.contains(this.element.ownerDocument.documentElement, this.element);
-                            if (i.isDefaultPrevented() || !r) {
+                            var o = t.contains(this.element.ownerDocument.documentElement, this.element);
+                            if (i.isDefaultPrevented() || !o) {
                                 return;
                             }
                             var s = this.getTipElement();
@@ -624,7 +639,7 @@
                             var c = this._getAttachment(l);
                             t(s).data(this.constructor.DATA_KEY, this).appendTo(document.body);
                             t(this.element).trigger(this.constructor.Event.INSERTED);
-                            this._tether = new o({
+                            this._tether = new r({
                                 attachment: c,
                                 element: s,
                                 target: this.element,
@@ -656,11 +671,11 @@
                     key: "hide",
                     value: function e(n) {
                         var i = this;
-                        var r = this.getTipElement();
-                        var o = t.Event(this.constructor.Event.HIDE);
+                        var o = this.getTipElement();
+                        var r = t.Event(this.constructor.Event.HIDE);
                         var s = function e() {
-                            if (i._hoverState !== g.IN && r.parentNode) {
-                                r.parentNode.removeChild(r);
+                            if (i._hoverState !== g.IN && o.parentNode) {
+                                o.parentNode.removeChild(o);
                             }
                             i.element.removeAttribute("aria-describedby");
                             t(i.element).trigger(i.constructor.Event.HIDDEN);
@@ -669,13 +684,13 @@
                                 n();
                             }
                         };
-                        t(this.element).trigger(o);
-                        if (o.isDefaultPrevented()) {
+                        t(this.element).trigger(r);
+                        if (r.isDefaultPrevented()) {
                             return;
                         }
-                        t(r).removeClass(y.IN);
+                        t(o).removeClass(y.IN);
                         if (a.supportsTransitionEnd() && t(this.tip).hasClass(y.FADE)) {
-                            t(r).one(a.TRANSITION_END, s).emulateTransitionEnd(c);
+                            t(o).one(a.TRANSITION_END, s).emulateTransitionEnd(c);
                         } else {
                             s();
                         }
@@ -702,9 +717,9 @@
                 }, {
                     key: "setElementContent",
                     value: function e(n, i) {
-                        var r = this.config.html;
+                        var o = this.config.html;
                         if ((typeof i === "undefined" ? "undefined" : s(i)) === "object" && (i.nodeType || i.jquery)) {
-                            if (r) {
+                            if (o) {
                                 if (!t(i).parent().is(n)) {
                                     n.empty().append(i);
                                 }
@@ -712,7 +727,7 @@
                                 n.text(t(i).text());
                             }
                         } else {
-                            n[r ? "html" : "text"](i);
+                            n[o ? "html" : "text"](i);
                         }
                     }
                 }, {
@@ -746,8 +761,8 @@
                                 t(n.element).on(n.constructor.Event.CLICK, n.config.selector, t.proxy(n.toggle, n));
                             } else if (e !== T.MANUAL) {
                                 var i = e === T.HOVER ? n.constructor.Event.MOUSEENTER : n.constructor.Event.FOCUSIN;
-                                var r = e === T.HOVER ? n.constructor.Event.MOUSELEAVE : n.constructor.Event.FOCUSOUT;
-                                t(n.element).on(i, n.config.selector, t.proxy(n._enter, n)).on(r, n.config.selector, t.proxy(n._leave, n));
+                                var o = e === T.HOVER ? n.constructor.Event.MOUSELEAVE : n.constructor.Event.FOCUSOUT;
+                                t(n.element).on(i, n.config.selector, t.proxy(n._enter, n)).on(o, n.config.selector, t.proxy(n._leave, n));
                             }
                         });
                         if (this.config.selector) {
@@ -771,11 +786,11 @@
                 }, {
                     key: "_enter",
                     value: function e(n, i) {
-                        var r = this.constructor.DATA_KEY;
-                        i = i || t(n.currentTarget).data(r);
+                        var o = this.constructor.DATA_KEY;
+                        i = i || t(n.currentTarget).data(o);
                         if (!i) {
                             i = new this.constructor(n.currentTarget, this._getDelegateConfig());
-                            t(n.currentTarget).data(r, i);
+                            t(n.currentTarget).data(o, i);
                         }
                         if (n) {
                             i._activeTrigger[n.type === "focusin" ? T.FOCUS : T.HOVER] = true;
@@ -799,11 +814,11 @@
                 }, {
                     key: "_leave",
                     value: function e(n, i) {
-                        var r = this.constructor.DATA_KEY;
-                        i = i || t(n.currentTarget).data(r);
+                        var o = this.constructor.DATA_KEY;
+                        i = i || t(n.currentTarget).data(o);
                         if (!i) {
                             i = new this.constructor(n.currentTarget, this._getDelegateConfig());
-                            t(n.currentTarget).data(r, i);
+                            t(n.currentTarget).data(o, i);
                         }
                         if (n) {
                             i._activeTrigger[n.type === "focusout" ? T.FOCUS : T.HOVER] = false;
@@ -864,12 +879,12 @@
                     value: function e(n) {
                         return this.each(function() {
                             var e = t(this).data(i);
-                            var r = (typeof n === "undefined" ? "undefined" : s(n)) === "object" ? n : null;
+                            var o = (typeof n === "undefined" ? "undefined" : s(n)) === "object" ? n : null;
                             if (!e && /dispose|hide/.test(n)) {
                                 return;
                             }
                             if (!e) {
-                                e = new u(this, r);
+                                e = new u(this, o);
                                 t(this).data(i, e);
                             }
                             if (typeof n === "string") {
@@ -908,7 +923,7 @@
                 }, {
                     key: "EVENT_KEY",
                     get: function t() {
-                        return r;
+                        return o;
                     }
                 }, {
                     key: "DefaultType",
@@ -1008,14 +1023,14 @@
         t.exports = d;
     },
     234: function(t, e, n) {
-        var i, r;
-        (function(o, a) {
+        var i, o;
+        (function(r, a) {
             if (true) {
-                !(i = a, r = typeof i === "function" ? i.call(e, n, e, t) : i, r !== undefined && (t.exports = r));
+                !(i = a, o = typeof i === "function" ? i.call(e, n, e, t) : i, o !== undefined && (t.exports = o));
             } else if (typeof e === "object") {
                 t.exports = a(require, e, t);
             } else {
-                o.Tether = a();
+                r.Tether = a();
             }
         })(this, function(t, e, n) {
             "use strict";
@@ -1035,14 +1050,14 @@
                     return e;
                 };
             }();
-            function r(t, e) {
+            function o(t, e) {
                 if (!(t instanceof e)) {
                     throw new TypeError("Cannot call a class as a function");
                 }
             }
-            var o = undefined;
-            if (typeof o === "undefined") {
-                o = {
+            var r = undefined;
+            if (typeof r === "undefined") {
+                r = {
                     modules: []
                 };
             }
@@ -1054,13 +1069,13 @@
                     n[i] = e[i];
                 }
                 if (t.ownerDocument !== document) {
-                    var r = t.ownerDocument.defaultView.frameElement;
-                    if (r) {
-                        var o = s(r);
-                        n.top += o.top;
-                        n.bottom += o.top;
-                        n.left += o.left;
-                        n.right += o.left;
+                    var o = t.ownerDocument.defaultView.frameElement;
+                    if (o) {
+                        var r = s(o);
+                        n.top += r.top;
+                        n.bottom += r.top;
+                        n.left += r.left;
+                        n.right += r.left;
                     }
                 }
                 return n;
@@ -1072,23 +1087,23 @@
                 if (n === "fixed") {
                     return [ t ];
                 }
-                var r = t;
-                while ((r = r.parentNode) && r && r.nodeType === 1) {
-                    var o = undefined;
+                var o = t;
+                while ((o = o.parentNode) && o && o.nodeType === 1) {
+                    var r = undefined;
                     try {
-                        o = getComputedStyle(r);
+                        r = getComputedStyle(o);
                     } catch (t) {}
-                    if (typeof o === "undefined" || o === null) {
-                        i.push(r);
+                    if (typeof r === "undefined" || r === null) {
+                        i.push(o);
                         return i;
                     }
-                    var a = o;
+                    var a = r;
                     var s = a.overflow;
                     var f = a.overflowX;
                     var l = a.overflowY;
                     if (/(auto|scroll)/.test(s + l + f)) {
-                        if (n !== "absolute" || [ "relative", "absolute", "fixed" ].indexOf(o.position) >= 0) {
-                            i.push(r);
+                        if (n !== "absolute" || [ "relative", "absolute", "fixed" ].indexOf(r.position) >= 0) {
+                            i.push(o);
                         }
                     }
                 }
@@ -1143,9 +1158,9 @@
                 }
                 var n = e.documentElement;
                 var i = s(t);
-                var r = c();
-                i.top -= r.top;
-                i.left -= r.left;
+                var o = c();
+                i.top -= o.top;
+                i.left -= o.left;
                 if (typeof i.width === "undefined") {
                     i.width = document.body.scrollWidth - i.left - i.right;
                 }
@@ -1189,10 +1204,10 @@
                     i = e.clientWidth;
                 }
                 document.body.removeChild(e);
-                var r = n - i;
+                var o = n - i;
                 v = {
-                    width: r,
-                    height: r
+                    width: o,
+                    height: o
                 };
                 return v;
             }
@@ -1277,12 +1292,12 @@
             };
             var S = function() {
                 function t() {
-                    r(this, t);
+                    o(this, t);
                 }
                 i(t, [ {
                     key: "on",
                     value: function t(e, n, i) {
-                        var r = arguments.length <= 3 || arguments[3] === undefined ? false : arguments[3];
+                        var o = arguments.length <= 3 || arguments[3] === undefined ? false : arguments[3];
                         if (typeof this.bindings === "undefined") {
                             this.bindings = {};
                         }
@@ -1292,7 +1307,7 @@
                         this.bindings[e].push({
                             handler: n,
                             ctx: i,
-                            once: r
+                            once: o
                         });
                     }
                 }, {
@@ -1324,8 +1339,8 @@
                     value: function t(e) {
                         if (typeof this.bindings !== "undefined" && this.bindings[e]) {
                             var n = 0;
-                            for (var i = arguments.length, r = Array(i > 1 ? i - 1 : 0), o = 1; o < i; o++) {
-                                r[o - 1] = arguments[o];
+                            for (var i = arguments.length, o = Array(i > 1 ? i - 1 : 0), r = 1; r < i; r++) {
+                                o[r - 1] = arguments[r];
                             }
                             while (n < this.bindings[e].length) {
                                 var a = this.bindings[e][n];
@@ -1336,7 +1351,7 @@
                                 if (typeof u === "undefined") {
                                     u = this;
                                 }
-                                s.apply(u, r);
+                                s.apply(u, o);
                                 if (l) {
                                     this.bindings[e].splice(n, 1);
                                 } else {
@@ -1348,7 +1363,7 @@
                 } ]);
                 return t;
             }();
-            o.Utils = {
+            r.Utils = {
                 getActualBoundingClientRect: s,
                 getScrollParents: f,
                 getBounds: d,
@@ -1370,21 +1385,21 @@
                 function t(t, e) {
                     var n = [];
                     var i = true;
-                    var r = false;
-                    var o = undefined;
+                    var o = false;
+                    var r = undefined;
                     try {
                         for (var a = t[Symbol.iterator](), s; !(i = (s = a.next()).done); i = true) {
                             n.push(s.value);
                             if (e && n.length === e) break;
                         }
                     } catch (t) {
-                        r = true;
-                        o = t;
+                        o = true;
+                        r = t;
                     } finally {
                         try {
                             if (!i && a["return"]) a["return"]();
                         } finally {
-                            if (r) throw o;
+                            if (o) throw r;
                         }
                     }
                     return n;
@@ -1416,21 +1431,21 @@
                 };
             }();
             var k = function t(e, n, i) {
-                var r = true;
-                t: while (r) {
-                    var o = e, a = n, s = i;
-                    r = false;
-                    if (o === null) o = Function.prototype;
-                    var f = Object.getOwnPropertyDescriptor(o, a);
+                var o = true;
+                t: while (o) {
+                    var r = e, a = n, s = i;
+                    o = false;
+                    if (r === null) r = Function.prototype;
+                    var f = Object.getOwnPropertyDescriptor(r, a);
                     if (f === undefined) {
-                        var l = Object.getPrototypeOf(o);
+                        var l = Object.getPrototypeOf(r);
                         if (l === null) {
                             return undefined;
                         } else {
                             e = l;
                             n = a;
                             i = s;
-                            r = true;
+                            o = true;
                             f = l = undefined;
                             continue t;
                         }
@@ -1445,7 +1460,7 @@
                     }
                 }
             };
-            function r(t, e) {
+            function o(t, e) {
                 if (!(t instanceof e)) {
                     throw new TypeError("Cannot call a class as a function");
                 }
@@ -1464,10 +1479,10 @@
                 });
                 if (e) Object.setPrototypeOf ? Object.setPrototypeOf(t, e) : t.__proto__ = e;
             }
-            if (typeof o === "undefined") {
+            if (typeof r === "undefined") {
                 throw new Error("You must include the utils.js file before tether.js");
             }
-            var D = o.Utils;
+            var D = r.Utils;
             var f = D.getScrollParents;
             var d = D.getBounds;
             var p = D.getOffsetParent;
@@ -1496,14 +1511,14 @@
                     }
                 }
             }();
-            var H = [];
-            var U = function t() {
-                H.forEach(function(t) {
+            var U = [];
+            var H = function t() {
+                U.forEach(function(t) {
                     t.position(false);
                 });
                 A();
             };
-            function P() {
+            function L() {
                 if (typeof performance !== "undefined" && typeof performance.now !== "undefined") {
                     return performance.now();
                 }
@@ -1519,16 +1534,16 @@
                         n = setTimeout(i, 250);
                         return;
                     }
-                    if (typeof t !== "undefined" && P() - t < 10) {
+                    if (typeof t !== "undefined" && L() - t < 10) {
                         return;
                     }
                     if (n != null) {
                         clearTimeout(n);
                         n = null;
                     }
-                    t = P();
-                    U();
-                    e = P() - t;
+                    t = L();
+                    H();
+                    e = L() - t;
                 };
                 if (typeof window !== "undefined" && typeof window.addEventListener !== "undefined") {
                     [ "resize", "scroll", "touchmove" ].forEach(function(t) {
@@ -1536,7 +1551,7 @@
                     });
                 }
             })();
-            var L = {
+            var P = {
                 center: "center",
                 left: "right",
                 right: "left"
@@ -1556,16 +1571,16 @@
             };
             var F = function t(e, n) {
                 var i = e.left;
-                var r = e.top;
+                var o = e.top;
                 if (i === "auto") {
-                    i = L[n.left];
+                    i = P[n.left];
                 }
-                if (r === "auto") {
-                    r = R[n.top];
+                if (o === "auto") {
+                    o = R[n.top];
                 }
                 return {
                     left: i,
-                    top: r
+                    top: o
                 };
             };
             var W = function t(e) {
@@ -1616,11 +1631,11 @@
             var V = function t(e) {
                 var n = e.split(" ");
                 var i = N(n, 2);
-                var r = i[0];
-                var o = i[1];
+                var o = i[0];
+                var r = i[1];
                 return {
-                    top: r,
-                    left: o
+                    top: o,
+                    left: r
                 };
             };
             var z = V;
@@ -1628,13 +1643,13 @@
                 I(e, t);
                 function e(t) {
                     var n = this;
-                    r(this, e);
+                    o(this, e);
                     k(Object.getPrototypeOf(e.prototype), "constructor", this).call(this);
                     this.position = this.position.bind(this);
-                    H.push(this);
+                    U.push(this);
                     this.history = [];
                     this.setOptions(t, false);
-                    o.modules.forEach(function(t) {
+                    r.modules.forEach(function(t) {
                         if (typeof t.initialize !== "undefined") {
                             t.initialize.call(n);
                         }
@@ -1659,17 +1674,17 @@
                     value: function t(e) {
                         var n = this;
                         var i = arguments.length <= 1 || arguments[1] === undefined ? true : arguments[1];
-                        var r = {
+                        var o = {
                             offset: "0 0",
                             targetOffset: "0 0",
                             targetAttachment: "auto auto",
                             classPrefix: "tether"
                         };
-                        this.options = m(r, e);
-                        var o = this.options;
-                        var a = o.element;
-                        var s = o.target;
-                        var l = o.targetModifier;
+                        this.options = m(o, e);
+                        var r = this.options;
+                        var a = r.element;
+                        var s = r.target;
+                        var l = r.targetModifier;
                         this.element = a;
                         this.target = s;
                         this.targetModifier = l;
@@ -1763,17 +1778,17 @@
                                 } else {
                                     e = d(i);
                                 }
-                                var r = getComputedStyle(i);
-                                var o = i.scrollWidth > i.clientWidth || [ r.overflow, r.overflowX ].indexOf("scroll") >= 0 || this.target !== document.body;
+                                var o = getComputedStyle(i);
+                                var r = i.scrollWidth > i.clientWidth || [ o.overflow, o.overflowX ].indexOf("scroll") >= 0 || this.target !== document.body;
                                 var a = 0;
-                                if (o) {
+                                if (r) {
                                     a = 15;
                                 }
-                                var s = e.height - parseFloat(r.borderTopWidth) - parseFloat(r.borderBottomWidth) - a;
+                                var s = e.height - parseFloat(o.borderTopWidth) - parseFloat(o.borderBottomWidth) - a;
                                 var n = {
                                     width: 15,
                                     height: s * .975 * (s / i.scrollHeight),
-                                    left: e.left + e.width - parseFloat(r.borderLeftWidth) - 15
+                                    left: e.left + e.width - parseFloat(o.borderLeftWidth) - 15
                                 };
                                 var f = 0;
                                 if (s < 408 && this.target === document.body) {
@@ -1783,7 +1798,7 @@
                                     n.height = Math.max(n.height, 24);
                                 }
                                 var l = this.target.scrollTop / (i.scrollHeight - s);
-                                n.top = l * (s - n.height - f) + e.top + parseFloat(r.borderTopWidth);
+                                n.top = l * (s - n.height - f) + e.top + parseFloat(o.borderTopWidth);
                                 if (this.target === document.body) {
                                     n.height = Math.max(n.height, 24);
                                 }
@@ -1846,12 +1861,12 @@
                     value: function t() {
                         var e = this;
                         this.disable();
-                        H.forEach(function(t, n) {
+                        U.forEach(function(t, n) {
                             if (t === e) {
-                                H.splice(n, 1);
+                                U.splice(n, 1);
                             }
                         });
-                        if (H.length === 0) {
+                        if (U.length === 0) {
                             h();
                         }
                     }
@@ -1861,28 +1876,28 @@
                         var i = this;
                         e = e || this.attachment;
                         n = n || this.targetAttachment;
-                        var r = [ "left", "top", "bottom", "right", "middle", "center" ];
+                        var o = [ "left", "top", "bottom", "right", "middle", "center" ];
                         if (typeof this._addAttachClasses !== "undefined" && this._addAttachClasses.length) {
                             this._addAttachClasses.splice(0, this._addAttachClasses.length);
                         }
                         if (typeof this._addAttachClasses === "undefined") {
                             this._addAttachClasses = [];
                         }
-                        var o = this._addAttachClasses;
+                        var r = this._addAttachClasses;
                         if (e.top) {
-                            o.push(this.getClass("element-attached") + "-" + e.top);
+                            r.push(this.getClass("element-attached") + "-" + e.top);
                         }
                         if (e.left) {
-                            o.push(this.getClass("element-attached") + "-" + e.left);
+                            r.push(this.getClass("element-attached") + "-" + e.left);
                         }
                         if (n.top) {
-                            o.push(this.getClass("target-attached") + "-" + n.top);
+                            r.push(this.getClass("target-attached") + "-" + n.top);
                         }
                         if (n.left) {
-                            o.push(this.getClass("target-attached") + "-" + n.left);
+                            r.push(this.getClass("target-attached") + "-" + n.left);
                         }
                         var a = [];
-                        r.forEach(function(t) {
+                        o.forEach(function(t) {
                             a.push(i.getClass("element-attached") + "-" + t);
                             a.push(i.getClass("target-attached") + "-" + t);
                         });
@@ -1908,11 +1923,11 @@
                         this.clearCache();
                         var i = F(this.targetAttachment, this.attachment);
                         this.updateAttachClasses(this.attachment, i);
-                        var r = this.cache("element-bounds", function() {
+                        var o = this.cache("element-bounds", function() {
                             return d(e.element);
                         });
-                        var a = r.width;
-                        var s = r.height;
+                        var a = o.width;
+                        var s = o.height;
                         if (a === 0 && s === 0 && typeof this.lastSize !== "undefined") {
                             var f = this.lastSize;
                             a = f.width;
@@ -1941,14 +1956,14 @@
                         h = B(h, m);
                         var y = l.left + h.left - c.left;
                         var b = l.top + h.top - c.top;
-                        for (var E = 0; E < o.modules.length; ++E) {
-                            var T = o.modules[E];
+                        for (var E = 0; E < r.modules.length; ++E) {
+                            var T = r.modules[E];
                             var w = T.position.call(this, {
                                 left: y,
                                 top: b,
                                 targetAttachment: i,
                                 targetPos: l,
-                                elementPos: r,
+                                elementPos: o,
                                 offset: c,
                                 targetOffset: h,
                                 manualOffset: v,
@@ -2001,20 +2016,20 @@
                                     return d(t);
                                 });
                                 var i = getComputedStyle(t);
-                                var r = n;
-                                var o = {};
+                                var o = n;
+                                var r = {};
                                 [ "Top", "Left", "Bottom", "Right" ].forEach(function(t) {
-                                    o[t.toLowerCase()] = parseFloat(i["border" + t + "Width"]);
+                                    r[t.toLowerCase()] = parseFloat(i["border" + t + "Width"]);
                                 });
-                                n.right = O.body.scrollWidth - n.left - r.width + o.right;
-                                n.bottom = O.body.scrollHeight - n.top - r.height + o.bottom;
-                                if (_.page.top >= n.top + o.top && _.page.bottom >= n.bottom) {
-                                    if (_.page.left >= n.left + o.left && _.page.right >= n.right) {
+                                n.right = O.body.scrollWidth - n.left - o.width + r.right;
+                                n.bottom = O.body.scrollHeight - n.top - o.height + r.bottom;
+                                if (_.page.top >= n.top + r.top && _.page.bottom >= n.bottom) {
+                                    if (_.page.left >= n.left + r.left && _.page.right >= n.right) {
                                         var a = t.scrollTop;
                                         var s = t.scrollLeft;
                                         _.offset = {
-                                            top: _.page.top - n.top + a - o.top,
-                                            left: _.page.left - n.left + s - o.left
+                                            top: _.page.top - n.top + a - r.top,
+                                            left: _.page.left - n.left + s - r.left
                                         };
                                     }
                                 }
@@ -2038,19 +2053,19 @@
                             return;
                         }
                         var i = {};
-                        for (var r in e) {
-                            i[r] = {};
-                            for (var o in e[r]) {
+                        for (var o in e) {
+                            i[o] = {};
+                            for (var r in e[o]) {
                                 var a = false;
                                 for (var s = 0; s < this.history.length; ++s) {
                                     var f = this.history[s];
-                                    if (typeof f[r] !== "undefined" && !x(f[r][o], e[r][o])) {
+                                    if (typeof f[o] !== "undefined" && !x(f[o][r], e[o][r])) {
                                         a = true;
                                         break;
                                     }
                                 }
                                 if (!a) {
-                                    i[r][o] = true;
+                                    i[o][r] = true;
                                 }
                             }
                         }
@@ -2061,9 +2076,9 @@
                             bottom: ""
                         };
                         var u = function t(e, i) {
-                            var r = typeof n.options.optimizations !== "undefined";
-                            var o = r ? n.options.optimizations.gpu : null;
-                            if (o !== false) {
+                            var o = typeof n.options.optimizations !== "undefined";
+                            var r = o ? n.options.optimizations.gpu : null;
+                            if (r !== false) {
                                 var a = undefined, s = undefined;
                                 if (e.top) {
                                     l.top = 0;
@@ -2153,12 +2168,12 @@
                         }
                         var v = {};
                         var g = false;
-                        for (var o in l) {
-                            var y = l[o];
-                            var b = this.element.style[o];
+                        for (var r in l) {
+                            var y = l[r];
+                            var b = this.element.style[r];
                             if (b !== y) {
                                 g = true;
-                                v[o] = y;
+                                v[r] = y;
                             }
                         }
                         if (g) {
@@ -2172,28 +2187,28 @@
                 return e;
             }(S);
             K.modules = [];
-            o.position = U;
-            var Q = m(K, o);
+            r.position = H;
+            var Q = m(K, r);
             "use strict";
             var N = function() {
                 function t(t, e) {
                     var n = [];
                     var i = true;
-                    var r = false;
-                    var o = undefined;
+                    var o = false;
+                    var r = undefined;
                     try {
                         for (var a = t[Symbol.iterator](), s; !(i = (s = a.next()).done); i = true) {
                             n.push(s.value);
                             if (e && n.length === e) break;
                         }
                     } catch (t) {
-                        r = true;
-                        o = t;
+                        o = true;
+                        r = t;
                     } finally {
                         try {
                             if (!i && a["return"]) a["return"]();
                         } finally {
-                            if (r) throw o;
+                            if (o) throw r;
                         }
                     }
                     return n;
@@ -2208,7 +2223,7 @@
                     }
                 };
             }();
-            var D = o.Utils;
+            var D = r.Utils;
             var d = D.getBounds;
             var m = D.extend;
             var _ = D.updateClasses;
@@ -2228,33 +2243,33 @@
                         var t = e;
                         var n = d(e);
                         var i = n;
-                        var r = getComputedStyle(e);
+                        var o = getComputedStyle(e);
                         e = [ i.left, i.top, n.width + i.left, n.height + i.top ];
                         if (t.ownerDocument !== document) {
-                            var o = t.ownerDocument.defaultView;
-                            e[0] += o.pageXOffset;
-                            e[1] += o.pageYOffset;
-                            e[2] += o.pageXOffset;
-                            e[3] += o.pageYOffset;
+                            var r = t.ownerDocument.defaultView;
+                            e[0] += r.pageXOffset;
+                            e[1] += r.pageYOffset;
+                            e[2] += r.pageXOffset;
+                            e[3] += r.pageYOffset;
                         }
                         X.forEach(function(t, n) {
                             t = t[0].toUpperCase() + t.substr(1);
                             if (t === "Top" || t === "Left") {
-                                e[n] += parseFloat(r["border" + t + "Width"]);
+                                e[n] += parseFloat(o["border" + t + "Width"]);
                             } else {
-                                e[n] -= parseFloat(r["border" + t + "Width"]);
+                                e[n] -= parseFloat(o["border" + t + "Width"]);
                             }
                         });
                     })();
                 }
                 return e;
             }
-            o.modules.push({
+            r.modules.push({
                 position: function t(e) {
                     var n = this;
                     var i = e.top;
-                    var r = e.left;
-                    var o = e.targetAttachment;
+                    var o = e.left;
+                    var r = e.targetAttachment;
                     if (!this.options.constraints) {
                         return true;
                     }
@@ -2290,7 +2305,7 @@
                         });
                     });
                     var v = [];
-                    var g = m({}, o);
+                    var g = m({}, r);
                     var y = m({}, this.attachment);
                     this.options.constraints.forEach(function(t) {
                         var e = t.to;
@@ -2355,46 +2370,46 @@
                             }
                         }
                         if (u === "target" || u === "both") {
-                            if (r < b[0] && g.left === "left") {
-                                r += h;
+                            if (o < b[0] && g.left === "left") {
+                                o += h;
                                 g.left = "right";
                             }
-                            if (r + f > b[2] && g.left === "right") {
-                                r -= h;
+                            if (o + f > b[2] && g.left === "right") {
+                                o -= h;
                                 g.left = "left";
                             }
                         }
                         if (u === "together") {
-                            if (r < b[0] && g.left === "left") {
+                            if (o < b[0] && g.left === "left") {
                                 if (y.left === "right") {
-                                    r += h;
+                                    o += h;
                                     g.left = "right";
-                                    r += f;
+                                    o += f;
                                     y.left = "left";
                                 } else if (y.left === "left") {
-                                    r += h;
+                                    o += h;
                                     g.left = "right";
-                                    r -= f;
+                                    o -= f;
                                     y.left = "right";
                                 }
-                            } else if (r + f > b[2] && g.left === "right") {
+                            } else if (o + f > b[2] && g.left === "right") {
                                 if (y.left === "left") {
-                                    r -= h;
+                                    o -= h;
                                     g.left = "left";
-                                    r -= f;
+                                    o -= f;
                                     y.left = "right";
                                 } else if (y.left === "right") {
-                                    r -= h;
+                                    o -= h;
                                     g.left = "left";
-                                    r += f;
+                                    o += f;
                                     y.left = "left";
                                 }
                             } else if (g.left === "center") {
-                                if (r + f > b[2] && y.left === "left") {
-                                    r -= f;
+                                if (o + f > b[2] && y.left === "left") {
+                                    o -= f;
                                     y.left = "right";
-                                } else if (r < b[0] && y.left === "right") {
-                                    r += f;
+                                } else if (o < b[0] && y.left === "right") {
+                                    o += f;
                                     y.left = "left";
                                 }
                             }
@@ -2410,21 +2425,21 @@
                             }
                         }
                         if (u === "element" || u === "both") {
-                            if (r < b[0]) {
+                            if (o < b[0]) {
                                 if (y.left === "right") {
-                                    r += f;
+                                    o += f;
                                     y.left = "left";
                                 } else if (y.left === "center") {
-                                    r += f / 2;
+                                    o += f / 2;
                                     y.left = "left";
                                 }
                             }
-                            if (r + f > b[2]) {
+                            if (o + f > b[2]) {
                                 if (y.left === "left") {
-                                    r -= f;
+                                    o -= f;
                                     y.left = "right";
                                 } else if (y.left === "center") {
-                                    r -= f / 2;
+                                    o -= f / 2;
                                     y.left = "right";
                                 }
                             }
@@ -2455,17 +2470,17 @@
                                 T.push("bottom");
                             }
                         }
-                        if (r < b[0]) {
+                        if (o < b[0]) {
                             if (l.indexOf("left") >= 0) {
-                                r = b[0];
+                                o = b[0];
                                 E.push("left");
                             } else {
                                 T.push("left");
                             }
                         }
-                        if (r + f > b[2]) {
+                        if (o + f > b[2]) {
                             if (l.indexOf("right") >= 0) {
-                                r = b[2] - f;
+                                o = b[2] - f;
                                 E.push("right");
                             } else {
                                 T.push("right");
@@ -2505,7 +2520,7 @@
                         if (E.indexOf("top") >= 0 || E.indexOf("bottom") >= 0) {
                             y.top = g.top = false;
                         }
-                        if (g.top !== o.top || g.left !== o.left || y.top !== n.attachment.top || y.left !== n.attachment.left) {
+                        if (g.top !== r.top || g.left !== r.left || y.top !== n.attachment.top || y.left !== n.attachment.left) {
                             n.updateAttachClasses(y, g);
                             n.trigger("update", {
                                 attachment: y,
@@ -2521,38 +2536,38 @@
                     });
                     return {
                         top: i,
-                        left: r
+                        left: o
                     };
                 }
             });
             "use strict";
-            var D = o.Utils;
+            var D = r.Utils;
             var d = D.getBounds;
             var _ = D.updateClasses;
             var C = D.defer;
-            o.modules.push({
+            r.modules.push({
                 position: function t(e) {
                     var n = this;
                     var i = e.top;
-                    var r = e.left;
-                    var o = this.cache("element-bounds", function() {
+                    var o = e.left;
+                    var r = this.cache("element-bounds", function() {
                         return d(n.element);
                     });
-                    var a = o.height;
-                    var s = o.width;
+                    var a = r.height;
+                    var s = r.width;
                     var f = this.getTargetBounds();
                     var l = i + a;
-                    var u = r + s;
+                    var u = o + s;
                     var c = [];
                     if (i <= f.bottom && l >= f.top) {
                         [ "left", "right" ].forEach(function(t) {
                             var e = f[t];
-                            if (e === r || e === u) {
+                            if (e === o || e === u) {
                                 c.push(t);
                             }
                         });
                     }
-                    if (r <= f.right && u >= f.left) {
+                    if (o <= f.right && u >= f.left) {
                         [ "top", "bottom" ].forEach(function(t) {
                             var e = f[t];
                             if (e === i || e === l) {
@@ -2587,21 +2602,21 @@
                 function t(t, e) {
                     var n = [];
                     var i = true;
-                    var r = false;
-                    var o = undefined;
+                    var o = false;
+                    var r = undefined;
                     try {
                         for (var a = t[Symbol.iterator](), s; !(i = (s = a.next()).done); i = true) {
                             n.push(s.value);
                             if (e && n.length === e) break;
                         }
                     } catch (t) {
-                        r = true;
-                        o = t;
+                        o = true;
+                        r = t;
                     } finally {
                         try {
                             if (!i && a["return"]) a["return"]();
                         } finally {
-                            if (r) throw o;
+                            if (o) throw r;
                         }
                     }
                     return n;
@@ -2616,35 +2631,35 @@
                     }
                 };
             }();
-            o.modules.push({
+            r.modules.push({
                 position: function t(e) {
                     var n = e.top;
                     var i = e.left;
                     if (!this.options.shift) {
                         return;
                     }
-                    var r = this.options.shift;
+                    var o = this.options.shift;
                     if (typeof this.options.shift === "function") {
-                        r = this.options.shift.call(this, {
+                        o = this.options.shift.call(this, {
                             top: n,
                             left: i
                         });
                     }
-                    var o = undefined, a = undefined;
-                    if (typeof r === "string") {
-                        r = r.split(" ");
-                        r[1] = r[1] || r[0];
-                        var s = r;
+                    var r = undefined, a = undefined;
+                    if (typeof o === "string") {
+                        o = o.split(" ");
+                        o[1] = o[1] || o[0];
+                        var s = o;
                         var f = N(s, 2);
-                        o = f[0];
+                        r = f[0];
                         a = f[1];
-                        o = parseFloat(o, 10);
+                        r = parseFloat(r, 10);
                         a = parseFloat(a, 10);
                     } else {
-                        o = r.top;
-                        a = r.left;
+                        r = o.top;
+                        a = o.left;
                     }
-                    n += o;
+                    n += r;
                     i += a;
                     return {
                         top: n,
@@ -2662,10 +2677,10 @@
         } : function(t) {
             return t && typeof Symbol === "function" && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : typeof t;
         };
-        function r(t) {
+        function o(t) {
             return t && (typeof t === "undefined" ? "undefined" : i(t)) === "object" && "default" in t ? t["default"] : t;
         }
-        var o = r(n(234));
+        var r = o(n(234));
         var a = function(t) {
             var e = false;
             var n = 1e6;
@@ -2675,10 +2690,10 @@
                 OTransition: "oTransitionEnd otransitionend",
                 transition: "transitionend"
             };
-            function r(t) {
+            function o(t) {
                 return {}.toString.call(t).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
             }
-            function o(t) {
+            function r(t) {
                 return (t[0] || t).nodeType;
             }
             function a() {
@@ -2758,10 +2773,10 @@
                             var s = i[a];
                             var f = n[a];
                             var l = void 0;
-                            if (f && o(f)) {
+                            if (f && r(f)) {
                                 l = "element";
                             } else {
-                                l = r(f);
+                                l = o(f);
                             }
                             if (!new RegExp(s).test(l)) {
                                 throw new Error(e.toUpperCase() + ": " + ('Option "' + a + '" provided type "' + l + '" ') + ('but expected type "' + s + '".'));
@@ -2799,7 +2814,7 @@
                 throw new TypeError("Cannot call a class as a function");
             }
         }
-        window.Tether = o;
+        window.Tether = r;
         var u = function(t) {
             if (window.Tether === undefined) {
                 throw new Error("Bootstrap tooltips require Tether (http://tether.io/)");
@@ -2807,7 +2822,7 @@
             var e = "tooltip";
             var n = "4.0.0-alpha.5";
             var i = "bs.tooltip";
-            var r = "." + i;
+            var o = "." + i;
             var u = t.fn[e];
             var c = 150;
             var h = "bs-tether";
@@ -2846,16 +2861,16 @@
                 OUT: "out"
             };
             var m = {
-                HIDE: "hide" + r,
-                HIDDEN: "hidden" + r,
-                SHOW: "show" + r,
-                SHOWN: "shown" + r,
-                INSERTED: "inserted" + r,
-                CLICK: "click" + r,
-                FOCUSIN: "focusin" + r,
-                FOCUSOUT: "focusout" + r,
-                MOUSEENTER: "mouseenter" + r,
-                MOUSELEAVE: "mouseleave" + r
+                HIDE: "hide" + o,
+                HIDDEN: "hidden" + o,
+                SHOW: "show" + o,
+                SHOWN: "shown" + o,
+                INSERTED: "inserted" + o,
+                CLICK: "click" + o,
+                FOCUSIN: "focusin" + o,
+                FOCUSOUT: "focusout" + o,
+                MOUSEENTER: "mouseenter" + o,
+                MOUSELEAVE: "mouseleave" + o
             };
             var y = {
                 FADE: "fade",
@@ -2908,16 +2923,16 @@
                     value: function e(n) {
                         if (n) {
                             var i = this.constructor.DATA_KEY;
-                            var r = t(n.currentTarget).data(i);
-                            if (!r) {
-                                r = new this.constructor(n.currentTarget, this._getDelegateConfig());
-                                t(n.currentTarget).data(i, r);
+                            var o = t(n.currentTarget).data(i);
+                            if (!o) {
+                                o = new this.constructor(n.currentTarget, this._getDelegateConfig());
+                                t(n.currentTarget).data(i, o);
                             }
-                            r._activeTrigger.click = !r._activeTrigger.click;
-                            if (r._isWithActiveTrigger()) {
-                                r._enter(null, r);
+                            o._activeTrigger.click = !o._activeTrigger.click;
+                            if (o._isWithActiveTrigger()) {
+                                o._enter(null, o);
                             } else {
-                                r._leave(null, r);
+                                o._leave(null, o);
                             }
                         } else {
                             if (t(this.getTipElement()).hasClass(y.IN)) {
@@ -2953,8 +2968,8 @@
                         var i = t.Event(this.constructor.Event.SHOW);
                         if (this.isWithContent() && this._isEnabled) {
                             t(this.element).trigger(i);
-                            var r = t.contains(this.element.ownerDocument.documentElement, this.element);
-                            if (i.isDefaultPrevented() || !r) {
+                            var o = t.contains(this.element.ownerDocument.documentElement, this.element);
+                            if (i.isDefaultPrevented() || !o) {
                                 return;
                             }
                             var s = this.getTipElement();
@@ -2969,7 +2984,7 @@
                             var c = this._getAttachment(l);
                             t(s).data(this.constructor.DATA_KEY, this).appendTo(document.body);
                             t(this.element).trigger(this.constructor.Event.INSERTED);
-                            this._tether = new o({
+                            this._tether = new r({
                                 attachment: c,
                                 element: s,
                                 target: this.element,
@@ -3001,11 +3016,11 @@
                     key: "hide",
                     value: function e(n) {
                         var i = this;
-                        var r = this.getTipElement();
-                        var o = t.Event(this.constructor.Event.HIDE);
+                        var o = this.getTipElement();
+                        var r = t.Event(this.constructor.Event.HIDE);
                         var s = function e() {
-                            if (i._hoverState !== g.IN && r.parentNode) {
-                                r.parentNode.removeChild(r);
+                            if (i._hoverState !== g.IN && o.parentNode) {
+                                o.parentNode.removeChild(o);
                             }
                             i.element.removeAttribute("aria-describedby");
                             t(i.element).trigger(i.constructor.Event.HIDDEN);
@@ -3014,13 +3029,13 @@
                                 n();
                             }
                         };
-                        t(this.element).trigger(o);
-                        if (o.isDefaultPrevented()) {
+                        t(this.element).trigger(r);
+                        if (r.isDefaultPrevented()) {
                             return;
                         }
-                        t(r).removeClass(y.IN);
+                        t(o).removeClass(y.IN);
                         if (a.supportsTransitionEnd() && t(this.tip).hasClass(y.FADE)) {
-                            t(r).one(a.TRANSITION_END, s).emulateTransitionEnd(c);
+                            t(o).one(a.TRANSITION_END, s).emulateTransitionEnd(c);
                         } else {
                             s();
                         }
@@ -3047,9 +3062,9 @@
                 }, {
                     key: "setElementContent",
                     value: function e(n, i) {
-                        var r = this.config.html;
+                        var o = this.config.html;
                         if ((typeof i === "undefined" ? "undefined" : s(i)) === "object" && (i.nodeType || i.jquery)) {
-                            if (r) {
+                            if (o) {
                                 if (!t(i).parent().is(n)) {
                                     n.empty().append(i);
                                 }
@@ -3057,7 +3072,7 @@
                                 n.text(t(i).text());
                             }
                         } else {
-                            n[r ? "html" : "text"](i);
+                            n[o ? "html" : "text"](i);
                         }
                     }
                 }, {
@@ -3091,8 +3106,8 @@
                                 t(n.element).on(n.constructor.Event.CLICK, n.config.selector, t.proxy(n.toggle, n));
                             } else if (e !== T.MANUAL) {
                                 var i = e === T.HOVER ? n.constructor.Event.MOUSEENTER : n.constructor.Event.FOCUSIN;
-                                var r = e === T.HOVER ? n.constructor.Event.MOUSELEAVE : n.constructor.Event.FOCUSOUT;
-                                t(n.element).on(i, n.config.selector, t.proxy(n._enter, n)).on(r, n.config.selector, t.proxy(n._leave, n));
+                                var o = e === T.HOVER ? n.constructor.Event.MOUSELEAVE : n.constructor.Event.FOCUSOUT;
+                                t(n.element).on(i, n.config.selector, t.proxy(n._enter, n)).on(o, n.config.selector, t.proxy(n._leave, n));
                             }
                         });
                         if (this.config.selector) {
@@ -3116,11 +3131,11 @@
                 }, {
                     key: "_enter",
                     value: function e(n, i) {
-                        var r = this.constructor.DATA_KEY;
-                        i = i || t(n.currentTarget).data(r);
+                        var o = this.constructor.DATA_KEY;
+                        i = i || t(n.currentTarget).data(o);
                         if (!i) {
                             i = new this.constructor(n.currentTarget, this._getDelegateConfig());
-                            t(n.currentTarget).data(r, i);
+                            t(n.currentTarget).data(o, i);
                         }
                         if (n) {
                             i._activeTrigger[n.type === "focusin" ? T.FOCUS : T.HOVER] = true;
@@ -3144,11 +3159,11 @@
                 }, {
                     key: "_leave",
                     value: function e(n, i) {
-                        var r = this.constructor.DATA_KEY;
-                        i = i || t(n.currentTarget).data(r);
+                        var o = this.constructor.DATA_KEY;
+                        i = i || t(n.currentTarget).data(o);
                         if (!i) {
                             i = new this.constructor(n.currentTarget, this._getDelegateConfig());
-                            t(n.currentTarget).data(r, i);
+                            t(n.currentTarget).data(o, i);
                         }
                         if (n) {
                             i._activeTrigger[n.type === "focusout" ? T.FOCUS : T.HOVER] = false;
@@ -3209,12 +3224,12 @@
                     value: function e(n) {
                         return this.each(function() {
                             var e = t(this).data(i);
-                            var r = (typeof n === "undefined" ? "undefined" : s(n)) === "object" ? n : null;
+                            var o = (typeof n === "undefined" ? "undefined" : s(n)) === "object" ? n : null;
                             if (!e && /dispose|hide/.test(n)) {
                                 return;
                             }
                             if (!e) {
-                                e = new u(this, r);
+                                e = new u(this, o);
                                 t(this).data(i, e);
                             }
                             if (typeof n === "string") {
@@ -3253,7 +3268,7 @@
                 }, {
                     key: "EVENT_KEY",
                     get: function t() {
-                        return r;
+                        return o;
                     }
                 }, {
                     key: "DefaultType",
@@ -3400,8 +3415,8 @@
             var e = "popover";
             var n = "4.0.0-alpha.5";
             var i = "bs.popover";
-            var r = "." + i;
-            var o = t.fn[e];
+            var o = "." + i;
+            var r = t.fn[e];
             var a = t.extend({}, u.Default, {
                 placement: "right",
                 trigger: "click",
@@ -3420,19 +3435,19 @@
                 CONTENT: ".popover-content"
             };
             var c = {
-                HIDE: "hide" + r,
-                HIDDEN: "hidden" + r,
-                SHOW: "show" + r,
-                SHOWN: "shown" + r,
-                INSERTED: "inserted" + r,
-                CLICK: "click" + r,
-                FOCUSIN: "focusin" + r,
-                FOCUSOUT: "focusout" + r,
-                MOUSEENTER: "mouseenter" + r,
-                MOUSELEAVE: "mouseleave" + r
+                HIDE: "hide" + o,
+                HIDDEN: "hidden" + o,
+                SHOW: "show" + o,
+                SHOWN: "shown" + o,
+                INSERTED: "inserted" + o,
+                CLICK: "click" + o,
+                FOCUSIN: "focusin" + o,
+                FOCUSOUT: "focusout" + o,
+                MOUSEENTER: "mouseenter" + o,
+                MOUSELEAVE: "mouseleave" + o
             };
-            var h = function(o) {
-                y(u, o);
+            var h = function(r) {
+                y(u, r);
                 function u() {
                     g(this, u);
                     return m(this, (u.__proto__ || Object.getPrototypeOf(u)).apply(this, arguments));
@@ -3466,12 +3481,12 @@
                     value: function e(n) {
                         return this.each(function() {
                             var e = t(this).data(i);
-                            var r = (typeof n === "undefined" ? "undefined" : p(n)) === "object" ? n : null;
+                            var o = (typeof n === "undefined" ? "undefined" : p(n)) === "object" ? n : null;
                             if (!e && /destroy|hide/.test(n)) {
                                 return;
                             }
                             if (!e) {
-                                e = new u(this, r);
+                                e = new u(this, o);
                                 t(this).data(i, e);
                             }
                             if (typeof n === "string") {
@@ -3510,7 +3525,7 @@
                 }, {
                     key: "EVENT_KEY",
                     get: function t() {
-                        return r;
+                        return o;
                     }
                 }, {
                     key: "DefaultType",
@@ -3523,7 +3538,7 @@
             t.fn[e] = h._jQueryInterface;
             t.fn[e].Constructor = h;
             t.fn[e].noConflict = function() {
-                t.fn[e] = o;
+                t.fn[e] = r;
                 return h._jQueryInterface;
             };
             return h;

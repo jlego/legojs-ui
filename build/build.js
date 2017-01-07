@@ -53,7 +53,8 @@ build([{
 {alias: 'datepicker'},
 {alias: 'inputs'},
 {alias: 'tooltip'},
-{alias: 'popover'}
+{alias: 'popover'},
+{alias: 'notification'}
 ].map(genConfig));
 
 function ucfirst(str) {
