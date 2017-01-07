@@ -63,19 +63,7 @@ class HomeView extends Lego.UI.Baseview {
                 //     key: 'so2',
                 //     value: '选项二选项二选项二'
                 // },
-                data: [{
-                    key: '0',
-                    value: '不限'
-                }, {
-                    key: 'so1',
-                    value: '选项一'
-                }, {
-                    key: 'so2',
-                    value: '选项二选项二选项二fffdf'
-                }, {
-                    key: 'so3',
-                    value: '选项三'
-                }]
+                data: data.slice(0)
             }, {
                 el: '#select6',
                 placeholder: '请选择',
@@ -91,19 +79,7 @@ class HomeView extends Lego.UI.Baseview {
                     key: 'so3',
                     value: '选项三'
                 }],
-                data: [{
-                    key: '0',
-                    value: '不限'
-                }, {
-                    key: 'so1',
-                    value: '选项一'
-                }, {
-                    key: 'so2',
-                    value: '选项二选项二选项二fffdf'
-                }, {
-                    key: 'so3',
-                    value: '选项三'
-                }]
+                data: data.slice(0)
             }, {
                 el: '#datepicker7',
                 type: 'date',

@@ -278,19 +278,7 @@
                     onChange: function e(t) {
                         console.warn("点击了选项框3", t);
                     },
-                    data: [ {
-                        key: "0",
-                        value: "不限"
-                    }, {
-                        key: "so1",
-                        value: "选项一"
-                    }, {
-                        key: "so2",
-                        value: "选项二选项二选项二fffdf"
-                    }, {
-                        key: "so3",
-                        value: "选项三"
-                    } ]
+                    data: n.slice(0)
                 }, {
                     el: "#select6",
                     placeholder: "请选择",
@@ -305,19 +293,7 @@
                         key: "so3",
                         value: "选项三"
                     } ],
-                    data: [ {
-                        key: "0",
-                        value: "不限"
-                    }, {
-                        key: "so1",
-                        value: "选项一"
-                    }, {
-                        key: "so2",
-                        value: "选项二选项二选项二fffdf"
-                    }, {
-                        key: "so3",
-                        value: "选项三"
-                    } ]
+                    data: n.slice(0)
                 }, {
                     el: "#datepicker7",
                     type: "date",
