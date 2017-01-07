@@ -10419,6 +10419,9 @@ tr.lego-table-expanded-row:hover {
   border-right: 0.3em solid transparent;
   border-left: 0.3em solid transparent; }
 
+.select .select-input:focus {
+  border-color: #66afe9 !important; }
+
 .select.multiple:after {
   content: none; }
 
@@ -10438,7 +10441,7 @@ tr.lego-table-expanded-row:hover {
 
 .select.multiple .select-tags-div.select-tags-div-border {
   position: inherit;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: 1px solid #ddd;
   border-radius: .25rem; }
 
 .select.multiple .select-tags-div ul {
@@ -10523,7 +10526,15 @@ tr.lego-table-expanded-row:hover {
   border-right: none !important; }
 
 .input-group.date .form-control:focus,
-.input-group.date .form-control:focus + .input-group-addon,
+.input-group.date .form-control:focus ~ .input-group-addon,
 .input-group.date .input-group-addon:focus,
 .input-group.date .input-group-addon:active {
   border-color: #66afe9; }
+
+.input-group.date .form-control:focus ~ .input-group-addon {
+  border-left: none !important; }
+
+.endDate {
+  border-radius: .25rem !important;
+  border-bottom-left-radius: 0 !important;
+  border-top-left-radius: 0 !important; }

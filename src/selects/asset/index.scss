@@ -18,7 +18,9 @@
     border-right: 0.3em solid transparent;
     border-left: 0.3em solid transparent;
 }
-
+.select .select-input:focus{
+    border-color: #66afe9!important;
+}
 .select.multiple:after {
     content: none;
 }
@@ -41,7 +43,7 @@
 
 .select.multiple .select-tags-div.select-tags-div-border {
     position: inherit;
-    border: 1px solid rgba(0, 0, 0, .15);
+    border: 1px solid #ddd;
     border-radius: .25rem;
 }
 
