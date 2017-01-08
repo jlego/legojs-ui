@@ -15210,20 +15210,20 @@
         u(t, [ {
             key: "renderScroll",
             value: function e() {
-                var t = this;
-                if (this.options.scrollbar) {
-                    (function() {
-                        var e = t.$(".scrollbar");
-                        var n = e[0];
-                        var r = e.parent().css("position");
-                        if (!r || r !== "fixed") e.parent().css("position", "relative");
-                        if (e.length) {
-                            Ps.initialize(n, t.options.scrollbar);
-                            t.$el.off("mousemove.ps").on("mousemove.ps", function() {
-                                Ps.update(n);
+                var t = this.options, n = this;
+                if (t.scrollbar) {
+                    var r = this.$(".scrollbar");
+                    if (r.length) {
+                        r.css("overflow", "hidden");
+                        r.each(function(e, r) {
+                            var o = $(this), i = "mousemove.ps" + e, a = o.parent().css("position");
+                            if (!a || a !== "fixed") o.parent().css("position", "relative");
+                            Ps.initialize(o[0], t.scrollbar);
+                            n.$el.off(i).on(i, function() {
+                                Ps.update(o[0]);
                             });
-                        }
-                    })();
+                        });
+                    }
                 }
             }
         } ]);

@@ -9,6 +9,7 @@ class Treeselect extends Selects {
             value: [], //指定当前选中的条目object/Array
             multiple: false, //支持多选
             eventName: 'click',
+            scrollbar: {},
             // showResultType: 'tag', //text, tag 多选时有效
             // allowClear: false,  //支持清除, 单选模式有效
             filterOption: true, //是否根据输入项进行筛选。当其为一个函数时，会接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。
@@ -19,7 +20,8 @@ class Treeselect extends Selects {
             onSearch() {}, //文本框值变化时回调
             placeholder: '', //选择框默认文字
             notFoundContent: '', //当下拉列表为空时显示的内容
-            dropdownMatchSelectWidth: true, //下拉菜单和选择器同宽
+            dropdownWidth: '100%', //下拉菜单和选择器同宽
+            dropdownHeight: 'auto', //下拉菜单高度
             optionFilterProp: '', //搜索时过滤对应的 option 属性，如设置为 children 表示对内嵌内容进行搜索的子元素。比如在子元素需要高亮效果时，此值可以设为 value。
             combobox: false, //输入框自动提示模式
             size: '', //支持多选
@@ -60,7 +62,7 @@ class Treeselect extends Selects {
                         theView.refresh();
                     }
                 },
-                onClick(result){
+                onClick(result) {
                     const theView = Lego.getView(opts.el);
                     theView.options.value.forEach(item => item.selected = false);
                     theView.options.value = [{
@@ -74,9 +76,6 @@ class Treeselect extends Selects {
                     theView.refresh();
                 },
                 disabled: opts.disabled || false,
-                style: Object.assign({
-                    width: opts.dropdownMatchSelectWidth === false ? 'auto' : '100%'
-                }, opts.dropdownStyle || {}),
                 className: opts.dropdownClassName
             }]
         };
@@ -117,10 +116,10 @@ class Treeselect extends Selects {
         const theValueArr = Array.isArray(options.value) ? (options.value.length ? options.value.map(item => item.value) : []) : [options.value.value];
         if(!options.multiple){
             vDom = hx`
-            <div class="select dropdown">
+            <div class="select dropdown treeselect">
                 <div id="${options.vid}-select">
                     <input type="text" class="form-control select-input ${options.disabled ? 'disabled' : ''}" placeholder="${options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
-                    <div class="dropdown-menu clearfix ${options.direction ? ('drop' + options.direction) : ''}">
+                    <div class="dropdown-menu scrollbar ${options.direction ? ('drop' + options.direction) : ''}">
                         <tree id="${options.vid}-tree"></tree>
                     </div>
                 </div>
@@ -129,13 +128,13 @@ class Treeselect extends Selects {
             `;
         }else{
             vDom = hx`
-            <div class="select dropdown multiple">
+            <div class="select dropdown treeselect multiple">
                 <div id="${options.vid}-select">
                     <input type="text" class="form-control select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${theValueArr.length ? '' : options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
                     <div class="select-tags-div clearfix ${theValueArr.length ? 'select-tags-div-border' : ''}">
                         ${getTags(options.value)}
                     </div>
-                    <div class="dropdown-menu clearfix ${options.direction ? ('drop' + options.direction) : ''}">
+                    <div class="dropdown-menu scrollbar ${options.direction ? ('drop' + options.direction) : ''}">
                         <tree id="${options.vid}-tree"></tree>
                     </div>
                 </div>
@@ -171,9 +170,14 @@ class Treeselect extends Selects {
                 trigger[options.eventName](handler);
             }
         }
+        this.$('.dropdown-menu').css({
+            width: options.dropdownWidth || '100%',
+            height: options.dropdownHeight || 'auto'
+        });
     }
     show(event){
         this.$('#' + this.options.vid + '-select').addClass('dropdown open');
+        this.$('.dropdown-menu').addClass('ps-container ps-theme-default ps-active-y');
     }
     close(event){
         this.$('#' + this.options.vid + '-select').removeClass('dropdown open');

@@ -263,7 +263,8 @@ var Selects = function(_Lego$UI$Baseview) {
             onSearch: function onSearch() {},
             placeholder: "",
             notFoundContent: "",
-            dropdownMatchSelectWidth: true,
+            dropdownWidth: "100%",
+            dropdownHeight: "auto",
             optionFilterProp: "",
             combobox: false,
             size: "",
@@ -279,7 +280,8 @@ var Selects = function(_Lego$UI$Baseview) {
                 eventName: opts.eventName || "click",
                 disabled: opts.disabled || false,
                 style: Object.assign({
-                    width: opts.dropdownMatchSelectWidth === false ? "auto" : "100%"
+                    width: opts.dropdownWidth || "100%",
+                    height: opts.dropdownHeight || "auto"
                 }, opts.dropdownStyle || {}),
                 className: opts.dropdownClassName,
                 data: opts.data,
@@ -567,9 +569,9 @@ var _templateObject = _taggedTemplateLiteral([ "\n                <ul>", '\n    
 
 var _templateObject2 = _taggedTemplateLiteral([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
 
-var _templateObject3 = _taggedTemplateLiteral([ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu clearfix ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu clearfix ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n\n            </div>\n            ' ]);
+var _templateObject3 = _taggedTemplateLiteral([ '\n            <div class="select dropdown treeselect">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu scrollbar ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu scrollbar ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n\n            </div>\n            ' ]);
 
-var _templateObject4 = _taggedTemplateLiteral([ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu clearfix ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu clearfix ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n            </div>\n            ' ]);
+var _templateObject4 = _taggedTemplateLiteral([ '\n            <div class="select dropdown treeselect multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu scrollbar ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu scrollbar ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n            </div>\n            ' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -617,6 +619,7 @@ var Treeselect = function(_Selects) {
             value: [],
             multiple: false,
             eventName: "click",
+            scrollbar: {},
             filterOption: true,
             tags: false,
             onSelect: function onSelect() {},
@@ -625,7 +628,8 @@ var Treeselect = function(_Selects) {
             onSearch: function onSearch() {},
             placeholder: "",
             notFoundContent: "",
-            dropdownMatchSelectWidth: true,
+            dropdownWidth: "100%",
+            dropdownHeight: "auto",
             optionFilterProp: "",
             combobox: false,
             size: "",
@@ -682,9 +686,6 @@ var Treeselect = function(_Selects) {
                     theView.refresh();
                 },
                 disabled: opts.disabled || false,
-                style: Object.assign({
-                    width: opts.dropdownMatchSelectWidth === false ? "auto" : "100%"
-                }, opts.dropdownStyle || {}),
                 className: opts.dropdownClassName
             } ]
         };
@@ -755,11 +756,16 @@ var Treeselect = function(_Selects) {
                     }
                 })();
             }
+            this.$(".dropdown-menu").css({
+                width: options.dropdownWidth || "100%",
+                height: options.dropdownHeight || "auto"
+            });
         }
     }, {
         key: "show",
         value: function show(event) {
             this.$("#" + this.options.vid + "-select").addClass("dropdown open");
+            this.$(".dropdown-menu").addClass("ps-container ps-theme-default ps-active-y");
         }
     }, {
         key: "close",

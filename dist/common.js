@@ -133,20 +133,20 @@ var Baseview = function(_Lego$View) {
     _createClass(Baseview, [ {
         key: "renderScroll",
         value: function renderScroll() {
-            var _this2 = this;
-            if (this.options.scrollbar) {
-                (function() {
-                    var scrollbarEl = _this2.$(".scrollbar");
-                    var container = scrollbarEl[0];
-                    var posi = scrollbarEl.parent().css("position");
-                    if (!posi || posi !== "fixed") scrollbarEl.parent().css("position", "relative");
-                    if (scrollbarEl.length) {
-                        Ps.initialize(container, _this2.options.scrollbar);
-                        _this2.$el.off("mousemove.ps").on("mousemove.ps", function() {
-                            Ps.update(container);
+            var options = this.options, that = this;
+            if (options.scrollbar) {
+                var scrollbarEl = this.$(".scrollbar");
+                if (scrollbarEl.length) {
+                    scrollbarEl.css("overflow", "hidden");
+                    scrollbarEl.each(function(index, el) {
+                        var container = $(this), eventName = "mousemove.ps" + index, posi = container.parent().css("position");
+                        if (!posi || posi !== "fixed") container.parent().css("position", "relative");
+                        Ps.initialize(container[0], options.scrollbar);
+                        that.$el.off(eventName).on(eventName, function() {
+                            Ps.update(container[0]);
                         });
-                    }
-                })();
+                    });
+                }
             }
         }
     } ]);

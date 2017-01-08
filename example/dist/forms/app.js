@@ -885,7 +885,8 @@
                 onSearch: function e() {},
                 placeholder: "",
                 notFoundContent: "",
-                dropdownMatchSelectWidth: true,
+                dropdownWidth: "100%",
+                dropdownHeight: "auto",
                 optionFilterProp: "",
                 combobox: false,
                 size: "",
@@ -901,7 +902,8 @@
                     eventName: e.eventName || "click",
                     disabled: e.disabled || false,
                     style: Object.assign({
-                        width: e.dropdownMatchSelectWidth === false ? "auto" : "100%"
+                        width: e.dropdownWidth || "100%",
+                        height: e.dropdownHeight || "auto"
                     }, e.dropdownStyle || {}),
                     className: e.dropdownClassName,
                     data: e.data,

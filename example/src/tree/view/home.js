@@ -127,6 +127,7 @@ class HomeView extends Lego.UI.Baseview {
                 el: '#treeselect1',
                 placeholder: '请选择',
                 multiple: true,
+                // dropdownHeight: 80,
                 setting: {
                     check: {
                         enable: true,

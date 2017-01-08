@@ -6,16 +6,22 @@ class Baseview extends Lego.View {
         this.renderScroll();
     }
     renderScroll(){
+        const options = this.options,
+            that = this;
         // 是否渲染滚动条
-        if (this.options.scrollbar) {
+        if (options.scrollbar) {
             const scrollbarEl = this.$('.scrollbar');
-            const container = scrollbarEl[0];
-            const posi = scrollbarEl.parent().css('position');
-            if (!posi || posi !== 'fixed') scrollbarEl.parent().css('position', 'relative');
             if(scrollbarEl.length){
-                Ps.initialize(container, this.options.scrollbar);
-                this.$el.off("mousemove.ps").on("mousemove.ps", function() {
-                    Ps.update(container);
+                scrollbarEl.css('overflow', 'hidden');
+                scrollbarEl.each(function(index, el){
+                    const container = $(this),
+                        eventName = "mousemove.ps" + index,
+                        posi = container.parent().css('position');
+                    if (!posi || posi !== 'fixed') container.parent().css('position', 'relative');
+                    Ps.initialize(container[0], options.scrollbar);
+                    that.$el.off(eventName).on(eventName, function() {
+                        Ps.update(container[0]);
+                    });
                 });
             }
         }

@@ -3157,12 +3157,12 @@
                     }
                     k.editNodeBlur = true;
                     k.cancelCurEditNode(i);
-                    var f = e(i.treeObj.get(0).ownerDocument), p = e(i.treeObj.get(0).ownerDocument.body), v, h, g, b = false, T = i, w = i, E, I, _ = null, S = null, O = null, P = m.move.TYPE_INNER, x = n.clientX, D = n.clientY, R = new Date().getTime();
+                    var f = e(i.treeObj.get(0).ownerDocument), p = e(i.treeObj.get(0).ownerDocument.body), v, h, g, b = false, T = i, w = i, E, I, _ = null, O = null, S = null, P = m.move.TYPE_INNER, D = n.clientX, x = n.clientY, R = new Date().getTime();
                     if (N.uCanDo(i)) {
                         f.bind("mousemove", L);
                     }
                     function L(n) {
-                        if (l.dragFlag == 0 && Math.abs(x - n.clientX) < i.edit.drag.minMoveSize && Math.abs(D - n.clientY) < i.edit.drag.minMoveSize) {
+                        if (l.dragFlag == 0 && Math.abs(D - n.clientX) < i.edit.drag.minMoveSize && Math.abs(x - n.clientY) < i.edit.drag.minMoveSize) {
                             return true;
                         }
                         var r, o, a, d, c, w = i.data.key.children;
@@ -3237,15 +3237,15 @@
                             i.treeObj.trigger(m.event.DRAG, [ n, i.treeId, u ]);
                         }
                         if (l.dragFlag == 1) {
-                            if (g && h.attr("id") == n.target.id && O && n.clientX + f.scrollLeft() + 2 > e("#" + O + m.id.A, g).offset().left) {
-                                var $ = e("#" + O + m.id.A, g);
+                            if (g && h.attr("id") == n.target.id && S && n.clientX + f.scrollLeft() + 2 > e("#" + S + m.id.A, g).offset().left) {
+                                var $ = e("#" + S + m.id.A, g);
                                 n.target = $.length > 0 ? $.get(0) : n.target;
                             } else if (g) {
                                 g.removeClass(m.node.TMPTARGET_TREE);
-                                if (O) e("#" + O + m.id.A, g).removeClass(m.node.TMPTARGET_NODE + "_" + m.move.TYPE_PREV).removeClass(m.node.TMPTARGET_NODE + "_" + t.move.TYPE_NEXT).removeClass(m.node.TMPTARGET_NODE + "_" + t.move.TYPE_INNER);
+                                if (S) e("#" + S + m.id.A, g).removeClass(m.node.TMPTARGET_NODE + "_" + m.move.TYPE_PREV).removeClass(m.node.TMPTARGET_NODE + "_" + t.move.TYPE_NEXT).removeClass(m.node.TMPTARGET_NODE + "_" + t.move.TYPE_INNER);
                             }
                             g = null;
-                            O = null;
+                            S = null;
                             b = false;
                             T = i;
                             var z = y.getSettings();
@@ -3274,7 +3274,7 @@
                                 }
                                 if (ie && n.target && N.isChildOrSelf(n.target, ae.id + m.id.A)) {
                                     g = e(ae);
-                                    O = ae.id;
+                                    S = ae.id;
                                 }
                             }
                             a = u[0];
@@ -3303,10 +3303,10 @@
                             var le = 0;
                             var se = 0;
                             if (g && g.attr("id") != T.treeId) {
-                                var de = O == null ? null : y.getNodeCache(T, O), ce = (n.ctrlKey || n.metaKey) && i.edit.drag.isMove && i.edit.drag.isCopy || !i.edit.drag.isMove && i.edit.drag.isCopy, ue = !!(E && O === E.tId), fe = !!(I && O === I.tId), pe = a.parentTId && a.parentTId == O, ve = (ce || !fe) && N.apply(T.edit.drag.prev, [ T.treeId, u, de ], !!T.edit.drag.prev), he = (ce || !ue) && N.apply(T.edit.drag.next, [ T.treeId, u, de ], !!T.edit.drag.next), ge = (ce || !pe) && !(T.data.keep.leaf && !de.isParent) && N.apply(T.edit.drag.inner, [ T.treeId, u, de ], !!T.edit.drag.inner);
+                                var de = S == null ? null : y.getNodeCache(T, S), ce = (n.ctrlKey || n.metaKey) && i.edit.drag.isMove && i.edit.drag.isCopy || !i.edit.drag.isMove && i.edit.drag.isCopy, ue = !!(E && S === E.tId), fe = !!(I && S === I.tId), pe = a.parentTId && a.parentTId == S, ve = (ce || !fe) && N.apply(T.edit.drag.prev, [ T.treeId, u, de ], !!T.edit.drag.prev), he = (ce || !ue) && N.apply(T.edit.drag.next, [ T.treeId, u, de ], !!T.edit.drag.next), ge = (ce || !pe) && !(T.data.keep.leaf && !de.isParent) && N.apply(T.edit.drag.inner, [ T.treeId, u, de ], !!T.edit.drag.inner);
                                 function Ne() {
                                     g = null;
-                                    O = "";
+                                    S = "";
                                     P = m.move.TYPE_INNER;
                                     h.css({
                                         display: "none"
@@ -3319,7 +3319,7 @@
                                 if (!ve && !he && !ge) {
                                     Ne();
                                 } else {
-                                    var me = e("#" + O + m.id.A, g), ke = de.isLastNode ? null : e("#" + de.getNextNode().tId + m.id.A, g.next()), ye = me.offset().top, be = me.offset().left, Ce = ve ? ge ? .25 : he ? .5 : 1 : -1, Te = he ? ge ? .75 : ve ? .5 : 0 : -1, we = (n.clientY + B - ye) / me.height();
+                                    var me = e("#" + S + m.id.A, g), ke = de.isLastNode ? null : e("#" + de.getNextNode().tId + m.id.A, g.next()), ye = me.offset().top, be = me.offset().left, Ce = ve ? ge ? .25 : he ? .5 : 1 : -1, Te = he ? ge ? .75 : ve ? .5 : 0 : -1, we = (n.clientY + B - ye) / me.height();
                                     if ((Ce == 1 || we <= Ce && we >= -.2) && ve) {
                                         le = 1 - h.width();
                                         se = ye - h.height() / 2;
@@ -3342,7 +3342,7 @@
                                             left: be + le + "px"
                                         });
                                         me.addClass(m.node.TMPTARGET_NODE + "_" + P);
-                                        if (_ != O || S != P) {
+                                        if (_ != S || O != P) {
                                             R = new Date().getTime();
                                         }
                                         if (de && de.isParent && P == m.move.TYPE_INNER) {
@@ -3383,8 +3383,8 @@
                                     window.zTreeMoveTargetNodeTId = null;
                                 }
                             }
-                            _ = O;
-                            S = P;
+                            _ = S;
+                            O = P;
                             i.treeObj.trigger(m.event.DRAGMOVE, [ n, i.treeId, u ]);
                         }
                         return false;
@@ -3396,14 +3396,14 @@
                             window.zTreeMoveTargetNodeTId = null;
                         }
                         _ = null;
-                        S = null;
+                        O = null;
                         f.unbind("mousemove", L);
                         f.unbind("mouseup", A);
                         f.unbind("selectstart", j);
                         p.css("cursor", "auto");
                         if (g) {
                             g.removeClass(m.node.TMPTARGET_TREE);
-                            if (O) e("#" + O + m.id.A, g).removeClass(m.node.TMPTARGET_NODE + "_" + m.move.TYPE_PREV).removeClass(m.node.TMPTARGET_NODE + "_" + t.move.TYPE_NEXT).removeClass(m.node.TMPTARGET_NODE + "_" + t.move.TYPE_INNER);
+                            if (S) e("#" + S + m.id.A, g).removeClass(m.node.TMPTARGET_NODE + "_" + m.move.TYPE_PREV).removeClass(m.node.TMPTARGET_NODE + "_" + t.move.TYPE_NEXT).removeClass(m.node.TMPTARGET_NODE + "_" + t.move.TYPE_INNER);
                         }
                         N.showIfameMask(i, false);
                         s.showHoverDom = true;
@@ -3420,11 +3420,11 @@
                         if (v) v.remove();
                         if (h) h.remove();
                         var d = (n.ctrlKey || n.metaKey) && i.edit.drag.isMove && i.edit.drag.isCopy || !i.edit.drag.isMove && i.edit.drag.isCopy;
-                        if (!d && g && O && u[0].parentTId && O == u[0].parentTId && P == m.move.TYPE_INNER) {
+                        if (!d && g && S && u[0].parentTId && S == u[0].parentTId && P == m.move.TYPE_INNER) {
                             g = null;
                         }
                         if (g) {
-                            var c = O == null ? null : y.getNodeCache(T, O);
+                            var c = S == null ? null : y.getNodeCache(T, S);
                             if (N.apply(i.callback.beforeDrop, [ T.treeId, u, c, P, d ], true) == false) {
                                 k.selectNodes(w, u);
                                 return;
@@ -3757,9 +3757,9 @@
                     if (!e.data.keep.parent && s[l].length < 1) {
                         s.isParent = false;
                         s.open = false;
-                        var I = C(s, m.id.UL, e), _ = C(s, m.id.SWITCH, e), S = C(s, m.id.ICON, e);
+                        var I = C(s, m.id.UL, e), _ = C(s, m.id.SWITCH, e), O = C(s, m.id.ICON, e);
                         k.replaceSwitchClass(s, _, m.folder.DOCU);
-                        k.replaceIcoClass(s, S, m.folder.DOCU);
+                        k.replaceIcoClass(s, O, m.folder.DOCU);
                         I.css("display", "none");
                     } else if (T) {
                         k.setNodeLineIcos(e, T);
@@ -3863,7 +3863,7 @@
                 k.addHoverDom(e, t);
                 return true;
             };
-            var S = N.uCanDo;
+            var O = N.uCanDo;
             N.uCanDo = function(e, t) {
                 var n = y.getRoot(e);
                 if (t && (N.eqs(t.type, "mouseover") || N.eqs(t.type, "mouseout") || N.eqs(t.type, "mousedown") || N.eqs(t.type, "mouseup"))) {
@@ -3873,7 +3873,7 @@
                     k.editNodeBlur = false;
                     n.curEditInput.focus();
                 }
-                return !n.curEditNode && (S ? S.apply(k, arguments) : true);
+                return !n.curEditNode && (O ? O.apply(k, arguments) : true);
             };
         })(jQuery);
     },
@@ -4120,7 +4120,8 @@
                     onSearch: function e() {},
                     placeholder: "",
                     notFoundContent: "",
-                    dropdownMatchSelectWidth: true,
+                    dropdownWidth: "100%",
+                    dropdownHeight: "auto",
                     optionFilterProp: "",
                     combobox: false,
                     size: "",
@@ -4136,7 +4137,8 @@
                         eventName: e.eventName || "click",
                         disabled: e.disabled || false,
                         style: Object.assign({
-                            width: e.dropdownMatchSelectWidth === false ? "auto" : "100%"
+                            width: e.dropdownWidth || "100%",
+                            height: e.dropdownHeight || "auto"
                         }, e.dropdownStyle || {}),
                         className: e.dropdownClassName,
                         data: e.data,
@@ -4261,15 +4263,15 @@
                 return t;
             };
         }();
-        var _ = S([ '<ul class="ztree"></ul>' ], [ '<ul class="ztree"></ul>' ]);
-        function S(e, t) {
+        var _ = O([ '<ul class="ztree"></ul>' ], [ '<ul class="ztree"></ul>' ]);
+        function O(e, t) {
             return Object.freeze(Object.defineProperties(e, {
                 raw: {
                     value: Object.freeze(t)
                 }
             }));
         }
-        function O(e, t) {
+        function S(e, t) {
             if (!(e instanceof t)) {
                 throw new TypeError("Cannot call a class as a function");
             }
@@ -4280,7 +4282,7 @@
             }
             return t && ((typeof t === "undefined" ? "undefined" : r(t)) === "object" || typeof t === "function") ? t : e;
         }
-        function x(e, t) {
+        function D(e, t) {
             if (typeof t !== "function" && t !== null) {
                 throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : r(t)));
             }
@@ -4294,11 +4296,11 @@
             });
             if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
         }
-        var D = function(e) {
-            x(t, e);
+        var x = function(e) {
+            D(t, e);
             function t() {
                 var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-                O(this, t);
+                S(this, t);
                 var n = {
                     disSelect: null,
                     onlySelect: null,
@@ -4392,7 +4394,7 @@
             } ]);
             return t;
         }(Lego.UI.Baseview);
-        Lego.components("tree", D);
+        Lego.components("tree", x);
         var R = function() {
             function e(e, t) {
                 for (var n = 0; n < t.length; n++) {
@@ -4411,8 +4413,8 @@
         }();
         var L = z([ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ], [ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ]);
         var A = z([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
-        var j = z([ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu clearfix ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu clearfix ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n\n            </div>\n            ' ]);
-        var M = z([ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu clearfix ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu clearfix ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n            </div>\n            ' ]);
+        var j = z([ '\n            <div class="select dropdown treeselect">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu scrollbar ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu scrollbar ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n\n            </div>\n            ' ]);
+        var M = z([ '\n            <div class="select dropdown treeselect multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu scrollbar ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu scrollbar ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n            </div>\n            ' ]);
         function z(e, t) {
             return Object.freeze(Object.defineProperties(e, {
                 raw: {
@@ -4455,6 +4457,7 @@
                     value: [],
                     multiple: false,
                     eventName: "click",
+                    scrollbar: {},
                     filterOption: true,
                     tags: false,
                     onSelect: function e() {},
@@ -4463,7 +4466,8 @@
                     onSearch: function e() {},
                     placeholder: "",
                     notFoundContent: "",
-                    dropdownMatchSelectWidth: true,
+                    dropdownWidth: "100%",
+                    dropdownHeight: "auto",
                     optionFilterProp: "",
                     combobox: false,
                     size: "",
@@ -4520,9 +4524,6 @@
                             r.refresh();
                         },
                         disabled: e.disabled || false,
-                        style: Object.assign({
-                            width: e.dropdownMatchSelectWidth === false ? "auto" : "100%"
-                        }, e.dropdownStyle || {}),
                         className: e.dropdownClassName
                     } ]
                 };
@@ -4593,11 +4594,16 @@
                             }
                         })();
                     }
+                    this.$(".dropdown-menu").css({
+                        width: n.dropdownWidth || "100%",
+                        height: n.dropdownHeight || "auto"
+                    });
                 }
             }, {
                 key: "show",
                 value: function e(t) {
                     this.$("#" + this.options.vid + "-select").addClass("dropdown open");
+                    this.$(".dropdown-menu").addClass("ps-container ps-theme-default ps-active-y");
                 }
             }, {
                 key: "close",

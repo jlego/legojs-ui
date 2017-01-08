@@ -261,7 +261,8 @@ var Selects = function(_Lego$UI$Baseview) {
             onSearch: function onSearch() {},
             placeholder: "",
             notFoundContent: "",
-            dropdownMatchSelectWidth: true,
+            dropdownWidth: "100%",
+            dropdownHeight: "auto",
             optionFilterProp: "",
             combobox: false,
             size: "",
@@ -277,7 +278,8 @@ var Selects = function(_Lego$UI$Baseview) {
                 eventName: opts.eventName || "click",
                 disabled: opts.disabled || false,
                 style: Object.assign({
-                    width: opts.dropdownMatchSelectWidth === false ? "auto" : "100%"
+                    width: opts.dropdownWidth || "100%",
+                    height: opts.dropdownHeight || "auto"
                 }, opts.dropdownStyle || {}),
                 className: opts.dropdownClassName,
                 data: opts.data,
