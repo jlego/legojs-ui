@@ -56,6 +56,7 @@
   }
   white-space: nowrap;
   vertical-align: middle; // Match the inputs
+  color: #999;
 }
 
 
@@ -86,7 +87,7 @@
   font-size: $font-size-base;
   font-weight: normal;
   line-height: $input-line-height;
-  color: $input-color;
+  // color: $input-color;
   text-align: center;
   background-color: $input-group-addon-bg;
   border: $input-btn-border-width solid $input-group-addon-border-color;

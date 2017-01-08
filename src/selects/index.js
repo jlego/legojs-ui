@@ -7,9 +7,7 @@ import Dropdown from '../dropdown/index';
 class Selects extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
-            events: {
-                // 'click .select-tag-close': 'clickItemClose'
-            },
+            name: '',
             value: [],   //指定当前选中的条目object/Array
             multiple: false,  //支持多选
             eventName: 'click',
@@ -101,7 +99,7 @@ class Selects extends Lego.UI.Baseview {
             vDom = hx`
             <div class="select dropdown">
                 <div id="${options.vid}-select">
-                    <input type="text" class="form-control select-input ${options.disabled ? 'disabled' : ''}" placeholder="${options.placeholder}" value="${theValueArr.join(',')}">
+                    <input type="text" class="form-control select-input ${options.disabled ? 'disabled' : ''}" placeholder="${options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
                     <dropdown id="${options.vid}-dropdown"></dropdown>
                 </div>
 
@@ -111,7 +109,7 @@ class Selects extends Lego.UI.Baseview {
             vDom = hx`
             <div class="select dropdown multiple">
                 <div id="${options.vid}-select">
-                    <input type="text" class="form-control select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${theValueArr.length ? '' : options.placeholder}" value="${theValueArr.join(',')}">
+                    <input type="text" class="form-control select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${theValueArr.length ? '' : options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
                     <div class="select-tags-div clearfix ${theValueArr.length ? 'select-tags-div-border' : ''}">
                         ${getTags(options.value)}
                     </div>

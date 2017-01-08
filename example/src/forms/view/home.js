@@ -25,7 +25,7 @@ class HomeView extends Lego.UI.Baseview {
                 onClick(result) {
                     console.warn('点击了搜索框', result);
                 },
-                data: data
+                data: $.extend(true, [], data)
             }, {
                 el: '#search2',
                 placeholder: '输入关键字',
@@ -38,7 +38,7 @@ class HomeView extends Lego.UI.Baseview {
                 onChange(result) {
                     console.warn('点击了选项框1', result);
                 },
-                data: data
+                data: $.extend(true, [], data)
             }, {
                 el: '#select4',
                 placeholder: '请选择',
@@ -50,7 +50,7 @@ class HomeView extends Lego.UI.Baseview {
                     key: 'so2',
                     value: '选项二选项二选项二'
                 },
-                data: data
+                data: $.extend(true, [], data)
             }, {
                 el: '#select5',
                 placeholder: '请选择',
@@ -63,7 +63,7 @@ class HomeView extends Lego.UI.Baseview {
                 //     key: 'so2',
                 //     value: '选项二选项二选项二'
                 // },
-                data: data.slice(0)
+                data: $.extend(true, [], data)
             }, {
                 el: '#select6',
                 placeholder: '请选择',
@@ -79,7 +79,7 @@ class HomeView extends Lego.UI.Baseview {
                     key: 'so3',
                     value: '选项三'
                 }],
-                data: data.slice(0)
+                data: $.extend(true, [], data)
             }, {
                 el: '#datepicker7',
                 type: 'date',

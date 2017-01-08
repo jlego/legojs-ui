@@ -10,6 +10,7 @@ module.exports = {
         'navs/app': './src/navs/app',
         'forms/app': './src/forms/app',
         'tips/app': './src/tips/app',
+        'tree/app': './src/tree/app',
         'main': './src/main',
     },
     output: {
@@ -36,7 +37,7 @@ module.exports = {
             loader: "style!css",
             // loader: ExtractTextPlugin.extract('style', "css")
         }, {
-            test: /\.(png|jpe?g)$/,
+            test: /\.(png|gif|jpe?g)$/,
             loader: 'url?prefix=img&limit=10240&name=img/[name].[hash].[ext]'
         }, {
             test: /\.woff(2)?(\?t=[0-9]\.[0-9]\.[0-9])?$/,

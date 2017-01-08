@@ -54,7 +54,9 @@ build([{
 {alias: 'inputs'},
 {alias: 'tooltip'},
 {alias: 'popover'},
-{alias: 'notification'}
+{alias: 'notification'},
+{alias: 'tree'},
+{alias: 'treeselect'}
 ].map(genConfig));
 
 function ucfirst(str) {

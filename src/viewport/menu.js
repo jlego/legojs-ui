@@ -77,13 +77,13 @@ class Menu extends Lego.UI.Baseview {
                         </a>
                     </li>
                     <li data-permis='{"module":"Finance", "operate":"Query", "hide":1}' id="nav_finance">
-                        <a href="#finance/">
+                        <a href="javascript:Lego.startApp('tree');">
                             <div class="item-content">
                                 <div class="item-media">
                                     <i class="icon iconfont icon-biz"></i>
                                 </div>
                                 <div class="item-inner">
-                                    <span class="title"> 财务管理 </span>
+                                    <span class="title"> 树型 </span>
                                 </div>
                             </div>
                         </a>

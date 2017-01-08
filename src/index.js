@@ -18,3 +18,5 @@ export Inputs from "./inputs/index";
 export Tooltip from "./tooltip/index";
 export Popover from "./popover/index";
 export Notification from "./notification/index";
+export Tree from "./tree/index";
+export Treeselect from "./treeselect/index";
