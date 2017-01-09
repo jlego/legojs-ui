@@ -3,7 +3,7 @@
  * ronghui Yu
  * 2017/1/9
  */
-import validate from 'jquery-validation';
+import validate from 'jquery-validation-cjs';
 // import 'jquery-validation/dist/additional-methods'
 $.fn.validate = validate;
 // import './asset/index.scss';

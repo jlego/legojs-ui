@@ -9,7 +9,7 @@ function _interopDefault(ex) {
     return ex && typeof ex === "object" && "default" in ex ? ex["default"] : ex;
 }
 
-var validate = _interopDefault(require("jquery-validation"));
+var validate = _interopDefault(require("jquery-validation-cjs"));
 
 var _createClass = function() {
     function defineProperties(target, props) {

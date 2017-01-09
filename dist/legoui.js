@@ -33,7 +33,7 @@ var Tether = _interopDefault(require("tether"));
 
 var ztree = require("ztree");
 
-var validate = _interopDefault(require("jquery-validation"));
+var validate = _interopDefault(require("jquery-validation-cjs"));
 
 function Notification() {
     var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "info";
