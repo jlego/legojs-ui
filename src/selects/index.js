@@ -46,6 +46,7 @@ class Selects extends Lego.UI.Baseview {
                 onChange(model){
                     const theView = Lego.getView(opts.el);
                     if(theView){
+                        theView.$('.select-input').focus();
                         if(model.key !== '0' && opts.multiple){
                             theView.getValue();
                             if(!theView.options.value.includes(model)){

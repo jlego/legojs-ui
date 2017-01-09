@@ -2636,6 +2636,7 @@ var Selects = function(_Lego$UI$Baseview) {
                 onChange: function onChange(model) {
                     var theView = Lego.getView(opts.el);
                     if (theView) {
+                        theView.$(".select-input").focus();
                         if (model.key !== "0" && opts.multiple) {
                             theView.getValue();
                             if (!theView.options.value.includes(model)) {

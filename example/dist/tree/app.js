@@ -4145,6 +4145,7 @@
                         onChange: function t(n) {
                             var r = Lego.getView(e.el);
                             if (r) {
+                                r.$(".select-input").focus();
                                 if (n.key !== "0" && e.multiple) {
                                     r.getValue();
                                     if (!r.options.value.includes(n)) {
