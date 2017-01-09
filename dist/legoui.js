@@ -33,7 +33,7 @@ var Tether = _interopDefault(require("tether"));
 
 var ztree = require("ztree");
 
-var jqueryValidation = require("jquery-validation");
+var validate = _interopDefault(require("jquery-validation"));
 
 function Notification() {
     var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "info";
@@ -4340,19 +4340,19 @@ var _createClass$23 = function() {
     };
 }();
 
-var _templateObject$17 = _taggedTemplateLiteral$17([ '<button type="submit" class="btn btn-primary ', '">', "</button>" ], [ '<button type="submit" class="btn btn-primary ', '">', "</button>" ]);
+var _templateObject$17 = _taggedTemplateLiteral$17([ '<button type="submit" class="btn btn-primary">', "</button>" ], [ '<button type="submit" class="btn btn-primary">', "</button>" ]);
 
-var _templateObject2$13 = _taggedTemplateLiteral$17([ '\n                <div class="form-group row">\n                  <div class="offset-sm-2 col-sm-10">\n                    <button type="submit" class="btn btn-primary ', '">', "</button>\n                  </div>\n                </div>\n                " ], [ '\n                <div class="form-group row">\n                  <div class="offset-sm-2 col-sm-10">\n                    <button type="submit" class="btn btn-primary ', '">', "</button>\n                  </div>\n                </div>\n                " ]);
+var _templateObject2$13 = _taggedTemplateLiteral$17([ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', "</button>\n                      </div>\n                    </div>\n                    " ], [ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', "</button>\n                      </div>\n                    </div>\n                    " ]);
 
-var _templateObject3$10 = _taggedTemplateLiteral$17([ '\n                <div class="form-group">\n                    <label for="', '" class=" ', '">', "</label>\n                    ", "\n                    ", "\n                </div>\n                " ], [ '\n                <div class="form-group">\n                    <label for="', '" class=" ', '">', "</label>\n                    ", "\n                    ", "\n                </div>\n                " ]);
+var _templateObject3$10 = _taggedTemplateLiteral$17([ '\n                <div class="form-group">\n                    <label for="', '">', "</label>\n                    ", "\n                    ", "\n                </div>\n                " ], [ '\n                <div class="form-group">\n                    <label for="', '">', "</label>\n                    ", "\n                    ", "\n                </div>\n                " ]);
 
 var _templateObject4$7 = _taggedTemplateLiteral$17([ '<small class="form-text text-muted">', "</small>" ], [ '<small class="form-text text-muted">', "</small>" ]);
 
-var _templateObject5$5 = _taggedTemplateLiteral$17([ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 ', ' col-form-label">', '</label>\n                  <div class="col-sm-10 ', '">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ], [ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 ', ' col-form-label">', '</label>\n                  <div class="col-sm-10 ', '">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ]);
+var _templateObject5$5 = _taggedTemplateLiteral$17([ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 col-form-label">', '</label>\n                  <div class="col-sm-10">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ], [ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 col-form-label">', '</label>\n                  <div class="col-sm-10">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ]);
 
 var _templateObject6$3 = _taggedTemplateLiteral$17([ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ], [ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ]);
 
-var _templateObject7$2 = _taggedTemplateLiteral$17([ "\n            <form>\n            ", "\n            ", "\n            </form>" ], [ "\n            <form>\n            ", "\n            ", "\n            </form>" ]);
+var _templateObject7$2 = _taggedTemplateLiteral$17([ "<form>\n            ", "\n            ", "</form>" ], [ "<form>\n            ", "\n            ", "</form>" ]);
 
 function _taggedTemplateLiteral$17(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -4390,6 +4390,8 @@ function _inherits$20(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
+$.fn.validate = validate;
+
 var Forms = function(_Lego$UI$Baseview) {
     _inherits$20(Forms, _Lego$UI$Baseview);
     function Forms() {
@@ -4397,31 +4399,28 @@ var Forms = function(_Lego$UI$Baseview) {
         _classCallCheck$23(this, Forms);
         var options = {
             layout: "vertical",
-            labelClass: "",
-            componentClass: "",
             setDefaults: {
-                errorClass: "help-block",
+                errorClass: "form-control-feedback",
                 errorElement: "div",
                 errorPlacement: function errorPlacement(error, element) {
-                    element.parents(".form-group > div").append(error);
+                    element.after(error);
                 },
                 highlight: function highlight(element, errorClass) {
                     $(element).closest(".form-group").addClass("has-danger");
                 },
                 success: function success(el) {
                     el.closest(".form-group").removeClass("has-danger");
-                    el.closest("div.help-block").remove();
+                    el.closest("div.form-control-feedback").remove();
                 },
                 submitHandler: function submitHandler(form) {
-                    var view = Lego.getView(opts.el);
-                    if (view) view.submitForm();
-                }
+                    console.warn("ddddddddd");
+                    form.submit();
+                },
+                rules: {},
+                messages: {}
             },
-            rules: null,
-            messages: null,
             submitEl: "",
             submitText: "提 交",
-            submitClass: "",
             data: [],
             format: function format(result) {
                 return result;
@@ -4435,64 +4434,88 @@ var Forms = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options || {}, that = this;
-            var submit = "";
-            if (!options.submitEl) {
-                if (options.layout == "vertical") {
-                    submit = hx(_templateObject$17, val(options.submitClass, ""), options.submitText);
-                } else {
-                    submit = hx(_templateObject2$13, val(options.submitClass, ""), options.submitText);
+            function submitBtn() {
+                var submit = "";
+                if (!options.submitEl) {
+                    if (options.layout == "vertical") {
+                        submit = hx(_templateObject$17, options.submitText);
+                    } else {
+                        submit = hx(_templateObject2$13, options.submitText);
+                    }
                 }
+                return submit;
             }
             function layoutItem(item, layout, id) {
                 var vDom = "";
-                var comTag = "<" + val(item.componentName) + " id=" + id + "></" + val(item.componentName) + ">";
+                var comTag = "<" + val(item.component.comName) + " id=" + id + "></" + val(item.component.comName) + ">";
                 if (layout == "vertical") {
-                    vDom = hx(_templateObject3$10, id, val(that.options.labelClass || item.labelClass, ""), val(item.label), hx(comTag), item.help ? hx(_templateObject4$7, val(item.help)) : "");
+                    vDom = hx(_templateObject3$10, id, val(item.label), hx(comTag), item.help ? hx(_templateObject4$7, val(item.help)) : "");
                 } else {
-                    vDom = hx(_templateObject5$5, id, val(that.options.labelClass || item.labelClass, ""), val(item.label), val(that.options.componentClass || item.componentClass, ""), hx(comTag), item.help ? hx(_templateObject4$7, val(item.help)) : "");
+                    vDom = hx(_templateObject5$5, id, val(item.label), hx(comTag), item.help ? hx(_templateObject4$7, val(item.help)) : "");
                 }
                 return vDom;
             }
             function loopItem(data, index, layout) {
-                var vDom = "";
+                var vDom = "", comId = [ "component", options.vid, index ];
                 if (data.items) {
                     vDom = hx(_templateObject6$3, val(data.labelClass), val(data.label), data.items.map(function(item, i) {
-                        return layoutItem(item, layout, "component_" + index + "_" + i);
+                        comId.push(i);
+                        return layoutItem(item, layout, comId.join("_"));
                     }));
                 } else {
-                    vDom = layoutItem(data, layout, "component_" + index);
+                    vDom = layoutItem(data, layout, comId.join("_"));
                 }
                 return vDom;
             }
-            var vDom = void 0;
-            if (options.layout == "vertical") {
-                vDom = hx(_templateObject7$2, options.data.map(function(item, i) {
-                    return loopItem(item, i, "vertical");
-                }), submit);
-            } else {
-                vDom = hx(_templateObject7$2, options.data.map(function(item, i) {
-                    return loopItem(item, i, "inline");
-                }), submit);
-            }
+            var vDom = hx(_templateObject7$2, options.data.map(function(item, i) {
+                return loopItem(item, i, options.layout);
+            }), submitBtn());
             return vDom;
         }
     }, {
         key: "renderAfter",
         value: function renderAfter() {
             var _this2 = this;
-            if (this.options.rules && this.options.messages) {
-                $.validator.setDefaults(this.options.setDefaults);
-                this.validator = this.$el.validate({
-                    rules: this.options.rules,
-                    messages: this.options.messages
-                });
-            } else {
-                (function() {
-                    var that = _this2, eventName = "submit.form_" + _this2.options.vid, submitEl = _this2.options.submitEl;
-                    _this2.$el.off(eventName).on(eventName, function(event) {
-                        that.submitForm();
+            var that = this;
+            this.rules = null;
+            this.messages = null;
+            this.options.data.map(function(item, index) {
+                var comId = [ "component", that.options.vid, index ];
+                if (item.items) {
+                    item.items.map(function(subItem, i) {
+                        if (subItem.rule && subItem.message) {
+                            that.rules = that.options.rules || {};
+                            that.messages = that.options.messages || {};
+                            if (subItem.required) subItem.rule.required = true;
+                            that.options.setDefaults.rules[subItem.component.name] = subItem.rule;
+                            that.options.setDefaults.messages[subItem.component.name] = subItem.message;
+                        }
+                        comId.push(i);
+                        subItem.component.el = "#" + comId.join("_");
+                        Lego.create(Lego.UI[subItem.component.comName], subItem.component);
                     });
-                })();
+                } else {
+                    if (item.rule && item.message) {
+                        _this2.rules = _this2.options.rules || {};
+                        _this2.messages = _this2.options.messages || {};
+                        if (item.required) item.rule.required = true;
+                        _this2.options.setDefaults.rules[item.component.name] = item.rule;
+                        _this2.options.setDefaults.messages[item.component.name] = item.message;
+                    }
+                    item.component.el = "#" + comId.join("_");
+                    Lego.create(Lego.UI[item.component.comName], item.component);
+                }
+            });
+            console.warn("yyyyyyy");
+            var eventName = "click.form_" + this.options.vid, submitEl = this.options.submitEl, $submitEl = submitEl instanceof $ ? submitEl : this.$((typeof submitEl == "string" ? submitEl : "") || '[type="submit"]');
+            if (this.rules && this.messages) {
+                this.$el.validate(this.options.setDefaults);
+                $submitEl.off(eventName);
+            } else {
+                $submitEl.off(eventName).on(eventName, function(event) {
+                    that.submitForm();
+                });
+                this.$el.attr("onSubmit", "javascript:return false;");
             }
         }
     }, {
@@ -4517,10 +4540,9 @@ var Forms = function(_Lego$UI$Baseview) {
     }, {
         key: "submitForm",
         value: function submitForm() {
-            var format = this.options.format, submitEl = this.options.submitEl, $submitEl = submitEl instanceof $ ? submitEl : $((typeof submitEl == "string" ? submitEl : "") || '[type="submit"]'), that = this;
+            var format = this.options.format, submitEl = this.options.submitEl, $submitEl = submitEl instanceof $ ? submitEl : this.$((typeof submitEl == "string" ? submitEl : "") || '[type="submit"]'), that = this;
             var data = this.serializeJson();
             if (typeof format == "function") data = format(data);
-            console.warn(data);
             if (!Object.values(data).length) return false;
             if (!$submitEl.hasClass("disabled")) {
                 $submitEl.text("提交中...").addClass("disabled");

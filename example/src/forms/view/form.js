@@ -1,4 +1,8 @@
 import Forms from '../../../../dist/Forms';
+import Search from '../../../../dist/Search';
+import Selects from '../../../../dist/Selects';
+import Datepicker from '../../../../dist/Datepicker';
+import Inputs from '../../../../dist/Inputs';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -22,63 +26,119 @@ class HomeView extends Lego.UI.Baseview {
                 data: [{
                     label: '名称',
                     help: '注意事项',
-                    required: false,
-                    componentName: 'inputs',
-                    // items: []
+                    required: true,
+                    rule: {
+                        required: true
+                    },
+                    message: {
+                        required: '请先填写名称'
+                    },
+                    component: {
+                        comName: 'inputs',
+                        name: 'name',
+                        onChange(result) {
+                            console.warn('点击了搜索框', result);
+                        }
+                    }
                 }, {
                     label: '名称2',
                     required: false,
-                    componentName: 'inputs',
-                    // items: []
+                    component: {
+                        comName: 'inputs',
+                        name: 'old',
+                        placeholder: '输入关键字',
+                        onChange(result) {
+                            console.warn('点击了搜索框2', result);
+                        }
+                    }
                 }, {
                     label: '名称2',
                     required: false,
-                    componentName: 'selects',
-                    // items: []
+                    component: {
+                        comName: 'selects',
+                        name: 'book',
+                        placeholder: '请选择',
+                        onChange(result) {
+                            console.warn('点击了搜索框', result);
+                        },
+                        data: $.extend(true, [], data)
+                    }
                 }, {
                     label: '名称3',
                     required: false,
-                    componentName: 'selects',
-                    // items: []
-                }],
-                components: [{
-                    el: '#component_0',
-                    name: 'name',
-                    hasSelect: true,
-                    onClick(result) {
-                        console.warn('点击了搜索框', result);
+                    component: {
+                        comName: 'selects',
+                        name: 'time',
+                        placeholder: '请选择',
+                        onChange(result) {
+                            console.warn('点击了选项框2', result);
+                        },
+                        value: {
+                            key: 'so2',
+                            value: '选项二选项二选项二'
+                        },
+                        data: $.extend(true, [], data)
                     }
-                }, {
-                    el: '#component_1',
-                    name: 'old',
-                    placeholder: '输入关键字',
-                    onClick(result) {
-                        console.warn('点击了搜索框2', result);
-                    }
-                }, {
-                    el: '#component_2',
-                    name: 'book',
-                    placeholder: '请选择',
-                    onChange(result) {
-                        console.warn('点击了选项框1', result);
-                    },
-                    data: $.extend(true, [], data)
-                }, {
-                    el: '#component_3',
-                    name: 'time',
-                    placeholder: '请选择',
-                    eventName: 'click',
-                    onChange(result) {
-                        console.warn('点击了选项框2', result);
-                    },
-                    value: {
-                        key: 'so2',
-                        value: '选项二选项二选项二'
-                    },
-                    data: $.extend(true, [], data)
                 }],
                 onSubmit(data){
                     console.warn('点击了提交', data);
+                    return false;
+                }
+            }, {
+                el: '#form2',
+                data: [{
+                    label: '名称',
+                    help: '注意事项',
+                    required: false,
+                    component: {
+                        comName: 'inputs',
+                        name: 'name',
+                        onChange(result) {
+                            console.warn('点击了搜索框', result);
+                        }
+                    }
+                }, {
+                    label: '名称2',
+                    required: false,
+                    component: {
+                        comName: 'inputs',
+                        name: 'old',
+                        placeholder: '输入关键字',
+                        onChange(result) {
+                            console.warn('点击了搜索框2', result);
+                        }
+                    }
+                }, {
+                    label: '名称2',
+                    required: false,
+                    component: {
+                        comName: 'selects',
+                        name: 'book',
+                        placeholder: '请选择',
+                        onChange(result) {
+                            console.warn('点击了搜索框', result);
+                        },
+                        data: $.extend(true, [], data)
+                    }
+                }, {
+                    label: '名称3',
+                    required: false,
+                    component: {
+                        comName: 'selects',
+                        name: 'time',
+                        placeholder: '请选择',
+                        onChange(result) {
+                            console.warn('点击了选项框2', result);
+                        },
+                        value: {
+                            key: 'so2',
+                            value: '选项二选项二选项二'
+                        },
+                        data: $.extend(true, [], data)
+                    }
+                }],
+                onSubmit(data){
+                    console.warn('点击了提交2', data);
                     return false;
                 }
             }]
@@ -94,6 +154,7 @@ class HomeView extends Lego.UI.Baseview {
               <forms id="form1"></forms>
             </div>
             <div class="col-sm-6">
+              <forms id="form2"></forms>
             </div>
           </div>
         </div>

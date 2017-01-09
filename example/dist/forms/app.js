@@ -15610,33 +15610,41 @@
             return t;
         };
     }();
-    var i = d([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <forms id="form1"></forms>\n            </div>\n            <div class="col-sm-6">\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <forms id="form1"></forms>\n            </div>\n            <div class="col-sm-6">\n            </div>\n          </div>\n        </div>\n        ' ]);
+    var i = p([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <forms id="form1"></forms>\n            </div>\n            <div class="col-sm-6">\n              <forms id="form2"></forms>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <forms id="form1"></forms>\n            </div>\n            <div class="col-sm-6">\n              <forms id="form2"></forms>\n            </div>\n          </div>\n        </div>\n        ' ]);
     var a = n(133);
-    var s = o(a);
-    function o(e) {
+    var s = h(a);
+    var o = n(12);
+    var d = h(o);
+    var u = n(13);
+    var l = h(u);
+    var f = n(14);
+    var c = h(f);
+    var m = n(131);
+    var _ = h(m);
+    function h(e) {
         return e && e.__esModule ? e : {
             default: e
         };
     }
-    function d(e, t) {
+    function p(e, t) {
         return Object.freeze(Object.defineProperties(e, {
             raw: {
                 value: Object.freeze(t)
             }
         }));
     }
-    function u(e, t) {
+    function y(e, t) {
         if (!(e instanceof t)) {
             throw new TypeError("Cannot call a class as a function");
         }
     }
-    function l(e, t) {
+    function g(e, t) {
         if (!e) {
             throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
         }
         return t && (typeof t === "object" || typeof t === "function") ? t : e;
     }
-    function f(e, t) {
+    function v(e, t) {
         if (typeof t !== "function" && t !== null) {
             throw new TypeError("Super expression must either be null or a function, not " + typeof t);
         }
@@ -15650,11 +15658,11 @@
         });
         if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
     }
-    var c = function(e) {
-        f(t, e);
+    var M = function(e) {
+        v(t, e);
         function t() {
             var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-            u(this, t);
+            y(this, t);
             var n = [ {
                 key: "0",
                 value: "不限"
@@ -15675,65 +15683,125 @@
                     data: [ {
                         label: "名称",
                         help: "注意事项",
-                        required: false,
-                        componentName: "inputs"
+                        required: true,
+                        rule: {
+                            required: true
+                        },
+                        message: {
+                            required: "请先填写名称"
+                        },
+                        component: {
+                            comName: "inputs",
+                            name: "name",
+                            onChange: function e(t) {
+                                console.warn("点击了搜索框", t);
+                            }
+                        }
                     }, {
                         label: "名称2",
                         required: false,
-                        componentName: "inputs"
+                        component: {
+                            comName: "inputs",
+                            name: "old",
+                            placeholder: "输入关键字",
+                            onChange: function e(t) {
+                                console.warn("点击了搜索框2", t);
+                            }
+                        }
                     }, {
                         label: "名称2",
                         required: false,
-                        componentName: "selects"
+                        component: {
+                            comName: "selects",
+                            name: "book",
+                            placeholder: "请选择",
+                            onChange: function e(t) {
+                                console.warn("点击了搜索框", t);
+                            },
+                            data: $.extend(true, [], n)
+                        }
                     }, {
                         label: "名称3",
                         required: false,
-                        componentName: "selects"
-                    } ],
-                    components: [ {
-                        el: "#component_0",
-                        name: "name",
-                        hasSelect: true,
-                        onClick: function e(t) {
-                            console.warn("点击了搜索框", t);
+                        component: {
+                            comName: "selects",
+                            name: "time",
+                            placeholder: "请选择",
+                            onChange: function e(t) {
+                                console.warn("点击了选项框2", t);
+                            },
+                            value: {
+                                key: "so2",
+                                value: "选项二选项二选项二"
+                            },
+                            data: $.extend(true, [], n)
                         }
-                    }, {
-                        el: "#component_1",
-                        name: "old",
-                        placeholder: "输入关键字",
-                        onClick: function e(t) {
-                            console.warn("点击了搜索框2", t);
-                        }
-                    }, {
-                        el: "#component_2",
-                        name: "book",
-                        placeholder: "请选择",
-                        onChange: function e(t) {
-                            console.warn("点击了选项框1", t);
-                        },
-                        data: $.extend(true, [], n)
-                    }, {
-                        el: "#component_3",
-                        name: "time",
-                        placeholder: "请选择",
-                        eventName: "click",
-                        onChange: function e(t) {
-                            console.warn("点击了选项框2", t);
-                        },
-                        value: {
-                            key: "so2",
-                            value: "选项二选项二选项二"
-                        },
-                        data: $.extend(true, [], n)
                     } ],
                     onSubmit: function e(t) {
                         console.warn("点击了提交", t);
                         return false;
                     }
+                }, {
+                    el: "#form2",
+                    data: [ {
+                        label: "名称",
+                        help: "注意事项",
+                        required: false,
+                        component: {
+                            comName: "inputs",
+                            name: "name",
+                            onChange: function e(t) {
+                                console.warn("点击了搜索框", t);
+                            }
+                        }
+                    }, {
+                        label: "名称2",
+                        required: false,
+                        component: {
+                            comName: "inputs",
+                            name: "old",
+                            placeholder: "输入关键字",
+                            onChange: function e(t) {
+                                console.warn("点击了搜索框2", t);
+                            }
+                        }
+                    }, {
+                        label: "名称2",
+                        required: false,
+                        component: {
+                            comName: "selects",
+                            name: "book",
+                            placeholder: "请选择",
+                            onChange: function e(t) {
+                                console.warn("点击了搜索框", t);
+                            },
+                            data: $.extend(true, [], n)
+                        }
+                    }, {
+                        label: "名称3",
+                        required: false,
+                        component: {
+                            comName: "selects",
+                            name: "time",
+                            placeholder: "请选择",
+                            onChange: function e(t) {
+                                console.warn("点击了选项框2", t);
+                            },
+                            value: {
+                                key: "so2",
+                                value: "选项二选项二选项二"
+                            },
+                            data: $.extend(true, [], n)
+                        }
+                    } ],
+                    onSubmit: function e(t) {
+                        console.warn("点击了提交2", t);
+                        return false;
+                    }
                 } ]
             };
             Object.assign(r, e);
-            return l(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, r));
+            return g(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, r));
         }
         r(t, [ {
             key: "render",
@@ -15744,7 +15812,7 @@
         } ]);
         return t;
     }(Lego.UI.Baseview);
-    t.default = c;
+    t.default = M;
 }, function(e, t, n) {
     "use strict";
     var r = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
@@ -15752,8 +15820,11 @@
     } : function(e) {
         return e && typeof Symbol === "function" && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e;
     };
-    var i = n(134);
-    var a = function() {
+    function i(e) {
+        return e && (typeof e === "undefined" ? "undefined" : r(e)) === "object" && "default" in e ? e["default"] : e;
+    }
+    var a = i(n(134));
+    var s = function() {
         function e(e, t) {
             for (var n = 0; n < t.length; n++) {
                 var r = t[n];
@@ -15769,32 +15840,32 @@
             return t;
         };
     }();
-    var s = m([ '<button type="submit" class="btn btn-primary ', '">', "</button>" ], [ '<button type="submit" class="btn btn-primary ', '">', "</button>" ]);
-    var o = m([ '\n                <div class="form-group row">\n                  <div class="offset-sm-2 col-sm-10">\n                    <button type="submit" class="btn btn-primary ', '">', "</button>\n                  </div>\n                </div>\n                " ], [ '\n                <div class="form-group row">\n                  <div class="offset-sm-2 col-sm-10">\n                    <button type="submit" class="btn btn-primary ', '">', "</button>\n                  </div>\n                </div>\n                " ]);
-    var d = m([ '\n                <div class="form-group">\n                    <label for="', '" class=" ', '">', "</label>\n                    ", "\n                    ", "\n                </div>\n                " ], [ '\n                <div class="form-group">\n                    <label for="', '" class=" ', '">', "</label>\n                    ", "\n                    ", "\n                </div>\n                " ]);
-    var u = m([ '<small class="form-text text-muted">', "</small>" ], [ '<small class="form-text text-muted">', "</small>" ]);
-    var l = m([ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 ', ' col-form-label">', '</label>\n                  <div class="col-sm-10 ', '">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ], [ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 ', ' col-form-label">', '</label>\n                  <div class="col-sm-10 ', '">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ]);
-    var f = m([ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ], [ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ]);
-    var c = m([ "\n            <form>\n            ", "\n            ", "\n            </form>" ], [ "\n            <form>\n            ", "\n            ", "\n            </form>" ]);
-    function m(e, t) {
+    var o = _([ '<button type="submit" class="btn btn-primary">', "</button>" ], [ '<button type="submit" class="btn btn-primary">', "</button>" ]);
+    var d = _([ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', "</button>\n                      </div>\n                    </div>\n                    " ], [ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', "</button>\n                      </div>\n                    </div>\n                    " ]);
+    var u = _([ '\n                <div class="form-group">\n                    <label for="', '">', "</label>\n                    ", "\n                    ", "\n                </div>\n                " ], [ '\n                <div class="form-group">\n                    <label for="', '">', "</label>\n                    ", "\n                    ", "\n                </div>\n                " ]);
+    var l = _([ '<small class="form-text text-muted">', "</small>" ], [ '<small class="form-text text-muted">', "</small>" ]);
+    var f = _([ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 col-form-label">', '</label>\n                  <div class="col-sm-10">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ], [ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 col-form-label">', '</label>\n                  <div class="col-sm-10">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ]);
+    var c = _([ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ], [ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ]);
+    var m = _([ "<form>\n            ", "\n            ", "</form>" ], [ "<form>\n            ", "\n            ", "</form>" ]);
+    function _(e, t) {
         return Object.freeze(Object.defineProperties(e, {
             raw: {
                 value: Object.freeze(t)
             }
         }));
     }
-    function _(e, t) {
+    function h(e, t) {
         if (!(e instanceof t)) {
             throw new TypeError("Cannot call a class as a function");
         }
     }
-    function h(e, t) {
+    function p(e, t) {
         if (!e) {
             throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
         }
         return t && ((typeof t === "undefined" ? "undefined" : r(t)) === "object" || typeof t === "function") ? t : e;
     }
-    function p(e, t) {
+    function y(e, t) {
         if (typeof t !== "function" && t !== null) {
             throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : r(t)));
         }
@@ -15808,38 +15879,36 @@
         });
         if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
     }
-    var y = function(e) {
-        p(t, e);
+    $.fn.validate = a;
+    var g = function(e) {
+        y(t, e);
         function t() {
             var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-            _(this, t);
+            h(this, t);
             var n = {
                 layout: "vertical",
-                labelClass: "",
-                componentClass: "",
                 setDefaults: {
-                    errorClass: "help-block",
+                    errorClass: "form-control-feedback",
                     errorElement: "div",
                     errorPlacement: function e(t, n) {
-                        n.parents(".form-group > div").append(t);
+                        n.after(t);
                     },
                     highlight: function e(t, n) {
                         $(t).closest(".form-group").addClass("has-danger");
                     },
                     success: function e(t) {
                         t.closest(".form-group").removeClass("has-danger");
-                        t.closest("div.help-block").remove();
+                        t.closest("div.form-control-feedback").remove();
                     },
-                    submitHandler: function t(n) {
-                        var r = Lego.getView(e.el);
-                        if (r) r.submitForm();
-                    }
+                    submitHandler: function e(t) {
+                        console.warn("ddddddddd");
+                        t.submit();
+                    },
+                    rules: {},
+                    messages: {}
                 },
-                rules: null,
-                messages: null,
                 submitEl: "",
                 submitText: "提 交",
-                submitClass: "",
                 data: [],
                 format: function e(t) {
                     return t;
@@ -15847,70 +15916,94 @@
                 onSubmit: function e() {}
             };
             Object.assign(n, e);
-            return h(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
+            return p(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
         }
-        a(t, [ {
+        s(t, [ {
             key: "render",
             value: function e() {
                 var t = this.options || {}, n = this;
-                var r = "";
-                if (!t.submitEl) {
-                    if (t.layout == "vertical") {
-                        r = hx(s, val(t.submitClass, ""), t.submitText);
-                    } else {
-                        r = hx(o, val(t.submitClass, ""), t.submitText);
+                function r() {
+                    var e = "";
+                    if (!t.submitEl) {
+                        if (t.layout == "vertical") {
+                            e = hx(o, t.submitText);
+                        } else {
+                            e = hx(d, t.submitText);
+                        }
                     }
+                    return e;
                 }
-                function i(e, t, r) {
-                    var i = "";
-                    var a = "<" + val(e.componentName) + " id=" + r + "></" + val(e.componentName) + ">";
-                    if (t == "vertical") {
-                        i = hx(d, r, val(n.options.labelClass || e.labelClass, ""), val(e.label), hx(a), e.help ? hx(u, val(e.help)) : "");
-                    } else {
-                        i = hx(l, r, val(n.options.labelClass || e.labelClass, ""), val(e.label), val(n.options.componentClass || e.componentClass, ""), hx(a), e.help ? hx(u, val(e.help)) : "");
-                    }
-                    return i;
-                }
-                function a(e, t, n) {
+                function i(e, t, n) {
                     var r = "";
-                    if (e.items) {
-                        r = hx(f, val(e.labelClass), val(e.label), e.items.map(function(e, r) {
-                            return i(e, n, "component_" + t + "_" + r);
-                        }));
+                    var i = "<" + val(e.component.comName) + " id=" + n + "></" + val(e.component.comName) + ">";
+                    if (t == "vertical") {
+                        r = hx(u, n, val(e.label), hx(i), e.help ? hx(l, val(e.help)) : "");
                     } else {
-                        r = i(e, n, "component_" + t);
+                        r = hx(f, n, val(e.label), hx(i), e.help ? hx(l, val(e.help)) : "");
                     }
                     return r;
                 }
-                var m = void 0;
-                if (t.layout == "vertical") {
-                    m = hx(c, t.data.map(function(e, t) {
-                        return a(e, t, "vertical");
-                    }), r);
-                } else {
-                    m = hx(c, t.data.map(function(e, t) {
-                        return a(e, t, "inline");
-                    }), r);
+                function a(e, n, r) {
+                    var a = "", s = [ "component", t.vid, n ];
+                    if (e.items) {
+                        a = hx(c, val(e.labelClass), val(e.label), e.items.map(function(e, t) {
+                            s.push(t);
+                            return i(e, r, s.join("_"));
+                        }));
+                    } else {
+                        a = i(e, r, s.join("_"));
+                    }
+                    return a;
                 }
-                return m;
+                var s = hx(m, t.data.map(function(e, n) {
+                    return a(e, n, t.layout);
+                }), r());
+                return s;
             }
         }, {
             key: "renderAfter",
             value: function e() {
                 var t = this;
-                if (this.options.rules && this.options.messages) {
-                    $.validator.setDefaults(this.options.setDefaults);
-                    this.validator = this.$el.validate({
-                        rules: this.options.rules,
-                        messages: this.options.messages
-                    });
-                } else {
-                    (function() {
-                        var e = t, n = "submit.form_" + t.options.vid, r = t.options.submitEl;
-                        t.$el.off(n).on(n, function(t) {
-                            e.submitForm();
+                var n = this;
+                this.rules = null;
+                this.messages = null;
+                this.options.data.map(function(e, r) {
+                    var i = [ "component", n.options.vid, r ];
+                    if (e.items) {
+                        e.items.map(function(e, t) {
+                            if (e.rule && e.message) {
+                                n.rules = n.options.rules || {};
+                                n.messages = n.options.messages || {};
+                                if (e.required) e.rule.required = true;
+                                n.options.setDefaults.rules[e.component.name] = e.rule;
+                                n.options.setDefaults.messages[e.component.name] = e.message;
+                            }
+                            i.push(t);
+                            e.component.el = "#" + i.join("_");
+                            Lego.create(Lego.UI[e.component.comName], e.component);
                         });
-                    })();
+                    } else {
+                        if (e.rule && e.message) {
+                            t.rules = t.options.rules || {};
+                            t.messages = t.options.messages || {};
+                            if (e.required) e.rule.required = true;
+                            t.options.setDefaults.rules[e.component.name] = e.rule;
+                            t.options.setDefaults.messages[e.component.name] = e.message;
+                        }
+                        e.component.el = "#" + i.join("_");
+                        Lego.create(Lego.UI[e.component.comName], e.component);
+                    }
+                });
+                console.warn("yyyyyyy");
+                var r = "click.form_" + this.options.vid, i = this.options.submitEl, a = i instanceof $ ? i : this.$((typeof i == "string" ? i : "") || '[type="submit"]');
+                if (this.rules && this.messages) {
+                    this.$el.validate(this.options.setDefaults);
+                    a.off(r);
+                } else {
+                    a.off(r).on(r, function(e) {
+                        n.submitForm();
+                    });
+                    this.$el.attr("onSubmit", "javascript:return false;");
                 }
             }
         }, {
@@ -15935,10 +16028,9 @@
         }, {
             key: "submitForm",
             value: function e() {
-                var t = this.options.format, n = this.options.submitEl, r = n instanceof $ ? n : $((typeof n == "string" ? n : "") || '[type="submit"]'), i = this;
+                var t = this.options.format, n = this.options.submitEl, r = n instanceof $ ? n : this.$((typeof n == "string" ? n : "") || '[type="submit"]'), i = this;
                 var a = this.serializeJson();
                 if (typeof t == "function") a = t(a);
-                console.warn(a);
                 if (!Object.values(a).length) return false;
                 if (!r.hasClass("disabled")) {
                     r.text("提交中...").addClass("disabled");
@@ -15948,8 +16040,8 @@
         } ]);
         return t;
     }(Lego.UI.Baseview);
-    Lego.components("forms", y);
-    e.exports = y;
+    Lego.components("forms", g);
+    e.exports = g;
 }, function(e, t, n) {
     var r, i, a;
     (function(s) {

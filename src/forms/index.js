@@ -3,16 +3,17 @@
  * ronghui Yu
  * 2017/1/9
  */
-import 'jquery-validation';
+import validate from 'jquery-validation';
+// import 'jquery-validation/dist/additional-methods'
+$.fn.validate = validate;
 // import './asset/index.scss';
 // data: [{
 //     label: '',
-//     labelClass: '',
-//     style: {},
 //     help: '',
 //     required: false,
-//     component: '',
-//     componentClass: '',
+//     component: {},
+//     rule: {},
+//     message: {},
 //     items: []
 // }]
 
@@ -20,32 +21,33 @@ class Forms extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             layout: 'vertical', //布局 row或inline
-            labelClass: '',
-            componentClass: '',
             setDefaults: { //表单验证
                 // debug: true,
-                errorClass: 'help-block',
+                errorClass: 'form-control-feedback',
                 errorElement: 'div',
-                errorPlacement: function(error, element) {
-                    element.parents('.form-group > div').append(error);
+                errorPlacement(error, element) {
+                    element.after(error);
                 },
-                highlight: function(element, errorClass) {
+                highlight(element, errorClass) {
                     $(element).closest('.form-group').addClass('has-danger');
                 },
-                success: function(el) {
+                success(el) {
                     el.closest('.form-group').removeClass('has-danger');
-                    el.closest('div.help-block').remove();
+                    el.closest('div.form-control-feedback').remove();
                 },
-                submitHandler: function(form) {
-                    const view = Lego.getView(opts.el);
-                    if(view) view.submitForm();
-                }
+                submitHandler(form) {
+                    console.warn('ddddddddd');
+                    form.submit();
+                    // const view = Lego.getView(opts.el);
+                    // if(view) view.submitForm();
+                },            
+                rules: {},
+                messages: {},
             },
-            rules: null,
-            messages: null,
+            // rules: null,
+            // messages: null,
             submitEl: '',    //按钮
             submitText: '提 交',    //按钮内容
-            submitClass: '', //提交表单按钮样式
             data: [], //
             format(result){ return result }, //格式化数据
             onSubmit(){}   //数据验证成功后回调事件
@@ -56,27 +58,30 @@ class Forms extends Lego.UI.Baseview {
     render() {
         const options = this.options || {},
             that = this;
-        let submit = '';
-        if(!options.submitEl){
-            if(options.layout == 'vertical'){
-                submit = hx`<button type="submit" class="btn btn-primary ${val(options.submitClass, '')}">${options.submitText}</button>`;
-            }else{
-                submit = hx`
-                <div class="form-group row">
-                  <div class="offset-sm-2 col-sm-10">
-                    <button type="submit" class="btn btn-primary ${val(options.submitClass, '')}">${options.submitText}</button>
-                  </div>
-                </div>
-                `;
+        function submitBtn(){
+            let submit = '';
+            if(!options.submitEl){
+                if(options.layout == 'vertical'){
+                    submit = hx`<button type="submit" class="btn btn-primary">${options.submitText}</button>`;
+                }else{
+                    submit = hx`
+                    <div class="form-group row">
+                      <div class="offset-sm-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">${options.submitText}</button>
+                      </div>
+                    </div>
+                    `;
+                }
             }
+            return submit;
         }
         function layoutItem(item, layout, id){
             let vDom = '';
-            let comTag = `<${val(item.componentName)} id=${id}></${val(item.componentName)}>`;
+            let comTag = `<${val(item.component.comName)} id=${id}></${val(item.component.comName)}>`;
             if(layout == 'vertical'){
                 vDom = hx`
                 <div class="form-group">
-                    <label for="${id}" class=" ${val(that.options.labelClass || item.labelClass, '')}">${val(item.label)}</label>
+                    <label for="${id}">${val(item.label)}</label>
                     ${hx(comTag)}
                     ${item.help ? hx`<small class="form-text text-muted">${val(item.help)}</small>` : ''}
                 </div>
@@ -84,8 +89,8 @@ class Forms extends Lego.UI.Baseview {
             }else{
                 vDom = hx`
                 <div class="form-group row">
-                  <label for="${id}" class="col-sm-2 ${val(that.options.labelClass || item.labelClass, '')} col-form-label">${val(item.label)}</label>
-                  <div class="col-sm-10 ${val(that.options.componentClass || item.componentClass, '')}">
+                  <label for="${id}" class="col-sm-2 col-form-label">${val(item.label)}</label>
+                  <div class="col-sm-10">
                     ${hx(comTag)}
                     ${item.help ? hx`<small class="form-text text-muted">${val(item.help)}</small>` : ''}
                   </div>
@@ -95,55 +100,73 @@ class Forms extends Lego.UI.Baseview {
             return vDom;
         }
         function loopItem(data, index, layout){
-            let vDom = '';
+            let vDom = '',
+                comId = ['component', options.vid, index];
             if(data.items){
                 vDom = hx`
                 <fieldset class="${val(data.labelClass)}">
                     <legend>${val(data.label)}</legend>
                     ${data.items.map((item, i) => {
-                        return layoutItem(item, layout, 'component_' + index + '_' + i);
+                        comId.push(i);
+                        return layoutItem(item, layout, comId.join('_'));
                     })}
                 </fieldset>
                 `;
             }else{
-                vDom = layoutItem(data, layout, 'component_' + index);
+                vDom = layoutItem(data, layout, comId.join('_'));
             }
             return vDom;
         }
-        let vDom;
-        if(options.layout == 'vertical'){
-            vDom = hx`
-            <form>
+        let vDom = hx`<form>
             ${options.data.map((item, i) => {
-                return loopItem(item, i, 'vertical');
+                return loopItem(item, i, options.layout);
             })}
-            ${submit}
-            </form>`;
-        }else{
-            vDom = hx`
-            <form>
-            ${options.data.map((item, i) => {
-                return loopItem(item, i, 'inline');
-            })}
-            ${submit}
-            </form>`;
-        }
+            ${submitBtn()}</form>`;
         return vDom;
     }
     renderAfter(){
-        if (this.options.rules && this.options.messages) {
-            $.validator.setDefaults(this.options.setDefaults);
-            this.validator = this.$el.validate({
-                rules: this.options.rules,
-                messages: this.options.messages
-            });
+        const that = this;
+        this.rules = null;
+        this.messages = null;
+        this.options.data.map((item, index) => {
+            const comId = ['component', that.options.vid, index];
+            if(item.items){
+                item.items.map((subItem, i) => {
+                    if(subItem.rule && subItem.message){
+                        that.rules = that.options.rules || {};
+                        that.messages = that.options.messages || {};
+                        if(subItem.required) subItem.rule.required = true;
+                        that.options.setDefaults.rules[subItem.component.name] = subItem.rule;
+                        that.options.setDefaults.messages[subItem.component.name] = subItem.message;
+                    }
+                    comId.push(i);
+                    subItem.component.el = '#' + comId.join('_');
+                    Lego.create(Lego.UI[subItem.component.comName], subItem.component);
+                });
+            }else{
+                if(item.rule && item.message){
+                    this.rules = this.options.rules || {};
+                    this.messages = this.options.messages || {};
+                    if(item.required) item.rule.required = true;
+                    this.options.setDefaults.rules[item.component.name] = item.rule;
+                    this.options.setDefaults.messages[item.component.name] = item.message;
+                }
+                item.component.el = '#' + comId.join('_');
+                Lego.create(Lego.UI[item.component.comName], item.component);
+            }
+        });
+console.warn('yyyyyyy');
+        const eventName = 'click.form_' + this.options.vid,
+            submitEl = this.options.submitEl,
+            $submitEl = submitEl instanceof $ ? submitEl : this.$((typeof submitEl == 'string' ? submitEl : '') || '[type="submit"]');
+        if (this.rules && this.messages) {
+            this.$el.validate(this.options.setDefaults);
+            $submitEl.off(eventName);
         } else {
-            const that = this,
-                eventName = 'submit.form_' + this.options.vid,
-                submitEl = this.options.submitEl;
-            this.$el.off(eventName).on(eventName, function(event) {
+            $submitEl.off(eventName).on(eventName, function(event) {
                 that.submitForm();
             });
+            this.$el.attr('onSubmit', 'javascript:return false;');
         }
     }
     //序列化表单
@@ -168,7 +191,7 @@ class Forms extends Lego.UI.Baseview {
     submitForm() {
         const format = this.options.format,
             submitEl = this.options.submitEl,
-            $submitEl = submitEl instanceof $ ? submitEl : $((typeof submitEl == 'string' ? submitEl : '') || '[type="submit"]'),
+            $submitEl = submitEl instanceof $ ? submitEl : this.$((typeof submitEl == 'string' ? submitEl : '') || '[type="submit"]'),
             that = this;
         let data = this.serializeJson();
         if(typeof format == 'function') data = format(data);
