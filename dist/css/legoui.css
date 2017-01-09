@@ -10570,6 +10570,9 @@ tr.lego-table-expanded-row:hover {
   border-right: 0.3em solid transparent;
   border-left: 0.3em solid transparent; }
 
+.has-danger .select:after {
+  display: none; }
+
 .select .select-input:focus {
   border-color: #66afe9 !important; }
 

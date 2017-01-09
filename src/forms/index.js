@@ -36,7 +36,6 @@ class Forms extends Lego.UI.Baseview {
                     el.closest('div.form-control-feedback').remove();
                 },
                 submitHandler(form) {
-                    console.warn('ddddddddd');
                     // form.submit();
                     const view = Lego.getView(opts.el);
                     if(view) view.submitForm();
@@ -155,14 +154,13 @@ class Forms extends Lego.UI.Baseview {
                 Lego.create(Lego.UI[item.component.comName], item.component);
             }
         });
-console.warn('yyyyyyy');
-        const eventName = 'click.form_' + this.options.vid,
+        const clickName = 'click.form_' + this.options.vid,
             submitEl = this.options.submitEl,
             $submitEl = submitEl instanceof $ ? submitEl : this.$((typeof submitEl == 'string' ? submitEl : '') || '[type="submit"]');
         if (this.rules && this.messages) {
             this.$el.validate(this.options.setDefaults);
         } else {
-            $submitEl.off(eventName).on(eventName, function(event) {
+            $submitEl.off(clickName).on(clickName, function(event) {
                 that.submitForm();
             });
         }

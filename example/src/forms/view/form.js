@@ -28,7 +28,7 @@ class HomeView extends Lego.UI.Baseview {
                     help: '注意事项',
                     required: true,
                     rule: {
-                        required: true
+                        // required: true
                     },
                     message: {
                         required: '请先填写名称'
@@ -42,7 +42,13 @@ class HomeView extends Lego.UI.Baseview {
                     }
                 }, {
                     label: '名称2',
-                    required: false,
+                    required: true,
+                    rule: {
+                        // required: true
+                    },
+                    message: {
+                        required: '请先填写名称2'
+                    },
                     component: {
                         comName: 'inputs',
                         name: 'old',
@@ -52,8 +58,14 @@ class HomeView extends Lego.UI.Baseview {
                         }
                     }
                 }, {
-                    label: '名称2',
-                    required: false,
+                    label: '名称3',
+                    required: true,
+                    rule: {
+                        // required: true
+                    },
+                    message: {
+                        required: '请先填写名称3'
+                    },
                     component: {
                         comName: 'selects',
                         name: 'book',
@@ -64,8 +76,14 @@ class HomeView extends Lego.UI.Baseview {
                         data: $.extend(true, [], data)
                     }
                 }, {
-                    label: '名称3',
-                    required: false,
+                    label: '名称4',
+                    required: true,
+                    rule: {
+                        // required: true
+                    },
+                    message: {
+                        required: '请先填写名称4'
+                    },
                     component: {
                         comName: 'selects',
                         name: 'time',

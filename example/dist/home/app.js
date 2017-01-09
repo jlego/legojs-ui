@@ -18,11 +18,11 @@
 })({
     0: function(e, t, r) {
         "use strict";
-        var n = r(136);
+        var n = r(135);
         var o = l(n);
-        var a = r(137);
+        var a = r(136);
         var i = l(a);
-        var u = r(138);
+        var u = r(137);
         var f = l(u);
         function l(e) {
             return e && e.__esModule ? e : {
@@ -93,7 +93,7 @@
             }
         });
     },
-    136: function(e, t) {
+    135: function(e, t) {
         "use strict";
         Object.defineProperty(t, "__esModule", {
             value: true
@@ -182,7 +182,7 @@
         }(Lego.UI.Baseview);
         t.default = l;
     },
-    137: function(e, t) {
+    136: function(e, t) {
         "use strict";
         Object.defineProperty(t, "__esModule", {
             value: true
@@ -275,7 +275,7 @@
         }(Lego.UI.Baseview);
         t.default = l;
     },
-    138: function(e, t) {
+    137: function(e, t) {
         "use strict";
         Object.defineProperty(t, "__esModule", {
             value: true

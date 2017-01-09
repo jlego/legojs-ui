@@ -101,7 +101,6 @@ var Forms = function(_Lego$UI$Baseview) {
                     el.closest("div.form-control-feedback").remove();
                 },
                 submitHandler: function submitHandler(form) {
-                    console.warn("ddddddddd");
                     var view = Lego.getView(opts.el);
                     if (view) view.submitForm();
                 },
@@ -195,13 +194,11 @@ var Forms = function(_Lego$UI$Baseview) {
                     Lego.create(Lego.UI[item.component.comName], item.component);
                 }
             });
-            console.warn("yyyyyyy");
-            var eventName = "click.form_" + this.options.vid, submitEl = this.options.submitEl, $submitEl = submitEl instanceof $ ? submitEl : this.$((typeof submitEl == "string" ? submitEl : "") || '[type="submit"]');
+            var clickName = "click.form_" + this.options.vid, submitEl = this.options.submitEl, $submitEl = submitEl instanceof $ ? submitEl : this.$((typeof submitEl == "string" ? submitEl : "") || '[type="submit"]');
             if (this.rules && this.messages) {
                 this.$el.validate(this.options.setDefaults);
-                $submitEl.off(eventName);
             } else {
-                $submitEl.off(eventName).on(eventName, function(event) {
+                $submitEl.off(clickName).on(clickName, function(event) {
                     that.submitForm();
                 });
             }
