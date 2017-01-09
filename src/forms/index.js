@@ -37,9 +37,9 @@ class Forms extends Lego.UI.Baseview {
                 },
                 submitHandler(form) {
                     console.warn('ddddddddd');
-                    form.submit();
-                    // const view = Lego.getView(opts.el);
-                    // if(view) view.submitForm();
+                    // form.submit();
+                    const view = Lego.getView(opts.el);
+                    if(view) view.submitForm();
                 },            
                 rules: {},
                 messages: {},
@@ -161,13 +161,12 @@ console.warn('yyyyyyy');
             $submitEl = submitEl instanceof $ ? submitEl : this.$((typeof submitEl == 'string' ? submitEl : '') || '[type="submit"]');
         if (this.rules && this.messages) {
             this.$el.validate(this.options.setDefaults);
-            $submitEl.off(eventName);
         } else {
             $submitEl.off(eventName).on(eventName, function(event) {
                 that.submitForm();
             });
-            this.$el.attr('onSubmit', 'javascript:return false;');
         }
+        this.$el.attr('onSubmit', 'javascript:return false;');
     }
     //序列化表单
     serializeJson() {

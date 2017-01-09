@@ -102,7 +102,8 @@ var Forms = function(_Lego$UI$Baseview) {
                 },
                 submitHandler: function submitHandler(form) {
                     console.warn("ddddddddd");
-                    form.submit();
+                    var view = Lego.getView(opts.el);
+                    if (view) view.submitForm();
                 },
                 rules: {},
                 messages: {}
@@ -203,8 +204,8 @@ var Forms = function(_Lego$UI$Baseview) {
                 $submitEl.off(eventName).on(eventName, function(event) {
                     that.submitForm();
                 });
-                this.$el.attr("onSubmit", "javascript:return false;");
             }
+            this.$el.attr("onSubmit", "javascript:return false;");
         }
     }, {
         key: "serializeJson",

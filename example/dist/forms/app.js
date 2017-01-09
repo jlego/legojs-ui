@@ -15900,9 +15900,10 @@
                         t.closest(".form-group").removeClass("has-danger");
                         t.closest("div.form-control-feedback").remove();
                     },
-                    submitHandler: function e(t) {
+                    submitHandler: function t(n) {
                         console.warn("ddddddddd");
-                        t.submit();
+                        var r = Lego.getView(e.el);
+                        if (r) r.submitForm();
                     },
                     rules: {},
                     messages: {}
@@ -16003,8 +16004,8 @@
                     a.off(r).on(r, function(e) {
                         n.submitForm();
                     });
-                    this.$el.attr("onSubmit", "javascript:return false;");
                 }
+                this.$el.attr("onSubmit", "javascript:return false;");
             }
         }, {
             key: "serializeJson",
