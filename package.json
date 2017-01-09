@@ -63,8 +63,8 @@
   },
   "dependencies": {
     "bootstrap-datetimepicker-cjs": "0.0.2",
-    "font-awesome": "^4.7.0",
     "highlight.js": "^9.9.0",
+    "jquery-validation": "^1.16.0",
     "lego-core": "^0.6.9",
     "lodash": "^4.17.3",
     "moment": "^2.17.1",

@@ -1,3 +1,8 @@
+/**
+ * 按钮组
+ * ronghui Yu
+ * 2017/1/3
+ */
 // import './asset/index.scss';
 
 class Btngroup extends Lego.UI.Baseview {

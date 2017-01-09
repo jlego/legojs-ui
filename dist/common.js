@@ -68,8 +68,8 @@ var Util = {
     }
 };
 
-window.val = function(value) {
-    return value ? value : "";
+window.val = function(value, defaultValue) {
+    return value ? value : defaultValue || "";
 };
 
 Lego.components("Util", Util);

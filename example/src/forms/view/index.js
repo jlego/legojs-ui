@@ -12,6 +12,7 @@ class IndexView extends Lego.UI.Baseview {
         <div class="page-container" id="page-container">
             <h1 class="page-title">
                 <a href="#/forms/0" class="${options.currentTab == 0 ? 'active' : ''}">Forms 表单</a>
+                <a href="#/forms/1" class="${options.currentTab == 1 ? 'active' : ''}">表单页</a>
             </h1>
             <div class="page-panel">
                 <div class="page-content page-panel-bg scrollbar">

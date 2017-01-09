@@ -1,3 +1,8 @@
+/**
+ * 按钮
+ * ronghui Yu
+ * 2017/1/7
+ */
 // import './asset/index.scss';
 
 class Buttons extends Lego.UI.Baseview {
