@@ -1,5 +1,5 @@
 /**
- * pagination.js v0.1.2
+ * pagination.js v0.2.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -30,7 +30,7 @@ var _templateObject3$1 = _taggedTemplateLiteral$1([ '\n            <li class="dr
 
 var _templateObject4$1 = _taggedTemplateLiteral$1([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5$1 = _taggedTemplateLiteral$1([ '\n        <ul class="dropdown-menu ', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject5$1 = _taggedTemplateLiteral$1([ '\n        <ul class="dropdown-menu clearfix ', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu clearfix ', '">\n            ', "\n        </ul>\n        " ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -92,13 +92,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
         var that = _this;
         _this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
         if (!_this.options.disabled) {
-            if (options.eventName == "click") {
-                var _eventName = "click.dropdown_" + opts.vid;
-                $("body").off(_eventName).on(_eventName, function() {
-                    that.close();
-                });
-            }
-            _this.options.trigger[options.eventName](function() {
+            var handler = function handler(event) {
                 event.stopPropagation();
                 var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
                 that.options.direction = directionResp._y || "bottom";
@@ -108,7 +102,16 @@ var Dropdown = function(_Lego$UI$Baseview) {
                         that.close();
                     });
                 }
-            });
+            };
+            if (options.eventName == "click") {
+                var _eventName = "click.dropdown_" + opts.vid;
+                $("body").off(_eventName).on(_eventName, function() {
+                    that.close();
+                });
+                _this.options.trigger.off(_eventName).on(_eventName, handler);
+            } else {
+                _this.options.trigger[options.eventName](handler);
+            }
         }
         return _this;
     }
@@ -164,7 +167,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
         value: function clickItem(event) {
             var target = $(event.currentTarget);
             var model = this.options.data.find(function(Item) {
-                return Item.key === target.attr("id");
+                return Item.key == target.attr("id");
             });
             if (model) {
                 this.options.onChange(model);
@@ -208,7 +211,7 @@ var _templateObject5 = _taggedTemplateLiteral([ '<li title="', '" class="page pa
 
 var _templateObject6 = _taggedTemplateLiteral([ '\n            <li class="next ', '">\n                <a href="javascript:void(0)" title="下一页"><i class="icon iconfont icon-arrow-right"></i></a>\n            </li>\n            ' ], [ '\n            <li class="next ', '">\n                <a href="javascript:void(0)" title="下一页"><i class="icon iconfont icon-arrow-right"></i></a>\n            </li>\n            ' ]);
 
-var _templateObject7 = _taggedTemplateLiteral([ '\n            <li class="pageSize">\n                <span class="info" id="', '-select">\n                <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                <dropdown id="', '-dropdown"></dropdown>\n                </span>\n            </li>\n            ' ], [ '\n            <li class="pageSize">\n                <span class="info" id="', '-select">\n                <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                <dropdown id="', '-dropdown"></dropdown>\n                </span>\n            </li>\n            ' ]);
+var _templateObject7 = _taggedTemplateLiteral([ '\n            <li class="pageSize">\n                <span class="info" id="', '-select">\n                    <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </span>\n            </li>\n            ' ], [ '\n            <li class="pageSize">\n                <span class="info" id="', '-select">\n                    <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </span>\n            </li>\n            ' ]);
 
 var _templateObject8 = _taggedTemplateLiteral([ '\n            <li><span class="info">\n                    跳转至\n                    <input type="text" class="form-control pageJump" value="', '">\n                </span>\n                ', "\n            </li>\n            " ], [ '\n            <li><span class="info">\n                    跳转至\n                    <input type="text" class="form-control pageJump" value="', '">\n                </span>\n                ', "\n            </li>\n            " ]);
 
@@ -271,7 +274,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             onChange: function onChange() {},
             showSizeChanger: false,
             pageSizeOptions: [ 10, 20, 30, 40, 50 ],
-            onShowSizeChange: function onShowSizeChange() {},
+            onPageSizeChange: function onPageSizeChange() {},
             showQuickJumper: false,
             size: "",
             simple: null,
@@ -282,7 +285,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             var theData = options.pageSizeOptions.map(function(val) {
                 return {
                     key: val,
-                    title: val + " / 页"
+                    value: val + " / 页"
                 };
             });
             options.components = [ {
@@ -291,9 +294,11 @@ var Pagination = function(_Lego$UI$Baseview) {
                 data: theData,
                 onChange: function onChange(result) {
                     var theView = Lego.getView(opts.el);
+                    var num = parseInt(result.key);
                     if (theView) {
                         theView.options.current = 1;
-                        theView.options.pageSize = parseInt(result);
+                        theView.options.pageSize = num;
+                        theView.options.onPageSizeChange(num);
                     }
                 }
             } ];
@@ -305,18 +310,19 @@ var Pagination = function(_Lego$UI$Baseview) {
     _createClass(Pagination, [ {
         key: "render",
         value: function render() {
-            var options = this.options || {};
-            options.totalPages = Math.ceil(options.total / options.pageSize);
-            options.pageRang = options.pageRang > options.totalPages ? options.totalPages : options.pageRang;
-            var baseTimes = options.pageRang ? Math.floor((options.current - 1) / options.pageRang) : 0, startPage = baseTimes * options.pageRang + 1, endPage = startPage + options.pageRang - 1, showEllipsis = options.totalPages - options.current >= options.pageRang ? true : false, pagesArr = [];
-            endPage = endPage <= 0 ? 1 : endPage;
-            endPage = endPage > options.totalPages ? options.totalPages : endPage;
+            var options = this.options || {}, current = parseInt(options.current);
+            var pageRang = parseInt(options.pageRang);
+            var totalCount = typeof options.total === "function" ? options.total() : options.total;
+            options.totalPages = Math.ceil(totalCount / options.pageSize);
+            pageRang = pageRang >= options.totalPages ? options.totalPages : pageRang;
+            var baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0, startPage = baseTimes * pageRang + 1, endPage = startPage + pageRang - 1, showEllipsis = options.totalPages - current > pageRang ? true : false, pagesArr = [];
+            endPage = endPage >= options.totalPages ? options.totalPages : endPage;
             for (var i = startPage; i <= endPage; i++) {
                 pagesArr.push(i);
             }
-            var vDom = hx(_templateObject, options.simple ? "pagination-simple" : "", options.size == "small" ? "mini" : "", options.current <= 1 ? "disabled" : "", options.simple ? hx(_templateObject2, options.current, options.endPage, options.current) : "", !options.simple ? pagesArr.map(function(x) {
-                return hx(_templateObject3, x, x == options.current ? "active" : "", x);
-            }) : "", showEllipsis ? hx(_templateObject4, options.pageSize) : "", !options.simple && showEllipsis ? hx(_templateObject5, options.totalPages, options.totalPages) : "", !options.simple ? hx(_templateObject6, options.current >= options.totalPages ? "disabled" : "") : "", !options.simple && options.showSizeChanger ? hx(_templateObject7, options.vid, options.pageSize, options.vid) : "", !options.simple && options.showQuickJumper ? hx(_templateObject8, this.jumped ? options.current : "1", options.isShowTotal ? hx(_templateObject9, typeof options.showTotal === "function" ? options.showTotal(options.total) : "总数 " + options.total) : "") : "");
+            var vDom = hx(_templateObject, options.simple ? "pagination-simple" : "", options.size == "small" ? "mini" : "", current <= 1 ? "disabled" : "", options.simple ? hx(_templateObject2, current, options.endPage, current) : "", !options.simple ? pagesArr.map(function(x) {
+                return hx(_templateObject3, x, x == current ? "active" : "", x);
+            }) : "", showEllipsis ? hx(_templateObject4, options.pageSize) : "", !options.simple && showEllipsis ? hx(_templateObject5, options.totalPages, options.totalPages) : "", !options.simple ? hx(_templateObject6, current >= options.totalPages ? "disabled" : "") : "", !options.simple && options.showSizeChanger ? hx(_templateObject7, options.vid, options.pageSize, options.vid) : "", !options.simple && options.showQuickJumper ? hx(_templateObject8, this.jumped ? current : "1", options.isShowTotal ? hx(_templateObject9, typeof options.showTotal === "function" ? options.showTotal(totalCount) : "总数 " + totalCount) : "") : "");
             this.jumped = false;
             return vDom;
         }

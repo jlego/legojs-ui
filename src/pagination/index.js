@@ -19,7 +19,7 @@ class Pagination extends Lego.UI.Baseview {
             onChange(){},    //页码改变的回调，参数是改变后的页码
             showSizeChanger: false,    //是否可以改变 pageSize
             pageSizeOptions: [10, 20, 30, 40, 50],   //指定每页可以显示多少条
-            onShowSizeChange(){},    //pageSize 变化的回调
+            onPageSizeChange(){},    //pageSize 变化的回调
             showQuickJumper: false,    //是否可以快速跳转至某页
             size: '',    //当为「small」时，是小尺寸分页
             simple: null,    //当添加该属性时，显示为简单分页
@@ -31,7 +31,7 @@ class Pagination extends Lego.UI.Baseview {
             let theData = options.pageSizeOptions.map(val => {
                 return {
                     key: val,
-                    title: val + ' / 页'
+                    value: val + ' / 页'
                 };
             });
             options.components = [{
@@ -40,9 +40,11 @@ class Pagination extends Lego.UI.Baseview {
                 data: theData,
                 onChange(result){
                     const theView = Lego.getView(opts.el);
+                    const num = parseInt(result.key);
                     if(theView){
                         theView.options.current = 1;
-                        theView.options.pageSize = parseInt(result);
+                        theView.options.pageSize = num;
+                        theView.options.onPageSizeChange(num);
                     }
                 }
             }];
@@ -51,57 +53,59 @@ class Pagination extends Lego.UI.Baseview {
         this.jumped = false;
     }
     render() {
-        const options = this.options || {};
-        options.totalPages = Math.ceil(options.total / options.pageSize);
-        options.pageRang = options.pageRang > options.totalPages ? options.totalPages : options.pageRang;
-        let baseTimes = options.pageRang ? Math.floor((options.current - 1) / options.pageRang) : 0,
-            startPage = baseTimes * options.pageRang + 1,
-            endPage = startPage + options.pageRang - 1,
-            showEllipsis = options.totalPages - options.current >= options.pageRang ? true : false,
+        const options = this.options || {},
+            current = parseInt(options.current);
+        let pageRang = parseInt(options.pageRang);
+        let totalCount = typeof options.total === 'function' ? options.total() : options.total;
+        options.totalPages = Math.ceil(totalCount / options.pageSize);
+        pageRang = pageRang >= options.totalPages ? options.totalPages : pageRang;
+        let baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0,
+            startPage = baseTimes * pageRang + 1,
+            endPage = startPage + pageRang - 1,
+            showEllipsis = options.totalPages - current > pageRang ? true : false,
             pagesArr = [];
-        endPage = endPage <= 0 ? 1 : endPage;
-        endPage = endPage > options.totalPages ? options.totalPages : endPage;
+        endPage = endPage >= options.totalPages ? options.totalPages : endPage;
         for(let i = startPage; i <= endPage; i++) {
             pagesArr.push(i);
         }
         const vDom = hx`
         <ul class="pagination ${options.simple ? 'pagination-simple' : ''} ${options.size == 'small' ? 'mini' : ''}">
-            <li class="prev ${ options.current <= 1 ? 'disabled' : ''}">
+            <li class="prev ${ current <= 1 ? 'disabled' : ''}">
                 <a href="javascript:void(0)" title="上一页"><i class="icon iconfont icon-arrow-left"></i></a>
             </li>
             ${options.simple ? hx`
-            <div title="${options.current}/${options.endPage}" class="lego-pagination-simple-pager">
-                <input type="text" value="${options.current}"><span class="lego-pagination-slash">／</span>
+            <div title="${current}/${options.endPage}" class="lego-pagination-simple-pager">
+                <input type="text" value="${current}"><span class="lego-pagination-slash">／</span>
             </div>
             ` : ''}
             ${!options.simple ? pagesArr.map(x => hx`
-            <li title="${x}" class="page page-item ${ x == options.current ? 'active' : ''}"><a href="javascript:void(0)">${x}</a></li>
+            <li title="${x}" class="page page-item ${ x == current ? 'active' : ''}"><a href="javascript:void(0)">${x}</a></li>
             `) : ''}
             ${showEllipsis ? hx`
             <li title="下 ${options.pageSize} 页" class="page morepage"><a href="javascript:void(0)"><i class="icon iconfont icon-more-1"></a></i></li>
             ` : ''}
             ${!options.simple && showEllipsis ? hx`<li title="${options.totalPages}" class="page page-item"><a href="javascript:void(0)">${options.totalPages}</a></li>` : ''}
             ${!options.simple ? hx`
-            <li class="next ${ options.current >= options.totalPages ? 'disabled' : ''}">
+            <li class="next ${ current >= options.totalPages ? 'disabled' : ''}">
                 <a href="javascript:void(0)" title="下一页"><i class="icon iconfont icon-arrow-right"></i></a>
             </li>
             ` : ''}
             ${!options.simple && options.showSizeChanger ? hx`
             <li class="pageSize">
                 <span class="info" id="${options.vid}-select">
-                <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">${options.pageSize} / 页 </button>
-                <dropdown id="${options.vid}-dropdown"></dropdown>
+                    <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">${options.pageSize} / 页 </button>
+                    <dropdown id="${options.vid}-dropdown"></dropdown>
                 </span>
             </li>
             ` : ''}
             ${!options.simple && options.showQuickJumper ? hx`
             <li><span class="info">
                     跳转至
-                    <input type="text" class="form-control pageJump" value="${this.jumped ? options.current : '1'}">
+                    <input type="text" class="form-control pageJump" value="${this.jumped ? current : '1'}">
                 </span>
                 ${options.isShowTotal ? hx`
                 <span class="info">
-                ${typeof options.showTotal === 'function' ? options.showTotal(options.total) : ('总数 ' + options.total)}
+                ${typeof options.showTotal === 'function' ? options.showTotal(totalCount) : ('总数 ' + totalCount)}
                 </span>
                 ` : ''}
             </li>

@@ -10,13 +10,14 @@ class Search extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
-                'click .search-button': 'clickSearch'
+                'click .search-button': 'onSearch',
+                'keydown .search-input': '_enterSearch'
             },
             placeholder: '输入关键字搜索',
             activeKey: '',  //选中的key
             activeValue: '',
             hasSelect: false,   //是否有下拉菜单
-            onClick(){}, //点击的回调
+            onSearch(){}, //点击的回调
             components: [{
                 el: '#' + opts.vid + '-dropdown',
                 trigger: '#' + opts.vid + '-select',
@@ -35,7 +36,7 @@ class Search extends Lego.UI.Baseview {
     }
     render() {
         const options = this.options || {};
-        const vDom = hx `
+        const vDom = hx`
         <div class="input-group search">
         ${options.hasSelect ? hx`
           <div class="input-group-btn dropdown" id="${options.vid}-select">
@@ -55,10 +56,15 @@ class Search extends Lego.UI.Baseview {
         `;
         return vDom;
     }
-    clickSearch(event) {
+    _enterSearch(event) {
+        if (event.keyCode == 13) {
+            this.onSearch(event);
+        }
+    }
+    onSearch(event) {
         event.stopPropagation();
-        const keyword = this.$('.search-input').val(); 
-        if (typeof this.options.onClick === 'function') this.options.onClick({
+        const keyword = this.$('.search-input').val();
+        if (typeof this.options.onSearch === 'function') this.options.onSearch({
             key: this.options.activeKey,
             value: this.options.activeValue,
             keyword: keyword

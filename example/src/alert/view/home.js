@@ -1,4 +1,4 @@
-// import { Alert } from 'lego-ui';
+// import Alert from 'lego-ui/dist/Alert';
 import Alert from '../../../../dist/Alert';
 
 class HomeView extends Lego.UI.Baseview {

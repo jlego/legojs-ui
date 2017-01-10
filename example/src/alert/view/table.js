@@ -1,5 +1,5 @@
-// import { Alert } from 'lego-ui';
-import Table from '../../../../dist/Table';
+// import Table from 'lego-ui/dist/Table';
+import Tables from '../../../../dist/Tables';
 
 class TableView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -91,7 +91,7 @@ class TableView extends Lego.UI.Baseview {
     render() {
         const vDom = hx `
         <div id="pageContent" style="height:100%">
-            <table id="theTable"></table>
+            <tables id="theTable"></tables>
         </div>
         `;
         return vDom;

@@ -1,5 +1,6 @@
-// import { Alert } from 'lego-ui';
-import Button from '../../../../dist/Button';
+// import Button from 'lego-ui/dist/Button';
+// import Modal from 'lego-ui/dist/Modal';
+import Buttons from '../../../../dist/Buttons';
 import Modal from '../../../../dist/Modal';
 
 class ListView extends Lego.UI.Baseview {
@@ -123,13 +124,13 @@ const table = `
         const vDom = hx`
         <div id="pageContent">
             <div>
-                <button id="button1"></button>
-                <button id="button2"></button>
-                <button id="button3"></button>
-                <button id="button4"></button>
-                <button id="button5"></button>
-                <button id="button6"></button>
-                <button id="button7"></button>
+                <buttons id="button1"></buttons>
+                <buttons id="button2"></buttons>
+                <buttons id="button3"></buttons>
+                <buttons id="button4"></buttons>
+                <buttons id="button5"></buttons>
+                <buttons id="button6"></buttons>
+                <buttons id="button7"></buttons>
             </div>
             <div id="md" style="margin-top: 20px;"></div>
             sdfasd<code>img</code>fa

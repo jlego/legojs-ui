@@ -21,13 +21,7 @@ class Dropdown extends Lego.UI.Baseview {
         const that = this;
         this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
         if(!this.options.disabled){
-            if(options.eventName == 'click'){
-                const _eventName = 'click.dropdown_' + opts.vid;
-                $('body').off(_eventName).on(_eventName, function(){
-                    that.close();
-                });
-            }
-            this.options.trigger[options.eventName](function(){
+            function handler(event){
                 event.stopPropagation();
                 const directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
                 that.options.direction = directionResp._y || 'bottom';
@@ -37,7 +31,16 @@ class Dropdown extends Lego.UI.Baseview {
                         that.close();
                     });
                 }
-            });
+            }
+            if(options.eventName == 'click'){
+                const _eventName = 'click.dropdown_' + opts.vid;
+                $('body').off(_eventName).on(_eventName, function(){
+                    that.close();
+                });
+                this.options.trigger.off(_eventName).on(_eventName, handler);
+            }else{
+                this.options.trigger[options.eventName](handler);
+            }
         }
     }
     render() {
@@ -69,7 +72,7 @@ class Dropdown extends Lego.UI.Baseview {
             `;
         }
         const vDom = hx`
-        <ul class="dropdown-menu ${options.direction ? ('drop' + options.direction) : ''}">
+        <ul class="dropdown-menu clearfix ${options.direction ? ('drop' + options.direction) : ''}">
             ${options.data.map(item => {
                 return itemNav(item);
             })}
@@ -98,7 +101,7 @@ class Dropdown extends Lego.UI.Baseview {
     }
     clickItem(event){
         const target = $(event.currentTarget);
-        const model = this.options.data.find(Item => Item.key === target.attr('id'));
+        const model = this.options.data.find(Item => Item.key == target.attr('id'));
         if(model){
             this.options.onChange(model);
             this.options.activeKey = model.key;

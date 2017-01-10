@@ -1,0 +1,26 @@
+.input-group.date .input-group-addon {
+    background-color: transparent !important;
+    color: #999;
+}
+
+.input-group.date .form-control.dp-input {
+    border-right: none !important;
+}
+
+.input-group.date .form-control:focus,
+.input-group.date .form-control:focus ~ .input-group-addon,
+.input-group.date .input-group-addon:focus,
+.input-group.date .input-group-addon:active,
+{
+    border-color: #66afe9;
+}
+
+.input-group.date .form-control:focus ~ .input-group-addon {
+    border-left: none !important;
+}
+
+.endDate {
+    border-radius: .25rem !important;
+    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+}

@@ -9,11 +9,14 @@ module.exports = {
         'alert/app': './src/alert/app',
         'navs/app': './src/navs/app',
         'forms/app': './src/forms/app',
+        'tips/app': './src/tips/app',
+        'tree/app': './src/tree/app',
+        'transfer/app': './src/transfer/app',
         'main': './src/main',
     },
     output: {
         path: path.join(__dirname, 'dist'), //打包输出的路径
-        publicPath: "./", //发布地址。
+        publicPath: "./dist/", //发布地址。
         filename: '[name].js', //打包多个
         // chunkFilename: "[name].js"
     },
@@ -28,13 +31,14 @@ module.exports = {
             }
         }, {
             test: /\.scss$/,
-            loader: ExtractTextPlugin.extract('style', 'css!sass')
+            loader: "style!css!sass",
+            // loader: ExtractTextPlugin.extract('style', 'css!sass')
         }, {
             test: /\.css$/,
-            // loader: "style!css"
-            loader: ExtractTextPlugin.extract('style', "css")
+            loader: "style!css",
+            // loader: ExtractTextPlugin.extract('style', "css")
         }, {
-            test: /\.(png|jpe?g)$/,
+            test: /\.(png|gif|jpe?g)$/,
             loader: 'url?prefix=img&limit=10240&name=img/[name].[hash].[ext]'
         }, {
             test: /\.woff(2)?(\?t=[0-9]\.[0-9]\.[0-9])?$/,
@@ -45,26 +49,28 @@ module.exports = {
         }]
     },
     resolve: {
-        extensions: ["", ".js"]
+        extensions: ["", ".js"],
+        // alias: {
+        //     'jquery': path.join(__dirname, 'node_modules/jquery/src/jquery'),
+        //     // 'datetimepicker': 'eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js'
+        // }
     },
     plugins: [
+        // new webpack.ProvidePlugin({
+        //     $: 'jquery',
+        //     jQuery: 'jquery',
+        //     'windows.jQuery': 'jquery'
+        // }),
         new webpack.optimize.UglifyJsPlugin({
-            mangle: {
-                except: ['$', 'jQuery']
-            },
+            mangle: true,
             compress: false,
             output: {
-                beautify: false,
-                comments: function(node, comment) {
-                    var text = comment.value;
-                    var type = comment.type;
-                    return /@preserve|@license|@cc_on/i.test(text);
-                }
+                beautify: true,
+                comments: false
             },
         }),
-        new ExtractTextPlugin("[name].css", {
-            allChunks: true
-        }),
+        // new ExtractTextPlugin("[name].css", {
+        //     allChunks: true
+        // }),
     ]
 };
-

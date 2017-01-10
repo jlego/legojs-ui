@@ -1,5 +1,5 @@
 /**
- * common.js v0.1.2
+ * common.js v0.2.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -16,6 +16,63 @@ function _interopDefault(ex) {
 var perfectScrollbar_dist_css_perfectScrollbar_css = require("perfect-scrollbar/dist/css/perfect-scrollbar.css");
 
 var perfectScrollbar = _interopDefault(require("perfect-scrollbar"));
+
+var toastr = _interopDefault(require("toastr"));
+
+var toastr_build_toastr_css = require("toastr/build/toastr.css");
+
+function Notification() {
+    var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "info";
+    var content = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+    toastr.options = {
+        closeButton: false,
+        debug: false,
+        newestOnTop: false,
+        progressBar: false,
+        positionClass: "toast-top-center toast-top50",
+        preventDuplicates: false,
+        onclick: null,
+        showDuration: "300",
+        hideDuration: "1000",
+        timeOut: "3000",
+        extendedTimeOut: "1000",
+        showEasing: "swing",
+        hideEasing: "linear",
+        showMethod: "fadeIn",
+        hideMethod: "fadeOut"
+    };
+    var typeArr = [ "success", "info", "warning", "error" ];
+    if (typeArr.indexOf(type) >= 0 || content) {
+        toastr[type](content);
+    }
+}
+
+Lego.components("notification", Notification);
+
+var Util = {
+    getDirection: function getDirection(el, dropEl) {
+        el = el instanceof $ ? el : $(el);
+        var windowW = $(window).width(), windowH = $(window).height(), _X = el.offset().left, _Y = el.offset().top, elW = el.width(), elH = el.height(), dropW = dropEl.width(), dropH = dropEl.height(), upDown = dropH > windowH - _Y - elH ? "top" : "bottom", leftRight = dropW > windowW - _X - elW ? "Right" : "Left";
+        return {
+            _x: leftRight,
+            _y: upDown
+        };
+    },
+    animateCss: function animateCss(el, animationName, callback) {
+        el = el instanceof $ ? el : $(el);
+        var animationEnd = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
+        el.addClass(animationName).one(animationEnd, function() {
+            el.removeClass(animationName);
+            if (typeof callback == "function") callback();
+        });
+    }
+};
+
+window.val = function(value, defaultValue) {
+    return value ? value : defaultValue || "";
+};
+
+Lego.components("Util", Util);
 
 var _createClass = function() {
     function defineProperties(target, props) {
@@ -76,20 +133,19 @@ var Baseview = function(_Lego$View) {
     _createClass(Baseview, [ {
         key: "renderScroll",
         value: function renderScroll() {
-            var _this2 = this;
-            if (this.options.scrollbar) {
-                (function() {
-                    var scrollbarEl = _this2.$(".scrollbar");
-                    var container = scrollbarEl[0];
-                    var posi = scrollbarEl.parent().css("position");
-                    if (!posi || posi !== "fixed") scrollbarEl.parent().css("position", "relative");
-                    if (scrollbarEl.length) {
-                        Ps.initialize(container, _this2.options.scrollbar);
-                        _this2.$el.off("mousemove.ps").on("mousemove.ps", function() {
-                            Ps.update(container);
+            var options = this.options, that = this;
+            if (options.scrollbar) {
+                var scrollbarEl = this.$(".scrollbar");
+                if (scrollbarEl.length) {
+                    scrollbarEl.each(function(index, el) {
+                        var container = $(this), eventName = "mousemove.ps" + index;
+                        container.css("position", "relative");
+                        Ps.initialize(container[0], options.scrollbar);
+                        that.$el.off(eventName).on(eventName, function() {
+                            Ps.update(container[0]);
                         });
-                    }
-                })();
+                    });
+                }
             }
         }
     } ]);
@@ -98,29 +154,6 @@ var Baseview = function(_Lego$View) {
 
 Lego.components("Baseview", Baseview);
 
-var Util = {
-    getDirection: function getDirection(el, dropEl) {
-        el = el instanceof $ ? el : $(el);
-        var windowW = $(window).width(), windowH = $(window).height(), _X = el.offset().left, _Y = el.offset().top, elW = el.width(), elH = el.height(), dropW = dropEl.width(), dropH = dropEl.height(), upDown = dropH > windowH - _Y - elH ? "top" : "bottom", leftRight = dropW > windowW - _X - elW ? "Right" : "Left";
-        return {
-            _x: leftRight,
-            _y: upDown
-        };
-    },
-    animateCss: function animateCss(el, animationName, callback) {
-        el = el instanceof $ ? el : $(el);
-        var animationEnd = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
-        el.addClass(animationName).one(animationEnd, function() {
-            el.removeClass(animationName);
-            if (typeof callback == "function") callback();
-        });
-    }
-};
-
 window.Ps = perfectScrollbar;
-
-Lego.components({
-    Util: Util
-});
 
 exports.Baseview = Baseview;

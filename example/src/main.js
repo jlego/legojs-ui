@@ -1,11 +1,11 @@
 import jQuery from 'jquery';
 import Lego from 'lego-core';
 import lo from 'lodash';
-import { Baseview } from '../../dist/Common';
 import "../ux/util/util";
+import { Baseview } from '../../dist/Common';
 import '../../dist/css/legoui.css';
-// import { Baseview } from 'lego-ui';
-// import 'lego-ui/dist/css/pack.css';
+// import { Baseview } from 'lego-ui/dist/Common';
+// import 'lego-ui/dist/css/legoui.css';
 import showdown from 'showdown';
 window.markdown = new showdown.Converter();
 markdown.setFlavor('github');
@@ -20,8 +20,7 @@ window.$ = window.jQuery = jQuery;
 // 设置全局参数
 Lego.init({
     alias: 'HBY', //框架实例别名
-    version: _.now(), //版本号
-    $: jQuery,
+    version: '2016' || _.now(), //版本号
     pageEl: '#page-container', //页面渲染容器
     defaultApp: 'home', //默认应用
     rootUri: '/example/dist/', //根目录

@@ -1,5 +1,7 @@
 import Search from '../../../../dist/Search';
-import Select from '../../../../dist/Select';
+import Selects from '../../../../dist/Selects';
+import Datepicker from '../../../../dist/Datepicker';
+import Inputs from '../../../../dist/Inputs';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -20,14 +22,14 @@ class HomeView extends Lego.UI.Baseview {
             components: [{
                 el: '#search1',
                 hasSelect: true,
-                onClick(result) {
+                onSearch(result) {
                     console.warn('点击了搜索框', result);
                 },
-                data: data
+                data: $.extend(true, [], data)
             }, {
                 el: '#search2',
                 placeholder: '输入关键字',
-                onClick(result) {
+                onSearch(result) {
                     console.warn('点击了搜索框2', result);
                 }
             }, {
@@ -36,7 +38,7 @@ class HomeView extends Lego.UI.Baseview {
                 onChange(result) {
                     console.warn('点击了选项框1', result);
                 },
-                data: data
+                data: $.extend(true, [], data)
             }, {
                 el: '#select4',
                 placeholder: '请选择',
@@ -48,7 +50,7 @@ class HomeView extends Lego.UI.Baseview {
                     key: 'so2',
                     value: '选项二选项二选项二'
                 },
-                data: data
+                data: $.extend(true, [], data)
             }, {
                 el: '#select5',
                 placeholder: '请选择',
@@ -61,19 +63,7 @@ class HomeView extends Lego.UI.Baseview {
                 //     key: 'so2',
                 //     value: '选项二选项二选项二'
                 // },
-                data: [{
-                    key: '0',
-                    value: '不限'
-                }, {
-                    key: 'so1',
-                    value: '选项一'
-                }, {
-                    key: 'so2',
-                    value: '选项二选项二选项二fffdf'
-                }, {
-                    key: 'so3',
-                    value: '选项三'
-                }]
+                data: $.extend(true, [], data)
             }, {
                 el: '#select6',
                 placeholder: '请选择',
@@ -85,44 +75,62 @@ class HomeView extends Lego.UI.Baseview {
                 value: [{
                     key: 'so2',
                     value: '选项二选项二选项二'
-                },{
+                }, {
                     key: 'so3',
                     value: '选项三'
                 }],
-                data: [{
-                    key: '0',
-                    value: '不限'
-                }, {
-                    key: 'so1',
-                    value: '选项一'
-                }, {
-                    key: 'so2',
-                    value: '选项二选项二选项二fffdf'
-                }, {
-                    key: 'so3',
-                    value: '选项三'
-                }]
+                data: $.extend(true, [], data)
             }, {
-                el: '#select7',
-                placeholder: '请选择',
-                multiple: true,
-                showResultType: 'text',
+                el: '#datepicker7',
+                type: 'date',
+                name: 'datepicker1',
                 onChange(result) {
-                    console.warn('点击了选项框5', result);
+                    console.warn('点击了时间选项框5', result);
+                }
+            }, {
+                el: '#datepicker8',
+                type: 'range',
+                startName: 'datepicker2',
+                endName: 'datepicker3',
+                onChange(result) {
+                    console.warn('点击了时间选项框6', result);
+                }
+            }, {
+                el: '#datepicker9',
+                inline: true,
+                onChange(result) {
+                    console.warn('点击了时间选项框7', result);
+                }
+            }, {
+                el: '#input10',
+                placeholder: '这是输入框',
+                onChange(result) {
+                    console.warn('点击了输入框1', result);
                 },
-                data: [{
-                    key: '0',
-                    value: '不限'
-                }, {
-                    key: 'so1',
-                    value: '选项一'
-                }, {
-                    key: 'so2',
-                    value: '选项二选项二选项二fffdf'
-                }, {
-                    key: 'so3',
-                    value: '选项三'
-                }]
+                style: {
+                    marginBottom: 20
+                }
+            }, {
+                el: '#input11',
+                placeholder: '这是输入框',
+                addonBefore: true,
+                addonAfter: true,
+                prefix: 'Http://',
+                suffix: hx`<i class="anticon anticon-setting"></i>`,
+                onChange(result) {
+                    console.warn('点击了输入框2', result);
+                },
+                style: {
+                    marginBottom: 20
+                }
+            }, {
+                el: '#input12',
+                type: 'textarea',
+                placeholder: '这是文本框',
+                rows: 10,
+                onChange(result) {
+                    console.warn('点击了文本框2', result);
+                }
             }]
         };
         Object.assign(options, opts);
@@ -141,25 +149,36 @@ class HomeView extends Lego.UI.Baseview {
           </div>
           <div class="row" style="margin-bottom: 20px;">
             <div class="col-sm-6">
-              <select id="select3"></select>
+              <selects id="select3"></selects>
             </div>
             <div class="col-sm-6">
-              <select id="select4"></select>
-            </div>
-          </div>
-          <div class="row" style="margin-bottom: 20px;">
-            <div class="col-sm-6">
-              <select id="select5"></select>
-            </div>
-            <div class="col-sm-6">
-              <select id="select6"></select>
+              <selects id="select4"></selects>
             </div>
           </div>
           <div class="row" style="margin-bottom: 20px;">
             <div class="col-sm-6">
-              <select id="select7"></select>
+              <selects id="select5"></selects>
             </div>
             <div class="col-sm-6">
+              <selects id="select6"></selects>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 20px;">
+            <div class="col-sm-6">
+              <datepicker id="datepicker7"></datepicker>
+            </div>
+            <div class="col-sm-6">
+              <datepicker id="datepicker8"></datepicker>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 20px;">
+            <div class="col-sm-6">
+                <datepicker id="datepicker9"></datepicker>
+            </div>
+            <div class="col-sm-6">
+                <inputs id="input10"></inputs>
+                <inputs id="input11"></inputs>
+                <inputs id="input12"></inputs>
             </div>
           </div>
         </div>

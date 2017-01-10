@@ -1,7 +1,8 @@
 import IndexView from './view/index';
 import homeView from './view/home';
+import formView from './view/form';
 
-class navsRouter {
+class Router {
     constructor() {
         return {
             '/forms': [this.index, this.tabs],
@@ -17,8 +18,8 @@ class navsRouter {
     }
     tabs(tabs = 0){
         this.viewObj.options.currentTab = tabs || 0;
-        const appArray = [homeView];
+        const appArray = [homeView, formView];
         HBY.create(appArray[tabs], { el: '#pageContent' });
     }
 }
-HBY.router(new navsRouter());
+HBY.router(new Router());

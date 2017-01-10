@@ -1,5 +1,5 @@
 /**
- * search.js v0.1.2
+ * search.js v0.2.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -30,7 +30,7 @@ var _templateObject3 = _taggedTemplateLiteral$1([ '\n            <li class="drop
 
 var _templateObject4 = _taggedTemplateLiteral$1([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5 = _taggedTemplateLiteral$1([ '\n        <ul class="dropdown-menu ', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject5 = _taggedTemplateLiteral$1([ '\n        <ul class="dropdown-menu clearfix ', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu clearfix ', '">\n            ', "\n        </ul>\n        " ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -92,13 +92,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
         var that = _this;
         _this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
         if (!_this.options.disabled) {
-            if (options.eventName == "click") {
-                var _eventName = "click.dropdown_" + opts.vid;
-                $("body").off(_eventName).on(_eventName, function() {
-                    that.close();
-                });
-            }
-            _this.options.trigger[options.eventName](function() {
+            var handler = function handler(event) {
                 event.stopPropagation();
                 var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
                 that.options.direction = directionResp._y || "bottom";
@@ -108,7 +102,16 @@ var Dropdown = function(_Lego$UI$Baseview) {
                         that.close();
                     });
                 }
-            });
+            };
+            if (options.eventName == "click") {
+                var _eventName = "click.dropdown_" + opts.vid;
+                $("body").off(_eventName).on(_eventName, function() {
+                    that.close();
+                });
+                _this.options.trigger.off(_eventName).on(_eventName, handler);
+            } else {
+                _this.options.trigger[options.eventName](handler);
+            }
         }
         return _this;
     }
@@ -164,7 +167,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
         value: function clickItem(event) {
             var target = $(event.currentTarget);
             var model = this.options.data.find(function(Item) {
-                return Item.key === target.attr("id");
+                return Item.key == target.attr("id");
             });
             if (model) {
                 this.options.onChange(model);
@@ -243,13 +246,14 @@ var Search = function(_Lego$UI$Baseview) {
         _classCallCheck(this, Search);
         var options = {
             events: {
-                "click .search-button": "clickSearch"
+                "click .search-button": "onSearch",
+                "keydown .search-input": "_enterSearch"
             },
             placeholder: "输入关键字搜索",
             activeKey: "",
             activeValue: "",
             hasSelect: false,
-            onClick: function onClick() {},
+            onSearch: function onSearch() {},
             components: [ {
                 el: "#" + opts.vid + "-dropdown",
                 trigger: "#" + opts.vid + "-select",
@@ -274,11 +278,18 @@ var Search = function(_Lego$UI$Baseview) {
             return vDom;
         }
     }, {
-        key: "clickSearch",
-        value: function clickSearch(event) {
+        key: "_enterSearch",
+        value: function _enterSearch(event) {
+            if (event.keyCode == 13) {
+                this.onSearch(event);
+            }
+        }
+    }, {
+        key: "onSearch",
+        value: function onSearch(event) {
             event.stopPropagation();
             var keyword = this.$(".search-input").val();
-            if (typeof this.options.onClick === "function") this.options.onClick({
+            if (typeof this.options.onSearch === "function") this.options.onSearch({
                 key: this.options.activeKey,
                 value: this.options.activeValue,
                 keyword: keyword

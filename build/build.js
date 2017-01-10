@@ -41,15 +41,26 @@ build([{
 {alias: 'alert'},
 {alias: 'badge'},
 {alias: 'viewport'},
-{alias: 'button'},
-{alias: 'table'},
+{alias: 'buttons'},
+{alias: 'tables'},
 {alias: 'pagination'},
 {alias: 'dropdown'},
 {alias: 'modal'},
 {alias: 'navs'},
 {alias: 'tabs'},
 {alias: 'search'},
-{alias: 'select'}
+{alias: 'selects'},
+{alias: 'datepicker'},
+{alias: 'inputs'},
+{alias: 'tooltip'},
+{alias: 'popover'},
+{alias: 'notification'},
+{alias: 'tree'},
+{alias: 'treeselect'},
+{alias: 'forms'},
+{alias: 'listgroup'},
+{alias: 'transfer'},
+{alias: 'progressbar'}
 ].map(genConfig));
 
 function ucfirst(str) {
