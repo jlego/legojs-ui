@@ -1,14 +1,14 @@
 /**
- * 上传
+ * 上传基类
  * ronghui Yu
  * 2017/1/10
  */
 // import './asset/index.scss';
 
-class Upload extends Lego.UI.Baseview {
+class Upload extends Lego.View {
     constructor(opts = {}) {
         const options = {
-            url: CONFIG.SERVER_URI + '/upload',
+            url: '/upload',
             downloadUri: '',
             isAuto: true,
             file: null,
@@ -27,6 +27,7 @@ class Upload extends Lego.UI.Baseview {
         super(options);
 
         this.xhr = createXMLHTTPRequest();
+        this.startDate = 0;
         this.form = null;
         function createXMLHTTPRequest() {
             var xmlHttpRequest;
@@ -49,11 +50,11 @@ class Upload extends Lego.UI.Baseview {
             return xmlHttpRequest;
         }
 
-        this.upload();
-        if (this.options.isAuto) this.sendUpload();
+        this.uploadInit();
+        if (this.options.isAuto) this.start();
     }
     // 表单上传
-    upload() {
+    uploadInit() {
         const that = this,
             taking = 0,
             uploadFiles = this.options.uploadFiles,
@@ -82,7 +83,9 @@ class Upload extends Lego.UI.Baseview {
 
         function uploadStart(event) {
             // debug.warn("上传开始");
-            if (typeof that.options.begin == "function") that.options.onBegin(uploadFiles, fileObj, that);
+            if (typeof that.options.onBegin == "function") {
+                that.options.onBegin(uploadFiles, fileObj, that);
+            }
         }
 
         function uploadProgress(event) {
@@ -98,11 +101,13 @@ class Upload extends Lego.UI.Baseview {
                 } else {
                     formatSpeed = uploadSpeed.toFixed(2) + "Kb\/s";
                 }
-                let percentComplete = Math.round(event.loaded * 100 / event.total);
-                fileObj.percent = percentComplete;
-                that.options.percent = percentComplete;
+                let percent = Math.round(event.loaded * 100 / event.total);
+                fileObj.percent = percent;
+                that.options.percent = percent;
             }
-            if (typeof that.options.progress == "function") that.options.onProgress(uploadFiles, fileObj, that);
+            if (typeof that.options.onProgress == "function") {
+                that.options.onProgress(uploadFiles, fileObj, that);
+            }
         }
 
         function uploadComplete(event) {
@@ -113,27 +118,35 @@ class Upload extends Lego.UI.Baseview {
                 that.options.url = that.options.downloadUri + that.options.key;
                 that.options.percent = 100;
                 // debug.warn("上传成功:"+ this.options.id);
-                if (typeof that.options.complete == "function") that.options.onComplete(uploadFiles, fileObj, that, resp);
+                if (typeof that.options.onComplete == "function") {
+                    that.options.onComplete(uploadFiles, fileObj, that, resp);
+                }
             } else if (that.xhr.status != 200 && that.xhr.responseText) {
                 let resp = {
                     status: 'error',
                     data: 'Unknown error occurred: [' + that.xhr.responseText + ']'
                 };
-                if (typeof that.options.fail == "function") that.options.onFail(uploadFiles, fileObj, that, resp);
+                if (typeof that.options.onFail == "function"){
+                    that.options.onFail(uploadFiles, fileObj, that, resp);
+                }
             }
         }
 
         function uploadFailed(event) {
             debug.error("上传失败");
             filterFiles();
-            if (typeof that.options.fail == "function") that.options.onFail(event, uploadFiles, that);
+            if (typeof that.options.onFail == "function") {
+                that.options.onFail(event, uploadFiles, that);
+            }
             that.remove();
         }
 
         function uploadCanceled(event) {
             debug.error("取消上传");
             filterFiles();
-            if (typeof that.options.cancel == "function") that.options.onCancel(event, uploadFiles, that);
+            if (typeof that.options.onCancel == "function") {
+                that.options.onCancel(event, uploadFiles, that);
+            }
             that.remove();
         }
 
@@ -141,10 +154,10 @@ class Upload extends Lego.UI.Baseview {
             uploadFiles = uploadFiles.filter(file => file.id !== that.id);
         }
     }
-    cancelUpload() {
+    cancel() {
         this.xhr.abort();
     }
-    sendUpload() {
+    start() {
         this.startDate = new Date().getTime();
         this.xhr.send(this.form);
     }
