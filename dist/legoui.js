@@ -151,10 +151,9 @@ var Baseview = function(_Lego$View) {
             if (options.scrollbar) {
                 var scrollbarEl = this.$(".scrollbar");
                 if (scrollbarEl.length) {
-                    scrollbarEl.css("overflow", "hidden");
                     scrollbarEl.each(function(index, el) {
-                        var container = $(this), eventName = "mousemove.ps" + index, posi = container.parent().css("position");
-                        if (!posi || posi !== "fixed") container.parent().css("position", "relative");
+                        var container = $(this), eventName = "mousemove.ps" + index;
+                        container.css("position", "relative");
                         Ps.initialize(container[0], options.scrollbar);
                         that.$el.off(eventName).on(eventName, function() {
                             Ps.update(container[0]);
@@ -188,7 +187,7 @@ var _createClass$2 = function() {
     };
 }();
 
-var _templateObject$1 = _taggedTemplateLiteral$1([ '\n        <div class="sidebar app-aside" id="sidebar">\n        <div class="sidebar-container scrollbar ps-container ps-active-y">\n            <nav>\n                <ul class="main-navigation-menu">\n                    <li data-permis=\'{"module":"Home", "operate":"Query", "hide":1}\' id="nav_home">\n                        <a href="javascript:Lego.startApp(\'home\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-home"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 首页 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Register", "operate":"Query", "hide":1}\' id="nav_register">\n                        <a href="javascript:Lego.startApp(\'alert\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-account-info"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 警告框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Customer", "operate":"Query", "hide":1}\' id="nav_customer">\n                        <a href="javascript:Lego.startApp(\'forms\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-teamwork"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 表单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Order", "operate":"Query", "hide":1}\' id="nav_order">\n                        <a href="javascript:Lego.startApp(\'navs\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-purchase"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 导航菜单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Channel", "operate":"Query", "hide":1}\' id="nav_channel">\n                        <a href="javascript:Lego.startApp(\'tips\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-clues"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 提示框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Finance", "operate":"Query", "hide":1}\' id="nav_finance">\n                        <a href="javascript:Lego.startApp(\'tree\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-biz"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 树型 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Consumption", "operate":"Query", "hide":1}\' id="nav_expenses">\n                        <a href="#expenses/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-expenses"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 消费记录 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Product", "operate":"Query", "hide":1}\' id="nav_product">\n                        <a href="#product/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-products"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 产品管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Operation", "operate":"Query", "hide":1}\' id="nav_operation">\n                        <a href="#operation/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-dashboard"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 运营管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Organization", "operate":"Query", "hide":1}\' id="nav_organization">\n                        <a href="#admin/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-admin"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 后台管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                </ul>\n            </nav>\n        </div>\n        </div>\n        ' ], [ '\n        <div class="sidebar app-aside" id="sidebar">\n        <div class="sidebar-container scrollbar ps-container ps-active-y">\n            <nav>\n                <ul class="main-navigation-menu">\n                    <li data-permis=\'{"module":"Home", "operate":"Query", "hide":1}\' id="nav_home">\n                        <a href="javascript:Lego.startApp(\'home\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-home"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 首页 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Register", "operate":"Query", "hide":1}\' id="nav_register">\n                        <a href="javascript:Lego.startApp(\'alert\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-account-info"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 警告框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Customer", "operate":"Query", "hide":1}\' id="nav_customer">\n                        <a href="javascript:Lego.startApp(\'forms\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-teamwork"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 表单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Order", "operate":"Query", "hide":1}\' id="nav_order">\n                        <a href="javascript:Lego.startApp(\'navs\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-purchase"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 导航菜单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Channel", "operate":"Query", "hide":1}\' id="nav_channel">\n                        <a href="javascript:Lego.startApp(\'tips\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-clues"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 提示框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Finance", "operate":"Query", "hide":1}\' id="nav_finance">\n                        <a href="javascript:Lego.startApp(\'tree\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-biz"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 树型 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Consumption", "operate":"Query", "hide":1}\' id="nav_expenses">\n                        <a href="#expenses/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-expenses"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 消费记录 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Product", "operate":"Query", "hide":1}\' id="nav_product">\n                        <a href="#product/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-products"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 产品管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Operation", "operate":"Query", "hide":1}\' id="nav_operation">\n                        <a href="#operation/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-dashboard"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 运营管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Organization", "operate":"Query", "hide":1}\' id="nav_organization">\n                        <a href="#admin/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-admin"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 后台管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                </ul>\n            </nav>\n        </div>\n        </div>\n        ' ]);
+var _templateObject$1 = _taggedTemplateLiteral$1([ '\n        <div class="sidebar app-aside" id="sidebar">\n        <div class="sidebar-container scrollbar ps-container ps-active-y">\n            <nav>\n                <ul class="main-navigation-menu">\n                    <li data-permis=\'{"module":"Home", "operate":"Query", "hide":1}\' id="nav_home">\n                        <a href="javascript:Lego.startApp(\'home\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-home"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 首页 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Register", "operate":"Query", "hide":1}\' id="nav_register">\n                        <a href="javascript:Lego.startApp(\'alert\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-account-info"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 警告框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Customer", "operate":"Query", "hide":1}\' id="nav_customer">\n                        <a href="javascript:Lego.startApp(\'forms\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-teamwork"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 表单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Order", "operate":"Query", "hide":1}\' id="nav_order">\n                        <a href="javascript:Lego.startApp(\'navs\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-purchase"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 导航菜单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Channel", "operate":"Query", "hide":1}\' id="nav_channel">\n                        <a href="javascript:Lego.startApp(\'tips\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-clues"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 提示框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Finance", "operate":"Query", "hide":1}\' id="nav_finance">\n                        <a href="javascript:Lego.startApp(\'tree\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-biz"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 树型 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Consumption", "operate":"Query", "hide":1}\' id="nav_expenses">\n                        <a href="javascript:Lego.startApp(\'transfer\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-expenses"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 穿梭框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Product", "operate":"Query", "hide":1}\' id="nav_product">\n                        <a href="#product/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-products"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 产品管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Operation", "operate":"Query", "hide":1}\' id="nav_operation">\n                        <a href="#operation/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-dashboard"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 运营管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Organization", "operate":"Query", "hide":1}\' id="nav_organization">\n                        <a href="#admin/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-admin"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 后台管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                </ul>\n            </nav>\n        </div>\n        </div>\n        ' ], [ '\n        <div class="sidebar app-aside" id="sidebar">\n        <div class="sidebar-container scrollbar ps-container ps-active-y">\n            <nav>\n                <ul class="main-navigation-menu">\n                    <li data-permis=\'{"module":"Home", "operate":"Query", "hide":1}\' id="nav_home">\n                        <a href="javascript:Lego.startApp(\'home\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-home"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 首页 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Register", "operate":"Query", "hide":1}\' id="nav_register">\n                        <a href="javascript:Lego.startApp(\'alert\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-account-info"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 警告框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Customer", "operate":"Query", "hide":1}\' id="nav_customer">\n                        <a href="javascript:Lego.startApp(\'forms\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-teamwork"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 表单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Order", "operate":"Query", "hide":1}\' id="nav_order">\n                        <a href="javascript:Lego.startApp(\'navs\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-purchase"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 导航菜单 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Channel", "operate":"Query", "hide":1}\' id="nav_channel">\n                        <a href="javascript:Lego.startApp(\'tips\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-clues"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 提示框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Finance", "operate":"Query", "hide":1}\' id="nav_finance">\n                        <a href="javascript:Lego.startApp(\'tree\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-biz"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 树型 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Consumption", "operate":"Query", "hide":1}\' id="nav_expenses">\n                        <a href="javascript:Lego.startApp(\'transfer\');">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-expenses"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 穿梭框 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Product", "operate":"Query", "hide":1}\' id="nav_product">\n                        <a href="#product/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-products"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 产品管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Operation", "operate":"Query", "hide":1}\' id="nav_operation">\n                        <a href="#operation/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-dashboard"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 运营管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                    <li data-permis=\'{"module":"Organization", "operate":"Query", "hide":1}\' id="nav_organization">\n                        <a href="#admin/">\n                            <div class="item-content">\n                                <div class="item-media">\n                                    <i class="icon iconfont icon-admin"></i>\n                                </div>\n                                <div class="item-inner">\n                                    <span class="title"> 后台管理 </span>\n                                </div>\n                            </div>\n                        </a>\n                    </li>\n                </ul>\n            </nav>\n        </div>\n        </div>\n        ' ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -1051,7 +1050,7 @@ var _createClass$6 = function() {
     };
 }();
 
-var _templateObject$5 = _taggedTemplateLiteral$5([ '\n        <div class="clearfix lego-table lego-table-', " ", "\n        ", ' lego-table-scroll-position-left">\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body ', '">\n                    <table class="', '">\n                        ', "\n                        ", "\n                        ", "\n                        ", "\n                    </table>\n                </div>\n                ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="clearfix lego-table lego-table-', " ", "\n        ", ' lego-table-scroll-position-left">\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body ', '">\n                    <table class="', '">\n                        ', "\n                        ", "\n                        ", "\n                        ", "\n                    </table>\n                </div>\n                ", "\n                </div>\n            </div>\n        </div>\n        " ]);
+var _templateObject$5 = _taggedTemplateLiteral$5([ '\n        <div class="clearfix lego-table lego-table-', " ", "\n        ", ' lego-table-scroll-position-left">\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body" style="bottom: ', '">\n                    <div class="', '">\n                        <table class="', '">\n                            ', "\n                            ", "\n                            ", "\n                            ", "\n                        </table>\n                    </div>\n                </div>\n                ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="clearfix lego-table lego-table-', " ", "\n        ", ' lego-table-scroll-position-left">\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body" style="bottom: ', '">\n                    <div class="', '">\n                        <table class="', '">\n                            ', "\n                            ", "\n                            ", "\n                            ", "\n                        </table>\n                    </div>\n                </div>\n                ", "\n                </div>\n            </div>\n        </div>\n        " ]);
 
 var _templateObject2$2 = _taggedTemplateLiteral$5([ '<div class="lego-table-title">', "</div>" ], [ '<div class="lego-table-title">', "</div>" ]);
 
@@ -1203,7 +1202,7 @@ var Tables = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options;
-            var vDom = hx(_templateObject$5, options.size, options.bordered ? "lego-table-bordered" : "", options.showHeader ? "lego-table-fixed-header" : "", options.title ? hx(_templateObject2$2, options.title()) : "", options.showHeader ? hx(_templateObject3$1, this._renderColgroup(), this._renderHeader(), options.colSetting ? hx(_templateObject4) : "") : "", options.showHeader ? "scrollbar" : "", options.className, this._renderColgroup(), !options.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), options.pagination && options.data ? hx(_templateObject5, options.vid) : "");
+            var vDom = hx(_templateObject$5, options.size, options.bordered ? "lego-table-bordered" : "", options.showHeader ? "lego-table-fixed-header" : "", options.title ? hx(_templateObject2$2, options.title()) : "", options.showHeader ? hx(_templateObject3$1, this._renderColgroup(), this._renderHeader(), options.colSetting ? hx(_templateObject4) : "") : "", options.pagination ? "48px" : "0", options.showHeader ? "scrollbar" : "", options.className, this._renderColgroup(), !options.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), options.pagination && options.data ? hx(_templateObject5, options.vid) : "");
             return vDom;
         }
     }, {
@@ -2477,14 +2476,14 @@ var Search = function(_Lego$UI$Baseview) {
         _classCallCheck$13(this, Search);
         var options = {
             events: {
-                "click .search-button": "clickSearch",
+                "click .search-button": "onSearch",
                 "keydown .search-input": "_enterSearch"
             },
             placeholder: "输入关键字搜索",
             activeKey: "",
             activeValue: "",
             hasSelect: false,
-            onClick: function onClick() {},
+            onSearch: function onSearch() {},
             components: [ {
                 el: "#" + opts.vid + "-dropdown",
                 trigger: "#" + opts.vid + "-select",
@@ -2512,15 +2511,15 @@ var Search = function(_Lego$UI$Baseview) {
         key: "_enterSearch",
         value: function _enterSearch(event) {
             if (event.keyCode == 13) {
-                this.clickSearch(event);
+                this.onSearch(event);
             }
         }
     }, {
-        key: "clickSearch",
-        value: function clickSearch(event) {
+        key: "onSearch",
+        value: function onSearch(event) {
             event.stopPropagation();
             var keyword = this.$(".search-input").val();
-            if (typeof this.options.onClick === "function") this.options.onClick({
+            if (typeof this.options.onSearch === "function") this.options.onSearch({
                 key: this.options.activeKey,
                 value: this.options.activeValue,
                 keyword: keyword
@@ -4013,7 +4012,7 @@ var Tree = function(_Lego$UI$Baseview) {
                 return true;
             }
             if (options.setting.check) {
-                options.setting.check = Object.assign({
+                options.setting.check = $.extend(true, {
                     enable: true,
                     chkboxType: {
                         Y: "",
@@ -4091,9 +4090,9 @@ var _templateObject$16 = _taggedTemplateLiteral$16([ "\n                <ul>", '
 
 var _templateObject2$12 = _taggedTemplateLiteral$16([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
 
-var _templateObject3$9 = _taggedTemplateLiteral$16([ '\n            <div class="select dropdown treeselect">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu scrollbar ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu scrollbar ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n\n            </div>\n            ' ]);
+var _templateObject3$9 = _taggedTemplateLiteral$16([ '\n            <div class="select dropdown treeselect">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="', '-tree"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="', '-tree"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ]);
 
-var _templateObject4$6 = _taggedTemplateLiteral$16([ '\n            <div class="select dropdown treeselect multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu scrollbar ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu scrollbar ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n            </div>\n            ' ]);
+var _templateObject4$6 = _taggedTemplateLiteral$16([ '\n            <div class="select dropdown treeselect multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="', '-tree"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="', '-tree"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ]);
 
 function _taggedTemplateLiteral$16(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -4287,7 +4286,6 @@ var Treeselect = function(_Selects) {
         key: "show",
         value: function show(event) {
             this.$("#" + this.options.vid + "-select").addClass("dropdown open");
-            this.$(".dropdown-menu").addClass("ps-container ps-theme-default ps-active-y");
         }
     }, {
         key: "close",
@@ -4345,15 +4343,19 @@ var _templateObject$17 = _taggedTemplateLiteral$17([ '<button type="submit" clas
 
 var _templateObject2$13 = _taggedTemplateLiteral$17([ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', "</button>\n                      </div>\n                    </div>\n                    " ], [ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', "</button>\n                      </div>\n                    </div>\n                    " ]);
 
-var _templateObject3$10 = _taggedTemplateLiteral$17([ '\n                <div class="form-group">\n                    <label for="', '">', "</label>\n                    ", "\n                    ", "\n                </div>\n                " ], [ '\n                <div class="form-group">\n                    <label for="', '">', "</label>\n                    ", "\n                    ", "\n                </div>\n                " ]);
+var _templateObject3$10 = _taggedTemplateLiteral$17([ '<p class="form-control-static mb-0">', "</p>" ], [ '<p class="form-control-static mb-0">', "</p>" ]);
 
-var _templateObject4$7 = _taggedTemplateLiteral$17([ '<small class="form-text text-muted">', "</small>" ], [ '<small class="form-text text-muted">', "</small>" ]);
+var _templateObject4$7 = _taggedTemplateLiteral$17([ '\n                <div class="form-group">\n                    <label for="', '">', "", "</label>\n                    ", "\n                    ", "\n                </div>\n                " ], [ '\n                <div class="form-group">\n                    <label for="', '">', "", "</label>\n                    ", "\n                    ", "\n                </div>\n                " ]);
 
-var _templateObject5$5 = _taggedTemplateLiteral$17([ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 col-form-label">', '</label>\n                  <div class="col-sm-10">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ], [ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 col-form-label">', '</label>\n                  <div class="col-sm-10">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ]);
+var _templateObject5$5 = _taggedTemplateLiteral$17([ '<span class="symbol required">*</span>' ], [ '<span class="symbol required">*</span>' ]);
 
-var _templateObject6$3 = _taggedTemplateLiteral$17([ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ], [ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ]);
+var _templateObject6$3 = _taggedTemplateLiteral$17([ '<small class="form-text text-muted">', "</small>" ], [ '<small class="form-text text-muted">', "</small>" ]);
 
-var _templateObject7$2 = _taggedTemplateLiteral$17([ "<form>\n            ", "\n            ", "</form>" ], [ "<form>\n            ", "\n            ", "</form>" ]);
+var _templateObject7$2 = _taggedTemplateLiteral$17([ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 col-form-label">', "", '</label>\n                  <div class="col-sm-10">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ], [ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 col-form-label">', "", '</label>\n                  <div class="col-sm-10">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ]);
+
+var _templateObject8$2 = _taggedTemplateLiteral$17([ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ], [ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ]);
+
+var _templateObject9$2 = _taggedTemplateLiteral$17([ "<form>\n            ", "\n            ", "</form>" ], [ "<form>\n            ", "\n            ", "</form>" ]);
 
 function _taggedTemplateLiteral$17(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -4447,19 +4449,23 @@ var Forms = function(_Lego$UI$Baseview) {
                 return submit;
             }
             function layoutItem(item, layout, id) {
-                var vDom = "";
-                var comTag = "<" + val(item.component.comName) + " id=" + id + "></" + val(item.component.comName) + ">";
-                if (layout == "vertical") {
-                    vDom = hx(_templateObject3$10, id, val(item.label), hx(comTag), item.help ? hx(_templateObject4$7, val(item.help)) : "");
+                var vDom = "", comTag = "";
+                if (item.text) {
+                    comTag = hx(_templateObject3$10, val(item.text));
                 } else {
-                    vDom = hx(_templateObject5$5, id, val(item.label), hx(comTag), item.help ? hx(_templateObject4$7, val(item.help)) : "");
+                    comTag = hx("<" + val(item.component.comName) + " id=" + id + "></" + val(item.component.comName) + ">");
+                }
+                if (layout == "vertical") {
+                    vDom = hx(_templateObject4$7, id, val(item.label), item.required ? hx(_templateObject5$5) : "", comTag, item.help ? hx(_templateObject6$3, val(item.help)) : "");
+                } else {
+                    vDom = hx(_templateObject7$2, id, val(item.label), item.required ? hx(_templateObject5$5) : "", comTag, item.help ? hx(_templateObject6$3, val(item.help)) : "");
                 }
                 return vDom;
             }
             function loopItem(data, index, layout) {
                 var vDom = "", comId = [ "component", options.vid, index ];
                 if (data.items) {
-                    vDom = hx(_templateObject6$3, val(data.labelClass), val(data.label), data.items.map(function(item, i) {
+                    vDom = hx(_templateObject8$2, val(data.labelClass), val(data.label), data.items.map(function(item, i) {
                         comId.push(i);
                         return layoutItem(item, layout, comId.join("_"));
                     }));
@@ -4468,7 +4474,7 @@ var Forms = function(_Lego$UI$Baseview) {
                 }
                 return vDom;
             }
-            var vDom = hx(_templateObject7$2, options.data.map(function(item, i) {
+            var vDom = hx(_templateObject9$2, options.data.map(function(item, i) {
                 return loopItem(item, i, options.layout);
             }), submitBtn());
             return vDom;
@@ -4481,30 +4487,34 @@ var Forms = function(_Lego$UI$Baseview) {
             this.rules = null;
             this.messages = null;
             this.options.data.map(function(item, index) {
-                var comId = [ "component", that.options.vid, index ];
-                if (item.items) {
-                    item.items.map(function(subItem, i) {
-                        if (subItem.rule && subItem.message) {
-                            that.rules = that.options.rules || {};
-                            that.messages = that.options.messages || {};
-                            if (subItem.required) subItem.rule.required = true;
-                            that.options.setDefaults.rules[subItem.component.name] = subItem.rule;
-                            that.options.setDefaults.messages[subItem.component.name] = subItem.message;
+                if (!item.text) {
+                    (function() {
+                        var comId = [ "component", that.options.vid, index ];
+                        if (item.items) {
+                            item.items.map(function(subItem, i) {
+                                if (subItem.rule && subItem.message) {
+                                    that.rules = that.options.rules || {};
+                                    that.messages = that.options.messages || {};
+                                    if (subItem.required) subItem.rule.required = true;
+                                    that.options.setDefaults.rules[subItem.component.name] = subItem.rule;
+                                    that.options.setDefaults.messages[subItem.component.name] = subItem.message;
+                                }
+                                comId.push(i);
+                                subItem.component.el = "#" + comId.join("_");
+                                Lego.create(Lego.UI[subItem.component.comName], subItem.component);
+                            });
+                        } else {
+                            if (item.rule && item.message) {
+                                _this2.rules = _this2.options.rules || {};
+                                _this2.messages = _this2.options.messages || {};
+                                if (item.required) item.rule.required = true;
+                                _this2.options.setDefaults.rules[item.component.name] = item.rule;
+                                _this2.options.setDefaults.messages[item.component.name] = item.message;
+                            }
+                            item.component.el = "#" + comId.join("_");
+                            Lego.create(Lego.UI[item.component.comName], item.component);
                         }
-                        comId.push(i);
-                        subItem.component.el = "#" + comId.join("_");
-                        Lego.create(Lego.UI[subItem.component.comName], subItem.component);
-                    });
-                } else {
-                    if (item.rule && item.message) {
-                        _this2.rules = _this2.options.rules || {};
-                        _this2.messages = _this2.options.messages || {};
-                        if (item.required) item.rule.required = true;
-                        _this2.options.setDefaults.rules[item.component.name] = item.rule;
-                        _this2.options.setDefaults.messages[item.component.name] = item.message;
-                    }
-                    item.component.el = "#" + comId.join("_");
-                    Lego.create(Lego.UI[item.component.comName], item.component);
+                    })();
                 }
             });
             var clickName = "click.form_" + this.options.vid, submitEl = this.options.submitEl, $submitEl = submitEl instanceof $ ? submitEl : this.$((typeof submitEl == "string" ? submitEl : "") || '[type="submit"]');
@@ -4554,6 +4564,295 @@ var Forms = function(_Lego$UI$Baseview) {
 
 Lego.components("forms", Forms);
 
+var _createClass$24 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+var _templateObject$18 = _taggedTemplateLiteral$18([ '\n        <ul class="list-group">\n        ', "\n        </ul>\n        " ], [ '\n        <ul class="list-group">\n        ', "\n        </ul>\n        " ]);
+
+var _templateObject2$14 = _taggedTemplateLiteral$18([ '<li class="list-group-item ', " ", " ", '"\n                id="', '">\n                ', "\n                ", "\n                </li>" ], [ '<li class="list-group-item ', " ", " ", '"\n                id="', '">\n                ', "\n                ", "\n                </li>" ]);
+
+var _templateObject3$11 = _taggedTemplateLiteral$18([ '<i class="anticon anticon-cross float-xs-right close"></i>' ], [ '<i class="anticon anticon-cross float-xs-right close"></i>' ]);
+
+function _taggedTemplateLiteral$18(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+}
+
+function _classCallCheck$24(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$21(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$21(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var Listgroup = function(_Lego$UI$Baseview) {
+    _inherits$21(Listgroup, _Lego$UI$Baseview);
+    function Listgroup() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$24(this, Listgroup);
+        var options = {
+            events: {
+                "click li.list-group-item": "onClick",
+                "click i.close": "onClose"
+            },
+            activeKey: "",
+            template: "",
+            removeAble: false,
+            data: [],
+            onClick: function onClick() {},
+            onClose: function onClose() {}
+        };
+        Object.assign(options, opts);
+        return _possibleConstructorReturn$21(this, (Listgroup.__proto__ || Object.getPrototypeOf(Listgroup)).call(this, options));
+    }
+    _createClass$24(Listgroup, [ {
+        key: "render",
+        value: function render() {
+            var options = this.options || {};
+            var vDom = hx(_templateObject$18, options.data.map(function(item, index) {
+                if (item.template) {
+                    return item.template;
+                } else {
+                    return hx(_templateObject2$14, item.disabled ? "disabled" : "", options.activeKey == item.key ? "active" : "", val(item.className), val(item.key), options.removeAble ? hx(_templateObject3$11) : "", val(item.value));
+                }
+            }));
+            return vDom;
+        }
+    }, {
+        key: "onClick",
+        value: function onClick(event) {
+            event.stopPropagation();
+            var target = $(event.currentTarget), key = target.attr("id");
+            if (typeof this.options.onClick === "function") this.options.onClick(key, event);
+            this.options.activeKey = this.options.activeKey != key ? key : "";
+            this.refresh();
+        }
+    }, {
+        key: "onClose",
+        value: function onClose(event) {
+            event.stopPropagation();
+            var target = $(event.currentTarget), key = target.parent().attr("id");
+            if (typeof this.options.onClose === "function") this.options.onClose(key, event);
+            this.options.data = this.options.data.filter(function(item) {
+                return item.key !== key;
+            });
+            this.refresh();
+        }
+    } ]);
+    return Listgroup;
+}(Lego.UI.Baseview);
+
+Lego.components("listgroup", Listgroup);
+
+var _createClass$25 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+var _templateObject$19 = _taggedTemplateLiteral$19([ '\n        <div class="row transfer">\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5><span>', "</span></h5>\n                    ", '\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <tree id="', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5><span>', '</span></h5>\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <listgroup id="', '"></listgroup>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <i class="anticon anticon-double-right"></i>\n            <i class="anticon anticon-double-left"></i>\n        </div>\n        ' ], [ '\n        <div class="row transfer">\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5><span>', "</span></h5>\n                    ", '\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <tree id="', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5><span>', '</span></h5>\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <listgroup id="', '"></listgroup>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <i class="anticon anticon-double-right"></i>\n            <i class="anticon anticon-double-left"></i>\n        </div>\n        ' ]);
+
+var _templateObject2$15 = _taggedTemplateLiteral$19([ '<search id="', '"></search>' ], [ '<search id="', '"></search>' ]);
+
+function _taggedTemplateLiteral$19(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+}
+
+function _classCallCheck$25(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$22(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$22(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var Transfer = function(_Lego$UI$Baseview) {
+    _inherits$22(Transfer, _Lego$UI$Baseview);
+    function Transfer() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$25(this, Transfer);
+        var options = {
+            titles: [],
+            value: [],
+            data: [],
+            width: 560,
+            height: 400,
+            treeSetting: {},
+            keyNames: [ "id", "name", "type" ],
+            scrollbar: {},
+            showSearch: false,
+            searchPlaceholder: "请输入搜索内容",
+            notFoundContent: "列表为空",
+            onChange: function onChange() {},
+            components: []
+        };
+        Object.assign(options, opts);
+        function loopItem(data) {
+            data.map(function(item) {
+                if (item.checked) {
+                    options.value.push({
+                        key: item[options.keyNames[0]],
+                        value: item[options.keyNames[1]],
+                        type: item[options.keyNames[2]]
+                    });
+                    if (item.children) {
+                        loopItem(item.children);
+                    }
+                }
+            });
+        }
+        loopItem(options.data);
+        options.components.push({
+            el: "#transfer_" + options.vid + "_tree",
+            setting: $.extend(true, {
+                check: {
+                    enable: true,
+                    chkboxType: {
+                        Y: "ps",
+                        N: "ps"
+                    }
+                }
+            }, options.treeSetting || {}),
+            onChecked: function onChecked(result) {
+                var listView = Lego.getView("#transfer_" + options.vid + "_list");
+                if (listView) {
+                    listView.options.data = result;
+                    listView.refresh();
+                }
+                if (typeof options.onChange === "function") options.onChange(result);
+            },
+            dataSource: options.dataSource,
+            data: options.data
+        }, {
+            el: "#transfer_" + options.vid + "_list",
+            removeAble: true,
+            onClose: function onClose(result) {
+                var treeView = Lego.getView("#transfer_" + options.vid + "_tree");
+                if (treeView) {
+                    var model = treeView.options.data.find(function(item) {
+                        return item.key == result;
+                    });
+                    if (model) model.checked = false;
+                    treeView.refresh();
+                }
+                if (typeof options.onChange === "function") options.onChange(treeView.options.data);
+            },
+            data: options.value
+        });
+        if (options.showSearch) {
+            options.components.push({
+                el: "#transfer_" + options.vid + "_search",
+                onSearch: function onSearch(result) {
+                    console.warn("点击了搜索框2", result);
+                }
+            });
+        }
+        return _possibleConstructorReturn$22(this, (Transfer.__proto__ || Object.getPrototypeOf(Transfer)).call(this, options));
+    }
+    _createClass$25(Transfer, [ {
+        key: "render",
+        value: function render() {
+            var options = this.options || {}, theId = "transfer_" + options.vid;
+            var vDom = hx(_templateObject$19, val(options.titles[0]), options.showSearch ? hx(_templateObject2$15, theId + "_search") : "", theId + "_tree", val(options.titles[1]), theId + "_list");
+            return vDom;
+        }
+    }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            var options = this.options || {};
+            this.$el.css({
+                width: options.width,
+                height: options.height
+            });
+        }
+    }, {
+        key: "getValue",
+        value: function getValue() {
+            var listView = Lego.getView("#transfer_" + this.options.vid + "_list");
+            if (listView) {
+                return listView.options.data;
+            }
+            return null;
+        }
+    } ]);
+    return Transfer;
+}(Lego.UI.Baseview);
+
+Lego.components("transfer", Transfer);
+
 exports.Viewport = Viewport;
 
 exports.Alert = Alert;
@@ -4593,5 +4892,9 @@ exports.Tree = Tree;
 exports.Treeselect = Treeselect;
 
 exports.Forms = Forms;
+
+exports.Listgroup = Listgroup;
+
+exports.Transfer = Transfer;
 
 exports.Baseview = Baseview;

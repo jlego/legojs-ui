@@ -106,7 +106,7 @@ var Tree = function(_Lego$UI$Baseview) {
                 return true;
             }
             if (options.setting.check) {
-                options.setting.check = Object.assign({
+                options.setting.check = $.extend(true, {
                     enable: true,
                     chkboxType: {
                         Y: "",

@@ -25,6 +25,9 @@ class HomeView extends Lego.UI.Baseview {
                 layout: 'inline',
                 data: [{
                     label: '名称',
+                    text: '静态内容'
+                }, {
+                    label: '名称1',
                     help: '注意事项',
                     required: true,
                     rule: {

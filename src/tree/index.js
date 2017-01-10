@@ -48,7 +48,7 @@ class Tree extends Lego.UI.Baseview {
             return true;
         }
         if (options.setting.check) {
-            options.setting.check = Object.assign({
+            options.setting.check = $.extend(true, {
                 enable: true,
                 chkboxType: { "Y": "", "N": "" }
             }, options.setting.check || {});
@@ -68,7 +68,6 @@ class Tree extends Lego.UI.Baseview {
                             type: val[keyNames[2]]
                         });
                     });
-                    // options.value = newValue;
                     if (typeof options.onChecked == 'function') options.onChecked(newValue);
                 }
             });

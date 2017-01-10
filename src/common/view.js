@@ -12,12 +12,10 @@ class Baseview extends Lego.View {
         if (options.scrollbar) {
             const scrollbarEl = this.$('.scrollbar');
             if(scrollbarEl.length){
-                scrollbarEl.css('overflow', 'hidden');
                 scrollbarEl.each(function(index, el){
                     const container = $(this),
-                        eventName = "mousemove.ps" + index,
-                        posi = container.parent().css('position');
-                    if (!posi || posi !== 'fixed') container.parent().css('position', 'relative');
+                        eventName = "mousemove.ps" + index;
+                    container.css('position', 'relative');
                     Ps.initialize(container[0], options.scrollbar);
                     that.$el.off(eventName).on(eventName, function() {
                         Ps.update(container[0]);

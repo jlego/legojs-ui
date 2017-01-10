@@ -102,13 +102,15 @@ class Tables extends Lego.UI.Baseview {
                         <i class="anticon anticon-ellipsis"></i></button>` : ''}
                 </div>
                 ` : ''}
-                <div class="lego-table-body ${options.showHeader ? 'scrollbar' : ''}">
-                    <table class="${options.className}">
-                        ${this._renderColgroup()}
-                        ${!options.showHeader ? this._renderHeader() : ''}
-                        ${this._renderBodyer()}
-                        ${this._renderFooter()}
-                    </table>
+                <div class="lego-table-body" style="bottom: ${options.pagination ? '48px' : '0'}">
+                    <div class="${options.showHeader ? 'scrollbar' : ''}">
+                        <table class="${options.className}">
+                            ${this._renderColgroup()}
+                            ${!options.showHeader ? this._renderHeader() : ''}
+                            ${this._renderBodyer()}
+                            ${this._renderFooter()}
+                        </table>
+                    </div>
                 </div>
                 ${options.pagination && options.data ? hx`
                     <div class="lego-table-footer">

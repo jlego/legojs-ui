@@ -34,9 +34,9 @@
                 return t;
             };
         }();
-        var o = n(249);
+        var o = n(253);
         var a = s(o);
-        var i = n(250);
+        var i = n(254);
         var l = s(i);
         function s(e) {
             return e && e.__esModule ? e : {
@@ -79,609 +79,6 @@
             return e;
         }();
         HBY.router(new c());
-    },
-    249: function(e, t) {
-        "use strict";
-        Object.defineProperty(t, "__esModule", {
-            value: true
-        });
-        var n = function() {
-            function e(e, t) {
-                for (var n = 0; n < t.length; n++) {
-                    var r = t[n];
-                    r.enumerable = r.enumerable || false;
-                    r.configurable = true;
-                    if ("value" in r) r.writable = true;
-                    Object.defineProperty(e, r.key, r);
-                }
-            }
-            return function(t, n, r) {
-                if (n) e(t.prototype, n);
-                if (r) e(t, r);
-                return t;
-            };
-        }();
-        var r = o([ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/tree/0" class="', '">Tree 树型</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ], [ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/tree/0" class="', '">Tree 树型</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ]);
-        function o(e, t) {
-            return Object.freeze(Object.defineProperties(e, {
-                raw: {
-                    value: Object.freeze(t)
-                }
-            }));
-        }
-        function a(e, t) {
-            if (!(e instanceof t)) {
-                throw new TypeError("Cannot call a class as a function");
-            }
-        }
-        function i(e, t) {
-            if (!e) {
-                throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-            }
-            return t && (typeof t === "object" || typeof t === "function") ? t : e;
-        }
-        function l(e, t) {
-            if (typeof t !== "function" && t !== null) {
-                throw new TypeError("Super expression must either be null or a function, not " + typeof t);
-            }
-            e.prototype = Object.create(t && t.prototype, {
-                constructor: {
-                    value: e,
-                    enumerable: false,
-                    writable: true,
-                    configurable: true
-                }
-            });
-            if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
-        }
-        var s = function(e) {
-            l(t, e);
-            function t() {
-                var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-                a(this, t);
-                var n = {
-                    currentTab: 0
-                };
-                Object.assign(n, e);
-                return i(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
-            }
-            n(t, [ {
-                key: "render",
-                value: function e() {
-                    var t = this.options;
-                    var n = hx(r, t.currentTab == 0 ? "active" : "");
-                    return n;
-                }
-            } ]);
-            return t;
-        }(Lego.UI.Baseview);
-        t.default = s;
-    },
-    250: function(e, t, n) {
-        "use strict";
-        Object.defineProperty(t, "__esModule", {
-            value: true
-        });
-        var r = function() {
-            function e(e, t) {
-                for (var n = 0; n < t.length; n++) {
-                    var r = t[n];
-                    r.enumerable = r.enumerable || false;
-                    r.configurable = true;
-                    if ("value" in r) r.writable = true;
-                    Object.defineProperty(e, r.key, r);
-                }
-            }
-            return function(t, n, r) {
-                if (n) e(t.prototype, n);
-                if (r) e(t, r);
-                return t;
-            };
-        }();
-        var o = c([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <tree id="tree1"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree2"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree3"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree4"></tree>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <treeselect id="treeselect1"></treeselect>\n            </div>\n            <div class="col-sm-6">\n              <treeselect id="treeselect2"></treeselect>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <treeselect id="treeselect3"></treeselect>\n            </div>\n            <div class="col-sm-6">\n              <treeselect id="treeselect4"></treeselect>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <tree id="tree1"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree2"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree3"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree4"></tree>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <treeselect id="treeselect1"></treeselect>\n            </div>\n            <div class="col-sm-6">\n              <treeselect id="treeselect2"></treeselect>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <treeselect id="treeselect3"></treeselect>\n            </div>\n            <div class="col-sm-6">\n              <treeselect id="treeselect4"></treeselect>\n            </div>\n          </div>\n        </div>\n        ' ]);
-        var a = n(251);
-        var i = d(a);
-        var l = n(253);
-        var s = d(l);
-        function d(e) {
-            return e && e.__esModule ? e : {
-                default: e
-            };
-        }
-        function c(e, t) {
-            return Object.freeze(Object.defineProperties(e, {
-                raw: {
-                    value: Object.freeze(t)
-                }
-            }));
-        }
-        function u(e, t, n) {
-            if (t in e) {
-                Object.defineProperty(e, t, {
-                    value: n,
-                    enumerable: true,
-                    configurable: true,
-                    writable: true
-                });
-            } else {
-                e[t] = n;
-            }
-            return e;
-        }
-        function f(e, t) {
-            if (!(e instanceof t)) {
-                throw new TypeError("Cannot call a class as a function");
-            }
-        }
-        function p(e, t) {
-            if (!e) {
-                throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-            }
-            return t && (typeof t === "object" || typeof t === "function") ? t : e;
-        }
-        function v(e, t) {
-            if (typeof t !== "function" && t !== null) {
-                throw new TypeError("Super expression must either be null or a function, not " + typeof t);
-            }
-            e.prototype = Object.create(t && t.prototype, {
-                constructor: {
-                    value: e,
-                    enumerable: false,
-                    writable: true,
-                    configurable: true
-                }
-            });
-            if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
-        }
-        var h = function(e) {
-            v(t, e);
-            function t() {
-                var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-                f(this, t);
-                var n = {
-                    components: [ {
-                        el: "#tree1",
-                        onChecked: function e(t) {
-                            console.warn("选中了节点", t);
-                        },
-                        onClick: function e(t) {
-                            console.warn("点击了节点", t);
-                        },
-                        data: [ {
-                            name: "test1",
-                            open: true,
-                            children: [ {
-                                name: "test1_1"
-                            }, {
-                                name: "test1_2"
-                            } ]
-                        }, {
-                            name: "test2",
-                            open: true,
-                            children: [ {
-                                name: "test2_1"
-                            }, {
-                                name: "test2_2"
-                            } ]
-                        } ]
-                    }, {
-                        el: "#tree2",
-                        setting: {
-                            check: {
-                                enable: true
-                            }
-                        },
-                        onChecked: function e(t) {
-                            console.warn("选中了节点", t);
-                        },
-                        onClick: function e(t) {
-                            console.warn("点击了节点", t);
-                        },
-                        data: [ {
-                            name: "test1",
-                            checked: true,
-                            open: true,
-                            children: [ {
-                                name: "test1_1",
-                                checked: true
-                            }, {
-                                name: "test1_2",
-                                checked: true
-                            } ]
-                        }, {
-                            name: "test2",
-                            open: true,
-                            checked: true,
-                            children: [ {
-                                name: "test2_1"
-                            }, {
-                                name: "test2_2"
-                            } ]
-                        } ]
-                    }, {
-                        el: "#tree3",
-                        setting: {
-                            check: {
-                                enable: true,
-                                chkStyle: "radio"
-                            }
-                        },
-                        onChecked: function e(t) {
-                            console.warn("选中了节点", t);
-                        },
-                        onClick: function e(t) {
-                            console.warn("点击了节点", t);
-                        },
-                        data: [ {
-                            name: "test1",
-                            open: true,
-                            children: [ {
-                                name: "test1_1",
-                                checked: true
-                            }, {
-                                name: "test1_2"
-                            } ]
-                        }, {
-                            name: "test2",
-                            open: true,
-                            checked: true,
-                            children: [ {
-                                name: "test2_1"
-                            }, {
-                                name: "test2_2"
-                            } ]
-                        } ]
-                    }, u({
-                        el: "#tree4",
-                        view: {
-                            showIcon: false
-                        },
-                        data: {
-                            simpleData: {
-                                enable: true
-                            }
-                        },
-                        onChecked: function e(t) {
-                            console.warn("选中了节点", t);
-                        },
-                        onClick: function e(t) {
-                            console.warn("点击了节点", t);
-                        }
-                    }, "data", [ {
-                        name: "test1",
-                        open: true,
-                        iconSkin: "folder",
-                        children: [ {
-                            name: "test1_1",
-                            iconSkin: "folder"
-                        }, {
-                            name: "test1_2",
-                            iconSkin: "folder"
-                        } ]
-                    }, {
-                        name: "test2",
-                        open: true,
-                        iconSkin: "folder",
-                        children: [ {
-                            name: "test2_1"
-                        }, {
-                            name: "test2_2"
-                        } ]
-                    } ]), {
-                        el: "#treeselect1",
-                        placeholder: "请选择",
-                        multiple: true,
-                        setting: {
-                            check: {
-                                enable: true
-                            }
-                        },
-                        onChange: function e(t) {
-                            console.warn("点击了树型选项框1", t);
-                        },
-                        data: [ {
-                            id: "tree1",
-                            name: "test1",
-                            open: true,
-                            children: [ {
-                                id: "tree1_1",
-                                name: "test1_1",
-                                checked: true
-                            }, {
-                                id: "tree1_2",
-                                name: "test1_2"
-                            } ]
-                        }, {
-                            id: "tree2",
-                            name: "test2",
-                            open: true,
-                            checked: true,
-                            children: [ {
-                                id: "tree2_1",
-                                name: "test2_1"
-                            }, {
-                                id: "tree2_1",
-                                name: "test2_2"
-                            } ]
-                        } ]
-                    }, {
-                        el: "#treeselect2",
-                        placeholder: "请选择",
-                        multiple: true,
-                        setting: {
-                            check: {
-                                enable: true,
-                                chkStyle: "radio"
-                            }
-                        },
-                        onChange: function e(t) {
-                            console.warn("点击了树型选项框2", t);
-                        },
-                        value: {
-                            key: "tree1_1",
-                            value: "test1_1"
-                        },
-                        data: [ {
-                            id: "tree1",
-                            name: "test1",
-                            open: true,
-                            children: [ {
-                                id: "tree1_1",
-                                name: "test1_1",
-                                checked: true
-                            }, {
-                                id: "tree1_2",
-                                name: "test1_2"
-                            } ]
-                        }, {
-                            id: "tree2",
-                            name: "test2",
-                            open: true,
-                            checked: true,
-                            children: [ {
-                                id: "tree2_1",
-                                name: "test2_1"
-                            }, {
-                                id: "tree2_1",
-                                name: "test2_2"
-                            } ]
-                        } ]
-                    }, {
-                        el: "#treeselect3",
-                        placeholder: "请选择",
-                        setting: {
-                            check: {
-                                enable: true
-                            }
-                        },
-                        onChange: function e(t) {
-                            console.warn("点击了树型选项框3", t);
-                        },
-                        data: [ {
-                            id: "tree1",
-                            name: "test1",
-                            open: true,
-                            children: [ {
-                                id: "tree1_1",
-                                name: "test1_1"
-                            }, {
-                                id: "tree1_2",
-                                name: "test1_2"
-                            } ]
-                        }, {
-                            id: "tree2",
-                            name: "test2",
-                            open: true,
-                            children: [ {
-                                id: "tree2_1",
-                                name: "test2_1"
-                            }, {
-                                id: "tree2_1",
-                                name: "test2_2"
-                            } ]
-                        } ]
-                    }, {
-                        el: "#treeselect4",
-                        placeholder: "请选择",
-                        onChange: function e(t) {
-                            console.warn("点击了树型选项框3", t);
-                        },
-                        data: [ {
-                            id: "tree1",
-                            name: "test1",
-                            open: true,
-                            children: [ {
-                                id: "tree1_1",
-                                name: "test1_1"
-                            }, {
-                                id: "tree1_2",
-                                name: "test1_2"
-                            } ]
-                        }, {
-                            id: "tree2",
-                            name: "test2",
-                            open: true,
-                            children: [ {
-                                id: "tree2_1",
-                                name: "test2_1"
-                            }, {
-                                id: "tree2_1",
-                                name: "test2_2"
-                            } ]
-                        } ]
-                    } ]
-                };
-                Object.assign(n, e);
-                return p(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
-            }
-            r(t, [ {
-                key: "render",
-                value: function e() {
-                    var t = hx(o);
-                    return t;
-                }
-            } ]);
-            return t;
-        }(Lego.UI.Baseview);
-        t.default = h;
-    },
-    251: function(e, t, n) {
-        "use strict";
-        var r = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
-            return typeof e;
-        } : function(e) {
-            return e && typeof Symbol === "function" && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e;
-        };
-        var o = n(252);
-        var a = function() {
-            function e(e, t) {
-                for (var n = 0; n < t.length; n++) {
-                    var r = t[n];
-                    r.enumerable = r.enumerable || false;
-                    r.configurable = true;
-                    if ("value" in r) r.writable = true;
-                    Object.defineProperty(e, r.key, r);
-                }
-            }
-            return function(t, n, r) {
-                if (n) e(t.prototype, n);
-                if (r) e(t, r);
-                return t;
-            };
-        }();
-        var i = l([ '<ul class="ztree"></ul>' ], [ '<ul class="ztree"></ul>' ]);
-        function l(e, t) {
-            return Object.freeze(Object.defineProperties(e, {
-                raw: {
-                    value: Object.freeze(t)
-                }
-            }));
-        }
-        function s(e, t) {
-            if (!(e instanceof t)) {
-                throw new TypeError("Cannot call a class as a function");
-            }
-        }
-        function d(e, t) {
-            if (!e) {
-                throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-            }
-            return t && ((typeof t === "undefined" ? "undefined" : r(t)) === "object" || typeof t === "function") ? t : e;
-        }
-        function c(e, t) {
-            if (typeof t !== "function" && t !== null) {
-                throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : r(t)));
-            }
-            e.prototype = Object.create(t && t.prototype, {
-                constructor: {
-                    value: e,
-                    enumerable: false,
-                    writable: true,
-                    configurable: true
-                }
-            });
-            if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
-        }
-        var u = function(e) {
-            c(t, e);
-            function t() {
-                var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-                s(this, t);
-                var n = {
-                    disSelect: null,
-                    onlySelect: null,
-                    setting: {
-                        data: {
-                            simpleData: {
-                                enable: true
-                            }
-                        },
-                        callback: {}
-                    },
-                    keyNames: [ "id", "name", "type" ],
-                    value: [],
-                    data: [],
-                    onChecked: function e() {},
-                    onClick: function e() {}
-                };
-                Object.assign(n, e);
-                return d(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
-            }
-            a(t, [ {
-                key: "render",
-                value: function e() {
-                    return hx(i);
-                }
-            }, {
-                key: "renderBefore",
-                value: function e() {
-                    var t = this.options, n = this;
-                    function r(e) {
-                        if (t.disSelect) {
-                            if (e[t.disSelect] == Object.values(t.disSelect)[0]) return false;
-                        }
-                        if (t.onlySelect) {
-                            if (e[t.onlySelect] !== Object.values(t.onlySelect)[0]) return false;
-                        }
-                        return true;
-                    }
-                    if (t.setting.check) {
-                        t.setting.check = Object.assign({
-                            enable: true,
-                            chkboxType: {
-                                Y: "",
-                                N: ""
-                            }
-                        }, t.setting.check || {});
-                        t.setting.callback = Object.assign(t.setting.callback || {}, {
-                            onCheck: function e(n, o, a) {
-                                var i = $.fn.zTree.getZTreeObj(o), l = i.getCheckedNodes(true), s = t.keyNames, d = l.filter(function(e) {
-                                    return r(e);
-                                });
-                                var c = [];
-                                d.forEach(function(e, t) {
-                                    c.push({
-                                        key: e[s[0]],
-                                        value: e[s[1]],
-                                        type: e[s[2]]
-                                    });
-                                });
-                                if (typeof t.onChecked == "function") t.onChecked(c);
-                            }
-                        });
-                    } else {
-                        t.setting.callback = Object.assign(t.setting.callback || {}, {
-                            onClick: function e(n, o, a) {
-                                if (!r(a)) return false;
-                                if (typeof t.onClick == "function") t.onClick({
-                                    key: a[t.keyNames[0]],
-                                    value: a[t.keyNames[1]],
-                                    type: a[t.keyNames[2]]
-                                });
-                            }
-                        });
-                    }
-                }
-            }, {
-                key: "renderAfter",
-                value: function e() {
-                    var t = this.options;
-                    $.fn.zTree.init(this.$el, t.setting, t.data);
-                }
-            }, {
-                key: "clearChecked",
-                value: function e(t, n) {
-                    var r = $.fn.zTree.getZTreeObj(this.options.id);
-                    var o = r.getNodeByParam(t, n, null);
-                    if (o) {
-                        r.checkNode(o, false, false);
-                    }
-                }
-            } ]);
-            return t;
-        }(Lego.UI.Baseview);
-        Lego.components("tree", u);
-        e.exports = u;
     },
     252: function(module, exports) {
         (function($) {
@@ -3157,12 +2554,12 @@
                     }
                     k.editNodeBlur = true;
                     k.cancelCurEditNode(i);
-                    var f = e(i.treeObj.get(0).ownerDocument), p = e(i.treeObj.get(0).ownerDocument.body), v, h, g, b = false, T = i, w = i, E, I, _ = null, O = null, S = null, P = m.move.TYPE_INNER, D = n.clientX, x = n.clientY, R = new Date().getTime();
+                    var f = e(i.treeObj.get(0).ownerDocument), p = e(i.treeObj.get(0).ownerDocument.body), v, h, g, b = false, T = i, w = i, E, I, _ = null, O = null, S = null, P = m.move.TYPE_INNER, x = n.clientX, D = n.clientY, R = new Date().getTime();
                     if (N.uCanDo(i)) {
                         f.bind("mousemove", L);
                     }
                     function L(n) {
-                        if (l.dragFlag == 0 && Math.abs(D - n.clientX) < i.edit.drag.minMoveSize && Math.abs(x - n.clientY) < i.edit.drag.minMoveSize) {
+                        if (l.dragFlag == 0 && Math.abs(x - n.clientX) < i.edit.drag.minMoveSize && Math.abs(D - n.clientY) < i.edit.drag.minMoveSize) {
                             return true;
                         }
                         var r, o, a, d, c, w = i.data.key.children;
@@ -3877,7 +3274,610 @@
             };
         })(jQuery);
     },
-    253: function(e, t, n) {
+    253: function(e, t) {
+        "use strict";
+        Object.defineProperty(t, "__esModule", {
+            value: true
+        });
+        var n = function() {
+            function e(e, t) {
+                for (var n = 0; n < t.length; n++) {
+                    var r = t[n];
+                    r.enumerable = r.enumerable || false;
+                    r.configurable = true;
+                    if ("value" in r) r.writable = true;
+                    Object.defineProperty(e, r.key, r);
+                }
+            }
+            return function(t, n, r) {
+                if (n) e(t.prototype, n);
+                if (r) e(t, r);
+                return t;
+            };
+        }();
+        var r = o([ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/tree/0" class="', '">Tree 树型</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ], [ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/tree/0" class="', '">Tree 树型</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ]);
+        function o(e, t) {
+            return Object.freeze(Object.defineProperties(e, {
+                raw: {
+                    value: Object.freeze(t)
+                }
+            }));
+        }
+        function a(e, t) {
+            if (!(e instanceof t)) {
+                throw new TypeError("Cannot call a class as a function");
+            }
+        }
+        function i(e, t) {
+            if (!e) {
+                throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+            }
+            return t && (typeof t === "object" || typeof t === "function") ? t : e;
+        }
+        function l(e, t) {
+            if (typeof t !== "function" && t !== null) {
+                throw new TypeError("Super expression must either be null or a function, not " + typeof t);
+            }
+            e.prototype = Object.create(t && t.prototype, {
+                constructor: {
+                    value: e,
+                    enumerable: false,
+                    writable: true,
+                    configurable: true
+                }
+            });
+            if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
+        }
+        var s = function(e) {
+            l(t, e);
+            function t() {
+                var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+                a(this, t);
+                var n = {
+                    currentTab: 0
+                };
+                Object.assign(n, e);
+                return i(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
+            }
+            n(t, [ {
+                key: "render",
+                value: function e() {
+                    var t = this.options;
+                    var n = hx(r, t.currentTab == 0 ? "active" : "");
+                    return n;
+                }
+            } ]);
+            return t;
+        }(Lego.UI.Baseview);
+        t.default = s;
+    },
+    254: function(e, t, n) {
+        "use strict";
+        Object.defineProperty(t, "__esModule", {
+            value: true
+        });
+        var r = function() {
+            function e(e, t) {
+                for (var n = 0; n < t.length; n++) {
+                    var r = t[n];
+                    r.enumerable = r.enumerable || false;
+                    r.configurable = true;
+                    if ("value" in r) r.writable = true;
+                    Object.defineProperty(e, r.key, r);
+                }
+            }
+            return function(t, n, r) {
+                if (n) e(t.prototype, n);
+                if (r) e(t, r);
+                return t;
+            };
+        }();
+        var o = c([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <tree id="tree1"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree2"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree3"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree4"></tree>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <treeselect id="treeselect1"></treeselect>\n            </div>\n            <div class="col-sm-6">\n              <treeselect id="treeselect2"></treeselect>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <treeselect id="treeselect3"></treeselect>\n            </div>\n            <div class="col-sm-6">\n              <treeselect id="treeselect4"></treeselect>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <tree id="tree1"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree2"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree3"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree4"></tree>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <treeselect id="treeselect1"></treeselect>\n            </div>\n            <div class="col-sm-6">\n              <treeselect id="treeselect2"></treeselect>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <treeselect id="treeselect3"></treeselect>\n            </div>\n            <div class="col-sm-6">\n              <treeselect id="treeselect4"></treeselect>\n            </div>\n          </div>\n        </div>\n        ' ]);
+        var a = n(255);
+        var i = d(a);
+        var l = n(256);
+        var s = d(l);
+        function d(e) {
+            return e && e.__esModule ? e : {
+                default: e
+            };
+        }
+        function c(e, t) {
+            return Object.freeze(Object.defineProperties(e, {
+                raw: {
+                    value: Object.freeze(t)
+                }
+            }));
+        }
+        function u(e, t, n) {
+            if (t in e) {
+                Object.defineProperty(e, t, {
+                    value: n,
+                    enumerable: true,
+                    configurable: true,
+                    writable: true
+                });
+            } else {
+                e[t] = n;
+            }
+            return e;
+        }
+        function f(e, t) {
+            if (!(e instanceof t)) {
+                throw new TypeError("Cannot call a class as a function");
+            }
+        }
+        function p(e, t) {
+            if (!e) {
+                throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+            }
+            return t && (typeof t === "object" || typeof t === "function") ? t : e;
+        }
+        function v(e, t) {
+            if (typeof t !== "function" && t !== null) {
+                throw new TypeError("Super expression must either be null or a function, not " + typeof t);
+            }
+            e.prototype = Object.create(t && t.prototype, {
+                constructor: {
+                    value: e,
+                    enumerable: false,
+                    writable: true,
+                    configurable: true
+                }
+            });
+            if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
+        }
+        var h = function(e) {
+            v(t, e);
+            function t() {
+                var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+                f(this, t);
+                var n = {
+                    components: [ {
+                        el: "#tree1",
+                        onChecked: function e(t) {
+                            console.warn("选中了节点", t);
+                        },
+                        onClick: function e(t) {
+                            console.warn("点击了节点", t);
+                        },
+                        data: [ {
+                            name: "test1",
+                            open: true,
+                            children: [ {
+                                name: "test1_1"
+                            }, {
+                                name: "test1_2"
+                            } ]
+                        }, {
+                            name: "test2",
+                            open: true,
+                            children: [ {
+                                name: "test2_1"
+                            }, {
+                                name: "test2_2"
+                            } ]
+                        } ]
+                    }, {
+                        el: "#tree2",
+                        setting: {
+                            check: {
+                                enable: true
+                            }
+                        },
+                        onChecked: function e(t) {
+                            console.warn("选中了节点", t);
+                        },
+                        onClick: function e(t) {
+                            console.warn("点击了节点", t);
+                        },
+                        data: [ {
+                            name: "test1",
+                            checked: true,
+                            open: true,
+                            children: [ {
+                                name: "test1_1",
+                                checked: true
+                            }, {
+                                name: "test1_2",
+                                checked: true
+                            } ]
+                        }, {
+                            name: "test2",
+                            open: true,
+                            checked: true,
+                            children: [ {
+                                name: "test2_1"
+                            }, {
+                                name: "test2_2"
+                            } ]
+                        } ]
+                    }, {
+                        el: "#tree3",
+                        setting: {
+                            check: {
+                                enable: true,
+                                chkStyle: "radio"
+                            }
+                        },
+                        onChecked: function e(t) {
+                            console.warn("选中了节点", t);
+                        },
+                        onClick: function e(t) {
+                            console.warn("点击了节点", t);
+                        },
+                        data: [ {
+                            name: "test1",
+                            open: true,
+                            children: [ {
+                                name: "test1_1",
+                                checked: true
+                            }, {
+                                name: "test1_2"
+                            } ]
+                        }, {
+                            name: "test2",
+                            open: true,
+                            checked: true,
+                            children: [ {
+                                name: "test2_1"
+                            }, {
+                                name: "test2_2"
+                            } ]
+                        } ]
+                    }, u({
+                        el: "#tree4",
+                        view: {
+                            showIcon: false
+                        },
+                        data: {
+                            simpleData: {
+                                enable: true
+                            }
+                        },
+                        onChecked: function e(t) {
+                            console.warn("选中了节点", t);
+                        },
+                        onClick: function e(t) {
+                            console.warn("点击了节点", t);
+                        }
+                    }, "data", [ {
+                        name: "test1",
+                        open: true,
+                        iconSkin: "folder",
+                        children: [ {
+                            name: "test1_1",
+                            iconSkin: "folder"
+                        }, {
+                            name: "test1_2",
+                            iconSkin: "folder"
+                        } ]
+                    }, {
+                        name: "test2",
+                        open: true,
+                        iconSkin: "folder",
+                        children: [ {
+                            name: "test2_1"
+                        }, {
+                            name: "test2_2"
+                        } ]
+                    } ]), {
+                        el: "#treeselect1",
+                        placeholder: "请选择",
+                        multiple: true,
+                        setting: {
+                            check: {
+                                enable: true
+                            }
+                        },
+                        onChange: function e(t) {
+                            console.warn("点击了树型选项框1", t);
+                        },
+                        data: [ {
+                            id: "tree1",
+                            name: "test1",
+                            open: true,
+                            children: [ {
+                                id: "tree1_1",
+                                name: "test1_1",
+                                checked: true
+                            }, {
+                                id: "tree1_2",
+                                name: "test1_2"
+                            } ]
+                        }, {
+                            id: "tree2",
+                            name: "test2",
+                            open: true,
+                            checked: true,
+                            children: [ {
+                                id: "tree2_1",
+                                name: "test2_1"
+                            }, {
+                                id: "tree2_1",
+                                name: "test2_2"
+                            } ]
+                        } ]
+                    }, {
+                        el: "#treeselect2",
+                        placeholder: "请选择",
+                        multiple: true,
+                        setting: {
+                            check: {
+                                enable: true,
+                                chkStyle: "radio"
+                            }
+                        },
+                        onChange: function e(t) {
+                            console.warn("点击了树型选项框2", t);
+                        },
+                        value: {
+                            key: "tree1_1",
+                            value: "test1_1"
+                        },
+                        data: [ {
+                            id: "tree1",
+                            name: "test1",
+                            open: true,
+                            children: [ {
+                                id: "tree1_1",
+                                name: "test1_1",
+                                checked: true
+                            }, {
+                                id: "tree1_2",
+                                name: "test1_2"
+                            } ]
+                        }, {
+                            id: "tree2",
+                            name: "test2",
+                            open: true,
+                            checked: true,
+                            children: [ {
+                                id: "tree2_1",
+                                name: "test2_1"
+                            }, {
+                                id: "tree2_1",
+                                name: "test2_2"
+                            } ]
+                        } ]
+                    }, {
+                        el: "#treeselect3",
+                        placeholder: "请选择",
+                        setting: {
+                            check: {
+                                enable: true
+                            }
+                        },
+                        onChange: function e(t) {
+                            console.warn("点击了树型选项框3", t);
+                        },
+                        data: [ {
+                            id: "tree1",
+                            name: "test1",
+                            open: true,
+                            children: [ {
+                                id: "tree1_1",
+                                name: "test1_1"
+                            }, {
+                                id: "tree1_2",
+                                name: "test1_2"
+                            } ]
+                        }, {
+                            id: "tree2",
+                            name: "test2",
+                            open: true,
+                            children: [ {
+                                id: "tree2_1",
+                                name: "test2_1"
+                            }, {
+                                id: "tree2_1",
+                                name: "test2_2"
+                            } ]
+                        } ]
+                    }, {
+                        el: "#treeselect4",
+                        placeholder: "请选择",
+                        onChange: function e(t) {
+                            console.warn("点击了树型选项框3", t);
+                        },
+                        data: [ {
+                            id: "tree1",
+                            name: "test1",
+                            open: true,
+                            children: [ {
+                                id: "tree1_1",
+                                name: "test1_1"
+                            }, {
+                                id: "tree1_2",
+                                name: "test1_2"
+                            } ]
+                        }, {
+                            id: "tree2",
+                            name: "test2",
+                            open: true,
+                            children: [ {
+                                id: "tree2_1",
+                                name: "test2_1"
+                            }, {
+                                id: "tree2_1",
+                                name: "test2_2"
+                            } ]
+                        } ]
+                    } ]
+                };
+                Object.assign(n, e);
+                return p(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
+            }
+            r(t, [ {
+                key: "render",
+                value: function e() {
+                    var t = hx(o);
+                    return t;
+                }
+            } ]);
+            return t;
+        }(Lego.UI.Baseview);
+        t.default = h;
+    },
+    255: function(e, t, n) {
+        "use strict";
+        var r = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
+            return typeof e;
+        } : function(e) {
+            return e && typeof Symbol === "function" && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e;
+        };
+        var o = n(252);
+        var a = function() {
+            function e(e, t) {
+                for (var n = 0; n < t.length; n++) {
+                    var r = t[n];
+                    r.enumerable = r.enumerable || false;
+                    r.configurable = true;
+                    if ("value" in r) r.writable = true;
+                    Object.defineProperty(e, r.key, r);
+                }
+            }
+            return function(t, n, r) {
+                if (n) e(t.prototype, n);
+                if (r) e(t, r);
+                return t;
+            };
+        }();
+        var i = l([ '<ul class="ztree"></ul>' ], [ '<ul class="ztree"></ul>' ]);
+        function l(e, t) {
+            return Object.freeze(Object.defineProperties(e, {
+                raw: {
+                    value: Object.freeze(t)
+                }
+            }));
+        }
+        function s(e, t) {
+            if (!(e instanceof t)) {
+                throw new TypeError("Cannot call a class as a function");
+            }
+        }
+        function d(e, t) {
+            if (!e) {
+                throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+            }
+            return t && ((typeof t === "undefined" ? "undefined" : r(t)) === "object" || typeof t === "function") ? t : e;
+        }
+        function c(e, t) {
+            if (typeof t !== "function" && t !== null) {
+                throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : r(t)));
+            }
+            e.prototype = Object.create(t && t.prototype, {
+                constructor: {
+                    value: e,
+                    enumerable: false,
+                    writable: true,
+                    configurable: true
+                }
+            });
+            if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
+        }
+        var u = function(e) {
+            c(t, e);
+            function t() {
+                var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+                s(this, t);
+                var n = {
+                    disSelect: null,
+                    onlySelect: null,
+                    setting: {
+                        data: {
+                            simpleData: {
+                                enable: true
+                            }
+                        },
+                        callback: {}
+                    },
+                    keyNames: [ "id", "name", "type" ],
+                    value: [],
+                    data: [],
+                    onChecked: function e() {},
+                    onClick: function e() {}
+                };
+                Object.assign(n, e);
+                return d(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
+            }
+            a(t, [ {
+                key: "render",
+                value: function e() {
+                    return hx(i);
+                }
+            }, {
+                key: "renderBefore",
+                value: function e() {
+                    var t = this.options, n = this;
+                    function r(e) {
+                        if (t.disSelect) {
+                            if (e[t.disSelect] == Object.values(t.disSelect)[0]) return false;
+                        }
+                        if (t.onlySelect) {
+                            if (e[t.onlySelect] !== Object.values(t.onlySelect)[0]) return false;
+                        }
+                        return true;
+                    }
+                    if (t.setting.check) {
+                        t.setting.check = $.extend(true, {
+                            enable: true,
+                            chkboxType: {
+                                Y: "",
+                                N: ""
+                            }
+                        }, t.setting.check || {});
+                        t.setting.callback = Object.assign(t.setting.callback || {}, {
+                            onCheck: function e(n, o, a) {
+                                var i = $.fn.zTree.getZTreeObj(o), l = i.getCheckedNodes(true), s = t.keyNames, d = l.filter(function(e) {
+                                    return r(e);
+                                });
+                                var c = [];
+                                d.forEach(function(e, t) {
+                                    c.push({
+                                        key: e[s[0]],
+                                        value: e[s[1]],
+                                        type: e[s[2]]
+                                    });
+                                });
+                                if (typeof t.onChecked == "function") t.onChecked(c);
+                            }
+                        });
+                    } else {
+                        t.setting.callback = Object.assign(t.setting.callback || {}, {
+                            onClick: function e(n, o, a) {
+                                if (!r(a)) return false;
+                                if (typeof t.onClick == "function") t.onClick({
+                                    key: a[t.keyNames[0]],
+                                    value: a[t.keyNames[1]],
+                                    type: a[t.keyNames[2]]
+                                });
+                            }
+                        });
+                    }
+                }
+            }, {
+                key: "renderAfter",
+                value: function e() {
+                    var t = this.options;
+                    $.fn.zTree.init(this.$el, t.setting, t.data);
+                }
+            }, {
+                key: "clearChecked",
+                value: function e(t, n) {
+                    var r = $.fn.zTree.getZTreeObj(this.options.id);
+                    var o = r.getNodeByParam(t, n, null);
+                    if (o) {
+                        r.checkNode(o, false, false);
+                    }
+                }
+            } ]);
+            return t;
+        }(Lego.UI.Baseview);
+        Lego.components("tree", u);
+        e.exports = u;
+    },
+    256: function(e, t, n) {
         "use strict";
         var r = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
             return typeof e;
@@ -4283,7 +4283,7 @@
             }
             return t && ((typeof t === "undefined" ? "undefined" : r(t)) === "object" || typeof t === "function") ? t : e;
         }
-        function D(e, t) {
+        function x(e, t) {
             if (typeof t !== "function" && t !== null) {
                 throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : r(t)));
             }
@@ -4297,8 +4297,8 @@
             });
             if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
         }
-        var x = function(e) {
-            D(t, e);
+        var D = function(e) {
+            x(t, e);
             function t() {
                 var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
                 S(this, t);
@@ -4341,7 +4341,7 @@
                         return true;
                     }
                     if (t.setting.check) {
-                        t.setting.check = Object.assign({
+                        t.setting.check = $.extend(true, {
                             enable: true,
                             chkboxType: {
                                 Y: "",
@@ -4395,7 +4395,7 @@
             } ]);
             return t;
         }(Lego.UI.Baseview);
-        Lego.components("tree", x);
+        Lego.components("tree", D);
         var R = function() {
             function e(e, t) {
                 for (var n = 0; n < t.length; n++) {
@@ -4414,8 +4414,8 @@
         }();
         var L = z([ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ], [ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ]);
         var A = z([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
-        var j = z([ '\n            <div class="select dropdown treeselect">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu scrollbar ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu scrollbar ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n\n            </div>\n            ' ]);
-        var M = z([ '\n            <div class="select dropdown treeselect multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu scrollbar ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu scrollbar ', '">\n                        <tree id="', '-tree"></tree>\n                    </div>\n                </div>\n            </div>\n            ' ]);
+        var j = z([ '\n            <div class="select dropdown treeselect">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="', '-tree"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="', '-tree"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ]);
+        var M = z([ '\n            <div class="select dropdown treeselect multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="', '-tree"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="', '-tree"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ]);
         function z(e, t) {
             return Object.freeze(Object.defineProperties(e, {
                 raw: {
@@ -4604,7 +4604,6 @@
                 key: "show",
                 value: function e(t) {
                     this.$("#" + this.options.vid + "-select").addClass("dropdown open");
-                    this.$(".dropdown-menu").addClass("ps-container ps-theme-default ps-active-y");
                 }
             }, {
                 key: "close",

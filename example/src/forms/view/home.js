@@ -22,14 +22,14 @@ class HomeView extends Lego.UI.Baseview {
             components: [{
                 el: '#search1',
                 hasSelect: true,
-                onClick(result) {
+                onSearch(result) {
                     console.warn('点击了搜索框', result);
                 },
                 data: $.extend(true, [], data)
             }, {
                 el: '#search2',
                 placeholder: '输入关键字',
-                onClick(result) {
+                onSearch(result) {
                     console.warn('点击了搜索框2', result);
                 }
             }, {

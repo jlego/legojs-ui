@@ -245,14 +245,14 @@
                 components: [ {
                     el: "#search1",
                     hasSelect: true,
-                    onClick: function e(t) {
+                    onSearch: function e(t) {
                         console.warn("点击了搜索框", t);
                     },
                     data: $.extend(true, [], n)
                 }, {
                     el: "#search2",
                     placeholder: "输入关键字",
-                    onClick: function e(t) {
+                    onSearch: function e(t) {
                         console.warn("点击了搜索框2", t);
                     }
                 }, {
@@ -592,14 +592,14 @@
             M(this, t);
             var n = {
                 events: {
-                    "click .search-button": "clickSearch",
+                    "click .search-button": "onSearch",
                     "keydown .search-input": "_enterSearch"
                 },
                 placeholder: "输入关键字搜索",
                 activeKey: "",
                 activeValue: "",
                 hasSelect: false,
-                onClick: function e() {},
+                onSearch: function e() {},
                 components: [ {
                     el: "#" + e.vid + "-dropdown",
                     trigger: "#" + e.vid + "-select",
@@ -627,15 +627,15 @@
             key: "_enterSearch",
             value: function e(t) {
                 if (t.keyCode == 13) {
-                    this.clickSearch(t);
+                    this.onSearch(t);
                 }
             }
         }, {
-            key: "clickSearch",
+            key: "onSearch",
             value: function e(t) {
                 t.stopPropagation();
                 var n = this.$(".search-input").val();
-                if (typeof this.options.onClick === "function") this.options.onClick({
+                if (typeof this.options.onSearch === "function") this.options.onSearch({
                     key: this.options.activeKey,
                     value: this.options.activeValue,
                     keyword: n
@@ -1545,8 +1545,8 @@
                 return this._invalidDate;
             }
             var U = "%d";
-            var V = /\d{1,2}/;
-            function q(e) {
+            var q = /\d{1,2}/;
+            function V(e) {
                 return this._ordinal.replace("%d", e);
             }
             var B = {
@@ -1787,8 +1787,8 @@
                 }
             }
             var Ue = 0;
-            var Ve = 1;
-            var qe = 2;
+            var qe = 1;
+            var Ve = 2;
             var Be = 3;
             var Ge = 4;
             var Ze = 5;
@@ -1833,12 +1833,12 @@
                 return t.monthsRegex(e);
             });
             Re([ "M", "MM" ], function(e, t) {
-                t[Ve] = T(e) - 1;
+                t[qe] = T(e) - 1;
             });
             Re([ "MMM", "MMMM" ], function(e, t, n, a) {
                 var r = n._locale.monthsParse(e, a, n._strict);
                 if (r != null) {
-                    t[Ve] = r;
+                    t[qe] = r;
                 } else {
                     h(n).invalidMonth = e;
                 }
@@ -2337,7 +2337,7 @@
                 var t = (this.day() + 7 - this.localeData()._week.dow) % 7;
                 return e == null ? t : this.add(e - t, "d");
             }
-            function Vt(e) {
+            function qt(e) {
                 if (!this.isValid()) {
                     return e != null ? this : NaN;
                 }
@@ -2348,7 +2348,7 @@
                     return this.day() || 7;
                 }
             }
-            var qt = Oe;
+            var Vt = Oe;
             function Bt(e) {
                 if (this._weekdaysParseExact) {
                     if (!m(this, "_weekdaysRegex")) {
@@ -2361,7 +2361,7 @@
                     }
                 } else {
                     if (!m(this, "_weekdaysRegex")) {
-                        this._weekdaysRegex = qt;
+                        this._weekdaysRegex = Vt;
                     }
                     return this._weekdaysStrictRegex && e ? this._weekdaysStrictRegex : this._weekdaysRegex;
                 }
@@ -2530,7 +2530,7 @@
                 longDateFormat: I,
                 invalidDate: N,
                 ordinal: U,
-                ordinalParse: V,
+                ordinalParse: q,
                 relativeTime: B,
                 months: rt,
                 monthsShort: st,
@@ -2672,9 +2672,9 @@
                 var t;
                 var n = e._a;
                 if (n && h(e).overflow === -2) {
-                    t = n[Ve] < 0 || n[Ve] > 11 ? Ve : n[qe] < 1 || n[qe] > nt(n[Ue], n[Ve]) ? qe : n[Be] < 0 || n[Be] > 24 || n[Be] === 24 && (n[Ge] !== 0 || n[Ze] !== 0 || n[Ke] !== 0) ? Be : n[Ge] < 0 || n[Ge] > 59 ? Ge : n[Ze] < 0 || n[Ze] > 59 ? Ze : n[Ke] < 0 || n[Ke] > 999 ? Ke : -1;
-                    if (h(e)._overflowDayOfYear && (t < Ue || t > qe)) {
-                        t = qe;
+                    t = n[qe] < 0 || n[qe] > 11 ? qe : n[Ve] < 1 || n[Ve] > nt(n[Ue], n[qe]) ? Ve : n[Be] < 0 || n[Be] > 24 || n[Be] === 24 && (n[Ge] !== 0 || n[Ze] !== 0 || n[Ke] !== 0) ? Be : n[Ge] < 0 || n[Ge] > 59 ? Ge : n[Ze] < 0 || n[Ze] > 59 ? Ze : n[Ke] < 0 || n[Ke] > 999 ? Ke : -1;
+                    if (h(e)._overflowDayOfYear && (t < Ue || t > Ve)) {
+                        t = Ve;
                     }
                     if (h(e)._overflowWeeks && t === -1) {
                         t = Qe;
@@ -2774,7 +2774,7 @@
                     return;
                 }
                 r = Hn(e);
-                if (e._w && e._a[qe] == null && e._a[Ve] == null) {
+                if (e._w && e._a[Ve] == null && e._a[qe] == null) {
                     En(e);
                 }
                 if (e._dayOfYear) {
@@ -2783,8 +2783,8 @@
                         h(e)._overflowDayOfYear = true;
                     }
                     n = kt(i, 0, e._dayOfYear);
-                    e._a[Ve] = n.getUTCMonth();
-                    e._a[qe] = n.getUTCDate();
+                    e._a[qe] = n.getUTCMonth();
+                    e._a[Ve] = n.getUTCDate();
                 }
                 for (t = 0; t < 3 && e._a[t] == null; ++t) {
                     e._a[t] = a[t] = r[t];
@@ -3057,11 +3057,11 @@
                 }
                 return n;
             }
-            function Vn() {
+            function qn() {
                 var e = [].slice.call(arguments, 0);
                 return Un("isBefore", e);
             }
-            function qn() {
+            function Vn() {
                 var e = [].slice.call(arguments, 0);
                 return Un("isAfter", e);
             }
@@ -3261,7 +3261,7 @@
                     r = a[1] === "-" ? -1 : 1;
                     n = {
                         y: 0,
-                        d: T(a[qe]) * r,
+                        d: T(a[Ve]) * r,
                         h: T(a[Be]) * r,
                         m: T(a[Ge]) * r,
                         s: T(a[Ze]) * r,
@@ -3545,7 +3545,7 @@
             function Ua() {
                 return this._locale;
             }
-            function Va(e) {
+            function qa(e) {
                 e = X(e);
                 switch (e) {
                   case "year":
@@ -3581,7 +3581,7 @@
                 }
                 return this;
             }
-            function qa(e) {
+            function Va(e) {
                 e = X(e);
                 if (e === undefined || e === "millisecond") {
                     return this;
@@ -3705,7 +3705,7 @@
             ne("quarter", 7);
             Ae("Q", Le);
             Re("Q", function(e, t) {
-                t[Ve] = (T(e) - 1) * 3;
+                t[qe] = (T(e) - 1) * 3;
             });
             function mr(e) {
                 return e == null ? Math.ceil((this.month() + 1) / 3) : this.month((e - 1) * 3 + this.month() % 3);
@@ -3718,9 +3718,9 @@
             Ae("Do", function(e, t) {
                 return e ? t._ordinalParse : t._ordinalParseLenient;
             });
-            Re([ "D", "DD" ], qe);
+            Re([ "D", "DD" ], Ve);
             Re("Do", function(e, t) {
-                t[qe] = T(e.match(be)[0], 10);
+                t[Ve] = T(e.match(be)[0], 10);
             });
             var _r = re("Date", true);
             fe("DDD", [ "DDDD", 3 ], "DDDo", "dayOfYear");
@@ -3803,7 +3803,7 @@
             gr.calendar = wa;
             gr.clone = Da;
             gr.diff = Ea;
-            gr.endOf = qa;
+            gr.endOf = Va;
             gr.format = Fa;
             gr.from = za;
             gr.fromNow = $a;
@@ -3825,7 +3825,7 @@
             gr.min = Nn;
             gr.parsingFlags = tr;
             gr.set = de;
-            gr.startOf = Va;
+            gr.startOf = qa;
             gr.subtract = ka;
             gr.toArray = Ka;
             gr.toObject = Qa;
@@ -3851,7 +3851,7 @@
             gr.date = _r;
             gr.day = gr.days = Jt;
             gr.weekday = Ut;
-            gr.isoWeekday = Vt;
+            gr.isoWeekday = qt;
             gr.dayOfYear = cr;
             gr.hour = gr.hours = dn;
             gr.minute = gr.minutes = fr;
@@ -3887,7 +3887,7 @@
             wr.calendar = $;
             wr.longDateFormat = R;
             wr.invalidDate = J;
-            wr.ordinal = q;
+            wr.ordinal = V;
             wr.preparse = br;
             wr.postformat = br;
             wr.relativeTime = G;
@@ -4095,8 +4095,8 @@
                     return this.as(e);
                 };
             }
-            var Vr = Ur("ms");
-            var qr = Ur("s");
+            var qr = Ur("ms");
+            var Vr = Ur("s");
             var Br = Ur("m");
             var Gr = Ur("h");
             var Zr = Ur("d");
@@ -4204,8 +4204,8 @@
             Li.add = Ar;
             Li.subtract = Fr;
             Li.as = Nr;
-            Li.asMilliseconds = Vr;
-            Li.asSeconds = qr;
+            Li.asMilliseconds = qr;
+            Li.asSeconds = Vr;
             Li.asMinutes = Br;
             Li.asHours = Gr;
             Li.asDays = Zr;
@@ -4244,8 +4244,8 @@
             a.version = "2.17.1";
             r(Rn);
             a.fn = gr;
-            a.min = Vn;
-            a.max = qn;
+            a.min = qn;
+            a.max = Vn;
             a.now = Bn;
             a.utc = c;
             a.unix = Yr;
@@ -13654,7 +13654,7 @@
                     $(this).addClass("disabled");
                 }
             });
-        }, V = function() {
+        }, q = function() {
             var e = u.find(".datepicker-years"), n = e.find("th"), a = i.clone().subtract(5, "y"), o = i.clone().add(6, "y"), d = "";
             n.eq(0).find("span").attr("title", t.tooltips.prevDecade);
             n.eq(1).attr("title", t.tooltips.selectDecade);
@@ -13672,7 +13672,7 @@
                 a.add(1, "y");
             }
             e.find("td").html(d);
-        }, q = function() {
+        }, V = function() {
             var e = u.find(".datepicker-decades"), n = e.find("th"), s = a({
                 y: i.year() - i.year() % 100 - 1
             }), o = s.clone().add(100, "y"), d = s.clone(), l = false, m = false, _, c = "";
@@ -13749,8 +13749,8 @@
             }
             e.find("tbody").empty().append(o);
             U();
-            V();
             q();
+            V();
         }, G = function() {
             var e = u.find(".timepicker-hours table"), t = i.clone().startOf("d"), n = [], a = $("<tr>");
             if (i.hour() > 11 && !l) {
@@ -15683,6 +15683,9 @@
                     layout: "inline",
                     data: [ {
                         label: "名称",
+                        text: "静态内容"
+                    }, {
+                        label: "名称1",
                         help: "注意事项",
                         required: true,
                         rule: {},
@@ -15851,32 +15854,34 @@
             return t;
         };
     }();
-    var o = f([ '<button type="submit" class="btn btn-primary">', "</button>" ], [ '<button type="submit" class="btn btn-primary">', "</button>" ]);
-    var d = f([ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', "</button>\n                      </div>\n                    </div>\n                    " ], [ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', "</button>\n                      </div>\n                    </div>\n                    " ]);
-    var u = f([ '\n                <div class="form-group">\n                    <label for="', '">', "</label>\n                    ", "\n                    ", "\n                </div>\n                " ], [ '\n                <div class="form-group">\n                    <label for="', '">', "</label>\n                    ", "\n                    ", "\n                </div>\n                " ]);
-    var l = f([ '<small class="form-text text-muted">', "</small>" ], [ '<small class="form-text text-muted">', "</small>" ]);
-    var m = f([ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 col-form-label">', '</label>\n                  <div class="col-sm-10">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ], [ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 col-form-label">', '</label>\n                  <div class="col-sm-10">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ]);
-    var _ = f([ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ], [ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ]);
-    var c = f([ "<form>\n            ", "\n            ", "</form>" ], [ "<form>\n            ", "\n            ", "</form>" ]);
-    function f(e, t) {
+    var o = p([ '<button type="submit" class="btn btn-primary">', "</button>" ], [ '<button type="submit" class="btn btn-primary">', "</button>" ]);
+    var d = p([ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', "</button>\n                      </div>\n                    </div>\n                    " ], [ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', "</button>\n                      </div>\n                    </div>\n                    " ]);
+    var u = p([ '<p class="form-control-static mb-0">', "</p>" ], [ '<p class="form-control-static mb-0">', "</p>" ]);
+    var l = p([ '\n                <div class="form-group">\n                    <label for="', '">', "", "</label>\n                    ", "\n                    ", "\n                </div>\n                " ], [ '\n                <div class="form-group">\n                    <label for="', '">', "", "</label>\n                    ", "\n                    ", "\n                </div>\n                " ]);
+    var m = p([ '<span class="symbol required">*</span>' ], [ '<span class="symbol required">*</span>' ]);
+    var _ = p([ '<small class="form-text text-muted">', "</small>" ], [ '<small class="form-text text-muted">', "</small>" ]);
+    var c = p([ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 col-form-label">', "", '</label>\n                  <div class="col-sm-10">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ], [ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 col-form-label">', "", '</label>\n                  <div class="col-sm-10">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ]);
+    var f = p([ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ], [ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ]);
+    var h = p([ "<form>\n            ", "\n            ", "</form>" ], [ "<form>\n            ", "\n            ", "</form>" ]);
+    function p(e, t) {
         return Object.freeze(Object.defineProperties(e, {
             raw: {
                 value: Object.freeze(t)
             }
         }));
     }
-    function h(e, t) {
+    function y(e, t) {
         if (!(e instanceof t)) {
             throw new TypeError("Cannot call a class as a function");
         }
     }
-    function p(e, t) {
+    function M(e, t) {
         if (!e) {
             throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
         }
         return t && ((typeof t === "undefined" ? "undefined" : a(t)) === "object" || typeof t === "function") ? t : e;
     }
-    function y(e, t) {
+    function L(e, t) {
         if (typeof t !== "function" && t !== null) {
             throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : a(t)));
         }
@@ -15891,11 +15896,11 @@
         if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
     }
     $.fn.validate = i;
-    var M = function(e) {
-        y(t, e);
+    var v = function(e) {
+        L(t, e);
         function t() {
             var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-            h(this, t);
+            y(this, t);
             var n = {
                 layout: "vertical",
                 setDefaults: {
@@ -15927,7 +15932,7 @@
                 onSubmit: function e() {}
             };
             Object.assign(n, e);
-            return p(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
+            return M(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
         }
         s(t, [ {
             key: "render",
@@ -15945,19 +15950,23 @@
                     return e;
                 }
                 function r(e, t, n) {
-                    var a = "";
-                    var r = "<" + val(e.component.comName) + " id=" + n + "></" + val(e.component.comName) + ">";
-                    if (t == "vertical") {
-                        a = hx(u, n, val(e.label), hx(r), e.help ? hx(l, val(e.help)) : "");
+                    var a = "", r = "";
+                    if (e.text) {
+                        r = hx(u, val(e.text));
                     } else {
-                        a = hx(m, n, val(e.label), hx(r), e.help ? hx(l, val(e.help)) : "");
+                        r = hx("<" + val(e.component.comName) + " id=" + n + "></" + val(e.component.comName) + ">");
+                    }
+                    if (t == "vertical") {
+                        a = hx(l, n, val(e.label), e.required ? hx(m) : "", r, e.help ? hx(_, val(e.help)) : "");
+                    } else {
+                        a = hx(c, n, val(e.label), e.required ? hx(m) : "", r, e.help ? hx(_, val(e.help)) : "");
                     }
                     return a;
                 }
                 function i(e, n, a) {
                     var i = "", s = [ "component", t.vid, n ];
                     if (e.items) {
-                        i = hx(_, val(e.labelClass), val(e.label), e.items.map(function(e, t) {
+                        i = hx(f, val(e.labelClass), val(e.label), e.items.map(function(e, t) {
                             s.push(t);
                             return r(e, a, s.join("_"));
                         }));
@@ -15966,7 +15975,7 @@
                     }
                     return i;
                 }
-                var s = hx(c, t.data.map(function(e, n) {
+                var s = hx(h, t.data.map(function(e, n) {
                     return i(e, n, t.layout);
                 }), a());
                 return s;
@@ -15979,30 +15988,34 @@
                 this.rules = null;
                 this.messages = null;
                 this.options.data.map(function(e, a) {
-                    var r = [ "component", n.options.vid, a ];
-                    if (e.items) {
-                        e.items.map(function(e, t) {
-                            if (e.rule && e.message) {
-                                n.rules = n.options.rules || {};
-                                n.messages = n.options.messages || {};
-                                if (e.required) e.rule.required = true;
-                                n.options.setDefaults.rules[e.component.name] = e.rule;
-                                n.options.setDefaults.messages[e.component.name] = e.message;
+                    if (!e.text) {
+                        (function() {
+                            var r = [ "component", n.options.vid, a ];
+                            if (e.items) {
+                                e.items.map(function(e, t) {
+                                    if (e.rule && e.message) {
+                                        n.rules = n.options.rules || {};
+                                        n.messages = n.options.messages || {};
+                                        if (e.required) e.rule.required = true;
+                                        n.options.setDefaults.rules[e.component.name] = e.rule;
+                                        n.options.setDefaults.messages[e.component.name] = e.message;
+                                    }
+                                    r.push(t);
+                                    e.component.el = "#" + r.join("_");
+                                    Lego.create(Lego.UI[e.component.comName], e.component);
+                                });
+                            } else {
+                                if (e.rule && e.message) {
+                                    t.rules = t.options.rules || {};
+                                    t.messages = t.options.messages || {};
+                                    if (e.required) e.rule.required = true;
+                                    t.options.setDefaults.rules[e.component.name] = e.rule;
+                                    t.options.setDefaults.messages[e.component.name] = e.message;
+                                }
+                                e.component.el = "#" + r.join("_");
+                                Lego.create(Lego.UI[e.component.comName], e.component);
                             }
-                            r.push(t);
-                            e.component.el = "#" + r.join("_");
-                            Lego.create(Lego.UI[e.component.comName], e.component);
-                        });
-                    } else {
-                        if (e.rule && e.message) {
-                            t.rules = t.options.rules || {};
-                            t.messages = t.options.messages || {};
-                            if (e.required) e.rule.required = true;
-                            t.options.setDefaults.rules[e.component.name] = e.rule;
-                            t.options.setDefaults.messages[e.component.name] = e.message;
-                        }
-                        e.component.el = "#" + r.join("_");
-                        Lego.create(Lego.UI[e.component.comName], e.component);
+                        })();
                     }
                 });
                 var a = "click.form_" + this.options.vid, r = this.options.submitEl, i = r instanceof $ ? r : this.$((typeof r == "string" ? r : "") || '[type="submit"]');
@@ -16049,8 +16062,8 @@
         } ]);
         return t;
     }(Lego.UI.Baseview);
-    Lego.components("forms", M);
-    e.exports = M;
+    Lego.components("forms", v);
+    e.exports = v;
 }, function(e, t) {
     (function(t) {
         t.extend(t.fn, {

@@ -329,10 +329,13 @@
 }
 .lego-table-fixed-header .lego-table-body{
     top: 51px;
-    bottom: 45px;
+    bottom: 48px;
     width: 100%;
     position: absolute;
-    overflow: auto;
+    overflow: hidden;
+}
+.lego-table-fixed-header .lego-table-body > div{
+    height: 100%;
 }
 .lego-table-fixed-header .lego-table-footer{
     bottom: 0px;
@@ -559,7 +562,7 @@ tr.lego-table-expanded-row:hover {
 }
 
 .lego-table-fixed-header .lego-table-body {
-    // position: relative;
+    // height: 100%;
     background: #fff;
 }
 

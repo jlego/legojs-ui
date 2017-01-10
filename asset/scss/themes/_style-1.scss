@@ -17,6 +17,11 @@ pre {
 pre p {
     margin: 0;
 }
+.symbol.required {
+    margin: 2px;
+    color: #f30;
+    font-family: 'SimSun';
+}
 .noborder{
     border: none !important;
 }

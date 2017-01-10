@@ -57,7 +57,10 @@ build([{
 {alias: 'notification'},
 {alias: 'tree'},
 {alias: 'treeselect'},
-{alias: 'forms'}
+{alias: 'forms'},
+{alias: 'listgroup'},
+{alias: 'transfer'},
+{alias: 'progressbar'}
 ].map(genConfig));
 
 function ucfirst(str) {

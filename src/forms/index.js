@@ -4,11 +4,11 @@
  * 2017/1/9
  */
 import validate from 'jquery-validation-cjs';
-// import 'jquery-validation/dist/additional-methods'
 $.fn.validate = validate;
 // import './asset/index.scss';
 // data: [{
 //     label: '',
+//     text: '', //静态文本
 //     help: '',
 //     required: false,
 //     component: {},
@@ -39,7 +39,7 @@ class Forms extends Lego.UI.Baseview {
                     // form.submit();
                     const view = Lego.getView(opts.el);
                     if(view) view.submitForm();
-                },            
+                },
                 rules: {},
                 messages: {},
             },
@@ -75,22 +75,26 @@ class Forms extends Lego.UI.Baseview {
             return submit;
         }
         function layoutItem(item, layout, id){
-            let vDom = '';
-            let comTag = `<${val(item.component.comName)} id=${id}></${val(item.component.comName)}>`;
+            let vDom = '', comTag = '';
+            if(item.text){
+                comTag = hx`<p class="form-control-static mb-0">${val(item.text)}</p>`;
+            }else{
+                comTag = hx(`<${val(item.component.comName)} id=${id}></${val(item.component.comName)}>`);
+            }
             if(layout == 'vertical'){
                 vDom = hx`
                 <div class="form-group">
-                    <label for="${id}">${val(item.label)}</label>
-                    ${hx(comTag)}
+                    <label for="${id}">${val(item.label)}${item.required ? hx`<span class="symbol required">*</span>` : ''}</label>
+                    ${comTag}
                     ${item.help ? hx`<small class="form-text text-muted">${val(item.help)}</small>` : ''}
                 </div>
                 `;
             }else{
                 vDom = hx`
                 <div class="form-group row">
-                  <label for="${id}" class="col-sm-2 col-form-label">${val(item.label)}</label>
+                  <label for="${id}" class="col-sm-2 col-form-label">${val(item.label)}${item.required ? hx`<span class="symbol required">*</span>` : ''}</label>
                   <div class="col-sm-10">
-                    ${hx(comTag)}
+                    ${comTag}
                     ${item.help ? hx`<small class="form-text text-muted">${val(item.help)}</small>` : ''}
                   </div>
                 </div>
@@ -128,30 +132,32 @@ class Forms extends Lego.UI.Baseview {
         this.rules = null;
         this.messages = null;
         this.options.data.map((item, index) => {
-            const comId = ['component', that.options.vid, index];
-            if(item.items){
-                item.items.map((subItem, i) => {
-                    if(subItem.rule && subItem.message){
-                        that.rules = that.options.rules || {};
-                        that.messages = that.options.messages || {};
-                        if(subItem.required) subItem.rule.required = true;
-                        that.options.setDefaults.rules[subItem.component.name] = subItem.rule;
-                        that.options.setDefaults.messages[subItem.component.name] = subItem.message;
+            if(!item.text){
+                const comId = ['component', that.options.vid, index];
+                if(item.items){
+                    item.items.map((subItem, i) => {
+                        if(subItem.rule && subItem.message){
+                            that.rules = that.options.rules || {};
+                            that.messages = that.options.messages || {};
+                            if(subItem.required) subItem.rule.required = true;
+                            that.options.setDefaults.rules[subItem.component.name] = subItem.rule;
+                            that.options.setDefaults.messages[subItem.component.name] = subItem.message;
+                        }
+                        comId.push(i);
+                        subItem.component.el = '#' + comId.join('_');
+                        Lego.create(Lego.UI[subItem.component.comName], subItem.component);
+                    });
+                }else{
+                    if(item.rule && item.message){
+                        this.rules = this.options.rules || {};
+                        this.messages = this.options.messages || {};
+                        if(item.required) item.rule.required = true;
+                        this.options.setDefaults.rules[item.component.name] = item.rule;
+                        this.options.setDefaults.messages[item.component.name] = item.message;
                     }
-                    comId.push(i);
-                    subItem.component.el = '#' + comId.join('_');
-                    Lego.create(Lego.UI[subItem.component.comName], subItem.component);
-                });
-            }else{
-                if(item.rule && item.message){
-                    this.rules = this.options.rules || {};
-                    this.messages = this.options.messages || {};
-                    if(item.required) item.rule.required = true;
-                    this.options.setDefaults.rules[item.component.name] = item.rule;
-                    this.options.setDefaults.messages[item.component.name] = item.message;
+                    item.component.el = '#' + comId.join('_');
+                    Lego.create(Lego.UI[item.component.comName], item.component);
                 }
-                item.component.el = '#' + comId.join('_');
-                Lego.create(Lego.UI[item.component.comName], item.component);
             }
         });
         const clickName = 'click.form_' + this.options.vid,

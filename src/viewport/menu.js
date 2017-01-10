@@ -89,13 +89,13 @@ class Menu extends Lego.UI.Baseview {
                         </a>
                     </li>
                     <li data-permis='{"module":"Consumption", "operate":"Query", "hide":1}' id="nav_expenses">
-                        <a href="#expenses/">
+                        <a href="javascript:Lego.startApp('transfer');">
                             <div class="item-content">
                                 <div class="item-media">
                                     <i class="icon iconfont icon-expenses"></i>
                                 </div>
                                 <div class="item-inner">
-                                    <span class="title"> 消费记录 </span>
+                                    <span class="title"> 穿梭框 </span>
                                 </div>
                             </div>
                         </a>

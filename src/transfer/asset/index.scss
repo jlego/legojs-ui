@@ -1,0 +1,78 @@
+.transfer {
+    position: relative;
+}
+
+.transfer > div,
+.transfer > div > .transfer-col,
+.transfer .transfer-col .transfer-col-content > div {
+    height: 100%;
+}
+
+.transfer i.anticon-double-right,
+.transfer i.anticon-double-left {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    margin-left: -20px;
+    color: #999;
+}
+
+.transfer i.anticon-double-right {
+    margin-top: -10px;
+}
+
+.transfer i.anticon-double-left {
+    margin-top: 10px;
+}
+
+.transfer .transfer-col {
+    height: 100%;
+    border: 1px #ddd solid;
+    border-radius: 0.25rem;
+}
+
+.transfer .transfer-col h5 {
+    font-size: 16px;
+    line-height: 30px;
+    margin: 0;
+    padding: 5px 10px;
+    border-bottom: 1px solid #ececec;
+    height: 40px;
+}
+.transfer .transfer-col .input-group.search {
+    padding: 3px;
+    border-bottom: 1px #ececec solid;
+    background-color: #ececec;
+}
+
+.transfer .transfer-col .transfer-col-content {
+    height: 100%;
+    padding-bottom: 40px;
+}
+
+.transfer .transfer-col .input-group.search + .transfer-col-content {
+    padding-bottom: 83px !important;
+}
+
+.transfer .list-group .list-group-item {
+    padding: 0.75rem 1rem 0.75rem 1rem;
+    border: none;
+}
+
+.transfer .list-group .list-group-item:hover,
+.transfer .list-group .list-group-item:active,
+.transfer .list-group .list-group-item.active {
+    background-color: #f4f9fc;
+    color: #666;
+}
+
+.transfer .list-group .list-group-item i.close {
+    zoom: 0.8;
+    display: none;
+}
+.transfer .list-group .list-group-item:hover i.close,
+.transfer .list-group .list-group-item:active i.close,
+.transfer .list-group .list-group-item.active i.close {
+    display: inline-block;
+}

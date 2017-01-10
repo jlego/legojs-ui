@@ -21,3 +21,6 @@ export Notification from "./notification/index";
 export Tree from "./tree/index";
 export Treeselect from "./treeselect/index";
 export Forms from "./forms/index";
+export Listgroup from "./listgroup/index";
+export Transfer from "./transfer/index";
+export Progressbar from "./progressbar/index";

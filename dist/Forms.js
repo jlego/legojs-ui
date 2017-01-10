@@ -32,15 +32,19 @@ var _templateObject = _taggedTemplateLiteral([ '<button type="submit" class="btn
 
 var _templateObject2 = _taggedTemplateLiteral([ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', "</button>\n                      </div>\n                    </div>\n                    " ], [ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', "</button>\n                      </div>\n                    </div>\n                    " ]);
 
-var _templateObject3 = _taggedTemplateLiteral([ '\n                <div class="form-group">\n                    <label for="', '">', "</label>\n                    ", "\n                    ", "\n                </div>\n                " ], [ '\n                <div class="form-group">\n                    <label for="', '">', "</label>\n                    ", "\n                    ", "\n                </div>\n                " ]);
+var _templateObject3 = _taggedTemplateLiteral([ '<p class="form-control-static mb-0">', "</p>" ], [ '<p class="form-control-static mb-0">', "</p>" ]);
 
-var _templateObject4 = _taggedTemplateLiteral([ '<small class="form-text text-muted">', "</small>" ], [ '<small class="form-text text-muted">', "</small>" ]);
+var _templateObject4 = _taggedTemplateLiteral([ '\n                <div class="form-group">\n                    <label for="', '">', "", "</label>\n                    ", "\n                    ", "\n                </div>\n                " ], [ '\n                <div class="form-group">\n                    <label for="', '">', "", "</label>\n                    ", "\n                    ", "\n                </div>\n                " ]);
 
-var _templateObject5 = _taggedTemplateLiteral([ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 col-form-label">', '</label>\n                  <div class="col-sm-10">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ], [ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 col-form-label">', '</label>\n                  <div class="col-sm-10">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ]);
+var _templateObject5 = _taggedTemplateLiteral([ '<span class="symbol required">*</span>' ], [ '<span class="symbol required">*</span>' ]);
 
-var _templateObject6 = _taggedTemplateLiteral([ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ], [ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ]);
+var _templateObject6 = _taggedTemplateLiteral([ '<small class="form-text text-muted">', "</small>" ], [ '<small class="form-text text-muted">', "</small>" ]);
 
-var _templateObject7 = _taggedTemplateLiteral([ "<form>\n            ", "\n            ", "</form>" ], [ "<form>\n            ", "\n            ", "</form>" ]);
+var _templateObject7 = _taggedTemplateLiteral([ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 col-form-label">', "", '</label>\n                  <div class="col-sm-10">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ], [ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 col-form-label">', "", '</label>\n                  <div class="col-sm-10">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ]);
+
+var _templateObject8 = _taggedTemplateLiteral([ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ], [ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ]);
+
+var _templateObject9 = _taggedTemplateLiteral([ "<form>\n            ", "\n            ", "</form>" ], [ "<form>\n            ", "\n            ", "</form>" ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -134,19 +138,23 @@ var Forms = function(_Lego$UI$Baseview) {
                 return submit;
             }
             function layoutItem(item, layout, id) {
-                var vDom = "";
-                var comTag = "<" + val(item.component.comName) + " id=" + id + "></" + val(item.component.comName) + ">";
-                if (layout == "vertical") {
-                    vDom = hx(_templateObject3, id, val(item.label), hx(comTag), item.help ? hx(_templateObject4, val(item.help)) : "");
+                var vDom = "", comTag = "";
+                if (item.text) {
+                    comTag = hx(_templateObject3, val(item.text));
                 } else {
-                    vDom = hx(_templateObject5, id, val(item.label), hx(comTag), item.help ? hx(_templateObject4, val(item.help)) : "");
+                    comTag = hx("<" + val(item.component.comName) + " id=" + id + "></" + val(item.component.comName) + ">");
+                }
+                if (layout == "vertical") {
+                    vDom = hx(_templateObject4, id, val(item.label), item.required ? hx(_templateObject5) : "", comTag, item.help ? hx(_templateObject6, val(item.help)) : "");
+                } else {
+                    vDom = hx(_templateObject7, id, val(item.label), item.required ? hx(_templateObject5) : "", comTag, item.help ? hx(_templateObject6, val(item.help)) : "");
                 }
                 return vDom;
             }
             function loopItem(data, index, layout) {
                 var vDom = "", comId = [ "component", options.vid, index ];
                 if (data.items) {
-                    vDom = hx(_templateObject6, val(data.labelClass), val(data.label), data.items.map(function(item, i) {
+                    vDom = hx(_templateObject8, val(data.labelClass), val(data.label), data.items.map(function(item, i) {
                         comId.push(i);
                         return layoutItem(item, layout, comId.join("_"));
                     }));
@@ -155,7 +163,7 @@ var Forms = function(_Lego$UI$Baseview) {
                 }
                 return vDom;
             }
-            var vDom = hx(_templateObject7, options.data.map(function(item, i) {
+            var vDom = hx(_templateObject9, options.data.map(function(item, i) {
                 return loopItem(item, i, options.layout);
             }), submitBtn());
             return vDom;
@@ -168,30 +176,34 @@ var Forms = function(_Lego$UI$Baseview) {
             this.rules = null;
             this.messages = null;
             this.options.data.map(function(item, index) {
-                var comId = [ "component", that.options.vid, index ];
-                if (item.items) {
-                    item.items.map(function(subItem, i) {
-                        if (subItem.rule && subItem.message) {
-                            that.rules = that.options.rules || {};
-                            that.messages = that.options.messages || {};
-                            if (subItem.required) subItem.rule.required = true;
-                            that.options.setDefaults.rules[subItem.component.name] = subItem.rule;
-                            that.options.setDefaults.messages[subItem.component.name] = subItem.message;
+                if (!item.text) {
+                    (function() {
+                        var comId = [ "component", that.options.vid, index ];
+                        if (item.items) {
+                            item.items.map(function(subItem, i) {
+                                if (subItem.rule && subItem.message) {
+                                    that.rules = that.options.rules || {};
+                                    that.messages = that.options.messages || {};
+                                    if (subItem.required) subItem.rule.required = true;
+                                    that.options.setDefaults.rules[subItem.component.name] = subItem.rule;
+                                    that.options.setDefaults.messages[subItem.component.name] = subItem.message;
+                                }
+                                comId.push(i);
+                                subItem.component.el = "#" + comId.join("_");
+                                Lego.create(Lego.UI[subItem.component.comName], subItem.component);
+                            });
+                        } else {
+                            if (item.rule && item.message) {
+                                _this2.rules = _this2.options.rules || {};
+                                _this2.messages = _this2.options.messages || {};
+                                if (item.required) item.rule.required = true;
+                                _this2.options.setDefaults.rules[item.component.name] = item.rule;
+                                _this2.options.setDefaults.messages[item.component.name] = item.message;
+                            }
+                            item.component.el = "#" + comId.join("_");
+                            Lego.create(Lego.UI[item.component.comName], item.component);
                         }
-                        comId.push(i);
-                        subItem.component.el = "#" + comId.join("_");
-                        Lego.create(Lego.UI[subItem.component.comName], subItem.component);
-                    });
-                } else {
-                    if (item.rule && item.message) {
-                        _this2.rules = _this2.options.rules || {};
-                        _this2.messages = _this2.options.messages || {};
-                        if (item.required) item.rule.required = true;
-                        _this2.options.setDefaults.rules[item.component.name] = item.rule;
-                        _this2.options.setDefaults.messages[item.component.name] = item.message;
-                    }
-                    item.component.el = "#" + comId.join("_");
-                    Lego.create(Lego.UI[item.component.comName], item.component);
+                    })();
                 }
             });
             var clickName = "click.form_" + this.options.vid, submitEl = this.options.submitEl, $submitEl = submitEl instanceof $ ? submitEl : this.$((typeof submitEl == "string" ? submitEl : "") || '[type="submit"]');

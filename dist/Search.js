@@ -246,14 +246,14 @@ var Search = function(_Lego$UI$Baseview) {
         _classCallCheck(this, Search);
         var options = {
             events: {
-                "click .search-button": "clickSearch",
+                "click .search-button": "onSearch",
                 "keydown .search-input": "_enterSearch"
             },
             placeholder: "输入关键字搜索",
             activeKey: "",
             activeValue: "",
             hasSelect: false,
-            onClick: function onClick() {},
+            onSearch: function onSearch() {},
             components: [ {
                 el: "#" + opts.vid + "-dropdown",
                 trigger: "#" + opts.vid + "-select",
@@ -281,15 +281,15 @@ var Search = function(_Lego$UI$Baseview) {
         key: "_enterSearch",
         value: function _enterSearch(event) {
             if (event.keyCode == 13) {
-                this.clickSearch(event);
+                this.onSearch(event);
             }
         }
     }, {
-        key: "clickSearch",
-        value: function clickSearch(event) {
+        key: "onSearch",
+        value: function onSearch(event) {
             event.stopPropagation();
             var keyword = this.$(".search-input").val();
-            if (typeof this.options.onClick === "function") this.options.onClick({
+            if (typeof this.options.onSearch === "function") this.options.onSearch({
                 key: this.options.activeKey,
                 value: this.options.activeValue,
                 keyword: keyword

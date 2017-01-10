@@ -1,4 +1,9 @@
-// import './asset/index.scss';
+/**
+ * 选择树下拉框
+ * ronghui Yu
+ * 2017/1/10
+ */
+import './asset/index.scss';
 import Selects from '../selects/index';
 import Tree from '../tree/index';
 
@@ -119,8 +124,10 @@ class Treeselect extends Selects {
             <div class="select dropdown treeselect">
                 <div id="${options.vid}-select">
                     <input type="text" class="form-control select-input ${options.disabled ? 'disabled' : ''}" placeholder="${options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
-                    <div class="dropdown-menu scrollbar ${options.direction ? ('drop' + options.direction) : ''}">
-                        <tree id="${options.vid}-tree"></tree>
+                    <div class="dropdown-menu ${options.direction ? ('drop' + options.direction) : ''}">
+                        <div class="scrollbar">
+                            <tree id="${options.vid}-tree"></tree>
+                        </div>
                     </div>
                 </div>
 
@@ -134,8 +141,10 @@ class Treeselect extends Selects {
                     <div class="select-tags-div clearfix ${theValueArr.length ? 'select-tags-div-border' : ''}">
                         ${getTags(options.value)}
                     </div>
-                    <div class="dropdown-menu scrollbar ${options.direction ? ('drop' + options.direction) : ''}">
-                        <tree id="${options.vid}-tree"></tree>
+                    <div class="dropdown-menu ${options.direction ? ('drop' + options.direction) : ''}">
+                        <div class="scrollbar">
+                            <tree id="${options.vid}-tree"></tree>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -177,7 +186,6 @@ class Treeselect extends Selects {
     }
     show(event){
         this.$('#' + this.options.vid + '-select').addClass('dropdown open');
-        this.$('.dropdown-menu').addClass('ps-container ps-theme-default ps-active-y');
     }
     close(event){
         this.$('#' + this.options.vid + '-select').removeClass('dropdown open');
