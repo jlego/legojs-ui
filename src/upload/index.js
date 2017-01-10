@@ -4,19 +4,19 @@
  * 2017/1/10
  */
 // import './asset/index.scss';
-import Progressbar from '../progressbar/index';
 
 class Upload extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             url: CONFIG.SERVER_URI + '/upload',
+            downloadUri: '',
             isAuto: true,
             file: null,
             blob: null,
             uploadFiles: [],
             headers: {},
             params: {},
-            isLoading: true,
+            percent: 0,     //上传进度百分比
             onBegin() {},
             onProgress() {},
             onComplete() {},
@@ -28,16 +28,6 @@ class Upload extends Lego.UI.Baseview {
 
         this.xhr = createXMLHTTPRequest();
         this.form = null;
-
-        if (!this.options.hash) {
-            if (navigator.userAgent.match(/Android/i)) {
-                this.uploadCordova();
-            } else {
-                this.upload();
-            }
-        }
-        if (this.options.isAuto && !this.options.hash) this.sendUpload();
-
         function createXMLHTTPRequest() {
             var xmlHttpRequest;
             if (window.XMLHttpRequest) {
@@ -58,84 +48,9 @@ class Upload extends Lego.UI.Baseview {
             }
             return xmlHttpRequest;
         }
-    }
-    // cordova上传
-    uploadCordova() {
-        this.startDate = new Date().getTime();
-        let that = this,
-            taking = 0,
-            uploadFiles = this.options.uploadFiles,
-            fileObj = this.options.file,
-            params = this.options.params;
 
-        function success(resp) {
-            debug.log("success:" + resp);
-            filterFiles();
-            that.options.isLoading = false;
-            if (resp.response) {
-                let response = JSON.parse(resp.response);
-                if (typeof that.options.complete == "function") that.options.onComplete(uploadFiles, fileObj, that, response);
-            }
-            that.renderAll();
-        }
-
-        function fail(event) {
-            debug.error("上传失败");
-            filterFiles();
-            if (typeof that.options.fail == "function") that.options.onFail(event, uploadFiles, that);
-            that.remove();
-        }
-
-        function filterFiles() {
-            uploadFiles = uploadFiles.filter(file => file.id !== that.options.id);
-        }
-
-        let uri = encodeURI(this.options.url);
-        let fileURL = fileObj.localURL;
-        const options = new FileUploadOptions();
-        options.fileKey = "file";
-        options.fileName = fileObj.name;
-        options.mimeType = "text/plain";
-
-        if (!_.isEmpty(this.options.params)) {
-            const params = {};
-            for (let key in this.options.params) {
-                params[key] = this.options.params[key];
-            }
-            options.params = params;
-        }
-        if (!_.isEmpty(this.options.headers)) {
-            const headers = {};
-            for (let key in this.options.headers) {
-                headers[key] = this.options.headers[key];
-            };
-            options.headers = headers;
-        }
-
-        const ft = new FileTransfer();
-        ft.onprogress = function(event) {
-            if (event.lengthComputable) {
-                const nowDate = new Date().getTime();
-                taking = nowDate - that.startDate;
-                let x = (event.loaded) / 1024;
-                let y = taking / 1000;
-                let uploadSpeed = (x / y);
-                let formatSpeed;
-                if (uploadSpeed > 1024) {
-                    formatSpeed = (uploadSpeed / 1024).toFixed(2) + "Mb\/s";
-                } else {
-                    formatSpeed = uploadSpeed.toFixed(2) + "Kb\/s";
-                }
-                let percentComplete = Math.round(event.loaded * 100 / event.total);
-                fileObj.percentComplete = percentComplete;
-                if (percentComplete == 100) {
-                    that.options.isLoading = false;
-                    // that.renderAll();
-                }
-            }
-            if (typeof that.options.progress == "function") that.options.onProgress(uploadFiles, fileObj, that);
-        };
-        ft.upload(fileURL, uri, success, fail, options);
+        this.upload();
+        if (this.options.isAuto) this.sendUpload();
     }
     // 表单上传
     upload() {
@@ -184,17 +99,8 @@ class Upload extends Lego.UI.Baseview {
                     formatSpeed = uploadSpeed.toFixed(2) + "Kb\/s";
                 }
                 let percentComplete = Math.round(event.loaded * 100 / event.total);
-                fileObj.percentComplete = percentComplete;
-                if (percentComplete == 100) {
-                    that.options.isLoading = false;
-                    // that.renderAll();
-                }
-                if (that.progressBar) {
-                    that.progressBar.setValue({
-                        value: percentComplete + '%',
-                        speed: formatSpeed
-                    });
-                }
+                fileObj.percent = percentComplete;
+                that.options.percent = percentComplete;
             }
             if (typeof that.options.progress == "function") that.options.onProgress(uploadFiles, fileObj, that);
         }
@@ -203,8 +109,9 @@ class Upload extends Lego.UI.Baseview {
             filterFiles();
             if (that.xhr.readyState == 4 && that.xhr.status == 200 && that.xhr.responseText != "") {
                 let resp = JSON.parse(that.xhr.response);
-                _.extend(that.options, resp);
-                that.options.url = CONFIG.DOWNLOAD_PATH + that.options.key;
+                Object.assign(that.options, resp);
+                that.options.url = that.options.downloadUri + that.options.key;
+                that.options.percent = 100;
                 // debug.warn("上传成功:"+ this.options.id);
                 if (typeof that.options.complete == "function") that.options.onComplete(uploadFiles, fileObj, that, resp);
             } else if (that.xhr.status != 200 && that.xhr.responseText) {
@@ -214,8 +121,6 @@ class Upload extends Lego.UI.Baseview {
                 };
                 if (typeof that.options.fail == "function") that.options.onFail(uploadFiles, fileObj, that, resp);
             }
-            that.options.isLoading = false;
-            that.renderAll();
         }
 
         function uploadFailed(event) {
@@ -233,19 +138,15 @@ class Upload extends Lego.UI.Baseview {
         }
 
         function filterFiles() {
-            uploadFiles = _.filter(uploadFiles, function(file) {
-                return file.id !== that.id;
-            });
+            uploadFiles = uploadFiles.filter(file => file.id !== that.id);
         }
     }
     cancelUpload() {
         this.xhr.abort();
     }
     sendUpload() {
-        if (!navigator.userAgent.match(/Android/i)) {
-            this.startDate = new Date().getTime();
-            this.xhr.send(this.form);
-        }
+        this.startDate = new Date().getTime();
+        this.xhr.send(this.form);
     }
 }
 Lego.components('upload', Upload);
