@@ -20,10 +20,15 @@ window.$ = window.jQuery = jQuery;
 // 设置全局参数
 Lego.init({
     alias: 'HBY', //框架实例别名
-    version: '2016' || _.now(), //版本号
+    version:  _.now(), //版本号'2016' ||
     pageEl: '#page-container', //页面渲染容器
     defaultApp: 'home', //默认应用
-    rootUri: '/example/dist/', //根目录
+    rootUri: '/example/dist/', //系统根目录
+    serviceUri: '',		//后台根地址
+    faceIconUri: '/public/style/images/im/face/f0', //表情图标地址
+    downloadUri: window.location.protocol + '//dn-openwinbons.qbox.me/', //七牛文件下载地址
+    saveUri: '/upload/complete',
+    avatarUri: 'http://192.168.2.165:8080/upload', //头像地址
 });
 // 启动应用
 Lego.startApp('index');

@@ -1,22 +1,40 @@
 /**
- * 上传基类
+ * 上传组件
  * ronghui Yu
- * 2017/1/10
+ * 2017/1/11
  */
-// import './asset/index.scss';
+import './asset/index.scss';
+import localresizeimg from 'localresizeimg-cjs';
+import UploadItem from './item';
 
-class Upload extends Lego.View {
+class Upload extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
-            url: '/upload',
-            downloadUri: '',
-            isAuto: true,
-            file: null,
-            blob: null,
-            uploadFiles: [],
-            headers: {},
-            params: {},
-            percent: 0,     //上传进度百分比
+            events: {
+                'click .addbtn': 'onClickAdd'
+            },
+            keyRoot: '',
+            type: 'file',   //file, photo
+            text: '添加附件',
+            name: '', //文件域
+            token: '',  //token
+            params: {}, //其他参数
+            uploadUri: window.location.protocol === 'https:' ? 'https://up.qbox.me' : 'http://upload.qiniu.com',  //文件存储云服务
+            saveUri: '',    //保存到后台地址
+            accept: '',     //接受上传的文件类型
+            previewOption: null, //缩略图参数
+            multiple: false, //是否多文件
+            context: null, //上下文
+            template: '',   //模板
+            maxFileSize: '5mb', //最大上传文件大小5MB
+            maxFilesCount: 9, //最大上传文件数
+            isAuto: true,       //是否自动开始上传
+            disabled: false,    //是否禁用
+            hasCookie: false,   //上传请求时是否携带 cookie
+            showUploadList: true,  //是否展示 uploadList, 默认开启
+            data: opts.token, //返回上传动态token
+            value: [],  //已上传文件
+            onAddFile() {},
             onBegin() {},
             onProgress() {},
             onComplete() {},
@@ -26,140 +44,155 @@ class Upload extends Lego.View {
         Object.assign(options, opts);
         super(options);
 
-        this.xhr = createXMLHTTPRequest();
-        this.startDate = 0;
-        this.form = null;
-        function createXMLHTTPRequest() {
-            var xmlHttpRequest;
-            if (window.XMLHttpRequest) {
-                xmlHttpRequest = new XMLHttpRequest();
-                if (xmlHttpRequest.overrideMimeType) {
-                    xmlHttpRequest.overrideMimeType("text/xml");
-                }
-            } else if (window.ActiveXObject) {
-                var activexName = ["MSXML2.XMLHTTP", "Microsoft.XMLHTTP"];
-                for (var i = 0; i < activexName.length; i++) {
-                    try {
-                        xmlHttpRequest = new ActiveXObject(activexName[i]);
-                        if (xmlHttpRequest) {
-                            break;
-                        }
-                    } catch (e) {}
-                }
-            }
-            return xmlHttpRequest;
+        this.reset();
+        this.$('.fileInput').on('change', (event) => {
+            var target = $(event.currentTarget)[0];
+            this.uploadInit(target.files);
+        });
+        if(this.options.value.length){
+            this.options.value.forEach((item, index) => {
+                item.percent = 100;
+                this.showItem(item);
+            });
         }
-
-        this.uploadInit();
-        if (this.options.isAuto) this.start();
     }
-    // 表单上传
-    uploadInit() {
+    render() {
+        const options = this.options;
+        let vDom = '';
+        vDom = hx`
+        <div class="upload upload-${val(options.type)}">
+            <button class="btn btn-secondary addbtn" type="button" ${options.disabled ? 'disabled' : ''}>
+                <i class="anticon anticon-upload"></i>
+                ${val(options.text)}
+            </button>
+            <input type="hidden" value="${options.value.join(',')}" name="${val(options.name)}" class="upload-value">
+            <input multiple="multiple" type="file" class="form-control fileInput hide" accept="${val(options.accept)}" style="display:none">
+            ${options.showUploadList ? hx`<div class="upload-container"></div>` : ''}
+        </div>
+        `;
+        return options.template ? options.template : vDom;
+    }
+    uploadInit(files) {
+        let uploadFiles = [];
+        if (typeof files == 'object' && files[0]) {
+            uploadFiles = Array.prototype.slice.call(files, 0);
+        } else {
+            uploadFiles = [files];
+        }
         const that = this,
-            taking = 0,
-            uploadFiles = this.options.uploadFiles,
-            fileObj = this.options.file,
-            params = this.options.params;
-        this.xhr.crossDomain = true;
-        this.id = this.options.file ? fileObj.id : (this.options.id ? this.options.id : Lego.randomKey(32));
-
-        this.form = new FormData();
-        this.form.append('file', fileObj);
-        if (!Object.values(params).length) {
-            for (let paramOne in params) {
-                this.form.append(paramOne, params[paramOne]);
+            options = this.options,
+            filesCount = uploadFiles.length,
+            maxFilesCount = options.maxFilesCount;
+        if (filesCount) {
+            if (filesCount > maxFilesCount) {
+                Lego.UI.notification('warning', '只能上传' + maxFilesCount + '张图片');
+                return;
             }
-        }
-
-        this.xhr.upload.addEventListener("progress", uploadProgress, false);
-        this.xhr.addEventListener("loadstart", uploadStart, false);
-        this.xhr.addEventListener("load", uploadComplete, false);
-        this.xhr.addEventListener("error", uploadFailed, false);
-        this.xhr.addEventListener("abort", uploadCanceled, false);
-        this.xhr.open('POST', this.options.url, true);
-        for (let key in this.options.headers) {
-            this.xhr.setRequestHeader(key, this.options.headers[key]);
-        }
-
-        function uploadStart(event) {
-            // debug.warn("上传开始");
-            if (typeof that.options.onBegin == "function") {
-                that.options.onBegin(uploadFiles, fileObj, that);
-            }
-        }
-
-        function uploadProgress(event) {
-            if (event.lengthComputable) {
-                const nowDate = new Date().getTime();
-                taking = nowDate - that.startDate;
-                let x = (event.loaded) / 1024;
-                let y = taking / 1000;
-                let uploadSpeed = (x / y);
-                let formatSpeed;
-                if (uploadSpeed > 1024) {
-                    formatSpeed = (uploadSpeed / 1024).toFixed(2) + "Mb\/s";
-                } else {
-                    formatSpeed = uploadSpeed.toFixed(2) + "Kb\/s";
+            this.fileList.concat(uploadFiles);
+            this.fileList = this.fileList.slice(0, maxFilesCount);
+            if (typeof options.onAddFile == 'function') options.onAddFile(this.fileList, uploadFiles);
+            uploadFiles.forEach((file, i) => {
+                file.id = Lego.randomKey(32);
+                if (Math.ceil(file.size / (1024 * 1024)) > parseInt(options.maxFileSize)) {
+                    var msg = "发送文件最大为" + options.maxFileSize;
+                    if (uploadFiles.length == 1) {
+                        Lego.UI.notification('error', msg);
+                    } else {
+                        debug.warn(msg);
+                    }
+                    return;
                 }
-                let percent = Math.round(event.loaded * 100 / event.total);
-                fileObj.percent = percent;
-                that.options.percent = percent;
-            }
-            if (typeof that.options.onProgress == "function") {
-                that.options.onProgress(uploadFiles, fileObj, that);
-            }
-        }
-
-        function uploadComplete(event) {
-            filterFiles();
-            if (that.xhr.readyState == 4 && that.xhr.status == 200 && that.xhr.responseText != "") {
-                let resp = JSON.parse(that.xhr.response);
-                Object.assign(that.options, resp);
-                that.options.url = that.options.downloadUri + that.options.key;
-                that.options.percent = 100;
-                // debug.warn("上传成功:"+ this.options.id);
-                if (typeof that.options.onComplete == "function") {
-                    that.options.onComplete(uploadFiles, fileObj, that, resp);
-                }
-            } else if (that.xhr.status != 200 && that.xhr.responseText) {
-                let resp = {
-                    status: 'error',
-                    data: 'Unknown error occurred: [' + that.xhr.responseText + ']'
+                if(that.fileList.find(item => item == file)) return;
+                const uploadOption = {
+                    id: file.id,
+                    uploadUri: options.uploadUri,
+                    isAuto: options.isAuto,
+                    file: file,
+                    type: options.type,
+                    percent: 0,
+                    params: Object.assign({
+                        key: options.key || that.getKey(file.name),
+                        token: options.data
+                    }, options.params),
+                    onBegin: options.onBegin,
+                    onProgress: options.onProgress,
+                    onComplete: options.onComplete || function(uploadObj, resp) {
+                        // debug.warn('上传完成:', resp);
+                        resp.url = Lego.config.downloadUri + resp.key;
+                        $.ajax({
+                            url: Lego.config.saveUri,
+                            type: 'POST',
+                            dataType: 'json',
+                            data: resp,
+                            success: function(response) {
+                                const theFile = options.value.find(item => item.file.hash == response.data.hash);
+                                if (theFile) {
+                                    if(response.data.id) theFile.id = response.data.id;
+                                }else{
+                                    options.value.push({
+                                        id: file.id,
+                                        file: response.data,
+                                        type: options.type,
+                                        percent: 100
+                                    });
+                                }
+                            },
+                            error: function(err) {
+                                debug.error(err);
+                            }
+                        });
+                    },
+                    onFail: options.onFail,
+                    onCancel: options.onCancel
                 };
-                if (typeof that.options.onFail == "function"){
-                    that.options.onFail(uploadFiles, fileObj, that, resp);
+                if (options.previewOption) {
+                    uploadOption.previewOption = options.previewOption;
+                    uploadOption.isAuto = false;
+                    localresizeimg(file, Object.assign(options.previewOption, {
+                        success: function(results) {
+                            uploadOption.previewImgSrc = results.blob;
+                            const theView = that.showItem(uploadOption);
+                            theView.sendUpload();
+                        }
+                    }));
+                } else {
+                    that.showItem(uploadOption);
                 }
-            }
-        }
-
-        function uploadFailed(event) {
-            debug.error("上传失败");
-            filterFiles();
-            if (typeof that.options.onFail == "function") {
-                that.options.onFail(event, uploadFiles, that);
-            }
-            that.remove();
-        }
-
-        function uploadCanceled(event) {
-            debug.error("取消上传");
-            filterFiles();
-            if (typeof that.options.onCancel == "function") {
-                that.options.onCancel(event, uploadFiles, that);
-            }
-            that.remove();
-        }
-
-        function filterFiles() {
-            uploadFiles = uploadFiles.filter(file => file.id !== that.id);
+            });
+        } else {
+            debug && debug.log("form input error");
         }
     }
-    cancel() {
-        this.xhr.abort();
+    getKey(fileName) {
+        return this.options.keyRoot + Lego.Util.uuid() + '.' + Lego.Util.getExtName(fileName);
     }
-    start() {
-        this.startDate = new Date().getTime();
-        this.xhr.send(this.form);
+    onClickAdd(event){
+        this.$('.fileInput').click();
+    }
+    // 展示上传的文件视图
+    showItem(uploadOption) {
+        const view = new UploadItem(uploadOption),
+            containerEl = this.$('.upload-container');
+        if (containerEl.length && view) {
+            if (this.options.multiple) {
+               containerEl.append(view.el);
+            } else {
+                containerEl.html(view.el);
+            }
+        }
+        return view;
+    }
+    // 返回上传结果
+    getValue() {
+        let result = [];
+        if (this.options.value.length) {
+            result = this.options.value.map(item => item.id);
+        }
+        return result.join(',');
+    }
+    // 重置
+    reset(){
+        this.fileList = [];   //已经添加了的文件列表
     }
 }
 Lego.components('upload', Upload);

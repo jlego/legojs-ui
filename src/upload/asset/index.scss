@@ -1,0 +1,64 @@
+.upload .upload-container {
+    margin-top: 8px;
+}
+.upload .addbtn i {
+    font-size: 16px;
+    display: inline-block;
+}
+.upload .upload-item {
+    padding: 8px;
+    border-radius: 3px;
+    margin-top: 8px;
+    border: 1px #ddd solid;
+    // border-bottom-color: #ddd;
+}
+
+.upload .upload-item:hover {
+    background-color: #f3f3f3;
+}
+
+.upload .upload-item .media-left i {
+    font-size: 40px;
+    color: #f90;
+}
+
+.upload .upload-item .media-body .media-heading {
+    font-size: 14px;
+    font-weight: normal;
+    margin-bottom: 8px;
+}
+
+.upload .upload-item .media-body .media-heading .right {
+    float: right;
+}
+
+.upload .upload-item .media-body .media-heading .right a {
+    margin-left: 8px;
+}
+
+.upload .upload-item .media-body small {
+    margin-top: 8px;
+    color: #999;
+}
+
+.upload .upload-item .media-body small cite {
+    font-style: inherit;
+}
+
+.upload .upload-item .media-body small time {
+    float: right;
+}
+
+.upload .upload-item .media-body .progress {
+    margin-bottom: 0;
+    margin-top: 15px;
+    height: 3px;
+    background-color: #ececec;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.upload .upload-item .media-body .progress-bar {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}

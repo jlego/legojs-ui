@@ -1,5 +1,5 @@
 /**
- * tree.js v0.2.0
+ * tree.js v0.2.1
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

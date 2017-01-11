@@ -24,3 +24,4 @@ export Forms from "./forms/index";
 export Listgroup from "./listgroup/index";
 export Transfer from "./transfer/index";
 export Progressbar from "./progressbar/index";
+export Upload from "./upload/index";

@@ -12,6 +12,7 @@ module.exports = {
         'tips/app': './src/tips/app',
         'tree/app': './src/tree/app',
         'transfer/app': './src/transfer/app',
+        'upload/app': './src/upload/app',
         'main': './src/main',
     },
     output: {
