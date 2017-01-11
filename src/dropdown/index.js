@@ -22,6 +22,7 @@ class Dropdown extends Lego.UI.Baseview {
         this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
         if(!this.options.disabled){
             function handler(event){
+                $('body').trigger('click');
                 event.stopPropagation();
                 const directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
                 that.options.direction = directionResp._y || 'bottom';

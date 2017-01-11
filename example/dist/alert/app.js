@@ -1764,6 +1764,7 @@
             o.options.trigger = e.trigger instanceof $ ? e.trigger : $(e.trigger);
             if (!o.options.disabled) {
                 var r = function e(t) {
+                    $("body").trigger("click");
                     t.stopPropagation();
                     var o = Lego.UI.Util.getDirection(i.options.trigger, i.$el);
                     i.options.direction = o._y || "bottom";

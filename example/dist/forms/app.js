@@ -448,6 +448,7 @@
             a.options.trigger = e.trigger instanceof $ ? e.trigger : $(e.trigger);
             if (!a.options.disabled) {
                 var i = function e(t) {
+                    $("body").trigger("click");
                     t.stopPropagation();
                     var a = Lego.UI.Util.getDirection(r.options.trigger, r.$el);
                     r.options.direction = a._y || "bottom";
@@ -731,6 +732,7 @@
             a.options.trigger = e.trigger instanceof $ ? e.trigger : $(e.trigger);
             if (!a.options.disabled) {
                 var i = function e(t) {
+                    $("body").trigger("click");
                     t.stopPropagation();
                     var a = Lego.UI.Util.getDirection(r.options.trigger, r.$el);
                     r.options.direction = a._y || "bottom";
