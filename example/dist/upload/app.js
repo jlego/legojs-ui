@@ -619,7 +619,7 @@
                 key: "render",
                 value: function e() {
                     var t = this.options || {};
-                    var n = hx(w, Lego.Util.getFileIcon(t.file.name), t.percent < 100 ? hx(O, val(t.file.name), "progressbar_" + t.vid) : hx(j, t.percent == 100 ? hx(x, val(t.id), val(t.file.hash)) : "", val(t.file.url), val(t.file.name), val(t.file.name), Lego.Util.convertByteUnit(t.file.size)));
+                    var n = hx(w, Lego.UI.Util.getFileIcon(t.file.name), t.percent < 100 ? hx(O, val(t.file.name), "progressbar_" + t.vid) : hx(j, t.percent == 100 ? hx(x, val(t.id), val(t.file.hash)) : "", val(t.file.url), val(t.file.name), val(t.file.name), Lego.UI.Util.convertByteUnit(t.file.size)));
                     return n;
                 }
             }, {
@@ -853,7 +853,7 @@
             }, {
                 key: "getKey",
                 value: function e(t) {
-                    return this.options.keyRoot + Lego.Util.uuid() + "." + Lego.Util.getExtName(t);
+                    return this.options.keyRoot + Lego.UI.Util.uuid() + "." + Lego.UI.Util.getExtName(t);
                 }
             }, {
                 key: "onClickAdd",

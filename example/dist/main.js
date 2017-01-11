@@ -15272,7 +15272,7 @@
     window.val = function(e, t) {
         return e ? e : t || "";
     };
-    Lego.Util = u;
+    Lego.components("Util", u);
     var d = function() {
         function e(e, t) {
             for (var n = 0; n < t.length; n++) {

@@ -183,7 +183,7 @@ window.val = function(value, defaultValue) {
     return value ? value : defaultValue || "";
 };
 
-Lego.Util = Util;
+Lego.components("Util", Util);
 
 var _createClass = function() {
     function defineProperties(target, props) {

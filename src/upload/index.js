@@ -164,7 +164,7 @@ class Upload extends Lego.UI.Baseview {
         }
     }
     getKey(fileName) {
-        return this.options.keyRoot + Lego.Util.uuid() + '.' + Lego.Util.getExtName(fileName);
+        return this.options.keyRoot + Lego.UI.Util.uuid() + '.' + Lego.UI.Util.getExtName(fileName);
     }
     onClickAdd(event){
         this.$('.fileInput').click();

@@ -66,7 +66,7 @@ class UploadItem extends UploadBase {
         const vDom = hx`
         <div class="media upload-item">
             <div class="media-left">
-                <i class="anticon anticon-${Lego.Util.getFileIcon(options.file.name)}"></i>
+                <i class="anticon anticon-${Lego.UI.Util.getFileIcon(options.file.name)}"></i>
             </div>
             ${options.percent < 100 ? hx`
             <div class="media-body">
@@ -88,7 +88,7 @@ class UploadItem extends UploadBase {
                     ${val(options.file.name)}
                 </h4>
                 <small style="display:none;">
-                    <cite>${Lego.Util.convertByteUnit(options.file.size)}</cite>
+                    <cite>${Lego.UI.Util.convertByteUnit(options.file.size)}</cite>
                     <time></time>
                 </small>
             </div>

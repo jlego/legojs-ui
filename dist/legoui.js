@@ -199,7 +199,7 @@ window.val = function(value, defaultValue) {
     return value ? value : defaultValue || "";
 };
 
-Lego.Util = Util;
+Lego.components("Util", Util);
 
 var _createClass = function() {
     function defineProperties(target, props) {
@@ -5350,7 +5350,7 @@ var UploadItem = function(_UploadBase) {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject$22, Lego.Util.getFileIcon(options.file.name), options.percent < 100 ? hx(_templateObject2$18, val(options.file.name), "progressbar_" + options.vid) : hx(_templateObject3$12, options.percent == 100 ? hx(_templateObject4$8, val(options.id), val(options.file.hash)) : "", val(options.file.url), val(options.file.name), val(options.file.name), Lego.Util.convertByteUnit(options.file.size)));
+            var vDom = hx(_templateObject$22, Lego.UI.Util.getFileIcon(options.file.name), options.percent < 100 ? hx(_templateObject2$18, val(options.file.name), "progressbar_" + options.vid) : hx(_templateObject3$12, options.percent == 100 ? hx(_templateObject4$8, val(options.id), val(options.file.hash)) : "", val(options.file.url), val(options.file.name), val(options.file.name), Lego.UI.Util.convertByteUnit(options.file.size)));
             return vDom;
         }
     }, {
@@ -5593,7 +5593,7 @@ var Upload = function(_Lego$UI$Baseview) {
     }, {
         key: "getKey",
         value: function getKey(fileName) {
-            return this.options.keyRoot + Lego.Util.uuid() + "." + Lego.Util.getExtName(fileName);
+            return this.options.keyRoot + Lego.UI.Util.uuid() + "." + Lego.UI.Util.getExtName(fileName);
         }
     }, {
         key: "onClickAdd",

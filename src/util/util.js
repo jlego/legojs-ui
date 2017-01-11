@@ -167,6 +167,5 @@ const Util = {
 window.val = function(value, defaultValue){
     return value ? value : (defaultValue || '');
 };
-
-Lego.Util = Util;
+Lego.components('Util', Util);
 export default Util;
