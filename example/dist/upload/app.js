@@ -1,15 +1,15 @@
 (function(e) {
     var t = {};
-    function n(i) {
-        if (t[i]) return t[i].exports;
-        var r = t[i] = {
+    function n(r) {
+        if (t[r]) return t[r].exports;
+        var o = t[r] = {
             exports: {},
-            id: i,
+            id: r,
             loaded: false
         };
-        e[i].call(r.exports, r, r.exports, n);
-        r.loaded = true;
-        return r.exports;
+        e[r].call(o.exports, o, o.exports, n);
+        o.loaded = true;
+        return o.exports;
     }
     n.m = e;
     n.c = t;
@@ -18,24 +18,24 @@
 })({
     0: function(e, t, n) {
         "use strict";
-        var i = function() {
+        var r = function() {
             function e(e, t) {
                 for (var n = 0; n < t.length; n++) {
-                    var i = t[n];
-                    i.enumerable = i.enumerable || false;
-                    i.configurable = true;
-                    if ("value" in i) i.writable = true;
-                    Object.defineProperty(e, i.key, i);
+                    var r = t[n];
+                    r.enumerable = r.enumerable || false;
+                    r.configurable = true;
+                    if ("value" in r) r.writable = true;
+                    Object.defineProperty(e, r.key, r);
                 }
             }
-            return function(t, n, i) {
+            return function(t, n, r) {
                 if (n) e(t.prototype, n);
-                if (i) e(t, i);
+                if (r) e(t, r);
                 return t;
             };
         }();
-        var r = n(257);
-        var o = l(r);
+        var o = n(257);
+        var i = l(o);
         var a = n(258);
         var s = l(a);
         function l(e) {
@@ -43,23 +43,23 @@
                 default: e
             };
         }
-        function u(e, t) {
+        function c(e, t) {
             if (!(e instanceof t)) {
                 throw new TypeError("Cannot call a class as a function");
             }
         }
-        var c = function() {
+        var u = function() {
             function e() {
-                u(this, e);
+                c(this, e);
                 return {
                     "/upload": [ this.index, this.tabs ],
                     "/upload/:tabs": [ this.index, this.tabs ]
                 };
             }
-            i(e, [ {
+            r(e, [ {
                 key: "index",
                 value: function e() {
-                    this.viewObj = HBY.create(o.default, {
+                    this.viewObj = HBY.create(i.default, {
                         el: HBY.config.pageEl,
                         scrollbar: {},
                         currentTab: 0
@@ -78,7 +78,7 @@
             } ]);
             return e;
         }();
-        HBY.router(new c());
+        HBY.router(new u());
     },
     257: function(e, t) {
         "use strict";
@@ -88,28 +88,28 @@
         var n = function() {
             function e(e, t) {
                 for (var n = 0; n < t.length; n++) {
-                    var i = t[n];
-                    i.enumerable = i.enumerable || false;
-                    i.configurable = true;
-                    if ("value" in i) i.writable = true;
-                    Object.defineProperty(e, i.key, i);
+                    var r = t[n];
+                    r.enumerable = r.enumerable || false;
+                    r.configurable = true;
+                    if ("value" in r) r.writable = true;
+                    Object.defineProperty(e, r.key, r);
                 }
             }
-            return function(t, n, i) {
+            return function(t, n, r) {
                 if (n) e(t.prototype, n);
-                if (i) e(t, i);
+                if (r) e(t, r);
                 return t;
             };
         }();
-        var i = r([ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/upload/0" class="', '">Upload 上传文件</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ], [ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/upload/0" class="', '">Upload 上传文件</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ]);
-        function r(e, t) {
+        var r = o([ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/upload/0" class="', '">Upload 上传文件</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ], [ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/upload/0" class="', '">Upload 上传文件</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ]);
+        function o(e, t) {
             return Object.freeze(Object.defineProperties(e, {
                 raw: {
                     value: Object.freeze(t)
                 }
             }));
         }
-        function o(e, t) {
+        function i(e, t) {
             if (!(e instanceof t)) {
                 throw new TypeError("Cannot call a class as a function");
             }
@@ -138,7 +138,7 @@
             s(t, e);
             function t() {
                 var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-                o(this, t);
+                i(this, t);
                 var n = {
                     currentTab: 0
                 };
@@ -149,7 +149,7 @@
                 key: "render",
                 value: function e() {
                     var t = this.options;
-                    var n = hx(i, t.currentTab == 0 ? "active" : "");
+                    var n = hx(r, t.currentTab == 0 ? "active" : "");
                     return n;
                 }
             } ]);
@@ -162,25 +162,25 @@
         Object.defineProperty(t, "__esModule", {
             value: true
         });
-        var i = function() {
+        var r = function() {
             function e(e, t) {
                 for (var n = 0; n < t.length; n++) {
-                    var i = t[n];
-                    i.enumerable = i.enumerable || false;
-                    i.configurable = true;
-                    if ("value" in i) i.writable = true;
-                    Object.defineProperty(e, i.key, i);
+                    var r = t[n];
+                    r.enumerable = r.enumerable || false;
+                    r.configurable = true;
+                    if ("value" in r) r.writable = true;
+                    Object.defineProperty(e, r.key, r);
                 }
             }
-            return function(t, n, i) {
+            return function(t, n, r) {
                 if (n) e(t.prototype, n);
-                if (i) e(t, i);
+                if (r) e(t, r);
                 return t;
             };
         }();
-        var r = l([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-4">\n              <upload id="upload1"></upload>\n            </div>\n            <div class="col-sm-4">\n              <upload id="upload2"></upload>\n            </div>\n            <div class="col-sm-4">\n              <upload id="upload3"></upload>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-4">\n              <upload id="upload1"></upload>\n            </div>\n            <div class="col-sm-4">\n              <upload id="upload2"></upload>\n            </div>\n            <div class="col-sm-4">\n              <upload id="upload3"></upload>\n            </div>\n          </div>\n        </div>\n        ' ]);
-        var o = n(259);
-        var a = s(o);
+        var o = l([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <upload id="upload1"></upload>\n            </div>\n            <div class="col-sm-6">\n              <upload id="upload2"></upload>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <upload id="upload1"></upload>\n            </div>\n            <div class="col-sm-6">\n              <upload id="upload2"></upload>\n            </div>\n          </div>\n        </div>\n        ' ]);
+        var i = n(259);
+        var a = s(i);
         function s(e) {
             return e && e.__esModule ? e : {
                 default: e
@@ -193,12 +193,12 @@
                 }
             }));
         }
-        function u(e, t) {
+        function c(e, t) {
             if (!(e instanceof t)) {
                 throw new TypeError("Cannot call a class as a function");
             }
         }
-        function c(e, t) {
+        function u(e, t) {
             if (!e) {
                 throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             }
@@ -218,11 +218,11 @@
             });
             if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
         }
-        var d = function(e) {
+        var p = function(e) {
             f(t, e);
             function t() {
                 var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-                u(this, t);
+                c(this, t);
                 var n = {
                     components: [ {
                         el: "#upload1",
@@ -234,43 +234,43 @@
                     } ]
                 };
                 Object.assign(n, e);
-                return c(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
+                return u(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
             }
-            i(t, [ {
+            r(t, [ {
                 key: "render",
                 value: function e() {
-                    var t = hx(r);
+                    var t = hx(o);
                     return t;
                 }
             } ]);
             return t;
         }(Lego.UI.Baseview);
-        t.default = d;
+        t.default = p;
     },
     259: function(e, t, n) {
         "use strict";
-        var i = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
+        var r = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
             return typeof e;
         } : function(e) {
             return e && typeof Symbol === "function" && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e;
         };
-        function r(e) {
-            return e && (typeof e === "undefined" ? "undefined" : i(e)) === "object" && "default" in e ? e["default"] : e;
+        function o(e) {
+            return e && (typeof e === "undefined" ? "undefined" : r(e)) === "object" && "default" in e ? e["default"] : e;
         }
-        var o = r(n(260));
+        var i = o(n(260));
         var a = function() {
             function e(e, t) {
                 for (var n = 0; n < t.length; n++) {
-                    var i = t[n];
-                    i.enumerable = i.enumerable || false;
-                    i.configurable = true;
-                    if ("value" in i) i.writable = true;
-                    Object.defineProperty(e, i.key, i);
+                    var r = t[n];
+                    r.enumerable = r.enumerable || false;
+                    r.configurable = true;
+                    if ("value" in r) r.writable = true;
+                    Object.defineProperty(e, r.key, r);
                 }
             }
-            return function(t, n, i) {
+            return function(t, n, r) {
                 if (n) e(t.prototype, n);
-                if (i) e(t, i);
+                if (r) e(t, r);
                 return t;
             };
         }();
@@ -283,11 +283,11 @@
             if (!e) {
                 throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             }
-            return t && ((typeof t === "undefined" ? "undefined" : i(t)) === "object" || typeof t === "function") ? t : e;
+            return t && ((typeof t === "undefined" ? "undefined" : r(t)) === "object" || typeof t === "function") ? t : e;
         }
-        function u(e, t) {
+        function c(e, t) {
             if (typeof t !== "function" && t !== null) {
-                throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : i(t)));
+                throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : r(t)));
             }
             e.prototype = Object.create(t && t.prototype, {
                 constructor: {
@@ -299,13 +299,12 @@
             });
             if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
         }
-        var c = function(e) {
-            u(t, e);
+        var u = function(e) {
+            c(t, e);
             function t() {
                 var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
                 s(this, t);
                 var n = {
-                    id: "",
                     uploadUri: "",
                     downloadUri: Lego.config.downloadUri || "",
                     percent: 0,
@@ -317,15 +316,15 @@
                     onProgress: function e() {},
                     onComplete: function e() {},
                     onFail: function e() {},
-                    onCancel: function e() {}
+                    onCancel: function e() {},
+                    needToken: false
                 };
                 Object.assign(n, e);
-                var i = l(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
-                i.xhr = r();
-                i.startDate = 0;
-                i.form = null;
-                i.progressbar = null;
-                function r() {
+                var r = l(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
+                r.xhr = o();
+                r.startDate = 0;
+                r.form = null;
+                function o() {
                     var e;
                     if (window.XMLHttpRequest) {
                         e = new XMLHttpRequest();
@@ -345,31 +344,33 @@
                     }
                     return e;
                 }
-                if (i.options.percent == 0) {
-                    i.uploadInit();
-                    if (i.options.isAuto) i.start();
+                if (r.options.percent == 0) {
+                    if (r.options.needToken && r.options.params.token || !r.options.needToken) {
+                        r.uploadInit();
+                        if (r.options.isAuto) r.start();
+                    }
                 }
-                return i;
+                return r;
             }
             a(t, [ {
                 key: "uploadInit",
                 value: function e() {
                     var t = this;
-                    var n = 0, i = this.options.file, r = this.options.params;
+                    var n = 0, r = this.options.file, o = this.options.params;
                     this.xhr.crossDomain = true;
-                    this.id = this.options.file ? i.id : this.options.id ? this.options.id : Lego.randomKey(32);
+                    r.id = r.id || Lego.randomKey(32);
                     this.form = new FormData();
-                    this.form.append("file", i);
-                    if (!Object.values(r).length) {
-                        for (var o in r) {
-                            this.form.append(o, r[o]);
+                    this.form.append("file", r);
+                    if (!Object.values(o).length) {
+                        for (var i in o) {
+                            this.form.append(i, o[i]);
                         }
                     }
                     this.xhr.upload.addEventListener("progress", function(e) {
                         if (e.lengthComputable) {
-                            var i = new Date().getTime();
-                            n = i - t.startDate;
-                            var r = e.loaded / 1024, o = n / 1e3, a = r / o, s = void 0;
+                            var r = new Date().getTime();
+                            n = r - t.startDate;
+                            var o = e.loaded / 1024, i = n / 1e3, a = o / i, s = void 0;
                             if (a > 1024) {
                                 s = (a / 1024).toFixed(2) + "Mb/s";
                             } else {
@@ -378,6 +379,8 @@
                             var l = Math.round(e.loaded * 100 / e.total);
                             if (t.progressbar) {
                                 t.progressbar.options.percent = l;
+                            } else {
+                                t.options.percent = l;
                             }
                         }
                         if (typeof t.options.onProgress == "function") {
@@ -386,7 +389,7 @@
                     }, false);
                     this.xhr.addEventListener("loadstart", function(e) {
                         if (typeof t.options.onBegin == "function") {
-                            t.options.onBegin(i, t);
+                            t.options.onBegin(r, t);
                         }
                     }, false);
                     this.xhr.addEventListener("load", function(e) {
@@ -396,17 +399,21 @@
                             if (t.options.params.key) {
                                 t.options.file.url = t.options.downloadUri + t.options.key;
                             }
-                            t.options.percent = 100;
+                            if (t.progressbar) {
+                                t.progressbar.options.percent = 100;
+                            } else {
+                                t.options.percent = 100;
+                            }
                             if (typeof t.options.onComplete == "function") {
                                 t.options.onComplete(t, n);
                             }
                         } else if (t.xhr.status != 200 && t.xhr.responseText) {
-                            var i = {
+                            var r = {
                                 status: "error",
                                 data: "Unknown error occurred: [" + t.xhr.responseText + "]"
                             };
                             if (typeof t.options.onFail == "function") {
-                                t.options.onFail(t, i);
+                                t.options.onFail(t, r);
                             }
                         }
                     }, false);
@@ -446,21 +453,21 @@
         var f = function() {
             function e(e, t) {
                 for (var n = 0; n < t.length; n++) {
-                    var i = t[n];
-                    i.enumerable = i.enumerable || false;
-                    i.configurable = true;
-                    if ("value" in i) i.writable = true;
-                    Object.defineProperty(e, i.key, i);
+                    var r = t[n];
+                    r.enumerable = r.enumerable || false;
+                    r.configurable = true;
+                    if ("value" in r) r.writable = true;
+                    Object.defineProperty(e, r.key, r);
                 }
             }
-            return function(t, n, i) {
+            return function(t, n, r) {
                 if (n) e(t.prototype, n);
-                if (i) e(t, i);
+                if (r) e(t, r);
                 return t;
             };
         }();
-        var d = v([ '\n        <div class="progress">\n            ', '\n            <progress class="progress progress-', '" value="', '" max="100"></progress>\n        </div>\n        ' ], [ '\n        <div class="progress">\n            ', '\n            <progress class="progress progress-', '" value="', '" max="100"></progress>\n        </div>\n        ' ]);
-        var p = v([ '<div class="text-xs-center">', "</div>" ], [ '<div class="text-xs-center">', "</div>" ]);
+        var p = v([ '\n        <div class="progress">\n            ', '\n            <progress class="progress progress-', '" value="', '" max="100"></progress>\n        </div>\n        ' ], [ '\n        <div class="progress">\n            ', '\n            <progress class="progress progress-', '" value="', '" max="100"></progress>\n        </div>\n        ' ]);
+        var d = v([ '<div class="text-xs-center">', "</div>" ], [ '<div class="text-xs-center">', "</div>" ]);
         function v(e, t) {
             return Object.freeze(Object.defineProperties(e, {
                 raw: {
@@ -477,11 +484,11 @@
             if (!e) {
                 throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             }
-            return t && ((typeof t === "undefined" ? "undefined" : i(t)) === "object" || typeof t === "function") ? t : e;
+            return t && ((typeof t === "undefined" ? "undefined" : r(t)) === "object" || typeof t === "function") ? t : e;
         }
         function g(e, t) {
             if (typeof t !== "function" && t !== null) {
-                throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : i(t)));
+                throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : r(t)));
             }
             e.prototype = Object.create(t && t.prototype, {
                 constructor: {
@@ -493,7 +500,7 @@
             });
             if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
         }
-        var y = function(e) {
+        var m = function(e) {
             g(t, e);
             function t() {
                 var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -503,7 +510,8 @@
                     status: "",
                     showInfo: true,
                     percent: 0,
-                    strokeWidth: 6
+                    strokeWidth: 6,
+                    onComplete: function e() {}
                 };
                 Object.assign(n, e);
                 return b(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
@@ -512,7 +520,10 @@
                 key: "render",
                 value: function e() {
                     var t = this.options || {};
-                    var n = hx(d, t.showInfo ? hx(p, this.format(t.percent)) : "", t.status ? t.status : "primary", t.percent);
+                    if (t.percent == 100) {
+                        if (typeof t.onComplete == "function") t.onComplete();
+                    }
+                    var n = hx(p, t.showInfo ? hx(d, this.format(t.percent)) : "", t.status ? t.status : "primary", t.percent);
                     return n;
                 }
             }, {
@@ -527,35 +538,35 @@
             } ]);
             return t;
         }(Lego.UI.Baseview);
-        Lego.components("progressbar", y);
-        var m = function() {
+        Lego.components("progressbar", m);
+        var y = function() {
             function e(e, t) {
                 for (var n = 0; n < t.length; n++) {
-                    var i = t[n];
-                    i.enumerable = i.enumerable || false;
-                    i.configurable = true;
-                    if ("value" in i) i.writable = true;
-                    Object.defineProperty(e, i.key, i);
+                    var r = t[n];
+                    r.enumerable = r.enumerable || false;
+                    r.configurable = true;
+                    if ("value" in r) r.writable = true;
+                    Object.defineProperty(e, r.key, r);
                 }
             }
-            return function(t, n, i) {
+            return function(t, n, r) {
                 if (n) e(t.prototype, n);
-                if (i) e(t, i);
+                if (r) e(t, r);
                 return t;
             };
         }();
-        var w = L([ '\n        <div class="media upload-item">\n            <div class="media-left">\n                <i class="anticon anticon-', '"></i>\n            </div>\n            ', "\n        </div>\n        " ], [ '\n        <div class="media upload-item">\n            <div class="media-left">\n                <i class="anticon anticon-', '"></i>\n            </div>\n            ', "\n        </div>\n        " ]);
-        var O = L([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="cancelbtn">取消</a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="cancelbtn">取消</a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ]);
-        var j = L([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        ', '\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </div>\n                    ', '\n                </h4>\n                <small style="display:none;">\n                    <cite>', "</cite>\n                    <time></time>\n                </small>\n            </div>\n            " ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        ', '\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </div>\n                    ', '\n                </h4>\n                <small style="display:none;">\n                    <cite>', "</cite>\n                    <time></time>\n                </small>\n            </div>\n            " ]);
-        var x = L([ '<a href="javascript:;" class="close" data-id="', '" data-hash="', '">删除</a>' ], [ '<a href="javascript:;" class="close" data-id="', '" data-hash="', '">删除</a>' ]);
-        function L(e, t) {
+        var w = k([ '\n        <div class="media upload-item">\n            <div class="media-left">\n                <i class="anticon anticon-', '"></i>\n            </div>\n            ', "\n        </div>\n        " ], [ '\n        <div class="media upload-item">\n            <div class="media-left">\n                <i class="anticon anticon-', '"></i>\n            </div>\n            ', "\n        </div>\n        " ]);
+        var O = k([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="cancelbtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="cancelbtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ]);
+        var j = k([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        ', "\n                    </div>\n                    ", "\n                </h4>\n                <small>\n                    <cite>", '</cite>\n                    <time>\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </time>\n                </small>\n            </div>\n            ' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        ', "\n                    </div>\n                    ", "\n                </h4>\n                <small>\n                    <cite>", '</cite>\n                    <time>\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </time>\n                </small>\n            </div>\n            ' ]);
+        var x = k([ '<a href="javascript:;" class="closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>' ], [ '<a href="javascript:;" class="closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>' ]);
+        function k(e, t) {
             return Object.freeze(Object.defineProperties(e, {
                 raw: {
                     value: Object.freeze(t)
                 }
             }));
         }
-        function k(e, t) {
+        function L(e, t) {
             if (!(e instanceof t)) {
                 throw new TypeError("Cannot call a class as a function");
             }
@@ -564,11 +575,11 @@
             if (!e) {
                 throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             }
-            return t && ((typeof t === "undefined" ? "undefined" : i(t)) === "object" || typeof t === "function") ? t : e;
+            return t && ((typeof t === "undefined" ? "undefined" : r(t)) === "object" || typeof t === "function") ? t : e;
         }
         function P(e, t) {
             if (typeof t !== "function" && t !== null) {
-                throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : i(t)));
+                throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : r(t)));
             }
             e.prototype = Object.create(t && t.prototype, {
                 constructor: {
@@ -584,13 +595,12 @@
             P(t, e);
             function t() {
                 var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-                k(this, t);
+                L(this, t);
                 var n = {
                     events: {
                         "click .cancelbtn": "onCancel",
-                        "click .close": "onRemove"
+                        "click .closebtn": "onRemove"
                     },
-                    id: "",
                     uploadUri: "",
                     url: "",
                     percent: 0,
@@ -605,22 +615,29 @@
                     onCancel: function e() {}
                 };
                 Object.assign(n, e);
-                var i = _(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
-                if (i.options.percent < 100) {
-                    i.progressbar = Lego.create(y, {
-                        el: "#progressbar_" + n.vid,
-                        showInfo: false,
-                        status: "success"
-                    });
-                }
-                return i;
+                return _(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
             }
-            m(t, [ {
+            y(t, [ {
                 key: "render",
                 value: function e() {
                     var t = this.options || {};
-                    var n = hx(w, Lego.UI.Util.getFileIcon(t.file.name), t.percent < 100 ? hx(O, val(t.file.name), "progressbar_" + t.vid) : hx(j, t.percent == 100 ? hx(x, val(t.id), val(t.file.hash)) : "", val(t.file.url), val(t.file.name), val(t.file.name), Lego.UI.Util.convertByteUnit(t.file.size)));
+                    var n = hx(w, Lego.UI.Util.getFileIcon(t.file.name), t.percent < 100 ? hx(O, val(t.file.name), "progressbar_" + t.vid) : hx(j, t.percent == 100 ? hx(x) : "", val(t.file.name), Lego.UI.Util.convertByteUnit(t.file.size), val(t.file.url), val(t.file.name)));
                     return n;
+                }
+            }, {
+                key: "renderAfter",
+                value: function e() {
+                    var t = this.options;
+                    if (t.percent < 100) {
+                        this.progressbar = Lego.create(m, {
+                            el: "#progressbar_" + t.vid,
+                            showInfo: false,
+                            status: "success",
+                            onComplete: function e() {
+                                t.percent = 100;
+                            }
+                        });
+                    }
                 }
             }, {
                 key: "onCancel",
@@ -633,38 +650,38 @@
                 key: "onRemove",
                 value: function e(t) {
                     t.stopPropagation();
-                    var n = $(t.currentTarget), i = n.data("id"), r = n.data("hash");
+                    var n = $(t.currentTarget), r = n.data("id"), o = n.data("hash");
                     if (this.options.onRemove) {
-                        return this.options.onRemove(i, r);
+                        return this.options.onRemove(r, o);
                     }
                     this.remove();
                 }
             } ]);
             return t;
-        }(c);
-        var U = typeof Symbol === "function" && i(Symbol.iterator) === "symbol" ? function(e) {
-            return typeof e === "undefined" ? "undefined" : i(e);
+        }(u);
+        var U = typeof Symbol === "function" && r(Symbol.iterator) === "symbol" ? function(e) {
+            return typeof e === "undefined" ? "undefined" : r(e);
         } : function(e) {
-            return e && typeof Symbol === "function" && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e === "undefined" ? "undefined" : i(e);
+            return e && typeof Symbol === "function" && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e === "undefined" ? "undefined" : r(e);
         };
         var C = function() {
             function e(e, t) {
                 for (var n = 0; n < t.length; n++) {
-                    var i = t[n];
-                    i.enumerable = i.enumerable || false;
-                    i.configurable = true;
-                    if ("value" in i) i.writable = true;
-                    Object.defineProperty(e, i.key, i);
+                    var r = t[n];
+                    r.enumerable = r.enumerable || false;
+                    r.configurable = true;
+                    if ("value" in r) r.writable = true;
+                    Object.defineProperty(e, r.key, r);
                 }
             }
-            return function(t, n, i) {
+            return function(t, n, r) {
                 if (n) e(t.prototype, n);
-                if (i) e(t, i);
+                if (r) e(t, r);
                 return t;
             };
         }();
-        var E = R([ '\n        <div class="upload upload-', '">\n            <button class="btn btn-secondary addbtn" type="button" ', '>\n                <i class="anticon anticon-upload"></i>\n                ', '\n            </button>\n            <input type="hidden" value="', '" name="', '" class="upload-value">\n            <input multiple="multiple" type="file" class="form-control fileInput hide" accept="', '" style="display:none">\n            ', "\n        </div>\n        " ], [ '\n        <div class="upload upload-', '">\n            <button class="btn btn-secondary addbtn" type="button" ', '>\n                <i class="anticon anticon-upload"></i>\n                ', '\n            </button>\n            <input type="hidden" value="', '" name="', '" class="upload-value">\n            <input multiple="multiple" type="file" class="form-control fileInput hide" accept="', '" style="display:none">\n            ', "\n        </div>\n        " ]);
-        var T = R([ '<div class="upload-container"></div>' ], [ '<div class="upload-container"></div>' ]);
+        var T = R([ '\n        <div class="upload upload-', '">\n            <button class="btn btn-secondary addbtn" type="button" ', '>\n                <i class="anticon anticon-upload"></i>\n                ', '\n            </button>\n            <input type="hidden" value="', '" name="', '" class="upload-value">\n            <input multiple="multiple" type="file" class="form-control fileInput hide" accept="', '" style="display:none">\n            ', "\n        </div>\n        " ], [ '\n        <div class="upload upload-', '">\n            <button class="btn btn-secondary addbtn" type="button" ', '>\n                <i class="anticon anticon-upload"></i>\n                ', '\n            </button>\n            <input type="hidden" value="', '" name="', '" class="upload-value">\n            <input multiple="multiple" type="file" class="form-control fileInput hide" accept="', '" style="display:none">\n            ', "\n        </div>\n        " ]);
+        var E = R([ '<div class="upload-container"></div>' ], [ '<div class="upload-container"></div>' ]);
         function R(e, t) {
             return Object.freeze(Object.defineProperties(e, {
                 raw: {
@@ -681,11 +698,11 @@
             if (!e) {
                 throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             }
-            return t && ((typeof t === "undefined" ? "undefined" : i(t)) === "object" || typeof t === "function") ? t : e;
+            return t && ((typeof t === "undefined" ? "undefined" : r(t)) === "object" || typeof t === "function") ? t : e;
         }
         function F(e, t) {
             if (typeof t !== "function" && t !== null) {
-                throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : i(t)));
+                throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : r(t)));
             }
             e.prototype = Object.create(t && t.prototype, {
                 constructor: {
@@ -697,7 +714,7 @@
             });
             if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
         }
-        var B = function(e) {
+        var A = function(e) {
             F(t, e);
             function t() {
                 var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -725,7 +742,6 @@
                     disabled: false,
                     hasCookie: false,
                     showUploadList: true,
-                    data: e.token,
                     value: [],
                     onAddFile: function e() {},
                     onBegin: function e() {},
@@ -735,26 +751,26 @@
                     onCancel: function e() {}
                 };
                 Object.assign(n, e);
-                var i = M(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
-                i.reset();
-                i.$(".fileInput").on("change", function(e) {
+                var r = M(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
+                r.reset();
+                r.$(".fileInput").on("change", function(e) {
                     var t = $(e.currentTarget)[0];
-                    i.uploadInit(t.files);
+                    r.uploadInit(t.files);
                 });
-                if (i.options.value.length) {
-                    i.options.value.forEach(function(e, t) {
+                if (r.options.value.length) {
+                    r.options.value.forEach(function(e, t) {
                         e.percent = 100;
-                        i.showItem(e);
+                        r.showItem(e);
                     });
                 }
-                return i;
+                return r;
             }
             C(t, [ {
                 key: "render",
                 value: function e() {
                     var t = this.options;
                     var n = "";
-                    n = hx(E, val(t.type), t.disabled ? "disabled" : "", val(t.text), t.value.join(","), val(t.name), val(t.accept), t.showUploadList ? hx(T) : "");
+                    n = hx(T, val(t.type), t.disabled ? "disabled" : "", val(t.text), this.getValue(), val(t.name), val(t.accept), t.showUploadList ? hx(E) : "");
                     return t.template ? t.template : n;
                 }
             }, {
@@ -766,7 +782,7 @@
                     } else {
                         n = [ t ];
                     }
-                    var i = this, r = this.options, a = n.length, s = r.maxFilesCount;
+                    var r = this, o = this.options, a = n.length, s = o.maxFilesCount;
                     if (a) {
                         if (a > s) {
                             Lego.UI.notification("warning", "只能上传" + s + "张图片");
@@ -774,11 +790,11 @@
                         }
                         this.fileList.concat(n);
                         this.fileList = this.fileList.slice(0, s);
-                        if (typeof r.onAddFile == "function") r.onAddFile(this.fileList, n);
+                        if (typeof o.onAddFile == "function") o.onAddFile(this.fileList, n);
                         n.forEach(function(e, t) {
                             e.id = Lego.randomKey(32);
-                            if (Math.ceil(e.size / (1024 * 1024)) > parseInt(r.maxFileSize)) {
-                                var a = "发送文件最大为" + r.maxFileSize;
+                            if (Math.ceil(e.size / (1024 * 1024)) > parseInt(o.maxFileSize)) {
+                                var a = "发送文件最大为" + o.maxFileSize;
                                 if (n.length == 1) {
                                     Lego.UI.notification("error", a);
                                 } else {
@@ -786,42 +802,42 @@
                                 }
                                 return;
                             }
-                            if (i.fileList.find(function(t) {
+                            if (r.fileList.find(function(t) {
                                 return t == e;
                             })) return;
                             var s = {
-                                id: e.id,
-                                uploadUri: r.uploadUri,
-                                isAuto: r.isAuto,
+                                uploadUri: o.uploadUri,
+                                isAuto: o.isAuto,
                                 file: e,
-                                type: r.type,
+                                type: o.type,
                                 percent: 0,
                                 params: Object.assign({
-                                    key: r.key || i.getKey(e.name),
-                                    token: r.data
-                                }, r.params),
-                                onBegin: r.onBegin,
-                                onProgress: r.onProgress,
-                                onComplete: r.onComplete || function(t, n) {
-                                    n.url = Lego.config.downloadUri + n.key;
+                                    key: o.key || r.getKey(e.name),
+                                    token: typeof o.data == "string" ? o.data : ""
+                                }, o.params),
+                                needToken: true,
+                                onBegin: o.onBegin,
+                                onProgress: o.onProgress,
+                                onComplete: o.onComplete || function(e, t) {
+                                    t.url = Lego.config.downloadUri + t.key;
                                     $.ajax({
                                         url: Lego.config.saveUri,
                                         type: "POST",
                                         dataType: "json",
-                                        data: n,
-                                        success: function t(n) {
-                                            var i = r.value.find(function(e) {
-                                                return e.file.hash == n.data.hash;
+                                        data: t,
+                                        success: function e(t) {
+                                            var n = o.value.find(function(e) {
+                                                return e.file.hash == t.data.hash;
                                             });
-                                            if (i) {
-                                                if (n.data.id) i.id = n.data.id;
+                                            if (n) {
+                                                if (t.data.id) n.id = t.data.id;
                                             } else {
-                                                r.value.push({
-                                                    id: e.id,
-                                                    file: n.data,
-                                                    type: r.type,
+                                                o.value.push({
+                                                    file: t.data,
+                                                    type: o.type,
                                                     percent: 100
                                                 });
+                                                r.refresh();
                                             }
                                         },
                                         error: function e(t) {
@@ -829,21 +845,21 @@
                                         }
                                     });
                                 },
-                                onFail: r.onFail,
-                                onCancel: r.onCancel
+                                onFail: o.onFail,
+                                onCancel: o.onCancel
                             };
-                            if (r.previewOption) {
-                                s.previewOption = r.previewOption;
+                            if (o.previewOption) {
+                                s.previewOption = o.previewOption;
                                 s.isAuto = false;
-                                o(e, Object.assign(r.previewOption, {
+                                i(e, Object.assign(o.previewOption, {
                                     success: function e(t) {
                                         s.previewImgSrc = t.blob;
-                                        var n = i.showItem(s);
+                                        var n = r.showItem(s);
                                         n.sendUpload();
                                     }
                                 }));
                             } else {
-                                i.showItem(s);
+                                r.showItem(s);
                             }
                         });
                     } else {
@@ -863,12 +879,13 @@
             }, {
                 key: "showItem",
                 value: function e(t) {
-                    var n = new I(t), i = this.$(".upload-container");
-                    if (i.length && n) {
+                    var n = Lego.create(I, t);
+                    var r = this.$(".upload-container");
+                    if (r.length && n) {
                         if (this.options.multiple) {
-                            i.append(n.el);
+                            r.append(n.el);
                         } else {
-                            i.html(n.el);
+                            r.html(n.el);
                         }
                     }
                     return n;
@@ -879,7 +896,7 @@
                     var t = [];
                     if (this.options.value.length) {
                         t = this.options.value.map(function(e) {
-                            return e.id;
+                            return e.file.id;
                         });
                     }
                     return t.join(",");
@@ -892,154 +909,154 @@
             } ]);
             return t;
         }(Lego.UI.Baseview);
-        Lego.components("upload", B);
-        e.exports = B;
+        Lego.components("upload", A);
+        e.exports = A;
     },
     260: function(e, t) {
         var n = function(e, t) {
             var n = n || webkitURL;
-            var i = n.createObjectURL(e);
-            var r = new Image();
-            r.src = i;
-            r.onload = function() {
+            var r = n.createObjectURL(e);
+            var o = new Image();
+            o.src = r;
+            o.onload = function() {
                 var e = this;
-                var n = e.width, o = e.height, a = n / o;
+                var n = e.width, i = e.height, a = n / i;
                 n = t.width || n;
-                o = n / a;
+                i = n / a;
                 var s = document.createElement("canvas");
-                var u = s.getContext("2d");
+                var c = s.getContext("2d");
                 $(s).attr({
                     width: n,
-                    height: o
+                    height: i
                 });
-                u.drawImage(e, 0, 0, n, o);
-                var c = s.toDataURL("image/jpeg", t.quality || .8);
+                c.drawImage(e, 0, 0, n, i);
+                var u = s.toDataURL("image/jpeg", t.quality || .8);
                 if (navigator.userAgent.match(/iphone/i)) {
-                    var f = new l(r);
+                    var f = new l(o);
                     f.render(s, {
                         maxWidth: n,
-                        maxHeight: o,
+                        maxHeight: i,
                         quality: t.quality || .8,
                         orientation: 1
                     });
-                    c = s.toDataURL("image/jpeg", t.quality || .8);
+                    u = s.toDataURL("image/jpeg", t.quality || .8);
                 }
                 if (navigator.userAgent.match(/Android/i)) {
-                    var d = new JPEGEncoder();
-                    c = d.encode(u.getImageData(0, 0, n, o), t.quality * 100 || 80);
+                    var p = new JPEGEncoder();
+                    u = p.encode(c.getImageData(0, 0, n, i), t.quality * 100 || 80);
                 }
-                var p = {
+                var d = {
                     width: n,
-                    height: o,
-                    blob: i,
-                    base64: c,
-                    clearBase64: c.substr(c.indexOf(",") + 1)
+                    height: i,
+                    blob: r,
+                    base64: u,
+                    clearBase64: u.substr(u.indexOf(",") + 1)
                 };
-                t.success(p);
+                t.success(d);
             };
         };
-        function i(e) {
+        function r(e) {
             var t = e.naturalWidth, n = e.naturalHeight;
             if (t * n > 1024 * 1024) {
-                var i = document.createElement("canvas");
-                i.width = i.height = 1;
-                var r = i.getContext("2d");
-                r.drawImage(e, -t + 1, 0);
-                return r.getImageData(0, 0, 1, 1).data[3] === 0;
+                var r = document.createElement("canvas");
+                r.width = r.height = 1;
+                var o = r.getContext("2d");
+                o.drawImage(e, -t + 1, 0);
+                return o.getImageData(0, 0, 1, 1).data[3] === 0;
             } else {
                 return false;
             }
         }
-        function r(e, t, n) {
-            var i = document.createElement("canvas");
-            i.width = 1;
-            i.height = n;
-            var r = i.getContext("2d");
-            r.drawImage(e, 0, 0);
-            var o = r.getImageData(0, 0, 1, n).data;
+        function o(e, t, n) {
+            var r = document.createElement("canvas");
+            r.width = 1;
+            r.height = n;
+            var o = r.getContext("2d");
+            o.drawImage(e, 0, 0);
+            var i = o.getImageData(0, 0, 1, n).data;
             var a = 0;
             var s = n;
             var l = n;
             while (l > a) {
-                var u = o[(l - 1) * 4 + 3];
-                if (u === 0) {
+                var c = i[(l - 1) * 4 + 3];
+                if (c === 0) {
                     s = l;
                 } else {
                     a = l;
                 }
                 l = s + a >> 1;
             }
-            var c = l / n;
-            return c === 0 ? 1 : c;
+            var u = l / n;
+            return u === 0 ? 1 : u;
         }
-        function o(e, t, n) {
-            var i = document.createElement("canvas");
-            a(e, i, t, n);
-            return i.toDataURL("image/jpeg", t.quality || .8);
+        function i(e, t, n) {
+            var r = document.createElement("canvas");
+            a(e, r, t, n);
+            return r.toDataURL("image/jpeg", t.quality || .8);
         }
-        function a(e, t, n, o) {
+        function a(e, t, n, i) {
             var a = e.naturalWidth, l = e.naturalHeight;
-            var u = n.width, c = n.height;
+            var c = n.width, u = n.height;
             var f = t.getContext("2d");
             f.save();
-            s(t, f, u, c, n.orientation);
-            var d = i(e);
-            if (d) {
+            s(t, f, c, u, n.orientation);
+            var p = r(e);
+            if (p) {
                 a /= 2;
                 l /= 2;
             }
-            var p = 1024;
+            var d = 1024;
             var v = document.createElement("canvas");
-            v.width = v.height = p;
+            v.width = v.height = d;
             var h = v.getContext("2d");
-            var b = o ? r(e, a, l) : 1;
-            var g = Math.ceil(p * u / a);
-            var y = Math.ceil(p * c / l / b);
-            var m = 0;
+            var b = i ? o(e, a, l) : 1;
+            var g = Math.ceil(d * c / a);
+            var m = Math.ceil(d * u / l / b);
+            var y = 0;
             var w = 0;
-            while (m < l) {
+            while (y < l) {
                 var O = 0;
                 var j = 0;
                 while (O < a) {
-                    h.clearRect(0, 0, p, p);
-                    h.drawImage(e, -O, -m);
-                    f.drawImage(v, 0, 0, p, p, j, w, g, y);
-                    O += p;
+                    h.clearRect(0, 0, d, d);
+                    h.drawImage(e, -O, -y);
+                    f.drawImage(v, 0, 0, d, d, j, w, g, m);
+                    O += d;
                     j += g;
                 }
-                m += p;
-                w += y;
+                y += d;
+                w += m;
             }
             f.restore();
             v = h = null;
         }
-        function s(e, t, n, i, r) {
-            switch (r) {
+        function s(e, t, n, r, o) {
+            switch (o) {
               case 5:
               case 6:
               case 7:
               case 8:
-                e.width = i;
+                e.width = r;
                 e.height = n;
                 break;
 
               default:
                 e.width = n;
-                e.height = i;
+                e.height = r;
             }
-            switch (r) {
+            switch (o) {
               case 2:
                 t.translate(n, 0);
                 t.scale(-1, 1);
                 break;
 
               case 3:
-                t.translate(n, i);
+                t.translate(n, r);
                 t.rotate(Math.PI);
                 break;
 
               case 4:
-                t.translate(0, i);
+                t.translate(0, r);
                 t.scale(1, -1);
                 break;
 
@@ -1050,12 +1067,12 @@
 
               case 6:
                 t.rotate(.5 * Math.PI);
-                t.translate(0, -i);
+                t.translate(0, -r);
                 break;
 
               case 7:
                 t.rotate(.5 * Math.PI);
-                t.translate(n, -i);
+                t.translate(n, -r);
                 t.scale(-1, 1);
                 break;
 
@@ -1080,11 +1097,11 @@
                 e = t;
             }
             if (!e.naturalWidth && !e.naturalHeight) {
-                var i = this;
+                var r = this;
                 e.onload = function() {
-                    var e = i.imageLoadListeners;
+                    var e = r.imageLoadListeners;
                     if (e) {
-                        i.imageLoadListeners = null;
+                        r.imageLoadListeners = null;
                         for (var t = 0, n = e.length; t < n; t++) {
                             e[t]();
                         }
@@ -1103,33 +1120,33 @@
                 return;
             }
             t = t || {};
-            var i = this.srcImage.naturalWidth, r = this.srcImage.naturalHeight, s = t.width, l = t.height, u = t.maxWidth, c = t.maxHeight, f = !this.blob || this.blob.type === "image/jpeg";
+            var r = this.srcImage.naturalWidth, o = this.srcImage.naturalHeight, s = t.width, l = t.height, c = t.maxWidth, u = t.maxHeight, f = !this.blob || this.blob.type === "image/jpeg";
             if (s && !l) {
-                l = r * s / i << 0;
+                l = o * s / r << 0;
             } else if (l && !s) {
-                s = i * l / r << 0;
+                s = r * l / o << 0;
             } else {
-                s = i;
-                l = r;
+                s = r;
+                l = o;
             }
-            if (u && s > u) {
-                s = u;
-                l = r * s / i << 0;
+            if (c && s > c) {
+                s = c;
+                l = o * s / r << 0;
             }
-            if (c && l > c) {
-                l = c;
-                s = i * l / r << 0;
+            if (u && l > u) {
+                l = u;
+                s = r * l / o << 0;
             }
-            var d = {
+            var p = {
                 width: s,
                 height: l
             };
-            for (var p in t) d[p] = t[p];
+            for (var d in t) p[d] = t[d];
             var v = e.tagName.toLowerCase();
             if (v === "img") {
-                e.src = o(this.srcImage, d, f);
+                e.src = i(this.srcImage, p, f);
             } else if (v === "canvas") {
-                a(this.srcImage, e, d, f);
+                a(this.srcImage, e, p, f);
             }
             if (typeof this.onrender === "function") {
                 this.onrender(e);

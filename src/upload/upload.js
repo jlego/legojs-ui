@@ -8,7 +8,6 @@
 class UploadView extends Lego.View {
     constructor(opts = {}) {
         const options = {
-            id: '',
             uploadUri: '',
             downloadUri: Lego.config.downloadUri || '',    //下载根地址
             percent: 0,     //上传进度百分比, 用来判断是否要上传
@@ -21,6 +20,7 @@ class UploadView extends Lego.View {
             onComplete() {},
             onFail() {},
             onCancel() {},
+            needToken: false
             // onRemove() {}
         };
         Object.assign(options, opts);
@@ -29,7 +29,6 @@ class UploadView extends Lego.View {
         this.xhr = createXMLHTTPRequest();
         this.startDate = 0;
         this.form = null;
-        this.progressbar = null;    //进度条视图实例
 
         function createXMLHTTPRequest() {
             var xmlHttpRequest;
@@ -52,8 +51,10 @@ class UploadView extends Lego.View {
             return xmlHttpRequest;
         }
         if(this.options.percent == 0){
-            this.uploadInit();
-            if (this.options.isAuto) this.start();
+            if((this.options.needToken && this.options.params.token) || !this.options.needToken){
+                this.uploadInit();
+                if (this.options.isAuto) this.start();
+            }
         }
     }
     // 表单上传
@@ -62,7 +63,7 @@ class UploadView extends Lego.View {
             file = this.options.file,
             params = this.options.params;
         this.xhr.crossDomain = true;
-        this.id = this.options.file ? file.id : (this.options.id ? this.options.id : Lego.randomKey(32));
+        file.id = file.id || Lego.randomKey(32);
 
         this.form = new FormData();
         this.form.append('file', file);
@@ -86,9 +87,10 @@ class UploadView extends Lego.View {
                     formatSpeed = uploadSpeed.toFixed(2) + "Kb\/s";
                 }
                 let percent = Math.round(event.loaded * 100 / event.total);
-                // this.options.percent = percent;
                 if (this.progressbar) {
                     this.progressbar.options.percent = percent;
+                }else{
+                    this.options.percent = percent;
                 }
             }
             if (typeof this.options.onProgress == "function") {
@@ -110,7 +112,11 @@ class UploadView extends Lego.View {
                 if(this.options.params.key){
                     this.options.file.url = this.options.downloadUri + this.options.key;
                 }
-                this.options.percent = 100;
+                if (this.progressbar) {
+                    this.progressbar.options.percent = 100;
+                }else{
+                    this.options.percent = 100;
+                }
                 // debug.warn("上传成功:"+ this.options.id);
                 if (typeof this.options.onComplete == "function") {
                     this.options.onComplete(this, resp);

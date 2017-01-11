@@ -6634,8 +6634,8 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
     -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);
     transform: skewX(-0.78125deg) skewY(-0.78125deg); }
   77.7% {
-    -webkit-transform: skewX(0.39063deg) skewY(0.39063deg);
-    transform: skewX(0.39063deg) skewY(0.39063deg); }
+    -webkit-transform: skewX(0.39062deg) skewY(0.39062deg);
+    transform: skewX(0.39062deg) skewY(0.39062deg); }
   88.8% {
     -webkit-transform: skewX(-0.19531deg) skewY(-0.19531deg);
     transform: skewX(-0.19531deg) skewY(-0.19531deg); }
@@ -6663,8 +6663,8 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
     -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);
     transform: skewX(-0.78125deg) skewY(-0.78125deg); }
   77.7% {
-    -webkit-transform: skewX(0.39063deg) skewY(0.39063deg);
-    transform: skewX(0.39063deg) skewY(0.39063deg); }
+    -webkit-transform: skewX(0.39062deg) skewY(0.39062deg);
+    transform: skewX(0.39062deg) skewY(0.39062deg); }
   88.8% {
     -webkit-transform: skewX(-0.19531deg) skewY(-0.19531deg);
     transform: skewX(-0.19531deg) skewY(-0.19531deg); }
@@ -11083,26 +11083,39 @@ ul.ztree.zTreeDragUL {
   font-size: 16px;
   display: inline-block; }
 
+.upload .cancelbtn {
+  zoom: 0.8; }
+
+.upload .closebtn {
+  zoom: 0.8;
+  display: none; }
+
 .upload .upload-item {
+  position: relative;
   padding: 8px;
   border-radius: 3px;
   margin-top: 8px;
   border: 1px #ddd solid; }
 
 .upload .upload-item:hover {
-  background-color: #f3f3f3; }
+  border-color: #c5c5c5; }
 
 .upload .upload-item .media-left i {
   font-size: 40px;
   color: #f90; }
 
 .upload .upload-item .media-body .media-heading {
+  margin-right: 40px;
   font-size: 14px;
   font-weight: normal;
-  margin-bottom: 8px; }
+  margin-bottom: 8px;
+  word-wrap: break-word;
+  word-break: break-all; }
 
 .upload .upload-item .media-body .media-heading .right {
-  float: right; }
+  position: absolute;
+  top: 8px;
+  right: 8px; }
 
 .upload .upload-item .media-body .media-heading .right a {
   margin-left: 8px; }
@@ -11115,7 +11128,11 @@ ul.ztree.zTreeDragUL {
   font-style: inherit; }
 
 .upload .upload-item .media-body small time {
-  float: right; }
+  display: none;
+  margin-left: 15px; }
+
+.upload .upload-item .media-body small time a {
+  margin-left: 5px; }
 
 .upload .upload-item .media-body .progress {
   margin-bottom: 0;
@@ -11128,3 +11145,7 @@ ul.ztree.zTreeDragUL {
 .upload .upload-item .media-body .progress-bar {
   -webkit-box-shadow: none;
   box-shadow: none; }
+
+.upload .upload-item:hover .closebtn,
+.upload .upload-item:hover small time {
+  display: inline-block; }

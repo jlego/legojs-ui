@@ -32,7 +32,7 @@ class Upload extends Lego.UI.Baseview {
             disabled: false,    //是否禁用
             hasCookie: false,   //上传请求时是否携带 cookie
             showUploadList: true,  //是否展示 uploadList, 默认开启
-            data: opts.token, //返回上传动态token
+            // data: opts.token, //返回上传动态token
             value: [],  //已上传文件
             onAddFile() {},
             onBegin() {},
@@ -65,7 +65,7 @@ class Upload extends Lego.UI.Baseview {
                 <i class="anticon anticon-upload"></i>
                 ${val(options.text)}
             </button>
-            <input type="hidden" value="${options.value.join(',')}" name="${val(options.name)}" class="upload-value">
+            <input type="hidden" value="${this.getValue()}" name="${val(options.name)}" class="upload-value">
             <input multiple="multiple" type="file" class="form-control fileInput hide" accept="${val(options.accept)}" style="display:none">
             ${options.showUploadList ? hx`<div class="upload-container"></div>` : ''}
         </div>
@@ -104,7 +104,6 @@ class Upload extends Lego.UI.Baseview {
                 }
                 if(that.fileList.find(item => item == file)) return;
                 const uploadOption = {
-                    id: file.id,
                     uploadUri: options.uploadUri,
                     isAuto: options.isAuto,
                     file: file,
@@ -112,8 +111,9 @@ class Upload extends Lego.UI.Baseview {
                     percent: 0,
                     params: Object.assign({
                         key: options.key || that.getKey(file.name),
-                        token: options.data
+                        token: typeof options.data == 'string' ? options.data : ''
                     }, options.params),
+                    needToken: true,
                     onBegin: options.onBegin,
                     onProgress: options.onProgress,
                     onComplete: options.onComplete || function(uploadObj, resp) {
@@ -130,11 +130,11 @@ class Upload extends Lego.UI.Baseview {
                                     if(response.data.id) theFile.id = response.data.id;
                                 }else{
                                     options.value.push({
-                                        id: file.id,
                                         file: response.data,
                                         type: options.type,
                                         percent: 100
                                     });
+                                    that.refresh();
                                 }
                             },
                             error: function(err) {
@@ -171,8 +171,8 @@ class Upload extends Lego.UI.Baseview {
     }
     // 展示上传的文件视图
     showItem(uploadOption) {
-        const view = new UploadItem(uploadOption),
-            containerEl = this.$('.upload-container');
+        const view = Lego.create(UploadItem, uploadOption);
+        const containerEl = this.$('.upload-container');
         if (containerEl.length && view) {
             if (this.options.multiple) {
                containerEl.append(view.el);
@@ -186,7 +186,7 @@ class Upload extends Lego.UI.Baseview {
     getValue() {
         let result = [];
         if (this.options.value.length) {
-            result = this.options.value.map(item => item.id);
+            result = this.options.value.map(item => item.file.id);
         }
         return result.join(',');
     }

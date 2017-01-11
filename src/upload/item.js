@@ -33,9 +33,8 @@ class UploadItem extends UploadBase {
         const options = {
             events: {
                 'click .cancelbtn': 'onCancel',
-                'click .close': 'onRemove'
+                'click .closebtn': 'onRemove'
             },
-            id: '',
             uploadUri: '',
             url: '',
             percent: 0,     //上传进度百分比
@@ -52,14 +51,6 @@ class UploadItem extends UploadBase {
         };
         Object.assign(options, opts);
         super(options);
-
-        if(this.options.percent < 100){
-            this.progressbar = Lego.create(Progressbar, {
-                el: '#progressbar_' + options.vid,
-                showInfo: false,
-                status: 'success'
-            });
-        }
     }
     render() {
         const options = this.options || {};
@@ -72,7 +63,7 @@ class UploadItem extends UploadBase {
             <div class="media-body">
                 <h4 class="media-heading">
                     <div class="right">
-                        <a href="javascript:;" class="cancelbtn">取消</a>
+                        <a href="javascript:;" class="cancelbtn"><i class="anticon anticon-cross float-xs-right close"></i></a>
                     </div>
                     ${val(options.file.name)}
                 </h4>
@@ -81,21 +72,35 @@ class UploadItem extends UploadBase {
             <div class="media-body">
                 <h4 class="media-heading">
                     <div class="right">
-                        ${options.percent == 100 ? hx`<a href="javascript:;" class="close" data-id="${val(options.id)}" data-hash="${val(options.file.hash)}">删除</a>` : ''}
-                        <a href="${val(options.file.url)}?attname=${val(options.file.name)}" target="_blank">下载</a>
-                        <a href="#" style="display:none">预览</a>
+                        ${options.percent == 100 ? hx`<a href="javascript:;" class="closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>` : ''}
                     </div>
                     ${val(options.file.name)}
                 </h4>
-                <small style="display:none;">
+                <small>
                     <cite>${Lego.UI.Util.convertByteUnit(options.file.size)}</cite>
-                    <time></time>
+                    <time>
+                        <a href="${val(options.file.url)}?attname=${val(options.file.name)}" target="_blank">下载</a>
+                        <a href="#" style="display:none">预览</a>
+                    </time>
                 </small>
             </div>
             `}
         </div>
         `;
         return vDom;
+    }
+    renderAfter(){
+        const options = this.options;
+        if(options.percent < 100){
+            this.progressbar = Lego.create(Progressbar, {
+                el: '#progressbar_' + options.vid,
+                showInfo: false,
+                status: 'success',
+                onComplete(){
+                    options.percent = 100;
+                }
+            });
+        }
     }
     // 取消上传
     onCancel(event) {

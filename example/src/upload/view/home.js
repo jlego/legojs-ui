@@ -7,6 +7,10 @@ class HomeView extends Lego.UI.Baseview {
                 el: '#upload1',
                 name: 'uploadname',
                 multiple: true,
+                // dataSource: {
+                //     api: '',
+                //     server: null
+                // },
                 onComplete(result) {
                     console.warn('上传成功了', result);
                 }
@@ -19,14 +23,11 @@ class HomeView extends Lego.UI.Baseview {
         const vDom = hx `
         <div id="pageContent" class="container">
           <div class="row" style="margin-bottom: 40px;">
-            <div class="col-sm-4">
+            <div class="col-sm-6">
               <upload id="upload1"></upload>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-6">
               <upload id="upload2"></upload>
-            </div>
-            <div class="col-sm-4">
-              <upload id="upload3"></upload>
             </div>
           </div>
         </div>
