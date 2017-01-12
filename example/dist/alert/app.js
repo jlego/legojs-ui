@@ -490,7 +490,7 @@
                     onClick: function e() {
                         console.warn("点击了此按钮button1");
                         Lego.create(Lego.UI.modal, {
-                            position: "right",
+                            renderTo: "right",
                             content: "这是内容啊",
                             confirm: {
                                 msgType: "error",
@@ -1417,7 +1417,7 @@
                 title: "这是标题",
                 size: "",
                 type: "modal",
-                position: "",
+                renderTo: "",
                 animate: "fadeIn",
                 closable: true,
                 showHeader: true,
@@ -1427,6 +1427,7 @@
                 content: "",
                 footer: null,
                 confirm: null,
+                scrollbar: {},
                 okText: "确定",
                 cancelText: "取消",
                 onHidden: function e() {},
@@ -1436,7 +1437,7 @@
                 }
             };
             Object.assign(o, e);
-            var i = o.position ? "#lego-submodal" : "#lego-modal";
+            var i = o.renderTo ? "#lego-submodal" : "#lego-modal";
             if (n[o.msgType] && typeof o.content == "string") {
                 var r = Lego.create(b, {
                     type: o.msgType,
@@ -1447,31 +1448,34 @@
                 o.content = r.render();
             }
             if (!o.el) o.el = i;
-            if (o.position) o.animate = "slideInRight";
-            var a = O(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, o));
-            var s = a;
-            a.$el.modal({
-                backdrop: o.position ? !o.backdrop : o.backdrop,
-                keyboard: o.keyboard,
-                show: true
-            });
-            a.$el.on("hidden.bs.modal", function(e) {
-                var t = o.position ? '<submodal id="lego-submodal"></submodal>' : '<modal id="lego-modal"></modal>';
-                s.$el.replaceWith(t);
-                if (typeof o.onHidden === "function") o.onHidden();
-            });
-            if (o.animate) {
-                a.$el.data("animate", o.animate);
-                Lego.UI.Util.animateCss(a.$el, "animated " + o.animate);
-            }
-            return a;
+            if (o.renderTo) o.animate = "slideInRight";
+            return O(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, o));
         }
         g(t, [ {
             key: "render",
             value: function e() {
                 var t = this.options || {};
-                var n = hx(y, t.position == "right" ? "right-modal" : "", t.msgType ? "dialog-modal" : "", t.size ? "modal-size-" + t.size : "", t.el.replace(/#/, ""), t.closable ? hx(m) : "", t.title, !t.msgType ? "scrollbar" : "", t.content, t.footer ? t.footer : hx(w, t.cancelText, t.okText));
+                var n = hx(y, t.renderTo == "right" ? "right-modal" : "", t.msgType ? "dialog-modal" : "", t.size ? "modal-size-" + t.size : "", t.el.replace(/#/, ""), t.closable ? hx(m) : "", t.title, !t.msgType ? "scrollbar" : "", t.content, t.footer ? t.footer : hx(w, t.cancelText, t.okText));
                 return n;
+            }
+        }, {
+            key: "renderAfter",
+            value: function e() {
+                var t = this, n = this.options;
+                this.$el.modal({
+                    backdrop: n.renderTo ? !n.backdrop : n.backdrop,
+                    keyboard: n.keyboard,
+                    show: true
+                });
+                this.$el.on("hidden.bs.modal", function(e) {
+                    var o = n.renderTo ? '<submodal id="lego-submodal"></submodal>' : '<modal id="lego-modal"></modal>';
+                    t.$el.replaceWith(o);
+                    if (typeof n.onHidden === "function") n.onHidden();
+                });
+                if (n.animate) {
+                    this.$el.data("animate", n.animate);
+                    Lego.UI.Util.animateCss(this.$el, "animated " + n.animate);
+                }
             }
         }, {
             key: "close",
@@ -1506,7 +1510,7 @@
                 if (this.options.confirm && this.options[t]) {
                     this._showDialog();
                 } else {
-                    this.close();
+                    if (t !== "onOk") this.close();
                 }
                 if (typeof this.options[t] === "function") this.options[t](event);
             }
@@ -1764,7 +1768,7 @@
             o.options.trigger = e.trigger instanceof $ ? e.trigger : $(e.trigger);
             if (!o.options.disabled) {
                 var r = function e(t) {
-                    $("body").trigger("click");
+                    $("body, .modal-body").trigger("click");
                     t.stopPropagation();
                     var o = Lego.UI.Util.getDirection(i.options.trigger, i.$el);
                     i.options.direction = o._y || "bottom";
@@ -1777,7 +1781,7 @@
                 };
                 if (n.eventName == "click") {
                     var a = "click.dropdown_" + e.vid;
-                    $("body").off(a).on(a, function() {
+                    $("body, .modal-body").off(a).on(a, function() {
                         i.close();
                     });
                     o.options.trigger.off(a).on(a, r);
@@ -1909,7 +1913,7 @@
         });
         if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
     }
-    var E = function(e) {
+    var T = function(e) {
         C(t, e);
         function t() {
             var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -2037,8 +2041,8 @@
         } ]);
         return t;
     }(Lego.UI.Baseview);
-    Lego.components("pagination", E);
-    var I = Object.assign || function(e) {
+    Lego.components("pagination", T);
+    var E = Object.assign || function(e) {
         for (var t = 1; t < arguments.length; t++) {
             var n = arguments[t];
             for (var o in n) {
@@ -2049,7 +2053,7 @@
         }
         return e;
     };
-    var P = function() {
+    var I = function() {
         function e(e, t) {
             for (var n = 0; n < t.length; n++) {
                 var o = t[n];
@@ -2065,7 +2069,7 @@
             return t;
         };
     }();
-    var T = ee([ '\n        <div class="clearfix lego-table lego-table-', " ", "\n        ", ' lego-table-scroll-position-left">\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body" style="bottom: ', '">\n                    <div class="', '">\n                        <table class="', '">\n                            ', "\n                            ", "\n                            ", "\n                            ", "\n                        </table>\n                    </div>\n                </div>\n                ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="clearfix lego-table lego-table-', " ", "\n        ", ' lego-table-scroll-position-left">\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body" style="bottom: ', '">\n                    <div class="', '">\n                        <table class="', '">\n                            ', "\n                            ", "\n                            ", "\n                            ", "\n                        </table>\n                    </div>\n                </div>\n                ", "\n                </div>\n            </div>\n        </div>\n        " ]);
+    var P = ee([ '\n        <div class="clearfix lego-table lego-table-', " ", "\n        ", ' lego-table-scroll-position-left">\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body" style="bottom: ', '">\n                    <div class="', '">\n                        <table class="', '">\n                            ', "\n                            ", "\n                            ", "\n                            ", "\n                        </table>\n                    </div>\n                </div>\n                ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="clearfix lego-table lego-table-', " ", "\n        ", ' lego-table-scroll-position-left">\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body" style="bottom: ', '">\n                    <div class="', '">\n                        <table class="', '">\n                            ', "\n                            ", "\n                            ", "\n                            ", "\n                        </table>\n                    </div>\n                </div>\n                ", "\n                </div>\n            </div>\n        </div>\n        " ]);
     var D = ee([ '<div class="lego-table-title">', "</div>" ], [ '<div class="lego-table-title">', "</div>" ]);
     var N = ee([ '\n                <div class="lego-table-header">\n                    <table class="">\n                        ', "\n                        ", "\n                    </table>\n                    ", "\n                </div>\n                " ], [ '\n                <div class="lego-table-header">\n                    <table class="">\n                        ', "\n                        ", "\n                    </table>\n                    ", "\n                </div>\n                " ]);
     var R = ee([ '\n                        <button type="button" class="btn btn-default noborder">\n                        <i class="anticon anticon-ellipsis"></i></button>' ], [ '\n                        <button type="button" class="btn btn-default noborder">\n                        <i class="anticon anticon-ellipsis"></i></button>' ]);
@@ -2160,11 +2164,12 @@
                 showHeader: false,
                 showBodyer: true,
                 showFooter: false,
-                components: [ I({}, e.pagination, {
-                    el: "#" + e.vid + "-paginationId"
-                }) ]
+                components: []
             };
             Object.assign(n, e);
+            n.components.push(E({}, n.pagination, {
+                el: "#" + n.vid + "-paginationId"
+            }));
             n.columns.map(function(e) {
                 e = Object.assign({
                     title: "",
@@ -2187,11 +2192,11 @@
             o.$(".lego-table-tfoot>tr>td").attr("colspan", o.options.columns.length);
             return o;
         }
-        P(t, [ {
+        I(t, [ {
             key: "render",
             value: function e() {
                 var t = this.options;
-                var n = hx(T, t.size, t.bordered ? "lego-table-bordered" : "", t.showHeader ? "lego-table-fixed-header" : "", t.title ? hx(D, t.title()) : "", t.showHeader ? hx(N, this._renderColgroup(), this._renderHeader(), t.colSetting ? hx(R) : "") : "", t.pagination ? "48px" : "0", t.showHeader ? "scrollbar" : "", t.className, this._renderColgroup(), !t.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), t.pagination && t.data ? hx(z, t.vid) : "");
+                var n = hx(P, t.size, t.bordered ? "lego-table-bordered" : "", t.showHeader ? "lego-table-fixed-header" : "", t.title ? hx(D, typeof t.title == "function" ? t.title() : t.title) : "", t.showHeader ? hx(N, this._renderColgroup(), this._renderHeader(), t.colSetting ? hx(R) : "") : "", t.pagination ? "48px" : "0", t.showHeader ? "scrollbar" : "", t.className, this._renderColgroup(), !t.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), t.pagination && t.data ? hx(z, t.vid) : "");
                 return n;
             }
         }, {

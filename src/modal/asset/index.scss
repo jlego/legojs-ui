@@ -33,7 +33,7 @@
     border-top: none;
 }
 .modal-header h4{
-    color: #999;
+    color: #666;
 }
 
 .modal-footer button{
@@ -63,7 +63,7 @@
 }
 
 .right-modal .modal-body {
-    position: absolute;
+    position: absolute !important;
     top: 56px;
     bottom: 65px;
     width: 100%;
@@ -74,6 +74,9 @@
     position: absolute;
     bottom: 0;
     width: 100%;
+}
+.right-modal .modal-footer > div{
+    text-align: center;
 }
 
 .right-modalBg .modal-backdrop {

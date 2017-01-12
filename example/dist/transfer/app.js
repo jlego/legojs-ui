@@ -683,7 +683,7 @@
                 r.options.trigger = e.trigger instanceof $ ? e.trigger : $(e.trigger);
                 if (!r.options.disabled) {
                     var a = function e(t) {
-                        $("body").trigger("click");
+                        $("body, .modal-body").trigger("click");
                         t.stopPropagation();
                         var r = Lego.UI.Util.getDirection(o.options.trigger, o.$el);
                         o.options.direction = r._y || "bottom";
@@ -696,7 +696,7 @@
                     };
                     if (n.eventName == "click") {
                         var i = "click.dropdown_" + e.vid;
-                        $("body").off(i).on(i, function() {
+                        $("body, .modal-body").off(i).on(i, function() {
                             o.close();
                         });
                         r.options.trigger.off(i).on(i, a);

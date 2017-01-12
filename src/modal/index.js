@@ -23,7 +23,7 @@ class Modal extends Lego.UI.Baseview {
             title: '这是标题',
             size: '', //lg,md,sm
             type: 'modal', //类型 modal, dialog,
-            position: '', //显示位置top,right,bottom,left,full
+            renderTo: '', //显示位置top,right,bottom,left,full
             animate: 'fadeIn',
             closable: true,
             showHeader: true,
@@ -33,6 +33,7 @@ class Modal extends Lego.UI.Baseview {
             content: '',  //内容
             footer: null,
             confirm: null,
+            scrollbar: {},
             okText: '确定',
             cancelText: '取消',
             // onOk() {},
@@ -44,9 +45,8 @@ class Modal extends Lego.UI.Baseview {
             }
         };
         Object.assign(options, opts);
-
-        const modalEl = options.position ? '#lego-submodal' : '#lego-modal';
-
+        const modalEl = options.renderTo ? '#lego-submodal' : '#lego-modal';
+        // 对话框类型
         if (typeArr[options.msgType] && typeof options.content == 'string') {
             const alertObj = Lego.create(Alert, {
                 type: options.msgType,
@@ -56,32 +56,14 @@ class Modal extends Lego.UI.Baseview {
             });
             options.content = alertObj.render();
         }
-
         if(!options.el) options.el = modalEl;
-        if(options.position) options.animate = 'slideInRight';
+        if(options.renderTo) options.animate = 'slideInRight';
         super(options);
-
-        const that = this;
-        this.$el.modal({
-            backdrop: options.position ? !options.backdrop : options.backdrop,
-            keyboard: options.keyboard,
-            show: true
-        });
-        this.$el.on('hidden.bs.modal', function (e) {
-            const container = options.position ?
-                '<submodal id="lego-submodal"></submodal>' : '<modal id="lego-modal"></modal>';
-            that.$el.replaceWith(container);
-            if(typeof options.onHidden === 'function') options.onHidden();
-        });
-        if (options.animate) {
-            this.$el.data('animate', options.animate);
-            Lego.UI.Util.animateCss(this.$el, 'animated ' + options.animate);
-        }
     }
     render() {
         const options = this.options || {};
         const vDom = hx`
-        <div class="modal ${options.position == 'right' ? 'right-modal' : ''} ${options.msgType ? 'dialog-modal' : ''}
+        <div class="modal ${options.renderTo == 'right' ? 'right-modal' : ''} ${options.msgType ? 'dialog-modal' : ''}
         ${options.size ? ('modal-size-' + options.size) : ''}" id="${options.el.replace(/#/, '')}">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -101,6 +83,25 @@ class Modal extends Lego.UI.Baseview {
         </div>
         `;
         return vDom;
+    }
+    renderAfter(){
+        const that = this,
+            options = this.options;
+        this.$el.modal({
+            backdrop: options.renderTo ? !options.backdrop : options.backdrop,
+            keyboard: options.keyboard,
+            show: true
+        });
+        this.$el.on('hidden.bs.modal', function (e) {
+            const container = options.renderTo ?
+                '<submodal id="lego-submodal"></submodal>' : '<modal id="lego-modal"></modal>';
+            that.$el.replaceWith(container);
+            if(typeof options.onHidden === 'function') options.onHidden();
+        });
+        if (options.animate) {
+            this.$el.data('animate', options.animate);
+            Lego.UI.Util.animateCss(this.$el, 'animated ' + options.animate);
+        }
     }
     // 关闭窗口
     close() {
@@ -131,7 +132,7 @@ class Modal extends Lego.UI.Baseview {
         if (this.options.confirm && this.options[funName]) {
             this._showDialog();
         }else{
-            this.close();
+            if(funName !== 'onOk') this.close();
         }
         if (typeof this.options[funName] === 'function') this.options[funName](event);
     }

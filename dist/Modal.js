@@ -750,7 +750,7 @@ var Modal = function(_Lego$UI$Baseview) {
             title: "这是标题",
             size: "",
             type: "modal",
-            position: "",
+            renderTo: "",
             animate: "fadeIn",
             closable: true,
             showHeader: true,
@@ -760,6 +760,7 @@ var Modal = function(_Lego$UI$Baseview) {
             content: "",
             footer: null,
             confirm: null,
+            scrollbar: {},
             okText: "确定",
             cancelText: "取消",
             onHidden: function onHidden() {},
@@ -769,7 +770,7 @@ var Modal = function(_Lego$UI$Baseview) {
             }
         };
         Object.assign(options, opts);
-        var modalEl = options.position ? "#lego-submodal" : "#lego-modal";
+        var modalEl = options.renderTo ? "#lego-submodal" : "#lego-modal";
         if (typeArr[options.msgType] && typeof options.content == "string") {
             var alertObj = Lego.create(Alert, {
                 type: options.msgType,
@@ -780,31 +781,34 @@ var Modal = function(_Lego$UI$Baseview) {
             options.content = alertObj.render();
         }
         if (!options.el) options.el = modalEl;
-        if (options.position) options.animate = "slideInRight";
-        var _this = _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, options));
-        var that = _this;
-        _this.$el.modal({
-            backdrop: options.position ? !options.backdrop : options.backdrop,
-            keyboard: options.keyboard,
-            show: true
-        });
-        _this.$el.on("hidden.bs.modal", function(e) {
-            var container = options.position ? '<submodal id="lego-submodal"></submodal>' : '<modal id="lego-modal"></modal>';
-            that.$el.replaceWith(container);
-            if (typeof options.onHidden === "function") options.onHidden();
-        });
-        if (options.animate) {
-            _this.$el.data("animate", options.animate);
-            Lego.UI.Util.animateCss(_this.$el, "animated " + options.animate);
-        }
-        return _this;
+        if (options.renderTo) options.animate = "slideInRight";
+        return _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, options));
     }
     _createClass(Modal, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject, options.position == "right" ? "right-modal" : "", options.msgType ? "dialog-modal" : "", options.size ? "modal-size-" + options.size : "", options.el.replace(/#/, ""), options.closable ? hx(_templateObject2) : "", options.title, !options.msgType ? "scrollbar" : "", options.content, options.footer ? options.footer : hx(_templateObject3, options.cancelText, options.okText));
+            var vDom = hx(_templateObject, options.renderTo == "right" ? "right-modal" : "", options.msgType ? "dialog-modal" : "", options.size ? "modal-size-" + options.size : "", options.el.replace(/#/, ""), options.closable ? hx(_templateObject2) : "", options.title, !options.msgType ? "scrollbar" : "", options.content, options.footer ? options.footer : hx(_templateObject3, options.cancelText, options.okText));
             return vDom;
+        }
+    }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            var that = this, options = this.options;
+            this.$el.modal({
+                backdrop: options.renderTo ? !options.backdrop : options.backdrop,
+                keyboard: options.keyboard,
+                show: true
+            });
+            this.$el.on("hidden.bs.modal", function(e) {
+                var container = options.renderTo ? '<submodal id="lego-submodal"></submodal>' : '<modal id="lego-modal"></modal>';
+                that.$el.replaceWith(container);
+                if (typeof options.onHidden === "function") options.onHidden();
+            });
+            if (options.animate) {
+                this.$el.data("animate", options.animate);
+                Lego.UI.Util.animateCss(this.$el, "animated " + options.animate);
+            }
         }
     }, {
         key: "close",
@@ -839,7 +843,7 @@ var Modal = function(_Lego$UI$Baseview) {
             if (this.options.confirm && this.options[funName]) {
                 this._showDialog();
             } else {
-                this.close();
+                if (funName !== "onOk") this.close();
             }
             if (typeof this.options[funName] === "function") this.options[funName](event);
         }

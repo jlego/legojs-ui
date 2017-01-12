@@ -16,7 +16,7 @@ class ListView extends Lego.UI.Baseview {
                 onClick(){
                     console.warn('点击了此按钮button1');
                     Lego.create(Lego.UI.modal, {
-                        position: 'right',
+                        renderTo: 'right',
                         content: '这是内容啊',
                         confirm: {
                             msgType: 'error',

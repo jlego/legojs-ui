@@ -179,6 +179,7 @@
     > .btn,
     > .btn-group {
       z-index: 2;
+      // margin-left: -2px;
       margin-left: (-$input-btn-border-width);
       // Because specificity
       @include hover-focus-active {

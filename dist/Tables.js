@@ -93,7 +93,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
         _this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
         if (!_this.options.disabled) {
             var handler = function handler(event) {
-                $("body").trigger("click");
+                $("body, .modal-body").trigger("click");
                 event.stopPropagation();
                 var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
                 that.options.direction = directionResp._y || "bottom";
@@ -106,7 +106,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             };
             if (options.eventName == "click") {
                 var _eventName = "click.dropdown_" + opts.vid;
-                $("body").off(_eventName).on(_eventName, function() {
+                $("body, .modal-body").off(_eventName).on(_eventName, function() {
                     that.close();
                 });
                 _this.options.trigger.off(_eventName).on(_eventName, handler);
@@ -535,11 +535,12 @@ var Tables = function(_Lego$UI$Baseview) {
             showHeader: false,
             showBodyer: true,
             showFooter: false,
-            components: [ _extends({}, opts.pagination, {
-                el: "#" + opts.vid + "-paginationId"
-            }) ]
+            components: []
         };
         Object.assign(options, opts);
+        options.components.push(_extends({}, options.pagination, {
+            el: "#" + options.vid + "-paginationId"
+        }));
         options.columns.map(function(col) {
             col = Object.assign({
                 title: "",
@@ -566,7 +567,7 @@ var Tables = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options;
-            var vDom = hx(_templateObject, options.size, options.bordered ? "lego-table-bordered" : "", options.showHeader ? "lego-table-fixed-header" : "", options.title ? hx(_templateObject2, options.title()) : "", options.showHeader ? hx(_templateObject3, this._renderColgroup(), this._renderHeader(), options.colSetting ? hx(_templateObject4) : "") : "", options.pagination ? "48px" : "0", options.showHeader ? "scrollbar" : "", options.className, this._renderColgroup(), !options.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), options.pagination && options.data ? hx(_templateObject5, options.vid) : "");
+            var vDom = hx(_templateObject, options.size, options.bordered ? "lego-table-bordered" : "", options.showHeader ? "lego-table-fixed-header" : "", options.title ? hx(_templateObject2, typeof options.title == "function" ? options.title() : options.title) : "", options.showHeader ? hx(_templateObject3, this._renderColgroup(), this._renderHeader(), options.colSetting ? hx(_templateObject4) : "") : "", options.pagination ? "48px" : "0", options.showHeader ? "scrollbar" : "", options.className, this._renderColgroup(), !options.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), options.pagination && options.data ? hx(_templateObject5, options.vid) : "");
             return vDom;
         }
     }, {

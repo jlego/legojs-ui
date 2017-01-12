@@ -871,7 +871,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
         _this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
         if (!_this.options.disabled) {
             var handler = function handler(event) {
-                $("body").trigger("click");
+                $("body, .modal-body").trigger("click");
                 event.stopPropagation();
                 var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
                 that.options.direction = directionResp._y || "bottom";
@@ -884,7 +884,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             };
             if (options.eventName == "click") {
                 var _eventName = "click.dropdown_" + opts.vid;
-                $("body").off(_eventName).on(_eventName, function() {
+                $("body, .modal-body").off(_eventName).on(_eventName, function() {
                     that.close();
                 });
                 _this.options.trigger.off(_eventName).on(_eventName, handler);
@@ -1313,11 +1313,12 @@ var Tables = function(_Lego$UI$Baseview) {
             showHeader: false,
             showBodyer: true,
             showFooter: false,
-            components: [ _extends({}, opts.pagination, {
-                el: "#" + opts.vid + "-paginationId"
-            }) ]
+            components: []
         };
         Object.assign(options, opts);
+        options.components.push(_extends({}, options.pagination, {
+            el: "#" + options.vid + "-paginationId"
+        }));
         options.columns.map(function(col) {
             col = Object.assign({
                 title: "",
@@ -1344,7 +1345,7 @@ var Tables = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options;
-            var vDom = hx(_templateObject$5, options.size, options.bordered ? "lego-table-bordered" : "", options.showHeader ? "lego-table-fixed-header" : "", options.title ? hx(_templateObject2$2, options.title()) : "", options.showHeader ? hx(_templateObject3$1, this._renderColgroup(), this._renderHeader(), options.colSetting ? hx(_templateObject4) : "") : "", options.pagination ? "48px" : "0", options.showHeader ? "scrollbar" : "", options.className, this._renderColgroup(), !options.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), options.pagination && options.data ? hx(_templateObject5, options.vid) : "");
+            var vDom = hx(_templateObject$5, options.size, options.bordered ? "lego-table-bordered" : "", options.showHeader ? "lego-table-fixed-header" : "", options.title ? hx(_templateObject2$2, typeof options.title == "function" ? options.title() : options.title) : "", options.showHeader ? hx(_templateObject3$1, this._renderColgroup(), this._renderHeader(), options.colSetting ? hx(_templateObject4) : "") : "", options.pagination ? "48px" : "0", options.showHeader ? "scrollbar" : "", options.className, this._renderColgroup(), !options.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), options.pagination && options.data ? hx(_templateObject5, options.vid) : "");
             return vDom;
         }
     }, {
@@ -2161,7 +2162,7 @@ var Modal = function(_Lego$UI$Baseview) {
             title: "这是标题",
             size: "",
             type: "modal",
-            position: "",
+            renderTo: "",
             animate: "fadeIn",
             closable: true,
             showHeader: true,
@@ -2171,6 +2172,7 @@ var Modal = function(_Lego$UI$Baseview) {
             content: "",
             footer: null,
             confirm: null,
+            scrollbar: {},
             okText: "确定",
             cancelText: "取消",
             onHidden: function onHidden() {},
@@ -2180,7 +2182,7 @@ var Modal = function(_Lego$UI$Baseview) {
             }
         };
         Object.assign(options, opts);
-        var modalEl = options.position ? "#lego-submodal" : "#lego-modal";
+        var modalEl = options.renderTo ? "#lego-submodal" : "#lego-modal";
         if (typeArr[options.msgType] && typeof options.content == "string") {
             var alertObj = Lego.create(Alert, {
                 type: options.msgType,
@@ -2191,31 +2193,34 @@ var Modal = function(_Lego$UI$Baseview) {
             options.content = alertObj.render();
         }
         if (!options.el) options.el = modalEl;
-        if (options.position) options.animate = "slideInRight";
-        var _this = _possibleConstructorReturn$9(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, options));
-        var that = _this;
-        _this.$el.modal({
-            backdrop: options.position ? !options.backdrop : options.backdrop,
-            keyboard: options.keyboard,
-            show: true
-        });
-        _this.$el.on("hidden.bs.modal", function(e) {
-            var container = options.position ? '<submodal id="lego-submodal"></submodal>' : '<modal id="lego-modal"></modal>';
-            that.$el.replaceWith(container);
-            if (typeof options.onHidden === "function") options.onHidden();
-        });
-        if (options.animate) {
-            _this.$el.data("animate", options.animate);
-            Lego.UI.Util.animateCss(_this.$el, "animated " + options.animate);
-        }
-        return _this;
+        if (options.renderTo) options.animate = "slideInRight";
+        return _possibleConstructorReturn$9(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, options));
     }
     _createClass$9(Modal, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject$8, options.position == "right" ? "right-modal" : "", options.msgType ? "dialog-modal" : "", options.size ? "modal-size-" + options.size : "", options.el.replace(/#/, ""), options.closable ? hx(_templateObject2$5) : "", options.title, !options.msgType ? "scrollbar" : "", options.content, options.footer ? options.footer : hx(_templateObject3$4, options.cancelText, options.okText));
+            var vDom = hx(_templateObject$8, options.renderTo == "right" ? "right-modal" : "", options.msgType ? "dialog-modal" : "", options.size ? "modal-size-" + options.size : "", options.el.replace(/#/, ""), options.closable ? hx(_templateObject2$5) : "", options.title, !options.msgType ? "scrollbar" : "", options.content, options.footer ? options.footer : hx(_templateObject3$4, options.cancelText, options.okText));
             return vDom;
+        }
+    }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            var that = this, options = this.options;
+            this.$el.modal({
+                backdrop: options.renderTo ? !options.backdrop : options.backdrop,
+                keyboard: options.keyboard,
+                show: true
+            });
+            this.$el.on("hidden.bs.modal", function(e) {
+                var container = options.renderTo ? '<submodal id="lego-submodal"></submodal>' : '<modal id="lego-modal"></modal>';
+                that.$el.replaceWith(container);
+                if (typeof options.onHidden === "function") options.onHidden();
+            });
+            if (options.animate) {
+                this.$el.data("animate", options.animate);
+                Lego.UI.Util.animateCss(this.$el, "animated " + options.animate);
+            }
         }
     }, {
         key: "close",
@@ -2250,7 +2255,7 @@ var Modal = function(_Lego$UI$Baseview) {
             if (this.options.confirm && this.options[funName]) {
                 this._showDialog();
             } else {
-                this.close();
+                if (funName !== "onOk") this.close();
             }
             if (typeof this.options[funName] === "function") this.options[funName](event);
         }
@@ -2694,7 +2699,7 @@ var _templateObject$12 = _taggedTemplateLiteral$12([ "\n                <ul>", '
 
 var _templateObject2$9 = _taggedTemplateLiteral$12([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
 
-var _templateObject3$6 = _taggedTemplateLiteral$12([ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n\n            </div>\n            ' ]);
+var _templateObject3$6 = _taggedTemplateLiteral$12([ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ]);
 
 var _templateObject4$4 = _taggedTemplateLiteral$12([ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ]);
 
@@ -4659,9 +4664,14 @@ var Forms = function(_Lego$UI$Baseview) {
                     })();
                 }
             });
-            var clickName = "click.form_" + this.options.vid, submitEl = this.options.submitEl, $submitEl = submitEl instanceof $ ? submitEl : this.$((typeof submitEl == "string" ? submitEl : "") || '[type="submit"]');
+            var clickName = "click.form_" + this.options.vid, submitEl = this.options.submitEl, $submitEl = submitEl instanceof $ ? submitEl : $((typeof submitEl == "string" ? submitEl : "") || '[type="submit"]');
             if (this.rules && this.messages) {
                 this.$el.validate(this.options.setDefaults);
+                if ($submitEl.length) {
+                    $submitEl.off(clickName).on(clickName, function(event) {
+                        that.$el.submit();
+                    });
+                }
             } else {
                 $submitEl.off(clickName).on(clickName, function(event) {
                     that.submitForm();

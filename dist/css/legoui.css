@@ -10501,7 +10501,7 @@ tr.lego-table-expanded-row:hover {
   border-top: none; }
 
 .modal-header h4 {
-  color: #999; }
+  color: #666; }
 
 .modal-footer button {
   margin-right: 10px; }
@@ -10526,7 +10526,7 @@ tr.lego-table-expanded-row:hover {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
 
 .right-modal .modal-body {
-  position: absolute;
+  position: absolute !important;
   top: 56px;
   bottom: 65px;
   width: 100%;
@@ -10536,6 +10536,9 @@ tr.lego-table-expanded-row:hover {
   position: absolute;
   bottom: 0;
   width: 100%; }
+
+.right-modal .modal-footer > div {
+  text-align: center; }
 
 .right-modalBg .modal-backdrop {
   opacity: 0.01; }
@@ -10597,12 +10600,21 @@ tr.lego-table-expanded-row:hover {
   padding: 7px 10px;
   border: 1px solid #ddd; }
 
-.search.input-group .search-input:active, .input-group .search-input:focus, .input-group .search-input:hover {
+.search.input-group .search-input {
+  border-right: none; }
+
+.search.input-group .search-input:active,
+.input-group .search-input:focus,
+.input-group .search-input:hover {
   border-right: none; }
 
 .input-group.search .search-input:focus,
 .input-group.search .search-input:focus ~ .input-group-btn .btn {
   border-color: #66afe9 !important; }
+
+.input-group.search .input-group-btn:not(:first-child) > .btn,
+.input-group.search .input-group-btn:not(:first-child) > .btn-group {
+  margin-left: -2px; }
 .select {
   margin: 0; }
 
@@ -11053,6 +11065,9 @@ ul.ztree.zTreeDragUL {
   position: absolute; }
 .treeselect .dropdown-menu {
   overflow: auto; }
+form legend {
+  font-size: 16px;
+  color: #333; }
 .transfer {
   position: relative; }
 

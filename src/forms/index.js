@@ -5,7 +5,7 @@
  */
 import validate from 'jquery-validation-cjs';
 $.fn.validate = validate;
-// import './asset/index.scss';
+import './asset/index.scss';
 // data: [{
 //     label: '',
 //     text: '', //静态文本
@@ -162,9 +162,14 @@ class Forms extends Lego.UI.Baseview {
         });
         const clickName = 'click.form_' + this.options.vid,
             submitEl = this.options.submitEl,
-            $submitEl = submitEl instanceof $ ? submitEl : this.$((typeof submitEl == 'string' ? submitEl : '') || '[type="submit"]');
+            $submitEl = submitEl instanceof $ ? submitEl : $((typeof submitEl == 'string' ? submitEl : '') || '[type="submit"]');
         if (this.rules && this.messages) {
             this.$el.validate(this.options.setDefaults);
+            if($submitEl.length){
+                $submitEl.off(clickName).on(clickName, function(event) {
+                    that.$el.submit();
+                });
+            }
         } else {
             $submitEl.off(clickName).on(clickName, function(event) {
                 that.submitForm();

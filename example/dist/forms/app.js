@@ -448,7 +448,7 @@
             a.options.trigger = e.trigger instanceof $ ? e.trigger : $(e.trigger);
             if (!a.options.disabled) {
                 var i = function e(t) {
-                    $("body").trigger("click");
+                    $("body, .modal-body").trigger("click");
                     t.stopPropagation();
                     var a = Lego.UI.Util.getDirection(r.options.trigger, r.$el);
                     r.options.direction = a._y || "bottom";
@@ -461,7 +461,7 @@
                 };
                 if (n.eventName == "click") {
                     var s = "click.dropdown_" + e.vid;
-                    $("body").off(s).on(s, function() {
+                    $("body, .modal-body").off(s).on(s, function() {
                         r.close();
                     });
                     a.options.trigger.off(s).on(s, i);
@@ -732,7 +732,7 @@
             a.options.trigger = e.trigger instanceof $ ? e.trigger : $(e.trigger);
             if (!a.options.disabled) {
                 var i = function e(t) {
-                    $("body").trigger("click");
+                    $("body, .modal-body").trigger("click");
                     t.stopPropagation();
                     var a = Lego.UI.Util.getDirection(r.options.trigger, r.$el);
                     r.options.direction = a._y || "bottom";
@@ -745,7 +745,7 @@
                 };
                 if (n.eventName == "click") {
                     var s = "click.dropdown_" + e.vid;
-                    $("body").off(s).on(s, function() {
+                    $("body, .modal-body").off(s).on(s, function() {
                         r.close();
                     });
                     a.options.trigger.off(s).on(s, i);
@@ -838,7 +838,7 @@
     }();
     var h = L([ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ], [ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ]);
     var p = L([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
-    var y = L([ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n\n            </div>\n            ' ]);
+    var y = L([ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ]);
     var M = L([ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ]);
     function L(e, t) {
         return Object.freeze(Object.defineProperties(e, {
@@ -16020,9 +16020,14 @@
                         })();
                     }
                 });
-                var a = "click.form_" + this.options.vid, r = this.options.submitEl, i = r instanceof $ ? r : this.$((typeof r == "string" ? r : "") || '[type="submit"]');
+                var a = "click.form_" + this.options.vid, r = this.options.submitEl, i = r instanceof $ ? r : $((typeof r == "string" ? r : "") || '[type="submit"]');
                 if (this.rules && this.messages) {
                     this.$el.validate(this.options.setDefaults);
+                    if (i.length) {
+                        i.off(a).on(a, function(e) {
+                            n.$el.submit();
+                        });
+                    }
                 } else {
                     i.off(a).on(a, function(e) {
                         n.submitForm();
