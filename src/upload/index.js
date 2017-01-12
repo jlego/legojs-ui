@@ -15,7 +15,7 @@ class Upload extends Lego.UI.Baseview {
             },
             keyRoot: '',
             type: 'file',   //file, photo
-            text: '添加附件',
+            buttonText: '添加附件',
             name: '', //文件域
             token: '',  //token
             params: {}, //其他参数
@@ -23,12 +23,13 @@ class Upload extends Lego.UI.Baseview {
             saveUri: '',    //保存到后台地址
             accept: '',     //接受上传的文件类型
             previewOption: null, //缩略图参数
-            multiple: false, //是否多文件
+            multiple: true, //是否多文件
             context: null, //上下文
             template: '',   //模板
             maxFileSize: '5mb', //最大上传文件大小5MB
             maxFilesCount: 9, //最大上传文件数
             isAuto: true,       //是否自动开始上传
+            readonly: false,     //只读
             disabled: false,    //是否禁用
             hasCookie: false,   //上传请求时是否携带 cookie
             showUploadList: true,  //是否展示 uploadList, 默认开启
@@ -42,6 +43,15 @@ class Upload extends Lego.UI.Baseview {
             onCancel() {}
         };
         Object.assign(options, opts);
+        if(options.value.length){
+            options.value = options.value.map(file => {
+                return {
+                    readonly: options.readonly,
+                    percent: 100,
+                    file: file
+                };
+            });
+        }
         super(options);
 
         this.reset();
@@ -51,7 +61,6 @@ class Upload extends Lego.UI.Baseview {
         });
         if(this.options.value.length){
             this.options.value.forEach((item, index) => {
-                item.percent = 100;
                 this.showItem(item);
             });
         }
@@ -61,10 +70,12 @@ class Upload extends Lego.UI.Baseview {
         let vDom = '';
         vDom = hx`
         <div class="upload upload-${val(options.type)}">
+            ${!options.readonly ? hx`
             <button class="btn btn-secondary addbtn" type="button" ${options.disabled ? 'disabled' : ''}>
                 <i class="anticon anticon-upload"></i>
-                ${val(options.text)}
+                ${val(options.buttonText)}
             </button>
+            ` : ''}
             <input type="hidden" value="${this.getValue()}" name="${val(options.name)}" class="upload-value">
             <input multiple="multiple" type="file" class="form-control fileInput hide" accept="${val(options.accept)}" style="display:none">
             ${options.showUploadList ? hx`<div class="upload-container"></div>` : ''}
@@ -85,7 +96,7 @@ class Upload extends Lego.UI.Baseview {
             maxFilesCount = options.maxFilesCount;
         if (filesCount) {
             if (filesCount > maxFilesCount) {
-                Lego.UI.notification('warning', '只能上传' + maxFilesCount + '张图片');
+                Lego.UI.message('warning', '只能上传' + maxFilesCount + '张图片');
                 return;
             }
             this.fileList.concat(uploadFiles);
@@ -96,7 +107,7 @@ class Upload extends Lego.UI.Baseview {
                 if (Math.ceil(file.size / (1024 * 1024)) > parseInt(options.maxFileSize)) {
                     var msg = "发送文件最大为" + options.maxFileSize;
                     if (uploadFiles.length == 1) {
-                        Lego.UI.notification('error', msg);
+                        Lego.UI.message('error', msg);
                     } else {
                         debug.warn(msg);
                     }
@@ -105,6 +116,7 @@ class Upload extends Lego.UI.Baseview {
                 if(that.fileList.find(item => item == file)) return;
                 const uploadOption = {
                     uploadUri: options.uploadUri,
+                    readonly: options.readonly,
                     isAuto: options.isAuto,
                     file: file,
                     type: options.type,

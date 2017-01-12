@@ -50,6 +50,7 @@
     "showdown": "^1.5.4",
     "tether": "^1.4.0",
     "toastr": "^2.1.2",
+    "toastr-cjs": "^1.0.0",
     "virtual-dom": "^2.1.1",
     "ztree": "^3.5.24"
   }

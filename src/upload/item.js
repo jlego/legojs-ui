@@ -36,9 +36,9 @@ class UploadItem extends UploadBase {
                 'click .closebtn': 'onRemove'
             },
             uploadUri: '',
-            url: '',
             percent: 0,     //上传进度百分比
             isAuto: true,
+            readonly: false,
             file: {},
             headers: {},
             params: {},
@@ -71,9 +71,11 @@ class UploadItem extends UploadBase {
             </div>` : hx`
             <div class="media-body">
                 <h4 class="media-heading">
+                    ${!options.readonly && options.percent == 100 ? hx`
                     <div class="right">
-                        ${options.percent == 100 ? hx`<a href="javascript:;" class="closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>` : ''}
+                        <a href="javascript:;" class="closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>
                     </div>
+                    ` : ''}
                     ${val(options.file.name)}
                 </h4>
                 <small>
@@ -106,7 +108,9 @@ class UploadItem extends UploadBase {
     onCancel(event) {
         event.stopPropagation();
         this.cancel();
-        this.remove();
+        this.$el.slideUp("normal", () => {
+            this.remove();
+        });
     }
     onRemove(event){
         event.stopPropagation();
@@ -116,7 +120,9 @@ class UploadItem extends UploadBase {
         if(this.options.onRemove){
             return this.options.onRemove(id, hash);
         }
-        this.remove();
+        this.$el.slideUp("normal", () => {
+            this.remove();
+        });
     }
 }
 export default UploadItem;

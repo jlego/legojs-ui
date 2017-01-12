@@ -1,5 +1,5 @@
 /**
- * upload.js v0.2.1
+ * upload.js v0.2.3
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -327,9 +327,9 @@ var _templateObject$1 = _taggedTemplateLiteral$1([ '\n        <div class="media 
 
 var _templateObject2$1 = _taggedTemplateLiteral$1([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="cancelbtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="cancelbtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ]);
 
-var _templateObject3 = _taggedTemplateLiteral$1([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        ', "\n                    </div>\n                    ", "\n                </h4>\n                <small>\n                    <cite>", '</cite>\n                    <time>\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </time>\n                </small>\n            </div>\n            ' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        ', "\n                    </div>\n                    ", "\n                </h4>\n                <small>\n                    <cite>", '</cite>\n                    <time>\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </time>\n                </small>\n            </div>\n            ' ]);
+var _templateObject3$1 = _taggedTemplateLiteral$1([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    ', "\n                    ", "\n                </h4>\n                <small>\n                    <cite>", '</cite>\n                    <time>\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </time>\n                </small>\n            </div>\n            ' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    ', "\n                    ", "\n                </h4>\n                <small>\n                    <cite>", '</cite>\n                    <time>\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </time>\n                </small>\n            </div>\n            ' ]);
 
-var _templateObject4 = _taggedTemplateLiteral$1([ '<a href="javascript:;" class="closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>' ], [ '<a href="javascript:;" class="closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>' ]);
+var _templateObject4 = _taggedTemplateLiteral$1([ '\n                    <div class="right">\n                        <a href="javascript:;" class="closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ], [ '\n                    <div class="right">\n                        <a href="javascript:;" class="closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -378,9 +378,9 @@ var UploadItem = function(_UploadBase) {
                 "click .closebtn": "onRemove"
             },
             uploadUri: "",
-            url: "",
             percent: 0,
             isAuto: true,
+            readonly: false,
             file: {},
             headers: {},
             params: {},
@@ -397,7 +397,7 @@ var UploadItem = function(_UploadBase) {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject$1, Lego.UI.Util.getFileIcon(options.file.name), options.percent < 100 ? hx(_templateObject2$1, val(options.file.name), "progressbar_" + options.vid) : hx(_templateObject3, options.percent == 100 ? hx(_templateObject4) : "", val(options.file.name), Lego.UI.Util.convertByteUnit(options.file.size), val(options.file.url), val(options.file.name)));
+            var vDom = hx(_templateObject$1, Lego.UI.Util.getFileIcon(options.file.name), options.percent < 100 ? hx(_templateObject2$1, val(options.file.name), "progressbar_" + options.vid) : hx(_templateObject3$1, !options.readonly && options.percent == 100 ? hx(_templateObject4) : "", val(options.file.name), Lego.UI.Util.convertByteUnit(options.file.size), val(options.file.url), val(options.file.name)));
             return vDom;
         }
     }, {
@@ -418,19 +418,25 @@ var UploadItem = function(_UploadBase) {
     }, {
         key: "onCancel",
         value: function onCancel(event) {
+            var _this2 = this;
             event.stopPropagation();
             this.cancel();
-            this.remove();
+            this.$el.slideUp("normal", function() {
+                _this2.remove();
+            });
         }
     }, {
         key: "onRemove",
         value: function onRemove(event) {
+            var _this3 = this;
             event.stopPropagation();
             var target = $(event.currentTarget), id = target.data("id"), hash = target.data("hash");
             if (this.options.onRemove) {
                 return this.options.onRemove(id, hash);
             }
-            this.remove();
+            this.$el.slideUp("normal", function() {
+                _this3.remove();
+            });
         }
     } ]);
     return UploadItem;
@@ -459,9 +465,11 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="upload upload-', '">\n            <button class="btn btn-secondary addbtn" type="button" ', '>\n                <i class="anticon anticon-upload"></i>\n                ', '\n            </button>\n            <input type="hidden" value="', '" name="', '" class="upload-value">\n            <input multiple="multiple" type="file" class="form-control fileInput hide" accept="', '" style="display:none">\n            ', "\n        </div>\n        " ], [ '\n        <div class="upload upload-', '">\n            <button class="btn btn-secondary addbtn" type="button" ', '>\n                <i class="anticon anticon-upload"></i>\n                ', '\n            </button>\n            <input type="hidden" value="', '" name="', '" class="upload-value">\n            <input multiple="multiple" type="file" class="form-control fileInput hide" accept="', '" style="display:none">\n            ', "\n        </div>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="upload upload-', '">\n            ', '\n            <input type="hidden" value="', '" name="', '" class="upload-value">\n            <input multiple="multiple" type="file" class="form-control fileInput hide" accept="', '" style="display:none">\n            ', "\n        </div>\n        " ], [ '\n        <div class="upload upload-', '">\n            ', '\n            <input type="hidden" value="', '" name="', '" class="upload-value">\n            <input multiple="multiple" type="file" class="form-control fileInput hide" accept="', '" style="display:none">\n            ', "\n        </div>\n        " ]);
 
-var _templateObject2 = _taggedTemplateLiteral([ '<div class="upload-container"></div>' ], [ '<div class="upload-container"></div>' ]);
+var _templateObject2 = _taggedTemplateLiteral([ '\n            <button class="btn btn-secondary addbtn" type="button" ', '>\n                <i class="anticon anticon-upload"></i>\n                ', "\n            </button>\n            " ], [ '\n            <button class="btn btn-secondary addbtn" type="button" ', '>\n                <i class="anticon anticon-upload"></i>\n                ', "\n            </button>\n            " ]);
+
+var _templateObject3 = _taggedTemplateLiteral([ '<div class="upload-container"></div>' ], [ '<div class="upload-container"></div>' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -510,7 +518,7 @@ var Upload = function(_Lego$UI$Baseview) {
             },
             keyRoot: "",
             type: "file",
-            text: "添加附件",
+            buttonText: "添加附件",
             name: "",
             token: "",
             params: {},
@@ -518,12 +526,13 @@ var Upload = function(_Lego$UI$Baseview) {
             saveUri: "",
             accept: "",
             previewOption: null,
-            multiple: false,
+            multiple: true,
             context: null,
             template: "",
             maxFileSize: "5mb",
             maxFilesCount: 9,
             isAuto: true,
+            readonly: false,
             disabled: false,
             hasCookie: false,
             showUploadList: true,
@@ -536,6 +545,15 @@ var Upload = function(_Lego$UI$Baseview) {
             onCancel: function onCancel() {}
         };
         Object.assign(options, opts);
+        if (options.value.length) {
+            options.value = options.value.map(function(file) {
+                return {
+                    readonly: options.readonly,
+                    percent: 100,
+                    file: file
+                };
+            });
+        }
         var _this = _possibleConstructorReturn(this, (Upload.__proto__ || Object.getPrototypeOf(Upload)).call(this, options));
         _this.reset();
         _this.$(".fileInput").on("change", function(event) {
@@ -544,7 +562,6 @@ var Upload = function(_Lego$UI$Baseview) {
         });
         if (_this.options.value.length) {
             _this.options.value.forEach(function(item, index) {
-                item.percent = 100;
                 _this.showItem(item);
             });
         }
@@ -555,7 +572,7 @@ var Upload = function(_Lego$UI$Baseview) {
         value: function render() {
             var options = this.options;
             var vDom = "";
-            vDom = hx(_templateObject, val(options.type), options.disabled ? "disabled" : "", val(options.text), this.getValue(), val(options.name), val(options.accept), options.showUploadList ? hx(_templateObject2) : "");
+            vDom = hx(_templateObject, val(options.type), !options.readonly ? hx(_templateObject2, options.disabled ? "disabled" : "", val(options.buttonText)) : "", this.getValue(), val(options.name), val(options.accept), options.showUploadList ? hx(_templateObject3) : "");
             return options.template ? options.template : vDom;
         }
     }, {
@@ -570,7 +587,7 @@ var Upload = function(_Lego$UI$Baseview) {
             var that = this, options = this.options, filesCount = uploadFiles.length, maxFilesCount = options.maxFilesCount;
             if (filesCount) {
                 if (filesCount > maxFilesCount) {
-                    Lego.UI.notification("warning", "只能上传" + maxFilesCount + "张图片");
+                    Lego.UI.message("warning", "只能上传" + maxFilesCount + "张图片");
                     return;
                 }
                 this.fileList.concat(uploadFiles);
@@ -581,7 +598,7 @@ var Upload = function(_Lego$UI$Baseview) {
                     if (Math.ceil(file.size / (1024 * 1024)) > parseInt(options.maxFileSize)) {
                         var msg = "发送文件最大为" + options.maxFileSize;
                         if (uploadFiles.length == 1) {
-                            Lego.UI.notification("error", msg);
+                            Lego.UI.message("error", msg);
                         } else {
                             debug.warn(msg);
                         }
@@ -592,6 +609,7 @@ var Upload = function(_Lego$UI$Baseview) {
                     })) return;
                     var uploadOption = {
                         uploadUri: options.uploadUri,
+                        readonly: options.readonly,
                         isAuto: options.isAuto,
                         file: file,
                         type: options.type,

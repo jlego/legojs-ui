@@ -1,5 +1,5 @@
 /**
- * common.js v0.2.1
+ * common.js v0.2.3
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -17,9 +17,9 @@ var perfectScrollbar_dist_css_perfectScrollbar_css = require("perfect-scrollbar/
 
 var perfectScrollbar = _interopDefault(require("perfect-scrollbar"));
 
-var toastr = _interopDefault(require("toastr"));
+var toastr = _interopDefault(require("toastr-cjs"));
 
-var toastr_build_toastr_css = require("toastr/build/toastr.css");
+var toastrCjs_toastr_css = require("toastr-cjs/toastr.css");
 
 function Notification() {
     var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "info";
@@ -48,6 +48,34 @@ function Notification() {
 }
 
 Lego.components("notification", Notification);
+
+function Message() {
+    var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "info";
+    var content = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+    toastr.options = {
+        closeButton: false,
+        debug: false,
+        newestOnTop: false,
+        progressBar: false,
+        positionClass: "toast-top-center toast-top50",
+        preventDuplicates: false,
+        onclick: null,
+        showDuration: "300",
+        hideDuration: "1000",
+        timeOut: "3000",
+        extendedTimeOut: "1000",
+        showEasing: "swing",
+        hideEasing: "linear",
+        showMethod: "fadeIn",
+        hideMethod: "fadeOut"
+    };
+    var typeArr = [ "success", "info", "warning", "error" ];
+    if (typeArr.indexOf(type) >= 0 || content) {
+        toastr[type](content);
+    }
+}
+
+Lego.components("message", Message);
 
 function _defineProperty(obj, key, value) {
     if (key in obj) {

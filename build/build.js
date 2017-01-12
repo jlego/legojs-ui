@@ -55,6 +55,7 @@ build([{
 {alias: 'tooltip'},
 {alias: 'popover'},
 {alias: 'notification'},
+{alias: 'message'},
 {alias: 'tree'},
 {alias: 'treeselect'},
 {alias: 'forms'},

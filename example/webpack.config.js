@@ -66,7 +66,7 @@ module.exports = {
             mangle: true,
             compress: false,
             output: {
-                beautify: false,
+                beautify: true,
                 comments: false
             },
         }),

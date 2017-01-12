@@ -1,18 +1,22 @@
 .upload .upload-container {
     margin-top: 8px;
 }
+
 .upload .addbtn i {
     font-size: 16px;
     display: inline-block;
 }
-.upload .cancelbtn{
+
+.upload .cancelbtn {
     zoom: 0.8;
 }
-.upload .closebtn{
+
+.upload .closebtn {
     zoom: 0.8;
     display: none;
 }
-.upload .upload-item {    
+
+.upload .upload-item {
     position: relative;
     padding: 8px;
     border-radius: 3px;
@@ -41,7 +45,6 @@
 }
 
 .upload .upload-item .media-body .media-heading .right {
-    // float: right;    
     position: absolute;
     top: 8px;
     right: 8px;
@@ -64,7 +67,8 @@
     display: none;
     margin-left: 15px;
 }
-.upload .upload-item .media-body small time a{  
+
+.upload .upload-item .media-body small time a {
     margin-left: 5px;
 }
 
@@ -83,6 +87,6 @@
 }
 
 .upload .upload-item:hover .closebtn,
-.upload .upload-item:hover small time{
+.upload .upload-item:hover small time {
     display: inline-block;
 }

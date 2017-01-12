@@ -1,5 +1,5 @@
 /**
- * notification.js v0.2.3
+ * message.js v0.2.3
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -13,7 +13,7 @@ var toastr = _interopDefault(require("toastr-cjs"));
 
 var toastrCjs_toastr_css = require("toastr-cjs/toastr.css");
 
-function Notification() {
+function Message() {
     var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "info";
     var content = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
     toastr.options = {
@@ -39,6 +39,6 @@ function Notification() {
     }
 }
 
-Lego.components("notification", Notification);
+Lego.components("message", Message);
 
-module.exports = Notification;
+module.exports = Message;

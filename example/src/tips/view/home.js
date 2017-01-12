@@ -6,16 +6,16 @@ class HomeView extends Lego.UI.Baseview {
         const options = {
             events: {
                 'click #notification1': function(){
-                    Lego.UI.notification('success', '系统提示1');
+                    Lego.UI.message('success', '系统提示1');
                 },
                 'click #notification2': function(){
-                    Lego.UI.notification('info', '系统提示2');
+                    Lego.UI.message('info', '系统提示2');
                 },
                 'click #notification3': function(){
-                    Lego.UI.notification('warning', '系统提示3');
+                    Lego.UI.message('warning', '系统提示3');
                 },
                 'click #notification4': function(){
-                    Lego.UI.notification('error', '系统提示4');
+                    Lego.UI.message('error', '系统提示4');
                 }
             }
         };

@@ -7,7 +7,7 @@ import toastr from 'toastr-cjs';
 import 'toastr-cjs/toastr.css';
 import './asset/index.scss';
 
-function Notification(type='info', content='') {
+function Message(type='info', content='') {
     toastr.options = {
         "closeButton": false,
         "debug": false,
@@ -30,5 +30,5 @@ function Notification(type='info', content='') {
         toastr[type](content);
     }
 }
-Lego.components('notification', Notification);
-export default Notification;
+Lego.components('message', Message);
+export default Message;
