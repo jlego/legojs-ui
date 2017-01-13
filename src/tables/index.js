@@ -56,7 +56,7 @@ class Tables extends Lego.UI.Baseview {
         Object.assign(options, opts);
         options.components.push({
             ...options.pagination,
-            el: '#' + options.vid + '-paginationId'
+            el: '#pagination_' + options.vid
         });
         options.columns.map((col) => {
             col = Object.assign({
@@ -64,7 +64,7 @@ class Tables extends Lego.UI.Baseview {
                 key: Lego.randomKey(32),
                 isHide: false, //是否隐藏
                 dataIndex: '',  //列数据在数据项中对应的 key，支持 a.b.c 的嵌套写法
-                // render(value, row, col){ return value; },  //生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return里面可以设置表格行/列合并
+                // format(value, row, col){ return value; },  //生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return里面可以设置表格行/列合并
                 // filter(){},  //表头的筛选项
                 // sorter(){},  //排序函数，本地排序使用一个函数，需要服务端排序可设为 true
                 colSpan: 0,  //表头列合并,设置为 0 时，不渲染
@@ -115,7 +115,7 @@ class Tables extends Lego.UI.Baseview {
                 </div>
                 ${options.pagination && options.data ? hx`
                     <div class="lego-table-footer">
-                    <pagination id="${options.vid}-paginationId"></pagination>
+                    <pagination id="pagination_${options.vid}"></pagination>
                     </div>
                 ` : ''}
                 </div>
@@ -123,6 +123,10 @@ class Tables extends Lego.UI.Baseview {
         </div>
         `;
         return vDom;
+    }
+    renderAfter(){
+        const paginationView = this['pagination_' + this.options.vid];
+        if(paginationView) paginationView.refresh();
     }
     _getRowKey(str = ''){
         this.rowKey = this.rowKey || 0;
@@ -193,7 +197,7 @@ class Tables extends Lego.UI.Baseview {
                 return hx`<tr class="${options.rowClassName}" id="${row.key}">
                 ${options.rowSelection ? this._renderSelection(row, 'td') : ''}
                 ${options.columns.map(col => {
-                    return !col.isHide ? hx`<td>${typeof col.render === 'function' ? col.render(row[col.dataIndex], row, col) : row[col.dataIndex]}</td>` : '';
+                    return !col.isHide ? hx`<td>${typeof col.format === 'function' ? col.format(row[col.dataIndex], row, col) : row[col.dataIndex]}</td>` : '';
                 })}
                 </tr>`;
             })}

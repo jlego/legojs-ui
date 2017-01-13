@@ -281,7 +281,8 @@ var Pagination = function(_Lego$UI$Baseview) {
             showQuickJumper: false,
             size: "",
             simple: null,
-            isShowTotal: true
+            isShowTotal: true,
+            data: {}
         };
         Object.assign(options, opts);
         if (!options.simple && options.showSizeChanger) {
@@ -313,10 +314,11 @@ var Pagination = function(_Lego$UI$Baseview) {
     _createClass$1(Pagination, [ {
         key: "render",
         value: function render() {
-            var options = this.options || {}, current = parseInt(options.current);
+            var options = this.options || {}, current = options.data.current || parseInt(options.current);
+            options.pageSize = options.data.pageSize || options.pageSize;
             var pageRang = parseInt(options.pageRang);
-            var totalCount = typeof options.total === "function" ? options.total() : options.total;
-            options.totalPages = Math.ceil(totalCount / options.pageSize);
+            var totalCount = options.data.total || (typeof options.total === "function" ? options.total() : options.total);
+            options.totalPages = options.data.totalPages || Math.ceil(totalCount / options.pageSize);
             pageRang = pageRang >= options.totalPages ? options.totalPages : pageRang;
             var baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0, startPage = baseTimes * pageRang + 1, endPage = startPage + pageRang - 1, showEllipsis = options.totalPages - current > pageRang ? true : false, pagesArr = [];
             endPage = endPage >= options.totalPages ? options.totalPages : endPage;
@@ -424,7 +426,7 @@ var _templateObject3 = _taggedTemplateLiteral([ '\n                <div class="l
 
 var _templateObject4 = _taggedTemplateLiteral([ '\n                        <button type="button" class="btn btn-default noborder">\n                        <i class="anticon anticon-ellipsis"></i></button>' ], [ '\n                        <button type="button" class="btn btn-default noborder">\n                        <i class="anticon anticon-ellipsis"></i></button>' ]);
 
-var _templateObject5 = _taggedTemplateLiteral([ '\n                    <div class="lego-table-footer">\n                    <pagination id="', '-paginationId"></pagination>\n                    </div>\n                ' ], [ '\n                    <div class="lego-table-footer">\n                    <pagination id="', '-paginationId"></pagination>\n                    </div>\n                ' ]);
+var _templateObject5 = _taggedTemplateLiteral([ '\n                    <div class="lego-table-footer">\n                    <pagination id="pagination_', '"></pagination>\n                    </div>\n                ' ], [ '\n                    <div class="lego-table-footer">\n                    <pagination id="pagination_', '"></pagination>\n                    </div>\n                ' ]);
 
 var _templateObject6 = _taggedTemplateLiteral([ "\n        <colgroup>\n            ", "\n            ", "\n        </colgroup>\n        " ], [ "\n        <colgroup>\n            ", "\n            ", "\n        </colgroup>\n        " ]);
 
@@ -541,7 +543,7 @@ var Tables = function(_Lego$UI$Baseview) {
         };
         Object.assign(options, opts);
         options.components.push(_extends({}, options.pagination, {
-            el: "#" + options.vid + "-paginationId"
+            el: "#pagination_" + options.vid
         }));
         options.columns.map(function(col) {
             col = Object.assign({
@@ -571,6 +573,12 @@ var Tables = function(_Lego$UI$Baseview) {
             var options = this.options;
             var vDom = hx(_templateObject, options.size, options.bordered ? "lego-table-bordered" : "", options.showHeader ? "lego-table-fixed-header" : "", options.title ? hx(_templateObject2, typeof options.title == "function" ? options.title() : options.title) : "", options.showHeader ? hx(_templateObject3, this._renderColgroup(), this._renderHeader(), options.colSetting ? hx(_templateObject4) : "") : "", options.pagination ? "48px" : "0", options.showHeader ? "scrollbar" : "", options.className, this._renderColgroup(), !options.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), options.pagination && options.data ? hx(_templateObject5, options.vid) : "");
             return vDom;
+        }
+    }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            var paginationView = this["pagination_" + this.options.vid];
+            if (paginationView) paginationView.refresh();
         }
     }, {
         key: "_getRowKey",
@@ -621,7 +629,7 @@ var Tables = function(_Lego$UI$Baseview) {
             var vDom = hx(_templateObject17, options.data.map(function(row, i) {
                 row.key = row.id || _this4._getRowKey("row_");
                 return hx(_templateObject18, options.rowClassName, row.key, options.rowSelection ? _this4._renderSelection(row, "td") : "", options.columns.map(function(col) {
-                    return !col.isHide ? hx(_templateObject19, typeof col.render === "function" ? col.render(row[col.dataIndex], row, col) : row[col.dataIndex]) : "";
+                    return !col.isHide ? hx(_templateObject19, typeof col.format === "function" ? col.format(row[col.dataIndex], row, col) : row[col.dataIndex]) : "";
                 }));
             }));
             return vDom;

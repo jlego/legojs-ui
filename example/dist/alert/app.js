@@ -1943,7 +1943,8 @@
                 showQuickJumper: false,
                 size: "",
                 simple: null,
-                isShowTotal: true
+                isShowTotal: true,
+                data: {}
             };
             Object.assign(n, e);
             if (!n.simple && n.showSizeChanger) {
@@ -1975,10 +1976,11 @@
         h(t, [ {
             key: "render",
             value: function e() {
-                var t = this.options || {}, n = parseInt(t.current);
+                var t = this.options || {}, n = t.data.current || parseInt(t.current);
+                t.pageSize = t.data.pageSize || t.pageSize;
                 var o = parseInt(t.pageRang);
-                var i = typeof t.total === "function" ? t.total() : t.total;
-                t.totalPages = Math.ceil(i / t.pageSize);
+                var i = t.data.total || (typeof t.total === "function" ? t.total() : t.total);
+                t.totalPages = t.data.totalPages || Math.ceil(i / t.pageSize);
                 o = o >= t.totalPages ? t.totalPages : o;
                 var r = o ? Math.floor((n - 1) / o) : 0, a = r * o + 1, s = a + o - 1, l = t.totalPages - n > o ? true : false, c = [];
                 s = s >= t.totalPages ? t.totalPages : s;
@@ -2047,7 +2049,7 @@
         return t;
     }(Lego.UI.Baseview);
     Lego.components("pagination", E);
-    var I = Object.assign || function(e) {
+    var P = Object.assign || function(e) {
         for (var t = 1; t < arguments.length; t++) {
             var n = arguments[t];
             for (var o in n) {
@@ -2058,7 +2060,7 @@
         }
         return e;
     };
-    var P = function() {
+    var I = function() {
         function e(e, t) {
             for (var n = 0; n < t.length; n++) {
                 var o = t[n];
@@ -2078,7 +2080,7 @@
     var D = ee([ '<div class="lego-table-title">', "</div>" ], [ '<div class="lego-table-title">', "</div>" ]);
     var N = ee([ '\n                <div class="lego-table-header">\n                    <table class="">\n                        ', "\n                        ", "\n                    </table>\n                    ", "\n                </div>\n                " ], [ '\n                <div class="lego-table-header">\n                    <table class="">\n                        ', "\n                        ", "\n                    </table>\n                    ", "\n                </div>\n                " ]);
     var R = ee([ '\n                        <button type="button" class="btn btn-default noborder">\n                        <i class="anticon anticon-ellipsis"></i></button>' ], [ '\n                        <button type="button" class="btn btn-default noborder">\n                        <i class="anticon anticon-ellipsis"></i></button>' ]);
-    var z = ee([ '\n                    <div class="lego-table-footer">\n                    <pagination id="', '-paginationId"></pagination>\n                    </div>\n                ' ], [ '\n                    <div class="lego-table-footer">\n                    <pagination id="', '-paginationId"></pagination>\n                    </div>\n                ' ]);
+    var z = ee([ '\n                    <div class="lego-table-footer">\n                    <pagination id="pagination_', '"></pagination>\n                    </div>\n                ' ], [ '\n                    <div class="lego-table-footer">\n                    <pagination id="pagination_', '"></pagination>\n                    </div>\n                ' ]);
     var A = ee([ "\n        <colgroup>\n            ", "\n            ", "\n        </colgroup>\n        " ], [ "\n        <colgroup>\n            ", "\n            ", "\n        </colgroup>\n        " ]);
     var L = ee([ '<col style="width: 30px;">' ], [ '<col style="width: 30px;">' ]);
     var B = ee([ "\n                ", "\n            " ], [ "\n                ", "\n            " ]);
@@ -2172,8 +2174,8 @@
                 components: []
             };
             Object.assign(n, e);
-            n.components.push(I({}, n.pagination, {
-                el: "#" + n.vid + "-paginationId"
+            n.components.push(P({}, n.pagination, {
+                el: "#pagination_" + n.vid
             }));
             n.columns.map(function(e) {
                 e = Object.assign({
@@ -2197,12 +2199,18 @@
             o.$(".lego-table-tfoot>tr>td").attr("colspan", o.options.columns.length);
             return o;
         }
-        P(t, [ {
+        I(t, [ {
             key: "render",
             value: function e() {
                 var t = this.options;
                 var n = hx(T, t.size, t.bordered ? "lego-table-bordered" : "", t.showHeader ? "lego-table-fixed-header" : "", t.title ? hx(D, typeof t.title == "function" ? t.title() : t.title) : "", t.showHeader ? hx(N, this._renderColgroup(), this._renderHeader(), t.colSetting ? hx(R) : "") : "", t.pagination ? "48px" : "0", t.showHeader ? "scrollbar" : "", t.className, this._renderColgroup(), !t.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), t.pagination && t.data ? hx(z, t.vid) : "");
                 return n;
+            }
+        }, {
+            key: "renderAfter",
+            value: function e() {
+                var t = this["pagination_" + this.options.vid];
+                if (t) t.refresh();
             }
         }, {
             key: "_getRowKey",
@@ -2253,7 +2261,7 @@
                 var o = hx(Y, n.data.map(function(e, o) {
                     e.key = e.id || t._getRowKey("row_");
                     return hx(G, n.rowClassName, e.key, n.rowSelection ? t._renderSelection(e, "td") : "", n.columns.map(function(t) {
-                        return !t.isHide ? hx(J, typeof t.render === "function" ? t.render(e[t.dataIndex], e, t) : e[t.dataIndex]) : "";
+                        return !t.isHide ? hx(J, typeof t.format === "function" ? t.format(e[t.dataIndex], e, t) : e[t.dataIndex]) : "";
                     }));
                 }));
                 return o;

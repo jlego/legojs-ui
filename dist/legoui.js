@@ -1055,7 +1055,8 @@ var Pagination = function(_Lego$UI$Baseview) {
             showQuickJumper: false,
             size: "",
             simple: null,
-            isShowTotal: true
+            isShowTotal: true,
+            data: {}
         };
         Object.assign(options, opts);
         if (!options.simple && options.showSizeChanger) {
@@ -1087,10 +1088,11 @@ var Pagination = function(_Lego$UI$Baseview) {
     _createClass$7(Pagination, [ {
         key: "render",
         value: function render() {
-            var options = this.options || {}, current = parseInt(options.current);
+            var options = this.options || {}, current = options.data.current || parseInt(options.current);
+            options.pageSize = options.data.pageSize || options.pageSize;
             var pageRang = parseInt(options.pageRang);
-            var totalCount = typeof options.total === "function" ? options.total() : options.total;
-            options.totalPages = Math.ceil(totalCount / options.pageSize);
+            var totalCount = options.data.total || (typeof options.total === "function" ? options.total() : options.total);
+            options.totalPages = options.data.totalPages || Math.ceil(totalCount / options.pageSize);
             pageRang = pageRang >= options.totalPages ? options.totalPages : pageRang;
             var baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0, startPage = baseTimes * pageRang + 1, endPage = startPage + pageRang - 1, showEllipsis = options.totalPages - current > pageRang ? true : false, pagesArr = [];
             endPage = endPage >= options.totalPages ? options.totalPages : endPage;
@@ -1198,7 +1200,7 @@ var _templateObject3$1 = _taggedTemplateLiteral$5([ '\n                <div clas
 
 var _templateObject4 = _taggedTemplateLiteral$5([ '\n                        <button type="button" class="btn btn-default noborder">\n                        <i class="anticon anticon-ellipsis"></i></button>' ], [ '\n                        <button type="button" class="btn btn-default noborder">\n                        <i class="anticon anticon-ellipsis"></i></button>' ]);
 
-var _templateObject5 = _taggedTemplateLiteral$5([ '\n                    <div class="lego-table-footer">\n                    <pagination id="', '-paginationId"></pagination>\n                    </div>\n                ' ], [ '\n                    <div class="lego-table-footer">\n                    <pagination id="', '-paginationId"></pagination>\n                    </div>\n                ' ]);
+var _templateObject5 = _taggedTemplateLiteral$5([ '\n                    <div class="lego-table-footer">\n                    <pagination id="pagination_', '"></pagination>\n                    </div>\n                ' ], [ '\n                    <div class="lego-table-footer">\n                    <pagination id="pagination_', '"></pagination>\n                    </div>\n                ' ]);
 
 var _templateObject6 = _taggedTemplateLiteral$5([ "\n        <colgroup>\n            ", "\n            ", "\n        </colgroup>\n        " ], [ "\n        <colgroup>\n            ", "\n            ", "\n        </colgroup>\n        " ]);
 
@@ -1315,7 +1317,7 @@ var Tables = function(_Lego$UI$Baseview) {
         };
         Object.assign(options, opts);
         options.components.push(_extends({}, options.pagination, {
-            el: "#" + options.vid + "-paginationId"
+            el: "#pagination_" + options.vid
         }));
         options.columns.map(function(col) {
             col = Object.assign({
@@ -1345,6 +1347,12 @@ var Tables = function(_Lego$UI$Baseview) {
             var options = this.options;
             var vDom = hx(_templateObject$5, options.size, options.bordered ? "lego-table-bordered" : "", options.showHeader ? "lego-table-fixed-header" : "", options.title ? hx(_templateObject2$2, typeof options.title == "function" ? options.title() : options.title) : "", options.showHeader ? hx(_templateObject3$1, this._renderColgroup(), this._renderHeader(), options.colSetting ? hx(_templateObject4) : "") : "", options.pagination ? "48px" : "0", options.showHeader ? "scrollbar" : "", options.className, this._renderColgroup(), !options.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), options.pagination && options.data ? hx(_templateObject5, options.vid) : "");
             return vDom;
+        }
+    }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            var paginationView = this["pagination_" + this.options.vid];
+            if (paginationView) paginationView.refresh();
         }
     }, {
         key: "_getRowKey",
@@ -1395,7 +1403,7 @@ var Tables = function(_Lego$UI$Baseview) {
             var vDom = hx(_templateObject17, options.data.map(function(row, i) {
                 row.key = row.id || _this4._getRowKey("row_");
                 return hx(_templateObject18, options.rowClassName, row.key, options.rowSelection ? _this4._renderSelection(row, "td") : "", options.columns.map(function(col) {
-                    return !col.isHide ? hx(_templateObject19, typeof col.render === "function" ? col.render(row[col.dataIndex], row, col) : row[col.dataIndex]) : "";
+                    return !col.isHide ? hx(_templateObject19, typeof col.format === "function" ? col.format(row[col.dataIndex], row, col) : row[col.dataIndex]) : "";
                 }));
             }));
             return vDom;
@@ -2304,7 +2312,7 @@ var _templateObject3$5 = _taggedTemplateLiteral$9([ "\n                    ", "\
 
 var _templateObject4$3 = _taggedTemplateLiteral$9([ '<div class="dropdown-divider"></div>' ], [ '<div class="dropdown-divider"></div>' ]);
 
-var _templateObject5$3 = _taggedTemplateLiteral$9([ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "/a>" ], [ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "/a>" ]);
+var _templateObject5$3 = _taggedTemplateLiteral$9([ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "</a>" ], [ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "</a>" ]);
 
 var _templateObject6$2 = _taggedTemplateLiteral$9([ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ]);
 
@@ -2380,8 +2388,8 @@ var Navs = function(_Lego$UI$Baseview) {
         value: function render() {
             var options = this.options || {};
             function makeItem(data, i) {
-                var itemDom = hx(_templateObject$9, data.children ? "dropdown" : "", data.key === options.activeKey ? "active" : "", data.disabled ? "disabled" : "", data.children ? "dropdown-toggle" : "", data.href ? data.href : "javascript:;", data.key ? data.key : "nav-item-" + i, data.value ? data.value : "", Array.isArray(data.children) ? hx(_templateObject2$6, options.direction ? "drop" + options.direction : "", data.children.map(function(subItem, x) {
-                    return hx(_templateObject3$5, subItem.divider ? hx(_templateObject4$3) : hx(_templateObject5$3, subItem.active ? "active" : "", subItem.disabled ? "disabled" : "", subItem.href ? subItem.href : "javascript:;", subItem.key ? subItem.key : "nav-sub-item-" + x, subItem.value ? subItem.value : ""));
+                var itemDom = hx(_templateObject$9, data.children ? "dropdown" : "", data.key === options.activeKey ? "active" : "", data.disabled ? "disabled" : "", data.children ? "dropdown-toggle" : "", data.href ? data.href : "javascript:;", data.key ? data.key : "nav-item-" + i, val(data.value), Array.isArray(data.children) ? hx(_templateObject2$6, options.direction ? "drop" + options.direction : "", data.children.map(function(subItem, x) {
+                    return hx(_templateObject3$5, subItem.divider ? hx(_templateObject4$3) : hx(_templateObject5$3, subItem.active ? "active" : "", subItem.disabled ? "disabled" : "", subItem.href ? subItem.href : "javascript:;", subItem.key ? subItem.key : "nav-sub-item-" + x, val(subItem.value)));
                 })) : "");
                 return itemDom;
             }
@@ -5217,6 +5225,7 @@ var UploadView = function(_Lego$View) {
             var taking = 0, file = this.options.file, params = this.options.params;
             this.xhr.crossDomain = true;
             file.id = file.id || Lego.randomKey(32);
+            var progressbar = this["progressbar_" + this.options.vid];
             this.form = new FormData();
             this.form.append("file", file);
             if (!Object.values(params).length) {
@@ -5235,8 +5244,8 @@ var UploadView = function(_Lego$View) {
                         formatSpeed = uploadSpeed.toFixed(2) + "Kb/s";
                     }
                     var percent = Math.round(event.loaded * 100 / event.total);
-                    if (_this2.progressbar) {
-                        _this2.progressbar.options.percent = percent;
+                    if (progressbar) {
+                        progressbar.options.percent = percent;
                     } else {
                         _this2.options.percent = percent;
                     }
@@ -5257,8 +5266,8 @@ var UploadView = function(_Lego$View) {
                     if (_this2.options.params.key) {
                         _this2.options.file.url = _this2.options.downloadUri + _this2.options.key;
                     }
-                    if (_this2.progressbar) {
-                        _this2.progressbar.options.percent = 100;
+                    if (progressbar) {
+                        progressbar.options.percent = 100;
                     } else {
                         _this2.options.percent = 100;
                     }
@@ -5394,9 +5403,7 @@ var UploadItem = function(_UploadBase) {
             onCancel: function onCancel() {}
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn$25(this, (UploadItem.__proto__ || Object.getPrototypeOf(UploadItem)).call(this, options));
-        _this.renderAfter();
-        return _this;
+        return _possibleConstructorReturn$25(this, (UploadItem.__proto__ || Object.getPrototypeOf(UploadItem)).call(this, options));
     }
     _createClass$28(UploadItem, [ {
         key: "render",
@@ -5411,7 +5418,7 @@ var UploadItem = function(_UploadBase) {
             var options = this.options;
             if (options.percent < 100) {
                 this.progressbar = Lego.create(Progressbar, {
-                    el: "#progressbar_" + options.vid,
+                    el: this.$("#progressbar_" + options.vid),
                     showInfo: false,
                     status: "success",
                     onComplete: function onComplete() {
@@ -5696,6 +5703,7 @@ var Upload = function(_Lego$UI$Baseview) {
                     containerEl.html(view.el);
                 }
             }
+            view.renderAfter();
             return view;
         }
     }, {

@@ -2,14 +2,14 @@
     var t = {};
     function n(o) {
         if (t[o]) return t[o].exports;
-        var r = t[o] = {
+        var i = t[o] = {
             exports: {},
             id: o,
             loaded: false
         };
-        e[o].call(r.exports, r, r.exports, n);
-        r.loaded = true;
-        return r.exports;
+        e[o].call(i.exports, i, i.exports, n);
+        i.loaded = true;
+        return i.exports;
     }
     n.m = e;
     n.c = t;
@@ -34,10 +34,10 @@
                 return t;
             };
         }();
-        var r = n(255);
-        var a = l(r);
-        var i = n(256);
-        var s = l(i);
+        var i = n(255);
+        var a = l(i);
+        var r = n(256);
+        var s = l(r);
         function l(e) {
             return e && e.__esModule ? e : {
                 default: e
@@ -101,8 +101,8 @@
                 return t;
             };
         }();
-        var o = r([ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/upload/0" class="', '">Upload 上传文件</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ], [ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/upload/0" class="', '">Upload 上传文件</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ]);
-        function r(e, t) {
+        var o = i([ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/upload/0" class="', '">Upload 上传文件</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ], [ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/upload/0" class="', '">Upload 上传文件</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ]);
+        function i(e, t) {
             return Object.freeze(Object.defineProperties(e, {
                 raw: {
                     value: Object.freeze(t)
@@ -114,7 +114,7 @@
                 throw new TypeError("Cannot call a class as a function");
             }
         }
-        function i(e, t) {
+        function r(e, t) {
             if (!e) {
                 throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             }
@@ -143,7 +143,7 @@
                     currentTab: 0
                 };
                 Object.assign(n, e);
-                return i(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
+                return r(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
             }
             n(t, [ {
                 key: "render",
@@ -178,9 +178,9 @@
                 return t;
             };
         }();
-        var r = l([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <upload id="upload1"></upload>\n            </div>\n            <div class="col-sm-6">\n              <upload id="upload2"></upload>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <upload id="upload3"></upload>\n            </div>\n            <div class="col-sm-6">\n              <upload id="upload4"></upload>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <upload id="upload1"></upload>\n            </div>\n            <div class="col-sm-6">\n              <upload id="upload2"></upload>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <upload id="upload3"></upload>\n            </div>\n            <div class="col-sm-6">\n              <upload id="upload4"></upload>\n            </div>\n          </div>\n        </div>\n        ' ]);
+        var i = l([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <upload id="upload1"></upload>\n            </div>\n            <div class="col-sm-6">\n              <upload id="upload2"></upload>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <upload id="upload3"></upload>\n            </div>\n            <div class="col-sm-6">\n              <upload id="upload4"></upload>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <upload id="upload1"></upload>\n            </div>\n            <div class="col-sm-6">\n              <upload id="upload2"></upload>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <upload id="upload3"></upload>\n            </div>\n            <div class="col-sm-6">\n              <upload id="upload4"></upload>\n            </div>\n          </div>\n        </div>\n        ' ]);
         var a = n(257);
-        var i = s(a);
+        var r = s(a);
         function s(e) {
             return e && e.__esModule ? e : {
                 default: e
@@ -273,7 +273,7 @@
             o(t, [ {
                 key: "render",
                 value: function e() {
-                    var t = hx(r);
+                    var t = hx(i);
                     return t;
                 }
             } ]);
@@ -288,11 +288,11 @@
         } : function(e) {
             return e && typeof Symbol === "function" && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e;
         };
-        function r(e) {
+        function i(e) {
             return e && (typeof e === "undefined" ? "undefined" : o(e)) === "object" && "default" in e ? e["default"] : e;
         }
-        var a = r(n(258));
-        var i = function() {
+        var a = i(n(258));
+        var r = function() {
             function e(e, t) {
                 for (var n = 0; n < t.length; n++) {
                     var o = t[n];
@@ -355,10 +355,10 @@
                 };
                 Object.assign(n, e);
                 var o = l(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
-                o.xhr = r();
+                o.xhr = i();
                 o.startDate = 0;
                 o.form = null;
-                function r() {
+                function i() {
                     var e;
                     if (window.XMLHttpRequest) {
                         e = new XMLHttpRequest();
@@ -386,35 +386,36 @@
                 }
                 return o;
             }
-            i(t, [ {
+            r(t, [ {
                 key: "uploadInit",
                 value: function e() {
                     var t = this;
-                    var n = 0, o = this.options.file, r = this.options.params;
+                    var n = 0, o = this.options.file, i = this.options.params;
                     this.xhr.crossDomain = true;
                     o.id = o.id || Lego.randomKey(32);
+                    var a = this["progressbar_" + this.options.vid];
                     this.form = new FormData();
                     this.form.append("file", o);
-                    if (!Object.values(r).length) {
-                        for (var a in r) {
-                            this.form.append(a, r[a]);
+                    if (!Object.values(i).length) {
+                        for (var r in i) {
+                            this.form.append(r, i[r]);
                         }
                     }
                     this.xhr.upload.addEventListener("progress", function(e) {
                         if (e.lengthComputable) {
                             var o = new Date().getTime();
                             n = o - t.startDate;
-                            var r = e.loaded / 1024, a = n / 1e3, i = r / a, s = void 0;
-                            if (i > 1024) {
-                                s = (i / 1024).toFixed(2) + "Mb/s";
+                            var i = e.loaded / 1024, r = n / 1e3, s = i / r, l = void 0;
+                            if (s > 1024) {
+                                l = (s / 1024).toFixed(2) + "Mb/s";
                             } else {
-                                s = i.toFixed(2) + "Kb/s";
+                                l = s.toFixed(2) + "Kb/s";
                             }
-                            var l = Math.round(e.loaded * 100 / e.total);
-                            if (t.progressbar) {
-                                t.progressbar.options.percent = l;
+                            var u = Math.round(e.loaded * 100 / e.total);
+                            if (a) {
+                                a.options.percent = u;
                             } else {
-                                t.options.percent = l;
+                                t.options.percent = u;
                             }
                         }
                         if (typeof t.options.onProgress == "function") {
@@ -433,8 +434,8 @@
                             if (t.options.params.key) {
                                 t.options.file.url = t.options.downloadUri + t.options.key;
                             }
-                            if (t.progressbar) {
-                                t.progressbar.options.percent = 100;
+                            if (a) {
+                                a.options.percent = 100;
                             } else {
                                 t.options.percent = 100;
                             }
@@ -466,8 +467,8 @@
                         t.remove();
                     }, false);
                     this.xhr.open("POST", this.options.uploadUri, true);
-                    for (var i in this.options.headers) {
-                        this.xhr.setRequestHeader(i, this.options.headers[i]);
+                    for (var s in this.options.headers) {
+                        this.xhr.setRequestHeader(s, this.options.headers[s]);
                     }
                 }
             }, {
@@ -600,12 +601,12 @@
                 }
             }));
         }
-        function L(e, t) {
+        function _(e, t) {
             if (!(e instanceof t)) {
                 throw new TypeError("Cannot call a class as a function");
             }
         }
-        function _(e, t) {
+        function L(e, t) {
             if (!e) {
                 throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             }
@@ -629,7 +630,7 @@
             P(t, e);
             function t() {
                 var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-                L(this, t);
+                _(this, t);
                 var n = {
                     events: {
                         "click .cancelbtn": "onCancel",
@@ -649,9 +650,7 @@
                     onCancel: function e() {}
                 };
                 Object.assign(n, e);
-                var o = _(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
-                o.renderAfter();
-                return o;
+                return L(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
             }
             y(t, [ {
                 key: "render",
@@ -666,7 +665,7 @@
                     var t = this.options;
                     if (t.percent < 100) {
                         this.progressbar = Lego.create(m, {
-                            el: "#progressbar_" + t.vid,
+                            el: this.$("#progressbar_" + t.vid),
                             showInfo: false,
                             status: "success",
                             onComplete: function e() {
@@ -690,9 +689,9 @@
                 value: function e(t) {
                     var n = this;
                     t.stopPropagation();
-                    var o = $(t.currentTarget), r = o.data("id"), a = o.data("hash");
+                    var o = $(t.currentTarget), i = o.data("id"), a = o.data("hash");
                     if (this.options.onRemove) {
-                        return this.options.onRemove(r, a);
+                        return this.options.onRemove(i, a);
                     }
                     this.$el.slideUp("normal", function() {
                         n.remove();
@@ -834,23 +833,23 @@
                     } else {
                         n = [ t ];
                     }
-                    var o = this, r = this.options, i = n.length, s = r.maxFilesCount;
-                    if (i) {
-                        if (i > s) {
+                    var o = this, i = this.options, r = n.length, s = i.maxFilesCount;
+                    if (r) {
+                        if (r > s) {
                             Lego.UI.message("warning", "只能上传" + s + "张图片");
                             return;
                         }
                         this.fileList.concat(n);
                         this.fileList = this.fileList.slice(0, s);
-                        if (typeof r.onAddFile == "function") r.onAddFile(this.fileList, n);
+                        if (typeof i.onAddFile == "function") i.onAddFile(this.fileList, n);
                         n.forEach(function(e, t) {
                             e.id = Lego.randomKey(32);
-                            if (Math.ceil(e.size / (1024 * 1024)) > parseInt(r.maxFileSize)) {
-                                var i = "发送文件最大为" + r.maxFileSize;
+                            if (Math.ceil(e.size / (1024 * 1024)) > parseInt(i.maxFileSize)) {
+                                var r = "发送文件最大为" + i.maxFileSize;
                                 if (n.length == 1) {
-                                    Lego.UI.message("error", i);
+                                    Lego.UI.message("error", r);
                                 } else {
-                                    debug.warn(i);
+                                    debug.warn(r);
                                 }
                                 return;
                             }
@@ -858,20 +857,20 @@
                                 return t == e;
                             })) return;
                             var s = {
-                                uploadUri: r.uploadUri,
-                                readonly: r.readonly,
-                                isAuto: r.isAuto,
+                                uploadUri: i.uploadUri,
+                                readonly: i.readonly,
+                                isAuto: i.isAuto,
                                 file: e,
-                                type: r.type,
+                                type: i.type,
                                 percent: 0,
                                 params: Object.assign({
-                                    key: r.key || o.getKey(e.name),
-                                    token: typeof r.data == "string" ? r.data : ""
-                                }, r.params),
+                                    key: i.key || o.getKey(e.name),
+                                    token: typeof i.data == "string" ? i.data : ""
+                                }, i.params),
                                 needToken: true,
-                                onBegin: r.onBegin,
-                                onProgress: r.onProgress,
-                                onComplete: r.onComplete || function(e, t) {
+                                onBegin: i.onBegin,
+                                onProgress: i.onProgress,
+                                onComplete: i.onComplete || function(e, t) {
                                     t.url = Lego.config.downloadUri + t.key;
                                     $.ajax({
                                         url: Lego.config.saveUri,
@@ -879,15 +878,15 @@
                                         dataType: "json",
                                         data: t,
                                         success: function e(t) {
-                                            var n = r.value.find(function(e) {
+                                            var n = i.value.find(function(e) {
                                                 return e.file.hash == t.data.hash;
                                             });
                                             if (n) {
                                                 if (t.data.id) n.id = t.data.id;
                                             } else {
-                                                r.value.push({
+                                                i.value.push({
                                                     file: t.data,
-                                                    type: r.type,
+                                                    type: i.type,
                                                     percent: 100
                                                 });
                                                 o.refresh();
@@ -898,13 +897,13 @@
                                         }
                                     });
                                 },
-                                onFail: r.onFail,
-                                onCancel: r.onCancel
+                                onFail: i.onFail,
+                                onCancel: i.onCancel
                             };
-                            if (r.previewOption) {
-                                s.previewOption = r.previewOption;
+                            if (i.previewOption) {
+                                s.previewOption = i.previewOption;
                                 s.isAuto = false;
-                                a(e, Object.assign(r.previewOption, {
+                                a(e, Object.assign(i.previewOption, {
                                     success: function e(t) {
                                         s.previewImgSrc = t.blob;
                                         var n = o.showItem(s);
@@ -941,6 +940,7 @@
                             o.html(n.el);
                         }
                     }
+                    n.renderAfter();
                     return n;
                 }
             }, {
@@ -969,13 +969,13 @@
         var n = function(e, t) {
             var n = n || webkitURL;
             var o = n.createObjectURL(e);
-            var r = new Image();
-            r.src = o;
-            r.onload = function() {
+            var i = new Image();
+            i.src = o;
+            i.onload = function() {
                 var e = this;
-                var n = e.width, a = e.height, i = n / a;
+                var n = e.width, a = e.height, r = n / a;
                 n = t.width || n;
-                a = n / i;
+                a = n / r;
                 var s = document.createElement("canvas");
                 var u = s.getContext("2d");
                 $(s).attr({
@@ -985,7 +985,7 @@
                 u.drawImage(e, 0, 0, n, a);
                 var c = s.toDataURL("image/jpeg", t.quality || .8);
                 if (navigator.userAgent.match(/iphone/i)) {
-                    var f = new l(r);
+                    var f = new l(i);
                     f.render(s, {
                         maxWidth: n,
                         maxHeight: a,
@@ -1013,64 +1013,64 @@
             if (t * n > 1024 * 1024) {
                 var o = document.createElement("canvas");
                 o.width = o.height = 1;
-                var r = o.getContext("2d");
-                r.drawImage(e, -t + 1, 0);
-                return r.getImageData(0, 0, 1, 1).data[3] === 0;
+                var i = o.getContext("2d");
+                i.drawImage(e, -t + 1, 0);
+                return i.getImageData(0, 0, 1, 1).data[3] === 0;
             } else {
                 return false;
             }
         }
-        function r(e, t, n) {
+        function i(e, t, n) {
             var o = document.createElement("canvas");
             o.width = 1;
             o.height = n;
-            var r = o.getContext("2d");
-            r.drawImage(e, 0, 0);
-            var a = r.getImageData(0, 0, 1, n).data;
-            var i = 0;
+            var i = o.getContext("2d");
+            i.drawImage(e, 0, 0);
+            var a = i.getImageData(0, 0, 1, n).data;
+            var r = 0;
             var s = n;
             var l = n;
-            while (l > i) {
+            while (l > r) {
                 var u = a[(l - 1) * 4 + 3];
                 if (u === 0) {
                     s = l;
                 } else {
-                    i = l;
+                    r = l;
                 }
-                l = s + i >> 1;
+                l = s + r >> 1;
             }
             var c = l / n;
             return c === 0 ? 1 : c;
         }
         function a(e, t, n) {
             var o = document.createElement("canvas");
-            i(e, o, t, n);
+            r(e, o, t, n);
             return o.toDataURL("image/jpeg", t.quality || .8);
         }
-        function i(e, t, n, a) {
-            var i = e.naturalWidth, l = e.naturalHeight;
+        function r(e, t, n, a) {
+            var r = e.naturalWidth, l = e.naturalHeight;
             var u = n.width, c = n.height;
             var f = t.getContext("2d");
             f.save();
             s(t, f, u, c, n.orientation);
             var d = o(e);
             if (d) {
-                i /= 2;
+                r /= 2;
                 l /= 2;
             }
             var p = 1024;
             var v = document.createElement("canvas");
             v.width = v.height = p;
             var h = v.getContext("2d");
-            var b = a ? r(e, i, l) : 1;
-            var g = Math.ceil(p * u / i);
+            var b = a ? i(e, r, l) : 1;
+            var g = Math.ceil(p * u / r);
             var m = Math.ceil(p * c / l / b);
             var y = 0;
             var w = 0;
             while (y < l) {
                 var O = 0;
                 var x = 0;
-                while (O < i) {
+                while (O < r) {
                     h.clearRect(0, 0, p, p);
                     h.drawImage(e, -O, -y);
                     f.drawImage(v, 0, 0, p, p, x, w, g, m);
@@ -1083,8 +1083,8 @@
             f.restore();
             v = h = null;
         }
-        function s(e, t, n, o, r) {
-            switch (r) {
+        function s(e, t, n, o, i) {
+            switch (i) {
               case 5:
               case 6:
               case 7:
@@ -1097,7 +1097,7 @@
                 e.width = n;
                 e.height = o;
             }
-            switch (r) {
+            switch (i) {
               case 2:
                 t.translate(n, 0);
                 t.scale(-1, 1);
@@ -1173,22 +1173,22 @@
                 return;
             }
             t = t || {};
-            var o = this.srcImage.naturalWidth, r = this.srcImage.naturalHeight, s = t.width, l = t.height, u = t.maxWidth, c = t.maxHeight, f = !this.blob || this.blob.type === "image/jpeg";
+            var o = this.srcImage.naturalWidth, i = this.srcImage.naturalHeight, s = t.width, l = t.height, u = t.maxWidth, c = t.maxHeight, f = !this.blob || this.blob.type === "image/jpeg";
             if (s && !l) {
-                l = r * s / o << 0;
+                l = i * s / o << 0;
             } else if (l && !s) {
-                s = o * l / r << 0;
+                s = o * l / i << 0;
             } else {
                 s = o;
-                l = r;
+                l = i;
             }
             if (u && s > u) {
                 s = u;
-                l = r * s / o << 0;
+                l = i * s / o << 0;
             }
             if (c && l > c) {
                 l = c;
-                s = o * l / r << 0;
+                s = o * l / i << 0;
             }
             var d = {
                 width: s,
@@ -1199,7 +1199,7 @@
             if (v === "img") {
                 e.src = a(this.srcImage, d, f);
             } else if (v === "canvas") {
-                i(this.srcImage, e, d, f);
+                r(this.srcImage, e, d, f);
             }
             if (typeof this.onrender === "function") {
                 this.onrender(e);

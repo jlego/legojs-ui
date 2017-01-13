@@ -30,7 +30,7 @@ var _templateObject3 = _taggedTemplateLiteral([ "\n                    ", "\n   
 
 var _templateObject4 = _taggedTemplateLiteral([ '<div class="dropdown-divider"></div>' ], [ '<div class="dropdown-divider"></div>' ]);
 
-var _templateObject5 = _taggedTemplateLiteral([ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "/a>" ], [ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "/a>" ]);
+var _templateObject5 = _taggedTemplateLiteral([ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "</a>" ], [ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "</a>" ]);
 
 var _templateObject6 = _taggedTemplateLiteral([ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ]);
 
@@ -106,8 +106,8 @@ var Navs = function(_Lego$UI$Baseview) {
         value: function render() {
             var options = this.options || {};
             function makeItem(data, i) {
-                var itemDom = hx(_templateObject, data.children ? "dropdown" : "", data.key === options.activeKey ? "active" : "", data.disabled ? "disabled" : "", data.children ? "dropdown-toggle" : "", data.href ? data.href : "javascript:;", data.key ? data.key : "nav-item-" + i, data.value ? data.value : "", Array.isArray(data.children) ? hx(_templateObject2, options.direction ? "drop" + options.direction : "", data.children.map(function(subItem, x) {
-                    return hx(_templateObject3, subItem.divider ? hx(_templateObject4) : hx(_templateObject5, subItem.active ? "active" : "", subItem.disabled ? "disabled" : "", subItem.href ? subItem.href : "javascript:;", subItem.key ? subItem.key : "nav-sub-item-" + x, subItem.value ? subItem.value : ""));
+                var itemDom = hx(_templateObject, data.children ? "dropdown" : "", data.key === options.activeKey ? "active" : "", data.disabled ? "disabled" : "", data.children ? "dropdown-toggle" : "", data.href ? data.href : "javascript:;", data.key ? data.key : "nav-item-" + i, val(data.value), Array.isArray(data.children) ? hx(_templateObject2, options.direction ? "drop" + options.direction : "", data.children.map(function(subItem, x) {
+                    return hx(_templateObject3, subItem.divider ? hx(_templateObject4) : hx(_templateObject5, subItem.active ? "active" : "", subItem.disabled ? "disabled" : "", subItem.href ? subItem.href : "javascript:;", subItem.key ? subItem.key : "nav-sub-item-" + x, val(subItem.value)));
                 })) : "");
                 return itemDom;
             }

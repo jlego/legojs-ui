@@ -6356,11 +6356,11 @@
         p.prototype._renderComponents = function e() {
             var t = this;
             if (this.options.components.length) {
-                this.options.components.forEach(function(e, t) {
-                    if ($(e.el).length) {
-                        var n = e.el ? $(e.el)[0].tagName : "";
-                        if (n) {
-                            Lego.create(Lego.UI[n.toLowerCase()], e);
+                this.options.components.forEach(function(e, n) {
+                    if (t.$(e.el).length) {
+                        var r = e.el ? t.$(e.el)[0].tagName.toLowerCase() : "";
+                        if (r) {
+                            t[r + "_" + t.options.vid] = Lego.create(Lego.UI[r], e);
                         }
                     }
                 });
@@ -6542,7 +6542,7 @@
                                                     headers: i,
                                                     mode: "same-origin",
                                                     credentials: "include",
-                                                    body: a
+                                                    body: o.method == "POST" ? a : undefined
                                                 });
                                                 f.next = 14;
                                                 return fetch(s);
