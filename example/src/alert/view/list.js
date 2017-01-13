@@ -15,8 +15,8 @@ class ListView extends Lego.UI.Baseview {
                 text: '模态框',
                 onClick(){
                     console.warn('点击了此按钮button1');
-                    Lego.create(Lego.UI.modal, {
-                        position: 'right',
+                    Lego.UI.modal({
+                        type: 'right',
                         content: '这是内容啊',
                         confirm: {
                             msgType: 'error',
@@ -37,7 +37,7 @@ class ListView extends Lego.UI.Baseview {
                 text: '对话框',
                 onClick(){
                     console.warn('点击了此按钮button2');
-                    Lego.create(Lego.UI.modal, {
+                    Lego.UI.modal({
                         msgType: 'success',
                         content: '成功了！',
                         confirm: {

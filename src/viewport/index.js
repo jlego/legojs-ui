@@ -68,7 +68,7 @@ class Viewport extends Lego.UI.Baseview {
                     <div class="wrap-content container-fluid" id="container">
                         <div id="page-container"></div>
                     </div>
-                    <submodal id="lego-submodal"></submodal>
+                    <layer id="lego-layer"></layer>
                 </div>
             </div>
             <footer>

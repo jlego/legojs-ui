@@ -1,5 +1,5 @@
 /**
- * common.js v0.2.0
+ * common.js v0.2.4
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -17,9 +17,9 @@ var perfectScrollbar_dist_css_perfectScrollbar_css = require("perfect-scrollbar/
 
 var perfectScrollbar = _interopDefault(require("perfect-scrollbar"));
 
-var toastr = _interopDefault(require("toastr"));
+var toastr = _interopDefault(require("toastr-cjs"));
 
-var toastr_build_toastr_css = require("toastr/build/toastr.css");
+var toastrCjs_toastr_css = require("toastr-cjs/toastr.css");
 
 function Notification() {
     var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "info";
@@ -49,6 +49,48 @@ function Notification() {
 
 Lego.components("notification", Notification);
 
+function Message() {
+    var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "info";
+    var content = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+    toastr.options = {
+        closeButton: false,
+        debug: false,
+        newestOnTop: false,
+        progressBar: false,
+        positionClass: "toast-top-center toast-top50",
+        preventDuplicates: false,
+        onclick: null,
+        showDuration: "300",
+        hideDuration: "1000",
+        timeOut: "3000",
+        extendedTimeOut: "1000",
+        showEasing: "swing",
+        hideEasing: "linear",
+        showMethod: "fadeIn",
+        hideMethod: "fadeOut"
+    };
+    var typeArr = [ "success", "info", "warning", "error" ];
+    if (typeArr.indexOf(type) >= 0 || content) {
+        toastr[type](content);
+    }
+}
+
+Lego.components("message", Message);
+
+function _defineProperty(obj, key, value) {
+    if (key in obj) {
+        Object.defineProperty(obj, key, {
+            value: value,
+            enumerable: true,
+            configurable: true,
+            writable: true
+        });
+    } else {
+        obj[key] = value;
+    }
+    return obj;
+}
+
 var Util = {
     getDirection: function getDirection(el, dropEl) {
         el = el instanceof $ ? el : $(el);
@@ -65,6 +107,103 @@ var Util = {
             el.removeClass(animationName);
             if (typeof callback == "function") callback();
         });
+    },
+    convertByteUnit: function convertByteUnit(size, unit, decimals, direction, targetunit) {
+        var units = [ "B", "KB", "MB", "GB", "TB", "PB", "EB" ], index = void 0, targetIndex = void 0, i = void 0, l = units.length, num = void 0, regFloat = /(^[+-]?\d*(?:\.\d+)?(?:[Ee][-+]?\d+)?)([kKMmGgTtpPeE]?[bB])?$/;
+        if (typeof size === "string") {
+            num = size.match(regFloat);
+            size = num[1];
+            unit = num[2] || unit;
+        }
+        unit = unit || "B";
+        if (unit) {
+            unit = unit.toUpperCase();
+            for (i = 0; i < l; i++) {
+                if (unit === units[i]) {
+                    index = i;
+                }
+                if (targetunit && (targetunit + "").toUpperCase() === units[i]) {
+                    targetIndex = i;
+                }
+            }
+        }
+        if (direction === undefined) {
+            if (targetIndex === undefined) {
+                direction = true;
+            } else {
+                direction = targetIndex > index;
+            }
+        }
+        size = parseFloat(size);
+        while (direction ? size >= 1024 && index < l - 1 : size <= 1024 && index > 0) {
+            size = direction ? size / 1024 : size * 1024;
+            direction ? index++ : index--;
+            if (index === targetIndex) break;
+        }
+        if (decimals) {
+            size = size.toFixed(decimals) + units[index];
+        } else {
+            decimals = decimals || 2;
+            size = (size.toFixed(decimals) + "").replace(/\.00/, "") + units[index];
+        }
+        return size;
+    },
+    uuid: function uuid() {
+        function S4() {
+            return ((1 + Math.random()) * 65536 | 0).toString(16).substring(1);
+        }
+        return S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4();
+    },
+    getExtName: function getExtName(name) {
+        var re = /\./, a = void 0, l = void 0;
+        if (re.test(name)) {
+            a = name.split(re);
+            l = a.length;
+            return a[l - 1].toLowerCase();
+        }
+        return null;
+    },
+    getFileIcon: function getFileIcon(name, isExt) {
+        var _extMap;
+        var extMap = (_extMap = {
+            bmp: "file",
+            gif: "file",
+            png: "file",
+            jpg: "file-jpg",
+            jpeg: "file-jpg",
+            tif: "file",
+            psd: "file",
+            pdg: "file",
+            ai: "file",
+            ico: "file",
+            css: "file",
+            doc: "file-text",
+            docx: "file-text",
+            ppt: "file-ppt",
+            pptx: "file-ppt",
+            rar: "book",
+            "7z": "book",
+            gz: "book",
+            bz: "book",
+            ace: "book",
+            uha: "book",
+            zpaq: "book"
+        }, _defineProperty(_extMap, "rar", "book"), _defineProperty(_extMap, "txt", "file"), 
+        _defineProperty(_extMap, "yml", "file"), _defineProperty(_extMap, "ini", "file"), 
+        _defineProperty(_extMap, "js", "file"), _defineProperty(_extMap, "url", "file"), 
+        _defineProperty(_extMap, "xls", "file-excel"), _defineProperty(_extMap, "xlsx", "file-excel"), 
+        _defineProperty(_extMap, "et", "file-excel"), _defineProperty(_extMap, "zip", "book"), 
+        _defineProperty(_extMap, "pdf", "file-pdf"), _defineProperty(_extMap, "none", "file-unknown"), 
+        _extMap), ext = isExt ? name : this.getExtName(name);
+        return ext !== false && extMap[ext] ? extMap[ext] : "";
+    },
+    previewAble: function previewAble(nameOrExt) {
+        var fileExt = this.getExtName(nameOrExt) || nameOrExt, extMap = [ "bmp", "gif", "png", "jpg", "jpeg", "txt", "pdf", "doc", "docx", "ppt", "pptx", "xls", "xlsx" ];
+        return extMap.indexOf(fileExt) >= 0 || false;
+    },
+    isImg: function isImg(name, isExt) {
+        var extMap = [ "bmp", "gif", "png", "jpg", "jpeg" ], ext = isExt ? name : this.getExtName(name);
+        return ext !== false && extMap.indexOf(ext) >= 0 ? true : false;
     }
 };
 

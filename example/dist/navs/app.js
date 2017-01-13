@@ -34,9 +34,9 @@
                 return n;
             };
         }();
-        var a = t(240);
+        var a = t(238);
         var r = c(a);
-        var o = t(241);
+        var o = t(239);
         var s = c(o);
         function c(e) {
             return e && e.__esModule ? e : {
@@ -80,7 +80,7 @@
         }();
         HBY.router(new u());
     },
-    240: function(e, n) {
+    238: function(e, n) {
         "use strict";
         Object.defineProperty(n, "__esModule", {
             value: true
@@ -157,7 +157,7 @@
         }(Lego.UI.Baseview);
         n.default = c;
     },
-    241: function(e, n, t) {
+    239: function(e, n, t) {
         "use strict";
         Object.defineProperty(n, "__esModule", {
             value: true
@@ -179,9 +179,9 @@
             };
         }();
         var a = u([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs1"></navs>\n            </div>\n            <div class="col-sm-6">\n              <navs id="navs2"></navs>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs3"></navs>\n            </div>\n            <div class="col-sm-6">\n              <navs id="navs4"></navs>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs5"></navs>\n            </div>\n            <div class="col-sm-6">\n              <tabs id="tabs6"></tabs>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs1"></navs>\n            </div>\n            <div class="col-sm-6">\n              <navs id="navs2"></navs>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs3"></navs>\n            </div>\n            <div class="col-sm-6">\n              <navs id="navs4"></navs>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs5"></navs>\n            </div>\n            <div class="col-sm-6">\n              <tabs id="tabs6"></tabs>\n            </div>\n          </div>\n        </div>\n        ' ]);
-        var r = t(242);
+        var r = t(240);
         var o = l(r);
-        var s = t(243);
+        var s = t(241);
         var c = l(s);
         function l(e) {
             return e && e.__esModule ? e : {
@@ -317,7 +317,7 @@
         }(Lego.UI.Baseview);
         n.default = p;
     },
-    242: function(e, n) {
+    240: function(e, n) {
         "use strict";
         var t = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
             return typeof e;
@@ -458,7 +458,7 @@
         Lego.components("navs", p);
         e.exports = p;
     },
-    243: function(e, n) {
+    241: function(e, n) {
         "use strict";
         var t = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
             return typeof e;

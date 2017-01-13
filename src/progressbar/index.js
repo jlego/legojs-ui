@@ -13,6 +13,7 @@ class Progressbar extends Lego.UI.Baseview {
             showInfo: true, //是否显示进度数值或状态图标
             percent: 0,
             strokeWidth: 6, //进度条线的宽度，单位 px
+            onComplete(){}  //完成时回调
             // format(){}   //内容的模板函数
         };
         Object.assign(options, opts);
@@ -20,6 +21,9 @@ class Progressbar extends Lego.UI.Baseview {
     }
     render() {
         const options = this.options || {};
+        if(options.percent == 100){
+            if(typeof options.onComplete == 'function') options.onComplete();
+        }
         const vDom = hx`
         <div class="progress">
             ${options.showInfo ? hx`<div class="text-xs-center">${this.format(options.percent)}</div>` : ''}

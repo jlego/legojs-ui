@@ -1,0 +1,92 @@
+.upload .upload-container {
+    margin-top: 8px;
+}
+
+.upload .addbtn i {
+    font-size: 16px;
+    display: inline-block;
+}
+
+.upload .cancelbtn {
+    zoom: 0.8;
+}
+
+.upload .closebtn {
+    zoom: 0.8;
+    display: none;
+}
+
+.upload .upload-item {
+    position: relative;
+    padding: 8px;
+    border-radius: 3px;
+    margin-top: 8px;
+    border: 1px #ddd solid;
+    // border-bottom-color: #ddd;
+}
+
+.upload .upload-item:hover {
+    // background-color: #ececec;
+    border-color: #c5c5c5;
+}
+
+.upload .upload-item .media-left i {
+    font-size: 40px;
+    color: #f90;
+}
+
+.upload .upload-item .media-body .media-heading {
+    margin-right: 40px;
+    font-size: 14px;
+    font-weight: normal;
+    margin-bottom: 8px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.upload .upload-item .media-body .media-heading .right {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+.upload .upload-item .media-body .media-heading .right a {
+    margin-left: 8px;
+}
+
+.upload .upload-item .media-body small {
+    margin-top: 8px;
+    color: #999;
+}
+
+.upload .upload-item .media-body small cite {
+    font-style: inherit;
+}
+
+.upload .upload-item .media-body small time {
+    display: none;
+    margin-left: 15px;
+}
+
+.upload .upload-item .media-body small time a {
+    margin-left: 5px;
+}
+
+.upload .upload-item .media-body .progress {
+    margin-bottom: 0;
+    margin-top: 15px;
+    height: 3px;
+    background-color: #ececec;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.upload .upload-item .media-body .progress-bar {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.upload .upload-item:hover .closebtn,
+.upload .upload-item:hover small time {
+    display: inline-block;
+}

@@ -34,9 +34,9 @@
                 return e;
             };
         }();
-        var o = n(244);
+        var o = n(242);
         var r = f(o);
-        var a = n(245);
+        var a = n(243);
         var s = f(a);
         function f(t) {
             return t && t.__esModule ? t : {
@@ -80,7 +80,7 @@
         }();
         HBY.router(new u());
     },
-    244: function(t, e) {
+    242: function(t, e) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
             value: true
@@ -157,7 +157,7 @@
         }(Lego.UI.Baseview);
         e.default = f;
     },
-    245: function(t, e, n) {
+    243: function(t, e, n) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
             value: true
@@ -179,9 +179,9 @@
             };
         }();
         var o = u([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip4">Right</button>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover4">Right</button>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification1">系统提示1</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification2">系统提示2</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification3">系统提示3</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification4">系统提示4</button>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip4">Right</button>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover4">Right</button>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification1">系统提示1</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification2">系统提示2</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification3">系统提示3</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification4">系统提示4</button>\n            </div>\n          </div>\n        </div>\n        ' ]);
-        var r = n(246);
+        var r = n(244);
         var a = l(r);
-        var s = n(248);
+        var s = n(246);
         var f = l(s);
         function l(t) {
             return t && t.__esModule ? t : {
@@ -228,16 +228,16 @@
                 var n = {
                     events: {
                         "click #notification1": function t() {
-                            Lego.UI.notification("success", "系统提示1");
+                            Lego.UI.message("success", "系统提示1");
                         },
                         "click #notification2": function t() {
-                            Lego.UI.notification("info", "系统提示2");
+                            Lego.UI.message("info", "系统提示2");
                         },
                         "click #notification3": function t() {
-                            Lego.UI.notification("warning", "系统提示3");
+                            Lego.UI.message("warning", "系统提示3");
                         },
                         "click #notification4": function t() {
-                            Lego.UI.notification("error", "系统提示4");
+                            Lego.UI.message("error", "系统提示4");
                         }
                     }
                 };
@@ -325,7 +325,7 @@
         }(Lego.UI.Baseview);
         e.default = p;
     },
-    246: function(t, e, n) {
+    244: function(t, e, n) {
         "use strict";
         var i = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(t) {
             return typeof t;
@@ -335,7 +335,7 @@
         function o(t) {
             return t && (typeof t === "undefined" ? "undefined" : i(t)) === "object" && "default" in t ? t["default"] : t;
         }
-        var r = o(n(247));
+        var r = o(n(245));
         var a = function(t) {
             var e = false;
             var n = 1e6;
@@ -1022,7 +1022,7 @@
         });
         t.exports = d;
     },
-    247: function(t, e, n) {
+    245: function(t, e, n) {
         var i, o;
         (function(r, a) {
             if (true) {
@@ -2670,7 +2670,7 @@
             return Q;
         });
     },
-    248: function(t, e, n) {
+    246: function(t, e, n) {
         "use strict";
         var i = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(t) {
             return typeof t;
@@ -2680,7 +2680,7 @@
         function o(t) {
             return t && (typeof t === "undefined" ? "undefined" : i(t)) === "object" && "default" in t ? t["default"] : t;
         }
-        var r = o(n(247));
+        var r = o(n(245));
         var a = function(t) {
             var e = false;
             var n = 1e6;

@@ -42,7 +42,7 @@
     "events": "^1.1.1",
     "highlight.js": "^9.9.0",
     "jquery": "^3.1.1",
-    "lego-core": "^0.6.9",
+    "lego-core": "^0.7.1",
     "lego-ui": "^0.1.9",
     "lodash": "^4.17.3",
     "moment": "^2.17.1",
@@ -50,6 +50,7 @@
     "showdown": "^1.5.4",
     "tether": "^1.4.0",
     "toastr": "^2.1.2",
+    "toastr-cjs": "^1.0.0",
     "virtual-dom": "^2.1.1",
     "ztree": "^3.5.24"
   }

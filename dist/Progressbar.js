@@ -1,5 +1,5 @@
 /**
- * progressbar.js v0.2.0
+ * progressbar.js v0.2.4
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -72,7 +72,8 @@ var Progressbar = function(_Lego$UI$Baseview) {
             status: "",
             showInfo: true,
             percent: 0,
-            strokeWidth: 6
+            strokeWidth: 6,
+            onComplete: function onComplete() {}
         };
         Object.assign(options, opts);
         return _possibleConstructorReturn(this, (Progressbar.__proto__ || Object.getPrototypeOf(Progressbar)).call(this, options));
@@ -81,6 +82,9 @@ var Progressbar = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options || {};
+            if (options.percent == 100) {
+                if (typeof options.onComplete == "function") options.onComplete();
+            }
             var vDom = hx(_templateObject, options.showInfo ? hx(_templateObject2, this.format(options.percent)) : "", options.status ? options.status : "primary", options.percent);
             return vDom;
         }

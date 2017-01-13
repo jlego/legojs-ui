@@ -1,262 +1,165 @@
 /**
- * 上传视图类
- * @author: yrh
- * @update: 2017/1/10
+ * 上传基类
+ * ronghui Yu
+ * 2017/1/10
  */
-define([
-    'lib/view/View'
-], function(BaseView) {
-    var AppView = BaseView.extend({
-        progressBar: null,
-        initialize: function(option) {
-            var option = option || {};
-            var defaults = {
-                options: {
-                    url: CONFIG.SERVER_URI + '/upload',
-                    is_auto: true,
-                    file: null,
-                    blob: null,
-                    upload_files: [],
-                    headers: {},
-                    params: {},
-                    isLoading: true,
-                    begin: function() {},
-                    progress: function() {},
-                    complete: function() {},
-                    fail: function() {},
-                    cancel: function() {}
+// import './asset/index.scss';
+
+class UploadView extends Lego.View {
+    constructor(opts = {}) {
+        const options = {
+            uploadUri: '',
+            downloadUri: Lego.config.downloadUri || '',    //下载根地址
+            percent: 0,     //上传进度百分比, 用来判断是否要上传
+            isAuto: true,
+            file: null,
+            headers: {},
+            params: {},
+            onBegin() {},
+            onProgress() {},
+            onComplete() {},
+            onFail() {},
+            onCancel() {},
+            needToken: false
+            // onRemove() {}
+        };
+        Object.assign(options, opts);
+        super(options);
+
+        this.xhr = createXMLHTTPRequest();
+        this.startDate = 0;
+        this.form = null;
+
+        function createXMLHTTPRequest() {
+            var xmlHttpRequest;
+            if (window.XMLHttpRequest) {
+                xmlHttpRequest = new XMLHttpRequest();
+                if (xmlHttpRequest.overrideMimeType) {
+                    xmlHttpRequest.overrideMimeType("text/xml");
                 }
-            };
-            if (option) $.extend(true, defaults, option);
-            this.parent(defaults);
-            this.xhr = createXMLHTTPRequest();
-            this.form = null;
-
-            if (!this.options.hash) {
-                if (navigator.userAgent.match(/Android/i)) {
-                    this.uploadCordova();
-                } else {
-                    this.upload();
-                }
-            }
-            if (this.options.is_auto && !this.options.hash) this.sendUpload();
-
-            function createXMLHTTPRequest() {
-                var xmlHttpRequest;
-                if (window.XMLHttpRequest) {
-                    xmlHttpRequest = new XMLHttpRequest();
-                    if (xmlHttpRequest.overrideMimeType) {
-                        xmlHttpRequest.overrideMimeType("text/xml");
-                    }
-                } else if (window.ActiveXObject) {
-                    var activexName = ["MSXML2.XMLHTTP", "Microsoft.XMLHTTP"];
-                    for (var i = 0; i < activexName.length; i++) {
-                        try {
-                            xmlHttpRequest = new ActiveXObject(activexName[i]);
-                            if (xmlHttpRequest) {
-                                break;
-                            }
-                        } catch (e) {}
-                    }
-                }
-                return xmlHttpRequest;
-            }
-        },
-        // cordova上传
-        uploadCordova: function() {
-            this.startDate = new Date().getTime();
-            var that = this,
-                taking = 0,
-                upload_files = this.options.upload_files,
-                fileObj = this.options.file,
-                params = this.options.params;
-
-            function success(resp) {
-                debug.log("success:" + resp);
-                filterFiles();
-                that.options.isLoading = false;
-                if (resp.response) {
-                    var response = JSON.parse(resp.response);
-                    if (typeof that.options.complete == "function") that.options.complete(upload_files, fileObj, that, response);
-                }
-                that.renderAll();
-            }
-
-            function fail(event) {
-                debug.error("上传失败");
-                filterFiles();
-                if (typeof that.options.fail == "function") that.options.fail(event, upload_files, that);
-                that.remove();
-            }
-
-            function filterFiles() {
-                upload_files = _.filter(upload_files, function(file) {
-                    return file.id !== that.id;
-                });
-            }
-
-            var uri = encodeURI(this.options.url);
-            var fileURL = fileObj.localURL;
-            var options = new FileUploadOptions();
-            options.fileKey = "file";
-            options.fileName = fileObj.name;
-            options.mimeType = "text/plain";
-
-            if (!_.isEmpty(this.options.params)) {
-                var params = {};
-                for (var key in this.options.params) {
-                    params[key] = this.options.params[key];
-                }
-                options.params = params;
-            }
-            if (!_.isEmpty(this.options.headers)) {
-                var headers = {};
-                for (var key in this.options.headers) {
-                    headers[key] = this.options.headers[key];
-                };
-                options.headers = headers;
-            }
-
-            var ft = new FileTransfer();
-            ft.onprogress = function(event) {
-                if (event.lengthComputable) {
-                    var nowDate = new Date().getTime();
-                    taking = nowDate - that.startDate;
-                    var x = (event.loaded) / 1024;
-                    var y = taking / 1000;
-                    var uploadSpeed = (x / y);
-                    var formatSpeed;
-                    if (uploadSpeed > 1024) {
-                        formatSpeed = (uploadSpeed / 1024).toFixed(2) + "Mb\/s";
-                    } else {
-                        formatSpeed = uploadSpeed.toFixed(2) + "Kb\/s";
-                    }
-                    var percentComplete = Math.round(event.loaded * 100 / event.total);
-                    fileObj.percentComplete = percentComplete;
-                    if (percentComplete == 100) {
-                        that.options.isLoading = false;
-                        // that.renderAll();
-                    }
-                }
-                if (typeof that.options.progress == "function") that.options.progress(upload_files, fileObj, that);
-            };
-            ft.upload(fileURL, uri, success, fail, options);
-        },
-        // 表单上传
-        upload: function() {
-            var that = this,
-                taking = 0,
-                upload_files = this.options.upload_files,
-                fileObj = this.options.file,
-                params = this.options.params;
-            this.xhr.crossDomain = true;
-            this.id = this.options.file ? fileObj.id : (this.options.id ? this.options.id : HBY.util.Tool.guid());
-            // if (this.options.blob) {
-            //     this.form = this.options.blob.substr(this.options.blob.indexOf(',') + 1);
-            //     this.options.url += "/putb64/" + fileObj.size;
-            //     // if(params.key)  this.options.url += '/key/' + params.key;
-            // } else {
-            this.form = new FormData();
-            this.form.append('file', fileObj);
-            if (!_.isEmpty(params)) {
-                for (var paramOne in params) {
-                    this.form.append(paramOne, params[paramOne]);
+            } else if (window.ActiveXObject) {
+                var activexName = ["MSXML2.XMLHTTP", "Microsoft.XMLHTTP"];
+                for (var i = 0; i < activexName.length; i++) {
+                    try {
+                        xmlHttpRequest = new ActiveXObject(activexName[i]);
+                        if (xmlHttpRequest) {
+                            break;
+                        }
+                    } catch (e) {}
                 }
             }
-            // }
-            this.xhr.upload.addEventListener("progress", uploadProgress, false);
-            this.xhr.addEventListener("loadstart", uploadStart, false);
-            this.xhr.addEventListener("load", uploadComplete, false);
-            this.xhr.addEventListener("error", uploadFailed, false);
-            this.xhr.addEventListener("abort", uploadCanceled, false);
-            this.xhr.open('POST', this.options.url, true);
-            for (var key in this.options.headers) {
-                this.xhr.setRequestHeader(key, this.options.headers[key]);
-            };
-
-            function uploadStart(event) {
-                // debug.warn("上传开始");
-                if (typeof that.options.begin == "function") that.options.begin(upload_files, fileObj, that);
-                // that.renderAll();
-            }
-
-            function uploadProgress(event) {
-                if (event.lengthComputable) {
-                    var nowDate = new Date().getTime();
-                    taking = nowDate - that.startDate;
-                    var x = (event.loaded) / 1024;
-                    var y = taking / 1000;
-                    var uploadSpeed = (x / y);
-                    var formatSpeed;
-                    if (uploadSpeed > 1024) {
-                        formatSpeed = (uploadSpeed / 1024).toFixed(2) + "Mb\/s";
-                    } else {
-                        formatSpeed = uploadSpeed.toFixed(2) + "Kb\/s";
-                    }
-                    var percentComplete = Math.round(event.loaded * 100 / event.total);
-                    fileObj.percentComplete = percentComplete;
-                    if (percentComplete == 100) {
-                        that.options.isLoading = false;
-                        // that.renderAll();
-                    }
-                    if (that.progressBar) {
-                        that.progressBar.setValue({
-                            value: percentComplete + '%',
-                            speed: formatSpeed
-                        });
-                    }
-                }
-                if (typeof that.options.progress == "function") that.options.progress(upload_files, fileObj, that);
-            }
-
-            function uploadComplete(event) {
-                filterFiles();
-                if (that.xhr.readyState == 4 && that.xhr.status == 200 && that.xhr.responseText != "") {
-                    var resp = JSON.parse(that.xhr.response);
-                    _.extend(that.options, resp);
-                    that.options.url = CONFIG.DOWNLOAD_PATH + that.options.key;
-                    // debug.warn("上传成功:"+ this.options.id);
-                    if (typeof that.options.complete == "function") that.options.complete(upload_files, fileObj, that, resp);
-                } else if (that.xhr.status != 200 && that.xhr.responseText) {
-                    var resp = {
-                        status: 'error',
-                        data: 'Unknown error occurred: [' + that.xhr.responseText + ']'
-                    };
-                    if (typeof that.options.fail == "function") that.options.fail(upload_files, fileObj, that, resp);
-                }
-                that.options.isLoading = false;
-                that.renderAll();
-            }
-
-            function uploadFailed(event) {
-                debug.error("上传失败");
-                filterFiles();
-                if (typeof that.options.fail == "function") that.options.fail(event, upload_files, that);
-                that.remove();
-            }
-
-            function uploadCanceled(event) {
-                debug.error("取消上传");
-                filterFiles();
-                if (typeof that.options.cancel == "function") that.options.cancel(event, upload_files, that);
-                that.remove();
-            }
-
-            function filterFiles() {
-                upload_files = _.filter(upload_files, function(file) {
-                    return file.id !== that.id;
-                });
-            }
-        },
-        cancelUpload: function() {
-            this.xhr.abort();
-        },
-        sendUpload: function() {
-            if (!navigator.userAgent.match(/Android/i)) {
-                this.startDate = new Date().getTime();
-                this.xhr.send(this.form);
+            return xmlHttpRequest;
+        }
+        if(this.options.percent == 0){
+            if((this.options.needToken && this.options.params.token) || !this.options.needToken){
+                this.uploadInit();
+                if (this.options.isAuto) this.start();
             }
         }
-    });
-    return AppView;
-});
+    }
+    // 表单上传
+    uploadInit() {
+        let taking = 0,
+            file = this.options.file,
+            params = this.options.params;
+        this.xhr.crossDomain = true;
+        file.id = file.id || Lego.randomKey(32);
+
+        this.form = new FormData();
+        this.form.append('file', file);
+        if (!Object.values(params).length) {
+            for (let paramOne in params) {
+                this.form.append(paramOne, params[paramOne]);
+            }
+        }
+
+        this.xhr.upload.addEventListener("progress", (event) => {
+            if (event.lengthComputable) {
+                const nowDate = new Date().getTime();
+                taking = nowDate - this.startDate;
+                let x = (event.loaded) / 1024,
+                    y = taking / 1000,
+                    uploadSpeed = (x / y),
+                    formatSpeed;
+                if (uploadSpeed > 1024) {
+                    formatSpeed = (uploadSpeed / 1024).toFixed(2) + "Mb\/s";
+                } else {
+                    formatSpeed = uploadSpeed.toFixed(2) + "Kb\/s";
+                }
+                let percent = Math.round(event.loaded * 100 / event.total);
+                if (this.progressbar) {
+                    this.progressbar.options.percent = percent;
+                }else{
+                    this.options.percent = percent;
+                }
+            }
+            if (typeof this.options.onProgress == "function") {
+                this.options.onProgress(this);
+            }
+        }, false);
+
+        this.xhr.addEventListener("loadstart", (event) => {
+            // debug.warn("上传开始");
+            if (typeof this.options.onBegin == "function") {
+                this.options.onBegin(file, this);
+            }
+        }, false);
+
+        this.xhr.addEventListener("load", (event) => {
+            if (this.xhr.readyState == 4 && this.xhr.status == 200 && this.xhr.responseText != "") {
+                let resp = JSON.parse(this.xhr.response);
+                Object.assign(this.options.file, resp);
+                if(this.options.params.key){
+                    this.options.file.url = this.options.downloadUri + this.options.key;
+                }
+                if (this.progressbar) {
+                    this.progressbar.options.percent = 100;
+                }else{
+                    this.options.percent = 100;
+                }
+                // debug.warn("上传成功:"+ this.options.id);
+                if (typeof this.options.onComplete == "function") {
+                    this.options.onComplete(this, resp);
+                }
+            } else if (this.xhr.status != 200 && this.xhr.responseText) {
+                let errorMsg = {
+                    status: 'error',
+                    data: 'Unknown error occurred: [' + this.xhr.responseText + ']'
+                };
+                if (typeof this.options.onFail == "function"){
+                    this.options.onFail(this, errorMsg);
+                }
+            }
+        }, false);
+
+        this.xhr.addEventListener("error", (event) => {
+            debug.error("上传失败");
+            if (typeof this.options.onFail == "function") {
+                this.options.onFail(this, event);
+            }
+            this.remove();
+        }, false);
+
+        this.xhr.addEventListener("abort", (event) => {
+            debug.error("取消上传");
+            if (typeof this.options.onCancel == "function") {
+                this.options.onCancel(this, event);
+            }
+            this.remove();
+        }, false);
+
+        this.xhr.open('POST', this.options.uploadUri, true);
+
+        for (let key in this.options.headers) {
+            this.xhr.setRequestHeader(key, this.options.headers[key]);
+        }
+    }
+    cancel() {
+        this.xhr.abort();
+    }
+    start() {
+        this.startDate = new Date().getTime();
+        this.xhr.send(this.form);
+    }
+}
+export default UploadView;

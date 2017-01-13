@@ -55,12 +55,14 @@ build([{
 {alias: 'tooltip'},
 {alias: 'popover'},
 {alias: 'notification'},
+{alias: 'message'},
 {alias: 'tree'},
 {alias: 'treeselect'},
 {alias: 'forms'},
 {alias: 'listgroup'},
 {alias: 'transfer'},
-{alias: 'progressbar'}
+{alias: 'progressbar'},
+{alias: 'upload'}
 ].map(genConfig));
 
 function ucfirst(str) {

@@ -105,7 +105,6 @@ class Selects extends Lego.UI.Baseview {
                     <input type="text" class="form-control select-input ${options.disabled ? 'disabled' : ''}" placeholder="${options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
                     <dropdown id="${options.vid}-dropdown"></dropdown>
                 </div>
-
             </div>
             `;
         }else{

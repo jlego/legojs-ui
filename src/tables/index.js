@@ -51,12 +51,13 @@ class Tables extends Lego.UI.Baseview {
             // footer(){}, //表格尾部
             // title(){}, //表格标题
             // scroll: {}, //横向或纵向支持滚动，也可用于指定滚动区域的宽高度：{{ x: true, y: 300 }}
-            components: [{
-                ...opts.pagination,
-                el: '#' + opts.vid + '-paginationId'
-            }]
+            components: []
         };
         Object.assign(options, opts);
+        options.components.push({
+            ...options.pagination,
+            el: '#' + options.vid + '-paginationId'
+        });
         options.columns.map((col) => {
             col = Object.assign({
                 title: '',  //列头显示文字
@@ -88,7 +89,7 @@ class Tables extends Lego.UI.Baseview {
         const vDom = hx`
         <div class="clearfix lego-table lego-table-${options.size} ${options.bordered ? 'lego-table-bordered' : ''}
         ${options.showHeader ? 'lego-table-fixed-header' : ''} lego-table-scroll-position-left">
-            ${options.title ? hx`<div class="lego-table-title">${options.title()}</div>` : ''}
+            ${options.title ? hx`<div class="lego-table-title">${typeof options.title == 'function' ? options.title() : options.title}</div>` : ''}
             <div class="lego-table-content">
                 <div class="lego-table-scroll">
                 ${options.showHeader ? hx`
