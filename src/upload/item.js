@@ -51,6 +51,7 @@ class UploadItem extends UploadBase {
         };
         Object.assign(options, opts);
         super(options);
+        this.renderAfter();
     }
     render() {
         const options = this.options || {};

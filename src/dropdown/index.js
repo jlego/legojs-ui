@@ -13,6 +13,7 @@ class Dropdown extends Lego.UI.Baseview {
             trigger: '', //触发对象
             visible: false,  //是否显示
             direction: '',  //显示方向
+            clickAndClose: true,  //点击后关闭
             onChange(){},  //改变值时调用
             onVisibleChange(){}    //菜单显示状态改变时调用
         };
@@ -101,6 +102,7 @@ class Dropdown extends Lego.UI.Baseview {
         this.options.onVisibleChange(false);
     }
     clickItem(event){
+        event.stopPropagation();
         const target = $(event.currentTarget);
         const model = this.options.data.find(Item => Item.key == target.attr('id'));
         if(model){
@@ -108,7 +110,7 @@ class Dropdown extends Lego.UI.Baseview {
             this.options.activeKey = model.key;
             this.options.activeValue = model.value;
         }
-        this.close();
+        if(this.options.clickAndClose) this.close();
     }
 }
 Lego.components('dropdown', Dropdown);

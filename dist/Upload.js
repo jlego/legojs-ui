@@ -1,5 +1,5 @@
 /**
- * upload.js v0.2.4
+ * upload.js v0.2.7
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -391,7 +391,9 @@ var UploadItem = function(_UploadBase) {
             onCancel: function onCancel() {}
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$1(this, (UploadItem.__proto__ || Object.getPrototypeOf(UploadItem)).call(this, options));
+        var _this = _possibleConstructorReturn$1(this, (UploadItem.__proto__ || Object.getPrototypeOf(UploadItem)).call(this, options));
+        _this.renderAfter();
+        return _this;
     }
     _createClass$1(UploadItem, [ {
         key: "render",

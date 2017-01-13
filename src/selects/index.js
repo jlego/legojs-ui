@@ -33,8 +33,8 @@ class Selects extends Lego.UI.Baseview {
             dropdownClassName: '',  //下拉菜单的 className 属性上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。
             splitString: '',    //自动分词分隔符
             components: [{
-                el: '#' + opts.vid + '-dropdown',
-                trigger: '#' + opts.vid + '-select',
+                el: '#dropdown-' + opts.vid,
+                trigger: '#select-' + opts.vid,
                 eventName: opts.eventName || 'click',
                 disabled: opts.disabled || false,
                 style: Object.assign({
@@ -42,6 +42,7 @@ class Selects extends Lego.UI.Baseview {
                     height: opts.dropdownHeight || 'auto'
                 }, opts.dropdownStyle || {}),
                 className: opts.dropdownClassName,
+                clickAndClose: opts.multiple ? false : true,
                 data: opts.data,
                 onChange(model){
                     const theView = Lego.getView(opts.el);
@@ -101,21 +102,21 @@ class Selects extends Lego.UI.Baseview {
         if(!options.multiple){
             vDom = hx`
             <div class="select dropdown">
-                <div id="${options.vid}-select">
+                <div id="select-${options.vid}">
                     <input type="text" class="form-control select-input ${options.disabled ? 'disabled' : ''}" placeholder="${options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
-                    <dropdown id="${options.vid}-dropdown"></dropdown>
+                    <dropdown id="dropdown-${options.vid}"></dropdown>
                 </div>
             </div>
             `;
         }else{
             vDom = hx`
             <div class="select dropdown multiple">
-                <div id="${options.vid}-select">
+                <div id="select-${options.vid}">
                     <input type="text" class="form-control select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${theValueArr.length ? '' : options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
                     <div class="select-tags-div clearfix ${theValueArr.length ? 'select-tags-div-border' : ''}">
                         ${getTags(options.value)}
                     </div>
-                    <dropdown id="${options.vid}-dropdown"></dropdown>
+                    <dropdown id="dropdown-${options.vid}"></dropdown>
                 </div>
             </div>
             `;
@@ -132,7 +133,7 @@ class Selects extends Lego.UI.Baseview {
         });
         this.getValue();
         this.refresh();
-        Lego.getView('#' + this.options.vid + '-dropdown').refresh();
+        Lego.getView('#dropdown-' + this.options.vid).refresh();
         if(typeof this.options.onDeselect === 'function') this.options.onDeselect({
             key: key,
             value: value

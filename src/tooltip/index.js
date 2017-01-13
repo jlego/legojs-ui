@@ -55,5 +55,6 @@ class Tooltip{
         return el;
     }
 }
-Lego.components('tooltip', function(opts){ return new Tooltip(opts) });
-export default Tooltip;
+const fun = function(opts){ return new Tooltip(opts) };
+Lego.components('tooltip', fun);
+export default fun;

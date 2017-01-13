@@ -144,7 +144,8 @@ class Modal extends Lego.UI.Baseview {
         this._onConfirm('onCancel');
     }
 }
-Lego.components('modal', function(opts = {}){
+const theModal = function(opts = {}){
     Lego.create(Modal, opts);
-});
-export default Modal;
+};
+Lego.components('modal', theModal);
+export default theModal;

@@ -1,13 +1,9 @@
 /**
- * legoui.js v0.2.4
+ * legoui.js v0.2.7
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
 "use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 
 function _interopDefault(ex) {
     return ex && typeof ex === "object" && "default" in ex ? ex["default"] : ex;
@@ -862,6 +858,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             trigger: "",
             visible: false,
             direction: "",
+            clickAndClose: true,
             onChange: function onChange() {},
             onVisibleChange: function onVisibleChange() {}
         };
@@ -944,6 +941,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "clickItem",
         value: function clickItem(event) {
+            event.stopPropagation();
             var target = $(event.currentTarget);
             var model = this.options.data.find(function(Item) {
                 return Item.key == target.attr("id");
@@ -953,7 +951,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 this.options.activeKey = model.key;
                 this.options.activeValue = model.value;
             }
-            this.close();
+            if (this.options.clickAndClose) this.close();
         }
     } ]);
     return Dropdown;
@@ -2274,10 +2272,12 @@ var Modal = function(_Lego$UI$Baseview) {
     return Modal;
 }(Lego.UI.Baseview);
 
-Lego.components("modal", function() {
+var theModal = function theModal() {
     var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     Lego.create(Modal, opts);
-});
+};
+
+Lego.components("modal", theModal);
 
 var _createClass$11 = function() {
     function defineProperties(target, props) {
@@ -2701,9 +2701,9 @@ var _templateObject$12 = _taggedTemplateLiteral$12([ "\n                <ul>", '
 
 var _templateObject2$9 = _taggedTemplateLiteral$12([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
 
-var _templateObject3$6 = _taggedTemplateLiteral$12([ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ]);
+var _templateObject3$6 = _taggedTemplateLiteral$12([ '\n            <div class="select dropdown">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ]);
 
-var _templateObject4$4 = _taggedTemplateLiteral$12([ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ]);
+var _templateObject4$4 = _taggedTemplateLiteral$12([ '\n            <div class="select dropdown multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ]);
 
 function _taggedTemplateLiteral$12(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -2771,8 +2771,8 @@ var Selects = function(_Lego$UI$Baseview) {
             dropdownClassName: "",
             splitString: "",
             components: [ {
-                el: "#" + opts.vid + "-dropdown",
-                trigger: "#" + opts.vid + "-select",
+                el: "#dropdown-" + opts.vid,
+                trigger: "#select-" + opts.vid,
                 eventName: opts.eventName || "click",
                 disabled: opts.disabled || false,
                 style: Object.assign({
@@ -2780,6 +2780,7 @@ var Selects = function(_Lego$UI$Baseview) {
                     height: opts.dropdownHeight || "auto"
                 }, opts.dropdownStyle || {}),
                 className: opts.dropdownClassName,
+                clickAndClose: opts.multiple ? false : true,
                 data: opts.data,
                 onChange: function onChange(model) {
                     var theView = Lego.getView(opts.el);
@@ -2852,7 +2853,7 @@ var Selects = function(_Lego$UI$Baseview) {
             });
             this.getValue();
             this.refresh();
-            Lego.getView("#" + this.options.vid + "-dropdown").refresh();
+            Lego.getView("#dropdown-" + this.options.vid).refresh();
             if (typeof this.options.onDeselect === "function") this.options.onDeselect({
                 key: key,
                 value: value
@@ -3784,9 +3785,11 @@ var Tooltip = function() {
     return Tooltip;
 }();
 
-Lego.components("tooltip", function(opts) {
+var fun = function fun(opts) {
     return new Tooltip(opts);
-});
+};
+
+Lego.components("tooltip", fun);
 
 var _typeof$2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
     return typeof obj;
@@ -4056,11 +4059,13 @@ var Popover = function(_Tooltip) {
         }
     } ]);
     return Popover;
-}(Tooltip);
+}(fun);
 
-Lego.components("popover", function(opts) {
+var fun$1 = function fun$1(opts) {
     return new Popover(opts);
-});
+};
+
+Lego.components("popover", fun$1);
 
 var _createClass$21 = function() {
     function defineProperties(target, props) {
@@ -4580,7 +4585,9 @@ var Forms = function(_Lego$UI$Baseview) {
             onSubmit: function onSubmit() {}
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$20(this, (Forms.__proto__ || Object.getPrototypeOf(Forms)).call(this, options));
+        var _this = _possibleConstructorReturn$20(this, (Forms.__proto__ || Object.getPrototypeOf(Forms)).call(this, options));
+        _this.renderCom();
+        return _this;
     }
     _createClass$23(Forms, [ {
         key: "render",
@@ -4629,8 +4636,8 @@ var Forms = function(_Lego$UI$Baseview) {
             return vDom;
         }
     }, {
-        key: "renderAfter",
-        value: function renderAfter() {
+        key: "renderCom",
+        value: function renderCom() {
             var _this2 = this;
             var that = this;
             this.rules = null;
@@ -5387,7 +5394,9 @@ var UploadItem = function(_UploadBase) {
             onCancel: function onCancel() {}
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$25(this, (UploadItem.__proto__ || Object.getPrototypeOf(UploadItem)).call(this, options));
+        var _this = _possibleConstructorReturn$25(this, (UploadItem.__proto__ || Object.getPrototypeOf(UploadItem)).call(this, options));
+        _this.renderAfter();
+        return _this;
     }
     _createClass$28(UploadItem, [ {
         key: "render",
@@ -5711,54 +5720,35 @@ var Upload = function(_Lego$UI$Baseview) {
 
 Lego.components("upload", Upload);
 
-exports.Viewport = Viewport;
+Lego.components({
+    baseview: Baseview,
+    viewport: Viewport,
+    alert: Alert,
+    badge: Badge,
+    buttons: Buttons,
+    tables: Tables,
+    pagination: Pagination,
+    dropdown: Dropdown,
+    modal: theModal,
+    navs: Navs,
+    tabs: Tabs,
+    search: Search,
+    datepicker: Datepicker,
+    tooltip: fun,
+    popover: fun$1,
+    notification: Notification,
+    message: Message,
+    tree: Tree,
+    treeselect: Treeselect,
+    forms: Forms,
+    listgroup: Listgroup,
+    transfer: Transfer,
+    progressbar: Progressbar,
+    upload: Upload,
+    selects: Selects,
+    inputs: Inputs
+});
 
-exports.Alert = Alert;
+var index = Lego.UI;
 
-exports.Badge = Badge;
-
-exports.Buttons = Buttons;
-
-exports.Tables = Tables;
-
-exports.Pagination = Pagination;
-
-exports.Dropdown = Dropdown;
-
-exports.Modal = Modal;
-
-exports.Navs = Navs;
-
-exports.Tabs = Tabs;
-
-exports.Search = Search;
-
-exports.Selects = Selects;
-
-exports.Datepicker = Datepicker;
-
-exports.Inputs = Inputs;
-
-exports.Tooltip = Tooltip;
-
-exports.Popover = Popover;
-
-exports.Notification = Notification;
-
-exports.Message = Message;
-
-exports.Tree = Tree;
-
-exports.Treeselect = Treeselect;
-
-exports.Forms = Forms;
-
-exports.Listgroup = Listgroup;
-
-exports.Transfer = Transfer;
-
-exports.Progressbar = Progressbar;
-
-exports.Upload = Upload;
-
-exports.Baseview = Baseview;
+module.exports = index;

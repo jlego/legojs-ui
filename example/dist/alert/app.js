@@ -1528,11 +1528,12 @@
         } ]);
         return t;
     }(Lego.UI.Baseview);
-    Lego.components("modal", function() {
-        var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        Lego.create(j, e);
-    });
-    e.exports = j;
+    var x = function e() {
+        var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        Lego.create(j, t);
+    };
+    Lego.components("modal", x);
+    e.exports = x;
 }, function(e, t, n) {
     "use strict";
     Object.defineProperty(t, "__esModule", {
@@ -1761,6 +1762,7 @@
                 trigger: "",
                 visible: false,
                 direction: "",
+                clickAndClose: true,
                 onChange: function e() {},
                 onVisibleChange: function e() {}
             };
@@ -1843,6 +1845,7 @@
         }, {
             key: "clickItem",
             value: function e(t) {
+                t.stopPropagation();
                 var n = $(t.currentTarget);
                 var o = this.options.data.find(function(e) {
                     return e.key == n.attr("id");
@@ -1852,7 +1855,7 @@
                     this.options.activeKey = o.key;
                     this.options.activeValue = o.value;
                 }
-                this.close();
+                if (this.options.clickAndClose) this.close();
             }
         } ]);
         return t;
