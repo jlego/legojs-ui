@@ -1017,10 +1017,11 @@
             } ]);
             return t;
         }();
-        Lego.components("tooltip", function(t) {
-            return new d(t);
-        });
-        t.exports = d;
+        var p = function t(e) {
+            return new d(e);
+        };
+        Lego.components("tooltip", p);
+        t.exports = p;
     },
     245: function(t, e, n) {
         var i, o;
@@ -3362,15 +3363,16 @@
             } ]);
             return t;
         }();
-        Lego.components("tooltip", function(t) {
-            return new d(t);
-        });
-        var p = typeof Symbol === "function" && i(Symbol.iterator) === "symbol" ? function(t) {
+        var p = function t(e) {
+            return new d(e);
+        };
+        Lego.components("tooltip", p);
+        var v = typeof Symbol === "function" && i(Symbol.iterator) === "symbol" ? function(t) {
             return typeof t === "undefined" ? "undefined" : i(t);
         } : function(t) {
             return t && typeof Symbol === "function" && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : typeof t === "undefined" ? "undefined" : i(t);
         };
-        var v = function() {
+        var g = function() {
             function t(t, e) {
                 for (var n = 0; n < e.length; n++) {
                     var i = e[n];
@@ -3386,18 +3388,18 @@
                 return e;
             };
         }();
-        function g(t, e) {
+        function m(t, e) {
             if (!(t instanceof e)) {
                 throw new TypeError("Cannot call a class as a function");
             }
         }
-        function m(t, e) {
+        function y(t, e) {
             if (!t) {
                 throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             }
             return e && ((typeof e === "undefined" ? "undefined" : i(e)) === "object" || typeof e === "function") ? e : t;
         }
-        function y(t, e) {
+        function b(t, e) {
             if (typeof e !== "function" && e !== null) {
                 throw new TypeError("Super expression must either be null or a function, not " + (typeof e === "undefined" ? "undefined" : i(e)));
             }
@@ -3411,7 +3413,7 @@
             });
             if (e) Object.setPrototypeOf ? Object.setPrototypeOf(t, e) : t.__proto__ = e;
         }
-        var b = function(t) {
+        var E = function(t) {
             var e = "popover";
             var n = "4.0.0-alpha.5";
             var i = "bs.popover";
@@ -3447,12 +3449,12 @@
                 MOUSELEAVE: "mouseleave" + o
             };
             var h = function(r) {
-                y(u, r);
+                b(u, r);
                 function u() {
-                    g(this, u);
-                    return m(this, (u.__proto__ || Object.getPrototypeOf(u)).apply(this, arguments));
+                    m(this, u);
+                    return y(this, (u.__proto__ || Object.getPrototypeOf(u)).apply(this, arguments));
                 }
-                v(u, [ {
+                g(u, [ {
                     key: "isWithContent",
                     value: function t() {
                         return this.getTitle() || this._getContent();
@@ -3481,7 +3483,7 @@
                     value: function e(n) {
                         return this.each(function() {
                             var e = t(this).data(i);
-                            var o = (typeof n === "undefined" ? "undefined" : p(n)) === "object" ? n : null;
+                            var o = (typeof n === "undefined" ? "undefined" : v(n)) === "object" ? n : null;
                             if (!e && /destroy|hide/.test(n)) {
                                 return;
                             }
@@ -3543,7 +3545,7 @@
             };
             return h;
         }(jQuery);
-        var E = function() {
+        var T = function() {
             function t(t, e) {
                 for (var n = 0; n < e.length; n++) {
                     var i = e[n];
@@ -3559,18 +3561,18 @@
                 return e;
             };
         }();
-        function T(t, e) {
+        function w(t, e) {
             if (!(t instanceof e)) {
                 throw new TypeError("Cannot call a class as a function");
             }
         }
-        function w(t, e) {
+        function _(t, e) {
             if (!t) {
                 throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             }
             return e && ((typeof e === "undefined" ? "undefined" : i(e)) === "object" || typeof e === "function") ? e : t;
         }
-        function _(t, e) {
+        function O(t, e) {
             if (typeof e !== "function" && e !== null) {
                 throw new TypeError("Super expression must either be null or a function, not " + (typeof e === "undefined" ? "undefined" : i(e)));
             }
@@ -3584,11 +3586,11 @@
             });
             if (e) Object.setPrototypeOf ? Object.setPrototypeOf(t, e) : t.__proto__ = e;
         }
-        var O = function(t) {
-            _(e, t);
+        var C = function(t) {
+            O(e, t);
             function e() {
                 var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-                T(this, e);
+                w(this, e);
                 var n = {
                     el: "",
                     selector: false,
@@ -3606,9 +3608,9 @@
                     onHidden: function t() {}
                 };
                 Object.assign(n, t);
-                return w(this, (e.__proto__ || Object.getPrototypeOf(e)).call(this, n));
+                return _(this, (e.__proto__ || Object.getPrototypeOf(e)).call(this, n));
             }
-            E(e, [ {
+            T(e, [ {
                 key: "render",
                 value: function t() {
                     var e = this;
@@ -3623,10 +3625,11 @@
                 }
             } ]);
             return e;
-        }(d);
-        Lego.components("popover", function(t) {
-            return new O(t);
-        });
-        t.exports = O;
+        }(p);
+        var A = function t(e) {
+            return new C(e);
+        };
+        Lego.components("popover", A);
+        t.exports = A;
     }
 });

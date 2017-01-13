@@ -1,5 +1,5 @@
 /**
- * forms.js v0.2.4
+ * forms.js v0.2.7
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -120,7 +120,9 @@ var Forms = function(_Lego$UI$Baseview) {
             onSubmit: function onSubmit() {}
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn(this, (Forms.__proto__ || Object.getPrototypeOf(Forms)).call(this, options));
+        var _this = _possibleConstructorReturn(this, (Forms.__proto__ || Object.getPrototypeOf(Forms)).call(this, options));
+        _this.renderCom();
+        return _this;
     }
     _createClass(Forms, [ {
         key: "render",
@@ -169,8 +171,8 @@ var Forms = function(_Lego$UI$Baseview) {
             return vDom;
         }
     }, {
-        key: "renderAfter",
-        value: function renderAfter() {
+        key: "renderCom",
+        value: function renderCom() {
             var _this2 = this;
             var that = this;
             this.rules = null;

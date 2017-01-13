@@ -3954,6 +3954,7 @@
                     trigger: "",
                     visible: false,
                     direction: "",
+                    clickAndClose: true,
                     onChange: function e() {},
                     onVisibleChange: function e() {}
                 };
@@ -4036,6 +4037,7 @@
             }, {
                 key: "clickItem",
                 value: function e(t) {
+                    t.stopPropagation();
                     var n = $(t.currentTarget);
                     var r = this.options.data.find(function(e) {
                         return e.key == n.attr("id");
@@ -4045,7 +4047,7 @@
                         this.options.activeKey = r.key;
                         this.options.activeValue = r.value;
                     }
-                    this.close();
+                    if (this.options.clickAndClose) this.close();
                 }
             } ]);
             return t;
@@ -4069,8 +4071,8 @@
         }();
         var N = b([ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ], [ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ]);
         var m = b([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
-        var k = b([ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ]);
-        var y = b([ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ]);
+        var k = b([ '\n            <div class="select dropdown">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ]);
+        var y = b([ '\n            <div class="select dropdown multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ]);
         function b(e, t) {
             return Object.freeze(Object.defineProperties(e, {
                 raw: {
@@ -4133,8 +4135,8 @@
                     dropdownClassName: "",
                     splitString: "",
                     components: [ {
-                        el: "#" + e.vid + "-dropdown",
-                        trigger: "#" + e.vid + "-select",
+                        el: "#dropdown-" + e.vid,
+                        trigger: "#select-" + e.vid,
                         eventName: e.eventName || "click",
                         disabled: e.disabled || false,
                         style: Object.assign({
@@ -4142,6 +4144,7 @@
                             height: e.dropdownHeight || "auto"
                         }, e.dropdownStyle || {}),
                         className: e.dropdownClassName,
+                        clickAndClose: e.multiple ? false : true,
                         data: e.data,
                         onChange: function t(n) {
                             var r = Lego.getView(e.el);
@@ -4214,7 +4217,7 @@
                     });
                     this.getValue();
                     this.refresh();
-                    Lego.getView("#" + this.options.vid + "-dropdown").refresh();
+                    Lego.getView("#dropdown-" + this.options.vid).refresh();
                     if (typeof this.options.onDeselect === "function") this.options.onDeselect({
                         key: r,
                         value: o

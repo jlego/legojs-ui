@@ -1,5 +1,5 @@
 /**
- * modal.js v0.2.4
+ * modal.js v0.2.7
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -142,7 +142,7 @@ function _classCallCheck$1(instance, Constructor) {
     }
 }
 
-var Modal$2 = function($) {
+var Modal$1 = function($) {
     var NAME = "modal";
     var VERSION = "4.0.0-alpha.5";
     var DATA_KEY = "bs.modal";
@@ -862,9 +862,11 @@ var Modal = function(_Lego$UI$Baseview) {
     return Modal;
 }(Lego.UI.Baseview);
 
-Lego.components("modal", function() {
+var theModal = function theModal() {
     var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     Lego.create(Modal, opts);
-});
+};
 
-module.exports = Modal;
+Lego.components("modal", theModal);
+
+module.exports = theModal;

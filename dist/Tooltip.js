@@ -1,5 +1,5 @@
 /**
- * tooltip.js v0.2.4
+ * tooltip.js v0.2.7
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -150,7 +150,7 @@ function _classCallCheck$1(instance, Constructor) {
 
 window.Tether = Tether;
 
-var Tooltip$2 = function($) {
+var Tooltip$1 = function($) {
     if (window.Tether === undefined) {
         throw new Error("Bootstrap tooltips require Tether (http://tether.io/)");
     }
@@ -701,8 +701,10 @@ var Tooltip = function() {
     return Tooltip;
 }();
 
-Lego.components("tooltip", function(opts) {
+var fun = function fun(opts) {
     return new Tooltip(opts);
-});
+};
 
-module.exports = Tooltip;
+Lego.components("tooltip", fun);
+
+module.exports = fun;

@@ -40,5 +40,6 @@ class Popover extends Tooltip{
         return el;
     }
 }
-Lego.components('popover', function(opts){ return new Popover(opts) });
-export default Popover;
+const fun = function(opts){ return new Popover(opts) };
+Lego.components('popover', fun);
+export default fun;

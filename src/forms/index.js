@@ -53,6 +53,7 @@ class Forms extends Lego.UI.Baseview {
         };
         Object.assign(options, opts);
         super(options);
+        this.renderCom();
     }
     render() {
         const options = this.options || {},
@@ -127,7 +128,7 @@ class Forms extends Lego.UI.Baseview {
             ${submitBtn()}</form>`;
         return vDom;
     }
-    renderAfter(){
+    renderCom(){
         const that = this;
         this.rules = null;
         this.messages = null;

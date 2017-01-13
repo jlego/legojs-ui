@@ -2186,7 +2186,7 @@ tbody.collapse.in {
   list-style: none;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: 1px solid #ddd;
   border-radius: 0.25rem; }
 
 .dropdown-divider {
@@ -10527,7 +10527,7 @@ tr.lego-table-expanded-row:hover {
 
 .right-modal .modal-body {
   position: absolute !important;
-  top: 56px;
+  top: 57px;
   bottom: 65px;
   width: 100%;
   overflow-y: auto; }
@@ -11067,7 +11067,9 @@ ul.ztree.zTreeDragUL {
   overflow: auto; }
 form legend {
   font-size: 16px;
-  color: #333; }
+  color: #333;
+  margin-bottom: 15px;
+  padding-top: 20px; }
 .transfer {
   position: relative; }
 

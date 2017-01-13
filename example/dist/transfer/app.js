@@ -674,6 +674,7 @@
                     trigger: "",
                     visible: false,
                     direction: "",
+                    clickAndClose: true,
                     onChange: function e() {},
                     onVisibleChange: function e() {}
                 };
@@ -756,6 +757,7 @@
             }, {
                 key: "clickItem",
                 value: function e(t) {
+                    t.stopPropagation();
                     var n = $(t.currentTarget);
                     var r = this.options.data.find(function(e) {
                         return e.key == n.attr("id");
@@ -765,7 +767,7 @@
                         this.options.activeKey = r.key;
                         this.options.activeValue = r.value;
                     }
-                    this.close();
+                    if (this.options.clickAndClose) this.close();
                 }
             } ]);
             return t;
