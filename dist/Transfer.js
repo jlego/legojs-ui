@@ -1,5 +1,5 @@
 /**
- * transfer.js v0.2.3
+ * transfer.js v0.2.4
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

@@ -6138,12 +6138,6 @@
             }
             return o;
         };
-        f.prototype.uuid = function e() {
-            function t() {
-                return ((1 + Math.random()) * 65536 | 0).toString(16).substring(1);
-            }
-            return t() + t() + "-" + t() + "-" + t() + "-" + t() + "-" + t() + t() + t();
-        };
         f.prototype.uniqueId = function e(t) {
             var n = ++this.idCounter + "";
             return t ? t + n : n;
@@ -6293,7 +6287,8 @@
             var n = this;
             this.options = {
                 events: null,
-                listen: null
+                listen: null,
+                components: []
             };
             Object.assign(this.options, t);
             this.Eventer = Lego.Eventer;
@@ -6360,7 +6355,6 @@
         };
         p.prototype._renderComponents = function e() {
             var t = this;
-            this.options.components = this.options.components || [];
             if (this.options.components.length) {
                 this.options.components.forEach(function(e, t) {
                     if ($(e.el).length) {

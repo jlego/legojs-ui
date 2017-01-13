@@ -1,5 +1,5 @@
 /**
- * modal.js v0.2.3
+ * modal.js v0.2.4
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -750,7 +750,6 @@ var Modal = function(_Lego$UI$Baseview) {
             title: "这是标题",
             size: "",
             type: "modal",
-            renderTo: "",
             animate: "fadeIn",
             closable: true,
             showHeader: true,
@@ -770,7 +769,7 @@ var Modal = function(_Lego$UI$Baseview) {
             }
         };
         Object.assign(options, opts);
-        var modalEl = options.renderTo ? "#lego-submodal" : "#lego-modal";
+        var modalEl = options.type !== "modal" ? "#lego-layer" : "#lego-modal";
         if (typeArr[options.msgType] && typeof options.content == "string") {
             var alertObj = Lego.create(Alert, {
                 type: options.msgType,
@@ -781,14 +780,14 @@ var Modal = function(_Lego$UI$Baseview) {
             options.content = alertObj.render();
         }
         if (!options.el) options.el = modalEl;
-        if (options.renderTo) options.animate = "slideInRight";
+        if (options.type !== "modal") options.animate = "slideInRight";
         return _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, options));
     }
     _createClass(Modal, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject, options.renderTo == "right" ? "right-modal" : "", options.msgType ? "dialog-modal" : "", options.size ? "modal-size-" + options.size : "", options.el.replace(/#/, ""), options.closable ? hx(_templateObject2) : "", options.title, !options.msgType ? "scrollbar" : "", options.content, options.footer ? options.footer : hx(_templateObject3, options.cancelText, options.okText));
+            var vDom = hx(_templateObject, options.type == "right" ? "right-modal" : "", options.msgType ? "dialog-modal" : "", options.size ? "modal-size-" + options.size : "", options.el.replace(/#/, ""), options.closable ? hx(_templateObject2) : "", options.title, !options.msgType ? "scrollbar" : "", options.content, options.footer ? options.footer : hx(_templateObject3, options.cancelText, options.okText));
             return vDom;
         }
     }, {
@@ -796,12 +795,12 @@ var Modal = function(_Lego$UI$Baseview) {
         value: function renderAfter() {
             var that = this, options = this.options;
             this.$el.modal({
-                backdrop: options.renderTo ? !options.backdrop : options.backdrop,
+                backdrop: options.type == "modal" ? options.backdrop : false,
                 keyboard: options.keyboard,
                 show: true
             });
             this.$el.on("hidden.bs.modal", function(e) {
-                var container = options.renderTo ? '<submodal id="lego-submodal"></submodal>' : '<modal id="lego-modal"></modal>';
+                var container = options.type !== "modal" ? '<layer id="lego-layer"></layer>' : '<modal id="lego-modal"></modal>';
                 that.$el.replaceWith(container);
                 if (typeof options.onHidden === "function") options.onHidden();
             });
@@ -863,6 +862,9 @@ var Modal = function(_Lego$UI$Baseview) {
     return Modal;
 }(Lego.UI.Baseview);
 
-Lego.components("modal", Modal);
+Lego.components("modal", function() {
+    var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    Lego.create(Modal, opts);
+});
 
 module.exports = Modal;
