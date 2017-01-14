@@ -1,28 +1,58 @@
 import '../asset/scss/style.scss';
 
-export { Baseview } from "./common/index";
-export Viewport from "./viewport/index";
-export Alert from "./alert/index";
-export Badge from "./badge/index";
-export Buttons from "./buttons/index";
-export Tables from "./tables/index";
-export Pagination from "./pagination/index";
-export Dropdown from "./dropdown/index";
-export Modal from "./modal/index";
-export Navs from "./navs/index";
-export Tabs from "./tabs/index";
-export Search from "./search/index";
-export Selects from "./selects/index";
-export Datepicker from "./datepicker/index";
-export Inputs from "./inputs/index";
-export Tooltip from "./tooltip/index";
-export Popover from "./popover/index";
-export Notification from "./notification/index";
-export Message from "./message/index";
-export Tree from "./tree/index";
-export Treeselect from "./treeselect/index";
-export Forms from "./forms/index";
-export Listgroup from "./listgroup/index";
-export Transfer from "./transfer/index";
-export Progressbar from "./progressbar/index";
-export Upload from "./upload/index";
+import { Baseview } from "./common/index";
+import Viewport from "./viewport/index";
+import Alert from "./alert/index";
+import Badge from "./badge/index";
+import Buttons from "./buttons/index";
+import Tables from "./tables/index";
+import Pagination from "./pagination/index";
+import Dropdown from "./dropdown/index";
+import Modal from "./modal/index";
+import Navs from "./navs/index";
+import Tabs from "./tabs/index";
+import Search from "./search/index";
+import Selects from "./selects/index";
+import Datepicker from "./datepicker/index";
+import Inputs from "./inputs/index";
+import Tooltip from "./tooltip/index";
+import Popover from "./popover/index";
+import Notification from "./notification/index";
+import Message from "./message/index";
+import Tree from "./tree/index";
+import Treeselect from "./treeselect/index";
+import Forms from "./forms/index";
+import Listgroup from "./listgroup/index";
+import Transfer from "./transfer/index";
+import Progressbar from "./progressbar/index";
+import Upload from "./upload/index";
+
+Lego.components({
+	baseview: Baseview,
+	viewport: Viewport,
+	alert: Alert,
+	badge: Badge,
+	buttons: Buttons,
+	tables: Tables,
+	pagination: Pagination,
+	dropdown: Dropdown,
+	modal: Modal,
+	navs: Navs,
+	tabs: Tabs,
+	search: Search,
+	datepicker: Datepicker,
+	tooltip: Tooltip,
+	popover: Popover,
+	notification: Notification,
+	message: Message,
+	tree: Tree,
+	treeselect: Treeselect,
+	forms: Forms,
+	listgroup: Listgroup,
+	transfer: Transfer,
+	progressbar: Progressbar,
+	upload: Upload,
+	selects: Selects,
+	inputs: Inputs
+});
+export default Lego.UI;

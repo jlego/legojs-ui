@@ -1,5 +1,5 @@
 /**
- * pagination.js v0.2.3
+ * pagination.js v0.2.7
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -84,6 +84,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             trigger: "",
             visible: false,
             direction: "",
+            clickAndClose: true,
             onChange: function onChange() {},
             onVisibleChange: function onVisibleChange() {}
         };
@@ -166,6 +167,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "clickItem",
         value: function clickItem(event) {
+            event.stopPropagation();
             var target = $(event.currentTarget);
             var model = this.options.data.find(function(Item) {
                 return Item.key == target.attr("id");
@@ -175,7 +177,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 this.options.activeKey = model.key;
                 this.options.activeValue = model.value;
             }
-            this.close();
+            if (this.options.clickAndClose) this.close();
         }
     } ]);
     return Dropdown;
@@ -279,7 +281,8 @@ var Pagination = function(_Lego$UI$Baseview) {
             showQuickJumper: false,
             size: "",
             simple: null,
-            isShowTotal: true
+            isShowTotal: true,
+            data: {}
         };
         Object.assign(options, opts);
         if (!options.simple && options.showSizeChanger) {
@@ -311,10 +314,11 @@ var Pagination = function(_Lego$UI$Baseview) {
     _createClass(Pagination, [ {
         key: "render",
         value: function render() {
-            var options = this.options || {}, current = parseInt(options.current);
+            var options = this.options || {}, current = options.data.current || parseInt(options.current);
+            options.pageSize = options.data.pageSize || options.pageSize;
             var pageRang = parseInt(options.pageRang);
-            var totalCount = typeof options.total === "function" ? options.total() : options.total;
-            options.totalPages = Math.ceil(totalCount / options.pageSize);
+            var totalCount = options.data.total || (typeof options.total === "function" ? options.total() : options.total);
+            options.totalPages = options.data.totalPages || Math.ceil(totalCount / options.pageSize);
             pageRang = pageRang >= options.totalPages ? options.totalPages : pageRang;
             var baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0, startPage = baseTimes * pageRang + 1, endPage = startPage + pageRang - 1, showEllipsis = options.totalPages - current > pageRang ? true : false, pagesArr = [];
             endPage = endPage >= options.totalPages ? options.totalPages : endPage;

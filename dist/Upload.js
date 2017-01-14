@@ -1,5 +1,5 @@
 /**
- * upload.js v0.2.3
+ * upload.js v0.2.7
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -116,6 +116,7 @@ var UploadView = function(_Lego$View) {
             var taking = 0, file = this.options.file, params = this.options.params;
             this.xhr.crossDomain = true;
             file.id = file.id || Lego.randomKey(32);
+            var progressbar = this["progressbar_" + this.options.vid];
             this.form = new FormData();
             this.form.append("file", file);
             if (!Object.values(params).length) {
@@ -134,8 +135,8 @@ var UploadView = function(_Lego$View) {
                         formatSpeed = uploadSpeed.toFixed(2) + "Kb/s";
                     }
                     var percent = Math.round(event.loaded * 100 / event.total);
-                    if (_this2.progressbar) {
-                        _this2.progressbar.options.percent = percent;
+                    if (progressbar) {
+                        progressbar.options.percent = percent;
                     } else {
                         _this2.options.percent = percent;
                     }
@@ -156,8 +157,8 @@ var UploadView = function(_Lego$View) {
                     if (_this2.options.params.key) {
                         _this2.options.file.url = _this2.options.downloadUri + _this2.options.key;
                     }
-                    if (_this2.progressbar) {
-                        _this2.progressbar.options.percent = 100;
+                    if (progressbar) {
+                        progressbar.options.percent = 100;
                     } else {
                         _this2.options.percent = 100;
                     }
@@ -406,7 +407,7 @@ var UploadItem = function(_UploadBase) {
             var options = this.options;
             if (options.percent < 100) {
                 this.progressbar = Lego.create(Progressbar, {
-                    el: "#progressbar_" + options.vid,
+                    el: this.$("#progressbar_" + options.vid),
                     showInfo: false,
                     status: "success",
                     onComplete: function onComplete() {
@@ -691,6 +692,7 @@ var Upload = function(_Lego$UI$Baseview) {
                     containerEl.html(view.el);
                 }
             }
+            view.renderAfter();
             return view;
         }
     }, {

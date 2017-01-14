@@ -1,5 +1,5 @@
 /**
- * dropdown.js v0.2.3
+ * dropdown.js v0.2.7
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -84,6 +84,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             trigger: "",
             visible: false,
             direction: "",
+            clickAndClose: true,
             onChange: function onChange() {},
             onVisibleChange: function onVisibleChange() {}
         };
@@ -166,6 +167,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "clickItem",
         value: function clickItem(event) {
+            event.stopPropagation();
             var target = $(event.currentTarget);
             var model = this.options.data.find(function(Item) {
                 return Item.key == target.attr("id");
@@ -175,7 +177,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 this.options.activeKey = model.key;
                 this.options.activeValue = model.value;
             }
-            this.close();
+            if (this.options.clickAndClose) this.close();
         }
     } ]);
     return Dropdown;

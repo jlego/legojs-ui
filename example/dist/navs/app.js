@@ -344,7 +344,7 @@
         var r = u([ '\n                <div class="dropdown-menu ', '">\n                ', "\n                </div>\n                " ], [ '\n                <div class="dropdown-menu ', '">\n                ', "\n                </div>\n                " ]);
         var o = u([ "\n                    ", "\n                " ], [ "\n                    ", "\n                " ]);
         var s = u([ '<div class="dropdown-divider"></div>' ], [ '<div class="dropdown-divider"></div>' ]);
-        var c = u([ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "/a>" ], [ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "/a>" ]);
+        var c = u([ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "</a>" ], [ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "</a>" ]);
         var l = u([ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ]);
         function u(e, n) {
             return Object.freeze(Object.defineProperties(e, {
@@ -414,8 +414,8 @@
                 value: function e() {
                     var n = this.options || {};
                     function t(e, t) {
-                        var i = hx(a, e.children ? "dropdown" : "", e.key === n.activeKey ? "active" : "", e.disabled ? "disabled" : "", e.children ? "dropdown-toggle" : "", e.href ? e.href : "javascript:;", e.key ? e.key : "nav-item-" + t, e.value ? e.value : "", Array.isArray(e.children) ? hx(r, n.direction ? "drop" + n.direction : "", e.children.map(function(e, n) {
-                            return hx(o, e.divider ? hx(s) : hx(c, e.active ? "active" : "", e.disabled ? "disabled" : "", e.href ? e.href : "javascript:;", e.key ? e.key : "nav-sub-item-" + n, e.value ? e.value : ""));
+                        var i = hx(a, e.children ? "dropdown" : "", e.key === n.activeKey ? "active" : "", e.disabled ? "disabled" : "", e.children ? "dropdown-toggle" : "", e.href ? e.href : "javascript:;", e.key ? e.key : "nav-item-" + t, val(e.value), Array.isArray(e.children) ? hx(r, n.direction ? "drop" + n.direction : "", e.children.map(function(e, n) {
+                            return hx(o, e.divider ? hx(s) : hx(c, e.active ? "active" : "", e.disabled ? "disabled" : "", e.href ? e.href : "javascript:;", e.key ? e.key : "nav-sub-item-" + n, val(e.value)));
                         })) : "");
                         return i;
                     }
@@ -485,7 +485,7 @@
         var r = u([ '\n                <div class="dropdown-menu ', '">\n                ', "\n                </div>\n                " ], [ '\n                <div class="dropdown-menu ', '">\n                ', "\n                </div>\n                " ]);
         var o = u([ "\n                    ", "\n                " ], [ "\n                    ", "\n                " ]);
         var s = u([ '<div class="dropdown-divider"></div>' ], [ '<div class="dropdown-divider"></div>' ]);
-        var c = u([ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "/a>" ], [ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "/a>" ]);
+        var c = u([ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "</a>" ], [ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "</a>" ]);
         var l = u([ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ]);
         function u(e, n) {
             return Object.freeze(Object.defineProperties(e, {
@@ -555,8 +555,8 @@
                 value: function e() {
                     var n = this.options || {};
                     function t(e, t) {
-                        var i = hx(a, e.children ? "dropdown" : "", e.key === n.activeKey ? "active" : "", e.disabled ? "disabled" : "", e.children ? "dropdown-toggle" : "", e.href ? e.href : "javascript:;", e.key ? e.key : "nav-item-" + t, e.value ? e.value : "", Array.isArray(e.children) ? hx(r, n.direction ? "drop" + n.direction : "", e.children.map(function(e, n) {
-                            return hx(o, e.divider ? hx(s) : hx(c, e.active ? "active" : "", e.disabled ? "disabled" : "", e.href ? e.href : "javascript:;", e.key ? e.key : "nav-sub-item-" + n, e.value ? e.value : ""));
+                        var i = hx(a, e.children ? "dropdown" : "", e.key === n.activeKey ? "active" : "", e.disabled ? "disabled" : "", e.children ? "dropdown-toggle" : "", e.href ? e.href : "javascript:;", e.key ? e.key : "nav-item-" + t, val(e.value), Array.isArray(e.children) ? hx(r, n.direction ? "drop" + n.direction : "", e.children.map(function(e, n) {
+                            return hx(o, e.divider ? hx(s) : hx(c, e.active ? "active" : "", e.disabled ? "disabled" : "", e.href ? e.href : "javascript:;", e.key ? e.key : "nav-sub-item-" + n, val(e.value)));
                         })) : "");
                         return i;
                     }

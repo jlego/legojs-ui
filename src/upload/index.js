@@ -192,6 +192,7 @@ class Upload extends Lego.UI.Baseview {
                 containerEl.html(view.el);
             }
         }
+        view.renderAfter();
         return view;
     }
     // 返回上传结果

@@ -439,6 +439,7 @@
                 trigger: "",
                 visible: false,
                 direction: "",
+                clickAndClose: true,
                 onChange: function e() {},
                 onVisibleChange: function e() {}
             };
@@ -521,6 +522,7 @@
         }, {
             key: "clickItem",
             value: function e(t) {
+                t.stopPropagation();
                 var n = $(t.currentTarget);
                 var a = this.options.data.find(function(e) {
                     return e.key == n.attr("id");
@@ -530,7 +532,7 @@
                     this.options.activeKey = a.key;
                     this.options.activeValue = a.value;
                 }
-                this.close();
+                if (this.options.clickAndClose) this.close();
             }
         } ]);
         return t;
@@ -723,6 +725,7 @@
                 trigger: "",
                 visible: false,
                 direction: "",
+                clickAndClose: true,
                 onChange: function e() {},
                 onVisibleChange: function e() {}
             };
@@ -805,6 +808,7 @@
         }, {
             key: "clickItem",
             value: function e(t) {
+                t.stopPropagation();
                 var n = $(t.currentTarget);
                 var a = this.options.data.find(function(e) {
                     return e.key == n.attr("id");
@@ -814,7 +818,7 @@
                     this.options.activeKey = a.key;
                     this.options.activeValue = a.value;
                 }
-                this.close();
+                if (this.options.clickAndClose) this.close();
             }
         } ]);
         return t;
@@ -838,8 +842,8 @@
     }();
     var h = L([ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ], [ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ]);
     var p = L([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
-    var y = L([ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ]);
-    var M = L([ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ]);
+    var y = L([ '\n            <div class="select dropdown">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ]);
+    var M = L([ '\n            <div class="select dropdown multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ]);
     function L(e, t) {
         return Object.freeze(Object.defineProperties(e, {
             raw: {
@@ -902,8 +906,8 @@
                 dropdownClassName: "",
                 splitString: "",
                 components: [ {
-                    el: "#" + e.vid + "-dropdown",
-                    trigger: "#" + e.vid + "-select",
+                    el: "#dropdown-" + e.vid,
+                    trigger: "#select-" + e.vid,
                     eventName: e.eventName || "click",
                     disabled: e.disabled || false,
                     style: Object.assign({
@@ -911,6 +915,7 @@
                         height: e.dropdownHeight || "auto"
                     }, e.dropdownStyle || {}),
                     className: e.dropdownClassName,
+                    clickAndClose: e.multiple ? false : true,
                     data: e.data,
                     onChange: function t(n) {
                         var a = Lego.getView(e.el);
@@ -983,7 +988,7 @@
                 });
                 this.getValue();
                 this.refresh();
-                Lego.getView("#" + this.options.vid + "-dropdown").refresh();
+                Lego.getView("#dropdown-" + this.options.vid).refresh();
                 if (typeof this.options.onDeselect === "function") this.options.onDeselect({
                     key: a,
                     value: r
@@ -15934,7 +15939,9 @@
                 onSubmit: function e() {}
             };
             Object.assign(n, e);
-            return M(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
+            var a = M(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
+            a.renderCom();
+            return a;
         }
         s(t, [ {
             key: "render",
@@ -15983,7 +15990,7 @@
                 return s;
             }
         }, {
-            key: "renderAfter",
+            key: "renderCom",
             value: function e() {
                 var t = this;
                 var n = this;

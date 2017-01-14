@@ -1,5 +1,5 @@
 /**
- * popover.js v0.2.3
+ * popover.js v0.2.7
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -701,9 +701,11 @@ var Tooltip = function() {
     return Tooltip;
 }();
 
-Lego.components("tooltip", function(opts) {
+var fun$2 = function fun$2(opts) {
     return new Tooltip(opts);
-});
+};
+
+Lego.components("tooltip", fun$2);
 
 var _typeof$1 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
     return typeof obj;
@@ -756,7 +758,7 @@ function _inherits$1(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Popover$2 = function($) {
+var Popover$1 = function($) {
     var NAME = "popover";
     var VERSION = "4.0.0-alpha.5";
     var DATA_KEY = "bs.popover";
@@ -973,10 +975,12 @@ var Popover = function(_Tooltip) {
         }
     } ]);
     return Popover;
-}(Tooltip);
+}(fun$2);
 
-Lego.components("popover", function(opts) {
+var fun = function fun(opts) {
     return new Popover(opts);
-});
+};
 
-module.exports = Popover;
+Lego.components("popover", fun);
+
+module.exports = fun;

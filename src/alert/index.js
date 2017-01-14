@@ -53,5 +53,6 @@ class Alert extends Lego.UI.Baseview {
         if(typeof this.options.onClose === 'function') this.options.onClose(event);
     }
 }
+
 Lego.components('alert', Alert);
 export default Alert;

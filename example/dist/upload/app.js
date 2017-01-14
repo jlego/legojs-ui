@@ -393,28 +393,29 @@
                     var n = 0, o = this.options.file, i = this.options.params;
                     this.xhr.crossDomain = true;
                     o.id = o.id || Lego.randomKey(32);
+                    var a = this["progressbar_" + this.options.vid];
                     this.form = new FormData();
                     this.form.append("file", o);
                     if (!Object.values(i).length) {
-                        for (var a in i) {
-                            this.form.append(a, i[a]);
+                        for (var r in i) {
+                            this.form.append(r, i[r]);
                         }
                     }
                     this.xhr.upload.addEventListener("progress", function(e) {
                         if (e.lengthComputable) {
                             var o = new Date().getTime();
                             n = o - t.startDate;
-                            var i = e.loaded / 1024, a = n / 1e3, r = i / a, s = void 0;
-                            if (r > 1024) {
-                                s = (r / 1024).toFixed(2) + "Mb/s";
+                            var i = e.loaded / 1024, r = n / 1e3, s = i / r, l = void 0;
+                            if (s > 1024) {
+                                l = (s / 1024).toFixed(2) + "Mb/s";
                             } else {
-                                s = r.toFixed(2) + "Kb/s";
+                                l = s.toFixed(2) + "Kb/s";
                             }
-                            var l = Math.round(e.loaded * 100 / e.total);
-                            if (t.progressbar) {
-                                t.progressbar.options.percent = l;
+                            var u = Math.round(e.loaded * 100 / e.total);
+                            if (a) {
+                                a.options.percent = u;
                             } else {
-                                t.options.percent = l;
+                                t.options.percent = u;
                             }
                         }
                         if (typeof t.options.onProgress == "function") {
@@ -433,8 +434,8 @@
                             if (t.options.params.key) {
                                 t.options.file.url = t.options.downloadUri + t.options.key;
                             }
-                            if (t.progressbar) {
-                                t.progressbar.options.percent = 100;
+                            if (a) {
+                                a.options.percent = 100;
                             } else {
                                 t.options.percent = 100;
                             }
@@ -466,8 +467,8 @@
                         t.remove();
                     }, false);
                     this.xhr.open("POST", this.options.uploadUri, true);
-                    for (var r in this.options.headers) {
-                        this.xhr.setRequestHeader(r, this.options.headers[r]);
+                    for (var s in this.options.headers) {
+                        this.xhr.setRequestHeader(s, this.options.headers[s]);
                     }
                 }
             }, {
@@ -600,12 +601,12 @@
                 }
             }));
         }
-        function L(e, t) {
+        function _(e, t) {
             if (!(e instanceof t)) {
                 throw new TypeError("Cannot call a class as a function");
             }
         }
-        function _(e, t) {
+        function L(e, t) {
             if (!e) {
                 throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             }
@@ -629,7 +630,7 @@
             P(t, e);
             function t() {
                 var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-                L(this, t);
+                _(this, t);
                 var n = {
                     events: {
                         "click .cancelbtn": "onCancel",
@@ -649,7 +650,7 @@
                     onCancel: function e() {}
                 };
                 Object.assign(n, e);
-                return _(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
+                return L(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
             }
             y(t, [ {
                 key: "render",
@@ -664,7 +665,7 @@
                     var t = this.options;
                     if (t.percent < 100) {
                         this.progressbar = Lego.create(m, {
-                            el: "#progressbar_" + t.vid,
+                            el: this.$("#progressbar_" + t.vid),
                             showInfo: false,
                             status: "success",
                             onComplete: function e() {
@@ -939,6 +940,7 @@
                             o.html(n.el);
                         }
                     }
+                    n.renderAfter();
                     return n;
                 }
             }, {

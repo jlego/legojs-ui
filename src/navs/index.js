@@ -44,12 +44,12 @@ class Navs extends Lego.UI.Baseview {
         function makeItem(data, i){
             const itemDom = hx`
             <li class="nav-item ${data.children ? 'dropdown' : ''}">
-                <a class="nav-link ${data.key === options.activeKey ? 'active' : ''} ${data.disabled ? 'disabled' : ''} ${data.children ? 'dropdown-toggle' : ''}" href="${data.href ? data.href : 'javascript:;'}" id="${data.key ? data.key : ('nav-item-' + i)}">${data.value ? data.value : ''}</a>
+                <a class="nav-link ${data.key === options.activeKey ? 'active' : ''} ${data.disabled ? 'disabled' : ''} ${data.children ? 'dropdown-toggle' : ''}" href="${data.href ? data.href : 'javascript:;'}" id="${data.key ? data.key : ('nav-item-' + i)}">${val(data.value)}</a>
                 ${Array.isArray(data.children) ? hx`
                 <div class="dropdown-menu ${options.direction ? ('drop' + options.direction) : ''}">
                 ${data.children.map((subItem, x) => hx`
-                    ${subItem.divider ? hx`<div class="dropdown-divider"></div>` : 
-                    hx`<a class="dropdown-item ${subItem.active ? 'active' : ''} ${subItem.disabled ? 'disabled' : ''}" href="${subItem.href ? subItem.href : 'javascript:;'}" id="${subItem.key ? subItem.key : ('nav-sub-item-' + x)}">${subItem.value ? subItem.value : ''}/a>`
+                    ${subItem.divider ? hx`<div class="dropdown-divider"></div>` :
+                    hx`<a class="dropdown-item ${subItem.active ? 'active' : ''} ${subItem.disabled ? 'disabled' : ''}" href="${subItem.href ? subItem.href : 'javascript:;'}" id="${subItem.key ? subItem.key : ('nav-sub-item-' + x)}">${val(subItem.value)}</a>`
                     }
                 `)}
                 </div>

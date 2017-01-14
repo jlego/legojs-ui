@@ -1,13 +1,9 @@
 /**
- * legoui.js v0.2.3
+ * legoui.js v0.2.7
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
 "use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 
 function _interopDefault(ex) {
     return ex && typeof ex === "object" && "default" in ex ? ex["default"] : ex;
@@ -404,7 +400,7 @@ var _createClass$1 = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container">\n                        <div id="page-container"></div>\n                    </div>\n                    <submodal id="lego-submodal"></submodal>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n            <modal id="lego-modal"></modal>\n        </div>\n        ' ], [ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container">\n                        <div id="page-container"></div>\n                    </div>\n                    <submodal id="lego-submodal"></submodal>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n            <modal id="lego-modal"></modal>\n        </div>\n        ' ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container">\n                        <div id="page-container"></div>\n                    </div>\n                    <layer id="lego-layer"></layer>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n            <modal id="lego-modal"></modal>\n        </div>\n        ' ], [ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container">\n                        <div id="page-container"></div>\n                    </div>\n                    <layer id="lego-layer"></layer>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n            <modal id="lego-modal"></modal>\n        </div>\n        ' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -862,6 +858,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             trigger: "",
             visible: false,
             direction: "",
+            clickAndClose: true,
             onChange: function onChange() {},
             onVisibleChange: function onVisibleChange() {}
         };
@@ -944,6 +941,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "clickItem",
         value: function clickItem(event) {
+            event.stopPropagation();
             var target = $(event.currentTarget);
             var model = this.options.data.find(function(Item) {
                 return Item.key == target.attr("id");
@@ -953,7 +951,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 this.options.activeKey = model.key;
                 this.options.activeValue = model.value;
             }
-            this.close();
+            if (this.options.clickAndClose) this.close();
         }
     } ]);
     return Dropdown;
@@ -1057,7 +1055,8 @@ var Pagination = function(_Lego$UI$Baseview) {
             showQuickJumper: false,
             size: "",
             simple: null,
-            isShowTotal: true
+            isShowTotal: true,
+            data: {}
         };
         Object.assign(options, opts);
         if (!options.simple && options.showSizeChanger) {
@@ -1089,10 +1088,11 @@ var Pagination = function(_Lego$UI$Baseview) {
     _createClass$7(Pagination, [ {
         key: "render",
         value: function render() {
-            var options = this.options || {}, current = parseInt(options.current);
+            var options = this.options || {}, current = options.data.current || parseInt(options.current);
+            options.pageSize = options.data.pageSize || options.pageSize;
             var pageRang = parseInt(options.pageRang);
-            var totalCount = typeof options.total === "function" ? options.total() : options.total;
-            options.totalPages = Math.ceil(totalCount / options.pageSize);
+            var totalCount = options.data.total || (typeof options.total === "function" ? options.total() : options.total);
+            options.totalPages = options.data.totalPages || Math.ceil(totalCount / options.pageSize);
             pageRang = pageRang >= options.totalPages ? options.totalPages : pageRang;
             var baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0, startPage = baseTimes * pageRang + 1, endPage = startPage + pageRang - 1, showEllipsis = options.totalPages - current > pageRang ? true : false, pagesArr = [];
             endPage = endPage >= options.totalPages ? options.totalPages : endPage;
@@ -1200,7 +1200,7 @@ var _templateObject3$1 = _taggedTemplateLiteral$5([ '\n                <div clas
 
 var _templateObject4 = _taggedTemplateLiteral$5([ '\n                        <button type="button" class="btn btn-default noborder">\n                        <i class="anticon anticon-ellipsis"></i></button>' ], [ '\n                        <button type="button" class="btn btn-default noborder">\n                        <i class="anticon anticon-ellipsis"></i></button>' ]);
 
-var _templateObject5 = _taggedTemplateLiteral$5([ '\n                    <div class="lego-table-footer">\n                    <pagination id="', '-paginationId"></pagination>\n                    </div>\n                ' ], [ '\n                    <div class="lego-table-footer">\n                    <pagination id="', '-paginationId"></pagination>\n                    </div>\n                ' ]);
+var _templateObject5 = _taggedTemplateLiteral$5([ '\n                    <div class="lego-table-footer">\n                    <pagination id="pagination_', '"></pagination>\n                    </div>\n                ' ], [ '\n                    <div class="lego-table-footer">\n                    <pagination id="pagination_', '"></pagination>\n                    </div>\n                ' ]);
 
 var _templateObject6 = _taggedTemplateLiteral$5([ "\n        <colgroup>\n            ", "\n            ", "\n        </colgroup>\n        " ], [ "\n        <colgroup>\n            ", "\n            ", "\n        </colgroup>\n        " ]);
 
@@ -1317,7 +1317,7 @@ var Tables = function(_Lego$UI$Baseview) {
         };
         Object.assign(options, opts);
         options.components.push(_extends({}, options.pagination, {
-            el: "#" + options.vid + "-paginationId"
+            el: "#pagination_" + options.vid
         }));
         options.columns.map(function(col) {
             col = Object.assign({
@@ -1347,6 +1347,12 @@ var Tables = function(_Lego$UI$Baseview) {
             var options = this.options;
             var vDom = hx(_templateObject$5, options.size, options.bordered ? "lego-table-bordered" : "", options.showHeader ? "lego-table-fixed-header" : "", options.title ? hx(_templateObject2$2, typeof options.title == "function" ? options.title() : options.title) : "", options.showHeader ? hx(_templateObject3$1, this._renderColgroup(), this._renderHeader(), options.colSetting ? hx(_templateObject4) : "") : "", options.pagination ? "48px" : "0", options.showHeader ? "scrollbar" : "", options.className, this._renderColgroup(), !options.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), options.pagination && options.data ? hx(_templateObject5, options.vid) : "");
             return vDom;
+        }
+    }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            var paginationView = this["pagination_" + this.options.vid];
+            if (paginationView) paginationView.refresh();
         }
     }, {
         key: "_getRowKey",
@@ -1397,7 +1403,7 @@ var Tables = function(_Lego$UI$Baseview) {
             var vDom = hx(_templateObject17, options.data.map(function(row, i) {
                 row.key = row.id || _this4._getRowKey("row_");
                 return hx(_templateObject18, options.rowClassName, row.key, options.rowSelection ? _this4._renderSelection(row, "td") : "", options.columns.map(function(col) {
-                    return !col.isHide ? hx(_templateObject19, typeof col.render === "function" ? col.render(row[col.dataIndex], row, col) : row[col.dataIndex]) : "";
+                    return !col.isHide ? hx(_templateObject19, typeof col.format === "function" ? col.format(row[col.dataIndex], row, col) : row[col.dataIndex]) : "";
                 }));
             }));
             return vDom;
@@ -2162,7 +2168,6 @@ var Modal = function(_Lego$UI$Baseview) {
             title: "这是标题",
             size: "",
             type: "modal",
-            renderTo: "",
             animate: "fadeIn",
             closable: true,
             showHeader: true,
@@ -2182,7 +2187,7 @@ var Modal = function(_Lego$UI$Baseview) {
             }
         };
         Object.assign(options, opts);
-        var modalEl = options.renderTo ? "#lego-submodal" : "#lego-modal";
+        var modalEl = options.type !== "modal" ? "#lego-layer" : "#lego-modal";
         if (typeArr[options.msgType] && typeof options.content == "string") {
             var alertObj = Lego.create(Alert, {
                 type: options.msgType,
@@ -2193,14 +2198,14 @@ var Modal = function(_Lego$UI$Baseview) {
             options.content = alertObj.render();
         }
         if (!options.el) options.el = modalEl;
-        if (options.renderTo) options.animate = "slideInRight";
+        if (options.type !== "modal") options.animate = "slideInRight";
         return _possibleConstructorReturn$9(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, options));
     }
     _createClass$9(Modal, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject$8, options.renderTo == "right" ? "right-modal" : "", options.msgType ? "dialog-modal" : "", options.size ? "modal-size-" + options.size : "", options.el.replace(/#/, ""), options.closable ? hx(_templateObject2$5) : "", options.title, !options.msgType ? "scrollbar" : "", options.content, options.footer ? options.footer : hx(_templateObject3$4, options.cancelText, options.okText));
+            var vDom = hx(_templateObject$8, options.type == "right" ? "right-modal" : "", options.msgType ? "dialog-modal" : "", options.size ? "modal-size-" + options.size : "", options.el.replace(/#/, ""), options.closable ? hx(_templateObject2$5) : "", options.title, !options.msgType ? "scrollbar" : "", options.content, options.footer ? options.footer : hx(_templateObject3$4, options.cancelText, options.okText));
             return vDom;
         }
     }, {
@@ -2208,12 +2213,12 @@ var Modal = function(_Lego$UI$Baseview) {
         value: function renderAfter() {
             var that = this, options = this.options;
             this.$el.modal({
-                backdrop: options.renderTo ? !options.backdrop : options.backdrop,
+                backdrop: options.type == "modal" ? options.backdrop : false,
                 keyboard: options.keyboard,
                 show: true
             });
             this.$el.on("hidden.bs.modal", function(e) {
-                var container = options.renderTo ? '<submodal id="lego-submodal"></submodal>' : '<modal id="lego-modal"></modal>';
+                var container = options.type !== "modal" ? '<layer id="lego-layer"></layer>' : '<modal id="lego-modal"></modal>';
                 that.$el.replaceWith(container);
                 if (typeof options.onHidden === "function") options.onHidden();
             });
@@ -2275,7 +2280,26 @@ var Modal = function(_Lego$UI$Baseview) {
     return Modal;
 }(Lego.UI.Baseview);
 
-Lego.components("modal", Modal);
+var theModal = function theModal() {
+    var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    if (typeof opts == "string") {
+        var view = null;
+        switch (opts) {
+          case "close":
+            view = Lego.getView("#lego-layer");
+            break;
+
+          case "closeModal":
+            view = Lego.getView("#lego-modal");
+            break;
+        }
+        if (view) view.close();
+    } else {
+        Lego.create(Modal, opts);
+    }
+};
+
+Lego.components("modal", theModal);
 
 var _createClass$11 = function() {
     function defineProperties(target, props) {
@@ -2302,7 +2326,7 @@ var _templateObject3$5 = _taggedTemplateLiteral$9([ "\n                    ", "\
 
 var _templateObject4$3 = _taggedTemplateLiteral$9([ '<div class="dropdown-divider"></div>' ], [ '<div class="dropdown-divider"></div>' ]);
 
-var _templateObject5$3 = _taggedTemplateLiteral$9([ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "/a>" ], [ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "/a>" ]);
+var _templateObject5$3 = _taggedTemplateLiteral$9([ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "</a>" ], [ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "</a>" ]);
 
 var _templateObject6$2 = _taggedTemplateLiteral$9([ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ]);
 
@@ -2378,8 +2402,8 @@ var Navs = function(_Lego$UI$Baseview) {
         value: function render() {
             var options = this.options || {};
             function makeItem(data, i) {
-                var itemDom = hx(_templateObject$9, data.children ? "dropdown" : "", data.key === options.activeKey ? "active" : "", data.disabled ? "disabled" : "", data.children ? "dropdown-toggle" : "", data.href ? data.href : "javascript:;", data.key ? data.key : "nav-item-" + i, data.value ? data.value : "", Array.isArray(data.children) ? hx(_templateObject2$6, options.direction ? "drop" + options.direction : "", data.children.map(function(subItem, x) {
-                    return hx(_templateObject3$5, subItem.divider ? hx(_templateObject4$3) : hx(_templateObject5$3, subItem.active ? "active" : "", subItem.disabled ? "disabled" : "", subItem.href ? subItem.href : "javascript:;", subItem.key ? subItem.key : "nav-sub-item-" + x, subItem.value ? subItem.value : ""));
+                var itemDom = hx(_templateObject$9, data.children ? "dropdown" : "", data.key === options.activeKey ? "active" : "", data.disabled ? "disabled" : "", data.children ? "dropdown-toggle" : "", data.href ? data.href : "javascript:;", data.key ? data.key : "nav-item-" + i, val(data.value), Array.isArray(data.children) ? hx(_templateObject2$6, options.direction ? "drop" + options.direction : "", data.children.map(function(subItem, x) {
+                    return hx(_templateObject3$5, subItem.divider ? hx(_templateObject4$3) : hx(_templateObject5$3, subItem.active ? "active" : "", subItem.disabled ? "disabled" : "", subItem.href ? subItem.href : "javascript:;", subItem.key ? subItem.key : "nav-sub-item-" + x, val(subItem.value)));
                 })) : "");
                 return itemDom;
             }
@@ -2699,9 +2723,9 @@ var _templateObject$12 = _taggedTemplateLiteral$12([ "\n                <ul>", '
 
 var _templateObject2$9 = _taggedTemplateLiteral$12([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
 
-var _templateObject3$6 = _taggedTemplateLiteral$12([ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ]);
+var _templateObject3$6 = _taggedTemplateLiteral$12([ '\n            <div class="select dropdown">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ]);
 
-var _templateObject4$4 = _taggedTemplateLiteral$12([ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </div>\n            </div>\n            ' ]);
+var _templateObject4$4 = _taggedTemplateLiteral$12([ '\n            <div class="select dropdown multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ]);
 
 function _taggedTemplateLiteral$12(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -2769,8 +2793,8 @@ var Selects = function(_Lego$UI$Baseview) {
             dropdownClassName: "",
             splitString: "",
             components: [ {
-                el: "#" + opts.vid + "-dropdown",
-                trigger: "#" + opts.vid + "-select",
+                el: "#dropdown-" + opts.vid,
+                trigger: "#select-" + opts.vid,
                 eventName: opts.eventName || "click",
                 disabled: opts.disabled || false,
                 style: Object.assign({
@@ -2778,6 +2802,7 @@ var Selects = function(_Lego$UI$Baseview) {
                     height: opts.dropdownHeight || "auto"
                 }, opts.dropdownStyle || {}),
                 className: opts.dropdownClassName,
+                clickAndClose: opts.multiple ? false : true,
                 data: opts.data,
                 onChange: function onChange(model) {
                     var theView = Lego.getView(opts.el);
@@ -2850,7 +2875,7 @@ var Selects = function(_Lego$UI$Baseview) {
             });
             this.getValue();
             this.refresh();
-            Lego.getView("#" + this.options.vid + "-dropdown").refresh();
+            Lego.getView("#dropdown-" + this.options.vid).refresh();
             if (typeof this.options.onDeselect === "function") this.options.onDeselect({
                 key: key,
                 value: value
@@ -3782,9 +3807,11 @@ var Tooltip = function() {
     return Tooltip;
 }();
 
-Lego.components("tooltip", function(opts) {
+var fun = function fun(opts) {
     return new Tooltip(opts);
-});
+};
+
+Lego.components("tooltip", fun);
 
 var _typeof$2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
     return typeof obj;
@@ -4054,11 +4081,13 @@ var Popover = function(_Tooltip) {
         }
     } ]);
     return Popover;
-}(Tooltip);
+}(fun);
 
-Lego.components("popover", function(opts) {
+var fun$1 = function fun$1(opts) {
     return new Popover(opts);
-});
+};
+
+Lego.components("popover", fun$1);
 
 var _createClass$21 = function() {
     function defineProperties(target, props) {
@@ -4077,7 +4106,7 @@ var _createClass$21 = function() {
     };
 }();
 
-var _templateObject$15 = _taggedTemplateLiteral$15([ '<ul class="ztree"></ul>' ], [ '<ul class="ztree"></ul>' ]);
+var _templateObject$15 = _taggedTemplateLiteral$15([ '<ul class="lego-tree"></ul>' ], [ '<ul class="lego-tree"></ul>' ]);
 
 function _taggedTemplateLiteral$15(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -4121,8 +4150,8 @@ var Tree = function(_Lego$UI$Baseview) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck$21(this, Tree);
         var options = {
-            disSelect: null,
-            onlySelect: null,
+            disSelect: "",
+            onlySelect: "",
             setting: {
                 data: {
                     simpleData: {
@@ -4133,7 +4162,6 @@ var Tree = function(_Lego$UI$Baseview) {
             },
             keyNames: [ "id", "name", "type" ],
             value: [],
-            data: [],
             onChecked: function onChecked() {},
             onClick: function onClick() {}
         };
@@ -4151,10 +4179,10 @@ var Tree = function(_Lego$UI$Baseview) {
             var options = this.options, that = this;
             function selectOrNo(treeNode) {
                 if (options.disSelect) {
-                    if (treeNode[options.disSelect] == Object.values(options.disSelect)[0]) return false;
+                    if (Object.keys(treeNode).includes(options.disSelect)) return false;
                 }
                 if (options.onlySelect) {
-                    if (treeNode[options.onlySelect] !== Object.values(options.onlySelect)[0]) return false;
+                    if (!Object.keys(treeNode).includes(options.onlySelect)) return false;
                 }
                 return true;
             }
@@ -4199,7 +4227,7 @@ var Tree = function(_Lego$UI$Baseview) {
         key: "renderAfter",
         value: function renderAfter() {
             var options = this.options;
-            $.fn.zTree.init(this.$el, options.setting, options.data);
+            if (options.data) $.fn.zTree.init(this.$el, options.setting, options.data);
         }
     }, {
         key: "clearChecked",
@@ -4237,9 +4265,9 @@ var _templateObject$16 = _taggedTemplateLiteral$16([ "\n                <ul>", '
 
 var _templateObject2$12 = _taggedTemplateLiteral$16([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
 
-var _templateObject3$9 = _taggedTemplateLiteral$16([ '\n            <div class="select dropdown treeselect">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="', '-tree"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="', '-tree"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ]);
+var _templateObject3$9 = _taggedTemplateLiteral$16([ '\n            <div class="select dropdown treeselect">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ]);
 
-var _templateObject4$6 = _taggedTemplateLiteral$16([ '\n            <div class="select dropdown treeselect multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="', '-tree"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="', '-tree"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ]);
+var _templateObject4$6 = _taggedTemplateLiteral$16([ '\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ]);
 
 function _taggedTemplateLiteral$16(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -4288,6 +4316,9 @@ var Treeselect = function(_Selects) {
             multiple: false,
             eventName: "click",
             scrollbar: {},
+            disSelect: "",
+            onlySelect: "",
+            treeDataSource: null,
             filterOption: true,
             tags: false,
             onSelect: function onSelect() {},
@@ -4308,14 +4339,16 @@ var Treeselect = function(_Selects) {
             dropdownClassName: "",
             splitString: "",
             keyNames: [ "id", "name", "type" ],
+            clickAndClose: opts.multiple ? false : true,
             components: [ {
-                el: "#" + opts.vid + "-tree",
+                el: "#tree-" + opts.vid,
                 disSelect: opts.disSelect,
                 onlySelect: opts.onlySelect,
                 setting: Object.assign({}, opts.setting),
                 keyNames: opts.keyNames || [ "id", "name", "type" ],
                 value: opts.value,
                 data: opts.data,
+                dataSource: opts.treeDataSource,
                 onChecked: function onChecked(result) {
                     var theView = Lego.getView(opts.el);
                     if (theView) {
@@ -4331,6 +4364,8 @@ var Treeselect = function(_Selects) {
                                         selected: true
                                     });
                                 });
+                            } else {
+                                theView.options.value = [];
                             }
                         }
                         theView.options.onSelect(result);
@@ -4411,11 +4446,11 @@ var Treeselect = function(_Selects) {
                             });
                         }
                     };
-                    var trigger = _this2.$("#" + options.vid + "-select");
-                    var treeEl = _this2.$("#" + options.vid + "-tree");
+                    var trigger = _this2.$("#select-" + options.vid);
+                    var treeEl = _this2.$("#tree-" + options.vid);
+                    var _eventName = "click.dropdown_" + options.vid;
                     if (options.eventName == "click") {
-                        var _eventName = "click.dropdown_" + options.vid;
-                        $("body").off(_eventName).on(_eventName, function() {
+                        $("body, .modal-body").off(_eventName).on(_eventName, function() {
                             that.close();
                         });
                         trigger.off(_eventName).on(_eventName, handler);
@@ -4432,24 +4467,27 @@ var Treeselect = function(_Selects) {
     }, {
         key: "show",
         value: function show(event) {
-            this.$("#" + this.options.vid + "-select").addClass("dropdown open");
+            this.$("#select-" + this.options.vid).addClass("dropdown open");
         }
     }, {
         key: "close",
         value: function close(event) {
-            this.$("#" + this.options.vid + "-select").removeClass("dropdown open");
+            this.$("#select-" + this.options.vid).removeClass("dropdown open");
         }
     }, {
         key: "clickItemClose",
         value: function clickItemClose(event) {
             event.stopPropagation();
-            var target = $(event.currentTarget).parent(), key = target.attr("id"), value = target.attr("title"), treeView = Lego.getView(this.$("#" + this.options.vid + "-tree"));
+            var target = $(event.currentTarget).parent(), key = target.attr("id"), value = target.attr("title"), treeView = $.fn.zTree.getZTreeObj("tree-" + this.options.vid);
             this.options.value.forEach(function(item) {
                 if (item.key === key) item.selected = false;
             });
             this.getValue();
             this.refresh();
-            if (treeView) treeView.clearChecked(this.options.keyNames[0], key);
+            if (treeView) {
+                var treeNode = treeView.getNodeByParam(this.options.keyNames[0], key, null);
+                treeView.checkNode(treeNode, !treeNode.checked, null, true);
+            }
             if (typeof this.options.onDeselect === "function") this.options.onDeselect({
                 key: key,
                 value: value
@@ -4578,7 +4616,9 @@ var Forms = function(_Lego$UI$Baseview) {
             onSubmit: function onSubmit() {}
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$20(this, (Forms.__proto__ || Object.getPrototypeOf(Forms)).call(this, options));
+        var _this = _possibleConstructorReturn$20(this, (Forms.__proto__ || Object.getPrototypeOf(Forms)).call(this, options));
+        _this.renderCom();
+        return _this;
     }
     _createClass$23(Forms, [ {
         key: "render",
@@ -4627,8 +4667,8 @@ var Forms = function(_Lego$UI$Baseview) {
             return vDom;
         }
     }, {
-        key: "renderAfter",
-        value: function renderAfter() {
+        key: "renderCom",
+        value: function renderCom() {
             var _this2 = this;
             var that = this;
             this.rules = null;
@@ -5208,6 +5248,7 @@ var UploadView = function(_Lego$View) {
             var taking = 0, file = this.options.file, params = this.options.params;
             this.xhr.crossDomain = true;
             file.id = file.id || Lego.randomKey(32);
+            var progressbar = this["progressbar_" + this.options.vid];
             this.form = new FormData();
             this.form.append("file", file);
             if (!Object.values(params).length) {
@@ -5226,8 +5267,8 @@ var UploadView = function(_Lego$View) {
                         formatSpeed = uploadSpeed.toFixed(2) + "Kb/s";
                     }
                     var percent = Math.round(event.loaded * 100 / event.total);
-                    if (_this2.progressbar) {
-                        _this2.progressbar.options.percent = percent;
+                    if (progressbar) {
+                        progressbar.options.percent = percent;
                     } else {
                         _this2.options.percent = percent;
                     }
@@ -5248,8 +5289,8 @@ var UploadView = function(_Lego$View) {
                     if (_this2.options.params.key) {
                         _this2.options.file.url = _this2.options.downloadUri + _this2.options.key;
                     }
-                    if (_this2.progressbar) {
-                        _this2.progressbar.options.percent = 100;
+                    if (progressbar) {
+                        progressbar.options.percent = 100;
                     } else {
                         _this2.options.percent = 100;
                     }
@@ -5400,7 +5441,7 @@ var UploadItem = function(_UploadBase) {
             var options = this.options;
             if (options.percent < 100) {
                 this.progressbar = Lego.create(Progressbar, {
-                    el: "#progressbar_" + options.vid,
+                    el: this.$("#progressbar_" + options.vid),
                     showInfo: false,
                     status: "success",
                     onComplete: function onComplete() {
@@ -5685,6 +5726,7 @@ var Upload = function(_Lego$UI$Baseview) {
                     containerEl.html(view.el);
                 }
             }
+            view.renderAfter();
             return view;
         }
     }, {
@@ -5709,54 +5751,35 @@ var Upload = function(_Lego$UI$Baseview) {
 
 Lego.components("upload", Upload);
 
-exports.Viewport = Viewport;
+Lego.components({
+    baseview: Baseview,
+    viewport: Viewport,
+    alert: Alert,
+    badge: Badge,
+    buttons: Buttons,
+    tables: Tables,
+    pagination: Pagination,
+    dropdown: Dropdown,
+    modal: theModal,
+    navs: Navs,
+    tabs: Tabs,
+    search: Search,
+    datepicker: Datepicker,
+    tooltip: fun,
+    popover: fun$1,
+    notification: Notification,
+    message: Message,
+    tree: Tree,
+    treeselect: Treeselect,
+    forms: Forms,
+    listgroup: Listgroup,
+    transfer: Transfer,
+    progressbar: Progressbar,
+    upload: Upload,
+    selects: Selects,
+    inputs: Inputs
+});
 
-exports.Alert = Alert;
+var index = Lego.UI;
 
-exports.Badge = Badge;
-
-exports.Buttons = Buttons;
-
-exports.Tables = Tables;
-
-exports.Pagination = Pagination;
-
-exports.Dropdown = Dropdown;
-
-exports.Modal = Modal;
-
-exports.Navs = Navs;
-
-exports.Tabs = Tabs;
-
-exports.Search = Search;
-
-exports.Selects = Selects;
-
-exports.Datepicker = Datepicker;
-
-exports.Inputs = Inputs;
-
-exports.Tooltip = Tooltip;
-
-exports.Popover = Popover;
-
-exports.Notification = Notification;
-
-exports.Message = Message;
-
-exports.Tree = Tree;
-
-exports.Treeselect = Treeselect;
-
-exports.Forms = Forms;
-
-exports.Listgroup = Listgroup;
-
-exports.Transfer = Transfer;
-
-exports.Progressbar = Progressbar;
-
-exports.Upload = Upload;
-
-exports.Baseview = Baseview;
+module.exports = index;

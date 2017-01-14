@@ -95,7 +95,7 @@ class UploadItem extends UploadBase {
         const options = this.options;
         if(options.percent < 100){
             this.progressbar = Lego.create(Progressbar, {
-                el: '#progressbar_' + options.vid,
+                el: this.$('#progressbar_' + options.vid),
                 showInfo: false,
                 status: 'success',
                 onComplete(){

@@ -473,7 +473,7 @@
                 return t;
             };
         }();
-        var v = g([ '<ul class="ztree"></ul>' ], [ '<ul class="ztree"></ul>' ]);
+        var v = g([ '<ul class="lego-tree"></ul>' ], [ '<ul class="lego-tree"></ul>' ]);
         function g(e, t) {
             return Object.freeze(Object.defineProperties(e, {
                 raw: {
@@ -512,8 +512,8 @@
                 var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
                 N(this, t);
                 var n = {
-                    disSelect: null,
-                    onlySelect: null,
+                    disSelect: "",
+                    onlySelect: "",
                     setting: {
                         data: {
                             simpleData: {
@@ -524,7 +524,6 @@
                     },
                     keyNames: [ "id", "name", "type" ],
                     value: [],
-                    data: [],
                     onChecked: function e() {},
                     onClick: function e() {}
                 };
@@ -542,10 +541,10 @@
                     var t = this.options, n = this;
                     function r(e) {
                         if (t.disSelect) {
-                            if (e[t.disSelect] == Object.values(t.disSelect)[0]) return false;
+                            if (Object.keys(e).includes(t.disSelect)) return false;
                         }
                         if (t.onlySelect) {
-                            if (e[t.onlySelect] !== Object.values(t.onlySelect)[0]) return false;
+                            if (!Object.keys(e).includes(t.onlySelect)) return false;
                         }
                         return true;
                     }
@@ -590,7 +589,7 @@
                 key: "renderAfter",
                 value: function e() {
                     var t = this.options;
-                    $.fn.zTree.init(this.$el, t.setting, t.data);
+                    if (t.data) $.fn.zTree.init(this.$el, t.setting, t.data);
                 }
             }, {
                 key: "clearChecked",
@@ -674,6 +673,7 @@
                     trigger: "",
                     visible: false,
                     direction: "",
+                    clickAndClose: true,
                     onChange: function e() {},
                     onVisibleChange: function e() {}
                 };
@@ -756,6 +756,7 @@
             }, {
                 key: "clickItem",
                 value: function e(t) {
+                    t.stopPropagation();
                     var n = $(t.currentTarget);
                     var r = this.options.data.find(function(e) {
                         return e.key == n.attr("id");
@@ -765,7 +766,7 @@
                         this.options.activeKey = r.key;
                         this.options.activeValue = r.value;
                     }
-                    this.close();
+                    if (this.options.clickAndClose) this.close();
                 }
             } ]);
             return t;
@@ -807,7 +808,7 @@
             }
             return t && ((typeof t === "undefined" ? "undefined" : r(t)) === "object" || typeof t === "function") ? t : e;
         }
-        function z(e, t) {
+        function U(e, t) {
             if (typeof t !== "function" && t !== null) {
                 throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : r(t)));
             }
@@ -821,8 +822,8 @@
             });
             if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
         }
-        var U = function(e) {
-            z(t, e);
+        var z = function(e) {
+            U(t, e);
             function t() {
                 var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
                 j(this, t);
@@ -880,7 +881,7 @@
             } ]);
             return t;
         }(Lego.UI.Baseview);
-        Lego.components("search", U);
+        Lego.components("search", z);
         var B = function() {
             function e(e, t) {
                 for (var n = 0; n < t.length; n++) {
@@ -3610,11 +3611,11 @@
                             S = null;
                             m = false;
                             T = i;
-                            var z = y.getSettings();
-                            for (var U in z) {
-                                if (z[U].treeId && z[U].edit.enable && z[U].treeId != i.treeId && (n.target.id == z[U].treeId || e(n.target).parents("#" + z[U].treeId).length > 0)) {
+                            var U = y.getSettings();
+                            for (var z in U) {
+                                if (U[z].treeId && U[z].edit.enable && U[z].treeId != i.treeId && (n.target.id == U[z].treeId || e(n.target).parents("#" + U[z].treeId).length > 0)) {
                                     m = true;
-                                    T = z[U];
+                                    T = U[z];
                                 }
                             }
                             var B = f.scrollTop(), F = f.scrollLeft(), Y = T.treeObj.offset(), H = T.treeObj.get(0).scrollHeight, K = T.treeObj.get(0).scrollWidth, V = n.clientY + B - Y.top, q = T.treeObj.height() + Y.top - n.clientY - B, W = n.clientX + F - Y.left, G = T.treeObj.width() + Y.left - n.clientX - F, X = V < i.edit.drag.borderMax && V > i.edit.drag.borderMin, Z = q < i.edit.drag.borderMax && q > i.edit.drag.borderMin, Q = W < i.edit.drag.borderMax && W > i.edit.drag.borderMin, J = G < i.edit.drag.borderMax && G > i.edit.drag.borderMin, ee = V > i.edit.drag.borderMin && q > i.edit.drag.borderMin && W > i.edit.drag.borderMin && G > i.edit.drag.borderMin, te = X && T.treeObj.scrollTop() <= 0, ne = Z && T.treeObj.scrollTop() + T.treeObj.height() + 10 >= H, re = Q && T.treeObj.scrollLeft() <= 0, oe = J && T.treeObj.scrollLeft() + T.treeObj.width() + 10 >= K;

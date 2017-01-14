@@ -64,6 +64,7 @@ class UploadView extends Lego.View {
             params = this.options.params;
         this.xhr.crossDomain = true;
         file.id = file.id || Lego.randomKey(32);
+        const progressbar = this['progressbar_' + this.options.vid];
 
         this.form = new FormData();
         this.form.append('file', file);
@@ -87,8 +88,8 @@ class UploadView extends Lego.View {
                     formatSpeed = uploadSpeed.toFixed(2) + "Kb\/s";
                 }
                 let percent = Math.round(event.loaded * 100 / event.total);
-                if (this.progressbar) {
-                    this.progressbar.options.percent = percent;
+                if (progressbar) {
+                    progressbar.options.percent = percent;
                 }else{
                     this.options.percent = percent;
                 }
@@ -112,8 +113,8 @@ class UploadView extends Lego.View {
                 if(this.options.params.key){
                     this.options.file.url = this.options.downloadUri + this.options.key;
                 }
-                if (this.progressbar) {
-                    this.progressbar.options.percent = 100;
+                if (progressbar) {
+                    progressbar.options.percent = 100;
                 }else{
                     this.options.percent = 100;
                 }

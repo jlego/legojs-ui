@@ -30,5 +30,6 @@ function Notification(type='info', content='') {
         toastr[type](content);
     }
 }
+
 Lego.components('notification', Notification);
 export default Notification;
