@@ -2554,12 +2554,12 @@
                     }
                     k.editNodeBlur = true;
                     k.cancelCurEditNode(i);
-                    var f = e(i.treeObj.get(0).ownerDocument), p = e(i.treeObj.get(0).ownerDocument.body), v, h, g, b = false, T = i, w = i, E, I, _ = null, O = null, S = null, P = m.move.TYPE_INNER, x = n.clientX, D = n.clientY, R = new Date().getTime();
+                    var f = e(i.treeObj.get(0).ownerDocument), p = e(i.treeObj.get(0).ownerDocument.body), v, h, g, b = false, T = i, w = i, E, I, _ = null, O = null, S = null, P = m.move.TYPE_INNER, D = n.clientX, x = n.clientY, R = new Date().getTime();
                     if (N.uCanDo(i)) {
                         f.bind("mousemove", L);
                     }
                     function L(n) {
-                        if (l.dragFlag == 0 && Math.abs(x - n.clientX) < i.edit.drag.minMoveSize && Math.abs(D - n.clientY) < i.edit.drag.minMoveSize) {
+                        if (l.dragFlag == 0 && Math.abs(D - n.clientX) < i.edit.drag.minMoveSize && Math.abs(x - n.clientY) < i.edit.drag.minMoveSize) {
                             return true;
                         }
                         var r, o, a, d, c, w = i.data.key.children;
@@ -3743,7 +3743,7 @@
                 return t;
             };
         }();
-        var i = l([ '<ul class="ztree"></ul>' ], [ '<ul class="ztree"></ul>' ]);
+        var i = l([ '<ul class="lego-tree"></ul>' ], [ '<ul class="lego-tree"></ul>' ]);
         function l(e, t) {
             return Object.freeze(Object.defineProperties(e, {
                 raw: {
@@ -3782,8 +3782,8 @@
                 var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
                 s(this, t);
                 var n = {
-                    disSelect: null,
-                    onlySelect: null,
+                    disSelect: "",
+                    onlySelect: "",
                     setting: {
                         data: {
                             simpleData: {
@@ -3794,7 +3794,6 @@
                     },
                     keyNames: [ "id", "name", "type" ],
                     value: [],
-                    data: [],
                     onChecked: function e() {},
                     onClick: function e() {}
                 };
@@ -3812,10 +3811,10 @@
                     var t = this.options, n = this;
                     function r(e) {
                         if (t.disSelect) {
-                            if (e[t.disSelect] == Object.values(t.disSelect)[0]) return false;
+                            if (Object.keys(e).includes(t.disSelect)) return false;
                         }
                         if (t.onlySelect) {
-                            if (e[t.onlySelect] !== Object.values(t.onlySelect)[0]) return false;
+                            if (!Object.keys(e).includes(t.onlySelect)) return false;
                         }
                         return true;
                     }
@@ -3860,7 +3859,7 @@
                 key: "renderAfter",
                 value: function e() {
                     var t = this.options;
-                    $.fn.zTree.init(this.$el, t.setting, t.data);
+                    if (t.data) $.fn.zTree.init(this.$el, t.setting, t.data);
                 }
             }, {
                 key: "clearChecked",
@@ -4268,7 +4267,7 @@
                 return t;
             };
         }();
-        var _ = O([ '<ul class="ztree"></ul>' ], [ '<ul class="ztree"></ul>' ]);
+        var _ = O([ '<ul class="lego-tree"></ul>' ], [ '<ul class="lego-tree"></ul>' ]);
         function O(e, t) {
             return Object.freeze(Object.defineProperties(e, {
                 raw: {
@@ -4287,7 +4286,7 @@
             }
             return t && ((typeof t === "undefined" ? "undefined" : r(t)) === "object" || typeof t === "function") ? t : e;
         }
-        function x(e, t) {
+        function D(e, t) {
             if (typeof t !== "function" && t !== null) {
                 throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : r(t)));
             }
@@ -4301,14 +4300,14 @@
             });
             if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
         }
-        var D = function(e) {
-            x(t, e);
+        var x = function(e) {
+            D(t, e);
             function t() {
                 var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
                 S(this, t);
                 var n = {
-                    disSelect: null,
-                    onlySelect: null,
+                    disSelect: "",
+                    onlySelect: "",
                     setting: {
                         data: {
                             simpleData: {
@@ -4319,7 +4318,6 @@
                     },
                     keyNames: [ "id", "name", "type" ],
                     value: [],
-                    data: [],
                     onChecked: function e() {},
                     onClick: function e() {}
                 };
@@ -4337,10 +4335,10 @@
                     var t = this.options, n = this;
                     function r(e) {
                         if (t.disSelect) {
-                            if (e[t.disSelect] == Object.values(t.disSelect)[0]) return false;
+                            if (Object.keys(e).includes(t.disSelect)) return false;
                         }
                         if (t.onlySelect) {
-                            if (e[t.onlySelect] !== Object.values(t.onlySelect)[0]) return false;
+                            if (!Object.keys(e).includes(t.onlySelect)) return false;
                         }
                         return true;
                     }
@@ -4385,7 +4383,7 @@
                 key: "renderAfter",
                 value: function e() {
                     var t = this.options;
-                    $.fn.zTree.init(this.$el, t.setting, t.data);
+                    if (t.data) $.fn.zTree.init(this.$el, t.setting, t.data);
                 }
             }, {
                 key: "clearChecked",
@@ -4399,7 +4397,7 @@
             } ]);
             return t;
         }(Lego.UI.Baseview);
-        Lego.components("tree", D);
+        Lego.components("tree", x);
         var R = function() {
             function e(e, t) {
                 for (var n = 0; n < t.length; n++) {
@@ -4418,8 +4416,8 @@
         }();
         var L = z([ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ], [ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ]);
         var A = z([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
-        var j = z([ '\n            <div class="select dropdown treeselect">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="', '-tree"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="', '-tree"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ]);
-        var M = z([ '\n            <div class="select dropdown treeselect multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="', '-tree"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="', '-tree"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ]);
+        var j = z([ '\n            <div class="select dropdown treeselect">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ]);
+        var M = z([ '\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ]);
         function z(e, t) {
             return Object.freeze(Object.defineProperties(e, {
                 raw: {
@@ -4463,6 +4461,9 @@
                     multiple: false,
                     eventName: "click",
                     scrollbar: {},
+                    disSelect: "",
+                    onlySelect: "",
+                    treeDataSource: null,
                     filterOption: true,
                     tags: false,
                     onSelect: function e() {},
@@ -4483,14 +4484,16 @@
                     dropdownClassName: "",
                     splitString: "",
                     keyNames: [ "id", "name", "type" ],
+                    clickAndClose: e.multiple ? false : true,
                     components: [ {
-                        el: "#" + e.vid + "-tree",
+                        el: "#tree-" + e.vid,
                         disSelect: e.disSelect,
                         onlySelect: e.onlySelect,
                         setting: Object.assign({}, e.setting),
                         keyNames: e.keyNames || [ "id", "name", "type" ],
                         value: e.value,
                         data: e.data,
+                        dataSource: e.treeDataSource,
                         onChecked: function t(n) {
                             var r = Lego.getView(e.el);
                             if (r) {
@@ -4506,6 +4509,8 @@
                                                 selected: true
                                             });
                                         });
+                                    } else {
+                                        r.options.value = [];
                                     }
                                 }
                                 r.options.onSelect(n);
@@ -4586,11 +4591,11 @@
                                     });
                                 }
                             };
-                            var o = t.$("#" + n.vid + "-select");
-                            var a = t.$("#" + n.vid + "-tree");
+                            var o = t.$("#select-" + n.vid);
+                            var a = t.$("#tree-" + n.vid);
+                            var i = "click.dropdown_" + n.vid;
                             if (n.eventName == "click") {
-                                var i = "click.dropdown_" + n.vid;
-                                $("body").off(i).on(i, function() {
+                                $("body, .modal-body").off(i).on(i, function() {
                                     r.close();
                                 });
                                 o.off(i).on(i, e);
@@ -4607,24 +4612,27 @@
             }, {
                 key: "show",
                 value: function e(t) {
-                    this.$("#" + this.options.vid + "-select").addClass("dropdown open");
+                    this.$("#select-" + this.options.vid).addClass("dropdown open");
                 }
             }, {
                 key: "close",
                 value: function e(t) {
-                    this.$("#" + this.options.vid + "-select").removeClass("dropdown open");
+                    this.$("#select-" + this.options.vid).removeClass("dropdown open");
                 }
             }, {
                 key: "clickItemClose",
                 value: function e(t) {
                     t.stopPropagation();
-                    var n = $(t.currentTarget).parent(), r = n.attr("id"), o = n.attr("title"), a = Lego.getView(this.$("#" + this.options.vid + "-tree"));
+                    var n = $(t.currentTarget).parent(), r = n.attr("id"), o = n.attr("title"), a = $.fn.zTree.getZTreeObj("tree-" + this.options.vid);
                     this.options.value.forEach(function(e) {
                         if (e.key === r) e.selected = false;
                     });
                     this.getValue();
                     this.refresh();
-                    if (a) a.clearChecked(this.options.keyNames[0], r);
+                    if (a) {
+                        var i = a.getNodeByParam(this.options.keyNames[0], r, null);
+                        a.checkNode(i, !i.checked, null, true);
+                    }
                     if (typeof this.options.onDeselect === "function") this.options.onDeselect({
                         key: r,
                         value: o

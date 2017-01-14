@@ -24,7 +24,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '<ul class="ztree"></ul>' ], [ '<ul class="ztree"></ul>' ]);
+var _templateObject = _taggedTemplateLiteral([ '<ul class="lego-tree"></ul>' ], [ '<ul class="lego-tree"></ul>' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -68,8 +68,8 @@ var Tree = function(_Lego$UI$Baseview) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Tree);
         var options = {
-            disSelect: null,
-            onlySelect: null,
+            disSelect: "",
+            onlySelect: "",
             setting: {
                 data: {
                     simpleData: {
@@ -80,7 +80,6 @@ var Tree = function(_Lego$UI$Baseview) {
             },
             keyNames: [ "id", "name", "type" ],
             value: [],
-            data: [],
             onChecked: function onChecked() {},
             onClick: function onClick() {}
         };
@@ -98,10 +97,10 @@ var Tree = function(_Lego$UI$Baseview) {
             var options = this.options, that = this;
             function selectOrNo(treeNode) {
                 if (options.disSelect) {
-                    if (treeNode[options.disSelect] == Object.values(options.disSelect)[0]) return false;
+                    if (Object.keys(treeNode).includes(options.disSelect)) return false;
                 }
                 if (options.onlySelect) {
-                    if (treeNode[options.onlySelect] !== Object.values(options.onlySelect)[0]) return false;
+                    if (!Object.keys(treeNode).includes(options.onlySelect)) return false;
                 }
                 return true;
             }
@@ -146,7 +145,7 @@ var Tree = function(_Lego$UI$Baseview) {
         key: "renderAfter",
         value: function renderAfter() {
             var options = this.options;
-            $.fn.zTree.init(this.$el, options.setting, options.data);
+            if (options.data) $.fn.zTree.init(this.$el, options.setting, options.data);
         }
     }, {
         key: "clearChecked",

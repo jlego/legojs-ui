@@ -145,7 +145,20 @@ class Modal extends Lego.UI.Baseview {
     }
 }
 const theModal = function(opts = {}){
-    Lego.create(Modal, opts);
+    if(typeof opts == 'string'){
+        let view = null;
+        switch(opts){
+            case 'close':
+                view = Lego.getView('#lego-layer');
+                break;
+            case 'closeModal':
+                view = Lego.getView('#lego-modal');
+                break;
+        }
+        if(view) view.close();
+    }else{
+        Lego.create(Modal, opts);
+    }
 };
 Lego.components('modal', theModal);
 export default theModal;

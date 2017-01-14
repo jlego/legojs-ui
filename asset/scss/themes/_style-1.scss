@@ -17,6 +17,7 @@ pre {
 pre p {
     margin: 0;
 }
+
 .symbol.required {
     margin: 2px;
     color: #f30;
@@ -222,4 +223,7 @@ pre p {
 
 .lego-checkbox-group-item {
     display: inline-block;
+}
+.dropdown-menu{
+    border: 1px #ddd solid;
 }

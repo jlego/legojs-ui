@@ -1530,7 +1530,21 @@
     }(Lego.UI.Baseview);
     var x = function e() {
         var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        Lego.create(j, t);
+        if (typeof t == "string") {
+            var n = null;
+            switch (t) {
+              case "close":
+                n = Lego.getView("#lego-layer");
+                break;
+
+              case "closeModal":
+                n = Lego.getView("#lego-modal");
+                break;
+            }
+            if (n) n.close();
+        } else {
+            Lego.create(j, t);
+        }
     };
     Lego.components("modal", x);
     e.exports = x;

@@ -414,7 +414,7 @@ var _createClass$3 = function() {
     };
 }();
 
-var _templateObject$3 = _taggedTemplateLiteral$3([ '<ul class="ztree"></ul>' ], [ '<ul class="ztree"></ul>' ]);
+var _templateObject$3 = _taggedTemplateLiteral$3([ '<ul class="lego-tree"></ul>' ], [ '<ul class="lego-tree"></ul>' ]);
 
 function _taggedTemplateLiteral$3(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -458,8 +458,8 @@ var Tree = function(_Lego$UI$Baseview) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck$3(this, Tree);
         var options = {
-            disSelect: null,
-            onlySelect: null,
+            disSelect: "",
+            onlySelect: "",
             setting: {
                 data: {
                     simpleData: {
@@ -470,7 +470,6 @@ var Tree = function(_Lego$UI$Baseview) {
             },
             keyNames: [ "id", "name", "type" ],
             value: [],
-            data: [],
             onChecked: function onChecked() {},
             onClick: function onClick() {}
         };
@@ -488,10 +487,10 @@ var Tree = function(_Lego$UI$Baseview) {
             var options = this.options, that = this;
             function selectOrNo(treeNode) {
                 if (options.disSelect) {
-                    if (treeNode[options.disSelect] == Object.values(options.disSelect)[0]) return false;
+                    if (Object.keys(treeNode).includes(options.disSelect)) return false;
                 }
                 if (options.onlySelect) {
-                    if (treeNode[options.onlySelect] !== Object.values(options.onlySelect)[0]) return false;
+                    if (!Object.keys(treeNode).includes(options.onlySelect)) return false;
                 }
                 return true;
             }
@@ -536,7 +535,7 @@ var Tree = function(_Lego$UI$Baseview) {
         key: "renderAfter",
         value: function renderAfter() {
             var options = this.options;
-            $.fn.zTree.init(this.$el, options.setting, options.data);
+            if (options.data) $.fn.zTree.init(this.$el, options.setting, options.data);
         }
     }, {
         key: "clearChecked",
@@ -574,9 +573,9 @@ var _templateObject = _taggedTemplateLiteral([ "\n                <ul>", '\n    
 
 var _templateObject2 = _taggedTemplateLiteral([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
 
-var _templateObject3 = _taggedTemplateLiteral([ '\n            <div class="select dropdown treeselect">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="', '-tree"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="', '-tree"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ]);
+var _templateObject3 = _taggedTemplateLiteral([ '\n            <div class="select dropdown treeselect">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ]);
 
-var _templateObject4 = _taggedTemplateLiteral([ '\n            <div class="select dropdown treeselect multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="', '-tree"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect multiple">\n                <div id="', '-select">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="', '-tree"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ]);
+var _templateObject4 = _taggedTemplateLiteral([ '\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -625,6 +624,9 @@ var Treeselect = function(_Selects) {
             multiple: false,
             eventName: "click",
             scrollbar: {},
+            disSelect: "",
+            onlySelect: "",
+            treeDataSource: null,
             filterOption: true,
             tags: false,
             onSelect: function onSelect() {},
@@ -645,14 +647,16 @@ var Treeselect = function(_Selects) {
             dropdownClassName: "",
             splitString: "",
             keyNames: [ "id", "name", "type" ],
+            clickAndClose: opts.multiple ? false : true,
             components: [ {
-                el: "#" + opts.vid + "-tree",
+                el: "#tree-" + opts.vid,
                 disSelect: opts.disSelect,
                 onlySelect: opts.onlySelect,
                 setting: Object.assign({}, opts.setting),
                 keyNames: opts.keyNames || [ "id", "name", "type" ],
                 value: opts.value,
                 data: opts.data,
+                dataSource: opts.treeDataSource,
                 onChecked: function onChecked(result) {
                     var theView = Lego.getView(opts.el);
                     if (theView) {
@@ -668,6 +672,8 @@ var Treeselect = function(_Selects) {
                                         selected: true
                                     });
                                 });
+                            } else {
+                                theView.options.value = [];
                             }
                         }
                         theView.options.onSelect(result);
@@ -748,11 +754,11 @@ var Treeselect = function(_Selects) {
                             });
                         }
                     };
-                    var trigger = _this2.$("#" + options.vid + "-select");
-                    var treeEl = _this2.$("#" + options.vid + "-tree");
+                    var trigger = _this2.$("#select-" + options.vid);
+                    var treeEl = _this2.$("#tree-" + options.vid);
+                    var _eventName = "click.dropdown_" + options.vid;
                     if (options.eventName == "click") {
-                        var _eventName = "click.dropdown_" + options.vid;
-                        $("body").off(_eventName).on(_eventName, function() {
+                        $("body, .modal-body").off(_eventName).on(_eventName, function() {
                             that.close();
                         });
                         trigger.off(_eventName).on(_eventName, handler);
@@ -769,24 +775,27 @@ var Treeselect = function(_Selects) {
     }, {
         key: "show",
         value: function show(event) {
-            this.$("#" + this.options.vid + "-select").addClass("dropdown open");
+            this.$("#select-" + this.options.vid).addClass("dropdown open");
         }
     }, {
         key: "close",
         value: function close(event) {
-            this.$("#" + this.options.vid + "-select").removeClass("dropdown open");
+            this.$("#select-" + this.options.vid).removeClass("dropdown open");
         }
     }, {
         key: "clickItemClose",
         value: function clickItemClose(event) {
             event.stopPropagation();
-            var target = $(event.currentTarget).parent(), key = target.attr("id"), value = target.attr("title"), treeView = Lego.getView(this.$("#" + this.options.vid + "-tree"));
+            var target = $(event.currentTarget).parent(), key = target.attr("id"), value = target.attr("title"), treeView = $.fn.zTree.getZTreeObj("tree-" + this.options.vid);
             this.options.value.forEach(function(item) {
                 if (item.key === key) item.selected = false;
             });
             this.getValue();
             this.refresh();
-            if (treeView) treeView.clearChecked(this.options.keyNames[0], key);
+            if (treeView) {
+                var treeNode = treeView.getNodeByParam(this.options.keyNames[0], key, null);
+                treeView.checkNode(treeNode, !treeNode.checked, null, true);
+            }
             if (typeof this.options.onDeselect === "function") this.options.onDeselect({
                 key: key,
                 value: value

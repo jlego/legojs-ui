@@ -864,7 +864,21 @@ var Modal = function(_Lego$UI$Baseview) {
 
 var theModal = function theModal() {
     var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    Lego.create(Modal, opts);
+    if (typeof opts == "string") {
+        var view = null;
+        switch (opts) {
+          case "close":
+            view = Lego.getView("#lego-layer");
+            break;
+
+          case "closeModal":
+            view = Lego.getView("#lego-modal");
+            break;
+        }
+        if (view) view.close();
+    } else {
+        Lego.create(Modal, opts);
+    }
 };
 
 Lego.components("modal", theModal);
