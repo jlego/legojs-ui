@@ -16,7 +16,7 @@ class ListView extends Lego.UI.Baseview {
                 onClick(){
                     console.warn('点击了此按钮button1');
                     Lego.UI.modal({
-                        type: 'right',
+                        type: 'layer',
                         content: '这是内容啊',
                         confirm: {
                             msgType: 'error',
@@ -39,6 +39,7 @@ class ListView extends Lego.UI.Baseview {
                     console.warn('点击了此按钮button2');
                     Lego.UI.modal({
                         msgType: 'success',
+                        title: '对话框',
                         content: '成功了！',
                         confirm: {
                             msgType: 'error',
@@ -59,9 +60,33 @@ class ListView extends Lego.UI.Baseview {
                     console.warn('点击了此按钮button3');
                     Lego.UI.modal({
                         type: 'modal',
-                        content: '成功了！',
+                        title: '内容模态框',
+                        content: hx`<div><buttons id="btnId"></buttons></div>`,
                         isMiddle: true,
-                        width: 500
+                        width: 500,
+                        components: [{
+                            el: '#btnId',
+                            text: '点击我吧',
+                            onClick(){
+                                Lego.UI.modal({
+                                    type: 'modal',
+                                    title: '子内容模态框',
+                                    content: hx`<div><buttons id="btnId2"></buttons></div>`,
+                                    isMiddle: true,
+                                    backdrop: false,
+                                    width: 500,
+                                    height: 300,
+                                    components: [{
+                                        el: '#btnId2',
+                                        text: '点击我吧',
+                                        type: 'danger',
+                                        onClick(){
+                                            console.warn('ooooooo');
+                                        }
+                                    }]
+                                });
+                            }
+                        }]
                     });
                 },
                 style: {

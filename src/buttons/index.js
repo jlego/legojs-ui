@@ -12,7 +12,7 @@ class Buttons extends Lego.UI.Baseview {
                 'click': 'onClick'
             },
             text: 'button', //text/html
-            type: 'default',   //设置按钮类型，可选值为 primary ghost dashed 或者不设
+            type: 'secondary',   //设置按钮类型，可选值为 primary ghost dashed 或者不设
             htmlType: 'button', //设置 button 原生的 type 值
             icon: '',  //设置按钮的图标类型
             shape: '',    //设置按钮形状，可选值为 circle 或者不设

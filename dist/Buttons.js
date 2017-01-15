@@ -70,7 +70,7 @@ var Buttons = function(_Lego$UI$Baseview) {
                 click: "onClick"
             },
             text: "button",
-            type: "default",
+            type: "secondary",
             htmlType: "button",
             icon: "",
             shape: "",

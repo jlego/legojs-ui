@@ -434,35 +434,35 @@
             return t;
         };
     }();
-    var i = u([ '\n        <div id="pageContent">\n            <div>\n                <buttons id="button1"></buttons>\n                <buttons id="button2"></buttons>\n                <buttons id="button3"></buttons>\n                <buttons id="button4"></buttons>\n                <buttons id="button5"></buttons>\n                <buttons id="button6"></buttons>\n                <buttons id="button7"></buttons>\n            </div>\n            <div id="md" style="margin-top: 20px;"></div>\n            sdfasd<code>img</code>fa\n            <div id="tableDiv" class="markdown"></div>\n        </div>\n        ' ], [ '\n        <div id="pageContent">\n            <div>\n                <buttons id="button1"></buttons>\n                <buttons id="button2"></buttons>\n                <buttons id="button3"></buttons>\n                <buttons id="button4"></buttons>\n                <buttons id="button5"></buttons>\n                <buttons id="button6"></buttons>\n                <buttons id="button7"></buttons>\n            </div>\n            <div id="md" style="margin-top: 20px;"></div>\n            sdfasd<code>img</code>fa\n            <div id="tableDiv" class="markdown"></div>\n        </div>\n        ' ]);
-    var r = n(5);
-    var a = c(r);
-    var s = n(6);
-    var l = c(s);
-    function c(e) {
+    var i = d([ '<div><buttons id="btnId"></buttons></div>' ], [ '<div><buttons id="btnId"></buttons></div>' ]), r = d([ '<div><buttons id="btnId2"></buttons></div>' ], [ '<div><buttons id="btnId2"></buttons></div>' ]), a = d([ '\n        <div id="pageContent">\n            <div>\n                <buttons id="button1"></buttons>\n                <buttons id="button2"></buttons>\n                <buttons id="button3"></buttons>\n                <buttons id="button4"></buttons>\n                <buttons id="button5"></buttons>\n                <buttons id="button6"></buttons>\n                <buttons id="button7"></buttons>\n            </div>\n            <div id="md" style="margin-top: 20px;"></div>\n            sdfasd<code>img</code>fa\n            <div id="tableDiv" class="markdown"></div>\n        </div>\n        ' ], [ '\n        <div id="pageContent">\n            <div>\n                <buttons id="button1"></buttons>\n                <buttons id="button2"></buttons>\n                <buttons id="button3"></buttons>\n                <buttons id="button4"></buttons>\n                <buttons id="button5"></buttons>\n                <buttons id="button6"></buttons>\n                <buttons id="button7"></buttons>\n            </div>\n            <div id="md" style="margin-top: 20px;"></div>\n            sdfasd<code>img</code>fa\n            <div id="tableDiv" class="markdown"></div>\n        </div>\n        ' ]);
+    var s = n(5);
+    var l = f(s);
+    var c = n(6);
+    var u = f(c);
+    function f(e) {
         return e && e.__esModule ? e : {
             default: e
         };
     }
-    function u(e, t) {
+    function d(e, t) {
         return Object.freeze(Object.defineProperties(e, {
             raw: {
                 value: Object.freeze(t)
             }
         }));
     }
-    function f(e, t) {
+    function p(e, t) {
         if (!(e instanceof t)) {
             throw new TypeError("Cannot call a class as a function");
         }
     }
-    function d(e, t) {
+    function h(e, t) {
         if (!e) {
             throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
         }
         return t && (typeof t === "object" || typeof t === "function") ? t : e;
     }
-    function p(e, t) {
+    function v(e, t) {
         if (typeof t !== "function" && t !== null) {
             throw new TypeError("Super expression must either be null or a function, not " + typeof t);
         }
@@ -476,11 +476,11 @@
         });
         if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
     }
-    var h = function(e) {
-        p(t, e);
+    var b = function(e) {
+        v(t, e);
         function t() {
             var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-            f(this, t);
+            p(this, t);
             var n = {
                 events: {},
                 components: [ {
@@ -490,7 +490,7 @@
                     onClick: function e() {
                         console.warn("点击了此按钮button1");
                         Lego.UI.modal({
-                            type: "right",
+                            type: "layer",
                             content: "这是内容啊",
                             confirm: {
                                 msgType: "error",
@@ -512,6 +512,7 @@
                         console.warn("点击了此按钮button2");
                         Lego.UI.modal({
                             msgType: "success",
+                            title: "对话框",
                             content: "成功了！",
                             confirm: {
                                 msgType: "error",
@@ -532,9 +533,33 @@
                         console.warn("点击了此按钮button3");
                         Lego.UI.modal({
                             type: "modal",
-                            content: "成功了！",
+                            title: "内容模态框",
+                            content: hx(i),
                             isMiddle: true,
-                            width: 500
+                            width: 500,
+                            components: [ {
+                                el: "#btnId",
+                                text: "点击我吧",
+                                onClick: function e() {
+                                    Lego.UI.modal({
+                                        type: "modal",
+                                        title: "子内容模态框",
+                                        content: hx(r),
+                                        isMiddle: true,
+                                        backdrop: false,
+                                        width: 500,
+                                        height: 300,
+                                        components: [ {
+                                            el: "#btnId2",
+                                            text: "点击我吧",
+                                            type: "danger",
+                                            onClick: function e() {
+                                                console.warn("ooooooo");
+                                            }
+                                        } ]
+                                    });
+                                }
+                            } ]
                         });
                     },
                     style: {
@@ -579,11 +604,11 @@
                 } ]
             };
             Object.assign(n, e);
-            var o = d(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
-            var i = '\n    var legojs = {\n        nickName: "freefish",\n        site: "https://github.com/jlego/legojs"\n    }';
-            var r = "\n| h1    |    h2   |      h3 |\n|:------|:-------:|--------:|\n| 100   | [a][1]  | ![b][2] |\n| *foo* | **bar** | ~~baz~~ |\n";
-            o.$("#md").html(markdown.makeHtml(i));
-            o.$("#tableDiv").html(markdown.makeHtml(r));
+            var o = h(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
+            var a = '\n    var legojs = {\n        nickName: "freefish",\n        site: "https://github.com/jlego/legojs"\n    }';
+            var s = "\n| h1    |    h2   |      h3 |\n|:------|:-------:|--------:|\n| 100   | [a][1]  | ![b][2] |\n| *foo* | **bar** | ~~baz~~ |\n";
+            o.$("#md").html(markdown.makeHtml(a));
+            o.$("#tableDiv").html(markdown.makeHtml(s));
             o.$("pre").each(function(e, t) {
                 hljs.highlightBlock(t);
             });
@@ -592,13 +617,13 @@
         o(t, [ {
             key: "render",
             value: function e() {
-                var t = hx(i);
+                var t = hx(a);
                 return t;
             }
         } ]);
         return t;
     }(Lego.UI.Baseview);
-    t.default = h;
+    t.default = b;
 }, function(e, t) {
     "use strict";
     var n = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
@@ -665,7 +690,7 @@
                     click: "onClick"
                 },
                 text: "button",
-                type: "default",
+                type: "secondary",
                 htmlType: "button",
                 icon: "",
                 shape: "",
@@ -1397,7 +1422,7 @@
         });
         if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
     }
-    var j = function(e) {
+    var x = function(e) {
         S(t, e);
         function t() {
             var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -1445,7 +1470,7 @@
             };
             Object.assign(o, e);
             if (o.msgType) o.type = "dialog";
-            var i = "#lego-" + (o.type == "modal" ? "modal" : o.type == "dialog" ? "dialog" : "layer");
+            var i = "#lego-layer";
             if (n[o.msgType] && typeof o.content == "string") {
                 var r = Lego.create(b, {
                     type: o.msgType,
@@ -1455,15 +1480,23 @@
                 });
                 o.content = r.render();
             }
-            if (!o.el) o.el = i;
-            if (o.type !== "modal" && o.type !== "dialog") o.animate = "slideInRight";
+            if (!o.el) {
+                if (o.type == "modal" || o.type == "dialog") {
+                    var a = "lego-" + o.type + "-" + o.vid;
+                    $("body").append("<" + o.type + ' id="' + a + '"></' + o.type + ">");
+                    o.el = "#" + a;
+                } else {
+                    o.el = i;
+                }
+            }
+            if (o.type == "layer") o.animate = "slideInRight";
             return O(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, o));
         }
         g(t, [ {
             key: "render",
             value: function e() {
                 var t = this.options || {};
-                var n = hx(y, t.type == "right" ? "right-modal" : "", t.msgType ? "dialog-modal" : "", t.size ? "modal-size-" + t.size : "", t.isMiddle ? "middle" : "", t.el.replace(/#/, ""), t.closable ? hx(m) : "", t.title, !t.msgType ? "scrollbar" : "", t.content, t.footer ? t.footer : hx(w, t.cancelText, t.okText));
+                var n = hx(y, t.type == "layer" ? "right-modal" : "", t.msgType ? "dialog-modal" : "", t.size ? "modal-size-" + t.size : "", t.isMiddle ? "middle" : "", t.el.replace(/#/, ""), t.closable ? hx(m) : "", t.title, !t.msgType ? "scrollbar" : "", t.content, t.footer ? t.footer : hx(w, t.cancelText, t.okText));
                 return n;
             }
         }, {
@@ -1471,16 +1504,19 @@
             value: function e() {
                 var t = this, n = this.options;
                 this.$el.modal({
-                    backdrop: n.type == "modal" || n.type == "dialog" ? n.backdrop : false,
+                    backdrop: n.type !== "layer" ? n.backdrop : false,
                     keyboard: n.keyboard,
                     show: true
                 });
                 if (n.width) this.$(".modal-dialog").width(n.width);
-                if (n.height) this.$(".modal-dialog").height(n.height);
+                if (n.height) this.$(".modal-body").height(n.height);
                 this.$el.on("hidden.bs.modal", function(e) {
-                    var o = n.type == "modal" ? '<modal id="lego-modal"></modal>' : n.type == "dialog" ? '<dialog id="lego-dialog"></dialog>' : '<layer id="lego-modal"></layer>';
-                    t.$el.replaceWith(o);
-                    if (typeof n.onHidden === "function") n.onHidden();
+                    if (n.type == "layer") {
+                        t.$el.replaceWith('<layer id="lego-layer"></layer>');
+                    } else {
+                        t.$el.remove();
+                    }
+                    if (typeof n.onHidden === "function") n.onHidden(t);
                 });
                 if (n.animate) {
                     this.$el.data("animate", n.animate);
@@ -1495,7 +1531,7 @@
                     Lego.UI.Util.animateCss(n.$el, "animated " + n.options.animates[t], function() {
                         n.$el.modal("hide");
                     });
-                    $(".modal-backdrop").fadeOut();
+                    if (this.options.backdrop) $(".modal-backdrop").fadeOut();
                 } else {
                     this.$el.modal("hide");
                 }
@@ -1510,7 +1546,7 @@
                     backdrop: false,
                     onOk: function e(t) {
                         n.close();
-                        Lego.getView($("#lego-dialog")).close();
+                        t.close();
                     }
                 });
             }
@@ -1522,7 +1558,7 @@
                 } else {
                     if (t !== "onOk") this.close();
                 }
-                if (typeof this.options[t] === "function") this.options[t](event);
+                if (typeof this.options[t] === "function") this.options[t](this);
             }
         }, {
             key: "clickOk",
@@ -1539,7 +1575,7 @@
         } ]);
         return t;
     }(Lego.UI.Baseview);
-    var x = function e() {
+    var j = function e() {
         var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         if (typeof t == "string") {
             var n = null;
@@ -1549,20 +1585,20 @@
                 break;
 
               case "close.modal":
-                n = Lego.getView("#lego-modal");
+                n = Lego.getView("#lego-modal-" + this.options.vid);
                 break;
 
               case "close.dialog":
-                n = Lego.getView("#lego-dialog");
+                n = Lego.getView("#lego-dialog-" + this.options.vid);
                 break;
             }
             if (n) n.close();
         } else {
-            Lego.create(j, t);
+            Lego.create(x, t);
         }
     };
-    Lego.components("modal", x);
-    e.exports = x;
+    Lego.components("modal", j);
+    e.exports = j;
 }, function(e, t, n) {
     "use strict";
     Object.defineProperty(t, "__esModule", {
@@ -1922,12 +1958,12 @@
             }
         }));
     }
-    function j(e, t) {
+    function x(e, t) {
         if (!(e instanceof t)) {
             throw new TypeError("Cannot call a class as a function");
         }
     }
-    function x(e, t) {
+    function j(e, t) {
         if (!e) {
             throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
         }
@@ -1947,11 +1983,11 @@
         });
         if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
     }
-    var E = function(e) {
+    var I = function(e) {
         C(t, e);
         function t() {
             var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-            j(this, t);
+            x(this, t);
             var n = {
                 events: {
                     "click .prev:not(.disabled)": "clickPrevPage",
@@ -1998,7 +2034,7 @@
                     }
                 } ];
             }
-            var i = x(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
+            var i = j(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
             i.jumped = false;
             return i;
         }
@@ -2077,8 +2113,8 @@
         } ]);
         return t;
     }(Lego.UI.Baseview);
-    Lego.components("pagination", E);
-    var I = Object.assign || function(e) {
+    Lego.components("pagination", I);
+    var E = Object.assign || function(e) {
         for (var t = 1; t < arguments.length; t++) {
             var n = arguments[t];
             for (var o in n) {
@@ -2203,7 +2239,7 @@
                 components: []
             };
             Object.assign(n, e);
-            n.components.push(I({}, n.pagination, {
+            n.components.push(E({}, n.pagination, {
                 el: "#pagination_" + n.vid
             }));
             n.columns.map(function(e) {

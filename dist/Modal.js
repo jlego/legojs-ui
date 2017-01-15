@@ -772,7 +772,7 @@ var Modal = function(_Lego$UI$Baseview) {
         };
         Object.assign(options, opts);
         if (options.msgType) options.type = "dialog";
-        var modalEl = "#lego-" + (options.type == "modal" ? "modal" : options.type == "dialog" ? "dialog" : "layer");
+        var modalEl = "#lego-layer";
         if (typeArr[options.msgType] && typeof options.content == "string") {
             var alertObj = Lego.create(Alert, {
                 type: options.msgType,
@@ -782,15 +782,23 @@ var Modal = function(_Lego$UI$Baseview) {
             });
             options.content = alertObj.render();
         }
-        if (!options.el) options.el = modalEl;
-        if (options.type !== "modal" && options.type !== "dialog") options.animate = "slideInRight";
+        if (!options.el) {
+            if (options.type == "modal" || options.type == "dialog") {
+                var modalId = "lego-" + options.type + "-" + options.vid;
+                $("body").append("<" + options.type + ' id="' + modalId + '"></' + options.type + ">");
+                options.el = "#" + modalId;
+            } else {
+                options.el = modalEl;
+            }
+        }
+        if (options.type == "layer") options.animate = "slideInRight";
         return _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, options));
     }
     _createClass(Modal, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject, options.type == "right" ? "right-modal" : "", options.msgType ? "dialog-modal" : "", options.size ? "modal-size-" + options.size : "", options.isMiddle ? "middle" : "", options.el.replace(/#/, ""), options.closable ? hx(_templateObject2) : "", options.title, !options.msgType ? "scrollbar" : "", options.content, options.footer ? options.footer : hx(_templateObject3, options.cancelText, options.okText));
+            var vDom = hx(_templateObject, options.type == "layer" ? "right-modal" : "", options.msgType ? "dialog-modal" : "", options.size ? "modal-size-" + options.size : "", options.isMiddle ? "middle" : "", options.el.replace(/#/, ""), options.closable ? hx(_templateObject2) : "", options.title, !options.msgType ? "scrollbar" : "", options.content, options.footer ? options.footer : hx(_templateObject3, options.cancelText, options.okText));
             return vDom;
         }
     }, {
@@ -798,16 +806,19 @@ var Modal = function(_Lego$UI$Baseview) {
         value: function renderAfter() {
             var that = this, options = this.options;
             this.$el.modal({
-                backdrop: options.type == "modal" || options.type == "dialog" ? options.backdrop : false,
+                backdrop: options.type !== "layer" ? options.backdrop : false,
                 keyboard: options.keyboard,
                 show: true
             });
             if (options.width) this.$(".modal-dialog").width(options.width);
-            if (options.height) this.$(".modal-dialog").height(options.height);
+            if (options.height) this.$(".modal-body").height(options.height);
             this.$el.on("hidden.bs.modal", function(e) {
-                var container = options.type == "modal" ? '<modal id="lego-modal"></modal>' : options.type == "dialog" ? '<dialog id="lego-dialog"></dialog>' : '<layer id="lego-modal"></layer>';
-                that.$el.replaceWith(container);
-                if (typeof options.onHidden === "function") options.onHidden();
+                if (options.type == "layer") {
+                    that.$el.replaceWith('<layer id="lego-layer"></layer>');
+                } else {
+                    that.$el.remove();
+                }
+                if (typeof options.onHidden === "function") options.onHidden(that);
             });
             if (options.animate) {
                 this.$el.data("animate", options.animate);
@@ -822,7 +833,7 @@ var Modal = function(_Lego$UI$Baseview) {
                 Lego.UI.Util.animateCss(that.$el, "animated " + that.options.animates[animateName], function() {
                     that.$el.modal("hide");
                 });
-                $(".modal-backdrop").fadeOut();
+                if (this.options.backdrop) $(".modal-backdrop").fadeOut();
             } else {
                 this.$el.modal("hide");
             }
@@ -835,9 +846,9 @@ var Modal = function(_Lego$UI$Baseview) {
                 msgType: this.options.confirm.msgType || "warning",
                 content: this.options.confirm.content || "",
                 backdrop: false,
-                onOk: function onOk(e) {
+                onOk: function onOk(self) {
                     that.close();
-                    Lego.getView($("#lego-dialog")).close();
+                    self.close();
                 }
             });
         }
@@ -849,7 +860,7 @@ var Modal = function(_Lego$UI$Baseview) {
             } else {
                 if (funName !== "onOk") this.close();
             }
-            if (typeof this.options[funName] === "function") this.options[funName](event);
+            if (typeof this.options[funName] === "function") this.options[funName](this);
         }
     }, {
         key: "clickOk",
@@ -877,11 +888,11 @@ var theModal = function theModal() {
             break;
 
           case "close.modal":
-            view = Lego.getView("#lego-modal");
+            view = Lego.getView("#lego-modal-" + this.options.vid);
             break;
 
           case "close.dialog":
-            view = Lego.getView("#lego-dialog");
+            view = Lego.getView("#lego-dialog-" + this.options.vid);
             break;
         }
         if (view) view.close();
