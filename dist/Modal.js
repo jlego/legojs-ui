@@ -682,7 +682,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="modal ', " ", "\n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ], [ '\n        <div class="modal ', " ", "\n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="modal ', " \n        ", "\n        ", " \n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ], [ '\n        <div class="modal ', " \n        ", "\n        ", " \n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ]);
 
 var _templateObject2 = _taggedTemplateLiteral([ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ], [ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ]);
 
@@ -751,6 +751,8 @@ var Modal = function(_Lego$UI$Baseview) {
             size: "",
             type: "modal",
             animate: "fadeIn",
+            width: "",
+            isMiddle: false,
             closable: true,
             showHeader: true,
             showFooter: true,
@@ -769,7 +771,8 @@ var Modal = function(_Lego$UI$Baseview) {
             }
         };
         Object.assign(options, opts);
-        var modalEl = options.type !== "modal" ? "#lego-layer" : "#lego-modal";
+        if (options.msgType) options.type = "dialog";
+        var modalEl = "#lego-" + (options.type == "modal" ? "modal" : options.type == "dialog" ? "dialog" : "layer");
         if (typeArr[options.msgType] && typeof options.content == "string") {
             var alertObj = Lego.create(Alert, {
                 type: options.msgType,
@@ -780,14 +783,14 @@ var Modal = function(_Lego$UI$Baseview) {
             options.content = alertObj.render();
         }
         if (!options.el) options.el = modalEl;
-        if (options.type !== "modal") options.animate = "slideInRight";
+        if (options.type !== "modal" && options.type !== "dialog") options.animate = "slideInRight";
         return _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, options));
     }
     _createClass(Modal, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject, options.type == "right" ? "right-modal" : "", options.msgType ? "dialog-modal" : "", options.size ? "modal-size-" + options.size : "", options.el.replace(/#/, ""), options.closable ? hx(_templateObject2) : "", options.title, !options.msgType ? "scrollbar" : "", options.content, options.footer ? options.footer : hx(_templateObject3, options.cancelText, options.okText));
+            var vDom = hx(_templateObject, options.type == "right" ? "right-modal" : "", options.msgType ? "dialog-modal" : "", options.size ? "modal-size-" + options.size : "", options.isMiddle ? "middle" : "", options.el.replace(/#/, ""), options.closable ? hx(_templateObject2) : "", options.title, !options.msgType ? "scrollbar" : "", options.content, options.footer ? options.footer : hx(_templateObject3, options.cancelText, options.okText));
             return vDom;
         }
     }, {
@@ -795,12 +798,14 @@ var Modal = function(_Lego$UI$Baseview) {
         value: function renderAfter() {
             var that = this, options = this.options;
             this.$el.modal({
-                backdrop: options.type == "modal" ? options.backdrop : false,
+                backdrop: options.type == "modal" || options.type == "dialog" ? options.backdrop : false,
                 keyboard: options.keyboard,
                 show: true
             });
+            if (options.width) this.$(".modal-dialog").width(options.width);
+            if (options.height) this.$(".modal-dialog").height(options.height);
             this.$el.on("hidden.bs.modal", function(e) {
-                var container = options.type !== "modal" ? '<layer id="lego-layer"></layer>' : '<modal id="lego-modal"></modal>';
+                var container = options.type == "modal" ? '<modal id="lego-modal"></modal>' : options.type == "dialog" ? '<dialog id="lego-dialog"></dialog>' : '<layer id="lego-modal"></layer>';
                 that.$el.replaceWith(container);
                 if (typeof options.onHidden === "function") options.onHidden();
             });
@@ -832,7 +837,7 @@ var Modal = function(_Lego$UI$Baseview) {
                 backdrop: false,
                 onOk: function onOk(e) {
                     that.close();
-                    if (Lego.getView($("#lego-modal"))) Lego.getView($("#lego-modal")).close();
+                    Lego.getView($("#lego-dialog")).close();
                 }
             });
         }
@@ -871,8 +876,12 @@ var theModal = function theModal() {
             view = Lego.getView("#lego-layer");
             break;
 
-          case "closeModal":
+          case "close.modal":
             view = Lego.getView("#lego-modal");
+            break;
+
+          case "close.dialog":
+            view = Lego.getView("#lego-dialog");
             break;
         }
         if (view) view.close();

@@ -3287,92 +3287,12 @@
             };
             return w;
         }(jQuery);
-        var c = function() {
-            function t(t, e) {
-                for (var n = 0; n < e.length; n++) {
-                    var i = e[n];
-                    i.enumerable = i.enumerable || false;
-                    i.configurable = true;
-                    if ("value" in i) i.writable = true;
-                    Object.defineProperty(t, i.key, i);
-                }
-            }
-            return function(e, n, i) {
-                if (n) t(e.prototype, n);
-                if (i) t(e, i);
-                return e;
-            };
-        }();
-        function h(t, e) {
-            if (!(t instanceof e)) {
-                throw new TypeError("Cannot call a class as a function");
-            }
-        }
-        var d = function() {
-            function t() {
-                var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-                h(this, t);
-                var n = {
-                    el: "",
-                    selector: false,
-                    title: "",
-                    content: "",
-                    animation: true,
-                    container: false,
-                    delay: 0,
-                    html: false,
-                    placement: "top",
-                    template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
-                    eventName: "hover focus",
-                    constraints: [],
-                    offset: "0 0",
-                    onHidden: function t() {}
-                };
-                Object.assign(n, e);
-                this.el = n.el;
-                this.onHidden = n.onHidden;
-                this.options = {
-                    selector: n.selector,
-                    title: n.title,
-                    content: n.content,
-                    animation: n.animation,
-                    container: n.container,
-                    delay: n.delay,
-                    html: n.html,
-                    placement: n.placement,
-                    template: n.template,
-                    constraints: n.constraints,
-                    trigger: n.eventName,
-                    offset: n.offset
-                };
-                this.render();
-            }
-            c(t, [ {
-                key: "render",
-                value: function t() {
-                    var e = this;
-                    var n = this.el instanceof $ ? this.el : $(this.el);
-                    if (n.length) {
-                        n.tooltip(this.options);
-                        n.on("hidden.bs.tooltip", function() {
-                            if (typeof e.onHidden === "function") e.onHidden(event);
-                        });
-                    }
-                    return n;
-                }
-            } ]);
-            return t;
-        }();
-        var p = function t(e) {
-            return new d(e);
-        };
-        Lego.components("tooltip", p);
-        var v = typeof Symbol === "function" && i(Symbol.iterator) === "symbol" ? function(t) {
+        var c = typeof Symbol === "function" && i(Symbol.iterator) === "symbol" ? function(t) {
             return typeof t === "undefined" ? "undefined" : i(t);
         } : function(t) {
             return t && typeof Symbol === "function" && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : typeof t === "undefined" ? "undefined" : i(t);
         };
-        var g = function() {
+        var h = function() {
             function t(t, e) {
                 for (var n = 0; n < e.length; n++) {
                     var i = e[n];
@@ -3388,18 +3308,18 @@
                 return e;
             };
         }();
-        function m(t, e) {
+        function d(t, e) {
             if (!(t instanceof e)) {
                 throw new TypeError("Cannot call a class as a function");
             }
         }
-        function y(t, e) {
+        function p(t, e) {
             if (!t) {
                 throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             }
             return e && ((typeof e === "undefined" ? "undefined" : i(e)) === "object" || typeof e === "function") ? e : t;
         }
-        function b(t, e) {
+        function v(t, e) {
             if (typeof e !== "function" && e !== null) {
                 throw new TypeError("Super expression must either be null or a function, not " + (typeof e === "undefined" ? "undefined" : i(e)));
             }
@@ -3413,7 +3333,7 @@
             });
             if (e) Object.setPrototypeOf ? Object.setPrototypeOf(t, e) : t.__proto__ = e;
         }
-        var E = function(t) {
+        var g = function(t) {
             var e = "popover";
             var n = "4.0.0-alpha.5";
             var i = "bs.popover";
@@ -3436,7 +3356,7 @@
                 TITLE: ".popover-title",
                 CONTENT: ".popover-content"
             };
-            var c = {
+            var g = {
                 HIDE: "hide" + o,
                 HIDDEN: "hidden" + o,
                 SHOW: "show" + o,
@@ -3448,13 +3368,13 @@
                 MOUSEENTER: "mouseenter" + o,
                 MOUSELEAVE: "mouseleave" + o
             };
-            var h = function(r) {
-                b(u, r);
+            var m = function(r) {
+                v(u, r);
                 function u() {
-                    m(this, u);
-                    return y(this, (u.__proto__ || Object.getPrototypeOf(u)).apply(this, arguments));
+                    d(this, u);
+                    return p(this, (u.__proto__ || Object.getPrototypeOf(u)).apply(this, arguments));
                 }
-                g(u, [ {
+                h(u, [ {
                     key: "isWithContent",
                     value: function t() {
                         return this.getTitle() || this._getContent();
@@ -3483,7 +3403,7 @@
                     value: function e(n) {
                         return this.each(function() {
                             var e = t(this).data(i);
-                            var o = (typeof n === "undefined" ? "undefined" : v(n)) === "object" ? n : null;
+                            var o = (typeof n === "undefined" ? "undefined" : c(n)) === "object" ? n : null;
                             if (!e && /destroy|hide/.test(n)) {
                                 return;
                             }
@@ -3522,7 +3442,7 @@
                 }, {
                     key: "Event",
                     get: function t() {
-                        return c;
+                        return g;
                     }
                 }, {
                     key: "EVENT_KEY",
@@ -3537,15 +3457,15 @@
                 } ]);
                 return u;
             }(u);
-            t.fn[e] = h._jQueryInterface;
-            t.fn[e].Constructor = h;
+            t.fn[e] = m._jQueryInterface;
+            t.fn[e].Constructor = m;
             t.fn[e].noConflict = function() {
                 t.fn[e] = r;
-                return h._jQueryInterface;
+                return m._jQueryInterface;
             };
-            return h;
+            return m;
         }(jQuery);
-        var T = function() {
+        var m = function() {
             function t(t, e) {
                 for (var n = 0; n < e.length; n++) {
                     var i = e[n];
@@ -3561,36 +3481,15 @@
                 return e;
             };
         }();
-        function w(t, e) {
+        function y(t, e) {
             if (!(t instanceof e)) {
                 throw new TypeError("Cannot call a class as a function");
             }
         }
-        function _(t, e) {
-            if (!t) {
-                throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-            }
-            return e && ((typeof e === "undefined" ? "undefined" : i(e)) === "object" || typeof e === "function") ? e : t;
-        }
-        function O(t, e) {
-            if (typeof e !== "function" && e !== null) {
-                throw new TypeError("Super expression must either be null or a function, not " + (typeof e === "undefined" ? "undefined" : i(e)));
-            }
-            t.prototype = Object.create(e && e.prototype, {
-                constructor: {
-                    value: t,
-                    enumerable: false,
-                    writable: true,
-                    configurable: true
-                }
-            });
-            if (e) Object.setPrototypeOf ? Object.setPrototypeOf(t, e) : t.__proto__ = e;
-        }
-        var C = function(t) {
-            O(e, t);
-            function e() {
-                var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-                w(this, e);
+        var b = function() {
+            function t() {
+                var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+                y(this, t);
                 var n = {
                     el: "",
                     selector: false,
@@ -3607,10 +3506,26 @@
                     offset: "0 0",
                     onHidden: function t() {}
                 };
-                Object.assign(n, t);
-                return _(this, (e.__proto__ || Object.getPrototypeOf(e)).call(this, n));
+                Object.assign(n, e);
+                this.el = n.el;
+                this.onHidden = n.onHidden;
+                this.options = {
+                    selector: n.selector,
+                    title: n.title,
+                    content: n.content,
+                    animation: n.animation,
+                    container: n.container,
+                    delay: n.delay,
+                    html: n.html,
+                    placement: n.placement,
+                    template: n.template,
+                    constraints: n.constraints,
+                    trigger: n.eventName,
+                    offset: n.offset
+                };
+                this.render();
             }
-            T(e, [ {
+            m(t, [ {
                 key: "render",
                 value: function t() {
                     var e = this;
@@ -3624,12 +3539,12 @@
                     return n;
                 }
             } ]);
-            return e;
-        }(p);
-        var A = function t(e) {
-            return new C(e);
+            return t;
+        }();
+        var E = function t(e) {
+            return new b(e);
         };
-        Lego.components("popover", A);
-        t.exports = A;
+        Lego.components("popover", E);
+        t.exports = E;
     }
 });

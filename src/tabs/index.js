@@ -37,22 +37,20 @@ class Tabs extends Lego.UI.Baseview {
                 activeKey: opts.activeKey, //当前激活的key
                 // direction: '',  //显示方向
                 onClick(item){
-                    const view = Lego.getView(opts.el);
-                    if(view){
-                        if(!item.children){
-                            view.options.activeKey = item.key;
-                        }else{
-                            const theModel = item.children.find(subItem => subItem.active == true);
-                            if(theModel){
-                                view.options.data.forEach(model => {
-                                    if(model.key == item.key){
-                                        if(theModel.content){
-                                            model.content = theModel.content;
-                                            view.options.activeKey = item.key;
-                                        }
+                    const parentView = this.context;
+                    if(!item.children){
+                        parentView.options.activeKey = item.key;
+                    }else{
+                        const theModel = item.children.find(subItem => subItem.active == true);
+                        if(theModel){
+                            parentView.options.data.forEach(model => {
+                                if(model.key == item.key){
+                                    if(theModel.content){
+                                        model.content = theModel.content;
+                                        parentView.options.activeKey = item.key;
                                     }
-                                });
-                            }
+                                }
+                            });
                         }
                     }
                 }, //点击的回调

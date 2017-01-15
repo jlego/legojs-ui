@@ -530,6 +530,12 @@
                     type: "secondary",
                     onClick: function e() {
                         console.warn("点击了此按钮button3");
+                        Lego.UI.modal({
+                            type: "modal",
+                            content: "成功了！",
+                            isMiddle: true,
+                            width: 500
+                        });
                     },
                     style: {
                         marginRight: 10
@@ -1356,7 +1362,7 @@
             return t;
         };
     }();
-    var y = _([ '\n        <div class="modal ', " ", "\n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ], [ '\n        <div class="modal ', " ", "\n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ]);
+    var y = _([ '\n        <div class="modal ', " \n        ", "\n        ", " \n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ], [ '\n        <div class="modal ', " \n        ", "\n        ", " \n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ]);
     var m = _([ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ], [ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ]);
     var w = _([ '<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">', '</button>\n                <button type="button" class="btn btn-primary ok">', "</button></div>" ], [ '<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">', '</button>\n                <button type="button" class="btn btn-primary ok">', "</button></div>" ]);
     function _(e, t) {
@@ -1418,6 +1424,8 @@
                 size: "",
                 type: "modal",
                 animate: "fadeIn",
+                width: "",
+                isMiddle: false,
                 closable: true,
                 showHeader: true,
                 showFooter: true,
@@ -1436,7 +1444,8 @@
                 }
             };
             Object.assign(o, e);
-            var i = o.type !== "modal" ? "#lego-layer" : "#lego-modal";
+            if (o.msgType) o.type = "dialog";
+            var i = "#lego-" + (o.type == "modal" ? "modal" : o.type == "dialog" ? "dialog" : "layer");
             if (n[o.msgType] && typeof o.content == "string") {
                 var r = Lego.create(b, {
                     type: o.msgType,
@@ -1447,14 +1456,14 @@
                 o.content = r.render();
             }
             if (!o.el) o.el = i;
-            if (o.type !== "modal") o.animate = "slideInRight";
+            if (o.type !== "modal" && o.type !== "dialog") o.animate = "slideInRight";
             return O(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, o));
         }
         g(t, [ {
             key: "render",
             value: function e() {
                 var t = this.options || {};
-                var n = hx(y, t.type == "right" ? "right-modal" : "", t.msgType ? "dialog-modal" : "", t.size ? "modal-size-" + t.size : "", t.el.replace(/#/, ""), t.closable ? hx(m) : "", t.title, !t.msgType ? "scrollbar" : "", t.content, t.footer ? t.footer : hx(w, t.cancelText, t.okText));
+                var n = hx(y, t.type == "right" ? "right-modal" : "", t.msgType ? "dialog-modal" : "", t.size ? "modal-size-" + t.size : "", t.isMiddle ? "middle" : "", t.el.replace(/#/, ""), t.closable ? hx(m) : "", t.title, !t.msgType ? "scrollbar" : "", t.content, t.footer ? t.footer : hx(w, t.cancelText, t.okText));
                 return n;
             }
         }, {
@@ -1462,12 +1471,14 @@
             value: function e() {
                 var t = this, n = this.options;
                 this.$el.modal({
-                    backdrop: n.type == "modal" ? n.backdrop : false,
+                    backdrop: n.type == "modal" || n.type == "dialog" ? n.backdrop : false,
                     keyboard: n.keyboard,
                     show: true
                 });
+                if (n.width) this.$(".modal-dialog").width(n.width);
+                if (n.height) this.$(".modal-dialog").height(n.height);
                 this.$el.on("hidden.bs.modal", function(e) {
-                    var o = n.type !== "modal" ? '<layer id="lego-layer"></layer>' : '<modal id="lego-modal"></modal>';
+                    var o = n.type == "modal" ? '<modal id="lego-modal"></modal>' : n.type == "dialog" ? '<dialog id="lego-dialog"></dialog>' : '<layer id="lego-modal"></layer>';
                     t.$el.replaceWith(o);
                     if (typeof n.onHidden === "function") n.onHidden();
                 });
@@ -1499,7 +1510,7 @@
                     backdrop: false,
                     onOk: function e(t) {
                         n.close();
-                        if (Lego.getView($("#lego-modal"))) Lego.getView($("#lego-modal")).close();
+                        Lego.getView($("#lego-dialog")).close();
                     }
                 });
             }
@@ -1537,8 +1548,12 @@
                 n = Lego.getView("#lego-layer");
                 break;
 
-              case "closeModal":
+              case "close.modal":
                 n = Lego.getView("#lego-modal");
+                break;
+
+              case "close.dialog":
+                n = Lego.getView("#lego-dialog");
                 break;
             }
             if (n) n.close();
@@ -2063,7 +2078,7 @@
         return t;
     }(Lego.UI.Baseview);
     Lego.components("pagination", E);
-    var P = Object.assign || function(e) {
+    var I = Object.assign || function(e) {
         for (var t = 1; t < arguments.length; t++) {
             var n = arguments[t];
             for (var o in n) {
@@ -2074,7 +2089,7 @@
         }
         return e;
     };
-    var I = function() {
+    var P = function() {
         function e(e, t) {
             for (var n = 0; n < t.length; n++) {
                 var o = t[n];
@@ -2188,7 +2203,7 @@
                 components: []
             };
             Object.assign(n, e);
-            n.components.push(P({}, n.pagination, {
+            n.components.push(I({}, n.pagination, {
                 el: "#pagination_" + n.vid
             }));
             n.columns.map(function(e) {
@@ -2213,7 +2228,7 @@
             o.$(".lego-table-tfoot>tr>td").attr("colspan", o.options.columns.length);
             return o;
         }
-        I(t, [ {
+        P(t, [ {
             key: "render",
             value: function e() {
                 var t = this.options;

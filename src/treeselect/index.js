@@ -51,41 +51,39 @@ class Treeselect extends Selects {
                 data: opts.data,
                 dataSource: opts.treeDataSource,
                 onChecked(result) {
-                    const theView = Lego.getView(opts.el);
-                    if (theView) {
-                        if (result.key !== '0' && opts.setting.check) {
-                            theView.getValue();
-                            if (result.length) {
-                                theView.options.value = [];
-                                result.forEach((val) => {
-                                    theView.options.value.push({
-                                        key: val.key,
-                                        value: val.value,
-                                        type: val.type,
-                                        selected: true
-                                    });
+                    const parentView = this.context;
+                    if (result.key !== '0' && opts.setting.check) {
+                        parentView.getValue();
+                        if (result.length) {
+                            parentView.options.value = [];
+                            result.forEach((val) => {
+                                parentView.options.value.push({
+                                    key: val.key,
+                                    value: val.value,
+                                    type: val.type,
+                                    selected: true
                                 });
-                            }else{
-                                theView.options.value = [];
-                            }
+                            });
+                        }else{
+                            parentView.options.value = [];
                         }
-                        theView.options.onSelect(result);
-                        theView.options.onChange(result);
-                        theView.refresh();
                     }
+                    parentView.options.onSelect(result);
+                    parentView.options.onChange(result);
+                    parentView.refresh();
                 },
                 onClick(result) {
-                    const theView = Lego.getView(opts.el);
-                    theView.options.value.forEach(item => item.selected = false);
-                    theView.options.value = [{
+                    const parentView = this.context;
+                    parentView.options.value.forEach(item => item.selected = false);
+                    parentView.options.value = [{
                         key: result.key,
                         value: result.value,
                         type: result.type,
                         selected: true
                     }];
-                    theView.options.onSelect(result);
-                    theView.options.onChange(result);
-                    theView.refresh();
+                    parentView.options.onSelect(result);
+                    parentView.options.onChange(result);
+                    parentView.refresh();
                     // if(theView.options.clickAndClose) theView.close();
                 },
                 disabled: opts.disabled || false,
@@ -168,6 +166,7 @@ class Treeselect extends Selects {
             const treeEl = this.$('#tree-' + options.vid);
             const _eventName = 'click.dropdown_' + options.vid;
             function handler(event){
+                $('body, .modal-body').trigger('click');
                 event.stopPropagation();
                 const directionResp = Lego.UI.Util.getDirection(trigger, treeEl);
                 options.direction = directionResp._y || 'bottom';

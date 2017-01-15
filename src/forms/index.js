@@ -47,6 +47,7 @@ class Forms extends Lego.UI.Baseview {
             // messages: null,
             submitEl: '',    //按钮
             submitText: '提 交',    //按钮内容
+            resetText: '重 置',    //按钮内容
             data: [], //
             format(result){ return result }, //格式化数据
             onSubmit(){}   //数据验证成功后回调事件
@@ -62,12 +63,16 @@ class Forms extends Lego.UI.Baseview {
             let submit = '';
             if(!options.submitEl){
                 if(options.layout == 'vertical'){
-                    submit = hx`<button type="submit" class="btn btn-primary">${options.submitText}</button>`;
+                    submit = hx`<div>
+                    <button type="submit" class="btn btn-primary">${options.submitText}</button>
+                    <button type="reset" class="btn btn-secondary">${options.resetText}</button>
+                    </div>`;
                 }else{
                     submit = hx`
                     <div class="form-group row">
                       <div class="offset-sm-2 col-sm-10">
                         <button type="submit" class="btn btn-primary">${options.submitText}</button>
+                        <button type="reset" class="btn btn-secondary">${options.resetText}</button>
                       </div>
                     </div>
                     `;
@@ -209,6 +214,9 @@ class Forms extends Lego.UI.Baseview {
             $submitEl.text('提交中...').addClass('disabled');
         }
         return this.options.onSubmit(data);
+    }
+    reset(){
+        this.$el.reset();
     }
 }
 Lego.components('forms', Forms);

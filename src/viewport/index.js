@@ -82,6 +82,7 @@ class Viewport extends Lego.UI.Baseview {
                 </div>
             </footer>
             <modal id="lego-modal"></modal>
+            <dialog id="lego-dialog"></dialog>
         </div>
         `;
         return tmpl;

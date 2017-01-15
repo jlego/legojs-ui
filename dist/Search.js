@@ -204,7 +204,7 @@ var _createClass = function() {
 
 var _templateObject = _taggedTemplateLiteral([ '\n        <div class="input-group search">\n        ', '\n          <input type="text" class="form-control search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group search">\n        ', '\n          <input type="text" class="form-control search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
 
-var _templateObject2 = _taggedTemplateLiteral([ '\n          <div class="input-group-btn dropdown" id="', '-select">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="', '-dropdown"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="', '-select">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="', '-dropdown"></dropdown>\n          </div>\n        ' ]);
+var _templateObject2 = _taggedTemplateLiteral([ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -258,15 +258,12 @@ var Search = function(_Lego$UI$Baseview) {
             hasSelect: false,
             onSearch: function onSearch() {},
             components: [ {
-                el: "#" + opts.vid + "-dropdown",
-                trigger: "#" + opts.vid + "-select",
+                el: "#dropdown-" + opts.vid,
+                trigger: "#select-" + opts.vid,
                 data: opts.data,
                 onChange: function onChange(model) {
-                    var theView = Lego.getView(opts.el);
-                    if (theView) {
-                        theView.options.activeKey = model.key;
-                        theView.options.activeValue = model.value;
-                    }
+                    this.context.options.activeKey = model.key;
+                    this.context.options.activeValue = model.value;
                 }
             } ]
         };

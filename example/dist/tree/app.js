@@ -2554,12 +2554,12 @@
                     }
                     k.editNodeBlur = true;
                     k.cancelCurEditNode(i);
-                    var f = e(i.treeObj.get(0).ownerDocument), p = e(i.treeObj.get(0).ownerDocument.body), v, h, g, b = false, T = i, w = i, E, I, _ = null, O = null, S = null, P = m.move.TYPE_INNER, D = n.clientX, x = n.clientY, R = new Date().getTime();
+                    var f = e(i.treeObj.get(0).ownerDocument), p = e(i.treeObj.get(0).ownerDocument.body), v, h, g, b = false, T = i, w = i, E, I, _ = null, O = null, S = null, P = m.move.TYPE_INNER, x = n.clientX, D = n.clientY, R = new Date().getTime();
                     if (N.uCanDo(i)) {
                         f.bind("mousemove", L);
                     }
                     function L(n) {
-                        if (l.dragFlag == 0 && Math.abs(D - n.clientX) < i.edit.drag.minMoveSize && Math.abs(x - n.clientY) < i.edit.drag.minMoveSize) {
+                        if (l.dragFlag == 0 && Math.abs(x - n.clientX) < i.edit.drag.minMoveSize && Math.abs(D - n.clientY) < i.edit.drag.minMoveSize) {
                             return true;
                         }
                         var r, o, a, d, c, w = i.data.key.children;
@@ -4146,25 +4146,23 @@
                         clickAndClose: e.multiple ? false : true,
                         data: e.data,
                         onChange: function t(n) {
-                            var r = Lego.getView(e.el);
-                            if (r) {
-                                r.$(".select-input").focus();
-                                if (n.key !== "0" && e.multiple) {
-                                    r.getValue();
-                                    if (!r.options.value.includes(n)) {
-                                        n.selected = true;
-                                        r.options.value.push(n);
-                                    }
-                                } else {
-                                    r.options.data.forEach(function(e) {
-                                        return e.selected = false;
-                                    });
-                                    r.options.value = [ n ];
+                            var r = this.context;
+                            r.$(".select-input").focus();
+                            if (n.key !== "0" && e.multiple) {
+                                r.getValue();
+                                if (!r.options.value.includes(n)) {
+                                    n.selected = true;
+                                    r.options.value.push(n);
                                 }
-                                r.options.onSelect(n);
-                                r.options.onChange(n);
-                                r.refresh();
+                            } else {
+                                r.options.data.forEach(function(e) {
+                                    return e.selected = false;
+                                });
+                                r.options.value = [ n ];
                             }
+                            r.options.onSelect(n);
+                            r.options.onChange(n);
+                            r.refresh();
                         }
                     } ]
                 };
@@ -4286,7 +4284,7 @@
             }
             return t && ((typeof t === "undefined" ? "undefined" : r(t)) === "object" || typeof t === "function") ? t : e;
         }
-        function D(e, t) {
+        function x(e, t) {
             if (typeof t !== "function" && t !== null) {
                 throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : r(t)));
             }
@@ -4300,8 +4298,8 @@
             });
             if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
         }
-        var x = function(e) {
-            D(t, e);
+        var D = function(e) {
+            x(t, e);
             function t() {
                 var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
                 S(this, t);
@@ -4397,7 +4395,7 @@
             } ]);
             return t;
         }(Lego.UI.Baseview);
-        Lego.components("tree", x);
+        Lego.components("tree", D);
         var R = function() {
             function e(e, t) {
                 for (var n = 0; n < t.length; n++) {
@@ -4495,43 +4493,41 @@
                         data: e.data,
                         dataSource: e.treeDataSource,
                         onChecked: function t(n) {
-                            var r = Lego.getView(e.el);
-                            if (r) {
-                                if (n.key !== "0" && e.setting.check) {
-                                    r.getValue();
-                                    if (n.length) {
-                                        r.options.value = [];
-                                        n.forEach(function(e) {
-                                            r.options.value.push({
-                                                key: e.key,
-                                                value: e.value,
-                                                type: e.type,
-                                                selected: true
-                                            });
+                            var r = this.context;
+                            if (n.key !== "0" && e.setting.check) {
+                                r.getValue();
+                                if (n.length) {
+                                    r.options.value = [];
+                                    n.forEach(function(e) {
+                                        r.options.value.push({
+                                            key: e.key,
+                                            value: e.value,
+                                            type: e.type,
+                                            selected: true
                                         });
-                                    } else {
-                                        r.options.value = [];
-                                    }
+                                    });
+                                } else {
+                                    r.options.value = [];
                                 }
-                                r.options.onSelect(n);
-                                r.options.onChange(n);
-                                r.refresh();
                             }
-                        },
-                        onClick: function t(n) {
-                            var r = Lego.getView(e.el);
-                            r.options.value.forEach(function(e) {
-                                return e.selected = false;
-                            });
-                            r.options.value = [ {
-                                key: n.key,
-                                value: n.value,
-                                type: n.type,
-                                selected: true
-                            } ];
                             r.options.onSelect(n);
                             r.options.onChange(n);
                             r.refresh();
+                        },
+                        onClick: function e(t) {
+                            var n = this.context;
+                            n.options.value.forEach(function(e) {
+                                return e.selected = false;
+                            });
+                            n.options.value = [ {
+                                key: t.key,
+                                value: t.value,
+                                type: t.type,
+                                selected: true
+                            } ];
+                            n.options.onSelect(t);
+                            n.options.onChange(t);
+                            n.refresh();
                         },
                         disabled: e.disabled || false,
                         className: e.dropdownClassName
@@ -4581,6 +4577,7 @@
                     if (!n.disabled) {
                         (function() {
                             var e = function e(t) {
+                                $("body, .modal-body").trigger("click");
                                 t.stopPropagation();
                                 var i = Lego.UI.Util.getDirection(o, a);
                                 n.direction = i._y || "bottom";

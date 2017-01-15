@@ -288,25 +288,23 @@ var Selects = function(_Lego$UI$Baseview) {
                 clickAndClose: opts.multiple ? false : true,
                 data: opts.data,
                 onChange: function onChange(model) {
-                    var theView = Lego.getView(opts.el);
-                    if (theView) {
-                        theView.$(".select-input").focus();
-                        if (model.key !== "0" && opts.multiple) {
-                            theView.getValue();
-                            if (!theView.options.value.includes(model)) {
-                                model.selected = true;
-                                theView.options.value.push(model);
-                            }
-                        } else {
-                            theView.options.data.forEach(function(item) {
-                                return item.selected = false;
-                            });
-                            theView.options.value = [ model ];
+                    var parentView = this.context;
+                    parentView.$(".select-input").focus();
+                    if (model.key !== "0" && opts.multiple) {
+                        parentView.getValue();
+                        if (!parentView.options.value.includes(model)) {
+                            model.selected = true;
+                            parentView.options.value.push(model);
                         }
-                        theView.options.onSelect(model);
-                        theView.options.onChange(model);
-                        theView.refresh();
+                    } else {
+                        parentView.options.data.forEach(function(item) {
+                            return item.selected = false;
+                        });
+                        parentView.options.value = [ model ];
                     }
+                    parentView.options.onSelect(model);
+                    parentView.options.onChange(model);
+                    parentView.refresh();
                 }
             } ]
         };

@@ -246,7 +246,7 @@
                     el: "#search1",
                     hasSelect: true,
                     onSearch: function e(t) {
-                        console.warn("点击了搜索框", t);
+                        console.warn("点击了搜索框", t, this);
                     },
                     data: $.extend(true, [], n)
                 }, {
@@ -555,7 +555,7 @@
         };
     }();
     var h = y([ '\n        <div class="input-group search">\n        ', '\n          <input type="text" class="form-control search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group search">\n        ', '\n          <input type="text" class="form-control search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
-    var p = y([ '\n          <div class="input-group-btn dropdown" id="', '-select">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="', '-dropdown"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="', '-select">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="', '-dropdown"></dropdown>\n          </div>\n        ' ]);
+    var p = y([ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ]);
     function y(e, t) {
         return Object.freeze(Object.defineProperties(e, {
             raw: {
@@ -604,15 +604,12 @@
                 hasSelect: false,
                 onSearch: function e() {},
                 components: [ {
-                    el: "#" + e.vid + "-dropdown",
-                    trigger: "#" + e.vid + "-select",
+                    el: "#dropdown-" + e.vid,
+                    trigger: "#select-" + e.vid,
                     data: e.data,
-                    onChange: function t(n) {
-                        var a = Lego.getView(e.el);
-                        if (a) {
-                            a.options.activeKey = n.key;
-                            a.options.activeValue = n.value;
-                        }
+                    onChange: function e(t) {
+                        this.context.options.activeKey = t.key;
+                        this.context.options.activeValue = t.value;
                     }
                 } ]
             };
@@ -918,25 +915,23 @@
                     clickAndClose: e.multiple ? false : true,
                     data: e.data,
                     onChange: function t(n) {
-                        var a = Lego.getView(e.el);
-                        if (a) {
-                            a.$(".select-input").focus();
-                            if (n.key !== "0" && e.multiple) {
-                                a.getValue();
-                                if (!a.options.value.includes(n)) {
-                                    n.selected = true;
-                                    a.options.value.push(n);
-                                }
-                            } else {
-                                a.options.data.forEach(function(e) {
-                                    return e.selected = false;
-                                });
-                                a.options.value = [ n ];
+                        var a = this.context;
+                        a.$(".select-input").focus();
+                        if (n.key !== "0" && e.multiple) {
+                            a.getValue();
+                            if (!a.options.value.includes(n)) {
+                                n.selected = true;
+                                a.options.value.push(n);
                             }
-                            a.options.onSelect(n);
-                            a.options.onChange(n);
-                            a.refresh();
+                        } else {
+                            a.options.data.forEach(function(e) {
+                                return e.selected = false;
+                            });
+                            a.options.value = [ n ];
                         }
+                        a.options.onSelect(n);
+                        a.options.onChange(n);
+                        a.refresh();
                     }
                 } ]
             };
@@ -15861,8 +15856,8 @@
             return t;
         };
     }();
-    var o = p([ '<button type="submit" class="btn btn-primary">', "</button>" ], [ '<button type="submit" class="btn btn-primary">', "</button>" ]);
-    var d = p([ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', "</button>\n                      </div>\n                    </div>\n                    " ], [ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', "</button>\n                      </div>\n                    </div>\n                    " ]);
+    var o = p([ '<div>\n                    <button type="submit" class="btn btn-primary">', '</button>\n                    <button type="reset" class="btn btn-secondary">', "</button>\n                    </div>" ], [ '<div>\n                    <button type="submit" class="btn btn-primary">', '</button>\n                    <button type="reset" class="btn btn-secondary">', "</button>\n                    </div>" ]);
+    var d = p([ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', '</button>\n                        <button type="reset" class="btn btn-secondary">', "</button>\n                      </div>\n                    </div>\n                    " ], [ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', '</button>\n                        <button type="reset" class="btn btn-secondary">', "</button>\n                      </div>\n                    </div>\n                    " ]);
     var u = p([ '<p class="form-control-static mb-0">', "</p>" ], [ '<p class="form-control-static mb-0">', "</p>" ]);
     var l = p([ '\n                <div class="form-group">\n                    <label for="', '">', "", "</label>\n                    ", "\n                    ", "\n                </div>\n                " ], [ '\n                <div class="form-group">\n                    <label for="', '">', "", "</label>\n                    ", "\n                    ", "\n                </div>\n                " ]);
     var m = p([ '<span class="symbol required">*</span>' ], [ '<span class="symbol required">*</span>' ]);
@@ -15932,6 +15927,7 @@
                 },
                 submitEl: "",
                 submitText: "提 交",
+                resetText: "重 置",
                 data: [],
                 format: function e(t) {
                     return t;
@@ -15951,9 +15947,9 @@
                     var e = "";
                     if (!t.submitEl) {
                         if (t.layout == "vertical") {
-                            e = hx(o, t.submitText);
+                            e = hx(o, t.submitText, t.resetText);
                         } else {
-                            e = hx(d, t.submitText);
+                            e = hx(d, t.submitText, t.resetText);
                         }
                     }
                     return e;
@@ -16072,6 +16068,11 @@
                     a.text("提交中...").addClass("disabled");
                 }
                 return this.options.onSubmit(i);
+            }
+        }, {
+            key: "reset",
+            value: function e() {
+                this.$el.reset();
             }
         } ]);
         return t;

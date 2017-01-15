@@ -789,7 +789,7 @@
             };
         }();
         var L = A([ '\n        <div class="input-group search">\n        ', '\n          <input type="text" class="form-control search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group search">\n        ', '\n          <input type="text" class="form-control search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
-        var x = A([ '\n          <div class="input-group-btn dropdown" id="', '-select">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="', '-dropdown"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="', '-select">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="', '-dropdown"></dropdown>\n          </div>\n        ' ]);
+        var x = A([ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ]);
         function A(e, t) {
             return Object.freeze(Object.defineProperties(e, {
                 raw: {
@@ -838,15 +838,12 @@
                     hasSelect: false,
                     onSearch: function e() {},
                     components: [ {
-                        el: "#" + e.vid + "-dropdown",
-                        trigger: "#" + e.vid + "-select",
+                        el: "#dropdown-" + e.vid,
+                        trigger: "#select-" + e.vid,
                         data: e.data,
-                        onChange: function t(n) {
-                            var r = Lego.getView(e.el);
-                            if (r) {
-                                r.options.activeKey = n.key;
-                                r.options.activeValue = n.value;
-                            }
+                        onChange: function e(t) {
+                            this.context.options.activeKey = t.key;
+                            this.context.options.activeValue = t.value;
                         }
                     } ]
                 };

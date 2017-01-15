@@ -1,4 +1,14 @@
 const Util = {
+    /**
+     * [uuid description]
+     * @return {[type]} [description]
+     */
+    uuid() {
+        function S4() {
+            return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        }
+        return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+    },
     // 取层飘浮方向
     getDirection(el, dropEl) {
         el = el instanceof $ ? el : $(el);
@@ -80,16 +90,6 @@ const Util = {
         }
         return size
     },
-    /**
-     * [uuid description]
-     * @return {[type]} [description]
-     */
-    uuid() {
-        function S4() {
-            return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-        }
-        return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
-    },
     //获取文件格式名字
     getExtName(name) {
         let re = /\./,
@@ -106,42 +106,42 @@ const Util = {
      * */
     getFileIcon(name, isExt) {
         const extMap = {
-                bmp: 'file',
-                gif: 'file',
-                png: 'file',
-                jpg: 'file-jpg',
-                jpeg: 'file-jpg',
-                tif: 'file',
-                psd: 'file',
-                pdg: 'file',
-                ai: 'file',
-                ico: 'file',
-                css: 'file',
-                doc: 'file-text',
-                docx: 'file-text',
-                ppt: 'file-ppt',
-                pptx: 'file-ppt',
-                rar: 'book',
-                '7z': 'book',
-                gz: 'book',
-                bz: 'book',
-                ace: 'book',
-                uha: 'book',
-                zpaq: 'book',
-                rar: 'book',
-                txt: 'file',
-                yml: 'file',
-                ini: 'file',
-                js: 'file',
-                url: 'file',
-                xls: 'file-excel',
-                xlsx: 'file-excel',
-                et: 'file-excel',
-                zip: 'book',
-                pdf: 'file-pdf',
-                none: 'file-unknown'
-            },
-            ext = isExt ? name : this.getExtName(name);
+            bmp: 'file',
+            gif: 'file',
+            png: 'file',
+            jpg: 'file-jpg',
+            jpeg: 'file-jpg',
+            tif: 'file',
+            psd: 'file',
+            pdg: 'file',
+            ai: 'file',
+            ico: 'file',
+            css: 'file',
+            doc: 'file-text',
+            docx: 'file-text',
+            ppt: 'file-ppt',
+            pptx: 'file-ppt',
+            rar: 'book',
+            '7z': 'book',
+            gz: 'book',
+            bz: 'book',
+            ace: 'book',
+            uha: 'book',
+            zpaq: 'book',
+            rar: 'book',
+            txt: 'file',
+            yml: 'file',
+            ini: 'file',
+            js: 'file',
+            url: 'file',
+            xls: 'file-excel',
+            xlsx: 'file-excel',
+            et: 'file-excel',
+            zip: 'book',
+            pdf: 'file-pdf',
+            none: 'file-unknown'
+        },
+        ext = isExt ? name : this.getExtName(name);
         return (ext !== false && extMap[ext]) ? extMap[ext] : '';
     },
 

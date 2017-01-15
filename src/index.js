@@ -40,7 +40,9 @@ Lego.components({
 	navs: Navs,
 	tabs: Tabs,
 	search: Search,
+	selects: Selects,
 	datepicker: Datepicker,
+	inputs: Inputs,
 	tooltip: Tooltip,
 	popover: Popover,
 	notification: Notification,
@@ -51,8 +53,6 @@ Lego.components({
 	listgroup: Listgroup,
 	transfer: Transfer,
 	progressbar: Progressbar,
-	upload: Upload,
-	selects: Selects,
-	inputs: Inputs
+	upload: Upload
 });
 export default Lego.UI;

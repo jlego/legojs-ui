@@ -28,9 +28,9 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '<button type="submit" class="btn btn-primary">', "</button>" ], [ '<button type="submit" class="btn btn-primary">', "</button>" ]);
+var _templateObject = _taggedTemplateLiteral([ '<div>\n                    <button type="submit" class="btn btn-primary">', '</button>\n                    <button type="reset" class="btn btn-secondary">', "</button>\n                    </div>" ], [ '<div>\n                    <button type="submit" class="btn btn-primary">', '</button>\n                    <button type="reset" class="btn btn-secondary">', "</button>\n                    </div>" ]);
 
-var _templateObject2 = _taggedTemplateLiteral([ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', "</button>\n                      </div>\n                    </div>\n                    " ], [ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', "</button>\n                      </div>\n                    </div>\n                    " ]);
+var _templateObject2 = _taggedTemplateLiteral([ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', '</button>\n                        <button type="reset" class="btn btn-secondary">', "</button>\n                      </div>\n                    </div>\n                    " ], [ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', '</button>\n                        <button type="reset" class="btn btn-secondary">', "</button>\n                      </div>\n                    </div>\n                    " ]);
 
 var _templateObject3 = _taggedTemplateLiteral([ '<p class="form-control-static mb-0">', "</p>" ], [ '<p class="form-control-static mb-0">', "</p>" ]);
 
@@ -113,6 +113,7 @@ var Forms = function(_Lego$UI$Baseview) {
             },
             submitEl: "",
             submitText: "提 交",
+            resetText: "重 置",
             data: [],
             format: function format(result) {
                 return result;
@@ -132,9 +133,9 @@ var Forms = function(_Lego$UI$Baseview) {
                 var submit = "";
                 if (!options.submitEl) {
                     if (options.layout == "vertical") {
-                        submit = hx(_templateObject, options.submitText);
+                        submit = hx(_templateObject, options.submitText, options.resetText);
                     } else {
-                        submit = hx(_templateObject2, options.submitText);
+                        submit = hx(_templateObject2, options.submitText, options.resetText);
                     }
                 }
                 return submit;
@@ -253,6 +254,11 @@ var Forms = function(_Lego$UI$Baseview) {
                 $submitEl.text("提交中...").addClass("disabled");
             }
             return this.options.onSubmit(data);
+        }
+    }, {
+        key: "reset",
+        value: function reset() {
+            this.$el.reset();
         }
     } ]);
     return Forms;

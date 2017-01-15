@@ -231,27 +231,25 @@ var Tabs = function(_Lego$UI$Baseview) {
                 type: "tabs",
                 activeKey: opts.activeKey,
                 onClick: function onClick(item) {
-                    var view = Lego.getView(opts.el);
-                    if (view) {
-                        if (!item.children) {
-                            view.options.activeKey = item.key;
-                        } else {
-                            (function() {
-                                var theModel = item.children.find(function(subItem) {
-                                    return subItem.active == true;
-                                });
-                                if (theModel) {
-                                    view.options.data.forEach(function(model) {
-                                        if (model.key == item.key) {
-                                            if (theModel.content) {
-                                                model.content = theModel.content;
-                                                view.options.activeKey = item.key;
-                                            }
+                    var parentView = this.context;
+                    if (!item.children) {
+                        parentView.options.activeKey = item.key;
+                    } else {
+                        (function() {
+                            var theModel = item.children.find(function(subItem) {
+                                return subItem.active == true;
+                            });
+                            if (theModel) {
+                                parentView.options.data.forEach(function(model) {
+                                    if (model.key == item.key) {
+                                        if (theModel.content) {
+                                            model.content = theModel.content;
+                                            parentView.options.activeKey = item.key;
                                         }
-                                    });
-                                }
-                            })();
-                        }
+                                    }
+                                });
+                            }
+                        })();
                     }
                 },
                 data: opts.data

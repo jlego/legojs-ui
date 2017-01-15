@@ -290,25 +290,23 @@ var Selects = function(_Lego$UI$Baseview) {
                 clickAndClose: opts.multiple ? false : true,
                 data: opts.data,
                 onChange: function onChange(model) {
-                    var theView = Lego.getView(opts.el);
-                    if (theView) {
-                        theView.$(".select-input").focus();
-                        if (model.key !== "0" && opts.multiple) {
-                            theView.getValue();
-                            if (!theView.options.value.includes(model)) {
-                                model.selected = true;
-                                theView.options.value.push(model);
-                            }
-                        } else {
-                            theView.options.data.forEach(function(item) {
-                                return item.selected = false;
-                            });
-                            theView.options.value = [ model ];
+                    var parentView = this.context;
+                    parentView.$(".select-input").focus();
+                    if (model.key !== "0" && opts.multiple) {
+                        parentView.getValue();
+                        if (!parentView.options.value.includes(model)) {
+                            model.selected = true;
+                            parentView.options.value.push(model);
                         }
-                        theView.options.onSelect(model);
-                        theView.options.onChange(model);
-                        theView.refresh();
+                    } else {
+                        parentView.options.data.forEach(function(item) {
+                            return item.selected = false;
+                        });
+                        parentView.options.value = [ model ];
                     }
+                    parentView.options.onSelect(model);
+                    parentView.options.onChange(model);
+                    parentView.refresh();
                 }
             } ]
         };
@@ -658,43 +656,41 @@ var Treeselect = function(_Selects) {
                 data: opts.data,
                 dataSource: opts.treeDataSource,
                 onChecked: function onChecked(result) {
-                    var theView = Lego.getView(opts.el);
-                    if (theView) {
-                        if (result.key !== "0" && opts.setting.check) {
-                            theView.getValue();
-                            if (result.length) {
-                                theView.options.value = [];
-                                result.forEach(function(val) {
-                                    theView.options.value.push({
-                                        key: val.key,
-                                        value: val.value,
-                                        type: val.type,
-                                        selected: true
-                                    });
+                    var parentView = this.context;
+                    if (result.key !== "0" && opts.setting.check) {
+                        parentView.getValue();
+                        if (result.length) {
+                            parentView.options.value = [];
+                            result.forEach(function(val) {
+                                parentView.options.value.push({
+                                    key: val.key,
+                                    value: val.value,
+                                    type: val.type,
+                                    selected: true
                                 });
-                            } else {
-                                theView.options.value = [];
-                            }
+                            });
+                        } else {
+                            parentView.options.value = [];
                         }
-                        theView.options.onSelect(result);
-                        theView.options.onChange(result);
-                        theView.refresh();
                     }
+                    parentView.options.onSelect(result);
+                    parentView.options.onChange(result);
+                    parentView.refresh();
                 },
                 onClick: function onClick(result) {
-                    var theView = Lego.getView(opts.el);
-                    theView.options.value.forEach(function(item) {
+                    var parentView = this.context;
+                    parentView.options.value.forEach(function(item) {
                         return item.selected = false;
                     });
-                    theView.options.value = [ {
+                    parentView.options.value = [ {
                         key: result.key,
                         value: result.value,
                         type: result.type,
                         selected: true
                     } ];
-                    theView.options.onSelect(result);
-                    theView.options.onChange(result);
-                    theView.refresh();
+                    parentView.options.onSelect(result);
+                    parentView.options.onChange(result);
+                    parentView.refresh();
                 },
                 disabled: opts.disabled || false,
                 className: opts.dropdownClassName
@@ -744,6 +740,7 @@ var Treeselect = function(_Selects) {
             if (!options.disabled) {
                 (function() {
                     var handler = function handler(event) {
+                        $("body, .modal-body").trigger("click");
                         event.stopPropagation();
                         var directionResp = Lego.UI.Util.getDirection(trigger, treeEl);
                         options.direction = directionResp._y || "bottom";

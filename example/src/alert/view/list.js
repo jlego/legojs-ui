@@ -57,6 +57,12 @@ class ListView extends Lego.UI.Baseview {
                 type: 'secondary',
                 onClick(){
                     console.warn('点击了此按钮button3');
+                    Lego.UI.modal({
+                        type: 'modal',
+                        content: '成功了！',
+                        isMiddle: true,
+                        width: 500
+                    });
                 },
                 style: {
                     marginRight: 10

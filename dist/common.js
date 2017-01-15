@@ -92,6 +92,12 @@ function _defineProperty(obj, key, value) {
 }
 
 var Util = {
+    uuid: function uuid() {
+        function S4() {
+            return ((1 + Math.random()) * 65536 | 0).toString(16).substring(1);
+        }
+        return S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4();
+    },
     getDirection: function getDirection(el, dropEl) {
         el = el instanceof $ ? el : $(el);
         var windowW = $(window).width(), windowH = $(window).height(), _X = el.offset().left, _Y = el.offset().top, elW = el.width(), elH = el.height(), dropW = dropEl.width(), dropH = dropEl.height(), upDown = dropH > windowH - _Y - elH ? "top" : "bottom", leftRight = dropW > windowW - _X - elW ? "Right" : "Left";
@@ -147,12 +153,6 @@ var Util = {
             size = (size.toFixed(decimals) + "").replace(/\.00/, "") + units[index];
         }
         return size;
-    },
-    uuid: function uuid() {
-        function S4() {
-            return ((1 + Math.random()) * 65536 | 0).toString(16).substring(1);
-        }
-        return S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4();
     },
     getExtName: function getExtName(name) {
         var re = /\./, a = void 0, l = void 0;

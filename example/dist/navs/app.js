@@ -200,13 +200,13 @@
                 throw new TypeError("Cannot call a class as a function");
             }
         }
-        function f(e, n) {
+        function d(e, n) {
             if (!e) {
                 throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             }
             return n && (typeof n === "object" || typeof n === "function") ? n : e;
         }
-        function d(e, n) {
+        function f(e, n) {
             if (typeof n !== "function" && n !== null) {
                 throw new TypeError("Super expression must either be null or a function, not " + typeof n);
             }
@@ -221,7 +221,7 @@
             if (n) Object.setPrototypeOf ? Object.setPrototypeOf(e, n) : e.__proto__ = n;
         }
         var p = function(e) {
-            d(n, e);
+            f(n, e);
             function n() {
                 var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
                 v(this, n);
@@ -304,7 +304,7 @@
                     } ]
                 };
                 Object.assign(i, e);
-                return f(this, (n.__proto__ || Object.getPrototypeOf(n)).call(this, i));
+                return d(this, (n.__proto__ || Object.getPrototypeOf(n)).call(this, i));
             }
             i(n, [ {
                 key: "render",
@@ -358,13 +358,13 @@
                 throw new TypeError("Cannot call a class as a function");
             }
         }
-        function f(e, n) {
+        function d(e, n) {
             if (!e) {
                 throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             }
             return n && ((typeof n === "undefined" ? "undefined" : t(n)) === "object" || typeof n === "function") ? n : e;
         }
-        function d(e, n) {
+        function f(e, n) {
             if (typeof n !== "function" && n !== null) {
                 throw new TypeError("Super expression must either be null or a function, not " + (typeof n === "undefined" ? "undefined" : t(n)));
             }
@@ -379,7 +379,7 @@
             if (n) Object.setPrototypeOf ? Object.setPrototypeOf(e, n) : e.__proto__ = n;
         }
         var p = function(e) {
-            d(n, e);
+            f(n, e);
             function n() {
                 var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
                 v(this, n);
@@ -397,7 +397,7 @@
                     data: []
                 };
                 Object.assign(t, e);
-                var i = f(this, (n.__proto__ || Object.getPrototypeOf(n)).call(this, t));
+                var i = d(this, (n.__proto__ || Object.getPrototypeOf(n)).call(this, t));
                 var a = i;
                 i.$(".dropdown")[t.eventName](function() {
                     var e = Lego.UI.Util.getDirection($(this), $(this).children(".dropdown-menu"));
@@ -499,13 +499,13 @@
                 throw new TypeError("Cannot call a class as a function");
             }
         }
-        function f(e, n) {
+        function d(e, n) {
             if (!e) {
                 throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             }
             return n && ((typeof n === "undefined" ? "undefined" : t(n)) === "object" || typeof n === "function") ? n : e;
         }
-        function d(e, n) {
+        function f(e, n) {
             if (typeof n !== "function" && n !== null) {
                 throw new TypeError("Super expression must either be null or a function, not " + (typeof n === "undefined" ? "undefined" : t(n)));
             }
@@ -520,7 +520,7 @@
             if (n) Object.setPrototypeOf ? Object.setPrototypeOf(e, n) : e.__proto__ = n;
         }
         var p = function(e) {
-            d(n, e);
+            f(n, e);
             function n() {
                 var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
                 v(this, n);
@@ -538,7 +538,7 @@
                     data: []
                 };
                 Object.assign(t, e);
-                var i = f(this, (n.__proto__ || Object.getPrototypeOf(n)).call(this, t));
+                var i = d(this, (n.__proto__ || Object.getPrototypeOf(n)).call(this, t));
                 var a = i;
                 i.$(".dropdown")[t.eventName](function() {
                     var e = Lego.UI.Util.getDirection($(this), $(this).children(".dropdown-menu"));
@@ -670,28 +670,26 @@
                         eventName: e.eventName || "click",
                         type: "tabs",
                         activeKey: e.activeKey,
-                        onClick: function n(t) {
-                            var i = Lego.getView(e.el);
-                            if (i) {
-                                if (!t.children) {
-                                    i.options.activeKey = t.key;
-                                } else {
-                                    (function() {
-                                        var e = t.children.find(function(e) {
-                                            return e.active == true;
-                                        });
-                                        if (e) {
-                                            i.options.data.forEach(function(n) {
-                                                if (n.key == t.key) {
-                                                    if (e.content) {
-                                                        n.content = e.content;
-                                                        i.options.activeKey = t.key;
-                                                    }
+                        onClick: function e(n) {
+                            var t = this.context;
+                            if (!n.children) {
+                                t.options.activeKey = n.key;
+                            } else {
+                                (function() {
+                                    var e = n.children.find(function(e) {
+                                        return e.active == true;
+                                    });
+                                    if (e) {
+                                        t.options.data.forEach(function(i) {
+                                            if (i.key == n.key) {
+                                                if (e.content) {
+                                                    i.content = e.content;
+                                                    t.options.activeKey = n.key;
                                                 }
-                                            });
-                                        }
-                                    })();
-                                }
+                                            }
+                                        });
+                                    }
+                                })();
                             }
                         },
                         data: e.data

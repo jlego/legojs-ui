@@ -104,6 +104,12 @@ function _defineProperty(obj, key, value) {
 }
 
 var Util = {
+    uuid: function uuid() {
+        function S4() {
+            return ((1 + Math.random()) * 65536 | 0).toString(16).substring(1);
+        }
+        return S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4();
+    },
     getDirection: function getDirection(el, dropEl) {
         el = el instanceof $ ? el : $(el);
         var windowW = $(window).width(), windowH = $(window).height(), _X = el.offset().left, _Y = el.offset().top, elW = el.width(), elH = el.height(), dropW = dropEl.width(), dropH = dropEl.height(), upDown = dropH > windowH - _Y - elH ? "top" : "bottom", leftRight = dropW > windowW - _X - elW ? "Right" : "Left";
@@ -159,12 +165,6 @@ var Util = {
             size = (size.toFixed(decimals) + "").replace(/\.00/, "") + units[index];
         }
         return size;
-    },
-    uuid: function uuid() {
-        function S4() {
-            return ((1 + Math.random()) * 65536 | 0).toString(16).substring(1);
-        }
-        return S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4();
     },
     getExtName: function getExtName(name) {
         var re = /\./, a = void 0, l = void 0;
@@ -400,7 +400,7 @@ var _createClass$1 = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container">\n                        <div id="page-container"></div>\n                    </div>\n                    <layer id="lego-layer"></layer>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n            <modal id="lego-modal"></modal>\n        </div>\n        ' ], [ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container">\n                        <div id="page-container"></div>\n                    </div>\n                    <layer id="lego-layer"></layer>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n            <modal id="lego-modal"></modal>\n        </div>\n        ' ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container">\n                        <div id="page-container"></div>\n                    </div>\n                    <layer id="lego-layer"></layer>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n            <modal id="lego-modal"></modal>\n            <dialog id="lego-dialog"></dialog>\n        </div>\n        ' ], [ '\n        <div id="app" class="app-navbar-fixed app-sidebar-fixed">\n            <menu id="sidebar"></menu>\n            <div class="app-content">\n                <header class="navbar navbar-default navbar-static-top">\n                    <div class="navbar-header">\n                        <a class="navbar-brand" href="#">\n                            <img src="', '" alt="" />\n                        </a>\n                    </div>\n                    <div class="navbar-collapse">\n                        <ul class="nav navbar-right">\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-erweima"></i> 邀请码 </a>\n                                <ul class="dropdown-menu">\n                                    <li style="text-align:center;"><div id="inviteCodeImg" style="margin:10px;"></div></li>\n                                    <li style="display:none;"><a href="javascript:;" style="text-align:center;" id="copyLink">复制链接</a></li>\n                                </ul>\n                            </li>\n                            <li class="dropdown">\n                                <a href="#" class="dropdown-toggle"><i class="icon iconfont icon-contacts"></i></a>\n                                <ul class="dropdown-menu">\n                                    <li><a href="javascript:;" id="modifyPassword"><i class="icon iconfont icon-disabled"></i> 修改密码</a></li>\n                                    <li><a href="/j_acegi_logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>\n                                </ul>\n                            </li>\n                        </ul>\n                        <div class="search-form" style="display:none;">\n                            <a class="s-open" href="#">\n                                <i class="ti-search"></i>\n                            </a>\n                            <form class="navbar-form" role="search">\n                                <a class="s-remove" href="#" target=".navbar-form">\n                                    <i class="ti-close"></i>\n                                </a>\n                                <div class="form-group">\n                                    <input type="text" class="form-control" placeholder="搜索">\n                                    <button class="btn search-button" type="submit">\n                                        <i class="ti-search"></i>\n                                    </button>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </header>\n                <div class="main-content">\n                    <div class="wrap-content container-fluid" id="container">\n                        <div id="page-container"></div>\n                    </div>\n                    <layer id="lego-layer"></layer>\n                </div>\n            </div>\n            <footer>\n                <div class="footer-inner">\n                    <div class="pull-left">\n                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>\n                    </div>\n                    <div class="pull-right">\n                        <span class="go-top"><i class="ti-angle-up"></i></span>\n                    </div>\n                </div>\n            </footer>\n            <modal id="lego-modal"></modal>\n            <dialog id="lego-dialog"></dialog>\n        </div>\n        ' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -2100,7 +2100,7 @@ var _createClass$9 = function() {
     };
 }();
 
-var _templateObject$8 = _taggedTemplateLiteral$8([ '\n        <div class="modal ', " ", "\n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ], [ '\n        <div class="modal ', " ", "\n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ]);
+var _templateObject$8 = _taggedTemplateLiteral$8([ '\n        <div class="modal ', " \n        ", "\n        ", " \n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ], [ '\n        <div class="modal ', " \n        ", "\n        ", " \n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ]);
 
 var _templateObject2$5 = _taggedTemplateLiteral$8([ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ], [ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ]);
 
@@ -2169,6 +2169,8 @@ var Modal = function(_Lego$UI$Baseview) {
             size: "",
             type: "modal",
             animate: "fadeIn",
+            width: "",
+            isMiddle: false,
             closable: true,
             showHeader: true,
             showFooter: true,
@@ -2187,7 +2189,8 @@ var Modal = function(_Lego$UI$Baseview) {
             }
         };
         Object.assign(options, opts);
-        var modalEl = options.type !== "modal" ? "#lego-layer" : "#lego-modal";
+        if (options.msgType) options.type = "dialog";
+        var modalEl = "#lego-" + (options.type == "modal" ? "modal" : options.type == "dialog" ? "dialog" : "layer");
         if (typeArr[options.msgType] && typeof options.content == "string") {
             var alertObj = Lego.create(Alert, {
                 type: options.msgType,
@@ -2198,14 +2201,14 @@ var Modal = function(_Lego$UI$Baseview) {
             options.content = alertObj.render();
         }
         if (!options.el) options.el = modalEl;
-        if (options.type !== "modal") options.animate = "slideInRight";
+        if (options.type !== "modal" && options.type !== "dialog") options.animate = "slideInRight";
         return _possibleConstructorReturn$9(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, options));
     }
     _createClass$9(Modal, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject$8, options.type == "right" ? "right-modal" : "", options.msgType ? "dialog-modal" : "", options.size ? "modal-size-" + options.size : "", options.el.replace(/#/, ""), options.closable ? hx(_templateObject2$5) : "", options.title, !options.msgType ? "scrollbar" : "", options.content, options.footer ? options.footer : hx(_templateObject3$4, options.cancelText, options.okText));
+            var vDom = hx(_templateObject$8, options.type == "right" ? "right-modal" : "", options.msgType ? "dialog-modal" : "", options.size ? "modal-size-" + options.size : "", options.isMiddle ? "middle" : "", options.el.replace(/#/, ""), options.closable ? hx(_templateObject2$5) : "", options.title, !options.msgType ? "scrollbar" : "", options.content, options.footer ? options.footer : hx(_templateObject3$4, options.cancelText, options.okText));
             return vDom;
         }
     }, {
@@ -2213,12 +2216,14 @@ var Modal = function(_Lego$UI$Baseview) {
         value: function renderAfter() {
             var that = this, options = this.options;
             this.$el.modal({
-                backdrop: options.type == "modal" ? options.backdrop : false,
+                backdrop: options.type == "modal" || options.type == "dialog" ? options.backdrop : false,
                 keyboard: options.keyboard,
                 show: true
             });
+            if (options.width) this.$(".modal-dialog").width(options.width);
+            if (options.height) this.$(".modal-dialog").height(options.height);
             this.$el.on("hidden.bs.modal", function(e) {
-                var container = options.type !== "modal" ? '<layer id="lego-layer"></layer>' : '<modal id="lego-modal"></modal>';
+                var container = options.type == "modal" ? '<modal id="lego-modal"></modal>' : options.type == "dialog" ? '<dialog id="lego-dialog"></dialog>' : '<layer id="lego-modal"></layer>';
                 that.$el.replaceWith(container);
                 if (typeof options.onHidden === "function") options.onHidden();
             });
@@ -2250,7 +2255,7 @@ var Modal = function(_Lego$UI$Baseview) {
                 backdrop: false,
                 onOk: function onOk(e) {
                     that.close();
-                    if (Lego.getView($("#lego-modal"))) Lego.getView($("#lego-modal")).close();
+                    Lego.getView($("#lego-dialog")).close();
                 }
             });
         }
@@ -2289,8 +2294,12 @@ var theModal = function theModal() {
             view = Lego.getView("#lego-layer");
             break;
 
-          case "closeModal":
+          case "close.modal":
             view = Lego.getView("#lego-modal");
+            break;
+
+          case "close.dialog":
+            view = Lego.getView("#lego-dialog");
             break;
         }
         if (view) view.close();
@@ -2527,27 +2536,25 @@ var Tabs = function(_Lego$UI$Baseview) {
                 type: "tabs",
                 activeKey: opts.activeKey,
                 onClick: function onClick(item) {
-                    var view = Lego.getView(opts.el);
-                    if (view) {
-                        if (!item.children) {
-                            view.options.activeKey = item.key;
-                        } else {
-                            (function() {
-                                var theModel = item.children.find(function(subItem) {
-                                    return subItem.active == true;
-                                });
-                                if (theModel) {
-                                    view.options.data.forEach(function(model) {
-                                        if (model.key == item.key) {
-                                            if (theModel.content) {
-                                                model.content = theModel.content;
-                                                view.options.activeKey = item.key;
-                                            }
+                    var parentView = this.context;
+                    if (!item.children) {
+                        parentView.options.activeKey = item.key;
+                    } else {
+                        (function() {
+                            var theModel = item.children.find(function(subItem) {
+                                return subItem.active == true;
+                            });
+                            if (theModel) {
+                                parentView.options.data.forEach(function(model) {
+                                    if (model.key == item.key) {
+                                        if (theModel.content) {
+                                            model.content = theModel.content;
+                                            parentView.options.activeKey = item.key;
                                         }
-                                    });
-                                }
-                            })();
-                        }
+                                    }
+                                });
+                            }
+                        })();
                     }
                 },
                 data: opts.data
@@ -2602,7 +2609,7 @@ var _createClass$13 = function() {
 
 var _templateObject$11 = _taggedTemplateLiteral$11([ '\n        <div class="input-group search">\n        ', '\n          <input type="text" class="form-control search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group search">\n        ', '\n          <input type="text" class="form-control search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
 
-var _templateObject2$8 = _taggedTemplateLiteral$11([ '\n          <div class="input-group-btn dropdown" id="', '-select">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="', '-dropdown"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="', '-select">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="', '-dropdown"></dropdown>\n          </div>\n        ' ]);
+var _templateObject2$8 = _taggedTemplateLiteral$11([ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ]);
 
 function _taggedTemplateLiteral$11(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -2656,15 +2663,12 @@ var Search = function(_Lego$UI$Baseview) {
             hasSelect: false,
             onSearch: function onSearch() {},
             components: [ {
-                el: "#" + opts.vid + "-dropdown",
-                trigger: "#" + opts.vid + "-select",
+                el: "#dropdown-" + opts.vid,
+                trigger: "#select-" + opts.vid,
                 data: opts.data,
                 onChange: function onChange(model) {
-                    var theView = Lego.getView(opts.el);
-                    if (theView) {
-                        theView.options.activeKey = model.key;
-                        theView.options.activeValue = model.value;
-                    }
+                    this.context.options.activeKey = model.key;
+                    this.context.options.activeValue = model.value;
                 }
             } ]
         };
@@ -2805,25 +2809,23 @@ var Selects = function(_Lego$UI$Baseview) {
                 clickAndClose: opts.multiple ? false : true,
                 data: opts.data,
                 onChange: function onChange(model) {
-                    var theView = Lego.getView(opts.el);
-                    if (theView) {
-                        theView.$(".select-input").focus();
-                        if (model.key !== "0" && opts.multiple) {
-                            theView.getValue();
-                            if (!theView.options.value.includes(model)) {
-                                model.selected = true;
-                                theView.options.value.push(model);
-                            }
-                        } else {
-                            theView.options.data.forEach(function(item) {
-                                return item.selected = false;
-                            });
-                            theView.options.value = [ model ];
+                    var parentView = this.context;
+                    parentView.$(".select-input").focus();
+                    if (model.key !== "0" && opts.multiple) {
+                        parentView.getValue();
+                        if (!parentView.options.value.includes(model)) {
+                            model.selected = true;
+                            parentView.options.value.push(model);
                         }
-                        theView.options.onSelect(model);
-                        theView.options.onChange(model);
-                        theView.refresh();
+                    } else {
+                        parentView.options.data.forEach(function(item) {
+                            return item.selected = false;
+                        });
+                        parentView.options.value = [ model ];
                     }
+                    parentView.options.onSelect(model);
+                    parentView.options.onChange(model);
+                    parentView.refresh();
                 }
             } ]
         };
@@ -3842,14 +3844,14 @@ function _classCallCheck$20(instance, Constructor) {
     }
 }
 
-function _possibleConstructorReturn$17(self, call) {
+function _possibleConstructorReturn$16(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$17(subClass, superClass) {
+function _inherits$16(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -3900,10 +3902,10 @@ var Popover$2 = function($) {
         MOUSELEAVE: "mouseleave" + EVENT_KEY
     };
     var Popover = function(_Tooltip) {
-        _inherits$17(Popover, _Tooltip);
+        _inherits$16(Popover, _Tooltip);
         function Popover() {
             _classCallCheck$20(this, Popover);
-            return _possibleConstructorReturn$17(this, (Popover.__proto__ || Object.getPrototypeOf(Popover)).apply(this, arguments));
+            return _possibleConstructorReturn$16(this, (Popover.__proto__ || Object.getPrototypeOf(Popover)).apply(this, arguments));
         }
         _createClass$20(Popover, [ {
             key: "isWithContent",
@@ -4020,30 +4022,7 @@ function _classCallCheck$19(instance, Constructor) {
     }
 }
 
-function _possibleConstructorReturn$16(self, call) {
-    if (!self) {
-        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-    return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits$16(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-    }
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
-        constructor: {
-            value: subClass,
-            enumerable: false,
-            writable: true,
-            configurable: true
-        }
-    });
-    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-var Popover = function(_Tooltip) {
-    _inherits$16(Popover, _Tooltip);
+var Popover = function() {
     function Popover() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck$19(this, Popover);
@@ -4064,7 +4043,23 @@ var Popover = function(_Tooltip) {
             onHidden: function onHidden() {}
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$16(this, (Popover.__proto__ || Object.getPrototypeOf(Popover)).call(this, options));
+        this.el = options.el;
+        this.onHidden = options.onHidden;
+        this.options = {
+            selector: options.selector,
+            title: options.title,
+            content: options.content,
+            animation: options.animation,
+            container: options.container,
+            delay: options.delay,
+            html: options.html,
+            placement: options.placement,
+            template: options.template,
+            constraints: options.constraints,
+            trigger: options.eventName,
+            offset: options.offset
+        };
+        this.render();
     }
     _createClass$19(Popover, [ {
         key: "render",
@@ -4081,7 +4076,7 @@ var Popover = function(_Tooltip) {
         }
     } ]);
     return Popover;
-}(fun);
+}();
 
 var fun$1 = function fun$1(opts) {
     return new Popover(opts);
@@ -4122,14 +4117,14 @@ function _classCallCheck$21(instance, Constructor) {
     }
 }
 
-function _possibleConstructorReturn$18(self, call) {
+function _possibleConstructorReturn$17(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$18(subClass, superClass) {
+function _inherits$17(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -4145,7 +4140,7 @@ function _inherits$18(subClass, superClass) {
 }
 
 var Tree = function(_Lego$UI$Baseview) {
-    _inherits$18(Tree, _Lego$UI$Baseview);
+    _inherits$17(Tree, _Lego$UI$Baseview);
     function Tree() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck$21(this, Tree);
@@ -4166,7 +4161,7 @@ var Tree = function(_Lego$UI$Baseview) {
             onClick: function onClick() {}
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$18(this, (Tree.__proto__ || Object.getPrototypeOf(Tree)).call(this, options));
+        return _possibleConstructorReturn$17(this, (Tree.__proto__ || Object.getPrototypeOf(Tree)).call(this, options));
     }
     _createClass$21(Tree, [ {
         key: "render",
@@ -4283,14 +4278,14 @@ function _classCallCheck$22(instance, Constructor) {
     }
 }
 
-function _possibleConstructorReturn$19(self, call) {
+function _possibleConstructorReturn$18(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$19(subClass, superClass) {
+function _inherits$18(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -4306,7 +4301,7 @@ function _inherits$19(subClass, superClass) {
 }
 
 var Treeselect = function(_Selects) {
-    _inherits$19(Treeselect, _Selects);
+    _inherits$18(Treeselect, _Selects);
     function Treeselect() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck$22(this, Treeselect);
@@ -4350,43 +4345,41 @@ var Treeselect = function(_Selects) {
                 data: opts.data,
                 dataSource: opts.treeDataSource,
                 onChecked: function onChecked(result) {
-                    var theView = Lego.getView(opts.el);
-                    if (theView) {
-                        if (result.key !== "0" && opts.setting.check) {
-                            theView.getValue();
-                            if (result.length) {
-                                theView.options.value = [];
-                                result.forEach(function(val) {
-                                    theView.options.value.push({
-                                        key: val.key,
-                                        value: val.value,
-                                        type: val.type,
-                                        selected: true
-                                    });
+                    var parentView = this.context;
+                    if (result.key !== "0" && opts.setting.check) {
+                        parentView.getValue();
+                        if (result.length) {
+                            parentView.options.value = [];
+                            result.forEach(function(val) {
+                                parentView.options.value.push({
+                                    key: val.key,
+                                    value: val.value,
+                                    type: val.type,
+                                    selected: true
                                 });
-                            } else {
-                                theView.options.value = [];
-                            }
+                            });
+                        } else {
+                            parentView.options.value = [];
                         }
-                        theView.options.onSelect(result);
-                        theView.options.onChange(result);
-                        theView.refresh();
                     }
+                    parentView.options.onSelect(result);
+                    parentView.options.onChange(result);
+                    parentView.refresh();
                 },
                 onClick: function onClick(result) {
-                    var theView = Lego.getView(opts.el);
-                    theView.options.value.forEach(function(item) {
+                    var parentView = this.context;
+                    parentView.options.value.forEach(function(item) {
                         return item.selected = false;
                     });
-                    theView.options.value = [ {
+                    parentView.options.value = [ {
                         key: result.key,
                         value: result.value,
                         type: result.type,
                         selected: true
                     } ];
-                    theView.options.onSelect(result);
-                    theView.options.onChange(result);
-                    theView.refresh();
+                    parentView.options.onSelect(result);
+                    parentView.options.onChange(result);
+                    parentView.refresh();
                 },
                 disabled: opts.disabled || false,
                 className: opts.dropdownClassName
@@ -4399,7 +4392,7 @@ var Treeselect = function(_Selects) {
                 item.selected = true;
             });
         }
-        var _this = _possibleConstructorReturn$19(this, (Treeselect.__proto__ || Object.getPrototypeOf(Treeselect)).call(this, options));
+        var _this = _possibleConstructorReturn$18(this, (Treeselect.__proto__ || Object.getPrototypeOf(Treeselect)).call(this, options));
         var eventName = "click.select_" + opts.vid, callback = _this.clickItemClose.bind(_this);
         _this.$(".select-tags-div").off(eventName).on(eventName, ".select-tag-close", callback);
         return _this;
@@ -4436,6 +4429,7 @@ var Treeselect = function(_Selects) {
             if (!options.disabled) {
                 (function() {
                     var handler = function handler(event) {
+                        $("body, .modal-body").trigger("click");
                         event.stopPropagation();
                         var directionResp = Lego.UI.Util.getDirection(trigger, treeEl);
                         options.direction = directionResp._y || "bottom";
@@ -4524,9 +4518,9 @@ var _createClass$23 = function() {
     };
 }();
 
-var _templateObject$17 = _taggedTemplateLiteral$17([ '<button type="submit" class="btn btn-primary">', "</button>" ], [ '<button type="submit" class="btn btn-primary">', "</button>" ]);
+var _templateObject$17 = _taggedTemplateLiteral$17([ '<div>\n                    <button type="submit" class="btn btn-primary">', '</button>\n                    <button type="reset" class="btn btn-secondary">', "</button>\n                    </div>" ], [ '<div>\n                    <button type="submit" class="btn btn-primary">', '</button>\n                    <button type="reset" class="btn btn-secondary">', "</button>\n                    </div>" ]);
 
-var _templateObject2$13 = _taggedTemplateLiteral$17([ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', "</button>\n                      </div>\n                    </div>\n                    " ], [ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', "</button>\n                      </div>\n                    </div>\n                    " ]);
+var _templateObject2$13 = _taggedTemplateLiteral$17([ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', '</button>\n                        <button type="reset" class="btn btn-secondary">', "</button>\n                      </div>\n                    </div>\n                    " ], [ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', '</button>\n                        <button type="reset" class="btn btn-secondary">', "</button>\n                      </div>\n                    </div>\n                    " ]);
 
 var _templateObject3$10 = _taggedTemplateLiteral$17([ '<p class="form-control-static mb-0">', "</p>" ], [ '<p class="form-control-static mb-0">', "</p>" ]);
 
@@ -4556,14 +4550,14 @@ function _classCallCheck$23(instance, Constructor) {
     }
 }
 
-function _possibleConstructorReturn$20(self, call) {
+function _possibleConstructorReturn$19(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$20(subClass, superClass) {
+function _inherits$19(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -4581,7 +4575,7 @@ function _inherits$20(subClass, superClass) {
 $.fn.validate = validate;
 
 var Forms = function(_Lego$UI$Baseview) {
-    _inherits$20(Forms, _Lego$UI$Baseview);
+    _inherits$19(Forms, _Lego$UI$Baseview);
     function Forms() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck$23(this, Forms);
@@ -4609,6 +4603,7 @@ var Forms = function(_Lego$UI$Baseview) {
             },
             submitEl: "",
             submitText: "提 交",
+            resetText: "重 置",
             data: [],
             format: function format(result) {
                 return result;
@@ -4616,7 +4611,7 @@ var Forms = function(_Lego$UI$Baseview) {
             onSubmit: function onSubmit() {}
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn$20(this, (Forms.__proto__ || Object.getPrototypeOf(Forms)).call(this, options));
+        var _this = _possibleConstructorReturn$19(this, (Forms.__proto__ || Object.getPrototypeOf(Forms)).call(this, options));
         _this.renderCom();
         return _this;
     }
@@ -4628,9 +4623,9 @@ var Forms = function(_Lego$UI$Baseview) {
                 var submit = "";
                 if (!options.submitEl) {
                     if (options.layout == "vertical") {
-                        submit = hx(_templateObject$17, options.submitText);
+                        submit = hx(_templateObject$17, options.submitText, options.resetText);
                     } else {
-                        submit = hx(_templateObject2$13, options.submitText);
+                        submit = hx(_templateObject2$13, options.submitText, options.resetText);
                     }
                 }
                 return submit;
@@ -4750,6 +4745,11 @@ var Forms = function(_Lego$UI$Baseview) {
             }
             return this.options.onSubmit(data);
         }
+    }, {
+        key: "reset",
+        value: function reset() {
+            this.$el.reset();
+        }
     } ]);
     return Forms;
 }(Lego.UI.Baseview);
@@ -4793,14 +4793,14 @@ function _classCallCheck$24(instance, Constructor) {
     }
 }
 
-function _possibleConstructorReturn$21(self, call) {
+function _possibleConstructorReturn$20(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$21(subClass, superClass) {
+function _inherits$20(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -4816,7 +4816,7 @@ function _inherits$21(subClass, superClass) {
 }
 
 var Listgroup = function(_Lego$UI$Baseview) {
-    _inherits$21(Listgroup, _Lego$UI$Baseview);
+    _inherits$20(Listgroup, _Lego$UI$Baseview);
     function Listgroup() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck$24(this, Listgroup);
@@ -4833,7 +4833,7 @@ var Listgroup = function(_Lego$UI$Baseview) {
             onClose: function onClose() {}
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$21(this, (Listgroup.__proto__ || Object.getPrototypeOf(Listgroup)).call(this, options));
+        return _possibleConstructorReturn$20(this, (Listgroup.__proto__ || Object.getPrototypeOf(Listgroup)).call(this, options));
     }
     _createClass$24(Listgroup, [ {
         key: "render",
@@ -4909,14 +4909,14 @@ function _classCallCheck$25(instance, Constructor) {
     }
 }
 
-function _possibleConstructorReturn$22(self, call) {
+function _possibleConstructorReturn$21(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$22(subClass, superClass) {
+function _inherits$21(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -4932,7 +4932,7 @@ function _inherits$22(subClass, superClass) {
 }
 
 var Transfer = function(_Lego$UI$Baseview) {
-    _inherits$22(Transfer, _Lego$UI$Baseview);
+    _inherits$21(Transfer, _Lego$UI$Baseview);
     function Transfer() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck$25(this, Transfer);
@@ -5012,7 +5012,7 @@ var Transfer = function(_Lego$UI$Baseview) {
                 }
             });
         }
-        return _possibleConstructorReturn$22(this, (Transfer.__proto__ || Object.getPrototypeOf(Transfer)).call(this, options));
+        return _possibleConstructorReturn$21(this, (Transfer.__proto__ || Object.getPrototypeOf(Transfer)).call(this, options));
     }
     _createClass$25(Transfer, [ {
         key: "render",
@@ -5080,14 +5080,14 @@ function _classCallCheck$26(instance, Constructor) {
     }
 }
 
-function _possibleConstructorReturn$23(self, call) {
+function _possibleConstructorReturn$22(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$23(subClass, superClass) {
+function _inherits$22(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -5103,7 +5103,7 @@ function _inherits$23(subClass, superClass) {
 }
 
 var Progressbar = function(_Lego$UI$Baseview) {
-    _inherits$23(Progressbar, _Lego$UI$Baseview);
+    _inherits$22(Progressbar, _Lego$UI$Baseview);
     function Progressbar() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck$26(this, Progressbar);
@@ -5116,7 +5116,7 @@ var Progressbar = function(_Lego$UI$Baseview) {
             onComplete: function onComplete() {}
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$23(this, (Progressbar.__proto__ || Object.getPrototypeOf(Progressbar)).call(this, options));
+        return _possibleConstructorReturn$22(this, (Progressbar.__proto__ || Object.getPrototypeOf(Progressbar)).call(this, options));
     }
     _createClass$26(Progressbar, [ {
         key: "render",
@@ -5166,14 +5166,14 @@ function _classCallCheck$29(instance, Constructor) {
     }
 }
 
-function _possibleConstructorReturn$26(self, call) {
+function _possibleConstructorReturn$25(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$26(subClass, superClass) {
+function _inherits$25(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -5189,7 +5189,7 @@ function _inherits$26(subClass, superClass) {
 }
 
 var UploadView = function(_Lego$View) {
-    _inherits$26(UploadView, _Lego$View);
+    _inherits$25(UploadView, _Lego$View);
     function UploadView() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck$29(this, UploadView);
@@ -5209,7 +5209,7 @@ var UploadView = function(_Lego$View) {
             needToken: false
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn$26(this, (UploadView.__proto__ || Object.getPrototypeOf(UploadView)).call(this, options));
+        var _this = _possibleConstructorReturn$25(this, (UploadView.__proto__ || Object.getPrototypeOf(UploadView)).call(this, options));
         _this.xhr = createXMLHTTPRequest();
         _this.startDate = 0;
         _this.form = null;
@@ -5380,14 +5380,14 @@ function _classCallCheck$28(instance, Constructor) {
     }
 }
 
-function _possibleConstructorReturn$25(self, call) {
+function _possibleConstructorReturn$24(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$25(subClass, superClass) {
+function _inherits$24(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -5403,7 +5403,7 @@ function _inherits$25(subClass, superClass) {
 }
 
 var UploadItem = function(_UploadBase) {
-    _inherits$25(UploadItem, _UploadBase);
+    _inherits$24(UploadItem, _UploadBase);
     function UploadItem() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck$28(this, UploadItem);
@@ -5426,7 +5426,7 @@ var UploadItem = function(_UploadBase) {
             onCancel: function onCancel() {}
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$25(this, (UploadItem.__proto__ || Object.getPrototypeOf(UploadItem)).call(this, options));
+        return _possibleConstructorReturn$24(this, (UploadItem.__proto__ || Object.getPrototypeOf(UploadItem)).call(this, options));
     }
     _createClass$28(UploadItem, [ {
         key: "render",
@@ -5520,14 +5520,14 @@ function _classCallCheck$27(instance, Constructor) {
     }
 }
 
-function _possibleConstructorReturn$24(self, call) {
+function _possibleConstructorReturn$23(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$24(subClass, superClass) {
+function _inherits$23(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -5543,7 +5543,7 @@ function _inherits$24(subClass, superClass) {
 }
 
 var Upload = function(_Lego$UI$Baseview) {
-    _inherits$24(Upload, _Lego$UI$Baseview);
+    _inherits$23(Upload, _Lego$UI$Baseview);
     function Upload() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck$27(this, Upload);
@@ -5589,7 +5589,7 @@ var Upload = function(_Lego$UI$Baseview) {
                 };
             });
         }
-        var _this = _possibleConstructorReturn$24(this, (Upload.__proto__ || Object.getPrototypeOf(Upload)).call(this, options));
+        var _this = _possibleConstructorReturn$23(this, (Upload.__proto__ || Object.getPrototypeOf(Upload)).call(this, options));
         _this.reset();
         _this.$(".fileInput").on("change", function(event) {
             var target = $(event.currentTarget)[0];
@@ -5764,7 +5764,9 @@ Lego.components({
     navs: Navs,
     tabs: Tabs,
     search: Search,
+    selects: Selects,
     datepicker: Datepicker,
+    inputs: Inputs,
     tooltip: fun,
     popover: fun$1,
     notification: Notification,
@@ -5775,9 +5777,7 @@ Lego.components({
     listgroup: Listgroup,
     transfer: Transfer,
     progressbar: Progressbar,
-    upload: Upload,
-    selects: Selects,
-    inputs: Inputs
+    upload: Upload
 });
 
 var index = Lego.UI;
