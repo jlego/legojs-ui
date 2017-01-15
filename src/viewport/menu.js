@@ -113,13 +113,13 @@ class Menu extends Lego.UI.Baseview {
                         </a>
                     </li>
                     <li data-permis='{"module":"Operation", "operate":"Query", "hide":1}' id="nav_operation">
-                        <a href="#operation/">
+                        <a href="javascript:Lego.startApp('avatar');">
                             <div class="item-content">
                                 <div class="item-media">
                                     <i class="icon iconfont icon-dashboard"></i>
                                 </div>
                                 <div class="item-inner">
-                                    <span class="title"> 运营管理 </span>
+                                    <span class="title"> 头像 </span>
                                 </div>
                             </div>
                         </a>

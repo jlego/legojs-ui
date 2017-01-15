@@ -34,7 +34,7 @@ class Buttons extends Lego.UI.Baseview {
     }
     onClick(event){
         event.stopPropagation();
-        if(typeof this.options.onClick === 'function') this.options.onClick(this, event);
+        if(typeof this.options.onClick == 'function') this.options.onClick(this, event);
     }
 }
 Lego.components('buttons', Buttons);

@@ -712,7 +712,7 @@
             key: "onClick",
             value: function e(t) {
                 t.stopPropagation();
-                if (typeof this.options.onClick === "function") this.options.onClick(this, t);
+                if (typeof this.options.onClick == "function") this.options.onClick(this, t);
             }
         } ]);
         return t;

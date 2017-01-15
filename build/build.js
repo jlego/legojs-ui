@@ -62,7 +62,8 @@ build([{
 {alias: 'listgroup'},
 {alias: 'transfer'},
 {alias: 'progressbar'},
-{alias: 'upload'}
+{alias: 'upload'},
+{alias: 'avatar'}
 ].map(genConfig));
 
 function ucfirst(str) {

@@ -34,9 +34,9 @@
                 return t;
             };
         }();
-        var i = n(255);
+        var i = n(258);
         var a = l(i);
-        var r = n(256);
+        var r = n(259);
         var s = l(r);
         function l(e) {
             return e && e.__esModule ? e : {
@@ -80,7 +80,7 @@
         }();
         HBY.router(new c());
     },
-    255: function(e, t) {
+    258: function(e, t) {
         "use strict";
         Object.defineProperty(t, "__esModule", {
             value: true
@@ -157,7 +157,7 @@
         }(Lego.UI.Baseview);
         t.default = l;
     },
-    256: function(e, t, n) {
+    259: function(e, t, n) {
         "use strict";
         Object.defineProperty(t, "__esModule", {
             value: true
@@ -179,7 +179,7 @@
             };
         }();
         var i = l([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <upload id="upload1"></upload>\n            </div>\n            <div class="col-sm-6">\n              <upload id="upload2"></upload>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <upload id="upload3"></upload>\n            </div>\n            <div class="col-sm-6">\n              <upload id="upload4"></upload>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <upload id="upload1"></upload>\n            </div>\n            <div class="col-sm-6">\n              <upload id="upload2"></upload>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <upload id="upload3"></upload>\n            </div>\n            <div class="col-sm-6">\n              <upload id="upload4"></upload>\n            </div>\n          </div>\n        </div>\n        ' ]);
-        var a = n(257);
+        var a = n(260);
         var r = s(a);
         function s(e) {
             return e && e.__esModule ? e : {
@@ -281,7 +281,7 @@
         }(Lego.UI.Baseview);
         t.default = d;
     },
-    257: function(e, t, n) {
+    260: function(e, t, n) {
         "use strict";
         var o = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
             return typeof e;
@@ -291,7 +291,7 @@
         function i(e) {
             return e && (typeof e === "undefined" ? "undefined" : o(e)) === "object" && "default" in e ? e["default"] : e;
         }
-        var a = i(n(258));
+        var a = i(n(261));
         var r = function() {
             function e(e, t) {
                 for (var n = 0; n < t.length; n++) {
@@ -965,7 +965,7 @@
         Lego.components("upload", B);
         e.exports = B;
     },
-    258: function(e, t) {
+    261: function(e, t) {
         var n = function(e, t) {
             var n = n || webkitURL;
             var o = n.createObjectURL(e);

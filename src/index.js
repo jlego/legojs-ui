@@ -26,6 +26,7 @@ import Listgroup from "./listgroup/index";
 import Transfer from "./transfer/index";
 import Progressbar from "./progressbar/index";
 import Upload from "./upload/index";
+import Avatar from "./avatar/index";
 
 Lego.components({
 	baseview: Baseview,
@@ -53,6 +54,7 @@ Lego.components({
 	listgroup: Listgroup,
 	transfer: Transfer,
 	progressbar: Progressbar,
-	upload: Upload
+	upload: Upload,
+	avatar: Avatar
 });
 export default Lego.UI;

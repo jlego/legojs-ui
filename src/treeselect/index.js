@@ -84,7 +84,6 @@ class Treeselect extends Selects {
                     parentView.options.onSelect(parentView, result);
                     parentView.options.onChange(parentView, result);
                     parentView.refresh();
-                    // if(theView.options.clickAndClose) theView.close();
                 },
                 disabled: opts.disabled || false,
                 className: opts.dropdownClassName
