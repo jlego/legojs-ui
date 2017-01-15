@@ -39,14 +39,12 @@ class Pagination extends Lego.UI.Baseview {
                 el: '#' + opts.vid + '-dropdown',
                 trigger: '#' + opts.vid + '-select',
                 data: theData,
-                onChange(result){
-                    const theView = Lego.getView(opts.el);
+                onChange(self, result){
+                    const parentView = this.context;
                     const num = parseInt(result.key);
-                    if(theView){
-                        theView.options.current = 1;
-                        theView.options.pageSize = num;
-                        theView.options.onPageSizeChange(num);
-                    }
+                    parentView.options.current = 1;
+                    parentView.options.pageSize = num;
+                    parentView.options.onPageSizeChange(num);
                 }
             }];
         }
@@ -122,7 +120,7 @@ class Pagination extends Lego.UI.Baseview {
         const options = this.options;
         console.warn('点击了上一页');
         options.current--;
-        options.onChange(options.current, options.pageSize);
+        options.onChange(this, options.current, options.pageSize);
     }
     clickItemPage(event){
         event.stopPropagation();
@@ -131,14 +129,14 @@ class Pagination extends Lego.UI.Baseview {
         const options = this.options;
         console.warn('点击了' + num + '页');
         options.current = num;
-        options.onChange(num, options.pageSize);
+        options.onChange(this, num, options.pageSize);
     }
     clickNextPage(event){
         event.stopPropagation();
         const options = this.options;
         console.warn('点击了下一页');
         options.current++;
-        options.onChange(options.current, options.pageSize);
+        options.onChange(this, options.current, options.pageSize);
     }
     clickMorePage(event){
         event.stopPropagation();
@@ -149,7 +147,7 @@ class Pagination extends Lego.UI.Baseview {
         console.warn('点击了更多页');
         options.current = current + (pageRang - currentMod + 1);
         if(options.current > options.totalPages) options.current = options.totalPages;
-        options.onChange(options.current, options.pageSize);
+        options.onChange(this, options.current, options.pageSize);
     }
     _enterSearch(event) {
         const target = $(event.currentTarget);
@@ -159,7 +157,7 @@ class Pagination extends Lego.UI.Baseview {
             if(num > options.totalPages) num = options.totalPages;
             this.jumped = true;
             options.current = num;
-            options.onChange(num, options.pageSize);
+            options.onChange(this, num, options.pageSize);
         }
     }
 }

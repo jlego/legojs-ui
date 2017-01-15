@@ -36,7 +36,7 @@ class Tabs extends Lego.UI.Baseview {
                 type: 'tabs', //菜单类型，现在支持垂直、水平、和内嵌模式三种base, inline, tabs, pills, pills-stacked
                 activeKey: opts.activeKey, //当前激活的key
                 // direction: '',  //显示方向
-                onClick(item){
+                onClick(self, item){
                     const parentView = this.context;
                     if(!item.children){
                         parentView.options.activeKey = item.key;
@@ -81,7 +81,7 @@ class Tabs extends Lego.UI.Baseview {
         this.$el.slideUp("normal", () => {
             this.remove();
         });
-        if (typeof this.options.onClose === 'function') this.options.onClose(event);
+        if (typeof this.options.onClose === 'function') this.options.onClose(this, event);
     }
 }
 Lego.components('tabs', Tabs);

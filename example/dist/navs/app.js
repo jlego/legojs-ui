@@ -433,7 +433,7 @@
                     var a = this.options.data.find(function(e) {
                         return e.key === i;
                     });
-                    if (typeof this.options.onClick === "function") this.options.onClick(a);
+                    if (typeof this.options.onClick === "function") this.options.onClick(this, a);
                 }
             }, {
                 key: "clickSubItem",
@@ -450,7 +450,7 @@
                         });
                         this.refresh();
                     }
-                    if (typeof this.options.onClick === "function") this.options.onClick(r);
+                    if (typeof this.options.onClick === "function") this.options.onClick(this, r);
                 }
             } ]);
             return n;
@@ -574,7 +574,7 @@
                     var a = this.options.data.find(function(e) {
                         return e.key === i;
                     });
-                    if (typeof this.options.onClick === "function") this.options.onClick(a);
+                    if (typeof this.options.onClick === "function") this.options.onClick(this, a);
                 }
             }, {
                 key: "clickSubItem",
@@ -591,7 +591,7 @@
                         });
                         this.refresh();
                     }
-                    if (typeof this.options.onClick === "function") this.options.onClick(r);
+                    if (typeof this.options.onClick === "function") this.options.onClick(this, r);
                 }
             } ]);
             return n;
@@ -670,21 +670,21 @@
                         eventName: e.eventName || "click",
                         type: "tabs",
                         activeKey: e.activeKey,
-                        onClick: function e(n) {
-                            var t = this.context;
-                            if (!n.children) {
-                                t.options.activeKey = n.key;
+                        onClick: function e(n, t) {
+                            var i = this.context;
+                            if (!t.children) {
+                                i.options.activeKey = t.key;
                             } else {
                                 (function() {
-                                    var e = n.children.find(function(e) {
+                                    var e = t.children.find(function(e) {
                                         return e.active == true;
                                     });
                                     if (e) {
-                                        t.options.data.forEach(function(i) {
-                                            if (i.key == n.key) {
+                                        i.options.data.forEach(function(n) {
+                                            if (n.key == t.key) {
                                                 if (e.content) {
-                                                    i.content = e.content;
-                                                    t.options.activeKey = n.key;
+                                                    n.content = e.content;
+                                                    i.options.activeKey = t.key;
                                                 }
                                             }
                                         });
@@ -717,7 +717,7 @@
                     this.$el.slideUp("normal", function() {
                         t.remove();
                     });
-                    if (typeof this.options.onClose === "function") this.options.onClose(n);
+                    if (typeof this.options.onClose === "function") this.options.onClose(this, n);
                 }
             } ]);
             return n;

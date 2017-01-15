@@ -67,14 +67,14 @@ class Tree extends Lego.UI.Baseview {
                             type: val[keyNames[2]]
                         });
                     });
-                    if (typeof options.onChecked == 'function') options.onChecked(newValue);
+                    if (typeof options.onChecked == 'function') options.onChecked(that, newValue);
                 }
             });
         } else {
             options.setting.callback = Object.assign(options.setting.callback || {}, {
                 onClick: function(event, treeId, treeNode) {
                     if (!selectOrNo(treeNode)) return false;
-                    if (typeof options.onClick == 'function') options.onClick({
+                    if (typeof options.onClick == 'function') options.onClick(that, {
                         key: treeNode[options.keyNames[0]],
                         value: treeNode[options.keyNames[1]],
                         type: treeNode[options.keyNames[2]]

@@ -44,7 +44,7 @@ class Selects extends Lego.UI.Baseview {
                 className: opts.dropdownClassName,
                 clickAndClose: opts.multiple ? false : true,
                 data: opts.data,
-                onChange(model){
+                onChange(self, model){
                     const parentView = this.context;
                     parentView.$('.select-input').focus();
                     if(model.key !== '0' && opts.multiple){
@@ -57,8 +57,8 @@ class Selects extends Lego.UI.Baseview {
                         parentView.options.data.forEach(item => item.selected = false);
                         parentView.options.value = [model];
                     }
-                    parentView.options.onSelect(model);
-                    parentView.options.onChange(model);
+                    parentView.options.onSelect(parentView, model);
+                    parentView.options.onChange(parentView, model);
                     parentView.refresh();
                 }
             }]
@@ -132,7 +132,7 @@ class Selects extends Lego.UI.Baseview {
         this.getValue();
         this.refresh();
         Lego.getView('#dropdown-' + this.options.vid).refresh();
-        if(typeof this.options.onDeselect === 'function') this.options.onDeselect({
+        if(typeof this.options.onDeselect === 'function') this.options.onDeselect(this, {
             key: key,
             value: value
         });

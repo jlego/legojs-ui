@@ -156,13 +156,13 @@ var Dropdown = function(_Lego$UI$Baseview) {
         key: "show",
         value: function show(event) {
             this.options.trigger.addClass("dropdown open");
-            this.options.onVisibleChange(true);
+            this.options.onVisibleChange(this, true);
         }
     }, {
         key: "close",
         value: function close(event) {
             this.options.trigger.removeClass("dropdown open");
-            this.options.onVisibleChange(false);
+            this.options.onVisibleChange(this, false);
         }
     }, {
         key: "clickItem",
@@ -173,7 +173,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 return Item.key == target.attr("id");
             });
             if (model) {
-                this.options.onChange(model);
+                this.options.onChange(this, model);
                 this.options.activeKey = model.key;
                 this.options.activeValue = model.value;
             }
@@ -287,7 +287,7 @@ var Selects = function(_Lego$UI$Baseview) {
                 className: opts.dropdownClassName,
                 clickAndClose: opts.multiple ? false : true,
                 data: opts.data,
-                onChange: function onChange(model) {
+                onChange: function onChange(self, model) {
                     var parentView = this.context;
                     parentView.$(".select-input").focus();
                     if (model.key !== "0" && opts.multiple) {
@@ -302,8 +302,8 @@ var Selects = function(_Lego$UI$Baseview) {
                         });
                         parentView.options.value = [ model ];
                     }
-                    parentView.options.onSelect(model);
-                    parentView.options.onChange(model);
+                    parentView.options.onSelect(parentView, model);
+                    parentView.options.onChange(parentView, model);
                     parentView.refresh();
                 }
             } ]
@@ -357,7 +357,7 @@ var Selects = function(_Lego$UI$Baseview) {
             this.getValue();
             this.refresh();
             Lego.getView("#dropdown-" + this.options.vid).refresh();
-            if (typeof this.options.onDeselect === "function") this.options.onDeselect({
+            if (typeof this.options.onDeselect === "function") this.options.onDeselect(this, {
                 key: key,
                 value: value
             });

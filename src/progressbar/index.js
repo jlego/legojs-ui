@@ -22,7 +22,7 @@ class Progressbar extends Lego.UI.Baseview {
     render() {
         const options = this.options || {};
         if(options.percent == 100){
-            if(typeof options.onComplete == 'function') options.onComplete();
+            if(typeof options.onComplete == 'function') options.onComplete(this);
         }
         const vDom = hx`
         <div class="progress">

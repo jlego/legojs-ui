@@ -156,13 +156,13 @@ var Dropdown = function(_Lego$UI$Baseview) {
         key: "show",
         value: function show(event) {
             this.options.trigger.addClass("dropdown open");
-            this.options.onVisibleChange(true);
+            this.options.onVisibleChange(this, true);
         }
     }, {
         key: "close",
         value: function close(event) {
             this.options.trigger.removeClass("dropdown open");
-            this.options.onVisibleChange(false);
+            this.options.onVisibleChange(this, false);
         }
     }, {
         key: "clickItem",
@@ -173,7 +173,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 return Item.key == target.attr("id");
             });
             if (model) {
-                this.options.onChange(model);
+                this.options.onChange(this, model);
                 this.options.activeKey = model.key;
                 this.options.activeValue = model.value;
             }
@@ -261,7 +261,7 @@ var Search = function(_Lego$UI$Baseview) {
                 el: "#dropdown-" + opts.vid,
                 trigger: "#select-" + opts.vid,
                 data: opts.data,
-                onChange: function onChange(model) {
+                onChange: function onChange(self, model) {
                     this.context.options.activeKey = model.key;
                     this.context.options.activeValue = model.value;
                 }
@@ -289,7 +289,7 @@ var Search = function(_Lego$UI$Baseview) {
         value: function onSearch(event) {
             event.stopPropagation();
             var keyword = this.$(".search-input").val();
-            if (typeof this.options.onSearch === "function") this.options.onSearch({
+            if (typeof this.options.onSearch === "function") this.options.onSearch(this, {
                 key: this.options.activeKey,
                 value: this.options.activeValue,
                 keyword: keyword

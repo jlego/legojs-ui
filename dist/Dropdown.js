@@ -156,13 +156,13 @@ var Dropdown = function(_Lego$UI$Baseview) {
         key: "show",
         value: function show(event) {
             this.options.trigger.addClass("dropdown open");
-            this.options.onVisibleChange(true);
+            this.options.onVisibleChange(this, true);
         }
     }, {
         key: "close",
         value: function close(event) {
             this.options.trigger.removeClass("dropdown open");
-            this.options.onVisibleChange(false);
+            this.options.onVisibleChange(this, false);
         }
     }, {
         key: "clickItem",
@@ -173,7 +173,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 return Item.key == target.attr("id");
             });
             if (model) {
-                this.options.onChange(model);
+                this.options.onChange(this, model);
                 this.options.activeKey = model.key;
                 this.options.activeValue = model.value;
             }

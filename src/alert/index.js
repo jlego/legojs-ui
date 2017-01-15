@@ -50,7 +50,7 @@ class Alert extends Lego.UI.Baseview {
         this.$el.slideUp("normal", () => {
             this.remove();
         });
-        if(typeof this.options.onClose === 'function') this.options.onClose(event);
+        if(typeof this.options.onClose === 'function') this.options.onClose(this, event);
     }
 }
 

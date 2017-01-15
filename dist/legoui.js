@@ -585,7 +585,7 @@ var Alert = function(_Lego$UI$Baseview) {
             this.$el.slideUp("normal", function() {
                 _this2.remove();
             });
-            if (typeof this.options.onClose === "function") this.options.onClose(event);
+            if (typeof this.options.onClose === "function") this.options.onClose(this, event);
         }
     } ]);
     return Alert;
@@ -771,7 +771,7 @@ var Buttons = function(_Lego$UI$Baseview) {
         key: "onClick",
         value: function onClick(event) {
             event.stopPropagation();
-            if (typeof this.options.onClick === "function") this.options.onClick(event);
+            if (typeof this.options.onClick === "function") this.options.onClick(this, event);
         }
     } ]);
     return Buttons;
@@ -930,13 +930,13 @@ var Dropdown = function(_Lego$UI$Baseview) {
         key: "show",
         value: function show(event) {
             this.options.trigger.addClass("dropdown open");
-            this.options.onVisibleChange(true);
+            this.options.onVisibleChange(this, true);
         }
     }, {
         key: "close",
         value: function close(event) {
             this.options.trigger.removeClass("dropdown open");
-            this.options.onVisibleChange(false);
+            this.options.onVisibleChange(this, false);
         }
     }, {
         key: "clickItem",
@@ -947,7 +947,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 return Item.key == target.attr("id");
             });
             if (model) {
-                this.options.onChange(model);
+                this.options.onChange(this, model);
                 this.options.activeKey = model.key;
                 this.options.activeValue = model.value;
             }
@@ -1070,14 +1070,12 @@ var Pagination = function(_Lego$UI$Baseview) {
                 el: "#" + opts.vid + "-dropdown",
                 trigger: "#" + opts.vid + "-select",
                 data: theData,
-                onChange: function onChange(result) {
-                    var theView = Lego.getView(opts.el);
+                onChange: function onChange(self, result) {
+                    var parentView = this.context;
                     var num = parseInt(result.key);
-                    if (theView) {
-                        theView.options.current = 1;
-                        theView.options.pageSize = num;
-                        theView.options.onPageSizeChange(num);
-                    }
+                    parentView.options.current = 1;
+                    parentView.options.pageSize = num;
+                    parentView.options.onPageSizeChange(num);
                 }
             } ];
         }
@@ -1112,7 +1110,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             var options = this.options;
             console.warn("点击了上一页");
             options.current--;
-            options.onChange(options.current, options.pageSize);
+            options.onChange(this, options.current, options.pageSize);
         }
     }, {
         key: "clickItemPage",
@@ -1122,7 +1120,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             var options = this.options;
             console.warn("点击了" + num + "页");
             options.current = num;
-            options.onChange(num, options.pageSize);
+            options.onChange(this, num, options.pageSize);
         }
     }, {
         key: "clickNextPage",
@@ -1131,7 +1129,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             var options = this.options;
             console.warn("点击了下一页");
             options.current++;
-            options.onChange(options.current, options.pageSize);
+            options.onChange(this, options.current, options.pageSize);
         }
     }, {
         key: "clickMorePage",
@@ -1142,7 +1140,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             console.warn("点击了更多页");
             options.current = current + (pageRang - currentMod + 1);
             if (options.current > options.totalPages) options.current = options.totalPages;
-            options.onChange(options.current, options.pageSize);
+            options.onChange(this, options.current, options.pageSize);
         }
     }, {
         key: "_enterSearch",
@@ -1154,7 +1152,7 @@ var Pagination = function(_Lego$UI$Baseview) {
                 if (num > options.totalPages) num = options.totalPages;
                 this.jumped = true;
                 options.current = num;
-                options.onChange(num, options.pageSize);
+                options.onChange(this, num, options.pageSize);
             }
         }
     } ]);
@@ -1490,7 +1488,7 @@ var Tables = function(_Lego$UI$Baseview) {
         key: "clickSetting",
         value: function clickSetting(event) {
             event.stopPropagation();
-            if (typeof this.options.colSetting === "function") this.options.colSetting();
+            if (typeof this.options.colSetting === "function") this.options.colSetting(this);
         }
     }, {
         key: "selectOne",
@@ -2441,7 +2439,7 @@ var Navs = function(_Lego$UI$Baseview) {
             var model = this.options.data.find(function(item) {
                 return item.key === key;
             });
-            if (typeof this.options.onClick === "function") this.options.onClick(model);
+            if (typeof this.options.onClick === "function") this.options.onClick(this, model);
         }
     }, {
         key: "clickSubItem",
@@ -2458,7 +2456,7 @@ var Navs = function(_Lego$UI$Baseview) {
                 });
                 this.refresh();
             }
-            if (typeof this.options.onClick === "function") this.options.onClick(model);
+            if (typeof this.options.onClick === "function") this.options.onClick(this, model);
         }
     } ]);
     return Navs;
@@ -2546,7 +2544,7 @@ var Tabs = function(_Lego$UI$Baseview) {
                 eventName: opts.eventName || "click",
                 type: "tabs",
                 activeKey: opts.activeKey,
-                onClick: function onClick(item) {
+                onClick: function onClick(self, item) {
                     var parentView = this.context;
                     if (!item.children) {
                         parentView.options.activeKey = item.key;
@@ -2593,7 +2591,7 @@ var Tabs = function(_Lego$UI$Baseview) {
             this.$el.slideUp("normal", function() {
                 _this2.remove();
             });
-            if (typeof this.options.onClose === "function") this.options.onClose(event);
+            if (typeof this.options.onClose === "function") this.options.onClose(this, event);
         }
     } ]);
     return Tabs;
@@ -2677,7 +2675,7 @@ var Search = function(_Lego$UI$Baseview) {
                 el: "#dropdown-" + opts.vid,
                 trigger: "#select-" + opts.vid,
                 data: opts.data,
-                onChange: function onChange(model) {
+                onChange: function onChange(self, model) {
                     this.context.options.activeKey = model.key;
                     this.context.options.activeValue = model.value;
                 }
@@ -2705,7 +2703,7 @@ var Search = function(_Lego$UI$Baseview) {
         value: function onSearch(event) {
             event.stopPropagation();
             var keyword = this.$(".search-input").val();
-            if (typeof this.options.onSearch === "function") this.options.onSearch({
+            if (typeof this.options.onSearch === "function") this.options.onSearch(this, {
                 key: this.options.activeKey,
                 value: this.options.activeValue,
                 keyword: keyword
@@ -2819,7 +2817,7 @@ var Selects = function(_Lego$UI$Baseview) {
                 className: opts.dropdownClassName,
                 clickAndClose: opts.multiple ? false : true,
                 data: opts.data,
-                onChange: function onChange(model) {
+                onChange: function onChange(self, model) {
                     var parentView = this.context;
                     parentView.$(".select-input").focus();
                     if (model.key !== "0" && opts.multiple) {
@@ -2834,8 +2832,8 @@ var Selects = function(_Lego$UI$Baseview) {
                         });
                         parentView.options.value = [ model ];
                     }
-                    parentView.options.onSelect(model);
-                    parentView.options.onChange(model);
+                    parentView.options.onSelect(parentView, model);
+                    parentView.options.onChange(parentView, model);
                     parentView.refresh();
                 }
             } ]
@@ -2889,7 +2887,7 @@ var Selects = function(_Lego$UI$Baseview) {
             this.getValue();
             this.refresh();
             Lego.getView("#dropdown-" + this.options.vid).refresh();
-            if (typeof this.options.onDeselect === "function") this.options.onDeselect({
+            if (typeof this.options.onDeselect === "function") this.options.onDeselect(this, {
                 key: key,
                 value: value
             });
@@ -3041,7 +3039,7 @@ var Datepicker = function(_Lego$UI$Baseview) {
                 if (options.inline) $theEl = this.$el;
                 $theEl.datetimepicker(options.setting);
                 $theEl.on("dp.change", function(e) {
-                    if (typeof options.onChange == "function") options.onChange($(this).val());
+                    if (typeof options.onChange == "function") options.onChange(that, $(this).val());
                 });
             } else {
                 (function() {
@@ -3055,11 +3053,11 @@ var Datepicker = function(_Lego$UI$Baseview) {
                         var endDate = _this2.$(endEl).datetimepicker(endDateOpts);
                         _this2.$(startEl).on("dp.change", function(e) {
                             that.$(endEl).data("DateTimePicker").minDate(e.date);
-                            if (typeof options.onChange == "function") options.onChange($(this).val());
+                            if (typeof options.onChange == "function") options.onChange(that, $(this).val());
                         });
                         _this2.$(endEl).on("dp.change", function(e) {
                             that.$(startEl).data("DateTimePicker").maxDate(e.date);
-                            if (typeof options.onChange == "function") options.onChange($(this).val());
+                            if (typeof options.onChange == "function") options.onChange(that, $(this).val());
                         });
                     } else if (options.startInputEl || options.endInputEl) {
                         (function() {
@@ -3070,13 +3068,13 @@ var Datepicker = function(_Lego$UI$Baseview) {
                                 _this2.$(theEl).on("dp.change", function(e) {
                                     var _el = selector instanceof $ ? selector : $(selector).find(theEl);
                                     _el.data("DateTimePicker").maxDate(e.date);
-                                    if (typeof options.onChange == "function") options.onChange($(this).val());
+                                    if (typeof options.onChange == "function") options.onChange(that, $(this).val());
                                 });
                             } else if (options.startInputEl) {
                                 _this2.$(theEl).on("dp.change", function(e) {
                                     var _el = selector instanceof $ ? selector : $(selector).find(theEl);
                                     _el.data("DateTimePicker").minDate(e.date);
-                                    if (typeof options.onChange == "function") options.onChange($(this).val());
+                                    if (typeof options.onChange == "function") options.onChange(that, $(this).val());
                                 });
                             }
                         })();
@@ -3223,14 +3221,14 @@ var Inputs = function(_Lego$UI$Baseview) {
         value: function onEnter(event) {
             var target = $(event.currentTarget), value = target.val();
             if (event.keyCode == 13) {
-                if (typeof this.options.onEnter === "function") this.options.onEnter(value, event);
+                if (typeof this.options.onEnter === "function") this.options.onEnter(this, value, event);
             }
         }
     }, {
         key: "onChange",
         value: function onChange(event) {
             var target = $(event.currentTarget), value = target.val();
-            if (typeof this.options.onChange === "function") this.options.onChange(value, event);
+            if (typeof this.options.onChange === "function") this.options.onChange(this, value, event);
         }
     } ]);
     return Inputs;
@@ -4213,14 +4211,14 @@ var Tree = function(_Lego$UI$Baseview) {
                                 type: val[keyNames[2]]
                             });
                         });
-                        if (typeof options.onChecked == "function") options.onChecked(newValue);
+                        if (typeof options.onChecked == "function") options.onChecked(that, newValue);
                     }
                 });
             } else {
                 options.setting.callback = Object.assign(options.setting.callback || {}, {
                     onClick: function onClick(event, treeId, treeNode) {
                         if (!selectOrNo(treeNode)) return false;
-                        if (typeof options.onClick == "function") options.onClick({
+                        if (typeof options.onClick == "function") options.onClick(that, {
                             key: treeNode[options.keyNames[0]],
                             value: treeNode[options.keyNames[1]],
                             type: treeNode[options.keyNames[2]]
@@ -4355,7 +4353,7 @@ var Treeselect = function(_Selects) {
                 value: opts.value,
                 data: opts.data,
                 dataSource: opts.treeDataSource,
-                onChecked: function onChecked(result) {
+                onChecked: function onChecked(self, result) {
                     var parentView = this.context;
                     if (result.key !== "0" && opts.setting.check) {
                         parentView.getValue();
@@ -4373,11 +4371,11 @@ var Treeselect = function(_Selects) {
                             parentView.options.value = [];
                         }
                     }
-                    parentView.options.onSelect(result);
-                    parentView.options.onChange(result);
+                    parentView.options.onSelect(parentView, result);
+                    parentView.options.onChange(parentView, result);
                     parentView.refresh();
                 },
-                onClick: function onClick(result) {
+                onClick: function onClick(self, result) {
                     var parentView = this.context;
                     parentView.options.value.forEach(function(item) {
                         return item.selected = false;
@@ -4388,8 +4386,8 @@ var Treeselect = function(_Selects) {
                         type: result.type,
                         selected: true
                     } ];
-                    parentView.options.onSelect(result);
-                    parentView.options.onChange(result);
+                    parentView.options.onSelect(parentView, result);
+                    parentView.options.onChange(parentView, result);
                     parentView.refresh();
                 },
                 disabled: opts.disabled || false,
@@ -4493,7 +4491,7 @@ var Treeselect = function(_Selects) {
                 var treeNode = treeView.getNodeByParam(this.options.keyNames[0], key, null);
                 treeView.checkNode(treeNode, !treeNode.checked, null, true);
             }
-            if (typeof this.options.onDeselect === "function") this.options.onDeselect({
+            if (typeof this.options.onDeselect === "function") this.options.onDeselect(this, {
                 key: key,
                 value: value
             });
@@ -4754,7 +4752,7 @@ var Forms = function(_Lego$UI$Baseview) {
             if (!$submitEl.hasClass("disabled")) {
                 $submitEl.text("提交中...").addClass("disabled");
             }
-            return this.options.onSubmit(data);
+            return this.options.onSubmit(this, data);
         }
     }, {
         key: "reset",
@@ -4864,7 +4862,7 @@ var Listgroup = function(_Lego$UI$Baseview) {
         value: function onClick(event) {
             event.stopPropagation();
             var target = $(event.currentTarget), key = target.attr("id");
-            if (typeof this.options.onClick === "function") this.options.onClick(key, event);
+            if (typeof this.options.onClick === "function") this.options.onClick(this, key, event);
             this.options.activeKey = this.options.activeKey != key ? key : "";
             this.refresh();
         }
@@ -4873,7 +4871,7 @@ var Listgroup = function(_Lego$UI$Baseview) {
         value: function onClose(event) {
             event.stopPropagation();
             var target = $(event.currentTarget), key = target.parent().attr("id");
-            if (typeof this.options.onClose === "function") this.options.onClose(key, event);
+            if (typeof this.options.onClose === "function") this.options.onClose(this, key, event);
             this.options.data = this.options.data.filter(function(item) {
                 return item.key !== key;
             });
@@ -4989,36 +4987,34 @@ var Transfer = function(_Lego$UI$Baseview) {
                     }
                 }
             }, options.treeSetting || {}),
-            onChecked: function onChecked(result) {
+            onChecked: function onChecked(self, result) {
+                var parentView = this.context;
                 var listView = Lego.getView("#transfer_" + options.vid + "_list");
                 if (listView) {
                     listView.options.data = result;
                     listView.refresh();
                 }
-                if (typeof options.onChange === "function") options.onChange(result);
+                if (typeof options.onChange === "function") options.onChange(parentView, result);
             },
             dataSource: options.dataSource,
             data: options.data
         }, {
             el: "#transfer_" + options.vid + "_list",
             removeAble: true,
-            onClose: function onClose(result) {
-                var treeView = Lego.getView("#transfer_" + options.vid + "_tree");
+            onClose: function onClose(self, result) {
+                var parentView = this.context;
+                var treeView = $.fn.zTree.getZTreeObj("transfer_" + options.vid + "_tree");
                 if (treeView) {
-                    var model = treeView.options.data.find(function(item) {
-                        return item.key == result;
-                    });
-                    if (model) model.checked = false;
-                    treeView.refresh();
+                    var treeNode = treeView.getNodeByParam("id", result, null);
+                    treeView.checkNode(treeNode, !treeNode.checked, null, true);
                 }
-                if (typeof options.onChange === "function") options.onChange(treeView.options.data);
             },
             data: options.value
         });
         if (options.showSearch) {
             options.components.push({
                 el: "#transfer_" + options.vid + "_search",
-                onSearch: function onSearch(result) {
+                onSearch: function onSearch(self, result) {
                     console.warn("点击了搜索框2", result);
                 }
             });
@@ -5134,7 +5130,7 @@ var Progressbar = function(_Lego$UI$Baseview) {
         value: function render() {
             var options = this.options || {};
             if (options.percent == 100) {
-                if (typeof options.onComplete == "function") options.onComplete();
+                if (typeof options.onComplete == "function") options.onComplete(this);
             }
             var vDom = hx(_templateObject$20, options.showInfo ? hx(_templateObject2$16, this.format(options.percent)) : "", options.status ? options.status : "primary", options.percent);
             return vDom;

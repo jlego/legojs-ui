@@ -104,7 +104,7 @@ var Listgroup = function(_Lego$UI$Baseview) {
         value: function onClick(event) {
             event.stopPropagation();
             var target = $(event.currentTarget), key = target.attr("id");
-            if (typeof this.options.onClick === "function") this.options.onClick(key, event);
+            if (typeof this.options.onClick === "function") this.options.onClick(this, key, event);
             this.options.activeKey = this.options.activeKey != key ? key : "";
             this.refresh();
         }
@@ -113,7 +113,7 @@ var Listgroup = function(_Lego$UI$Baseview) {
         value: function onClose(event) {
             event.stopPropagation();
             var target = $(event.currentTarget), key = target.parent().attr("id");
-            if (typeof this.options.onClose === "function") this.options.onClose(key, event);
+            if (typeof this.options.onClose === "function") this.options.onClose(this, key, event);
             this.options.data = this.options.data.filter(function(item) {
                 return item.key !== key;
             });
@@ -243,14 +243,14 @@ var Tree = function(_Lego$UI$Baseview) {
                                 type: val[keyNames[2]]
                             });
                         });
-                        if (typeof options.onChecked == "function") options.onChecked(newValue);
+                        if (typeof options.onChecked == "function") options.onChecked(that, newValue);
                     }
                 });
             } else {
                 options.setting.callback = Object.assign(options.setting.callback || {}, {
                     onClick: function onClick(event, treeId, treeNode) {
                         if (!selectOrNo(treeNode)) return false;
-                        if (typeof options.onClick == "function") options.onClick({
+                        if (typeof options.onClick == "function") options.onClick(that, {
                             key: treeNode[options.keyNames[0]],
                             value: treeNode[options.keyNames[1]],
                             type: treeNode[options.keyNames[2]]
@@ -431,13 +431,13 @@ var Dropdown = function(_Lego$UI$Baseview) {
         key: "show",
         value: function show(event) {
             this.options.trigger.addClass("dropdown open");
-            this.options.onVisibleChange(true);
+            this.options.onVisibleChange(this, true);
         }
     }, {
         key: "close",
         value: function close(event) {
             this.options.trigger.removeClass("dropdown open");
-            this.options.onVisibleChange(false);
+            this.options.onVisibleChange(this, false);
         }
     }, {
         key: "clickItem",
@@ -448,7 +448,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 return Item.key == target.attr("id");
             });
             if (model) {
-                this.options.onChange(model);
+                this.options.onChange(this, model);
                 this.options.activeKey = model.key;
                 this.options.activeValue = model.value;
             }
@@ -536,7 +536,7 @@ var Search = function(_Lego$UI$Baseview) {
                 el: "#dropdown-" + opts.vid,
                 trigger: "#select-" + opts.vid,
                 data: opts.data,
-                onChange: function onChange(model) {
+                onChange: function onChange(self, model) {
                     this.context.options.activeKey = model.key;
                     this.context.options.activeValue = model.value;
                 }
@@ -564,7 +564,7 @@ var Search = function(_Lego$UI$Baseview) {
         value: function onSearch(event) {
             event.stopPropagation();
             var keyword = this.$(".search-input").val();
-            if (typeof this.options.onSearch === "function") this.options.onSearch({
+            if (typeof this.options.onSearch === "function") this.options.onSearch(this, {
                 key: this.options.activeKey,
                 value: this.options.activeValue,
                 keyword: keyword
@@ -680,36 +680,34 @@ var Transfer = function(_Lego$UI$Baseview) {
                     }
                 }
             }, options.treeSetting || {}),
-            onChecked: function onChecked(result) {
+            onChecked: function onChecked(self, result) {
+                var parentView = this.context;
                 var listView = Lego.getView("#transfer_" + options.vid + "_list");
                 if (listView) {
                     listView.options.data = result;
                     listView.refresh();
                 }
-                if (typeof options.onChange === "function") options.onChange(result);
+                if (typeof options.onChange === "function") options.onChange(parentView, result);
             },
             dataSource: options.dataSource,
             data: options.data
         }, {
             el: "#transfer_" + options.vid + "_list",
             removeAble: true,
-            onClose: function onClose(result) {
-                var treeView = Lego.getView("#transfer_" + options.vid + "_tree");
+            onClose: function onClose(self, result) {
+                var parentView = this.context;
+                var treeView = $.fn.zTree.getZTreeObj("transfer_" + options.vid + "_tree");
                 if (treeView) {
-                    var model = treeView.options.data.find(function(item) {
-                        return item.key == result;
-                    });
-                    if (model) model.checked = false;
-                    treeView.refresh();
+                    var treeNode = treeView.getNodeByParam("id", result, null);
+                    treeView.checkNode(treeNode, !treeNode.checked, null, true);
                 }
-                if (typeof options.onChange === "function") options.onChange(treeView.options.data);
             },
             data: options.value
         });
         if (options.showSearch) {
             options.components.push({
                 el: "#transfer_" + options.vid + "_search",
-                onSearch: function onSearch(result) {
+                onSearch: function onSearch(self, result) {
                     console.warn("点击了搜索框2", result);
                 }
             });

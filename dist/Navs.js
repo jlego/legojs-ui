@@ -125,7 +125,7 @@ var Navs = function(_Lego$UI$Baseview) {
             var model = this.options.data.find(function(item) {
                 return item.key === key;
             });
-            if (typeof this.options.onClick === "function") this.options.onClick(model);
+            if (typeof this.options.onClick === "function") this.options.onClick(this, model);
         }
     }, {
         key: "clickSubItem",
@@ -142,7 +142,7 @@ var Navs = function(_Lego$UI$Baseview) {
                 });
                 this.refresh();
             }
-            if (typeof this.options.onClick === "function") this.options.onClick(model);
+            if (typeof this.options.onClick === "function") this.options.onClick(this, model);
         }
     } ]);
     return Navs;

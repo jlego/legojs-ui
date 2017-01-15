@@ -40,7 +40,7 @@ class Datepicker extends Lego.UI.Baseview {
             if(options.inline) $theEl = this.$el;
             $theEl.datetimepicker(options.setting);
             $theEl.on('dp.change', function(e) {
-                if (typeof options.onChange == 'function') options.onChange($(this).val());
+                if (typeof options.onChange == 'function') options.onChange(that, $(this).val());
             });
         } else {
             const startEl = '.startDate',
@@ -52,11 +52,11 @@ class Datepicker extends Lego.UI.Baseview {
                 const endDate = this.$(endEl).datetimepicker(endDateOpts);
                 this.$(startEl).on('dp.change', function(e) {
                     that.$(endEl).data("DateTimePicker").minDate(e.date);
-                    if (typeof options.onChange == 'function') options.onChange($(this).val());
+                    if (typeof options.onChange == 'function') options.onChange(that, $(this).val());
                 });
                 this.$(endEl).on('dp.change', function(e) {
                     that.$(startEl).data("DateTimePicker").maxDate(e.date);
-                    if (typeof options.onChange == 'function') options.onChange($(this).val());
+                    if (typeof options.onChange == 'function') options.onChange(that, $(this).val());
                 });
             } else if (options.startInputEl || options.endInputEl) {
                 const selector = options.startInputEl || options.endInputEl;
@@ -66,13 +66,13 @@ class Datepicker extends Lego.UI.Baseview {
                     this.$(theEl).on("dp.change", function(e) {
                         const _el = selector instanceof $ ? selector : $(selector).find(theEl);
                         _el.data("DateTimePicker").maxDate(e.date);
-                        if (typeof options.onChange == 'function') options.onChange($(this).val());
+                        if (typeof options.onChange == 'function') options.onChange(that, $(this).val());
                     });
                 } else if (options.startInputEl) {
                     this.$(theEl).on("dp.change", function(e) {
                         const _el = selector instanceof $ ? selector : $(selector).find(theEl);
                         _el.data("DateTimePicker").minDate(e.date);
-                        if (typeof options.onChange == 'function') options.onChange($(this).val());
+                        if (typeof options.onChange == 'function') options.onChange(that, $(this).val());
                     });
                 }
             }

@@ -228,16 +228,16 @@
                         el: "#upload1",
                         name: "uploadname",
                         multiple: true,
-                        onComplete: function e(t) {
-                            console.warn("上传成功了", t);
+                        onComplete: function e(t, n) {
+                            console.warn("上传成功了", n);
                         }
                     }, {
                         el: "#upload2",
                         name: "uploadname2",
                         buttonText: "单文件",
                         multiple: false,
-                        onComplete: function e(t) {
-                            console.warn("上传成功了2", t);
+                        onComplete: function e(t, n) {
+                            console.warn("上传成功了2", n);
                         }
                     }, {
                         el: "#upload3",
@@ -556,7 +556,7 @@
                 value: function e() {
                     var t = this.options || {};
                     if (t.percent == 100) {
-                        if (typeof t.onComplete == "function") t.onComplete();
+                        if (typeof t.onComplete == "function") t.onComplete(this);
                     }
                     var n = hx(d, t.showInfo ? hx(p, this.format(t.percent)) : "", t.status ? t.status : "primary", t.percent);
                     return n;

@@ -280,7 +280,7 @@ class Tables extends Lego.UI.Baseview {
     }
     clickSetting(event){
         event.stopPropagation();
-        if(typeof this.options.colSetting === 'function') this.options.colSetting();
+        if(typeof this.options.colSetting === 'function') this.options.colSetting(this);
     }
     // 选中一条
     selectOne(event) {

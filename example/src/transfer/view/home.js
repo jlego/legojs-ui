@@ -7,7 +7,7 @@ class HomeView extends Lego.UI.Baseview {
                 el: '#transfer1',
                 titles: ['左边标题', '右边标题'],
                 // showSearch: true,
-                onChange(result) {
+                onChange(self, result) {
                     console.warn('穿梭框的值', result);
                 },
                 data: [{
@@ -62,7 +62,7 @@ class HomeView extends Lego.UI.Baseview {
                 el: '#transfer2',
                 titles: ['左边标题', '右边标题'],
                 showSearch: true,
-                onChange(result) {
+                onChange(self, result) {
                     console.warn('穿梭框的值2', result);
                 },
                 data: [{

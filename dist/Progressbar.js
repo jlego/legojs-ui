@@ -83,7 +83,7 @@ var Progressbar = function(_Lego$UI$Baseview) {
         value: function render() {
             var options = this.options || {};
             if (options.percent == 100) {
-                if (typeof options.onComplete == "function") options.onComplete();
+                if (typeof options.onComplete == "function") options.onComplete(this);
             }
             var vDom = hx(_templateObject, options.showInfo ? hx(_templateObject2, this.format(options.percent)) : "", options.status ? options.status : "primary", options.percent);
             return vDom;

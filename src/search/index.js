@@ -22,7 +22,7 @@ class Search extends Lego.UI.Baseview {
                 el: '#dropdown-' + opts.vid,
                 trigger: '#select-' + opts.vid,
                 data: opts.data,
-                onChange(model){
+                onChange(self, model){
                     this.context.options.activeKey = model.key;
                     this.context.options.activeValue = model.value;
                 }
@@ -61,7 +61,7 @@ class Search extends Lego.UI.Baseview {
     onSearch(event) {
         event.stopPropagation();
         const keyword = this.$('.search-input').val();
-        if (typeof this.options.onSearch === 'function') this.options.onSearch({
+        if (typeof this.options.onSearch === 'function') this.options.onSearch(this, {
             key: this.options.activeKey,
             value: this.options.activeValue,
             keyword: keyword

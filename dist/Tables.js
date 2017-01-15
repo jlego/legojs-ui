@@ -156,13 +156,13 @@ var Dropdown = function(_Lego$UI$Baseview) {
         key: "show",
         value: function show(event) {
             this.options.trigger.addClass("dropdown open");
-            this.options.onVisibleChange(true);
+            this.options.onVisibleChange(this, true);
         }
     }, {
         key: "close",
         value: function close(event) {
             this.options.trigger.removeClass("dropdown open");
-            this.options.onVisibleChange(false);
+            this.options.onVisibleChange(this, false);
         }
     }, {
         key: "clickItem",
@@ -173,7 +173,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 return Item.key == target.attr("id");
             });
             if (model) {
-                this.options.onChange(model);
+                this.options.onChange(this, model);
                 this.options.activeKey = model.key;
                 this.options.activeValue = model.value;
             }
@@ -296,14 +296,12 @@ var Pagination = function(_Lego$UI$Baseview) {
                 el: "#" + opts.vid + "-dropdown",
                 trigger: "#" + opts.vid + "-select",
                 data: theData,
-                onChange: function onChange(result) {
-                    var theView = Lego.getView(opts.el);
+                onChange: function onChange(self, result) {
+                    var parentView = this.context;
                     var num = parseInt(result.key);
-                    if (theView) {
-                        theView.options.current = 1;
-                        theView.options.pageSize = num;
-                        theView.options.onPageSizeChange(num);
-                    }
+                    parentView.options.current = 1;
+                    parentView.options.pageSize = num;
+                    parentView.options.onPageSizeChange(num);
                 }
             } ];
         }
@@ -338,7 +336,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             var options = this.options;
             console.warn("点击了上一页");
             options.current--;
-            options.onChange(options.current, options.pageSize);
+            options.onChange(this, options.current, options.pageSize);
         }
     }, {
         key: "clickItemPage",
@@ -348,7 +346,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             var options = this.options;
             console.warn("点击了" + num + "页");
             options.current = num;
-            options.onChange(num, options.pageSize);
+            options.onChange(this, num, options.pageSize);
         }
     }, {
         key: "clickNextPage",
@@ -357,7 +355,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             var options = this.options;
             console.warn("点击了下一页");
             options.current++;
-            options.onChange(options.current, options.pageSize);
+            options.onChange(this, options.current, options.pageSize);
         }
     }, {
         key: "clickMorePage",
@@ -368,7 +366,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             console.warn("点击了更多页");
             options.current = current + (pageRang - currentMod + 1);
             if (options.current > options.totalPages) options.current = options.totalPages;
-            options.onChange(options.current, options.pageSize);
+            options.onChange(this, options.current, options.pageSize);
         }
     }, {
         key: "_enterSearch",
@@ -380,7 +378,7 @@ var Pagination = function(_Lego$UI$Baseview) {
                 if (num > options.totalPages) num = options.totalPages;
                 this.jumped = true;
                 options.current = num;
-                options.onChange(num, options.pageSize);
+                options.onChange(this, num, options.pageSize);
             }
         }
     } ]);
@@ -716,7 +714,7 @@ var Tables = function(_Lego$UI$Baseview) {
         key: "clickSetting",
         value: function clickSetting(event) {
             event.stopPropagation();
-            if (typeof this.options.colSetting === "function") this.options.colSetting();
+            if (typeof this.options.colSetting === "function") this.options.colSetting(this);
         }
     }, {
         key: "selectOne",

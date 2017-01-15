@@ -227,8 +227,8 @@
                     components: [ {
                         el: "#transfer1",
                         titles: [ "左边标题", "右边标题" ],
-                        onChange: function e(t) {
-                            console.warn("穿梭框的值", t);
+                        onChange: function e(t, n) {
+                            console.warn("穿梭框的值", n);
                         },
                         data: [ {
                             id: "t1",
@@ -282,8 +282,8 @@
                         el: "#transfer2",
                         titles: [ "左边标题", "右边标题" ],
                         showSearch: true,
-                        onChange: function e(t) {
-                            console.warn("穿梭框的值2", t);
+                        onChange: function e(t, n) {
+                            console.warn("穿梭框的值2", n);
                         },
                         data: [ {
                             id: "t1",
@@ -438,7 +438,7 @@
                 value: function e(t) {
                     t.stopPropagation();
                     var n = $(t.currentTarget), r = n.attr("id");
-                    if (typeof this.options.onClick === "function") this.options.onClick(r, t);
+                    if (typeof this.options.onClick === "function") this.options.onClick(this, r, t);
                     this.options.activeKey = this.options.activeKey != r ? r : "";
                     this.refresh();
                 }
@@ -447,7 +447,7 @@
                 value: function e(t) {
                     t.stopPropagation();
                     var n = $(t.currentTarget), r = n.parent().attr("id");
-                    if (typeof this.options.onClose === "function") this.options.onClose(r, t);
+                    if (typeof this.options.onClose === "function") this.options.onClose(this, r, t);
                     this.options.data = this.options.data.filter(function(e) {
                         return e.key !== r;
                     });
@@ -557,29 +557,29 @@
                             }
                         }, t.setting.check || {});
                         t.setting.callback = Object.assign(t.setting.callback || {}, {
-                            onCheck: function e(n, o, a) {
-                                var i = $.fn.zTree.getZTreeObj(o), s = i.getCheckedNodes(true), l = t.keyNames, d = s.filter(function(e) {
+                            onCheck: function e(o, a, i) {
+                                var s = $.fn.zTree.getZTreeObj(a), l = s.getCheckedNodes(true), d = t.keyNames, c = l.filter(function(e) {
                                     return r(e);
                                 });
-                                var c = [];
-                                d.forEach(function(e, t) {
-                                    c.push({
-                                        key: e[l[0]],
-                                        value: e[l[1]],
-                                        type: e[l[2]]
+                                var u = [];
+                                c.forEach(function(e, t) {
+                                    u.push({
+                                        key: e[d[0]],
+                                        value: e[d[1]],
+                                        type: e[d[2]]
                                     });
                                 });
-                                if (typeof t.onChecked == "function") t.onChecked(c);
+                                if (typeof t.onChecked == "function") t.onChecked(n, u);
                             }
                         });
                     } else {
                         t.setting.callback = Object.assign(t.setting.callback || {}, {
-                            onClick: function e(n, o, a) {
-                                if (!r(a)) return false;
-                                if (typeof t.onClick == "function") t.onClick({
-                                    key: a[t.keyNames[0]],
-                                    value: a[t.keyNames[1]],
-                                    type: a[t.keyNames[2]]
+                            onClick: function e(o, a, i) {
+                                if (!r(i)) return false;
+                                if (typeof t.onClick == "function") t.onClick(n, {
+                                    key: i[t.keyNames[0]],
+                                    value: i[t.keyNames[1]],
+                                    type: i[t.keyNames[2]]
                                 });
                             }
                         });
@@ -745,13 +745,13 @@
                 key: "show",
                 value: function e(t) {
                     this.options.trigger.addClass("dropdown open");
-                    this.options.onVisibleChange(true);
+                    this.options.onVisibleChange(this, true);
                 }
             }, {
                 key: "close",
                 value: function e(t) {
                     this.options.trigger.removeClass("dropdown open");
-                    this.options.onVisibleChange(false);
+                    this.options.onVisibleChange(this, false);
                 }
             }, {
                 key: "clickItem",
@@ -762,7 +762,7 @@
                         return e.key == n.attr("id");
                     });
                     if (r) {
-                        this.options.onChange(r);
+                        this.options.onChange(this, r);
                         this.options.activeKey = r.key;
                         this.options.activeValue = r.value;
                     }
@@ -788,8 +788,8 @@
                 return t;
             };
         }();
-        var L = A([ '\n        <div class="input-group search">\n        ', '\n          <input type="text" class="form-control search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group search">\n        ', '\n          <input type="text" class="form-control search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
-        var x = A([ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ]);
+        var x = A([ '\n        <div class="input-group search">\n        ', '\n          <input type="text" class="form-control search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group search">\n        ', '\n          <input type="text" class="form-control search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
+        var L = A([ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ]);
         function A(e, t) {
             return Object.freeze(Object.defineProperties(e, {
                 raw: {
@@ -808,7 +808,7 @@
             }
             return t && ((typeof t === "undefined" ? "undefined" : r(t)) === "object" || typeof t === "function") ? t : e;
         }
-        function U(e, t) {
+        function z(e, t) {
             if (typeof t !== "function" && t !== null) {
                 throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : r(t)));
             }
@@ -822,8 +822,8 @@
             });
             if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
         }
-        var z = function(e) {
-            U(t, e);
+        var U = function(e) {
+            z(t, e);
             function t() {
                 var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
                 j(this, t);
@@ -841,9 +841,9 @@
                         el: "#dropdown-" + e.vid,
                         trigger: "#select-" + e.vid,
                         data: e.data,
-                        onChange: function e(t) {
-                            this.context.options.activeKey = t.key;
-                            this.context.options.activeValue = t.value;
+                        onChange: function e(t, n) {
+                            this.context.options.activeKey = n.key;
+                            this.context.options.activeValue = n.value;
                         }
                     } ]
                 };
@@ -854,7 +854,7 @@
                 key: "render",
                 value: function e() {
                     var t = this.options || {};
-                    var n = hx(L, t.hasSelect ? hx(x, t.vid, t.activeValue || "请选择", t.vid) : "", t.placeholder);
+                    var n = hx(x, t.hasSelect ? hx(L, t.vid, t.activeValue || "请选择", t.vid) : "", t.placeholder);
                     return n;
                 }
             }, {
@@ -869,7 +869,7 @@
                 value: function e(t) {
                     t.stopPropagation();
                     var n = this.$(".search-input").val();
-                    if (typeof this.options.onSearch === "function") this.options.onSearch({
+                    if (typeof this.options.onSearch === "function") this.options.onSearch(this, {
                         key: this.options.activeKey,
                         value: this.options.activeValue,
                         keyword: n
@@ -878,7 +878,7 @@
             } ]);
             return t;
         }(Lego.UI.Baseview);
-        Lego.components("search", z);
+        Lego.components("search", U);
         var B = function() {
             function e(e, t) {
                 for (var n = 0; n < t.length; n++) {
@@ -976,37 +976,35 @@
                             }
                         }
                     }, n.treeSetting || {}),
-                    onChecked: function e(t) {
-                        var r = Lego.getView("#transfer_" + n.vid + "_list");
-                        if (r) {
-                            r.options.data = t;
-                            r.refresh();
+                    onChecked: function e(t, r) {
+                        var o = this.context;
+                        var a = Lego.getView("#transfer_" + n.vid + "_list");
+                        if (a) {
+                            a.options.data = r;
+                            a.refresh();
                         }
-                        if (typeof n.onChange === "function") n.onChange(t);
+                        if (typeof n.onChange === "function") n.onChange(o, r);
                     },
                     dataSource: n.dataSource,
                     data: n.data
                 }, {
                     el: "#transfer_" + n.vid + "_list",
                     removeAble: true,
-                    onClose: function e(t) {
-                        var r = Lego.getView("#transfer_" + n.vid + "_tree");
-                        if (r) {
-                            var o = r.options.data.find(function(e) {
-                                return e.key == t;
-                            });
-                            if (o) o.checked = false;
-                            r.refresh();
+                    onClose: function e(t, r) {
+                        var o = this.context;
+                        var a = $.fn.zTree.getZTreeObj("transfer_" + n.vid + "_tree");
+                        if (a) {
+                            var i = a.getNodeByParam("id", r, null);
+                            a.checkNode(i, !i.checked, null, true);
                         }
-                        if (typeof n.onChange === "function") n.onChange(r.options.data);
                     },
                     data: n.value
                 });
                 if (n.showSearch) {
                     n.components.push({
                         el: "#transfer_" + n.vid + "_search",
-                        onSearch: function e(t) {
-                            console.warn("点击了搜索框2", t);
+                        onSearch: function e(t, n) {
+                            console.warn("点击了搜索框2", n);
                         }
                     });
                 }
@@ -3517,11 +3515,11 @@
                     }
                     k.editNodeBlur = true;
                     k.cancelCurEditNode(i);
-                    var f = e(i.treeObj.get(0).ownerDocument), p = e(i.treeObj.get(0).ownerDocument.body), h, v, g, m = false, T = i, E = i, w, I, _ = null, O = null, S = null, P = b.move.TYPE_INNER, R = n.clientX, D = n.clientY, L = new Date().getTime();
+                    var f = e(i.treeObj.get(0).ownerDocument), p = e(i.treeObj.get(0).ownerDocument.body), h, v, g, m = false, T = i, E = i, w, I, _ = null, O = null, S = null, P = b.move.TYPE_INNER, R = n.clientX, D = n.clientY, x = new Date().getTime();
                     if (N.uCanDo(i)) {
-                        f.bind("mousemove", x);
+                        f.bind("mousemove", L);
                     }
-                    function x(n) {
+                    function L(n) {
                         if (s.dragFlag == 0 && Math.abs(R - n.clientX) < i.edit.drag.minMoveSize && Math.abs(D - n.clientY) < i.edit.drag.minMoveSize) {
                             return true;
                         }
@@ -3547,14 +3545,14 @@
                             s.dragFlag = 1;
                             l.showHoverDom = false;
                             N.showIfameMask(i, true);
-                            var x = true, j = -1;
+                            var L = true, j = -1;
                             if (u.length > 1) {
                                 var M = u[0].parentTId ? u[0].getParentNode()[E] : y.getNodes(i);
                                 c = [];
                                 for (r = 0, o = M.length; r < o; r++) {
                                     if (s.dragNodeShowBefore[M[r].tId] !== undefined) {
-                                        if (x && j > -1 && j + 1 !== r) {
-                                            x = false;
+                                        if (L && j > -1 && j + 1 !== r) {
+                                            L = false;
                                         }
                                         c.push(M[r]);
                                         j = r;
@@ -3565,7 +3563,7 @@
                                     }
                                 }
                             }
-                            if (x) {
+                            if (L) {
                                 w = u[0].getPreNode();
                                 I = u[u.length - 1].getNextNode();
                             }
@@ -3608,11 +3606,11 @@
                             S = null;
                             m = false;
                             T = i;
-                            var U = y.getSettings();
-                            for (var z in U) {
-                                if (U[z].treeId && U[z].edit.enable && U[z].treeId != i.treeId && (n.target.id == U[z].treeId || e(n.target).parents("#" + U[z].treeId).length > 0)) {
+                            var z = y.getSettings();
+                            for (var U in z) {
+                                if (z[U].treeId && z[U].edit.enable && z[U].treeId != i.treeId && (n.target.id == z[U].treeId || e(n.target).parents("#" + z[U].treeId).length > 0)) {
                                     m = true;
-                                    T = U[z];
+                                    T = z[U];
                                 }
                             }
                             var B = f.scrollTop(), F = f.scrollLeft(), Y = T.treeObj.offset(), H = T.treeObj.get(0).scrollHeight, K = T.treeObj.get(0).scrollWidth, V = n.clientY + B - Y.top, q = T.treeObj.height() + Y.top - n.clientY - B, W = n.clientX + F - Y.left, G = T.treeObj.width() + Y.left - n.clientX - F, X = V < i.edit.drag.borderMax && V > i.edit.drag.borderMin, Z = q < i.edit.drag.borderMax && q > i.edit.drag.borderMin, Q = W < i.edit.drag.borderMax && W > i.edit.drag.borderMin, J = G < i.edit.drag.borderMax && G > i.edit.drag.borderMin, ee = V > i.edit.drag.borderMin && q > i.edit.drag.borderMin && W > i.edit.drag.borderMin && G > i.edit.drag.borderMin, te = X && T.treeObj.scrollTop() <= 0, ne = Z && T.treeObj.scrollTop() + T.treeObj.height() + 10 >= H, re = Q && T.treeObj.scrollLeft() <= 0, oe = J && T.treeObj.scrollLeft() + T.treeObj.width() + 10 >= K;
@@ -3703,7 +3701,7 @@
                                         });
                                         be.addClass(b.node.TMPTARGET_NODE + "_" + P);
                                         if (_ != S || O != P) {
-                                            L = new Date().getTime();
+                                            x = new Date().getTime();
                                         }
                                         if (de && de.isParent && P == b.move.TYPE_INNER) {
                                             var we = true;
@@ -3716,7 +3714,7 @@
                                             if (we) {
                                                 window.zTreeMoveTimer = setTimeout(function() {
                                                     if (P != b.move.TYPE_INNER) return;
-                                                    if (de && de.isParent && !de.open && new Date().getTime() - L > T.edit.drag.autoOpenTime && N.apply(T.callback.beforeDragOpen, [ T.treeId, de ], true)) {
+                                                    if (de && de.isParent && !de.open && new Date().getTime() - x > T.edit.drag.autoOpenTime && N.apply(T.callback.beforeDragOpen, [ T.treeId, de ], true)) {
                                                         k.switchNode(T, de);
                                                         if (T.edit.drag.autoExpandTrigger) {
                                                             T.treeObj.trigger(b.event.EXPAND, [ T.treeId, de ]);
@@ -3757,7 +3755,7 @@
                         }
                         _ = null;
                         O = null;
-                        f.unbind("mousemove", x);
+                        f.unbind("mousemove", L);
                         f.unbind("mouseup", A);
                         f.unbind("selectstart", j);
                         p.css("cursor", "auto");

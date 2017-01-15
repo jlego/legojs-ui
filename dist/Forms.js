@@ -253,7 +253,7 @@ var Forms = function(_Lego$UI$Baseview) {
             if (!$submitEl.hasClass("disabled")) {
                 $submitEl.text("提交中...").addClass("disabled");
             }
-            return this.options.onSubmit(data);
+            return this.options.onSubmit(this, data);
         }
     }, {
         key: "reset",

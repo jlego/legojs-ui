@@ -50,7 +50,7 @@ class Treeselect extends Selects {
                 value: opts.value,
                 data: opts.data,
                 dataSource: opts.treeDataSource,
-                onChecked(result) {
+                onChecked(self, result) {
                     const parentView = this.context;
                     if (result.key !== '0' && opts.setting.check) {
                         parentView.getValue();
@@ -68,11 +68,11 @@ class Treeselect extends Selects {
                             parentView.options.value = [];
                         }
                     }
-                    parentView.options.onSelect(result);
-                    parentView.options.onChange(result);
+                    parentView.options.onSelect(parentView, result);
+                    parentView.options.onChange(parentView, result);
                     parentView.refresh();
                 },
-                onClick(result) {
+                onClick(self, result) {
                     const parentView = this.context;
                     parentView.options.value.forEach(item => item.selected = false);
                     parentView.options.value = [{
@@ -81,8 +81,8 @@ class Treeselect extends Selects {
                         type: result.type,
                         selected: true
                     }];
-                    parentView.options.onSelect(result);
-                    parentView.options.onChange(result);
+                    parentView.options.onSelect(parentView, result);
+                    parentView.options.onChange(parentView, result);
                     parentView.refresh();
                     // if(theView.options.clickAndClose) theView.close();
                 },
@@ -214,7 +214,7 @@ class Treeselect extends Selects {
             const treeNode = treeView.getNodeByParam(this.options.keyNames[0], key, null);
             treeView.checkNode(treeNode, !treeNode.checked, null, true);
         }
-        if(typeof this.options.onDeselect === 'function') this.options.onDeselect({
+        if(typeof this.options.onDeselect === 'function') this.options.onDeselect(this, {
             key: key,
             value: value
         });

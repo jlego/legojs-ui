@@ -67,13 +67,13 @@ class Inputs extends Lego.UI.Baseview {
         const target = $(event.currentTarget),
             value = target.val();
         if (event.keyCode == 13) {
-            if(typeof this.options.onEnter === 'function') this.options.onEnter(value, event);
+            if(typeof this.options.onEnter === 'function') this.options.onEnter(this, value, event);
         }
     }
     onChange(event) {
         const target = $(event.currentTarget),
             value = target.val();
-        if(typeof this.options.onChange === 'function') this.options.onChange(value, event);
+        if(typeof this.options.onChange === 'function') this.options.onChange(this, value, event);
     }
 }
 Lego.components('inputs', Inputs);

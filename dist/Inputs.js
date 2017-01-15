@@ -124,14 +124,14 @@ var Inputs = function(_Lego$UI$Baseview) {
         value: function onEnter(event) {
             var target = $(event.currentTarget), value = target.val();
             if (event.keyCode == 13) {
-                if (typeof this.options.onEnter === "function") this.options.onEnter(value, event);
+                if (typeof this.options.onEnter === "function") this.options.onEnter(this, value, event);
             }
         }
     }, {
         key: "onChange",
         value: function onChange(event) {
             var target = $(event.currentTarget), value = target.val();
-            if (typeof this.options.onChange === "function") this.options.onChange(value, event);
+            if (typeof this.options.onChange === "function") this.options.onChange(this, value, event);
         }
     } ]);
     return Inputs;

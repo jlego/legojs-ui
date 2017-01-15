@@ -245,29 +245,29 @@
                 components: [ {
                     el: "#search1",
                     hasSelect: true,
-                    onSearch: function e(t) {
-                        console.warn("点击了搜索框", t, this);
+                    onSearch: function e(t, n) {
+                        console.warn("点击了搜索框", n, this);
                     },
                     data: $.extend(true, [], n)
                 }, {
                     el: "#search2",
                     placeholder: "输入关键字",
-                    onSearch: function e(t) {
-                        console.warn("点击了搜索框2", t);
+                    onSearch: function e(t, n) {
+                        console.warn("点击了搜索框2", n);
                     }
                 }, {
                     el: "#select3",
                     placeholder: "请选择",
-                    onChange: function e(t) {
-                        console.warn("点击了选项框1", t);
+                    onChange: function e(t, n) {
+                        console.warn("点击了选项框1", n);
                     },
                     data: $.extend(true, [], n)
                 }, {
                     el: "#select4",
                     placeholder: "请选择",
                     eventName: "click",
-                    onChange: function e(t) {
-                        console.warn("点击了选项框2", t);
+                    onChange: function e(t, n) {
+                        console.warn("点击了选项框2", n);
                     },
                     value: {
                         key: "so2",
@@ -278,16 +278,16 @@
                     el: "#select5",
                     placeholder: "请选择",
                     multiple: true,
-                    onChange: function e(t) {
-                        console.warn("点击了选项框3", t);
+                    onChange: function e(t, n) {
+                        console.warn("点击了选项框3", n);
                     },
                     data: $.extend(true, [], n)
                 }, {
                     el: "#select6",
                     placeholder: "请选择",
                     multiple: true,
-                    onChange: function e(t) {
-                        console.warn("点击了选项框4", t);
+                    onChange: function e(t, n) {
+                        console.warn("点击了选项框4", n);
                     },
                     value: [ {
                         key: "so2",
@@ -301,28 +301,28 @@
                     el: "#datepicker7",
                     type: "date",
                     name: "datepicker1",
-                    onChange: function e(t) {
-                        console.warn("点击了时间选项框5", t);
+                    onChange: function e(t, n) {
+                        console.warn("点击了时间选项框5", n);
                     }
                 }, {
                     el: "#datepicker8",
                     type: "range",
                     startName: "datepicker2",
                     endName: "datepicker3",
-                    onChange: function e(t) {
-                        console.warn("点击了时间选项框6", t);
+                    onChange: function e(t, n) {
+                        console.warn("点击了时间选项框6", n);
                     }
                 }, {
                     el: "#datepicker9",
                     inline: true,
-                    onChange: function e(t) {
-                        console.warn("点击了时间选项框7", t);
+                    onChange: function e(t, n) {
+                        console.warn("点击了时间选项框7", n);
                     }
                 }, {
                     el: "#input10",
                     placeholder: "这是输入框",
-                    onChange: function e(t) {
-                        console.warn("点击了输入框1", t);
+                    onChange: function e(t, n) {
+                        console.warn("点击了输入框1", n);
                     },
                     style: {
                         marginBottom: 20
@@ -334,8 +334,8 @@
                     addonAfter: true,
                     prefix: "Http://",
                     suffix: hx(r),
-                    onChange: function e(t) {
-                        console.warn("点击了输入框2", t);
+                    onChange: function e(t, n) {
+                        console.warn("点击了输入框2", n);
                     },
                     style: {
                         marginBottom: 20
@@ -345,8 +345,8 @@
                     type: "textarea",
                     placeholder: "这是文本框",
                     rows: 10,
-                    onChange: function e(t) {
-                        console.warn("点击了文本框2", t);
+                    onChange: function e(t, n) {
+                        console.warn("点击了文本框2", n);
                     }
                 } ]
             };
@@ -511,13 +511,13 @@
             key: "show",
             value: function e(t) {
                 this.options.trigger.addClass("dropdown open");
-                this.options.onVisibleChange(true);
+                this.options.onVisibleChange(this, true);
             }
         }, {
             key: "close",
             value: function e(t) {
                 this.options.trigger.removeClass("dropdown open");
-                this.options.onVisibleChange(false);
+                this.options.onVisibleChange(this, false);
             }
         }, {
             key: "clickItem",
@@ -528,7 +528,7 @@
                     return e.key == n.attr("id");
                 });
                 if (a) {
-                    this.options.onChange(a);
+                    this.options.onChange(this, a);
                     this.options.activeKey = a.key;
                     this.options.activeValue = a.value;
                 }
@@ -607,9 +607,9 @@
                     el: "#dropdown-" + e.vid,
                     trigger: "#select-" + e.vid,
                     data: e.data,
-                    onChange: function e(t) {
-                        this.context.options.activeKey = t.key;
-                        this.context.options.activeValue = t.value;
+                    onChange: function e(t, n) {
+                        this.context.options.activeKey = n.key;
+                        this.context.options.activeValue = n.value;
                     }
                 } ]
             };
@@ -635,7 +635,7 @@
             value: function e(t) {
                 t.stopPropagation();
                 var n = this.$(".search-input").val();
-                if (typeof this.options.onSearch === "function") this.options.onSearch({
+                if (typeof this.options.onSearch === "function") this.options.onSearch(this, {
                     key: this.options.activeKey,
                     value: this.options.activeValue,
                     keyword: n
@@ -794,13 +794,13 @@
             key: "show",
             value: function e(t) {
                 this.options.trigger.addClass("dropdown open");
-                this.options.onVisibleChange(true);
+                this.options.onVisibleChange(this, true);
             }
         }, {
             key: "close",
             value: function e(t) {
                 this.options.trigger.removeClass("dropdown open");
-                this.options.onVisibleChange(false);
+                this.options.onVisibleChange(this, false);
             }
         }, {
             key: "clickItem",
@@ -811,7 +811,7 @@
                     return e.key == n.attr("id");
                 });
                 if (a) {
-                    this.options.onChange(a);
+                    this.options.onChange(this, a);
                     this.options.activeKey = a.key;
                     this.options.activeValue = a.value;
                 }
@@ -914,24 +914,24 @@
                     className: e.dropdownClassName,
                     clickAndClose: e.multiple ? false : true,
                     data: e.data,
-                    onChange: function t(n) {
-                        var a = this.context;
-                        a.$(".select-input").focus();
-                        if (n.key !== "0" && e.multiple) {
-                            a.getValue();
-                            if (!a.options.value.includes(n)) {
-                                n.selected = true;
-                                a.options.value.push(n);
+                    onChange: function t(n, a) {
+                        var r = this.context;
+                        r.$(".select-input").focus();
+                        if (a.key !== "0" && e.multiple) {
+                            r.getValue();
+                            if (!r.options.value.includes(a)) {
+                                a.selected = true;
+                                r.options.value.push(a);
                             }
                         } else {
-                            a.options.data.forEach(function(e) {
+                            r.options.data.forEach(function(e) {
                                 return e.selected = false;
                             });
-                            a.options.value = [ n ];
+                            r.options.value = [ a ];
                         }
-                        a.options.onSelect(n);
-                        a.options.onChange(n);
-                        a.refresh();
+                        r.options.onSelect(r, a);
+                        r.options.onChange(r, a);
+                        r.refresh();
                     }
                 } ]
             };
@@ -984,7 +984,7 @@
                 this.getValue();
                 this.refresh();
                 Lego.getView("#dropdown-" + this.options.vid).refresh();
-                if (typeof this.options.onDeselect === "function") this.options.onDeselect({
+                if (typeof this.options.onDeselect === "function") this.options.onDeselect(this, {
                     key: a,
                     value: r
                 });
@@ -1137,7 +1137,7 @@
                     if (n.inline) i = this.$el;
                     i.datetimepicker(n.setting);
                     i.on("dp.change", function(e) {
-                        if (typeof n.onChange == "function") n.onChange($(this).val());
+                        if (typeof n.onChange == "function") n.onChange(a, $(this).val());
                     });
                 } else {
                     (function() {
@@ -1151,11 +1151,11 @@
                             var l = t.$(i).datetimepicker(o);
                             t.$(e).on("dp.change", function(e) {
                                 a.$(i).data("DateTimePicker").minDate(e.date);
-                                if (typeof n.onChange == "function") n.onChange($(this).val());
+                                if (typeof n.onChange == "function") n.onChange(a, $(this).val());
                             });
                             t.$(i).on("dp.change", function(t) {
                                 a.$(e).data("DateTimePicker").maxDate(t.date);
-                                if (typeof n.onChange == "function") n.onChange($(this).val());
+                                if (typeof n.onChange == "function") n.onChange(a, $(this).val());
                             });
                         } else if (n.startInputEl || n.endInputEl) {
                             (function() {
@@ -1164,15 +1164,15 @@
                                 t.$(r).datetimepicker(n.setting);
                                 if (n.endInputEl) {
                                     t.$(r).on("dp.change", function(t) {
-                                        var a = e instanceof $ ? e : $(e).find(r);
-                                        a.data("DateTimePicker").maxDate(t.date);
-                                        if (typeof n.onChange == "function") n.onChange($(this).val());
+                                        var i = e instanceof $ ? e : $(e).find(r);
+                                        i.data("DateTimePicker").maxDate(t.date);
+                                        if (typeof n.onChange == "function") n.onChange(a, $(this).val());
                                     });
                                 } else if (n.startInputEl) {
                                     t.$(r).on("dp.change", function(t) {
-                                        var a = e instanceof $ ? e : $(e).find(r);
-                                        a.data("DateTimePicker").minDate(t.date);
-                                        if (typeof n.onChange == "function") n.onChange($(this).val());
+                                        var i = e instanceof $ ? e : $(e).find(r);
+                                        i.data("DateTimePicker").minDate(t.date);
+                                        if (typeof n.onChange == "function") n.onChange(a, $(this).val());
                                     });
                                 }
                             })();
@@ -15578,14 +15578,14 @@
             value: function e(t) {
                 var n = $(t.currentTarget), a = n.val();
                 if (t.keyCode == 13) {
-                    if (typeof this.options.onEnter === "function") this.options.onEnter(a, t);
+                    if (typeof this.options.onEnter === "function") this.options.onEnter(this, a, t);
                 }
             }
         }, {
             key: "onChange",
             value: function e(t) {
                 var n = $(t.currentTarget), a = n.val();
-                if (typeof this.options.onChange === "function") this.options.onChange(a, t);
+                if (typeof this.options.onChange === "function") this.options.onChange(this, a, t);
             }
         } ]);
         return t;
@@ -15697,8 +15697,8 @@
                         component: {
                             comName: "inputs",
                             name: "name",
-                            onChange: function e(t) {
-                                console.warn("点击了搜索框", t);
+                            onChange: function e(t, n) {
+                                console.warn("点击了搜索框", n);
                             }
                         }
                     }, {
@@ -15712,8 +15712,8 @@
                             comName: "inputs",
                             name: "old",
                             placeholder: "输入关键字",
-                            onChange: function e(t) {
-                                console.warn("点击了搜索框2", t);
+                            onChange: function e(t, n) {
+                                console.warn("点击了搜索框2", n);
                             }
                         }
                     }, {
@@ -15727,8 +15727,8 @@
                             comName: "selects",
                             name: "book",
                             placeholder: "请选择",
-                            onChange: function e(t) {
-                                console.warn("点击了搜索框", t);
+                            onChange: function e(t, n) {
+                                console.warn("点击了搜索框", n);
                             },
                             data: $.extend(true, [], n)
                         }
@@ -15743,8 +15743,8 @@
                             comName: "selects",
                             name: "time",
                             placeholder: "请选择",
-                            onChange: function e(t) {
-                                console.warn("点击了选项框2", t);
+                            onChange: function e(t, n) {
+                                console.warn("点击了选项框2", n);
                             },
                             value: {
                                 key: "so2",
@@ -15753,8 +15753,8 @@
                             data: $.extend(true, [], n)
                         }
                     } ],
-                    onSubmit: function e(t) {
-                        console.warn("点击了提交", t);
+                    onSubmit: function e(t, n) {
+                        console.warn("点击了提交", n);
                         return false;
                     }
                 }, {
@@ -15766,8 +15766,8 @@
                         component: {
                             comName: "inputs",
                             name: "name",
-                            onChange: function e(t) {
-                                console.warn("点击了搜索框", t);
+                            onChange: function e(t, n) {
+                                console.warn("点击了搜索框", n);
                             }
                         }
                     }, {
@@ -15777,8 +15777,8 @@
                             comName: "inputs",
                             name: "old",
                             placeholder: "输入关键字",
-                            onChange: function e(t) {
-                                console.warn("点击了搜索框2", t);
+                            onChange: function e(t, n) {
+                                console.warn("点击了搜索框2", n);
                             }
                         }
                     }, {
@@ -15788,8 +15788,8 @@
                             comName: "selects",
                             name: "book",
                             placeholder: "请选择",
-                            onChange: function e(t) {
-                                console.warn("点击了搜索框", t);
+                            onChange: function e(t, n) {
+                                console.warn("点击了搜索框", n);
                             },
                             data: $.extend(true, [], n)
                         }
@@ -15800,8 +15800,8 @@
                             comName: "selects",
                             name: "time",
                             placeholder: "请选择",
-                            onChange: function e(t) {
-                                console.warn("点击了选项框2", t);
+                            onChange: function e(t, n) {
+                                console.warn("点击了选项框2", n);
                             },
                             value: {
                                 key: "so2",
@@ -15810,8 +15810,8 @@
                             data: $.extend(true, [], n)
                         }
                     } ],
-                    onSubmit: function e(t) {
-                        console.warn("点击了提交2", t);
+                    onSubmit: function e(t, n) {
+                        console.warn("点击了提交2", n);
                         return false;
                     }
                 } ]
@@ -16067,7 +16067,7 @@
                 if (!a.hasClass("disabled")) {
                     a.text("提交中...").addClass("disabled");
                 }
-                return this.options.onSubmit(i);
+                return this.options.onSubmit(this, i);
             }
         }, {
             key: "reset",

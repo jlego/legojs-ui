@@ -39,7 +39,7 @@ class HomeView extends Lego.UI.Baseview {
                     component: {
                         comName: 'inputs',
                         name: 'name',
-                        onChange(result) {
+                        onChange(self, result) {
                             console.warn('点击了搜索框', result);
                         }
                     }
@@ -56,7 +56,7 @@ class HomeView extends Lego.UI.Baseview {
                         comName: 'inputs',
                         name: 'old',
                         placeholder: '输入关键字',
-                        onChange(result) {
+                        onChange(self, result) {
                             console.warn('点击了搜索框2', result);
                         }
                     }
@@ -73,7 +73,7 @@ class HomeView extends Lego.UI.Baseview {
                         comName: 'selects',
                         name: 'book',
                         placeholder: '请选择',
-                        onChange(result) {
+                        onChange(self, result) {
                             console.warn('点击了搜索框', result);
                         },
                         data: $.extend(true, [], data)
@@ -91,7 +91,7 @@ class HomeView extends Lego.UI.Baseview {
                         comName: 'selects',
                         name: 'time',
                         placeholder: '请选择',
-                        onChange(result) {
+                        onChange(self, result) {
                             console.warn('点击了选项框2', result);
                         },
                         value: {
@@ -101,7 +101,7 @@ class HomeView extends Lego.UI.Baseview {
                         data: $.extend(true, [], data)
                     }
                 }],
-                onSubmit(data){
+                onSubmit(self, data){
                     console.warn('点击了提交', data);
                     return false;
                 }
@@ -114,7 +114,7 @@ class HomeView extends Lego.UI.Baseview {
                     component: {
                         comName: 'inputs',
                         name: 'name',
-                        onChange(result) {
+                        onChange(self, result) {
                             console.warn('点击了搜索框', result);
                         }
                     }
@@ -125,7 +125,7 @@ class HomeView extends Lego.UI.Baseview {
                         comName: 'inputs',
                         name: 'old',
                         placeholder: '输入关键字',
-                        onChange(result) {
+                        onChange(self, result) {
                             console.warn('点击了搜索框2', result);
                         }
                     }
@@ -136,7 +136,7 @@ class HomeView extends Lego.UI.Baseview {
                         comName: 'selects',
                         name: 'book',
                         placeholder: '请选择',
-                        onChange(result) {
+                        onChange(self, result) {
                             console.warn('点击了搜索框', result);
                         },
                         data: $.extend(true, [], data)
@@ -148,7 +148,7 @@ class HomeView extends Lego.UI.Baseview {
                         comName: 'selects',
                         name: 'time',
                         placeholder: '请选择',
-                        onChange(result) {
+                        onChange(self, result) {
                             console.warn('点击了选项框2', result);
                         },
                         value: {
@@ -158,7 +158,7 @@ class HomeView extends Lego.UI.Baseview {
                         data: $.extend(true, [], data)
                     }
                 }],
-                onSubmit(data){
+                onSubmit(self, data){
                     console.warn('点击了提交2', data);
                     return false;
                 }

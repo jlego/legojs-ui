@@ -3435,11 +3435,11 @@
                 var n = {
                     components: [ {
                         el: "#tree1",
-                        onChecked: function e(t) {
-                            console.warn("选中了节点", t);
+                        onChecked: function e(t, n) {
+                            console.warn("选中了节点", n);
                         },
-                        onClick: function e(t) {
-                            console.warn("点击了节点", t);
+                        onClick: function e(t, n) {
+                            console.warn("点击了节点", n);
                         },
                         data: [ {
                             name: "test1",
@@ -3465,11 +3465,11 @@
                                 enable: true
                             }
                         },
-                        onChecked: function e(t) {
-                            console.warn("选中了节点", t);
+                        onChecked: function e(t, n) {
+                            console.warn("选中了节点", n);
                         },
-                        onClick: function e(t) {
-                            console.warn("点击了节点", t);
+                        onClick: function e(t, n) {
+                            console.warn("点击了节点", n);
                         },
                         data: [ {
                             name: "test1",
@@ -3500,11 +3500,11 @@
                                 chkStyle: "radio"
                             }
                         },
-                        onChecked: function e(t) {
-                            console.warn("选中了节点", t);
+                        onChecked: function e(t, n) {
+                            console.warn("选中了节点", n);
                         },
-                        onClick: function e(t) {
-                            console.warn("点击了节点", t);
+                        onClick: function e(t, n) {
+                            console.warn("点击了节点", n);
                         },
                         data: [ {
                             name: "test1",
@@ -3535,11 +3535,11 @@
                                 enable: true
                             }
                         },
-                        onChecked: function e(t) {
-                            console.warn("选中了节点", t);
+                        onChecked: function e(t, n) {
+                            console.warn("选中了节点", n);
                         },
-                        onClick: function e(t) {
-                            console.warn("点击了节点", t);
+                        onClick: function e(t, n) {
+                            console.warn("点击了节点", n);
                         }
                     }, "data", [ {
                         name: "test1",
@@ -3570,8 +3570,8 @@
                                 enable: true
                             }
                         },
-                        onChange: function e(t) {
-                            console.warn("点击了树型选项框1", t);
+                        onChange: function e(t, n) {
+                            console.warn("点击了树型选项框1", n, t);
                         },
                         data: [ {
                             id: "tree1",
@@ -3608,8 +3608,8 @@
                                 chkStyle: "radio"
                             }
                         },
-                        onChange: function e(t) {
-                            console.warn("点击了树型选项框2", t);
+                        onChange: function e(t, n) {
+                            console.warn("点击了树型选项框2", n);
                         },
                         value: {
                             key: "tree1_1",
@@ -3648,8 +3648,8 @@
                                 enable: true
                             }
                         },
-                        onChange: function e(t) {
-                            console.warn("点击了树型选项框3", t);
+                        onChange: function e(t, n) {
+                            console.warn("点击了树型选项框3", n);
                         },
                         data: [ {
                             id: "tree1",
@@ -3677,8 +3677,8 @@
                     }, {
                         el: "#treeselect4",
                         placeholder: "请选择",
-                        onChange: function e(t) {
-                            console.warn("点击了树型选项框3", t);
+                        onChange: function e(t, n) {
+                            console.warn("点击了树型选项框3", n);
                         },
                         data: [ {
                             id: "tree1",
@@ -3827,29 +3827,29 @@
                             }
                         }, t.setting.check || {});
                         t.setting.callback = Object.assign(t.setting.callback || {}, {
-                            onCheck: function e(n, o, a) {
-                                var i = $.fn.zTree.getZTreeObj(o), l = i.getCheckedNodes(true), s = t.keyNames, d = l.filter(function(e) {
+                            onCheck: function e(o, a, i) {
+                                var l = $.fn.zTree.getZTreeObj(a), s = l.getCheckedNodes(true), d = t.keyNames, c = s.filter(function(e) {
                                     return r(e);
                                 });
-                                var c = [];
-                                d.forEach(function(e, t) {
-                                    c.push({
-                                        key: e[s[0]],
-                                        value: e[s[1]],
-                                        type: e[s[2]]
+                                var u = [];
+                                c.forEach(function(e, t) {
+                                    u.push({
+                                        key: e[d[0]],
+                                        value: e[d[1]],
+                                        type: e[d[2]]
                                     });
                                 });
-                                if (typeof t.onChecked == "function") t.onChecked(c);
+                                if (typeof t.onChecked == "function") t.onChecked(n, u);
                             }
                         });
                     } else {
                         t.setting.callback = Object.assign(t.setting.callback || {}, {
-                            onClick: function e(n, o, a) {
-                                if (!r(a)) return false;
-                                if (typeof t.onClick == "function") t.onClick({
-                                    key: a[t.keyNames[0]],
-                                    value: a[t.keyNames[1]],
-                                    type: a[t.keyNames[2]]
+                            onClick: function e(o, a, i) {
+                                if (!r(i)) return false;
+                                if (typeof t.onClick == "function") t.onClick(n, {
+                                    key: i[t.keyNames[0]],
+                                    value: i[t.keyNames[1]],
+                                    type: i[t.keyNames[2]]
                                 });
                             }
                         });
@@ -4025,13 +4025,13 @@
                 key: "show",
                 value: function e(t) {
                     this.options.trigger.addClass("dropdown open");
-                    this.options.onVisibleChange(true);
+                    this.options.onVisibleChange(this, true);
                 }
             }, {
                 key: "close",
                 value: function e(t) {
                     this.options.trigger.removeClass("dropdown open");
-                    this.options.onVisibleChange(false);
+                    this.options.onVisibleChange(this, false);
                 }
             }, {
                 key: "clickItem",
@@ -4042,7 +4042,7 @@
                         return e.key == n.attr("id");
                     });
                     if (r) {
-                        this.options.onChange(r);
+                        this.options.onChange(this, r);
                         this.options.activeKey = r.key;
                         this.options.activeValue = r.value;
                     }
@@ -4145,24 +4145,24 @@
                         className: e.dropdownClassName,
                         clickAndClose: e.multiple ? false : true,
                         data: e.data,
-                        onChange: function t(n) {
-                            var r = this.context;
-                            r.$(".select-input").focus();
-                            if (n.key !== "0" && e.multiple) {
-                                r.getValue();
-                                if (!r.options.value.includes(n)) {
-                                    n.selected = true;
-                                    r.options.value.push(n);
+                        onChange: function t(n, r) {
+                            var o = this.context;
+                            o.$(".select-input").focus();
+                            if (r.key !== "0" && e.multiple) {
+                                o.getValue();
+                                if (!o.options.value.includes(r)) {
+                                    r.selected = true;
+                                    o.options.value.push(r);
                                 }
                             } else {
-                                r.options.data.forEach(function(e) {
+                                o.options.data.forEach(function(e) {
                                     return e.selected = false;
                                 });
-                                r.options.value = [ n ];
+                                o.options.value = [ r ];
                             }
-                            r.options.onSelect(n);
-                            r.options.onChange(n);
-                            r.refresh();
+                            o.options.onSelect(o, r);
+                            o.options.onChange(o, r);
+                            o.refresh();
                         }
                     } ]
                 };
@@ -4215,7 +4215,7 @@
                     this.getValue();
                     this.refresh();
                     Lego.getView("#dropdown-" + this.options.vid).refresh();
-                    if (typeof this.options.onDeselect === "function") this.options.onDeselect({
+                    if (typeof this.options.onDeselect === "function") this.options.onDeselect(this, {
                         key: r,
                         value: o
                     });
@@ -4349,29 +4349,29 @@
                             }
                         }, t.setting.check || {});
                         t.setting.callback = Object.assign(t.setting.callback || {}, {
-                            onCheck: function e(n, o, a) {
-                                var i = $.fn.zTree.getZTreeObj(o), l = i.getCheckedNodes(true), s = t.keyNames, d = l.filter(function(e) {
+                            onCheck: function e(o, a, i) {
+                                var l = $.fn.zTree.getZTreeObj(a), s = l.getCheckedNodes(true), d = t.keyNames, c = s.filter(function(e) {
                                     return r(e);
                                 });
-                                var c = [];
-                                d.forEach(function(e, t) {
-                                    c.push({
-                                        key: e[s[0]],
-                                        value: e[s[1]],
-                                        type: e[s[2]]
+                                var u = [];
+                                c.forEach(function(e, t) {
+                                    u.push({
+                                        key: e[d[0]],
+                                        value: e[d[1]],
+                                        type: e[d[2]]
                                     });
                                 });
-                                if (typeof t.onChecked == "function") t.onChecked(c);
+                                if (typeof t.onChecked == "function") t.onChecked(n, u);
                             }
                         });
                     } else {
                         t.setting.callback = Object.assign(t.setting.callback || {}, {
-                            onClick: function e(n, o, a) {
-                                if (!r(a)) return false;
-                                if (typeof t.onClick == "function") t.onClick({
-                                    key: a[t.keyNames[0]],
-                                    value: a[t.keyNames[1]],
-                                    type: a[t.keyNames[2]]
+                            onClick: function e(o, a, i) {
+                                if (!r(i)) return false;
+                                if (typeof t.onClick == "function") t.onClick(n, {
+                                    key: i[t.keyNames[0]],
+                                    value: i[t.keyNames[1]],
+                                    type: i[t.keyNames[2]]
                                 });
                             }
                         });
@@ -4492,14 +4492,14 @@
                         value: e.value,
                         data: e.data,
                         dataSource: e.treeDataSource,
-                        onChecked: function t(n) {
-                            var r = this.context;
-                            if (n.key !== "0" && e.setting.check) {
-                                r.getValue();
-                                if (n.length) {
-                                    r.options.value = [];
-                                    n.forEach(function(e) {
-                                        r.options.value.push({
+                        onChecked: function t(n, r) {
+                            var o = this.context;
+                            if (r.key !== "0" && e.setting.check) {
+                                o.getValue();
+                                if (r.length) {
+                                    o.options.value = [];
+                                    r.forEach(function(e) {
+                                        o.options.value.push({
                                             key: e.key,
                                             value: e.value,
                                             type: e.type,
@@ -4507,27 +4507,27 @@
                                         });
                                     });
                                 } else {
-                                    r.options.value = [];
+                                    o.options.value = [];
                                 }
                             }
-                            r.options.onSelect(n);
-                            r.options.onChange(n);
-                            r.refresh();
+                            o.options.onSelect(o, r);
+                            o.options.onChange(o, r);
+                            o.refresh();
                         },
-                        onClick: function e(t) {
-                            var n = this.context;
-                            n.options.value.forEach(function(e) {
+                        onClick: function e(t, n) {
+                            var r = this.context;
+                            r.options.value.forEach(function(e) {
                                 return e.selected = false;
                             });
-                            n.options.value = [ {
-                                key: t.key,
-                                value: t.value,
-                                type: t.type,
+                            r.options.value = [ {
+                                key: n.key,
+                                value: n.value,
+                                type: n.type,
                                 selected: true
                             } ];
-                            n.options.onSelect(t);
-                            n.options.onChange(t);
-                            n.refresh();
+                            r.options.onSelect(r, n);
+                            r.options.onChange(r, n);
+                            r.refresh();
                         },
                         disabled: e.disabled || false,
                         className: e.dropdownClassName
@@ -4630,7 +4630,7 @@
                         var i = a.getNodeByParam(this.options.keyNames[0], r, null);
                         a.checkNode(i, !i.checked, null, true);
                     }
-                    if (typeof this.options.onDeselect === "function") this.options.onDeselect({
+                    if (typeof this.options.onDeselect === "function") this.options.onDeselect(this, {
                         key: r,
                         value: o
                     });

@@ -125,7 +125,7 @@ var Navs = function(_Lego$UI$Baseview) {
             var model = this.options.data.find(function(item) {
                 return item.key === key;
             });
-            if (typeof this.options.onClick === "function") this.options.onClick(model);
+            if (typeof this.options.onClick === "function") this.options.onClick(this, model);
         }
     }, {
         key: "clickSubItem",
@@ -142,7 +142,7 @@ var Navs = function(_Lego$UI$Baseview) {
                 });
                 this.refresh();
             }
-            if (typeof this.options.onClick === "function") this.options.onClick(model);
+            if (typeof this.options.onClick === "function") this.options.onClick(this, model);
         }
     } ]);
     return Navs;
@@ -230,7 +230,7 @@ var Tabs = function(_Lego$UI$Baseview) {
                 eventName: opts.eventName || "click",
                 type: "tabs",
                 activeKey: opts.activeKey,
-                onClick: function onClick(item) {
+                onClick: function onClick(self, item) {
                     var parentView = this.context;
                     if (!item.children) {
                         parentView.options.activeKey = item.key;
@@ -277,7 +277,7 @@ var Tabs = function(_Lego$UI$Baseview) {
             this.$el.slideUp("normal", function() {
                 _this2.remove();
             });
-            if (typeof this.options.onClose === "function") this.options.onClose(event);
+            if (typeof this.options.onClose === "function") this.options.onClose(this, event);
         }
     } ]);
     return Tabs;

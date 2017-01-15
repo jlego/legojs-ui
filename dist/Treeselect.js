@@ -158,13 +158,13 @@ var Dropdown = function(_Lego$UI$Baseview) {
         key: "show",
         value: function show(event) {
             this.options.trigger.addClass("dropdown open");
-            this.options.onVisibleChange(true);
+            this.options.onVisibleChange(this, true);
         }
     }, {
         key: "close",
         value: function close(event) {
             this.options.trigger.removeClass("dropdown open");
-            this.options.onVisibleChange(false);
+            this.options.onVisibleChange(this, false);
         }
     }, {
         key: "clickItem",
@@ -175,7 +175,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 return Item.key == target.attr("id");
             });
             if (model) {
-                this.options.onChange(model);
+                this.options.onChange(this, model);
                 this.options.activeKey = model.key;
                 this.options.activeValue = model.value;
             }
@@ -289,7 +289,7 @@ var Selects = function(_Lego$UI$Baseview) {
                 className: opts.dropdownClassName,
                 clickAndClose: opts.multiple ? false : true,
                 data: opts.data,
-                onChange: function onChange(model) {
+                onChange: function onChange(self, model) {
                     var parentView = this.context;
                     parentView.$(".select-input").focus();
                     if (model.key !== "0" && opts.multiple) {
@@ -304,8 +304,8 @@ var Selects = function(_Lego$UI$Baseview) {
                         });
                         parentView.options.value = [ model ];
                     }
-                    parentView.options.onSelect(model);
-                    parentView.options.onChange(model);
+                    parentView.options.onSelect(parentView, model);
+                    parentView.options.onChange(parentView, model);
                     parentView.refresh();
                 }
             } ]
@@ -359,7 +359,7 @@ var Selects = function(_Lego$UI$Baseview) {
             this.getValue();
             this.refresh();
             Lego.getView("#dropdown-" + this.options.vid).refresh();
-            if (typeof this.options.onDeselect === "function") this.options.onDeselect({
+            if (typeof this.options.onDeselect === "function") this.options.onDeselect(this, {
                 key: key,
                 value: value
             });
@@ -513,14 +513,14 @@ var Tree = function(_Lego$UI$Baseview) {
                                 type: val[keyNames[2]]
                             });
                         });
-                        if (typeof options.onChecked == "function") options.onChecked(newValue);
+                        if (typeof options.onChecked == "function") options.onChecked(that, newValue);
                     }
                 });
             } else {
                 options.setting.callback = Object.assign(options.setting.callback || {}, {
                     onClick: function onClick(event, treeId, treeNode) {
                         if (!selectOrNo(treeNode)) return false;
-                        if (typeof options.onClick == "function") options.onClick({
+                        if (typeof options.onClick == "function") options.onClick(that, {
                             key: treeNode[options.keyNames[0]],
                             value: treeNode[options.keyNames[1]],
                             type: treeNode[options.keyNames[2]]
@@ -655,7 +655,7 @@ var Treeselect = function(_Selects) {
                 value: opts.value,
                 data: opts.data,
                 dataSource: opts.treeDataSource,
-                onChecked: function onChecked(result) {
+                onChecked: function onChecked(self, result) {
                     var parentView = this.context;
                     if (result.key !== "0" && opts.setting.check) {
                         parentView.getValue();
@@ -673,11 +673,11 @@ var Treeselect = function(_Selects) {
                             parentView.options.value = [];
                         }
                     }
-                    parentView.options.onSelect(result);
-                    parentView.options.onChange(result);
+                    parentView.options.onSelect(parentView, result);
+                    parentView.options.onChange(parentView, result);
                     parentView.refresh();
                 },
-                onClick: function onClick(result) {
+                onClick: function onClick(self, result) {
                     var parentView = this.context;
                     parentView.options.value.forEach(function(item) {
                         return item.selected = false;
@@ -688,8 +688,8 @@ var Treeselect = function(_Selects) {
                         type: result.type,
                         selected: true
                     } ];
-                    parentView.options.onSelect(result);
-                    parentView.options.onChange(result);
+                    parentView.options.onSelect(parentView, result);
+                    parentView.options.onChange(parentView, result);
                     parentView.refresh();
                 },
                 disabled: opts.disabled || false,
@@ -793,7 +793,7 @@ var Treeselect = function(_Selects) {
                 var treeNode = treeView.getNodeByParam(this.options.keyNames[0], key, null);
                 treeView.checkNode(treeNode, !treeNode.checked, null, true);
             }
-            if (typeof this.options.onDeselect === "function") this.options.onDeselect({
+            if (typeof this.options.onDeselect === "function") this.options.onDeselect(this, {
                 key: key,
                 value: value
             });

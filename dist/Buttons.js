@@ -92,7 +92,7 @@ var Buttons = function(_Lego$UI$Baseview) {
         key: "onClick",
         value: function onClick(event) {
             event.stopPropagation();
-            if (typeof this.options.onClick === "function") this.options.onClick(event);
+            if (typeof this.options.onClick === "function") this.options.onClick(this, event);
         }
     } ]);
     return Buttons;

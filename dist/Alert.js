@@ -118,7 +118,7 @@ var Alert = function(_Lego$UI$Baseview) {
             this.$el.slideUp("normal", function() {
                 _this2.remove();
             });
-            if (typeof this.options.onClose === "function") this.options.onClose(event);
+            if (typeof this.options.onClose === "function") this.options.onClose(this, event);
         }
     } ]);
     return Alert;

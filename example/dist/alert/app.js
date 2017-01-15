@@ -406,7 +406,7 @@
                 this.$el.slideUp("normal", function() {
                     n.remove();
                 });
-                if (typeof this.options.onClose === "function") this.options.onClose(t);
+                if (typeof this.options.onClose === "function") this.options.onClose(this, t);
             }
         } ]);
         return t;
@@ -487,7 +487,7 @@
                     el: "#button1",
                     type: "info",
                     text: "模态框",
-                    onClick: function e() {
+                    onClick: function e(t) {
                         console.warn("点击了此按钮button1");
                         Lego.UI.modal({
                             type: "layer",
@@ -508,7 +508,7 @@
                     el: "#button2",
                     type: "primary",
                     text: "对话框",
-                    onClick: function e() {
+                    onClick: function e(t) {
                         console.warn("点击了此按钮button2");
                         Lego.UI.modal({
                             msgType: "success",
@@ -529,7 +529,7 @@
                 }, {
                     el: "#button3",
                     type: "secondary",
-                    onClick: function e() {
+                    onClick: function e(t) {
                         console.warn("点击了此按钮button3");
                         Lego.UI.modal({
                             type: "modal",
@@ -712,7 +712,7 @@
             key: "onClick",
             value: function e(t) {
                 t.stopPropagation();
-                if (typeof this.options.onClick === "function") this.options.onClick(t);
+                if (typeof this.options.onClick === "function") this.options.onClick(this, t);
             }
         } ]);
         return t;
@@ -1365,7 +1365,7 @@
                 this.$el.slideUp("normal", function() {
                     n.remove();
                 });
-                if (typeof this.options.onClose === "function") this.options.onClose(t);
+                if (typeof this.options.onClose === "function") this.options.onClose(this, t);
             }
         } ]);
         return t;
@@ -1691,10 +1691,10 @@
                         pageSize: 20,
                         showSizeChanger: true,
                         showQuickJumper: true,
-                        onChange: function e(t) {
-                            var o = Lego.getView("#theTable");
-                            o.options.data = n(t);
-                            o.refresh();
+                        onChange: function e(t, o) {
+                            var i = Lego.getView("#theTable");
+                            i.options.data = n(o);
+                            i.refresh();
                         }
                     },
                     showHeader: true,
@@ -1899,13 +1899,13 @@
             key: "show",
             value: function e(t) {
                 this.options.trigger.addClass("dropdown open");
-                this.options.onVisibleChange(true);
+                this.options.onVisibleChange(this, true);
             }
         }, {
             key: "close",
             value: function e(t) {
                 this.options.trigger.removeClass("dropdown open");
-                this.options.onVisibleChange(false);
+                this.options.onVisibleChange(this, false);
             }
         }, {
             key: "clickItem",
@@ -1916,7 +1916,7 @@
                     return e.key == n.attr("id");
                 });
                 if (o) {
-                    this.options.onChange(o);
+                    this.options.onChange(this, o);
                     this.options.activeKey = o.key;
                     this.options.activeValue = o.value;
                 }
@@ -2023,14 +2023,12 @@
                     el: "#" + e.vid + "-dropdown",
                     trigger: "#" + e.vid + "-select",
                     data: o,
-                    onChange: function t(n) {
-                        var o = Lego.getView(e.el);
+                    onChange: function e(t, n) {
+                        var o = this.context;
                         var i = parseInt(n.key);
-                        if (o) {
-                            o.options.current = 1;
-                            o.options.pageSize = i;
-                            o.options.onPageSizeChange(i);
-                        }
+                        o.options.current = 1;
+                        o.options.pageSize = i;
+                        o.options.onPageSizeChange(i);
                     }
                 } ];
             }
@@ -2065,7 +2063,7 @@
                 var n = this.options;
                 console.warn("点击了上一页");
                 n.current--;
-                n.onChange(n.current, n.pageSize);
+                n.onChange(this, n.current, n.pageSize);
             }
         }, {
             key: "clickItemPage",
@@ -2075,7 +2073,7 @@
                 var i = this.options;
                 console.warn("点击了" + o + "页");
                 i.current = o;
-                i.onChange(o, i.pageSize);
+                i.onChange(this, o, i.pageSize);
             }
         }, {
             key: "clickNextPage",
@@ -2084,7 +2082,7 @@
                 var n = this.options;
                 console.warn("点击了下一页");
                 n.current++;
-                n.onChange(n.current, n.pageSize);
+                n.onChange(this, n.current, n.pageSize);
             }
         }, {
             key: "clickMorePage",
@@ -2095,7 +2093,7 @@
                 console.warn("点击了更多页");
                 n.current = o + (i - r + 1);
                 if (n.current > n.totalPages) n.current = n.totalPages;
-                n.onChange(n.current, n.pageSize);
+                n.onChange(this, n.current, n.pageSize);
             }
         }, {
             key: "_enterSearch",
@@ -2107,7 +2105,7 @@
                     if (i > o.totalPages) i = o.totalPages;
                     this.jumped = true;
                     o.current = i;
-                    o.onChange(i, o.pageSize);
+                    o.onChange(this, i, o.pageSize);
                 }
             }
         } ]);
@@ -2413,7 +2411,7 @@
             key: "clickSetting",
             value: function e(t) {
                 t.stopPropagation();
-                if (typeof this.options.colSetting === "function") this.options.colSetting();
+                if (typeof this.options.colSetting === "function") this.options.colSetting(this);
             }
         }, {
             key: "selectOne",

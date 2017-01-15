@@ -13,7 +13,7 @@ class ListView extends Lego.UI.Baseview {
                 el: '#button1',
                 type: 'info',
                 text: '模态框',
-                onClick(){
+                onClick(self){
                     console.warn('点击了此按钮button1');
                     Lego.UI.modal({
                         type: 'layer',
@@ -35,7 +35,7 @@ class ListView extends Lego.UI.Baseview {
                 type: 'primary',
                 // className: 'btn-sm',
                 text: '对话框',
-                onClick(){
+                onClick(self){
                     console.warn('点击了此按钮button2');
                     Lego.UI.modal({
                         msgType: 'success',
@@ -56,7 +56,7 @@ class ListView extends Lego.UI.Baseview {
             }, {
                 el: '#button3',
                 type: 'secondary',
-                onClick(){
+                onClick(self){
                     console.warn('点击了此按钮button3');
                     Lego.UI.modal({
                         type: 'modal',

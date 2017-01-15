@@ -31,7 +31,7 @@ class TableView extends Lego.UI.Baseview {
                     pageSize: 20,
                     showSizeChanger: true,
                     showQuickJumper: true,
-                    onChange(num){
+                    onChange(self, num){
                         const theView = Lego.getView('#theTable');
                         theView.options.data = getData(num);
                         theView.refresh();
