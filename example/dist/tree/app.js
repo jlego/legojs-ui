@@ -34,9 +34,9 @@
                 return t;
             };
         }();
-        var o = n(254);
+        var o = n(255);
         var a = s(o);
-        var i = n(255);
+        var i = n(256);
         var l = s(i);
         function s(e) {
             return e && e.__esModule ? e : {
@@ -80,7 +80,7 @@
         }();
         HBY.router(new c());
     },
-    253: function(module, exports) {
+    254: function(module, exports) {
         (function($) {
             var settings = {}, roots = {}, caches = {}, _consts = {
                 className: {
@@ -3274,7 +3274,7 @@
             };
         })(jQuery);
     },
-    254: function(e, t) {
+    255: function(e, t) {
         "use strict";
         Object.defineProperty(t, "__esModule", {
             value: true
@@ -3351,7 +3351,7 @@
         }(Lego.UI.Baseview);
         t.default = s;
     },
-    255: function(e, t, n) {
+    256: function(e, t, n) {
         "use strict";
         Object.defineProperty(t, "__esModule", {
             value: true
@@ -3373,9 +3373,9 @@
             };
         }();
         var o = c([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <tree id="tree1"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree2"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree3"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree4"></tree>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <treeselect id="treeselect1"></treeselect>\n            </div>\n            <div class="col-sm-6">\n              <treeselect id="treeselect2"></treeselect>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <treeselect id="treeselect3"></treeselect>\n            </div>\n            <div class="col-sm-6">\n              <treeselect id="treeselect4"></treeselect>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <tree id="tree1"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree2"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree3"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree4"></tree>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <treeselect id="treeselect1"></treeselect>\n            </div>\n            <div class="col-sm-6">\n              <treeselect id="treeselect2"></treeselect>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <treeselect id="treeselect3"></treeselect>\n            </div>\n            <div class="col-sm-6">\n              <treeselect id="treeselect4"></treeselect>\n            </div>\n          </div>\n        </div>\n        ' ]);
-        var a = n(256);
+        var a = n(257);
         var i = d(a);
-        var l = n(257);
+        var l = n(258);
         var s = d(l);
         function d(e) {
             return e && e.__esModule ? e : {
@@ -3719,14 +3719,14 @@
         }(Lego.UI.Baseview);
         t.default = h;
     },
-    256: function(e, t, n) {
+    257: function(e, t, n) {
         "use strict";
         var r = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
             return typeof e;
         } : function(e) {
             return e && typeof Symbol === "function" && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e;
         };
-        var o = n(253);
+        var o = n(254);
         var a = function() {
             function e(e, t) {
                 for (var n = 0; n < t.length; n++) {
@@ -3833,11 +3833,11 @@
                                 });
                                 var u = [];
                                 c.forEach(function(e, t) {
-                                    u.push({
+                                    u.push(Object.assign({
                                         key: e[d[0]],
                                         value: e[d[1]],
                                         type: e[d[2]]
-                                    });
+                                    }, e));
                                 });
                                 if (typeof t.onChecked == "function") t.onChecked(n, u);
                             }
@@ -3846,11 +3846,11 @@
                         t.setting.callback = Object.assign(t.setting.callback || {}, {
                             onClick: function e(o, a, i) {
                                 if (!r(i)) return false;
-                                if (typeof t.onClick == "function") t.onClick(n, {
+                                if (typeof t.onClick == "function") t.onClick(n, Object.assign({
                                     key: i[t.keyNames[0]],
                                     value: i[t.keyNames[1]],
                                     type: i[t.keyNames[2]]
-                                });
+                                }, i));
                             }
                         });
                     }
@@ -3876,14 +3876,14 @@
         Lego.components("tree", u);
         e.exports = u;
     },
-    257: function(e, t, n) {
+    258: function(e, t, n) {
         "use strict";
         var r = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
             return typeof e;
         } : function(e) {
             return e && typeof Symbol === "function" && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e;
         };
-        var o = n(253);
+        var o = n(254);
         var a = function() {
             function e(e, t) {
                 for (var n = 0; n < t.length; n++) {
@@ -3955,36 +3955,11 @@
                     direction: "",
                     clickAndClose: true,
                     onChange: function e() {},
-                    onVisibleChange: function e() {}
+                    onVisibleChange: function e() {},
+                    data: []
                 };
                 Object.assign(n, e);
-                var r = p(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
-                var o = r;
-                r.options.trigger = e.trigger instanceof $ ? e.trigger : $(e.trigger);
-                if (!r.options.disabled) {
-                    var a = function e(t) {
-                        $("body, .modal-body").trigger("click");
-                        t.stopPropagation();
-                        var r = Lego.UI.Util.getDirection(o.options.trigger, o.$el);
-                        o.options.direction = r._y || "bottom";
-                        o.show();
-                        if (n.eventName == "hover") {
-                            o.options.trigger.mouseleave(function() {
-                                o.close();
-                            });
-                        }
-                    };
-                    if (n.eventName == "click") {
-                        var i = "click.dropdown_" + e.vid;
-                        $("body, .modal-body").off(i).on(i, function() {
-                            o.close();
-                        });
-                        r.options.trigger.off(i).on(i, a);
-                    } else {
-                        r.options.trigger[n.eventName](a);
-                    }
-                }
-                return r;
+                return p(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
             }
             a(t, [ {
                 key: "render",
@@ -4010,6 +3985,35 @@
                         return n(e);
                     }));
                     return o;
+                }
+            }, {
+                key: "renderAfter",
+                value: function e() {
+                    var t = this;
+                    this.options.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
+                    if (!this.options.disabled) {
+                        var n = function e(n) {
+                            $("body, .modal-body").trigger("click");
+                            n.stopPropagation();
+                            var r = Lego.UI.Util.getDirection(t.options.trigger, t.$el);
+                            t.options.direction = r._y || "bottom";
+                            t.show();
+                            if (t.options.eventName == "hover") {
+                                t.options.trigger.mouseleave(function() {
+                                    t.close();
+                                });
+                            }
+                        };
+                        if (this.options.eventName == "click") {
+                            var r = "click.dropdown_" + this.options.vid;
+                            $("body, .modal-body").off(r).on(r, function() {
+                                t.close();
+                            });
+                            this.options.trigger.off(r).on(r, n);
+                        } else {
+                            this.options.trigger[this.options.eventName](n);
+                        }
+                    }
                 }
             }, {
                 key: "_getAlign",
@@ -4133,6 +4137,7 @@
                     dropdownStyle: null,
                     dropdownClassName: "",
                     splitString: "",
+                    dataSource: null,
                     components: [ {
                         el: "#dropdown-" + e.vid,
                         trigger: "#select-" + e.vid,
@@ -4144,7 +4149,8 @@
                         }, e.dropdownStyle || {}),
                         className: e.dropdownClassName,
                         clickAndClose: e.multiple ? false : true,
-                        data: e.data,
+                        data: e.data || [],
+                        dataSource: e.dataSource,
                         onChange: function t(n, r) {
                             var o = this.context;
                             o.$(".select-input").focus();
@@ -4355,11 +4361,11 @@
                                 });
                                 var u = [];
                                 c.forEach(function(e, t) {
-                                    u.push({
+                                    u.push(Object.assign({
                                         key: e[d[0]],
                                         value: e[d[1]],
                                         type: e[d[2]]
-                                    });
+                                    }, e));
                                 });
                                 if (typeof t.onChecked == "function") t.onChecked(n, u);
                             }
@@ -4368,11 +4374,11 @@
                         t.setting.callback = Object.assign(t.setting.callback || {}, {
                             onClick: function e(o, a, i) {
                                 if (!r(i)) return false;
-                                if (typeof t.onClick == "function") t.onClick(n, {
+                                if (typeof t.onClick == "function") t.onClick(n, Object.assign({
                                     key: i[t.keyNames[0]],
                                     value: i[t.keyNames[1]],
                                     type: i[t.keyNames[2]]
-                                });
+                                }, i));
                             }
                         });
                     }

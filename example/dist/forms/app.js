@@ -441,36 +441,11 @@
                 direction: "",
                 clickAndClose: true,
                 onChange: function e() {},
-                onVisibleChange: function e() {}
+                onVisibleChange: function e() {},
+                data: []
             };
             Object.assign(n, e);
-            var a = m(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
-            var r = a;
-            a.options.trigger = e.trigger instanceof $ ? e.trigger : $(e.trigger);
-            if (!a.options.disabled) {
-                var i = function e(t) {
-                    $("body, .modal-body").trigger("click");
-                    t.stopPropagation();
-                    var a = Lego.UI.Util.getDirection(r.options.trigger, r.$el);
-                    r.options.direction = a._y || "bottom";
-                    r.show();
-                    if (n.eventName == "hover") {
-                        r.options.trigger.mouseleave(function() {
-                            r.close();
-                        });
-                    }
-                };
-                if (n.eventName == "click") {
-                    var s = "click.dropdown_" + e.vid;
-                    $("body, .modal-body").off(s).on(s, function() {
-                        r.close();
-                    });
-                    a.options.trigger.off(s).on(s, i);
-                } else {
-                    a.options.trigger[n.eventName](i);
-                }
-            }
-            return a;
+            return m(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
         }
         a(t, [ {
             key: "render",
@@ -496,6 +471,35 @@
                     return n(e);
                 }));
                 return u;
+            }
+        }, {
+            key: "renderAfter",
+            value: function e() {
+                var t = this;
+                this.options.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
+                if (!this.options.disabled) {
+                    var n = function e(n) {
+                        $("body, .modal-body").trigger("click");
+                        n.stopPropagation();
+                        var a = Lego.UI.Util.getDirection(t.options.trigger, t.$el);
+                        t.options.direction = a._y || "bottom";
+                        t.show();
+                        if (t.options.eventName == "hover") {
+                            t.options.trigger.mouseleave(function() {
+                                t.close();
+                            });
+                        }
+                    };
+                    if (this.options.eventName == "click") {
+                        var a = "click.dropdown_" + this.options.vid;
+                        $("body, .modal-body").off(a).on(a, function() {
+                            t.close();
+                        });
+                        this.options.trigger.off(a).on(a, n);
+                    } else {
+                        this.options.trigger[this.options.eventName](n);
+                    }
+                }
             }
         }, {
             key: "_getAlign",
@@ -724,36 +728,11 @@
                 direction: "",
                 clickAndClose: true,
                 onChange: function e() {},
-                onVisibleChange: function e() {}
+                onVisibleChange: function e() {},
+                data: []
             };
             Object.assign(n, e);
-            var a = m(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
-            var r = a;
-            a.options.trigger = e.trigger instanceof $ ? e.trigger : $(e.trigger);
-            if (!a.options.disabled) {
-                var i = function e(t) {
-                    $("body, .modal-body").trigger("click");
-                    t.stopPropagation();
-                    var a = Lego.UI.Util.getDirection(r.options.trigger, r.$el);
-                    r.options.direction = a._y || "bottom";
-                    r.show();
-                    if (n.eventName == "hover") {
-                        r.options.trigger.mouseleave(function() {
-                            r.close();
-                        });
-                    }
-                };
-                if (n.eventName == "click") {
-                    var s = "click.dropdown_" + e.vid;
-                    $("body, .modal-body").off(s).on(s, function() {
-                        r.close();
-                    });
-                    a.options.trigger.off(s).on(s, i);
-                } else {
-                    a.options.trigger[n.eventName](i);
-                }
-            }
-            return a;
+            return m(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
         }
         a(t, [ {
             key: "render",
@@ -779,6 +758,35 @@
                     return n(e);
                 }));
                 return u;
+            }
+        }, {
+            key: "renderAfter",
+            value: function e() {
+                var t = this;
+                this.options.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
+                if (!this.options.disabled) {
+                    var n = function e(n) {
+                        $("body, .modal-body").trigger("click");
+                        n.stopPropagation();
+                        var a = Lego.UI.Util.getDirection(t.options.trigger, t.$el);
+                        t.options.direction = a._y || "bottom";
+                        t.show();
+                        if (t.options.eventName == "hover") {
+                            t.options.trigger.mouseleave(function() {
+                                t.close();
+                            });
+                        }
+                    };
+                    if (this.options.eventName == "click") {
+                        var a = "click.dropdown_" + this.options.vid;
+                        $("body, .modal-body").off(a).on(a, function() {
+                            t.close();
+                        });
+                        this.options.trigger.off(a).on(a, n);
+                    } else {
+                        this.options.trigger[this.options.eventName](n);
+                    }
+                }
             }
         }, {
             key: "_getAlign",
@@ -902,6 +910,7 @@
                 dropdownStyle: null,
                 dropdownClassName: "",
                 splitString: "",
+                dataSource: null,
                 components: [ {
                     el: "#dropdown-" + e.vid,
                     trigger: "#select-" + e.vid,
@@ -913,7 +922,8 @@
                     }, e.dropdownStyle || {}),
                     className: e.dropdownClassName,
                     clickAndClose: e.multiple ? false : true,
-                    data: e.data,
+                    data: e.data || [],
+                    dataSource: e.dataSource,
                     onChange: function t(n, a) {
                         var r = this.context;
                         r.$(".select-input").focus();

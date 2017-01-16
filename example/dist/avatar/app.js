@@ -42,14 +42,14 @@
             default: e
         };
     }
-    function c(e, t) {
+    function l(e, t) {
         if (!(e instanceof t)) {
             throw new TypeError("Cannot call a class as a function");
         }
     }
-    var l = function() {
+    var c = function() {
         function e() {
-            c(this, e);
+            l(this, e);
             return {
                 "/avatar": [ this.index, this.tabs ],
                 "/avatar/:tabs": [ this.index, this.tabs ]
@@ -77,7 +77,7 @@
         } ]);
         return e;
     }();
-    HBY.router(new l());
+    HBY.router(new c());
 }, , , , , , , , , , function(e, t) {
     "use strict";
     Object.defineProperty(t, "__esModule", {
@@ -190,12 +190,12 @@
             }
         }));
     }
-    function c(e, t) {
+    function l(e, t) {
         if (!(e instanceof t)) {
             throw new TypeError("Cannot call a class as a function");
         }
     }
-    function l(e, t) {
+    function c(e, t) {
         if (!e) {
             throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
         }
@@ -219,7 +219,7 @@
         v(t, e);
         function t() {
             var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-            c(this, t);
+            l(this, t);
             var n = {
                 components: [ {
                     el: "#avatar1",
@@ -256,7 +256,7 @@
                 } ]
             };
             Object.assign(n, e);
-            return l(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
+            return c(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
         }
         a(t, [ {
             key: "render",
@@ -291,13 +291,13 @@
             return t;
         };
     }();
-    var r = v([ '\n            <div class="avatar-item">\n                <div class="avatar-img" style="background-image:url(', ');" id="', '">\n                    ', "\n                </div>\n                ", "\n            </div>\n            " ], [ '\n            <div class="avatar-item">\n                <div class="avatar-img" style="background-image:url(', ');" id="', '">\n                    ', "\n                </div>\n                ", "\n            </div>\n            " ]);
+    var r = v([ '\n            <div class="avatar-item">\n                <div class="avatar-img" style="', '" id="', '">\n                    ', "\n                </div>\n                ", "\n            </div>\n            " ], [ '\n            <div class="avatar-item">\n                <div class="avatar-img" style="', '" id="', '">\n                    ', "\n                </div>\n                ", "\n            </div>\n            " ]);
     var i = v([ '<i class="anticon anticon-close remove" title="删除 ', '"></i>' ], [ '<i class="anticon anticon-close remove" title="删除 ', '"></i>' ]);
     var o = v([ '<i class="anticon anticon-swap change" title="更换 ', '"></i>' ], [ '<i class="anticon anticon-swap change" title="更换 ', '"></i>' ]);
     var s = v([ "<label>", "</label>" ], [ "<label>", "</label>" ]);
     var u = v([ '\n        <div class="avatar ', ' clearfix">\n        ', "\n        ", '\n            <input type="hidden" value="', '" name="', '">\n        </div>\n        ' ], [ '\n        <div class="avatar ', ' clearfix">\n        ', "\n        ", '\n            <input type="hidden" value="', '" name="', '">\n        </div>\n        ' ]);
-    var c = v([ "\n            ", "\n        " ], [ "\n            ", "\n        " ]);
-    var l = v([ '\n            <div class="avatar-item addbtn">\n                <div class="avatar-img">\n                <i class="anticon anticon-plus add" title="添加"></i>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="avatar-item addbtn">\n                <div class="avatar-img">\n                <i class="anticon anticon-plus add" title="添加"></i>\n                </div>\n            </div>\n            ' ]);
+    var l = v([ "\n            ", "\n        " ], [ "\n            ", "\n        " ]);
+    var c = v([ '\n            <div class="avatar-item addbtn">\n                <div class="avatar-img">\n                <i class="anticon anticon-plus add" title="添加"></i>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="avatar-item addbtn">\n                <div class="avatar-img">\n                <i class="anticon anticon-plus add" title="添加"></i>\n                </div>\n            </div>\n            ' ]);
     function v(e, t) {
         return Object.freeze(Object.defineProperties(e, {
             raw: {
@@ -361,11 +361,11 @@
             value: function e() {
                 var t = this.options;
                 function n(e) {
-                    return hx(r, val(e.value), e.key, t.multiple ? hx(i, val(e.name)) : hx(o, val(e.name)), t.showName ? hx(s, val(e.name)) : "");
+                    return hx(r, e.value ? "background-image:url(" + val(e.value) + ");" : "", e.key, t.multiple ? hx(i, val(e.name)) : hx(o, val(e.name)), t.showName ? hx(s, val(e.name)) : "");
                 }
-                var a = hx(u, t.size, t.value.length ? hx(c, t.multiple ? t.value.map(function(e) {
+                var a = hx(u, t.size, t.value.length ? hx(l, t.multiple ? t.value.map(function(e) {
                     return n(e);
-                }) : n(t.value[0])) : "", !t.value.length || t.multiple ? hx(l) : "", t.value.map(function(e) {
+                }) : n(t.value[0])) : "", !t.value.length || t.multiple ? hx(c) : "", t.value.map(function(e) {
                     return e.key;
                 }).join(","), t.name);
                 return a;
@@ -387,9 +387,9 @@
             key: "onRemove",
             value: function e(t) {
                 t.stopPropagation();
-                var n = $(t.currentTarget), a = n.parent(), r = a.attr("id");
+                var n = $(t.currentTarget), a = n.parent(), r = a.attr("id").toString();
                 this.options.value = this.options.value.filter(function(e) {
-                    return e.key !== r;
+                    return e.key.toString() !== r;
                 });
                 this.refresh();
                 if (typeof this.options.onRemove == "function") this.options.onRemove(this, r);

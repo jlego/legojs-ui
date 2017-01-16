@@ -1387,28 +1387,30 @@
             return t;
         };
     }();
-    var y = _([ '\n        <div class="modal ', " \n        ", "\n        ", " \n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ], [ '\n        <div class="modal ', " \n        ", "\n        ", " \n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ]);
-    var m = _([ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ], [ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ]);
-    var w = _([ '<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">', '</button>\n                <button type="button" class="btn btn-primary ok">', "</button></div>" ], [ '<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">', '</button>\n                <button type="button" class="btn btn-primary ok">', "</button></div>" ]);
-    function _(e, t) {
+    var y = O([ '\n        <div class="modal ', "\n        ", "\n        ", "\n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              ', '\n              <div class="modal-body ', '" style="', "\n              ", '">\n                ', "\n              </div>\n              ", "\n            </div>\n          </div>\n        </div>\n        " ], [ '\n        <div class="modal ', "\n        ", "\n        ", "\n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              ', '\n              <div class="modal-body ', '" style="', "\n              ", '">\n                ', "\n              </div>\n              ", "\n            </div>\n          </div>\n        </div>\n        " ]);
+    var m = O([ '<div class="modal-header">\n              ', '\n                <h4 class="modal-title">', "</h4>\n              </div>" ], [ '<div class="modal-header">\n              ', '\n                <h4 class="modal-title">', "</h4>\n              </div>" ]);
+    var w = O([ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ], [ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ]);
+    var _ = O([ '<div class="modal-footer">\n              ', "\n              </div>" ], [ '<div class="modal-footer">\n              ', "\n              </div>" ]);
+    var k = O([ '<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">', '</button>\n                <button type="button" class="btn btn-primary ok">', "</button></div>" ], [ '<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">', '</button>\n                <button type="button" class="btn btn-primary ok">', "</button></div>" ]);
+    function O(e, t) {
         return Object.freeze(Object.defineProperties(e, {
             raw: {
                 value: Object.freeze(t)
             }
         }));
     }
-    function k(e, t) {
+    function S(e, t) {
         if (!(e instanceof t)) {
             throw new TypeError("Cannot call a class as a function");
         }
     }
-    function O(e, t) {
+    function x(e, t) {
         if (!e) {
             throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
         }
         return t && ((typeof t === "undefined" ? "undefined" : n(t)) === "object" || typeof t === "function") ? t : e;
     }
-    function S(e, t) {
+    function j(e, t) {
         if (typeof t !== "function" && t !== null) {
             throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : n(t)));
         }
@@ -1422,11 +1424,11 @@
         });
         if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
     }
-    var x = function(e) {
-        S(t, e);
+    var C = function(e) {
+        j(t, e);
         function t() {
             var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-            k(this, t);
+            S(this, t);
             var n = {
                 success: "anticon anticon-check-circle-o ",
                 info: "anticon anticon-info-circle-o",
@@ -1460,6 +1462,7 @@
                 footer: null,
                 confirm: null,
                 scrollbar: {},
+                scrollAble: true,
                 okText: "确定",
                 cancelText: "取消",
                 onHidden: function e() {},
@@ -1490,13 +1493,13 @@
                 }
             }
             if (o.type == "layer") o.animate = "slideInRight";
-            return O(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, o));
+            return x(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, o));
         }
         g(t, [ {
             key: "render",
             value: function e() {
                 var t = this.options || {};
-                var n = hx(y, t.type == "layer" ? "right-modal" : "", t.msgType ? "dialog-modal" : "", t.size ? "modal-size-" + t.size : "", t.isMiddle ? "middle" : "", t.el.replace(/#/, ""), t.closable ? hx(m) : "", t.title, !t.msgType ? "scrollbar" : "", t.content, t.footer ? t.footer : hx(w, t.cancelText, t.okText));
+                var n = hx(y, t.type == "layer" ? "right-modal" : "", t.msgType ? "dialog-modal" : "", t.size ? "modal-size-" + t.size : "", t.isMiddle ? "middle" : "", t.el.replace(/#/, ""), t.showHeader ? hx(m, t.closable ? hx(w) : "", t.title) : "", !t.msgType && t.scrollAble ? "scrollbar" : "", !t.showHeader && t.type == "layer" ? "top:0;" : "", !t.showFooter && t.type == "layer" ? "bottom:0;" : "", t.content, t.showFooter ? hx(_, t.footer ? t.footer : hx(k, t.cancelText, t.okText)) : "");
                 return n;
             }
         }, {
@@ -1575,30 +1578,31 @@
         } ]);
         return t;
     }(Lego.UI.Baseview);
-    var j = function e() {
+    var I = function e() {
         var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        var n = arguments[1];
         if (typeof t == "string") {
-            var n = null;
+            var o = null;
             switch (t) {
               case "close":
-                n = Lego.getView("#lego-layer");
+                o = Lego.getView("#lego-layer");
                 break;
 
               case "close.modal":
-                n = Lego.getView("#lego-modal-" + this.options.vid);
+                o = Lego.getView("#lego-modal-" + n);
                 break;
 
               case "close.dialog":
-                n = Lego.getView("#lego-dialog-" + this.options.vid);
+                o = Lego.getView("#lego-dialog-" + n);
                 break;
             }
-            if (n) n.close();
+            if (o) o.close();
         } else {
-            Lego.create(x, t);
+            Lego.create(C, t);
         }
     };
-    Lego.components("modal", j);
-    e.exports = j;
+    Lego.components("modal", I);
+    e.exports = I;
 }, function(e, t, n) {
     "use strict";
     Object.defineProperty(t, "__esModule", {
@@ -1829,36 +1833,11 @@
                 direction: "",
                 clickAndClose: true,
                 onChange: function e() {},
-                onVisibleChange: function e() {}
+                onVisibleChange: function e() {},
+                data: []
             };
             Object.assign(n, e);
-            var o = f(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
-            var i = o;
-            o.options.trigger = e.trigger instanceof $ ? e.trigger : $(e.trigger);
-            if (!o.options.disabled) {
-                var r = function e(t) {
-                    $("body, .modal-body").trigger("click");
-                    t.stopPropagation();
-                    var o = Lego.UI.Util.getDirection(i.options.trigger, i.$el);
-                    i.options.direction = o._y || "bottom";
-                    i.show();
-                    if (n.eventName == "hover") {
-                        i.options.trigger.mouseleave(function() {
-                            i.close();
-                        });
-                    }
-                };
-                if (n.eventName == "click") {
-                    var a = "click.dropdown_" + e.vid;
-                    $("body, .modal-body").off(a).on(a, function() {
-                        i.close();
-                    });
-                    o.options.trigger.off(a).on(a, r);
-                } else {
-                    o.options.trigger[n.eventName](r);
-                }
-            }
-            return o;
+            return f(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
         }
         o(t, [ {
             key: "render",
@@ -1884,6 +1863,35 @@
                     return n(e);
                 }));
                 return c;
+            }
+        }, {
+            key: "renderAfter",
+            value: function e() {
+                var t = this;
+                this.options.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
+                if (!this.options.disabled) {
+                    var n = function e(n) {
+                        $("body, .modal-body").trigger("click");
+                        n.stopPropagation();
+                        var o = Lego.UI.Util.getDirection(t.options.trigger, t.$el);
+                        t.options.direction = o._y || "bottom";
+                        t.show();
+                        if (t.options.eventName == "hover") {
+                            t.options.trigger.mouseleave(function() {
+                                t.close();
+                            });
+                        }
+                    };
+                    if (this.options.eventName == "click") {
+                        var o = "click.dropdown_" + this.options.vid;
+                        $("body, .modal-body").off(o).on(o, function() {
+                            t.close();
+                        });
+                        this.options.trigger.off(o).on(o, n);
+                    } else {
+                        this.options.trigger[this.options.eventName](n);
+                    }
+                }
             }
         }, {
             key: "_getAlign",
@@ -2039,6 +2047,7 @@
             key: "render",
             value: function e() {
                 var t = this.options || {}, n = parseInt(t.current);
+                t.pageSize = t.pageSize;
                 var o = parseInt(t.pageRang);
                 var i = t.data.total || (typeof t.total === "function" ? t.total() : t.total);
                 t.totalPages = t.data.totalPages || Math.ceil(i / t.pageSize);
