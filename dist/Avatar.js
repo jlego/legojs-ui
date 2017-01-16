@@ -22,7 +22,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n            <div class="avatar-item">\n                <div class="avatar-img" style="background-image:url(', ');" id="', '">\n                    ', "\n                </div>\n                ", "\n            </div>\n            " ], [ '\n            <div class="avatar-item">\n                <div class="avatar-img" style="background-image:url(', ');" id="', '">\n                    ', "\n                </div>\n                ", "\n            </div>\n            " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n            <div class="avatar-item">\n                <div class="avatar-img" style="', '" id="', '">\n                    ', "\n                </div>\n                ", "\n            </div>\n            " ], [ '\n            <div class="avatar-item">\n                <div class="avatar-img" style="', '" id="', '">\n                    ', "\n                </div>\n                ", "\n            </div>\n            " ]);
 
 var _templateObject2 = _taggedTemplateLiteral([ '<i class="anticon anticon-close remove" title="删除 ', '"></i>' ], [ '<i class="anticon anticon-close remove" title="删除 ', '"></i>' ]);
 
@@ -103,7 +103,7 @@ var Avatar = function(_Lego$UI$Baseview) {
         value: function render() {
             var options = this.options;
             function getItem(data) {
-                return hx(_templateObject, val(data.value), data.key, options.multiple ? hx(_templateObject2, val(data.name)) : hx(_templateObject3, val(data.name)), options.showName ? hx(_templateObject4, val(data.name)) : "");
+                return hx(_templateObject, data.value ? "background-image:url(" + val(data.value) + ");" : "", data.key, options.multiple ? hx(_templateObject2, val(data.name)) : hx(_templateObject3, val(data.name)), options.showName ? hx(_templateObject4, val(data.name)) : "");
             }
             var vDom = hx(_templateObject5, options.size, options.value.length ? hx(_templateObject6, options.multiple ? options.value.map(function(item) {
                 return getItem(item);
@@ -129,9 +129,9 @@ var Avatar = function(_Lego$UI$Baseview) {
         key: "onRemove",
         value: function onRemove(event) {
             event.stopPropagation();
-            var target = $(event.currentTarget), itemEl = target.parent(), key = itemEl.attr("id");
+            var target = $(event.currentTarget), itemEl = target.parent(), key = itemEl.attr("id").toString();
             this.options.value = this.options.value.filter(function(item) {
-                return item.key !== key;
+                return item.key.toString() !== key;
             });
             this.refresh();
             if (typeof this.options.onRemove == "function") this.options.onRemove(this, key);

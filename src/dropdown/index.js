@@ -15,35 +15,11 @@ class Dropdown extends Lego.UI.Baseview {
             direction: '',  //显示方向
             clickAndClose: true,  //点击后关闭
             onChange(){},  //改变值时调用
-            onVisibleChange(){}    //菜单显示状态改变时调用
+            onVisibleChange(){},    //菜单显示状态改变时调用
+            data: []
         };
         Object.assign(options, opts);
         super(options);
-        const that = this;
-        this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
-        if(!this.options.disabled){
-            function handler(event){
-                $('body, .modal-body').trigger('click');
-                event.stopPropagation();
-                const directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
-                that.options.direction = directionResp._y || 'bottom';
-                that.show();
-                if(options.eventName == 'hover'){
-                    that.options.trigger.mouseleave(function(){
-                        that.close();
-                    });
-                }
-            }
-            if(options.eventName == 'click'){
-                const _eventName = 'click.dropdown_' + opts.vid;
-                $('body, .modal-body').off(_eventName).on(_eventName, function(){
-                    that.close();
-                });
-                this.options.trigger.off(_eventName).on(_eventName, handler);
-            }else{
-                this.options.trigger[options.eventName](handler);
-            }
-        }
     }
     render() {
         const options = this.options || {};
@@ -81,6 +57,33 @@ class Dropdown extends Lego.UI.Baseview {
         </ul>
         `;
         return vDom;
+    }
+    renderAfter(){
+        const that = this;
+        this.options.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
+        if(!this.options.disabled){
+            function handler(event){
+                $('body, .modal-body').trigger('click');
+                event.stopPropagation();
+                const directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
+                that.options.direction = directionResp._y || 'bottom';
+                that.show();
+                if(that.options.eventName == 'hover'){
+                    that.options.trigger.mouseleave(function(){
+                        that.close();
+                    });
+                }
+            }
+            if(this.options.eventName == 'click'){
+                const _eventName = 'click.dropdown_' + this.options.vid;
+                $('body, .modal-body').off(_eventName).on(_eventName, function(){
+                    that.close();
+                });
+                this.options.trigger.off(_eventName).on(_eventName, handler);
+            }else{
+                this.options.trigger[this.options.eventName](handler);
+            }
+        }
     }
     _getAlign(parent, el) {
         let _X = parent.offset().left,

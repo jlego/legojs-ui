@@ -35,6 +35,7 @@ class Modal extends Lego.UI.Baseview {
             footer: null,
             confirm: null,
             scrollbar: {},
+            scrollAble: true,
             okText: '确定',
             cancelText: '取消',
             // onOk() {},
@@ -73,9 +74,9 @@ class Modal extends Lego.UI.Baseview {
     render() {
         const options = this.options || {};
         const vDom = hx`
-        <div class="modal ${options.type == 'layer' ? 'right-modal' : ''} 
+        <div class="modal ${options.type == 'layer' ? 'right-modal' : ''}
         ${options.msgType ? 'dialog-modal' : ''}
-        ${options.size ? ('modal-size-' + options.size) : ''} 
+        ${options.size ? ('modal-size-' + options.size) : ''}
         ${options.isMiddle ? 'middle' : ''}" id="${options.el.replace(/#/, '')}">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -83,7 +84,7 @@ class Modal extends Lego.UI.Baseview {
               ${options.closable ? hx`<button type="button" class="close"><span class="anticon anticon-close"></span></button>` : ''}
                 <h4 class="modal-title">${options.title}</h4>
               </div>` : ''}
-              <div class="modal-body ${!options.msgType ? 'scrollbar' : ''}" style="${!options.showHeader && options.type == 'layer' ? 'top:0;' : ''}
+              <div class="modal-body ${!options.msgType && options.scrollAble ? 'scrollbar' : ''}" style="${!options.showHeader && options.type == 'layer' ? 'top:0;' : ''}
               ${!options.showFooter && options.type == 'layer' ? 'bottom:0;' : ''}">
                 ${options.content}
               </div>
@@ -162,7 +163,7 @@ class Modal extends Lego.UI.Baseview {
         this._onConfirm('onCancel');
     }
 }
-const theModal = function(opts = {}){
+const theModal = function(opts = {}, vid){
     if(typeof opts == 'string'){
         let view = null;
         switch(opts){
@@ -170,10 +171,10 @@ const theModal = function(opts = {}){
                 view = Lego.getView('#lego-layer');
                 break;
             case 'close.modal':
-                view = Lego.getView('#lego-modal-' + this.options.vid);
+                view = Lego.getView('#lego-modal-' + vid);
                 break;
             case 'close.dialog':
-                view = Lego.getView('#lego-dialog-' + this.options.vid);
+                view = Lego.getView('#lego-dialog-' + vid);
                 break;
         }
         if(view) view.close();

@@ -38,7 +38,7 @@ class Avatar extends Lego.UI.Baseview {
         function getItem(data){
             return hx`
             <div class="avatar-item">
-                <div class="avatar-img" style="background-image:url(${val(data.value)});" id="${data.key}">
+                <div class="avatar-img" style="${data.value ? ('background-image:url(' + val(data.value) + ');') : ''}" id="${data.key}">
                     ${options.multiple ? hx`<i class="anticon anticon-close remove" title="删除 ${val(data.name)}"></i>` : hx`<i class="anticon anticon-swap change" title="更换 ${val(data.name)}"></i>`}
                 </div>
                 ${options.showName ? hx`<label>${val(data.name)}</label>` : ''}
@@ -77,8 +77,8 @@ class Avatar extends Lego.UI.Baseview {
         event.stopPropagation();
         const target = $(event.currentTarget),
             itemEl = target.parent(),
-            key = itemEl.attr('id');
-        this.options.value = this.options.value.filter(item => item.key !== key);
+            key = itemEl.attr('id').toString();
+        this.options.value = this.options.value.filter(item => item.key.toString() !== key);
         this.refresh();
         if(typeof this.options.onRemove == 'function') this.options.onRemove(this, key);
     }

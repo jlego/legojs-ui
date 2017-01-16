@@ -119,11 +119,11 @@ var Tree = function(_Lego$UI$Baseview) {
                         });
                         var newValue = [];
                         result.forEach(function(val, index) {
-                            newValue.push({
+                            newValue.push(Object.assign({
                                 key: val[keyNames[0]],
                                 value: val[keyNames[1]],
                                 type: val[keyNames[2]]
-                            });
+                            }, val));
                         });
                         if (typeof options.onChecked == "function") options.onChecked(that, newValue);
                     }
@@ -132,11 +132,11 @@ var Tree = function(_Lego$UI$Baseview) {
                 options.setting.callback = Object.assign(options.setting.callback || {}, {
                     onClick: function onClick(event, treeId, treeNode) {
                         if (!selectOrNo(treeNode)) return false;
-                        if (typeof options.onClick == "function") options.onClick(that, {
+                        if (typeof options.onClick == "function") options.onClick(that, Object.assign({
                             key: treeNode[options.keyNames[0]],
                             value: treeNode[options.keyNames[1]],
                             type: treeNode[options.keyNames[2]]
-                        });
+                        }, treeNode));
                     }
                 });
             }

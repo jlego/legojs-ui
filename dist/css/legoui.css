@@ -10780,9 +10780,6 @@ tr.lego-table-expanded-row:hover {
   white-space: nowrap;
   outline: 0; }
 
-.lego-tree li li:hover {
-  background-color: #f4f9fc; }
-
 .lego-tree li ul {
   margin: 0;
   padding: 0 0 0 18px; }
@@ -11230,6 +11227,7 @@ form button[type="submit"] {
 .avatar-img {
   width: 40px;
   height: 40px;
+  background-image: url(./img/media-user.png);
   background-size: cover;
   overflow: hidden;
   position: relative;
@@ -11249,6 +11247,9 @@ form button[type="submit"] {
 
 .avatar-item.addbtn {
   vertical-align: top; }
+
+.avatar-item.addbtn .avatar-img {
+  background-image: none; }
 
 .avatar-item.addbtn .avatar-img i {
   display: flex !important;

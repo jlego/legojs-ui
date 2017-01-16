@@ -88,36 +88,11 @@ var Dropdown = function(_Lego$UI$Baseview) {
             direction: "",
             clickAndClose: true,
             onChange: function onChange() {},
-            onVisibleChange: function onVisibleChange() {}
+            onVisibleChange: function onVisibleChange() {},
+            data: []
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn$2(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
-        var that = _this;
-        _this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
-        if (!_this.options.disabled) {
-            var handler = function handler(event) {
-                $("body, .modal-body").trigger("click");
-                event.stopPropagation();
-                var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
-                that.options.direction = directionResp._y || "bottom";
-                that.show();
-                if (options.eventName == "hover") {
-                    that.options.trigger.mouseleave(function() {
-                        that.close();
-                    });
-                }
-            };
-            if (options.eventName == "click") {
-                var _eventName = "click.dropdown_" + opts.vid;
-                $("body, .modal-body").off(_eventName).on(_eventName, function() {
-                    that.close();
-                });
-                _this.options.trigger.off(_eventName).on(_eventName, handler);
-            } else {
-                _this.options.trigger[options.eventName](handler);
-            }
-        }
-        return _this;
+        return _possibleConstructorReturn$2(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
     }
     _createClass$2(Dropdown, [ {
         key: "render",
@@ -143,6 +118,35 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 return itemNav(item);
             }));
             return vDom;
+        }
+    }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            var that = this;
+            this.options.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
+            if (!this.options.disabled) {
+                var handler = function handler(event) {
+                    $("body, .modal-body").trigger("click");
+                    event.stopPropagation();
+                    var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
+                    that.options.direction = directionResp._y || "bottom";
+                    that.show();
+                    if (that.options.eventName == "hover") {
+                        that.options.trigger.mouseleave(function() {
+                            that.close();
+                        });
+                    }
+                };
+                if (this.options.eventName == "click") {
+                    var _eventName = "click.dropdown_" + this.options.vid;
+                    $("body, .modal-body").off(_eventName).on(_eventName, function() {
+                        that.close();
+                    });
+                    this.options.trigger.off(_eventName).on(_eventName, handler);
+                } else {
+                    this.options.trigger[this.options.eventName](handler);
+                }
+            }
         }
     }, {
         key: "_getAlign",
@@ -277,6 +281,7 @@ var Selects = function(_Lego$UI$Baseview) {
             dropdownStyle: null,
             dropdownClassName: "",
             splitString: "",
+            dataSource: null,
             components: [ {
                 el: "#dropdown-" + opts.vid,
                 trigger: "#select-" + opts.vid,
@@ -288,7 +293,8 @@ var Selects = function(_Lego$UI$Baseview) {
                 }, opts.dropdownStyle || {}),
                 className: opts.dropdownClassName,
                 clickAndClose: opts.multiple ? false : true,
-                data: opts.data,
+                data: opts.data || [],
+                dataSource: opts.dataSource,
                 onChange: function onChange(self, model) {
                     var parentView = this.context;
                     parentView.$(".select-input").focus();
@@ -507,11 +513,11 @@ var Tree = function(_Lego$UI$Baseview) {
                         });
                         var newValue = [];
                         result.forEach(function(val, index) {
-                            newValue.push({
+                            newValue.push(Object.assign({
                                 key: val[keyNames[0]],
                                 value: val[keyNames[1]],
                                 type: val[keyNames[2]]
-                            });
+                            }, val));
                         });
                         if (typeof options.onChecked == "function") options.onChecked(that, newValue);
                     }
@@ -520,11 +526,11 @@ var Tree = function(_Lego$UI$Baseview) {
                 options.setting.callback = Object.assign(options.setting.callback || {}, {
                     onClick: function onClick(event, treeId, treeNode) {
                         if (!selectOrNo(treeNode)) return false;
-                        if (typeof options.onClick == "function") options.onClick(that, {
+                        if (typeof options.onClick == "function") options.onClick(that, Object.assign({
                             key: treeNode[options.keyNames[0]],
                             value: treeNode[options.keyNames[1]],
                             type: treeNode[options.keyNames[2]]
-                        });
+                        }, treeNode));
                     }
                 });
             }

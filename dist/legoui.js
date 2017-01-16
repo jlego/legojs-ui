@@ -860,36 +860,11 @@ var Dropdown = function(_Lego$UI$Baseview) {
             direction: "",
             clickAndClose: true,
             onChange: function onChange() {},
-            onVisibleChange: function onVisibleChange() {}
+            onVisibleChange: function onVisibleChange() {},
+            data: []
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn$8(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
-        var that = _this;
-        _this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
-        if (!_this.options.disabled) {
-            var handler = function handler(event) {
-                $("body, .modal-body").trigger("click");
-                event.stopPropagation();
-                var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
-                that.options.direction = directionResp._y || "bottom";
-                that.show();
-                if (options.eventName == "hover") {
-                    that.options.trigger.mouseleave(function() {
-                        that.close();
-                    });
-                }
-            };
-            if (options.eventName == "click") {
-                var _eventName = "click.dropdown_" + opts.vid;
-                $("body, .modal-body").off(_eventName).on(_eventName, function() {
-                    that.close();
-                });
-                _this.options.trigger.off(_eventName).on(_eventName, handler);
-            } else {
-                _this.options.trigger[options.eventName](handler);
-            }
-        }
-        return _this;
+        return _possibleConstructorReturn$8(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
     }
     _createClass$8(Dropdown, [ {
         key: "render",
@@ -915,6 +890,35 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 return itemNav(item);
             }));
             return vDom;
+        }
+    }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            var that = this;
+            this.options.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
+            if (!this.options.disabled) {
+                var handler = function handler(event) {
+                    $("body, .modal-body").trigger("click");
+                    event.stopPropagation();
+                    var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
+                    that.options.direction = directionResp._y || "bottom";
+                    that.show();
+                    if (that.options.eventName == "hover") {
+                        that.options.trigger.mouseleave(function() {
+                            that.close();
+                        });
+                    }
+                };
+                if (this.options.eventName == "click") {
+                    var _eventName = "click.dropdown_" + this.options.vid;
+                    $("body, .modal-body").off(_eventName).on(_eventName, function() {
+                        that.close();
+                    });
+                    this.options.trigger.off(_eventName).on(_eventName, handler);
+                } else {
+                    this.options.trigger[this.options.eventName](handler);
+                }
+            }
         }
     }, {
         key: "_getAlign",
@@ -2097,7 +2101,7 @@ var _createClass$9 = function() {
     };
 }();
 
-var _templateObject$8 = _taggedTemplateLiteral$8([ '\n        <div class="modal ', " \n        ", "\n        ", " \n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              ', '\n              <div class="modal-body ', '" style="', "\n              ", '">\n                ', "\n              </div>\n              ", "\n            </div>\n          </div>\n        </div>\n        " ], [ '\n        <div class="modal ', " \n        ", "\n        ", " \n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              ', '\n              <div class="modal-body ', '" style="', "\n              ", '">\n                ', "\n              </div>\n              ", "\n            </div>\n          </div>\n        </div>\n        " ]);
+var _templateObject$8 = _taggedTemplateLiteral$8([ '\n        <div class="modal ', "\n        ", "\n        ", "\n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              ', '\n              <div class="modal-body ', '" style="', "\n              ", '">\n                ', "\n              </div>\n              ", "\n            </div>\n          </div>\n        </div>\n        " ], [ '\n        <div class="modal ', "\n        ", "\n        ", "\n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              ', '\n              <div class="modal-body ', '" style="', "\n              ", '">\n                ', "\n              </div>\n              ", "\n            </div>\n          </div>\n        </div>\n        " ]);
 
 var _templateObject2$5 = _taggedTemplateLiteral$8([ '<div class="modal-header">\n              ', '\n                <h4 class="modal-title">', "</h4>\n              </div>" ], [ '<div class="modal-header">\n              ', '\n                <h4 class="modal-title">', "</h4>\n              </div>" ]);
 
@@ -2181,6 +2185,7 @@ var Modal = function(_Lego$UI$Baseview) {
             footer: null,
             confirm: null,
             scrollbar: {},
+            scrollAble: true,
             okText: "确定",
             cancelText: "取消",
             onHidden: function onHidden() {},
@@ -2217,7 +2222,7 @@ var Modal = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject$8, options.type == "layer" ? "right-modal" : "", options.msgType ? "dialog-modal" : "", options.size ? "modal-size-" + options.size : "", options.isMiddle ? "middle" : "", options.el.replace(/#/, ""), options.showHeader ? hx(_templateObject2$5, options.closable ? hx(_templateObject3$4) : "", options.title) : "", !options.msgType ? "scrollbar" : "", !options.showHeader && options.type == "layer" ? "top:0;" : "", !options.showFooter && options.type == "layer" ? "bottom:0;" : "", options.content, options.showFooter ? hx(_templateObject4$3, options.footer ? options.footer : hx(_templateObject5$3, options.cancelText, options.okText)) : "");
+            var vDom = hx(_templateObject$8, options.type == "layer" ? "right-modal" : "", options.msgType ? "dialog-modal" : "", options.size ? "modal-size-" + options.size : "", options.isMiddle ? "middle" : "", options.el.replace(/#/, ""), options.showHeader ? hx(_templateObject2$5, options.closable ? hx(_templateObject3$4) : "", options.title) : "", !options.msgType && options.scrollAble ? "scrollbar" : "", !options.showHeader && options.type == "layer" ? "top:0;" : "", !options.showFooter && options.type == "layer" ? "bottom:0;" : "", options.content, options.showFooter ? hx(_templateObject4$3, options.footer ? options.footer : hx(_templateObject5$3, options.cancelText, options.okText)) : "");
             return vDom;
         }
     }, {
@@ -2299,6 +2304,7 @@ var Modal = function(_Lego$UI$Baseview) {
 
 var theModal = function theModal() {
     var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var vid = arguments[1];
     if (typeof opts == "string") {
         var view = null;
         switch (opts) {
@@ -2307,11 +2313,11 @@ var theModal = function theModal() {
             break;
 
           case "close.modal":
-            view = Lego.getView("#lego-modal-" + this.options.vid);
+            view = Lego.getView("#lego-modal-" + vid);
             break;
 
           case "close.dialog":
-            view = Lego.getView("#lego-dialog-" + this.options.vid);
+            view = Lego.getView("#lego-dialog-" + vid);
             break;
         }
         if (view) view.close();
@@ -2808,6 +2814,7 @@ var Selects = function(_Lego$UI$Baseview) {
             dropdownStyle: null,
             dropdownClassName: "",
             splitString: "",
+            dataSource: null,
             components: [ {
                 el: "#dropdown-" + opts.vid,
                 trigger: "#select-" + opts.vid,
@@ -2819,7 +2826,8 @@ var Selects = function(_Lego$UI$Baseview) {
                 }, opts.dropdownStyle || {}),
                 className: opts.dropdownClassName,
                 clickAndClose: opts.multiple ? false : true,
-                data: opts.data,
+                data: opts.data || [],
+                dataSource: opts.dataSource,
                 onChange: function onChange(self, model) {
                     var parentView = this.context;
                     parentView.$(".select-input").focus();
@@ -4208,11 +4216,11 @@ var Tree = function(_Lego$UI$Baseview) {
                         });
                         var newValue = [];
                         result.forEach(function(val, index) {
-                            newValue.push({
+                            newValue.push(Object.assign({
                                 key: val[keyNames[0]],
                                 value: val[keyNames[1]],
                                 type: val[keyNames[2]]
-                            });
+                            }, val));
                         });
                         if (typeof options.onChecked == "function") options.onChecked(that, newValue);
                     }
@@ -4221,11 +4229,11 @@ var Tree = function(_Lego$UI$Baseview) {
                 options.setting.callback = Object.assign(options.setting.callback || {}, {
                     onClick: function onClick(event, treeId, treeNode) {
                         if (!selectOrNo(treeNode)) return false;
-                        if (typeof options.onClick == "function") options.onClick(that, {
+                        if (typeof options.onClick == "function") options.onClick(that, Object.assign({
                             key: treeNode[options.keyNames[0]],
                             value: treeNode[options.keyNames[1]],
                             type: treeNode[options.keyNames[2]]
-                        });
+                        }, treeNode));
                     }
                 });
             }
@@ -5778,7 +5786,7 @@ var _createClass$30 = function() {
     };
 }();
 
-var _templateObject$23 = _taggedTemplateLiteral$23([ '\n            <div class="avatar-item">\n                <div class="avatar-img" style="background-image:url(', ');" id="', '">\n                    ', "\n                </div>\n                ", "\n            </div>\n            " ], [ '\n            <div class="avatar-item">\n                <div class="avatar-img" style="background-image:url(', ');" id="', '">\n                    ', "\n                </div>\n                ", "\n            </div>\n            " ]);
+var _templateObject$23 = _taggedTemplateLiteral$23([ '\n            <div class="avatar-item">\n                <div class="avatar-img" style="', '" id="', '">\n                    ', "\n                </div>\n                ", "\n            </div>\n            " ], [ '\n            <div class="avatar-item">\n                <div class="avatar-img" style="', '" id="', '">\n                    ', "\n                </div>\n                ", "\n            </div>\n            " ]);
 
 var _templateObject2$19 = _taggedTemplateLiteral$23([ '<i class="anticon anticon-close remove" title="删除 ', '"></i>' ], [ '<i class="anticon anticon-close remove" title="删除 ', '"></i>' ]);
 
@@ -5859,7 +5867,7 @@ var Avatar = function(_Lego$UI$Baseview) {
         value: function render() {
             var options = this.options;
             function getItem(data) {
-                return hx(_templateObject$23, val(data.value), data.key, options.multiple ? hx(_templateObject2$19, val(data.name)) : hx(_templateObject3$14, val(data.name)), options.showName ? hx(_templateObject4$10, val(data.name)) : "");
+                return hx(_templateObject$23, data.value ? "background-image:url(" + val(data.value) + ");" : "", data.key, options.multiple ? hx(_templateObject2$19, val(data.name)) : hx(_templateObject3$14, val(data.name)), options.showName ? hx(_templateObject4$10, val(data.name)) : "");
             }
             var vDom = hx(_templateObject5$7, options.size, options.value.length ? hx(_templateObject6$4, options.multiple ? options.value.map(function(item) {
                 return getItem(item);
@@ -5885,9 +5893,9 @@ var Avatar = function(_Lego$UI$Baseview) {
         key: "onRemove",
         value: function onRemove(event) {
             event.stopPropagation();
-            var target = $(event.currentTarget), itemEl = target.parent(), key = itemEl.attr("id");
+            var target = $(event.currentTarget), itemEl = target.parent(), key = itemEl.attr("id").toString();
             this.options.value = this.options.value.filter(function(item) {
-                return item.key !== key;
+                return item.key.toString() !== key;
             });
             this.refresh();
             if (typeof this.options.onRemove == "function") this.options.onRemove(this, key);

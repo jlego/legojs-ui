@@ -32,6 +32,7 @@ class Selects extends Lego.UI.Baseview {
             dropdownStyle: null,  //下拉菜单的 style 属性
             dropdownClassName: '',  //下拉菜单的 className 属性上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。
             splitString: '',    //自动分词分隔符
+            dataSource: null,
             components: [{
                 el: '#dropdown-' + opts.vid,
                 trigger: '#select-' + opts.vid,
@@ -43,7 +44,8 @@ class Selects extends Lego.UI.Baseview {
                 }, opts.dropdownStyle || {}),
                 className: opts.dropdownClassName,
                 clickAndClose: opts.multiple ? false : true,
-                data: opts.data,
+                data: opts.data || [],
+                dataSource: opts.dataSource,
                 onChange(self, model){
                     const parentView = this.context;
                     parentView.$('.select-input').focus();
