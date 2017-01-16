@@ -125,7 +125,7 @@ class Tables extends Lego.UI.Baseview {
         return vDom;
     }
     renderAfter(){
-        const paginationView = this['pagination_' + this.options.vid];
+        const paginationView = Lego.getView('#pagination_' + this.options.vid);
         if(paginationView) paginationView.refresh();
     }
     _getRowKey(str = ''){

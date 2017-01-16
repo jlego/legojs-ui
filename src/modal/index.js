@@ -79,17 +79,18 @@ class Modal extends Lego.UI.Baseview {
         ${options.isMiddle ? 'middle' : ''}" id="${options.el.replace(/#/, '')}">
           <div class="modal-dialog">
             <div class="modal-content">
-              <div class="modal-header">
+              ${options.showHeader ? hx`<div class="modal-header">
               ${options.closable ? hx`<button type="button" class="close"><span class="anticon anticon-close"></span></button>` : ''}
                 <h4 class="modal-title">${options.title}</h4>
-              </div>
-              <div class="modal-body ${!options.msgType ? 'scrollbar' : ''}">
+              </div>` : ''}
+              <div class="modal-body ${!options.msgType ? 'scrollbar' : ''}" style="${!options.showHeader && options.type == 'layer' ? 'top:0;' : ''}
+              ${!options.showFooter && options.type == 'layer' ? 'bottom:0;' : ''}">
                 ${options.content}
               </div>
-              <div class="modal-footer">
+              ${options.showFooter ? hx`<div class="modal-footer">
               ${options.footer ? options.footer : hx`<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">${options.cancelText}</button>
                 <button type="button" class="btn btn-primary ok">${options.okText}</button></div>`}
-              </div>
+              </div>` : ''}
             </div>
           </div>
         </div>

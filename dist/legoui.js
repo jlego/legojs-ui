@@ -1071,11 +1071,10 @@ var Pagination = function(_Lego$UI$Baseview) {
                 trigger: "#" + opts.vid + "-select",
                 data: theData,
                 onChange: function onChange(self, result) {
-                    var parentView = this.context;
                     var num = parseInt(result.key);
-                    parentView.options.current = 1;
-                    parentView.options.pageSize = num;
-                    parentView.options.onPageSizeChange(num);
+                    this.context.options.current = 1;
+                    this.context.options.pageSize = num;
+                    this.context.options.onPageSizeChange(self, num);
                 }
             } ];
         }
@@ -1086,8 +1085,8 @@ var Pagination = function(_Lego$UI$Baseview) {
     _createClass$7(Pagination, [ {
         key: "render",
         value: function render() {
-            var options = this.options || {}, current = options.data.current || parseInt(options.current);
-            options.pageSize = options.data.pageSize || options.pageSize;
+            var options = this.options || {}, current = parseInt(options.current);
+            options.pageSize = options.pageSize;
             var pageRang = parseInt(options.pageRang);
             var totalCount = options.data.total || (typeof options.total === "function" ? options.total() : options.total);
             options.totalPages = options.data.totalPages || Math.ceil(totalCount / options.pageSize);
@@ -1349,7 +1348,7 @@ var Tables = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var paginationView = this["pagination_" + this.options.vid];
+            var paginationView = Lego.getView("#pagination_" + this.options.vid);
             if (paginationView) paginationView.refresh();
         }
     }, {
@@ -2098,11 +2097,15 @@ var _createClass$9 = function() {
     };
 }();
 
-var _templateObject$8 = _taggedTemplateLiteral$8([ '\n        <div class="modal ', " \n        ", "\n        ", " \n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ], [ '\n        <div class="modal ', " \n        ", "\n        ", " \n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              <div class="modal-header">\n              ', '\n                <h4 class="modal-title">', '</h4>\n              </div>\n              <div class="modal-body ', '">\n                ', '\n              </div>\n              <div class="modal-footer">\n              ', "\n              </div>\n            </div>\n          </div>\n        </div>\n        " ]);
+var _templateObject$8 = _taggedTemplateLiteral$8([ '\n        <div class="modal ', " \n        ", "\n        ", " \n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              ', '\n              <div class="modal-body ', '" style="', "\n              ", '">\n                ', "\n              </div>\n              ", "\n            </div>\n          </div>\n        </div>\n        " ], [ '\n        <div class="modal ', " \n        ", "\n        ", " \n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              ', '\n              <div class="modal-body ', '" style="', "\n              ", '">\n                ', "\n              </div>\n              ", "\n            </div>\n          </div>\n        </div>\n        " ]);
 
-var _templateObject2$5 = _taggedTemplateLiteral$8([ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ], [ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ]);
+var _templateObject2$5 = _taggedTemplateLiteral$8([ '<div class="modal-header">\n              ', '\n                <h4 class="modal-title">', "</h4>\n              </div>" ], [ '<div class="modal-header">\n              ', '\n                <h4 class="modal-title">', "</h4>\n              </div>" ]);
 
-var _templateObject3$4 = _taggedTemplateLiteral$8([ '<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">', '</button>\n                <button type="button" class="btn btn-primary ok">', "</button></div>" ], [ '<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">', '</button>\n                <button type="button" class="btn btn-primary ok">', "</button></div>" ]);
+var _templateObject3$4 = _taggedTemplateLiteral$8([ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ], [ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ]);
+
+var _templateObject4$3 = _taggedTemplateLiteral$8([ '<div class="modal-footer">\n              ', "\n              </div>" ], [ '<div class="modal-footer">\n              ', "\n              </div>" ]);
+
+var _templateObject5$3 = _taggedTemplateLiteral$8([ '<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">', '</button>\n                <button type="button" class="btn btn-primary ok">', "</button></div>" ], [ '<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">', '</button>\n                <button type="button" class="btn btn-primary ok">', "</button></div>" ]);
 
 function _taggedTemplateLiteral$8(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -2214,7 +2217,7 @@ var Modal = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject$8, options.type == "layer" ? "right-modal" : "", options.msgType ? "dialog-modal" : "", options.size ? "modal-size-" + options.size : "", options.isMiddle ? "middle" : "", options.el.replace(/#/, ""), options.closable ? hx(_templateObject2$5) : "", options.title, !options.msgType ? "scrollbar" : "", options.content, options.footer ? options.footer : hx(_templateObject3$4, options.cancelText, options.okText));
+            var vDom = hx(_templateObject$8, options.type == "layer" ? "right-modal" : "", options.msgType ? "dialog-modal" : "", options.size ? "modal-size-" + options.size : "", options.isMiddle ? "middle" : "", options.el.replace(/#/, ""), options.showHeader ? hx(_templateObject2$5, options.closable ? hx(_templateObject3$4) : "", options.title) : "", !options.msgType ? "scrollbar" : "", !options.showHeader && options.type == "layer" ? "top:0;" : "", !options.showFooter && options.type == "layer" ? "bottom:0;" : "", options.content, options.showFooter ? hx(_templateObject4$3, options.footer ? options.footer : hx(_templateObject5$3, options.cancelText, options.okText)) : "");
             return vDom;
         }
     }, {
@@ -2342,9 +2345,9 @@ var _templateObject2$6 = _taggedTemplateLiteral$9([ '\n                <div clas
 
 var _templateObject3$5 = _taggedTemplateLiteral$9([ "\n                    ", "\n                " ], [ "\n                    ", "\n                " ]);
 
-var _templateObject4$3 = _taggedTemplateLiteral$9([ '<div class="dropdown-divider"></div>' ], [ '<div class="dropdown-divider"></div>' ]);
+var _templateObject4$4 = _taggedTemplateLiteral$9([ '<div class="dropdown-divider"></div>' ], [ '<div class="dropdown-divider"></div>' ]);
 
-var _templateObject5$3 = _taggedTemplateLiteral$9([ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "</a>" ], [ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "</a>" ]);
+var _templateObject5$4 = _taggedTemplateLiteral$9([ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "</a>" ], [ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "</a>" ]);
 
 var _templateObject6$2 = _taggedTemplateLiteral$9([ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ]);
 
@@ -2421,7 +2424,7 @@ var Navs = function(_Lego$UI$Baseview) {
             var options = this.options || {};
             function makeItem(data, i) {
                 var itemDom = hx(_templateObject$9, data.children ? "dropdown" : "", data.key === options.activeKey ? "active" : "", data.disabled ? "disabled" : "", data.children ? "dropdown-toggle" : "", data.href ? data.href : "javascript:;", data.key ? data.key : "nav-item-" + i, val(data.value), Array.isArray(data.children) ? hx(_templateObject2$6, options.direction ? "drop" + options.direction : "", data.children.map(function(subItem, x) {
-                    return hx(_templateObject3$5, subItem.divider ? hx(_templateObject4$3) : hx(_templateObject5$3, subItem.active ? "active" : "", subItem.disabled ? "disabled" : "", subItem.href ? subItem.href : "javascript:;", subItem.key ? subItem.key : "nav-sub-item-" + x, val(subItem.value)));
+                    return hx(_templateObject3$5, subItem.divider ? hx(_templateObject4$4) : hx(_templateObject5$4, subItem.active ? "active" : "", subItem.disabled ? "disabled" : "", subItem.href ? subItem.href : "javascript:;", subItem.key ? subItem.key : "nav-sub-item-" + x, val(subItem.value)));
                 })) : "");
                 return itemDom;
             }
@@ -2738,7 +2741,7 @@ var _templateObject2$9 = _taggedTemplateLiteral$12([ '\n                    <li 
 
 var _templateObject3$6 = _taggedTemplateLiteral$12([ '\n            <div class="select dropdown">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ]);
 
-var _templateObject4$4 = _taggedTemplateLiteral$12([ '\n            <div class="select dropdown multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ]);
+var _templateObject4$5 = _taggedTemplateLiteral$12([ '\n            <div class="select dropdown multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ]);
 
 function _taggedTemplateLiteral$12(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -2872,7 +2875,7 @@ var Selects = function(_Lego$UI$Baseview) {
             if (!options.multiple) {
                 vDom = hx(_templateObject3$6, options.vid, options.disabled ? "disabled" : "", options.placeholder, theValueArr.join(","), options.name, options.vid);
             } else {
-                vDom = hx(_templateObject4$4, options.vid, theValueArr.length ? "select-hasValue" : "", theValueArr.length ? "" : options.placeholder, theValueArr.join(","), options.name, theValueArr.length ? "select-tags-div-border" : "", getTags(options.value), options.vid);
+                vDom = hx(_templateObject4$5, options.vid, theValueArr.length ? "select-hasValue" : "", theValueArr.length ? "" : options.placeholder, theValueArr.join(","), options.name, theValueArr.length ? "select-tags-div-border" : "", getTags(options.value), options.vid);
             }
             return vDom;
         }
@@ -3125,9 +3128,9 @@ var _templateObject2$11 = _taggedTemplateLiteral$14([ '\n            <div class=
 
 var _templateObject3$8 = _taggedTemplateLiteral$14([ '<span class="input-group-addon">', "</span>" ], [ '<span class="input-group-addon">', "</span>" ]);
 
-var _templateObject4$5 = _taggedTemplateLiteral$14([ '\n                  <textarea type="textarea" class="form-control ', '" placeholder="', '" name="', '"\n                  ', " ", ">", "</textarea>\n                " ], [ '\n                  <textarea type="textarea" class="form-control ', '" placeholder="', '" name="', '"\n                  ', " ", ">", "</textarea>\n                " ]);
+var _templateObject4$6 = _taggedTemplateLiteral$14([ '\n                  <textarea type="textarea" class="form-control ', '" placeholder="', '" name="', '"\n                  ', " ", ">", "</textarea>\n                " ], [ '\n                  <textarea type="textarea" class="form-control ', '" placeholder="', '" name="', '"\n                  ', " ", ">", "</textarea>\n                " ]);
 
-var _templateObject5$4 = _taggedTemplateLiteral$14([ '\n                  <input type="', '" class="form-control ', '" placeholder="', '"\n                  value="', '" name="', '" ', " ", "/>\n                " ], [ '\n                  <input type="', '" class="form-control ', '" placeholder="', '"\n                  value="', '" name="', '" ', " ", "/>\n                " ]);
+var _templateObject5$5 = _taggedTemplateLiteral$14([ '\n                  <input type="', '" class="form-control ', '" placeholder="', '"\n                  value="', '" name="', '" ', " ", "/>\n                " ], [ '\n                  <input type="', '" class="form-control ', '" placeholder="', '"\n                  value="', '" name="', '" ', " ", "/>\n                " ]);
 
 function _taggedTemplateLiteral$14(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -3209,9 +3212,9 @@ var Inputs = function(_Lego$UI$Baseview) {
                 vDom = hx(_templateObject2$11, options.size ? "input-group-" + options.size : "", options.addonBefore ? hx(_templateObject3$8, options.prefix) : "", options.type, options.placeholder, options.value, options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", options.addonAfter ? hx(_templateObject3$8, options.suffix) : "");
             } else {
                 if (options.type == "textarea") {
-                    vDom = hx(_templateObject4$5, options.size ? "form-control-" + options.size : "", options.placeholder, options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", options.value);
+                    vDom = hx(_templateObject4$6, options.size ? "form-control-" + options.size : "", options.placeholder, options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", options.value);
                 } else {
-                    vDom = hx(_templateObject5$4, options.type, options.size ? "form-control-" + options.size : "", options.placeholder, options.value, options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "");
+                    vDom = hx(_templateObject5$5, options.type, options.size ? "form-control-" + options.size : "", options.placeholder, options.value, options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "");
                 }
             }
             return vDom;
@@ -4271,7 +4274,7 @@ var _templateObject2$12 = _taggedTemplateLiteral$16([ '\n                    <li
 
 var _templateObject3$9 = _taggedTemplateLiteral$16([ '\n            <div class="select dropdown treeselect">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ]);
 
-var _templateObject4$6 = _taggedTemplateLiteral$16([ '\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ]);
+var _templateObject4$7 = _taggedTemplateLiteral$16([ '\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ]);
 
 function _taggedTemplateLiteral$16(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -4426,7 +4429,7 @@ var Treeselect = function(_Selects) {
             if (!options.multiple) {
                 vDom = hx(_templateObject3$9, options.vid, options.disabled ? "disabled" : "", options.placeholder, theValueArr.join(","), options.name, options.direction ? "drop" + options.direction : "", options.vid);
             } else {
-                vDom = hx(_templateObject4$6, options.vid, theValueArr.length ? "select-hasValue" : "", theValueArr.length ? "" : options.placeholder, theValueArr.join(","), options.name, theValueArr.length ? "select-tags-div-border" : "", getTags(options.value), options.direction ? "drop" + options.direction : "", options.vid);
+                vDom = hx(_templateObject4$7, options.vid, theValueArr.length ? "select-hasValue" : "", theValueArr.length ? "" : options.placeholder, theValueArr.join(","), options.name, theValueArr.length ? "select-tags-div-border" : "", getTags(options.value), options.direction ? "drop" + options.direction : "", options.vid);
             }
             return vDom;
         }
@@ -4533,9 +4536,9 @@ var _templateObject2$13 = _taggedTemplateLiteral$17([ '\n                    <di
 
 var _templateObject3$10 = _taggedTemplateLiteral$17([ '<p class="form-control-static mb-0">', "</p>" ], [ '<p class="form-control-static mb-0">', "</p>" ]);
 
-var _templateObject4$7 = _taggedTemplateLiteral$17([ '\n                <div class="form-group">\n                    <label for="', '">', "", "</label>\n                    ", "\n                    ", "\n                </div>\n                " ], [ '\n                <div class="form-group">\n                    <label for="', '">', "", "</label>\n                    ", "\n                    ", "\n                </div>\n                " ]);
+var _templateObject4$8 = _taggedTemplateLiteral$17([ '\n                <div class="form-group">\n                    <label for="', '">', "", "</label>\n                    ", "\n                    ", "\n                </div>\n                " ], [ '\n                <div class="form-group">\n                    <label for="', '">', "", "</label>\n                    ", "\n                    ", "\n                </div>\n                " ]);
 
-var _templateObject5$5 = _taggedTemplateLiteral$17([ '<span class="symbol required">*</span>' ], [ '<span class="symbol required">*</span>' ]);
+var _templateObject5$6 = _taggedTemplateLiteral$17([ '<span class="symbol required">*</span>' ], [ '<span class="symbol required">*</span>' ]);
 
 var _templateObject6$3 = _taggedTemplateLiteral$17([ '<small class="form-text text-muted">', "</small>" ], [ '<small class="form-text text-muted">', "</small>" ]);
 
@@ -4647,9 +4650,9 @@ var Forms = function(_Lego$UI$Baseview) {
                     comTag = hx("<" + val(item.component.comName) + " id=" + id + "></" + val(item.component.comName) + ">");
                 }
                 if (layout == "vertical") {
-                    vDom = hx(_templateObject4$7, id, val(item.label), item.required ? hx(_templateObject5$5) : "", comTag, item.help ? hx(_templateObject6$3, val(item.help)) : "");
+                    vDom = hx(_templateObject4$8, id, val(item.label), item.required ? hx(_templateObject5$6) : "", comTag, item.help ? hx(_templateObject6$3, val(item.help)) : "");
                 } else {
-                    vDom = hx(_templateObject7$2, id, val(item.label), item.required ? hx(_templateObject5$5) : "", comTag, item.help ? hx(_templateObject6$3, val(item.help)) : "");
+                    vDom = hx(_templateObject7$2, id, val(item.label), item.required ? hx(_templateObject5$6) : "", comTag, item.help ? hx(_templateObject6$3, val(item.help)) : "");
                 }
                 return vDom;
             }
@@ -5371,7 +5374,7 @@ var _templateObject2$18 = _taggedTemplateLiteral$22([ '\n            <div class=
 
 var _templateObject3$13 = _taggedTemplateLiteral$22([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    ', "\n                    ", "\n                </h4>\n                <small>\n                    <cite>", '</cite>\n                    <time>\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </time>\n                </small>\n            </div>\n            ' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    ', "\n                    ", "\n                </h4>\n                <small>\n                    <cite>", '</cite>\n                    <time>\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </time>\n                </small>\n            </div>\n            ' ]);
 
-var _templateObject4$8 = _taggedTemplateLiteral$22([ '\n                    <div class="right">\n                        <a href="javascript:;" class="closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ], [ '\n                    <div class="right">\n                        <a href="javascript:;" class="closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ]);
+var _templateObject4$9 = _taggedTemplateLiteral$22([ '\n                    <div class="right">\n                        <a href="javascript:;" class="closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ], [ '\n                    <div class="right">\n                        <a href="javascript:;" class="closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ]);
 
 function _taggedTemplateLiteral$22(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -5439,7 +5442,7 @@ var UploadItem = function(_UploadBase) {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject$22, Lego.UI.Util.getFileIcon(options.file.name), options.percent < 100 ? hx(_templateObject2$18, val(options.file.name), "progressbar_" + options.vid) : hx(_templateObject3$13, !options.readonly && options.percent == 100 ? hx(_templateObject4$8) : "", val(options.file.name), Lego.UI.Util.convertByteUnit(options.file.size), val(options.file.url), val(options.file.name)));
+            var vDom = hx(_templateObject$22, Lego.UI.Util.getFileIcon(options.file.name), options.percent < 100 ? hx(_templateObject2$18, val(options.file.name), "progressbar_" + options.vid) : hx(_templateObject3$13, !options.readonly && options.percent == 100 ? hx(_templateObject4$9) : "", val(options.file.name), Lego.UI.Util.convertByteUnit(options.file.size), val(options.file.url), val(options.file.name)));
             return vDom;
         }
     }, {
@@ -5781,9 +5784,9 @@ var _templateObject2$19 = _taggedTemplateLiteral$23([ '<i class="anticon anticon
 
 var _templateObject3$14 = _taggedTemplateLiteral$23([ '<i class="anticon anticon-swap change" title="更换 ', '"></i>' ], [ '<i class="anticon anticon-swap change" title="更换 ', '"></i>' ]);
 
-var _templateObject4$9 = _taggedTemplateLiteral$23([ "<label>", "</label>" ], [ "<label>", "</label>" ]);
+var _templateObject4$10 = _taggedTemplateLiteral$23([ "<label>", "</label>" ], [ "<label>", "</label>" ]);
 
-var _templateObject5$6 = _taggedTemplateLiteral$23([ '\n        <div class="avatar ', ' clearfix">\n        ', "\n        ", '\n            <input type="hidden" value="', '" name="', '">\n        </div>\n        ' ], [ '\n        <div class="avatar ', ' clearfix">\n        ', "\n        ", '\n            <input type="hidden" value="', '" name="', '">\n        </div>\n        ' ]);
+var _templateObject5$7 = _taggedTemplateLiteral$23([ '\n        <div class="avatar ', ' clearfix">\n        ', "\n        ", '\n            <input type="hidden" value="', '" name="', '">\n        </div>\n        ' ], [ '\n        <div class="avatar ', ' clearfix">\n        ', "\n        ", '\n            <input type="hidden" value="', '" name="', '">\n        </div>\n        ' ]);
 
 var _templateObject6$4 = _taggedTemplateLiteral$23([ "\n            ", "\n        " ], [ "\n            ", "\n        " ]);
 
@@ -5856,9 +5859,9 @@ var Avatar = function(_Lego$UI$Baseview) {
         value: function render() {
             var options = this.options;
             function getItem(data) {
-                return hx(_templateObject$23, val(data.value), data.key, options.multiple ? hx(_templateObject2$19, val(data.name)) : hx(_templateObject3$14, val(data.name)), options.showName ? hx(_templateObject4$9, val(data.name)) : "");
+                return hx(_templateObject$23, val(data.value), data.key, options.multiple ? hx(_templateObject2$19, val(data.name)) : hx(_templateObject3$14, val(data.name)), options.showName ? hx(_templateObject4$10, val(data.name)) : "");
             }
-            var vDom = hx(_templateObject5$6, options.size, options.value.length ? hx(_templateObject6$4, options.multiple ? options.value.map(function(item) {
+            var vDom = hx(_templateObject5$7, options.size, options.value.length ? hx(_templateObject6$4, options.multiple ? options.value.map(function(item) {
                 return getItem(item);
             }) : getItem(options.value[0])) : "", !options.value.length || options.multiple ? hx(_templateObject7$3) : "", options.value.map(function(item) {
                 return item.key;

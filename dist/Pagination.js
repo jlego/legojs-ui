@@ -297,11 +297,10 @@ var Pagination = function(_Lego$UI$Baseview) {
                 trigger: "#" + opts.vid + "-select",
                 data: theData,
                 onChange: function onChange(self, result) {
-                    var parentView = this.context;
                     var num = parseInt(result.key);
-                    parentView.options.current = 1;
-                    parentView.options.pageSize = num;
-                    parentView.options.onPageSizeChange(num);
+                    this.context.options.current = 1;
+                    this.context.options.pageSize = num;
+                    this.context.options.onPageSizeChange(self, num);
                 }
             } ];
         }
@@ -312,8 +311,8 @@ var Pagination = function(_Lego$UI$Baseview) {
     _createClass(Pagination, [ {
         key: "render",
         value: function render() {
-            var options = this.options || {}, current = options.data.current || parseInt(options.current);
-            options.pageSize = options.data.pageSize || options.pageSize;
+            var options = this.options || {}, current = parseInt(options.current);
+            options.pageSize = options.pageSize;
             var pageRang = parseInt(options.pageRang);
             var totalCount = options.data.total || (typeof options.total === "function" ? options.total() : options.total);
             options.totalPages = options.data.totalPages || Math.ceil(totalCount / options.pageSize);

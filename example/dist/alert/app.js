@@ -2024,11 +2024,10 @@
                     trigger: "#" + e.vid + "-select",
                     data: o,
                     onChange: function e(t, n) {
-                        var o = this.context;
-                        var i = parseInt(n.key);
-                        o.options.current = 1;
-                        o.options.pageSize = i;
-                        o.options.onPageSizeChange(i);
+                        var o = parseInt(n.key);
+                        this.context.options.current = 1;
+                        this.context.options.pageSize = o;
+                        this.context.options.onPageSizeChange(t, o);
                     }
                 } ];
             }
@@ -2039,8 +2038,7 @@
         h(t, [ {
             key: "render",
             value: function e() {
-                var t = this.options || {}, n = t.data.current || parseInt(t.current);
-                t.pageSize = t.data.pageSize || t.pageSize;
+                var t = this.options || {}, n = parseInt(t.current);
                 var o = parseInt(t.pageRang);
                 var i = t.data.total || (typeof t.total === "function" ? t.total() : t.total);
                 t.totalPages = t.data.totalPages || Math.ceil(i / t.pageSize);
@@ -2272,7 +2270,7 @@
         }, {
             key: "renderAfter",
             value: function e() {
-                var t = this["pagination_" + this.options.vid];
+                var t = Lego.getView("#pagination_" + this.options.vid);
                 if (t) t.refresh();
             }
         }, {

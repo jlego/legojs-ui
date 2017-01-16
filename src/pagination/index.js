@@ -25,7 +25,6 @@ class Pagination extends Lego.UI.Baseview {
             simple: null,    //当添加该属性时，显示为简单分页
             isShowTotal: true,  //用于显示数据总量和当前数据顺序
             data: {}
-            // showTotal(){}
         };
         Object.assign(options, opts);
         if(!options.simple && options.showSizeChanger){
@@ -40,11 +39,10 @@ class Pagination extends Lego.UI.Baseview {
                 trigger: '#' + opts.vid + '-select',
                 data: theData,
                 onChange(self, result){
-                    const parentView = this.context;
                     const num = parseInt(result.key);
-                    parentView.options.current = 1;
-                    parentView.options.pageSize = num;
-                    parentView.options.onPageSizeChange(num);
+                    this.context.options.current = 1;
+                    this.context.options.pageSize = num;
+                    this.context.options.onPageSizeChange(self, num);
                 }
             }];
         }
@@ -53,8 +51,8 @@ class Pagination extends Lego.UI.Baseview {
     }
     render() {
         const options = this.options || {},
-            current = options.data.current || parseInt(options.current);
-        options.pageSize = options.data.pageSize || options.pageSize;
+            current = parseInt(options.current);
+        options.pageSize = options.pageSize;
         let pageRang = parseInt(options.pageRang);
         let totalCount = options.data.total || (typeof options.total === 'function' ? options.total() : options.total);
         options.totalPages = options.data.totalPages || Math.ceil(totalCount / options.pageSize);
