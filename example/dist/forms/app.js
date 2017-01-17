@@ -434,14 +434,10 @@
                 },
                 disabled: false,
                 eventName: "hover",
-                activeKey: "",
-                activeValue: "",
                 trigger: "",
-                visible: false,
                 direction: "",
                 clickAndClose: true,
                 onChange: function e() {},
-                onVisibleChange: function e() {},
                 data: []
             };
             Object.assign(n, e);
@@ -476,16 +472,16 @@
             key: "renderAfter",
             value: function e() {
                 var t = this;
-                this.options.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
+                this.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
                 if (!this.options.disabled) {
                     var n = function e(n) {
                         $("body, .modal-body").trigger("click");
                         n.stopPropagation();
-                        var a = Lego.UI.Util.getDirection(t.options.trigger, t.$el);
+                        var a = Lego.UI.Util.getDirection(t.trigger, t.$el);
                         t.options.direction = a._y || "bottom";
                         t.show();
                         if (t.options.eventName == "hover") {
-                            t.options.trigger.mouseleave(function() {
+                            t.trigger.mouseleave(function() {
                                 t.close();
                             });
                         }
@@ -495,9 +491,9 @@
                         $("body, .modal-body").off(a).on(a, function() {
                             t.close();
                         });
-                        this.options.trigger.off(a).on(a, n);
+                        this.trigger.off(a).on(a, n);
                     } else {
-                        this.options.trigger[this.options.eventName](n);
+                        this.trigger[this.options.eventName](n);
                     }
                 }
             }
@@ -514,14 +510,12 @@
         }, {
             key: "show",
             value: function e(t) {
-                this.options.trigger.addClass("dropdown open");
-                this.options.onVisibleChange(this, true);
+                this.trigger.addClass("dropdown open");
             }
         }, {
             key: "close",
             value: function e(t) {
-                this.options.trigger.removeClass("dropdown open");
-                this.options.onVisibleChange(this, false);
+                this.trigger.removeClass("dropdown open");
             }
         }, {
             key: "clickItem",
@@ -531,12 +525,12 @@
                 var a = this.options.data.find(function(e) {
                     return e.key == n.attr("id");
                 });
-                if (a) {
-                    this.options.onChange(this, a);
-                    this.options.activeKey = a.key;
-                    this.options.activeValue = a.value;
+                if (a) this.options.onChange(this, a);
+                if (this.options.clickAndClose) {
+                    this.close();
+                } else {
+                    this.refresh();
                 }
-                if (this.options.clickAndClose) this.close();
             }
         } ]);
         return t;
@@ -721,14 +715,10 @@
                 },
                 disabled: false,
                 eventName: "hover",
-                activeKey: "",
-                activeValue: "",
                 trigger: "",
-                visible: false,
                 direction: "",
                 clickAndClose: true,
                 onChange: function e() {},
-                onVisibleChange: function e() {},
                 data: []
             };
             Object.assign(n, e);
@@ -763,16 +753,16 @@
             key: "renderAfter",
             value: function e() {
                 var t = this;
-                this.options.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
+                this.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
                 if (!this.options.disabled) {
                     var n = function e(n) {
                         $("body, .modal-body").trigger("click");
                         n.stopPropagation();
-                        var a = Lego.UI.Util.getDirection(t.options.trigger, t.$el);
+                        var a = Lego.UI.Util.getDirection(t.trigger, t.$el);
                         t.options.direction = a._y || "bottom";
                         t.show();
                         if (t.options.eventName == "hover") {
-                            t.options.trigger.mouseleave(function() {
+                            t.trigger.mouseleave(function() {
                                 t.close();
                             });
                         }
@@ -782,9 +772,9 @@
                         $("body, .modal-body").off(a).on(a, function() {
                             t.close();
                         });
-                        this.options.trigger.off(a).on(a, n);
+                        this.trigger.off(a).on(a, n);
                     } else {
-                        this.options.trigger[this.options.eventName](n);
+                        this.trigger[this.options.eventName](n);
                     }
                 }
             }
@@ -801,14 +791,12 @@
         }, {
             key: "show",
             value: function e(t) {
-                this.options.trigger.addClass("dropdown open");
-                this.options.onVisibleChange(this, true);
+                this.trigger.addClass("dropdown open");
             }
         }, {
             key: "close",
             value: function e(t) {
-                this.options.trigger.removeClass("dropdown open");
-                this.options.onVisibleChange(this, false);
+                this.trigger.removeClass("dropdown open");
             }
         }, {
             key: "clickItem",
@@ -818,12 +806,12 @@
                 var a = this.options.data.find(function(e) {
                     return e.key == n.attr("id");
                 });
-                if (a) {
-                    this.options.onChange(this, a);
-                    this.options.activeKey = a.key;
-                    this.options.activeValue = a.value;
+                if (a) this.options.onChange(this, a);
+                if (this.options.clickAndClose) {
+                    this.close();
+                } else {
+                    this.refresh();
                 }
-                if (this.options.clickAndClose) this.close();
             }
         } ]);
         return t;
@@ -989,7 +977,7 @@
                 t.stopPropagation();
                 var n = $(t.currentTarget).parent(), a = n.attr("id"), r = n.attr("title");
                 this.options.data.forEach(function(e) {
-                    if (e.key === a) e.selected = false;
+                    if (e.key == a) e.selected = false;
                 });
                 this.getValue();
                 this.refresh();
@@ -1020,7 +1008,7 @@
             key: "getValue",
             value: function e() {
                 this.options.value = this.options.data.filter(function(e) {
-                    return e.selected === true && e.key !== "0";
+                    return e.selected == true && e.key !== "0";
                 });
                 return this.options.value;
             }

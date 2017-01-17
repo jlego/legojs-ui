@@ -1826,14 +1826,10 @@
                 },
                 disabled: false,
                 eventName: "hover",
-                activeKey: "",
-                activeValue: "",
                 trigger: "",
-                visible: false,
                 direction: "",
                 clickAndClose: true,
                 onChange: function e() {},
-                onVisibleChange: function e() {},
                 data: []
             };
             Object.assign(n, e);
@@ -1868,16 +1864,16 @@
             key: "renderAfter",
             value: function e() {
                 var t = this;
-                this.options.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
+                this.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
                 if (!this.options.disabled) {
                     var n = function e(n) {
                         $("body, .modal-body").trigger("click");
                         n.stopPropagation();
-                        var o = Lego.UI.Util.getDirection(t.options.trigger, t.$el);
+                        var o = Lego.UI.Util.getDirection(t.trigger, t.$el);
                         t.options.direction = o._y || "bottom";
                         t.show();
                         if (t.options.eventName == "hover") {
-                            t.options.trigger.mouseleave(function() {
+                            t.trigger.mouseleave(function() {
                                 t.close();
                             });
                         }
@@ -1887,9 +1883,9 @@
                         $("body, .modal-body").off(o).on(o, function() {
                             t.close();
                         });
-                        this.options.trigger.off(o).on(o, n);
+                        this.trigger.off(o).on(o, n);
                     } else {
-                        this.options.trigger[this.options.eventName](n);
+                        this.trigger[this.options.eventName](n);
                     }
                 }
             }
@@ -1906,14 +1902,12 @@
         }, {
             key: "show",
             value: function e(t) {
-                this.options.trigger.addClass("dropdown open");
-                this.options.onVisibleChange(this, true);
+                this.trigger.addClass("dropdown open");
             }
         }, {
             key: "close",
             value: function e(t) {
-                this.options.trigger.removeClass("dropdown open");
-                this.options.onVisibleChange(this, false);
+                this.trigger.removeClass("dropdown open");
             }
         }, {
             key: "clickItem",
@@ -1923,12 +1917,12 @@
                 var o = this.options.data.find(function(e) {
                     return e.key == n.attr("id");
                 });
-                if (o) {
-                    this.options.onChange(this, o);
-                    this.options.activeKey = o.key;
-                    this.options.activeValue = o.value;
+                if (o) this.options.onChange(this, o);
+                if (this.options.clickAndClose) {
+                    this.close();
+                } else {
+                    this.refresh();
                 }
-                if (this.options.clickAndClose) this.close();
             }
         } ]);
         return t;
@@ -2160,9 +2154,9 @@
     var F = ee([ "\n        ", "\n        " ], [ "\n        ", "\n        " ]);
     var W = ee([ '<th class="lego-table-selection-column">', "</th>" ], [ '<th class="lego-table-selection-column">', "</th>" ]);
     var K = ee([ '<td class="lego-table-selection-column">', "</td>" ], [ '<td class="lego-table-selection-column">', "</td>" ]);
-    var V = ee([ '\n        <thead class="lego-table-thead">\n            <tr>\n            ', "\n            ", "\n            </tr>\n        </thead>\n        " ], [ '\n        <thead class="lego-table-thead">\n            <tr>\n            ', "\n            ", "\n            </tr>\n        </thead>\n        " ]);
-    var Q = ee([ '<th class="', '" id="', '"><span>', "\n                ", "", "</span></th>" ], [ '<th class="', '" id="', '"><span>', "\n                ", "", "</span></th>" ]);
-    var Y = ee([ '\n        <tbody class="lego-table-tbody">\n            ', "\n        </tbody>\n        " ], [ '\n        <tbody class="lego-table-tbody">\n            ', "\n        </tbody>\n        " ]);
+    var Q = ee([ '\n        <thead class="lego-table-thead">\n            <tr>\n            ', "\n            ", "\n            </tr>\n        </thead>\n        " ], [ '\n        <thead class="lego-table-thead">\n            <tr>\n            ', "\n            ", "\n            </tr>\n        </thead>\n        " ]);
+    var Y = ee([ '<th class="', '" id="', '"><span>', "\n                ", "", "</span></th>" ], [ '<th class="', '" id="', '"><span>', "\n                ", "", "</span></th>" ]);
+    var V = ee([ '\n        <tbody class="lego-table-tbody">\n            ', "\n        </tbody>\n        " ], [ '\n        <tbody class="lego-table-tbody">\n            ', "\n        </tbody>\n        " ]);
     var G = ee([ '<tr class="', '" id="', '">\n                ', "\n                ", "\n                </tr>" ], [ '<tr class="', '" id="', '">\n                ', "\n                ", "\n                </tr>" ]);
     var J = ee([ "<td>", "</td>" ], [ "<td>", "</td>" ]);
     var Z = ee([ '\n        <tfoot class="lego-table-tfoot"><tr><td>', "</td></tr></tfoot>\n        " ], [ '\n        <tfoot class="lego-table-tfoot"><tr><td>', "</td></tr></tfoot>\n        " ]);
@@ -2317,8 +2311,8 @@
             value: function e() {
                 var t = this;
                 var n = this.options;
-                var o = hx(V, n.rowSelection ? this._renderSelection({}, "th") : "", n.columns.map(function(e) {
-                    return !e.isHide ? hx(Q, e.sortOrder ? "lego-table-column-sort" : "", e.key, e.title, e.sorter ? t._renderSorter(e) : "", t._renderFilter(e)) : "";
+                var o = hx(Q, n.rowSelection ? this._renderSelection({}, "th") : "", n.columns.map(function(e) {
+                    return !e.isHide ? hx(Y, e.sortOrder ? "lego-table-column-sort" : "", e.key, e.title, e.sorter ? t._renderSorter(e) : "", t._renderFilter(e)) : "";
                 }));
                 return o;
             }
@@ -2328,7 +2322,7 @@
                 var t = this;
                 var n = this.options;
                 if (!n.data) return;
-                var o = hx(Y, n.data.map(function(e, o) {
+                var o = hx(V, n.data.map(function(e, o) {
                     e.key = e.id || t._getRowKey("row_");
                     return hx(G, n.rowClassName, e.key, n.rowSelection ? t._renderSelection(e, "td") : "", n.columns.map(function(t) {
                         return !t.isHide ? hx(J, typeof t.format === "function" ? t.format(e[t.dataIndex], e, t) : e[t.dataIndex]) : "";

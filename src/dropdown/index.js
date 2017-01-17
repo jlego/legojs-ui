@@ -8,14 +8,10 @@ class Dropdown extends Lego.UI.Baseview {
             },
             disabled: false,
             eventName: 'hover', //['click'] or ['hover']
-            activeKey: '',
-            activeValue: '',
             trigger: '', //触发对象
-            visible: false,  //是否显示
             direction: '',  //显示方向
             clickAndClose: true,  //点击后关闭
             onChange(){},  //改变值时调用
-            onVisibleChange(){},    //菜单显示状态改变时调用
             data: []
         };
         Object.assign(options, opts);
@@ -60,16 +56,16 @@ class Dropdown extends Lego.UI.Baseview {
     }
     renderAfter(){
         const that = this;
-        this.options.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
+        this.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
         if(!this.options.disabled){
             function handler(event){
                 $('body, .modal-body').trigger('click');
                 event.stopPropagation();
-                const directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
+                const directionResp = Lego.UI.Util.getDirection(that.trigger, that.$el);
                 that.options.direction = directionResp._y || 'bottom';
                 that.show();
                 if(that.options.eventName == 'hover'){
-                    that.options.trigger.mouseleave(function(){
+                    that.trigger.mouseleave(function(){
                         that.close();
                     });
                 }
@@ -79,9 +75,9 @@ class Dropdown extends Lego.UI.Baseview {
                 $('body, .modal-body').off(_eventName).on(_eventName, function(){
                     that.close();
                 });
-                this.options.trigger.off(_eventName).on(_eventName, handler);
+                this.trigger.off(_eventName).on(_eventName, handler);
             }else{
-                this.options.trigger[this.options.eventName](handler);
+                this.trigger[this.options.eventName](handler);
             }
         }
     }
@@ -97,23 +93,21 @@ class Dropdown extends Lego.UI.Baseview {
         }
     }
     show(event){
-        this.options.trigger.addClass('dropdown open');
-        this.options.onVisibleChange(this, true);
+        this.trigger.addClass('dropdown open');
     }
     close(event){
-        this.options.trigger.removeClass('dropdown open');
-        this.options.onVisibleChange(this, false);
+        this.trigger.removeClass('dropdown open');
     }
     clickItem(event){
         event.stopPropagation();
         const target = $(event.currentTarget);
         const model = this.options.data.find(Item => Item.key == target.attr('id'));
-        if(model){
-            this.options.onChange(this, model);
-            this.options.activeKey = model.key;
-            this.options.activeValue = model.value;
+        if(model) this.options.onChange(this, model);
+        if(this.options.clickAndClose){
+            this.close();
+        }else{
+            this.refresh();
         }
-        if(this.options.clickAndClose) this.close();
     }
 }
 Lego.components('dropdown', Dropdown);

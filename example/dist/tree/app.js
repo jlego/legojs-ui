@@ -34,9 +34,9 @@
                 return t;
             };
         }();
-        var o = n(258);
+        var o = n(261);
         var a = s(o);
-        var i = n(259);
+        var i = n(262);
         var l = s(i);
         function s(e) {
             return e && e.__esModule ? e : {
@@ -80,7 +80,7 @@
         }();
         HBY.router(new c());
     },
-    257: function(module, exports) {
+    260: function(module, exports) {
         (function($) {
             var settings = {}, roots = {}, caches = {}, _consts = {
                 className: {
@@ -3274,7 +3274,7 @@
             };
         })(jQuery);
     },
-    258: function(e, t) {
+    261: function(e, t) {
         "use strict";
         Object.defineProperty(t, "__esModule", {
             value: true
@@ -3351,7 +3351,7 @@
         }(Lego.UI.Baseview);
         t.default = s;
     },
-    259: function(e, t, n) {
+    262: function(e, t, n) {
         "use strict";
         Object.defineProperty(t, "__esModule", {
             value: true
@@ -3373,9 +3373,9 @@
             };
         }();
         var o = c([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <tree id="tree1"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree2"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree3"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree4"></tree>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <treeselect id="treeselect1"></treeselect>\n            </div>\n            <div class="col-sm-6">\n              <treeselect id="treeselect2"></treeselect>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <treeselect id="treeselect3"></treeselect>\n            </div>\n            <div class="col-sm-6">\n              <treeselect id="treeselect4"></treeselect>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <tree id="tree1"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree2"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree3"></tree>\n            </div>\n            <div class="col-sm-3">\n              <tree id="tree4"></tree>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <treeselect id="treeselect1"></treeselect>\n            </div>\n            <div class="col-sm-6">\n              <treeselect id="treeselect2"></treeselect>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <treeselect id="treeselect3"></treeselect>\n            </div>\n            <div class="col-sm-6">\n              <treeselect id="treeselect4"></treeselect>\n            </div>\n          </div>\n        </div>\n        ' ]);
-        var a = n(260);
+        var a = n(263);
         var i = d(a);
-        var l = n(261);
+        var l = n(264);
         var s = d(l);
         function d(e) {
             return e && e.__esModule ? e : {
@@ -3719,14 +3719,14 @@
         }(Lego.UI.Baseview);
         t.default = h;
     },
-    260: function(e, t, n) {
+    263: function(e, t, n) {
         "use strict";
         var r = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
             return typeof e;
         } : function(e) {
             return e && typeof Symbol === "function" && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e;
         };
-        var o = n(257);
+        var o = n(260);
         var a = function() {
             function e(e, t) {
                 for (var n = 0; n < t.length; n++) {
@@ -3876,14 +3876,14 @@
         Lego.components("tree", u);
         e.exports = u;
     },
-    261: function(e, t, n) {
+    264: function(e, t, n) {
         "use strict";
         var r = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
             return typeof e;
         } : function(e) {
             return e && typeof Symbol === "function" && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e;
         };
-        var o = n(257);
+        var o = n(260);
         var a = function() {
             function e(e, t) {
                 for (var n = 0; n < t.length; n++) {
@@ -3948,14 +3948,10 @@
                     },
                     disabled: false,
                     eventName: "hover",
-                    activeKey: "",
-                    activeValue: "",
                     trigger: "",
-                    visible: false,
                     direction: "",
                     clickAndClose: true,
                     onChange: function e() {},
-                    onVisibleChange: function e() {},
                     data: []
                 };
                 Object.assign(n, e);
@@ -3990,16 +3986,16 @@
                 key: "renderAfter",
                 value: function e() {
                     var t = this;
-                    this.options.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
+                    this.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
                     if (!this.options.disabled) {
                         var n = function e(n) {
                             $("body, .modal-body").trigger("click");
                             n.stopPropagation();
-                            var r = Lego.UI.Util.getDirection(t.options.trigger, t.$el);
+                            var r = Lego.UI.Util.getDirection(t.trigger, t.$el);
                             t.options.direction = r._y || "bottom";
                             t.show();
                             if (t.options.eventName == "hover") {
-                                t.options.trigger.mouseleave(function() {
+                                t.trigger.mouseleave(function() {
                                     t.close();
                                 });
                             }
@@ -4009,9 +4005,9 @@
                             $("body, .modal-body").off(r).on(r, function() {
                                 t.close();
                             });
-                            this.options.trigger.off(r).on(r, n);
+                            this.trigger.off(r).on(r, n);
                         } else {
-                            this.options.trigger[this.options.eventName](n);
+                            this.trigger[this.options.eventName](n);
                         }
                     }
                 }
@@ -4028,14 +4024,12 @@
             }, {
                 key: "show",
                 value: function e(t) {
-                    this.options.trigger.addClass("dropdown open");
-                    this.options.onVisibleChange(this, true);
+                    this.trigger.addClass("dropdown open");
                 }
             }, {
                 key: "close",
                 value: function e(t) {
-                    this.options.trigger.removeClass("dropdown open");
-                    this.options.onVisibleChange(this, false);
+                    this.trigger.removeClass("dropdown open");
                 }
             }, {
                 key: "clickItem",
@@ -4045,12 +4039,12 @@
                     var r = this.options.data.find(function(e) {
                         return e.key == n.attr("id");
                     });
-                    if (r) {
-                        this.options.onChange(this, r);
-                        this.options.activeKey = r.key;
-                        this.options.activeValue = r.value;
+                    if (r) this.options.onChange(this, r);
+                    if (this.options.clickAndClose) {
+                        this.close();
+                    } else {
+                        this.refresh();
                     }
-                    if (this.options.clickAndClose) this.close();
                 }
             } ]);
             return t;
@@ -4216,7 +4210,7 @@
                     t.stopPropagation();
                     var n = $(t.currentTarget).parent(), r = n.attr("id"), o = n.attr("title");
                     this.options.data.forEach(function(e) {
-                        if (e.key === r) e.selected = false;
+                        if (e.key == r) e.selected = false;
                     });
                     this.getValue();
                     this.refresh();
@@ -4247,7 +4241,7 @@
                 key: "getValue",
                 value: function e() {
                     this.options.value = this.options.data.filter(function(e) {
-                        return e.selected === true && e.key !== "0";
+                        return e.selected == true && e.key !== "0";
                     });
                     return this.options.value;
                 }

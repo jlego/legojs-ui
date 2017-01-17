@@ -129,7 +129,7 @@ class Selects extends Lego.UI.Baseview {
             key = target.attr('id'),
             value = target.attr('title');
         this.options.data.forEach(item => {
-            if(item.key === key) item.selected = false;
+            if(item.key == key) item.selected = false;
         });
         this.getValue();
         this.refresh();
@@ -154,7 +154,7 @@ class Selects extends Lego.UI.Baseview {
     }
     getValue(){
         this.options.value = this.options.data.filter(item => {
-            return item.selected === true && item.key !== '0';
+            return item.selected == true && item.key !== '0';
         });
         return this.options.value;
     }

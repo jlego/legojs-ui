@@ -934,14 +934,10 @@ var Dropdown = function(_Lego$UI$Baseview) {
             },
             disabled: false,
             eventName: "hover",
-            activeKey: "",
-            activeValue: "",
             trigger: "",
-            visible: false,
             direction: "",
             clickAndClose: true,
             onChange: function onChange() {},
-            onVisibleChange: function onVisibleChange() {},
             data: []
         };
         Object.assign(options, opts);
@@ -976,16 +972,16 @@ var Dropdown = function(_Lego$UI$Baseview) {
         key: "renderAfter",
         value: function renderAfter() {
             var that = this;
-            this.options.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
+            this.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
             if (!this.options.disabled) {
                 var handler = function handler(event) {
                     $("body, .modal-body").trigger("click");
                     event.stopPropagation();
-                    var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
+                    var directionResp = Lego.UI.Util.getDirection(that.trigger, that.$el);
                     that.options.direction = directionResp._y || "bottom";
                     that.show();
                     if (that.options.eventName == "hover") {
-                        that.options.trigger.mouseleave(function() {
+                        that.trigger.mouseleave(function() {
                             that.close();
                         });
                     }
@@ -995,9 +991,9 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     $("body, .modal-body").off(_eventName).on(_eventName, function() {
                         that.close();
                     });
-                    this.options.trigger.off(_eventName).on(_eventName, handler);
+                    this.trigger.off(_eventName).on(_eventName, handler);
                 } else {
-                    this.options.trigger[this.options.eventName](handler);
+                    this.trigger[this.options.eventName](handler);
                 }
             }
         }
@@ -1014,14 +1010,12 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "show",
         value: function show(event) {
-            this.options.trigger.addClass("dropdown open");
-            this.options.onVisibleChange(this, true);
+            this.trigger.addClass("dropdown open");
         }
     }, {
         key: "close",
         value: function close(event) {
-            this.options.trigger.removeClass("dropdown open");
-            this.options.onVisibleChange(this, false);
+            this.trigger.removeClass("dropdown open");
         }
     }, {
         key: "clickItem",
@@ -1031,12 +1025,12 @@ var Dropdown = function(_Lego$UI$Baseview) {
             var model = this.options.data.find(function(Item) {
                 return Item.key == target.attr("id");
             });
-            if (model) {
-                this.options.onChange(this, model);
-                this.options.activeKey = model.key;
-                this.options.activeValue = model.value;
+            if (model) this.options.onChange(this, model);
+            if (this.options.clickAndClose) {
+                this.close();
+            } else {
+                this.refresh();
             }
-            if (this.options.clickAndClose) this.close();
         }
     } ]);
     return Dropdown;
@@ -2973,7 +2967,7 @@ var Selects = function(_Lego$UI$Baseview) {
             event.stopPropagation();
             var target = $(event.currentTarget).parent(), key = target.attr("id"), value = target.attr("title");
             this.options.data.forEach(function(item) {
-                if (item.key === key) item.selected = false;
+                if (item.key == key) item.selected = false;
             });
             this.getValue();
             this.refresh();
@@ -3004,7 +2998,7 @@ var Selects = function(_Lego$UI$Baseview) {
         key: "getValue",
         value: function getValue() {
             this.options.value = this.options.data.filter(function(item) {
-                return item.selected === true && item.key !== "0";
+                return item.selected == true && item.key !== "0";
             });
             return this.options.value;
         }
@@ -6326,6 +6320,101 @@ var Facial = function(_Lego$UI$Baseview) {
 
 Lego.components("facial", Facial);
 
+var _typeof$4 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
+    return typeof obj;
+} : function(obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+var _createClass$33 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+function _classCallCheck$33(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+var Collapse = function() {
+    function Collapse(opts, callback) {
+        _classCallCheck$33(this, Collapse);
+        var options = {
+            direction: "updown",
+            target: "",
+            onChange: function onChange() {}
+        };
+        var that = this;
+        this.callback = callback;
+        if ((typeof opts === "undefined" ? "undefined" : _typeof$4(opts)) == "object") {
+            Object.assign(options, opts);
+            options.target = options.target instanceof $ ? options.target : $(options.target);
+            if (!options.target.length) return;
+            if (!options.target.hasClass("collapse")) options.target.addClass("collapse");
+            this.callback = options.onChange;
+            if (options.direction == "updown") {
+                if (options.target.hasClass("show")) {
+                    options.target.slideDown("normal", function() {
+                        that.handler($(this));
+                    });
+                } else {
+                    options.target.slideUp("normal", function() {
+                        that.handler($(this));
+                    });
+                }
+            } else {
+                options.target.slideToggle("normal", function() {
+                    that.handler($(this));
+                });
+            }
+        }
+        if (typeof opts == "string") {
+            var target = opts instanceof $ ? opts : $(opts);
+            if (!target.length) return;
+            if (!target.hasClass("collapse")) target.addClass("collapse");
+            target.slideToggle("normal", function() {
+                that.handler($(this));
+            });
+        }
+    }
+    _createClass$33(Collapse, [ {
+        key: "handler",
+        value: function handler(target) {
+            if (typeof this.callback == "function") {
+                var result = "";
+                if (target.hasClass("show")) {
+                    result = "hide";
+                    target.removeClass("show");
+                } else {
+                    result = "show";
+                    target.addClass("show");
+                }
+                this.callback(result, target);
+            }
+        }
+    } ]);
+    return Collapse;
+}();
+
+var fun$2 = function fun$2(opts, callback) {
+    return new Collapse(opts, callback);
+};
+
+Lego.components("collapse", fun$2);
+
 Lego.components({
     baseview: Baseview,
     viewport: Viewport,
@@ -6355,7 +6444,8 @@ Lego.components({
     upload: Upload,
     avatar: Avatar,
     steps: Steps,
-    facial: Facial
+    facial: Facial,
+    collapse: fun$2
 });
 
 var index = Lego.UI;

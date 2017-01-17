@@ -1,10 +1,18 @@
 import Steps from '../../../../dist/Steps';
 import Buttons from '../../../../dist/Buttons';
 import Facial from '../../../../dist/Facial';
+import Collapse from '../../../../dist/Collapse';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
+            events: {
+                'click #collapseBtn': function(event){
+                    Lego.UI.collapse('#collapseExample', function(result, target){
+                        console.warn(result, target);
+                    });
+                }
+            },
             components: [{
                 el: '#steps1',
                 // name: 'user',
@@ -116,6 +124,16 @@ class HomeView extends Lego.UI.Baseview {
               <style>.lego-facial{width: 30px;height:30px;}</style>
             </div>
             <div class="col-sm-6">
+                <p>
+                  <button class="btn btn-primary" type="button" id="collapseBtn">
+                    展开/折叠
+                  </button>
+                </p>
+                <div class="collapse" id="collapseExample">
+                  <div class="card card-block">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                  </div>
+                </div>
             </div>
           </div>
         </div>
