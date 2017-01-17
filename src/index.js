@@ -27,6 +27,8 @@ import Transfer from "./transfer/index";
 import Progressbar from "./progressbar/index";
 import Upload from "./upload/index";
 import Avatar from "./avatar/index";
+import Steps from "./steps/index";
+import Facial from "./facial/index";
 
 Lego.components({
 	baseview: Baseview,
@@ -55,6 +57,8 @@ Lego.components({
 	transfer: Transfer,
 	progressbar: Progressbar,
 	upload: Upload,
-	avatar: Avatar
+	avatar: Avatar,
+	steps: Steps,
+	facial: Facial
 });
 export default Lego.UI;

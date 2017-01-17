@@ -1,7 +1,6 @@
 const Util = {
     /**
-     * [uuid description]
-     * @return {[type]} [description]
+     * 唯一码
      */
     uuid() {
         function S4() {
@@ -161,6 +160,120 @@ const Util = {
         const extMap = [ 'bmp', 'gif', 'png', 'jpg', 'jpeg' ],
             ext = isExt ? name : this.getExtName(name);
         return (ext !== false && extMap.indexOf(ext) >= 0) ? true : false;
+    },
+    //判断浏览器
+    checkBrowser() {
+        const u = navigator.userAgent;
+        return {
+            mozilla: /firefox/.test(u.toLowerCase()),
+            webkit: /webkit/.test(u.toLowerCase()),
+            opera: /opera/.test(u.toLowerCase()),
+            msie: /msie/.test(u.toLowerCase())
+        };
+    },
+    // 转为超链接
+    urlToHref(str) {
+        str = str.replace(/http[s]?:\/\/[\w.][^\,。‘’“”，《》<>{}+]*/g, '$& '); //隔开标点
+        str = str.replace(/http[s]?:\/\/[\w.][^ ]*/g, '<a href="$&" target="_blank" style="color:#0092d8;">$&</a>'); //zee
+        return str;
+        //return str.replace(/(https?:\/\/[^ ]*)/g, '<a href="$1" target="_blank" style="color:#0092d8;">$1</a>');
+    },
+    // 过滤标签
+    filterHtml(str) {
+        const valiHTML = ["br|img"];
+        if (this.checkBrowser.mozilla) {
+            str = str.replace(/(<!--\[if[^<]*?\])>([\S\s]*?)<(!\[endif\]-->)/gi, '');
+        }
+        str = str.replace(/_moz_dirty=""/gi, "")
+            .replace(/\[/g, "[[-")
+            .replace(/\]/g, "-]]")
+            .replace(/<\/ ?tr[^>]*>/gi, "[br]")
+            .replace(/<\/ ?td[^>]*>/gi, "    ")
+            .replace(/<(ul|dl|ol)[^>]*>/gi, "[br]")
+            .replace(/<(li|dd)[^>]*>/gi, "[br]")
+            .replace(/\<p[^>]*>/gi, "[br]")
+            .replace(/\<div[^>]*>/gi, "[br]")
+            .replace(/style=[\"\']([^\"\']+)[\"\']/gi, "")
+            .replace(new RegExp("<(/?(?:" + valiHTML.join("|") + ")[^>]*)>", "gi"), "[$1]")
+            .replace(new RegExp('<span([^>]*class="?at"?[^>]*)>', "gi"), "[span$1]")
+            .replace(/<[^>]*>/g, "")
+            .replace(/\[\[\-/g, "[")
+            .replace(/\-\]\]/g, "]")
+            .replace(new RegExp("\\[(/?(?:" + valiHTML.join("|") + "|span)[^\\]]*)\\]", "gi"), "<$1>");
+        // if (!window.XMLHttpRequest) {
+        //     str = str.replace(/\r?\n/gi, "<br>");
+        // }
+        str = $.trim(str.replace(/^<br>/, '').replace(/(\<br[^>]*>){2,}/gi, '<br>'));
+        return str;
+    },
+    filterTag(str) {
+        if (this.checkBrowser.mozilla) {
+            str = str.replace(/<\s*br\s*[^<]*>$/ig, '');
+        }
+        return str.replace(/&nbsp;/gi, ' ')
+            .replace(/<\s*br\s*[^<]*>/ig, '\n')
+            .replace(/&amp;/ig, '&')
+            .replace(/&lt;/ig, '<')
+            .replace(/&gt;/ig, '>');
+    },
+    unFilterTag(str) {
+        return str.replace(/&/ig, '&amp;')
+            .replace(/</ig, '&lt;')
+            .replace(/>/ig, '&gt;')
+            .replace(/\r?\n/ig, '<br>')
+            .replace(/&nbsp;/gi, ' ');
+    },
+    //表情转字符串
+    faceToText(str, faceTags, iconUrl) {
+        const patt = new RegExp('<img face=\"\" src=\".*?f0(\\d+).gif\"+/?>', 'g');
+        let newStr = str;
+        if (str.indexOf("<img") == -1) {
+            return this.filterTag(str);
+        }
+        while (arr = patt.exec(str)) {
+            newStr = newStr.replace(new RegExp(arr[0], 'g'), faceTags[arr[1]]);
+        }
+        newStr = this.filterTag(newStr);
+        return newStr;
+    },
+    //字符串转表情
+    textToFace(str, faceTags, iconUrl) {
+        str = this.unFilterTag(str);
+        const arr = str.match(/\[.*?\]/g);
+        if (arr) {
+            for (let i = 0; i < arr.length; i++) {
+                let index = faceTags.indexOf(arr[i]);
+                if (index >= 0) {
+                    str = str.replace(arr[i], '<img face="" src="' + iconUrl + index + '.gif"/>');
+                }
+            }
+        }
+        return str;
+    },
+    // 光标处插入文本
+    insertText(selector, str) {
+        const ob = selector[0];
+        ob.focus();
+        const selection = window.getSelection ? window.getSelection() : document.selection;
+        const range = selection.createRange ? selection.createRange() : selection.getRangeAt(0);
+        if (!window.getSelection) {
+            range.innerText(str);
+            range.collapse(false);
+            range.select();
+            ob.focus();
+        } else {
+            range.collapse(false);
+            const hasR = range.createContextualFragment(str);
+            const hasR_lastChild = hasR.lastChild;
+            range.insertNode(hasR);
+            if (hasR_lastChild) {
+                range.setEndAfter(hasR_lastChild);
+                range.setStartAfter(hasR_lastChild)
+            }
+            selection.removeAllRanges();
+            selection.addRange(range)
+            ob.focus();
+        }
     }
 };
 // 判断是否空值(主要用于视图模板)

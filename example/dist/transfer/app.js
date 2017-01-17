@@ -34,9 +34,9 @@
                 return t;
             };
         }();
-        var o = n(251);
+        var o = n(254);
         var a = l(o);
-        var i = n(252);
+        var i = n(255);
         var s = l(i);
         function l(e) {
             return e && e.__esModule ? e : {
@@ -80,7 +80,7 @@
         }();
         HBY.router(new c());
     },
-    251: function(e, t) {
+    254: function(e, t) {
         "use strict";
         Object.defineProperty(t, "__esModule", {
             value: true
@@ -157,7 +157,7 @@
         }(Lego.UI.Baseview);
         t.default = l;
     },
-    252: function(e, t, n) {
+    255: function(e, t, n) {
         "use strict";
         Object.defineProperty(t, "__esModule", {
             value: true
@@ -179,7 +179,7 @@
             };
         }();
         var o = l([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <transfer id="transfer1"></transfer>\n            </div>\n            <div class="col-sm-6">\n              <transfer id="transfer2"></transfer>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <transfer id="transfer1"></transfer>\n            </div>\n            <div class="col-sm-6">\n              <transfer id="transfer2"></transfer>\n            </div>\n          </div>\n        </div>\n        ' ]);
-        var a = n(253);
+        var a = n(256);
         var i = s(a);
         function s(e) {
             return e && e.__esModule ? e : {
@@ -341,14 +341,14 @@
         }(Lego.UI.Baseview);
         t.default = f;
     },
-    253: function(e, t, n) {
+    256: function(e, t, n) {
         "use strict";
         var r = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
             return typeof e;
         } : function(e) {
             return e && typeof Symbol === "function" && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e;
         };
-        var o = n(254);
+        var o = n(257);
         var a = function() {
             function e(e, t) {
                 for (var n = 0; n < t.length; n++) {
@@ -1045,7 +1045,7 @@
         Lego.components("transfer", W);
         e.exports = W;
     },
-    254: function(module, exports) {
+    257: function(module, exports) {
         (function($) {
             var settings = {}, roots = {}, caches = {}, _consts = {
                 className: {

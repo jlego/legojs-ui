@@ -204,6 +204,87 @@ var Util = {
     isImg: function isImg(name, isExt) {
         var extMap = [ "bmp", "gif", "png", "jpg", "jpeg" ], ext = isExt ? name : this.getExtName(name);
         return ext !== false && extMap.indexOf(ext) >= 0 ? true : false;
+    },
+    checkBrowser: function checkBrowser() {
+        var u = navigator.userAgent;
+        return {
+            mozilla: /firefox/.test(u.toLowerCase()),
+            webkit: /webkit/.test(u.toLowerCase()),
+            opera: /opera/.test(u.toLowerCase()),
+            msie: /msie/.test(u.toLowerCase())
+        };
+    },
+    urlToHref: function urlToHref(str) {
+        str = str.replace(/http[s]?:\/\/[\w.][^\,。‘’“”，《》<>{}+]*/g, "$& ");
+        str = str.replace(/http[s]?:\/\/[\w.][^ ]*/g, '<a href="$&" target="_blank" style="color:#0092d8;">$&</a>');
+        return str;
+    },
+    filterHtml: function filterHtml(str) {
+        var valiHTML = [ "br|img" ];
+        if (this.checkBrowser.mozilla) {
+            str = str.replace(/(<!--\[if[^<]*?\])>([\S\s]*?)<(!\[endif\]-->)/gi, "");
+        }
+        str = str.replace(/_moz_dirty=""/gi, "").replace(/\[/g, "[[-").replace(/\]/g, "-]]").replace(/<\/ ?tr[^>]*>/gi, "[br]").replace(/<\/ ?td[^>]*>/gi, "    ").replace(/<(ul|dl|ol)[^>]*>/gi, "[br]").replace(/<(li|dd)[^>]*>/gi, "[br]").replace(/\<p[^>]*>/gi, "[br]").replace(/\<div[^>]*>/gi, "[br]").replace(/style=[\"\']([^\"\']+)[\"\']/gi, "").replace(new RegExp("<(/?(?:" + valiHTML.join("|") + ")[^>]*)>", "gi"), "[$1]").replace(new RegExp('<span([^>]*class="?at"?[^>]*)>', "gi"), "[span$1]").replace(/<[^>]*>/g, "").replace(/\[\[\-/g, "[").replace(/\-\]\]/g, "]").replace(new RegExp("\\[(/?(?:" + valiHTML.join("|") + "|span)[^\\]]*)\\]", "gi"), "<$1>");
+        str = $.trim(str.replace(/^<br>/, "").replace(/(\<br[^>]*>){2,}/gi, "<br>"));
+        return str;
+    },
+    filterTag: function filterTag(str) {
+        if (this.checkBrowser.mozilla) {
+            str = str.replace(/<\s*br\s*[^<]*>$/gi, "");
+        }
+        return str.replace(/&nbsp;/gi, " ").replace(/<\s*br\s*[^<]*>/gi, "\n").replace(/&amp;/gi, "&").replace(/&lt;/gi, "<").replace(/&gt;/gi, ">");
+    },
+    unFilterTag: function unFilterTag(str) {
+        return str.replace(/&/gi, "&amp;").replace(/</gi, "&lt;").replace(/>/gi, "&gt;").replace(/\r?\n/gi, "<br>").replace(/&nbsp;/gi, " ");
+    },
+    faceToText: function faceToText(str, faceTags, iconUrl) {
+        var patt = new RegExp('<img face="" src=".*?f0(\\d+).gif"+/?>', "g");
+        var newStr = str;
+        if (str.indexOf("<img") == -1) {
+            return this.filterTag(str);
+        }
+        while (arr = patt.exec(str)) {
+            newStr = newStr.replace(new RegExp(arr[0], "g"), faceTags[arr[1]]);
+        }
+        newStr = this.filterTag(newStr);
+        return newStr;
+    },
+    textToFace: function textToFace(str, faceTags, iconUrl) {
+        str = this.unFilterTag(str);
+        var arr = str.match(/\[.*?\]/g);
+        if (arr) {
+            for (var i = 0; i < arr.length; i++) {
+                var index = faceTags.indexOf(arr[i]);
+                if (index >= 0) {
+                    str = str.replace(arr[i], '<img face="" src="' + iconUrl + index + '.gif"/>');
+                }
+            }
+        }
+        return str;
+    },
+    insertText: function insertText(selector, str) {
+        var ob = selector[0];
+        ob.focus();
+        var selection = window.getSelection ? window.getSelection() : document.selection;
+        var range = selection.createRange ? selection.createRange() : selection.getRangeAt(0);
+        if (!window.getSelection) {
+            range.innerText(str);
+            range.collapse(false);
+            range.select();
+            ob.focus();
+        } else {
+            range.collapse(false);
+            var hasR = range.createContextualFragment(str);
+            var hasR_lastChild = hasR.lastChild;
+            range.insertNode(hasR);
+            if (hasR_lastChild) {
+                range.setEndAfter(hasR_lastChild);
+                range.setStartAfter(hasR_lastChild);
+            }
+            selection.removeAllRanges();
+            selection.addRange(range);
+            ob.focus();
+        }
     }
 };
 

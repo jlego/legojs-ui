@@ -315,15 +315,12 @@ class Tables extends Lego.UI.Baseview {
             this.refresh();
         }
     }
-    // 获取先中行
+    // 获取选中行
     getSelected() {
-        let rows = [];
         if (Array.isArray(this.options.data)) {
-            this.options.data.map((row) => {
-                if(row.selected) rows.push(row);
-            });
+            return this.options.data.map((row) => row.selected);
         }
-        return rows;
+        return [];
     }
 }
 Lego.components('tables', Tables);

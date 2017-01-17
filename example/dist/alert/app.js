@@ -48,14 +48,14 @@
             default: e
         };
     }
-    function v(e, t) {
+    function b(e, t) {
         if (!(e instanceof t)) {
             throw new TypeError("Cannot call a class as a function");
         }
     }
-    var b = function() {
+    var v = function() {
         function e() {
-            v(this, e);
+            b(this, e);
             return {
                 "/alert": [ this.index, this.tabs ],
                 "/alert/:tabs": [ this.index, this.tabs ]
@@ -83,7 +83,7 @@
         } ]);
         return e;
     }();
-    HBY.router(new b());
+    HBY.router(new v());
 }, function(e, t) {
     "use strict";
     Object.defineProperty(t, "__esModule", {
@@ -462,7 +462,7 @@
         }
         return t && (typeof t === "object" || typeof t === "function") ? t : e;
     }
-    function v(e, t) {
+    function b(e, t) {
         if (typeof t !== "function" && t !== null) {
             throw new TypeError("Super expression must either be null or a function, not " + typeof t);
         }
@@ -476,8 +476,8 @@
         });
         if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
     }
-    var b = function(e) {
-        v(t, e);
+    var v = function(e) {
+        b(t, e);
         function t() {
             var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
             p(this, t);
@@ -623,7 +623,7 @@
         } ]);
         return t;
     }(Lego.UI.Baseview);
-    t.default = b;
+    t.default = v;
 }, function(e, t) {
     "use strict";
     var n = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
@@ -875,13 +875,13 @@
             focus: true,
             show: true
         };
-        var v = {
+        var b = {
             backdrop: "(boolean|string)",
             keyboard: "boolean",
             focus: "boolean",
             show: "boolean"
         };
-        var b = {
+        var v = {
             HIDE: "hide" + l,
             HIDDEN: "hidden" + l,
             SHOW: "show" + l,
@@ -929,7 +929,7 @@
                 key: "show",
                 value: function t(n) {
                     var o = this;
-                    var i = e.Event(b.SHOW, {
+                    var i = e.Event(v.SHOW, {
                         relatedTarget: n
                     });
                     e(this._element).trigger(i);
@@ -942,9 +942,9 @@
                     e(document.body).addClass(g.OPEN);
                     this._setEscapeEvent();
                     this._setResizeEvent();
-                    e(this._element).on(b.CLICK_DISMISS, y.DATA_DISMISS, e.proxy(this.hide, this));
-                    e(this._dialog).on(b.MOUSEDOWN_DISMISS, function() {
-                        e(o._element).one(b.MOUSEUP_DISMISS, function(t) {
+                    e(this._element).on(v.CLICK_DISMISS, y.DATA_DISMISS, e.proxy(this.hide, this));
+                    e(this._dialog).on(v.MOUSEDOWN_DISMISS, function() {
+                        e(o._element).one(v.MOUSEUP_DISMISS, function(t) {
                             if (e(t.target).is(o._element)) {
                                 o._ignoreBackdropClick = true;
                             }
@@ -958,7 +958,7 @@
                     if (n) {
                         n.preventDefault();
                     }
-                    var i = e.Event(b.HIDE);
+                    var i = e.Event(v.HIDE);
                     e(this._element).trigger(i);
                     if (!this._isShown || i.isDefaultPrevented()) {
                         return;
@@ -966,10 +966,10 @@
                     this._isShown = false;
                     this._setEscapeEvent();
                     this._setResizeEvent();
-                    e(document).off(b.FOCUSIN);
+                    e(document).off(v.FOCUSIN);
                     e(this._element).removeClass(g.IN);
-                    e(this._element).off(b.CLICK_DISMISS);
-                    e(this._dialog).off(b.MOUSEDOWN_DISMISS);
+                    e(this._element).off(v.CLICK_DISMISS);
+                    e(this._dialog).off(v.MOUSEDOWN_DISMISS);
                     if (o.supportsTransitionEnd() && e(this._element).hasClass(g.FADE)) {
                         e(this._element).one(o.TRANSITION_END, e.proxy(this._hideModal, this)).emulateTransitionEnd(f);
                     } else {
@@ -998,7 +998,7 @@
                 key: "_getConfig",
                 value: function n(i) {
                     i = e.extend({}, h, i);
-                    o.typeCheckConfig(t, i, v);
+                    o.typeCheckConfig(t, i, b);
                     return i;
                 }
             }, {
@@ -1019,7 +1019,7 @@
                     if (this._config.focus) {
                         this._enforceFocus();
                     }
-                    var a = e.Event(b.SHOWN, {
+                    var a = e.Event(v.SHOWN, {
                         relatedTarget: n
                     });
                     var s = function t() {
@@ -1038,7 +1038,7 @@
                 key: "_enforceFocus",
                 value: function t() {
                     var n = this;
-                    e(document).off(b.FOCUSIN).on(b.FOCUSIN, function(t) {
+                    e(document).off(v.FOCUSIN).on(v.FOCUSIN, function(t) {
                         if (document !== t.target && n._element !== t.target && !e(n._element).has(t.target).length) {
                             n._element.focus();
                         }
@@ -1049,22 +1049,22 @@
                 value: function t() {
                     var n = this;
                     if (this._isShown && this._config.keyboard) {
-                        e(this._element).on(b.KEYDOWN_DISMISS, function(e) {
+                        e(this._element).on(v.KEYDOWN_DISMISS, function(e) {
                             if (e.which === p) {
                                 n.hide();
                             }
                         });
                     } else if (!this._isShown) {
-                        e(this._element).off(b.KEYDOWN_DISMISS);
+                        e(this._element).off(v.KEYDOWN_DISMISS);
                     }
                 }
             }, {
                 key: "_setResizeEvent",
                 value: function t() {
                     if (this._isShown) {
-                        e(window).on(b.RESIZE, e.proxy(this._handleUpdate, this));
+                        e(window).on(v.RESIZE, e.proxy(this._handleUpdate, this));
                     } else {
-                        e(window).off(b.RESIZE);
+                        e(window).off(v.RESIZE);
                     }
                 }
             }, {
@@ -1077,7 +1077,7 @@
                         e(document.body).removeClass(g.OPEN);
                         n._resetAdjustments();
                         n._resetScrollbar();
-                        e(n._element).trigger(b.HIDDEN);
+                        e(n._element).trigger(v.HIDDEN);
                     });
                 }
             }, {
@@ -1101,7 +1101,7 @@
                             e(this._backdrop).addClass(r);
                         }
                         e(this._backdrop).appendTo(document.body);
-                        e(this._element).on(b.CLICK_DISMISS, function(e) {
+                        e(this._element).on(v.CLICK_DISMISS, function(e) {
                             if (i._ignoreBackdropClick) {
                                 i._ignoreBackdropClick = false;
                                 return;
@@ -1229,7 +1229,7 @@
             } ]);
             return c;
         }();
-        e(document).on(b.CLICK_DATA_API, y.DATA_TOGGLE, function(t) {
+        e(document).on(v.CLICK_DATA_API, y.DATA_TOGGLE, function(t) {
             var n = this;
             var i = void 0;
             var r = o.getSelectorFromElement(this);
@@ -1240,11 +1240,11 @@
             if (this.tagName === "A") {
                 t.preventDefault();
             }
-            var l = e(i).one(b.SHOW, function(t) {
+            var l = e(i).one(v.SHOW, function(t) {
                 if (t.isDefaultPrevented()) {
                     return;
                 }
-                l.one(b.HIDDEN, function() {
+                l.one(v.HIDDEN, function() {
                     if (e(n).is(":visible")) {
                         n.focus();
                     }
@@ -1297,7 +1297,7 @@
         }
         return t && ((typeof t === "undefined" ? "undefined" : n(t)) === "object" || typeof t === "function") ? t : e;
     }
-    function v(e, t) {
+    function b(e, t) {
         if (typeof t !== "function" && t !== null) {
             throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : n(t)));
         }
@@ -1311,8 +1311,8 @@
         });
         if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
     }
-    var b = function(e) {
-        v(t, e);
+    var v = function(e) {
+        b(t, e);
         function t() {
             var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
             p(this, t);
@@ -1370,7 +1370,7 @@
         } ]);
         return t;
     }(Lego.UI.Baseview);
-    Lego.components("alert", b);
+    Lego.components("alert", v);
     var g = function() {
         function e(e, t) {
             for (var n = 0; n < t.length; n++) {
@@ -1447,7 +1447,7 @@
                     click: "close"
                 },
                 msgType: "",
-                title: "这是标题",
+                title: "提示",
                 size: "",
                 type: "modal",
                 animate: "fadeIn",
@@ -1475,7 +1475,7 @@
             if (o.msgType) o.type = "dialog";
             var i = "#lego-layer";
             if (n[o.msgType] && typeof o.content == "string") {
-                var r = Lego.create(b, {
+                var r = Lego.create(v, {
                     type: o.msgType,
                     closable: false,
                     message: o.content,
@@ -1950,8 +1950,8 @@
             return t;
         };
     }();
-    var v = S([ '\n        <ul class="pagination ', " ", '">\n            <li class="prev ', '">\n                <a href="javascript:void(0)" title="上一页"><i class="icon iconfont icon-arrow-left"></i></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ], [ '\n        <ul class="pagination ', " ", '">\n            <li class="prev ', '">\n                <a href="javascript:void(0)" title="上一页"><i class="icon iconfont icon-arrow-left"></i></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ]);
-    var b = S([ '\n            <div title="', "/", '" class="lego-pagination-simple-pager">\n                <input type="text" value="', '"><span class="lego-pagination-slash">／</span>\n            </div>\n            ' ], [ '\n            <div title="', "/", '" class="lego-pagination-simple-pager">\n                <input type="text" value="', '"><span class="lego-pagination-slash">／</span>\n            </div>\n            ' ]);
+    var b = S([ '\n        <ul class="pagination ', " ", '">\n            <li class="prev ', '">\n                <a href="javascript:void(0)" title="上一页"><i class="icon iconfont icon-arrow-left"></i></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ], [ '\n        <ul class="pagination ', " ", '">\n            <li class="prev ', '">\n                <a href="javascript:void(0)" title="上一页"><i class="icon iconfont icon-arrow-left"></i></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ]);
+    var v = S([ '\n            <div title="', "/", '" class="lego-pagination-simple-pager">\n                <input type="text" value="', '"><span class="lego-pagination-slash">／</span>\n            </div>\n            ' ], [ '\n            <div title="', "/", '" class="lego-pagination-simple-pager">\n                <input type="text" value="', '"><span class="lego-pagination-slash">／</span>\n            </div>\n            ' ]);
     var g = S([ '\n            <li title="', '" class="page page-item ', '"><a href="javascript:void(0)">', "</a></li>\n            " ], [ '\n            <li title="', '" class="page page-item ', '"><a href="javascript:void(0)">', "</a></li>\n            " ]);
     var y = S([ '\n            <li title="下 ', ' 页" class="page morepage"><a href="javascript:void(0)"><i class="icon iconfont icon-more-1"></a></i></li>\n            ' ], [ '\n            <li title="下 ', ' 页" class="page morepage"><a href="javascript:void(0)"><i class="icon iconfont icon-more-1"></a></i></li>\n            ' ]);
     var m = S([ '<li title="', '" class="page page-item"><a href="javascript:void(0)">', "</a></li>" ], [ '<li title="', '" class="page page-item"><a href="javascript:void(0)">', "</a></li>" ]);
@@ -2057,7 +2057,7 @@
                 for (var u = a; u <= s; u++) {
                     c.push(u);
                 }
-                var f = hx(v, t.simple ? "pagination-simple" : "", t.size == "small" ? "mini" : "", n <= 1 ? "disabled" : "", t.simple ? hx(b, n, t.endPage, n) : "", !t.simple ? c.map(function(e) {
+                var f = hx(b, t.simple ? "pagination-simple" : "", t.size == "small" ? "mini" : "", n <= 1 ? "disabled" : "", t.simple ? hx(v, n, t.endPage, n) : "", !t.simple ? c.map(function(e) {
                     return hx(g, e, e == n ? "active" : "", e);
                 }) : "", l ? hx(y, t.pageSize) : "", !t.simple && l ? hx(m, t.totalPages, t.totalPages) : "", !t.simple ? hx(w, n >= t.totalPages ? "disabled" : "") : "", !t.simple && t.showSizeChanger ? hx(_, t.vid, t.pageSize, t.vid) : "", !t.simple && t.showQuickJumper ? hx(k, this.jumped ? n : "1", t.isShowTotal ? hx(O, typeof t.showTotal === "function" ? t.showTotal(i) : "总数 " + i) : "") : "");
                 this.jumped = false;
@@ -2458,13 +2458,12 @@
         }, {
             key: "getSelected",
             value: function e() {
-                var t = [];
                 if (Array.isArray(this.options.data)) {
-                    this.options.data.map(function(e) {
-                        if (e.selected) t.push(e);
+                    return this.options.data.map(function(e) {
+                        return e.selected;
                     });
                 }
-                return t;
+                return [];
             }
         } ]);
         return t;

@@ -37,8 +37,8 @@ class Avatar extends Lego.UI.Baseview {
         const options = this.options;
         function getItem(data){
             return hx`
-            <div class="avatar-item">
-                <div class="avatar-img" style="${data.value ? ('background-image:url(' + val(data.value) + ');') : ''}" id="${data.key}">
+            <div class="lego-avatar-item">
+                <div class="lego-avatar-img" style="${data.value ? ('background-image:url(' + val(data.value) + ');') : ''}" id="${data.key}">
                     ${options.multiple ? hx`<i class="anticon anticon-close remove" title="删除 ${val(data.name)}"></i>` : hx`<i class="anticon anticon-swap change" title="更换 ${val(data.name)}"></i>`}
                 </div>
                 ${options.showName ? hx`<label>${val(data.name)}</label>` : ''}
@@ -46,15 +46,15 @@ class Avatar extends Lego.UI.Baseview {
             `;
         }
         const vDom = hx`
-        <div class="avatar ${options.size} clearfix">
+        <div class="lego-avatar ${options.size} clearfix">
         ${options.value.length ? hx`
             ${options.multiple ? options.value.map(item => {
                 return getItem(item);
             }) : getItem(options.value[0])}
         ` : ''}
         ${!options.value.length || options.multiple ? hx`
-            <div class="avatar-item addbtn">
-                <div class="avatar-img">
+            <div class="lego-avatar-item addbtn">
+                <div class="lego-avatar-img">
                 <i class="anticon anticon-plus add" title="添加"></i>
                 </div>
             </div>
@@ -65,9 +65,9 @@ class Avatar extends Lego.UI.Baseview {
         return vDom;
     }
     renderAfter(){
-        if(this.options.width) this.$('.avatar-img').width(this.options.width);
-        if(this.options.height) this.$('.avatar-img').height(this.options.height);
-        this.$('.avatar-img, .avatar-img i').css('border-radius', this.options.radius);
+        if(this.options.width) this.$('.lego-avatar-img').width(this.options.width);
+        if(this.options.height) this.$('.lego-avatar-img').height(this.options.height);
+        this.$('.lego-avatar-img, .lego-avatar-img i').css('border-radius', this.options.radius);
     }
     onAdd(event){
         event.stopPropagation();

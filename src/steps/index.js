@@ -18,56 +18,72 @@ class Steps extends Lego.UI.Baseview {
             status: 'process', //指定当前步骤的状态，可选 wait process finish error
             size: 'default', //指定大小，目前支持普通（default）和迷你（small）
             direction: 'horizontal', //指定步骤条方向。目前支持水平（horizontal）和竖直（vertical）两种方向
-            onNext(){}   //事件回调
+            titleWidth: 120,    //标题宽度
+            showDescription: true,  //显示描述
+            showIcon: true, //是否显示图标
+            showNum: true, //是否显示序号
+            data: [],
+            onNext(){},  //事件回调
+            onPrevious(){}
         };
         Object.assign(options, opts);
         super(options);
     }
     render() {
-        const options = this.options;
+        const options = this.options,
+            dataLength = options.data.length,
+            widthPercent = 10 / (dataLength - 1) * 10;
         const vDom = hx`
-        <div class="ant-steps ant-steps-horizontal ant-steps-label-horizontal">
-            <div class="ant-steps-item ant-steps-status-finish" style="margin-right: -77px; width: 50%;">
-                <div class="ant-steps-tail"><i></i></div>
-                <div class="ant-steps-step">
-                    <div class="ant-steps-head">
-                        <div class="ant-steps-head-inner"><span class="ant-steps-icon anticon anticon-check"></span></div>
+        <div class="lego-steps lego-steps-${options.direction} lego-steps-label-${options.direction} ${!options.showNum ? 'lego-steps-sm' : ''}">
+        ${options.data.map((item, index) => {
+            return hx`
+            <div class="lego-steps-item lego-steps-status-${options.current == index ? options.status : (item.status ? item.status : 'wait')}"
+            style="${index == dataLength - 1 ? '' : ('width:' + widthPercent + '%;')} margin-right:-${(options.titleWidth)/2}px;">
+                ${index < dataLength ? hx`<div class="lego-steps-tail"
+                style="${index == dataLength - 1 ? ('padding-right:' + options.titleWidth + 'px') : ('padding-right:' + options.titleWidth/2 + 'px')}"><i></i></div>` : ''}
+                <div class="lego-steps-step">
+                    <div class="lego-steps-head">
+                        <div class="lego-steps-head-inner">
+                        ${options.showIcon ?
+                            hx`<span class="lego-steps-icon anticon ${item.icon ? item.icon : (item.status == 'finish' ? 'anticon-check' : '')}">
+                            ${item.status !== 'finish' ? (item.icon ? item.icon : (options.showNum ? (index + 1) : '')) : ''}
+                            </span>` :
+                            hx`<span class="lego-steps-icon">${options.showNum ? (index + 1) : ''}</span>`}
+                        </div>
                     </div>
-                    <div class="ant-steps-main">
-                        <div class="ant-steps-title">Finished</div>
-                        <div class="ant-steps-description">This is a description.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="ant-steps-item ant-steps-status-process" style="margin-right: -77px; width: 50%;">
-                <div class="ant-steps-tail"><i></i></div>
-                <div class="ant-steps-step">
-                    <div class="ant-steps-head">
-                        <div class="ant-steps-head-inner"><span class="ant-steps-icon">2</span></div>
-                    </div>
-                    <div class="ant-steps-main">
-                        <div class="ant-steps-title">In Progress</div>
-                        <div class="ant-steps-description">This is a description.</div>
+                    <div class="lego-steps-main">
+                        <div class="lego-steps-title">${val(item.title)}</div>
+                        ${options.showDescription ? hx`<div class="lego-steps-description">${val(item.description)}</div>` : ''}
                     </div>
                 </div>
             </div>
-            <div class="ant-steps-item ant-steps-item-last ant-steps-status-wait">
-                <div class="ant-steps-step">
-                    <div class="ant-steps-head">
-                        <div class="ant-steps-head-inner"><span class="ant-steps-icon">3</span></div>
-                    </div>
-                    <div class="ant-steps-main">
-                        <div class="ant-steps-title">Waiting</div>
-                        <div class="ant-steps-description">This is a description.</div>
-                    </div>
-                </div>
-            </div>
+            `;
+        })}
         </div>
         `;
         return vDom;
     }
-    onNext(event){
-        if(typeof this.options.onAdd == 'function') this.options.onAdd(this, event);
+    changeStatus(){
+        const options = this.options;
+        if(options.current > options.data.length) options.current = options.data.length;
+        options.data.forEach((item, index) => {
+            item.status = 'wait';
+            if(index < options.current) item.status = 'finish';
+            if(options.current == index) item.status = options.status;
+        });
+        this.refresh();
+    }
+    next(event){
+        const options = this.options;
+        options.current ++;
+        this.changeStatus();
+        if(typeof options.onNext == 'function') options.onNext(this, options.current);
+    }
+    previous(event){
+        const options = this.options;
+        options.current --;
+        this.changeStatus();
+        if(typeof options.onPrevious == 'function') options.onPrevious(this, options.current);
     }
 }
 Lego.components('steps', Steps);

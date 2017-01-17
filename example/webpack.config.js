@@ -14,6 +14,7 @@ module.exports = {
         'transfer/app': './src/transfer/app',
         'upload/app': './src/upload/app',
         'avatar/app': './src/avatar/app',
+        'steps/app': './src/steps/app',
         'main': './src/main',
     },
     output: {

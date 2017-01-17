@@ -22,7 +22,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n            <div class="avatar-item">\n                <div class="avatar-img" style="', '" id="', '">\n                    ', "\n                </div>\n                ", "\n            </div>\n            " ], [ '\n            <div class="avatar-item">\n                <div class="avatar-img" style="', '" id="', '">\n                    ', "\n                </div>\n                ", "\n            </div>\n            " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n            <div class="lego-avatar-item">\n                <div class="lego-avatar-img" style="', '" id="', '">\n                    ', "\n                </div>\n                ", "\n            </div>\n            " ], [ '\n            <div class="lego-avatar-item">\n                <div class="lego-avatar-img" style="', '" id="', '">\n                    ', "\n                </div>\n                ", "\n            </div>\n            " ]);
 
 var _templateObject2 = _taggedTemplateLiteral([ '<i class="anticon anticon-close remove" title="删除 ', '"></i>' ], [ '<i class="anticon anticon-close remove" title="删除 ', '"></i>' ]);
 
@@ -30,11 +30,11 @@ var _templateObject3 = _taggedTemplateLiteral([ '<i class="anticon anticon-swap 
 
 var _templateObject4 = _taggedTemplateLiteral([ "<label>", "</label>" ], [ "<label>", "</label>" ]);
 
-var _templateObject5 = _taggedTemplateLiteral([ '\n        <div class="avatar ', ' clearfix">\n        ', "\n        ", '\n            <input type="hidden" value="', '" name="', '">\n        </div>\n        ' ], [ '\n        <div class="avatar ', ' clearfix">\n        ', "\n        ", '\n            <input type="hidden" value="', '" name="', '">\n        </div>\n        ' ]);
+var _templateObject5 = _taggedTemplateLiteral([ '\n        <div class="lego-avatar ', ' clearfix">\n        ', "\n        ", '\n            <input type="hidden" value="', '" name="', '">\n        </div>\n        ' ], [ '\n        <div class="lego-avatar ', ' clearfix">\n        ', "\n        ", '\n            <input type="hidden" value="', '" name="', '">\n        </div>\n        ' ]);
 
 var _templateObject6 = _taggedTemplateLiteral([ "\n            ", "\n        " ], [ "\n            ", "\n        " ]);
 
-var _templateObject7 = _taggedTemplateLiteral([ '\n            <div class="avatar-item addbtn">\n                <div class="avatar-img">\n                <i class="anticon anticon-plus add" title="添加"></i>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="avatar-item addbtn">\n                <div class="avatar-img">\n                <i class="anticon anticon-plus add" title="添加"></i>\n                </div>\n            </div>\n            ' ]);
+var _templateObject7 = _taggedTemplateLiteral([ '\n            <div class="lego-avatar-item addbtn">\n                <div class="lego-avatar-img">\n                <i class="anticon anticon-plus add" title="添加"></i>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="lego-avatar-item addbtn">\n                <div class="lego-avatar-img">\n                <i class="anticon anticon-plus add" title="添加"></i>\n                </div>\n            </div>\n            ' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -115,9 +115,9 @@ var Avatar = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            if (this.options.width) this.$(".avatar-img").width(this.options.width);
-            if (this.options.height) this.$(".avatar-img").height(this.options.height);
-            this.$(".avatar-img, .avatar-img i").css("border-radius", this.options.radius);
+            if (this.options.width) this.$(".lego-avatar-img").width(this.options.width);
+            if (this.options.height) this.$(".lego-avatar-img").height(this.options.height);
+            this.$(".lego-avatar-img, .lego-avatar-img i").css("border-radius", this.options.radius);
         }
     }, {
         key: "onAdd",

@@ -20,7 +20,7 @@ class Modal extends Lego.UI.Baseview {
                 'click': 'close'
             },
             msgType: '',    //有此属性的是dialog
-            title: '这是标题',
+            title: '提示',
             size: '', //lg,md,sm
             type: 'modal', //类型 layer, modal, dialog
             animate: 'fadeIn',

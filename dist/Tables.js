@@ -757,13 +757,12 @@ var Tables = function(_Lego$UI$Baseview) {
     }, {
         key: "getSelected",
         value: function getSelected() {
-            var rows = [];
             if (Array.isArray(this.options.data)) {
-                this.options.data.map(function(row) {
-                    if (row.selected) rows.push(row);
+                return this.options.data.map(function(row) {
+                    return row.selected;
                 });
             }
-            return rows;
+            return [];
         }
     } ]);
     return Tables;

@@ -34,22 +34,22 @@
         };
     }();
     var r = n(10);
-    var i = u(r);
+    var i = l(r);
     var o = n(11);
-    var s = u(o);
-    function u(e) {
+    var s = l(o);
+    function l(e) {
         return e && e.__esModule ? e : {
             default: e
         };
     }
-    function l(e, t) {
+    function u(e, t) {
         if (!(e instanceof t)) {
             throw new TypeError("Cannot call a class as a function");
         }
     }
     var c = function() {
         function e() {
-            l(this, e);
+            u(this, e);
             return {
                 "/avatar": [ this.index, this.tabs ],
                 "/avatar/:tabs": [ this.index, this.tabs ]
@@ -132,7 +132,7 @@
         });
         if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
     }
-    var u = function(e) {
+    var l = function(e) {
         s(t, e);
         function t() {
             var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -153,7 +153,7 @@
         } ]);
         return t;
     }(Lego.UI.Baseview);
-    t.default = u;
+    t.default = l;
 }, function(e, t, n) {
     "use strict";
     Object.defineProperty(t, "__esModule", {
@@ -175,7 +175,7 @@
             return t;
         };
     }();
-    var r = u([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <avatar id="avatar1"></avatar>\n            </div>\n            <div class="col-sm-6">\n              <avatar id="avatar2"></avatar>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <avatar id="avatar3"></avatar>\n            </div>\n            <div class="col-sm-6">\n              <avatar id="avatar4"></avatar>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <avatar id="avatar1"></avatar>\n            </div>\n            <div class="col-sm-6">\n              <avatar id="avatar2"></avatar>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <avatar id="avatar3"></avatar>\n            </div>\n            <div class="col-sm-6">\n              <avatar id="avatar4"></avatar>\n            </div>\n          </div>\n        </div>\n        ' ]);
+    var r = l([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <avatar id="avatar1"></avatar>\n            </div>\n            <div class="col-sm-6">\n              <avatar id="avatar2"></avatar>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <avatar id="avatar3"></avatar>\n            </div>\n            <div class="col-sm-6">\n              <avatar id="avatar4"></avatar>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <avatar id="avatar1"></avatar>\n            </div>\n            <div class="col-sm-6">\n              <avatar id="avatar2"></avatar>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <avatar id="avatar3"></avatar>\n            </div>\n            <div class="col-sm-6">\n              <avatar id="avatar4"></avatar>\n            </div>\n          </div>\n        </div>\n        ' ]);
     var i = n(12);
     var o = s(i);
     function s(e) {
@@ -183,14 +183,14 @@
             default: e
         };
     }
-    function u(e, t) {
+    function l(e, t) {
         return Object.freeze(Object.defineProperties(e, {
             raw: {
                 value: Object.freeze(t)
             }
         }));
     }
-    function l(e, t) {
+    function u(e, t) {
         if (!(e instanceof t)) {
             throw new TypeError("Cannot call a class as a function");
         }
@@ -219,7 +219,7 @@
         v(t, e);
         function t() {
             var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-            l(this, t);
+            u(this, t);
             var n = {
                 components: [ {
                     el: "#avatar1",
@@ -291,13 +291,13 @@
             return t;
         };
     }();
-    var r = v([ '\n            <div class="avatar-item">\n                <div class="avatar-img" style="', '" id="', '">\n                    ', "\n                </div>\n                ", "\n            </div>\n            " ], [ '\n            <div class="avatar-item">\n                <div class="avatar-img" style="', '" id="', '">\n                    ', "\n                </div>\n                ", "\n            </div>\n            " ]);
+    var r = v([ '\n            <div class="lego-avatar-item">\n                <div class="lego-avatar-img" style="', '" id="', '">\n                    ', "\n                </div>\n                ", "\n            </div>\n            " ], [ '\n            <div class="lego-avatar-item">\n                <div class="lego-avatar-img" style="', '" id="', '">\n                    ', "\n                </div>\n                ", "\n            </div>\n            " ]);
     var i = v([ '<i class="anticon anticon-close remove" title="删除 ', '"></i>' ], [ '<i class="anticon anticon-close remove" title="删除 ', '"></i>' ]);
     var o = v([ '<i class="anticon anticon-swap change" title="更换 ', '"></i>' ], [ '<i class="anticon anticon-swap change" title="更换 ', '"></i>' ]);
     var s = v([ "<label>", "</label>" ], [ "<label>", "</label>" ]);
-    var u = v([ '\n        <div class="avatar ', ' clearfix">\n        ', "\n        ", '\n            <input type="hidden" value="', '" name="', '">\n        </div>\n        ' ], [ '\n        <div class="avatar ', ' clearfix">\n        ', "\n        ", '\n            <input type="hidden" value="', '" name="', '">\n        </div>\n        ' ]);
-    var l = v([ "\n            ", "\n        " ], [ "\n            ", "\n        " ]);
-    var c = v([ '\n            <div class="avatar-item addbtn">\n                <div class="avatar-img">\n                <i class="anticon anticon-plus add" title="添加"></i>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="avatar-item addbtn">\n                <div class="avatar-img">\n                <i class="anticon anticon-plus add" title="添加"></i>\n                </div>\n            </div>\n            ' ]);
+    var l = v([ '\n        <div class="lego-avatar ', ' clearfix">\n        ', "\n        ", '\n            <input type="hidden" value="', '" name="', '">\n        </div>\n        ' ], [ '\n        <div class="lego-avatar ', ' clearfix">\n        ', "\n        ", '\n            <input type="hidden" value="', '" name="', '">\n        </div>\n        ' ]);
+    var u = v([ "\n            ", "\n        " ], [ "\n            ", "\n        " ]);
+    var c = v([ '\n            <div class="lego-avatar-item addbtn">\n                <div class="lego-avatar-img">\n                <i class="anticon anticon-plus add" title="添加"></i>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="lego-avatar-item addbtn">\n                <div class="lego-avatar-img">\n                <i class="anticon anticon-plus add" title="添加"></i>\n                </div>\n            </div>\n            ' ]);
     function v(e, t) {
         return Object.freeze(Object.defineProperties(e, {
             raw: {
@@ -363,7 +363,7 @@
                 function n(e) {
                     return hx(r, e.value ? "background-image:url(" + val(e.value) + ");" : "", e.key, t.multiple ? hx(i, val(e.name)) : hx(o, val(e.name)), t.showName ? hx(s, val(e.name)) : "");
                 }
-                var a = hx(u, t.size, t.value.length ? hx(l, t.multiple ? t.value.map(function(e) {
+                var a = hx(l, t.size, t.value.length ? hx(u, t.multiple ? t.value.map(function(e) {
                     return n(e);
                 }) : n(t.value[0])) : "", !t.value.length || t.multiple ? hx(c) : "", t.value.map(function(e) {
                     return e.key;
@@ -373,9 +373,9 @@
         }, {
             key: "renderAfter",
             value: function e() {
-                if (this.options.width) this.$(".avatar-img").width(this.options.width);
-                if (this.options.height) this.$(".avatar-img").height(this.options.height);
-                this.$(".avatar-img, .avatar-img i").css("border-radius", this.options.radius);
+                if (this.options.width) this.$(".lego-avatar-img").width(this.options.width);
+                if (this.options.height) this.$(".lego-avatar-img").height(this.options.height);
+                this.$(".lego-avatar-img, .lego-avatar-img i").css("border-radius", this.options.radius);
             }
         }, {
             key: "onAdd",

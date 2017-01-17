@@ -751,7 +751,7 @@ var Modal = function(_Lego$UI$Baseview) {
                 click: "close"
             },
             msgType: "",
-            title: "这是标题",
+            title: "提示",
             size: "",
             type: "modal",
             animate: "fadeIn",

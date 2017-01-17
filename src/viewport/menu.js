@@ -125,13 +125,13 @@ class Menu extends Lego.UI.Baseview {
                         </a>
                     </li>
                     <li data-permis='{"module":"Organization", "operate":"Query", "hide":1}' id="nav_organization">
-                        <a href="#admin/">
+                        <a href="javascript:Lego.startApp('steps');">
                             <div class="item-content">
                                 <div class="item-media">
                                     <i class="icon iconfont icon-admin"></i>
                                 </div>
                                 <div class="item-inner">
-                                    <span class="title"> 后台管理 </span>
+                                    <span class="title"> 步骤条 </span>
                                 </div>
                             </div>
                         </a>
