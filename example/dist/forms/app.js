@@ -552,7 +552,7 @@
             return t;
         };
     }();
-    var h = y([ '\n        <div class="input-group search">\n        ', '\n          <input type="text" class="form-control search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group search">\n        ', '\n          <input type="text" class="form-control search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
+    var h = y([ '\n        <div class="input-group lego-search">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group lego-search">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
     var p = y([ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ]);
     function y(e, t) {
         return Object.freeze(Object.defineProperties(e, {
@@ -593,8 +593,8 @@
             M(this, t);
             var n = {
                 events: {
-                    "click .search-button": "onSearch",
-                    "keydown .search-input": "_enterSearch"
+                    "click .lego-search-button": "onSearch",
+                    "keydown .lego-search-input": "_enterSearch"
                 },
                 placeholder: "输入关键字搜索",
                 activeKey: "",
@@ -632,7 +632,7 @@
             key: "onSearch",
             value: function e(t) {
                 t.stopPropagation();
-                var n = this.$(".search-input").val();
+                var n = this.$(".lego-search-input").val();
                 if (typeof this.options.onSearch === "function") this.options.onSearch(this, {
                     key: this.options.activeKey,
                     value: this.options.activeValue,
@@ -15855,12 +15855,12 @@
         };
     }();
     var o = p([ '<div>\n                    <button type="submit" class="btn btn-primary">', '</button>\n                    <button type="reset" class="btn btn-secondary">', "</button>\n                    </div>" ], [ '<div>\n                    <button type="submit" class="btn btn-primary">', '</button>\n                    <button type="reset" class="btn btn-secondary">', "</button>\n                    </div>" ]);
-    var d = p([ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', '</button>\n                        <button type="reset" class="btn btn-secondary">', "</button>\n                      </div>\n                    </div>\n                    " ], [ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', '</button>\n                        <button type="reset" class="btn btn-secondary">', "</button>\n                      </div>\n                    </div>\n                    " ]);
+    var d = p([ '\n                    <div class="form-group row">\n                      <div class="offset-sm-', " col-sm-", '">\n                        <button type="submit" class="btn btn-primary">', '</button>\n                        <button type="reset" class="btn btn-secondary">', "</button>\n                      </div>\n                    </div>\n                    " ], [ '\n                    <div class="form-group row">\n                      <div class="offset-sm-', " col-sm-", '">\n                        <button type="submit" class="btn btn-primary">', '</button>\n                        <button type="reset" class="btn btn-secondary">', "</button>\n                      </div>\n                    </div>\n                    " ]);
     var u = p([ '<p class="form-control-static mb-0">', "</p>" ], [ '<p class="form-control-static mb-0">', "</p>" ]);
     var l = p([ '\n                <div class="form-group">\n                    <label for="', '">', "", "</label>\n                    ", "\n                    ", "\n                </div>\n                " ], [ '\n                <div class="form-group">\n                    <label for="', '">', "", "</label>\n                    ", "\n                    ", "\n                </div>\n                " ]);
     var m = p([ '<span class="symbol required">*</span>' ], [ '<span class="symbol required">*</span>' ]);
     var _ = p([ '<small class="form-text text-muted">', "</small>" ], [ '<small class="form-text text-muted">', "</small>" ]);
-    var c = p([ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 col-form-label">', "", '</label>\n                  <div class="col-sm-10">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ], [ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 col-form-label">', "", '</label>\n                  <div class="col-sm-10">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ]);
+    var c = p([ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-', ' col-form-label">', "", '</label>\n                  <div class="col-sm-', '">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ], [ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-', ' col-form-label">', "", '</label>\n                  <div class="col-sm-', '">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ]);
     var f = p([ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ], [ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ]);
     var h = p([ "<form>\n            ", "\n            ", "</form>" ], [ "<form>\n            ", "\n            ", "</form>" ]);
     function p(e, t) {
@@ -15923,8 +15923,11 @@
                     rules: {},
                     messages: {}
                 },
+                labelCols: 2,
+                comCols: 10,
                 submitEl: "",
                 submitText: "提 交",
+                showSubmit: true,
                 resetText: "重 置",
                 data: [],
                 format: function e(t) {
@@ -15943,28 +15946,28 @@
                 var t = this.options || {}, n = this;
                 function a() {
                     var e = "";
-                    if (!t.submitEl) {
+                    if (!t.submitEl && t.showSubmit) {
                         if (t.layout == "vertical") {
                             e = hx(o, t.submitText, t.resetText);
                         } else {
-                            e = hx(d, t.submitText, t.resetText);
+                            e = hx(d, t.labelCols, t.comCols, t.submitText, t.resetText);
                         }
                     }
                     return e;
                 }
-                function r(e, t, n) {
-                    var a = "", r = "";
+                function r(e, t, a) {
+                    var r = "", i = "";
                     if (e.text) {
-                        r = hx(u, val(e.text));
+                        i = hx(u, val(e.text));
                     } else {
-                        r = hx("<" + val(e.component.comName) + " id=" + n + "></" + val(e.component.comName) + ">");
+                        i = hx("<" + val(e.component.comName) + " id=" + a + "></" + val(e.component.comName) + ">");
                     }
                     if (t == "vertical") {
-                        a = hx(l, n, val(e.label), e.required ? hx(m) : "", r, e.help ? hx(_, val(e.help)) : "");
+                        r = hx(l, a, val(e.label), e.required ? hx(m) : "", i, e.help ? hx(_, val(e.help)) : "");
                     } else {
-                        a = hx(c, n, val(e.label), e.required ? hx(m) : "", r, e.help ? hx(_, val(e.help)) : "");
+                        r = hx(c, a, n.options.labelCols, val(e.label), e.required ? hx(m) : "", n.options.comCols, i, e.help ? hx(_, val(e.help)) : "");
                     }
-                    return a;
+                    return r;
                 }
                 function i(e, n, a) {
                     var i = "", s = [ "component", t.vid, n ];

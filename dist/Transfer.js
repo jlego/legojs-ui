@@ -475,7 +475,7 @@ var _createClass$3 = function() {
     };
 }();
 
-var _templateObject$3 = _taggedTemplateLiteral$3([ '\n        <div class="input-group search">\n        ', '\n          <input type="text" class="form-control search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group search">\n        ', '\n          <input type="text" class="form-control search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
+var _templateObject$3 = _taggedTemplateLiteral$3([ '\n        <div class="input-group lego-search">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group lego-search">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
 
 var _templateObject2$2 = _taggedTemplateLiteral$3([ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ]);
 
@@ -522,8 +522,8 @@ var Search = function(_Lego$UI$Baseview) {
         _classCallCheck$3(this, Search);
         var options = {
             events: {
-                "click .search-button": "onSearch",
-                "keydown .search-input": "_enterSearch"
+                "click .lego-search-button": "onSearch",
+                "keydown .lego-search-input": "_enterSearch"
             },
             placeholder: "输入关键字搜索",
             activeKey: "",
@@ -561,7 +561,7 @@ var Search = function(_Lego$UI$Baseview) {
         key: "onSearch",
         value: function onSearch(event) {
             event.stopPropagation();
-            var keyword = this.$(".search-input").val();
+            var keyword = this.$(".lego-search-input").val();
             if (typeof this.options.onSearch === "function") this.options.onSearch(this, {
                 key: this.options.activeKey,
                 value: this.options.activeValue,

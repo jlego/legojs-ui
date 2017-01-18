@@ -34,9 +34,9 @@
                 return t;
             };
         }();
-        var i = n(265);
+        var i = n(267);
         var a = l(i);
-        var r = n(266);
+        var r = n(268);
         var s = l(r);
         function l(e) {
             return e && e.__esModule ? e : {
@@ -80,7 +80,249 @@
         }();
         HBY.router(new c());
     },
-    265: function(e, t) {
+    254: function(e, t) {
+        var n = function(e, t) {
+            var n = n || webkitURL;
+            var o = n.createObjectURL(e);
+            var i = new Image();
+            i.src = o;
+            i.onload = function() {
+                var e = this;
+                var n = e.width, a = e.height, r = n / a;
+                n = t.width || n;
+                a = n / r;
+                var s = document.createElement("canvas");
+                var u = s.getContext("2d");
+                $(s).attr({
+                    width: n,
+                    height: a
+                });
+                u.drawImage(e, 0, 0, n, a);
+                var c = s.toDataURL("image/jpeg", t.quality || .8);
+                if (navigator.userAgent.match(/iphone/i)) {
+                    var f = new l(i);
+                    f.render(s, {
+                        maxWidth: n,
+                        maxHeight: a,
+                        quality: t.quality || .8,
+                        orientation: 1
+                    });
+                    c = s.toDataURL("image/jpeg", t.quality || .8);
+                }
+                if (navigator.userAgent.match(/Android/i)) {
+                    var d = new JPEGEncoder();
+                    c = d.encode(u.getImageData(0, 0, n, a), t.quality * 100 || 80);
+                }
+                var p = {
+                    width: n,
+                    height: a,
+                    blob: o,
+                    base64: c,
+                    clearBase64: c.substr(c.indexOf(",") + 1)
+                };
+                t.success(p);
+            };
+        };
+        function o(e) {
+            var t = e.naturalWidth, n = e.naturalHeight;
+            if (t * n > 1024 * 1024) {
+                var o = document.createElement("canvas");
+                o.width = o.height = 1;
+                var i = o.getContext("2d");
+                i.drawImage(e, -t + 1, 0);
+                return i.getImageData(0, 0, 1, 1).data[3] === 0;
+            } else {
+                return false;
+            }
+        }
+        function i(e, t, n) {
+            var o = document.createElement("canvas");
+            o.width = 1;
+            o.height = n;
+            var i = o.getContext("2d");
+            i.drawImage(e, 0, 0);
+            var a = i.getImageData(0, 0, 1, n).data;
+            var r = 0;
+            var s = n;
+            var l = n;
+            while (l > r) {
+                var u = a[(l - 1) * 4 + 3];
+                if (u === 0) {
+                    s = l;
+                } else {
+                    r = l;
+                }
+                l = s + r >> 1;
+            }
+            var c = l / n;
+            return c === 0 ? 1 : c;
+        }
+        function a(e, t, n) {
+            var o = document.createElement("canvas");
+            r(e, o, t, n);
+            return o.toDataURL("image/jpeg", t.quality || .8);
+        }
+        function r(e, t, n, a) {
+            var r = e.naturalWidth, l = e.naturalHeight;
+            var u = n.width, c = n.height;
+            var f = t.getContext("2d");
+            f.save();
+            s(t, f, u, c, n.orientation);
+            var d = o(e);
+            if (d) {
+                r /= 2;
+                l /= 2;
+            }
+            var p = 1024;
+            var v = document.createElement("canvas");
+            v.width = v.height = p;
+            var h = v.getContext("2d");
+            var g = a ? i(e, r, l) : 1;
+            var b = Math.ceil(p * u / r);
+            var m = Math.ceil(p * c / l / g);
+            var y = 0;
+            var w = 0;
+            while (y < l) {
+                var O = 0;
+                var x = 0;
+                while (O < r) {
+                    h.clearRect(0, 0, p, p);
+                    h.drawImage(e, -O, -y);
+                    f.drawImage(v, 0, 0, p, p, x, w, b, m);
+                    O += p;
+                    x += b;
+                }
+                y += p;
+                w += m;
+            }
+            f.restore();
+            v = h = null;
+        }
+        function s(e, t, n, o, i) {
+            switch (i) {
+              case 5:
+              case 6:
+              case 7:
+              case 8:
+                e.width = o;
+                e.height = n;
+                break;
+
+              default:
+                e.width = n;
+                e.height = o;
+            }
+            switch (i) {
+              case 2:
+                t.translate(n, 0);
+                t.scale(-1, 1);
+                break;
+
+              case 3:
+                t.translate(n, o);
+                t.rotate(Math.PI);
+                break;
+
+              case 4:
+                t.translate(0, o);
+                t.scale(1, -1);
+                break;
+
+              case 5:
+                t.rotate(.5 * Math.PI);
+                t.scale(1, -1);
+                break;
+
+              case 6:
+                t.rotate(.5 * Math.PI);
+                t.translate(0, -o);
+                break;
+
+              case 7:
+                t.rotate(.5 * Math.PI);
+                t.translate(n, -o);
+                t.scale(-1, 1);
+                break;
+
+              case 8:
+                t.rotate(-.5 * Math.PI);
+                t.translate(-n, 0);
+                break;
+
+              default:
+                break;
+            }
+        }
+        function l(e) {
+            if (window.Blob && e instanceof Blob) {
+                var t = new Image();
+                var n = window.URL && window.URL.createObjectURL ? window.URL : window.webkitURL && window.webkitURL.createObjectURL ? window.webkitURL : null;
+                if (!n) {
+                    throw Error("No createObjectURL function found to create blob url");
+                }
+                t.src = n.createObjectURL(e);
+                this.blob = e;
+                e = t;
+            }
+            if (!e.naturalWidth && !e.naturalHeight) {
+                var o = this;
+                e.onload = function() {
+                    var e = o.imageLoadListeners;
+                    if (e) {
+                        o.imageLoadListeners = null;
+                        for (var t = 0, n = e.length; t < n; t++) {
+                            e[t]();
+                        }
+                    }
+                };
+                this.imageLoadListeners = [];
+            }
+            this.srcImage = e;
+        }
+        l.prototype.render = function(e, t) {
+            if (this.imageLoadListeners) {
+                var n = this;
+                this.imageLoadListeners.push(function() {
+                    n.render(e, t);
+                });
+                return;
+            }
+            t = t || {};
+            var o = this.srcImage.naturalWidth, i = this.srcImage.naturalHeight, s = t.width, l = t.height, u = t.maxWidth, c = t.maxHeight, f = !this.blob || this.blob.type === "image/jpeg";
+            if (s && !l) {
+                l = i * s / o << 0;
+            } else if (l && !s) {
+                s = o * l / i << 0;
+            } else {
+                s = o;
+                l = i;
+            }
+            if (u && s > u) {
+                s = u;
+                l = i * s / o << 0;
+            }
+            if (c && l > c) {
+                l = c;
+                s = o * l / i << 0;
+            }
+            var d = {
+                width: s,
+                height: l
+            };
+            for (var p in t) d[p] = t[p];
+            var v = e.tagName.toLowerCase();
+            if (v === "img") {
+                e.src = a(this.srcImage, d, f);
+            } else if (v === "canvas") {
+                r(this.srcImage, e, d, f);
+            }
+            if (typeof this.onrender === "function") {
+                this.onrender(e);
+            }
+        };
+        e.exports = n;
+    },
+    267: function(e, t) {
         "use strict";
         Object.defineProperty(t, "__esModule", {
             value: true
@@ -157,7 +399,7 @@
         }(Lego.UI.Baseview);
         t.default = l;
     },
-    266: function(e, t, n) {
+    268: function(e, t, n) {
         "use strict";
         Object.defineProperty(t, "__esModule", {
             value: true
@@ -179,7 +421,7 @@
             };
         }();
         var i = l([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <upload id="upload1"></upload>\n            </div>\n            <div class="col-sm-6">\n              <upload id="upload2"></upload>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <upload id="upload3"></upload>\n            </div>\n            <div class="col-sm-6">\n              <upload id="upload4"></upload>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <upload id="upload1"></upload>\n            </div>\n            <div class="col-sm-6">\n              <upload id="upload2"></upload>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <upload id="upload3"></upload>\n            </div>\n            <div class="col-sm-6">\n              <upload id="upload4"></upload>\n            </div>\n          </div>\n        </div>\n        ' ]);
-        var a = n(267);
+        var a = n(269);
         var r = s(a);
         function s(e) {
             return e && e.__esModule ? e : {
@@ -281,7 +523,7 @@
         }(Lego.UI.Baseview);
         t.default = d;
     },
-    267: function(e, t, n) {
+    269: function(e, t, n) {
         "use strict";
         var o = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
             return typeof e;
@@ -291,7 +533,7 @@
         function i(e) {
             return e && (typeof e === "undefined" ? "undefined" : o(e)) === "object" && "default" in e ? e["default"] : e;
         }
-        var a = i(n(268));
+        var a = i(n(254));
         var r = function() {
             function e(e, t) {
                 for (var n = 0; n < t.length; n++) {
@@ -515,13 +757,13 @@
                 throw new TypeError("Cannot call a class as a function");
             }
         }
-        function b(e, t) {
+        function g(e, t) {
             if (!e) {
                 throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             }
             return t && ((typeof t === "undefined" ? "undefined" : o(t)) === "object" || typeof t === "function") ? t : e;
         }
-        function g(e, t) {
+        function b(e, t) {
             if (typeof t !== "function" && t !== null) {
                 throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : o(t)));
             }
@@ -536,7 +778,7 @@
             if (t) Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t;
         }
         var m = function(e) {
-            g(t, e);
+            b(t, e);
             function t() {
                 var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
                 h(this, t);
@@ -549,7 +791,7 @@
                     onComplete: function e() {}
                 };
                 Object.assign(n, e);
-                return b(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
+                return g(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, n));
             }
             f(t, [ {
                 key: "render",
@@ -590,10 +832,10 @@
                 return t;
             };
         }();
-        var w = k([ '\n        <div class="media upload-item">\n            <div class="media-left">\n                <i class="anticon anticon-', '"></i>\n            </div>\n            ', "\n        </div>\n        " ], [ '\n        <div class="media upload-item">\n            <div class="media-left">\n                <i class="anticon anticon-', '"></i>\n            </div>\n            ', "\n        </div>\n        " ]);
-        var O = k([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="cancelbtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="cancelbtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ]);
+        var w = k([ '\n        <div class="media lego-upload-item">\n            <div class="media-left">\n                <i class="anticon anticon-', '"></i>\n            </div>\n            ', "\n        </div>\n        " ], [ '\n        <div class="media lego-upload-item">\n            <div class="media-left">\n                <i class="anticon anticon-', '"></i>\n            </div>\n            ', "\n        </div>\n        " ]);
+        var O = k([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="lego-cancelbtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="lego-cancelbtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ]);
         var x = k([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    ', "\n                    ", "\n                </h4>\n                <small>\n                    <cite>", '</cite>\n                    <time>\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </time>\n                </small>\n            </div>\n            ' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    ', "\n                    ", "\n                </h4>\n                <small>\n                    <cite>", '</cite>\n                    <time>\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </time>\n                </small>\n            </div>\n            ' ]);
-        var j = k([ '\n                    <div class="right">\n                        <a href="javascript:;" class="closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ], [ '\n                    <div class="right">\n                        <a href="javascript:;" class="closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ]);
+        var j = k([ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ], [ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ]);
         function k(e, t) {
             return Object.freeze(Object.defineProperties(e, {
                 raw: {
@@ -633,8 +875,8 @@
                 _(this, t);
                 var n = {
                     events: {
-                        "click .cancelbtn": "onCancel",
-                        "click .closebtn": "onRemove"
+                        "click .lego-cancelbtn": "onCancel",
+                        "click .lego-closebtn": "onRemove"
                     },
                     uploadUri: "",
                     percent: 0,
@@ -721,9 +963,9 @@
                 return t;
             };
         }();
-        var T = S([ '\n        <div class="upload upload-', '">\n            ', '\n            <input type="hidden" value="', '" name="', '" class="upload-value">\n            <input multiple="multiple" type="file" class="form-control fileInput hide" accept="', '" style="display:none">\n            ', "\n        </div>\n        " ], [ '\n        <div class="upload upload-', '">\n            ', '\n            <input type="hidden" value="', '" name="', '" class="upload-value">\n            <input multiple="multiple" type="file" class="form-control fileInput hide" accept="', '" style="display:none">\n            ', "\n        </div>\n        " ]);
-        var E = S([ '\n            <button class="btn btn-secondary addbtn" type="button" ', '>\n                <i class="anticon anticon-upload"></i>\n                ', "\n            </button>\n            " ], [ '\n            <button class="btn btn-secondary addbtn" type="button" ', '>\n                <i class="anticon anticon-upload"></i>\n                ', "\n            </button>\n            " ]);
-        var R = S([ '<div class="upload-container"></div>' ], [ '<div class="upload-container"></div>' ]);
+        var T = S([ '\n        <div class="lego-upload lego-upload-', '">\n            ', '\n            <input type="hidden" value="', '" name="', '" class="lego-upload-value">\n            <input multiple="multiple" type="file" class="form-control lego-fileInput hide" accept="', '" style="display:none">\n            ', "\n        </div>\n        " ], [ '\n        <div class="lego-upload lego-upload-', '">\n            ', '\n            <input type="hidden" value="', '" name="', '" class="lego-upload-value">\n            <input multiple="multiple" type="file" class="form-control lego-fileInput hide" accept="', '" style="display:none">\n            ', "\n        </div>\n        " ]);
+        var E = S([ '\n            <button class="btn btn-secondary lego-addbtn" type="button" ', '>\n                <i class="anticon anticon-upload"></i>\n                ', "\n            </button>\n            " ], [ '\n            <button class="btn btn-secondary lego-addbtn" type="button" ', '>\n                <i class="anticon anticon-upload"></i>\n                ', "\n            </button>\n            " ]);
+        var R = S([ '<div class="lego-upload-container"></div>' ], [ '<div class="lego-upload-container"></div>' ]);
         function S(e, t) {
             return Object.freeze(Object.defineProperties(e, {
                 raw: {
@@ -763,7 +1005,7 @@
                 M(this, t);
                 var n = {
                     events: {
-                        "click .addbtn": "onClickAdd"
+                        "click .lego-addbtn": "onClickAdd"
                     },
                     keyRoot: "",
                     type: "file",
@@ -926,13 +1168,13 @@
             }, {
                 key: "onClickAdd",
                 value: function e(t) {
-                    this.$(".fileInput").click();
+                    this.$(".lego-fileInput").click();
                 }
             }, {
                 key: "showItem",
                 value: function e(t) {
                     var n = Lego.create(U, t);
-                    var o = this.$(".upload-container");
+                    var o = this.$(".lego-upload-container");
                     if (o.length && n) {
                         if (this.options.multiple) {
                             o.append(n.el);
@@ -964,247 +1206,5 @@
         }(Lego.UI.Baseview);
         Lego.components("upload", B);
         e.exports = B;
-    },
-    268: function(e, t) {
-        var n = function(e, t) {
-            var n = n || webkitURL;
-            var o = n.createObjectURL(e);
-            var i = new Image();
-            i.src = o;
-            i.onload = function() {
-                var e = this;
-                var n = e.width, a = e.height, r = n / a;
-                n = t.width || n;
-                a = n / r;
-                var s = document.createElement("canvas");
-                var u = s.getContext("2d");
-                $(s).attr({
-                    width: n,
-                    height: a
-                });
-                u.drawImage(e, 0, 0, n, a);
-                var c = s.toDataURL("image/jpeg", t.quality || .8);
-                if (navigator.userAgent.match(/iphone/i)) {
-                    var f = new l(i);
-                    f.render(s, {
-                        maxWidth: n,
-                        maxHeight: a,
-                        quality: t.quality || .8,
-                        orientation: 1
-                    });
-                    c = s.toDataURL("image/jpeg", t.quality || .8);
-                }
-                if (navigator.userAgent.match(/Android/i)) {
-                    var d = new JPEGEncoder();
-                    c = d.encode(u.getImageData(0, 0, n, a), t.quality * 100 || 80);
-                }
-                var p = {
-                    width: n,
-                    height: a,
-                    blob: o,
-                    base64: c,
-                    clearBase64: c.substr(c.indexOf(",") + 1)
-                };
-                t.success(p);
-            };
-        };
-        function o(e) {
-            var t = e.naturalWidth, n = e.naturalHeight;
-            if (t * n > 1024 * 1024) {
-                var o = document.createElement("canvas");
-                o.width = o.height = 1;
-                var i = o.getContext("2d");
-                i.drawImage(e, -t + 1, 0);
-                return i.getImageData(0, 0, 1, 1).data[3] === 0;
-            } else {
-                return false;
-            }
-        }
-        function i(e, t, n) {
-            var o = document.createElement("canvas");
-            o.width = 1;
-            o.height = n;
-            var i = o.getContext("2d");
-            i.drawImage(e, 0, 0);
-            var a = i.getImageData(0, 0, 1, n).data;
-            var r = 0;
-            var s = n;
-            var l = n;
-            while (l > r) {
-                var u = a[(l - 1) * 4 + 3];
-                if (u === 0) {
-                    s = l;
-                } else {
-                    r = l;
-                }
-                l = s + r >> 1;
-            }
-            var c = l / n;
-            return c === 0 ? 1 : c;
-        }
-        function a(e, t, n) {
-            var o = document.createElement("canvas");
-            r(e, o, t, n);
-            return o.toDataURL("image/jpeg", t.quality || .8);
-        }
-        function r(e, t, n, a) {
-            var r = e.naturalWidth, l = e.naturalHeight;
-            var u = n.width, c = n.height;
-            var f = t.getContext("2d");
-            f.save();
-            s(t, f, u, c, n.orientation);
-            var d = o(e);
-            if (d) {
-                r /= 2;
-                l /= 2;
-            }
-            var p = 1024;
-            var v = document.createElement("canvas");
-            v.width = v.height = p;
-            var h = v.getContext("2d");
-            var b = a ? i(e, r, l) : 1;
-            var g = Math.ceil(p * u / r);
-            var m = Math.ceil(p * c / l / b);
-            var y = 0;
-            var w = 0;
-            while (y < l) {
-                var O = 0;
-                var x = 0;
-                while (O < r) {
-                    h.clearRect(0, 0, p, p);
-                    h.drawImage(e, -O, -y);
-                    f.drawImage(v, 0, 0, p, p, x, w, g, m);
-                    O += p;
-                    x += g;
-                }
-                y += p;
-                w += m;
-            }
-            f.restore();
-            v = h = null;
-        }
-        function s(e, t, n, o, i) {
-            switch (i) {
-              case 5:
-              case 6:
-              case 7:
-              case 8:
-                e.width = o;
-                e.height = n;
-                break;
-
-              default:
-                e.width = n;
-                e.height = o;
-            }
-            switch (i) {
-              case 2:
-                t.translate(n, 0);
-                t.scale(-1, 1);
-                break;
-
-              case 3:
-                t.translate(n, o);
-                t.rotate(Math.PI);
-                break;
-
-              case 4:
-                t.translate(0, o);
-                t.scale(1, -1);
-                break;
-
-              case 5:
-                t.rotate(.5 * Math.PI);
-                t.scale(1, -1);
-                break;
-
-              case 6:
-                t.rotate(.5 * Math.PI);
-                t.translate(0, -o);
-                break;
-
-              case 7:
-                t.rotate(.5 * Math.PI);
-                t.translate(n, -o);
-                t.scale(-1, 1);
-                break;
-
-              case 8:
-                t.rotate(-.5 * Math.PI);
-                t.translate(-n, 0);
-                break;
-
-              default:
-                break;
-            }
-        }
-        function l(e) {
-            if (window.Blob && e instanceof Blob) {
-                var t = new Image();
-                var n = window.URL && window.URL.createObjectURL ? window.URL : window.webkitURL && window.webkitURL.createObjectURL ? window.webkitURL : null;
-                if (!n) {
-                    throw Error("No createObjectURL function found to create blob url");
-                }
-                t.src = n.createObjectURL(e);
-                this.blob = e;
-                e = t;
-            }
-            if (!e.naturalWidth && !e.naturalHeight) {
-                var o = this;
-                e.onload = function() {
-                    var e = o.imageLoadListeners;
-                    if (e) {
-                        o.imageLoadListeners = null;
-                        for (var t = 0, n = e.length; t < n; t++) {
-                            e[t]();
-                        }
-                    }
-                };
-                this.imageLoadListeners = [];
-            }
-            this.srcImage = e;
-        }
-        l.prototype.render = function(e, t) {
-            if (this.imageLoadListeners) {
-                var n = this;
-                this.imageLoadListeners.push(function() {
-                    n.render(e, t);
-                });
-                return;
-            }
-            t = t || {};
-            var o = this.srcImage.naturalWidth, i = this.srcImage.naturalHeight, s = t.width, l = t.height, u = t.maxWidth, c = t.maxHeight, f = !this.blob || this.blob.type === "image/jpeg";
-            if (s && !l) {
-                l = i * s / o << 0;
-            } else if (l && !s) {
-                s = o * l / i << 0;
-            } else {
-                s = o;
-                l = i;
-            }
-            if (u && s > u) {
-                s = u;
-                l = i * s / o << 0;
-            }
-            if (c && l > c) {
-                l = c;
-                s = o * l / i << 0;
-            }
-            var d = {
-                width: s,
-                height: l
-            };
-            for (var p in t) d[p] = t[p];
-            var v = e.tagName.toLowerCase();
-            if (v === "img") {
-                e.src = a(this.srcImage, d, f);
-            } else if (v === "canvas") {
-                r(this.srcImage, e, d, f);
-            }
-            if (typeof this.onrender === "function") {
-                this.onrender(e);
-            }
-        };
-        e.exports = n;
     }
 });

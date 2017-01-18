@@ -2453,8 +2453,8 @@
             key: "getSelected",
             value: function e() {
                 if (Array.isArray(this.options.data)) {
-                    return this.options.data.map(function(e) {
-                        return e.selected;
+                    return this.options.data.filter(function(e) {
+                        return e.selected == true;
                     });
                 }
                 return [];

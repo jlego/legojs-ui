@@ -34,9 +34,9 @@
                 return e;
             };
         }();
-        var o = n(252);
+        var o = n(255);
         var r = f(o);
-        var a = n(253);
+        var a = n(256);
         var s = f(a);
         function f(t) {
             return t && t.__esModule ? t : {
@@ -80,950 +80,7 @@
         }();
         HBY.router(new u());
     },
-    252: function(t, e) {
-        "use strict";
-        Object.defineProperty(e, "__esModule", {
-            value: true
-        });
-        var n = function() {
-            function t(t, e) {
-                for (var n = 0; n < e.length; n++) {
-                    var i = e[n];
-                    i.enumerable = i.enumerable || false;
-                    i.configurable = true;
-                    if ("value" in i) i.writable = true;
-                    Object.defineProperty(t, i.key, i);
-                }
-            }
-            return function(e, n, i) {
-                if (n) t(e.prototype, n);
-                if (i) t(e, i);
-                return e;
-            };
-        }();
-        var i = o([ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/tips/0" class="', '">Tips 提示框</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ], [ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/tips/0" class="', '">Tips 提示框</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ]);
-        function o(t, e) {
-            return Object.freeze(Object.defineProperties(t, {
-                raw: {
-                    value: Object.freeze(e)
-                }
-            }));
-        }
-        function r(t, e) {
-            if (!(t instanceof e)) {
-                throw new TypeError("Cannot call a class as a function");
-            }
-        }
-        function a(t, e) {
-            if (!t) {
-                throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-            }
-            return e && (typeof e === "object" || typeof e === "function") ? e : t;
-        }
-        function s(t, e) {
-            if (typeof e !== "function" && e !== null) {
-                throw new TypeError("Super expression must either be null or a function, not " + typeof e);
-            }
-            t.prototype = Object.create(e && e.prototype, {
-                constructor: {
-                    value: t,
-                    enumerable: false,
-                    writable: true,
-                    configurable: true
-                }
-            });
-            if (e) Object.setPrototypeOf ? Object.setPrototypeOf(t, e) : t.__proto__ = e;
-        }
-        var f = function(t) {
-            s(e, t);
-            function e() {
-                var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-                r(this, e);
-                var n = {
-                    currentTab: 0
-                };
-                Object.assign(n, t);
-                return a(this, (e.__proto__ || Object.getPrototypeOf(e)).call(this, n));
-            }
-            n(e, [ {
-                key: "render",
-                value: function t() {
-                    var e = this.options;
-                    var n = hx(i, e.currentTab == 0 ? "active" : "");
-                    return n;
-                }
-            } ]);
-            return e;
-        }(Lego.UI.Baseview);
-        e.default = f;
-    },
     253: function(t, e, n) {
-        "use strict";
-        Object.defineProperty(e, "__esModule", {
-            value: true
-        });
-        var i = function() {
-            function t(t, e) {
-                for (var n = 0; n < e.length; n++) {
-                    var i = e[n];
-                    i.enumerable = i.enumerable || false;
-                    i.configurable = true;
-                    if ("value" in i) i.writable = true;
-                    Object.defineProperty(t, i.key, i);
-                }
-            }
-            return function(e, n, i) {
-                if (n) t(e.prototype, n);
-                if (i) t(e, i);
-                return e;
-            };
-        }();
-        var o = u([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip4">Right</button>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover4">Right</button>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification1">系统提示1</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification2">系统提示2</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification3">系统提示3</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification4">系统提示4</button>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip4">Right</button>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover4">Right</button>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification1">系统提示1</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification2">系统提示2</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification3">系统提示3</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification4">系统提示4</button>\n            </div>\n          </div>\n        </div>\n        ' ]);
-        var r = n(254);
-        var a = l(r);
-        var s = n(256);
-        var f = l(s);
-        function l(t) {
-            return t && t.__esModule ? t : {
-                default: t
-            };
-        }
-        function u(t, e) {
-            return Object.freeze(Object.defineProperties(t, {
-                raw: {
-                    value: Object.freeze(e)
-                }
-            }));
-        }
-        function c(t, e) {
-            if (!(t instanceof e)) {
-                throw new TypeError("Cannot call a class as a function");
-            }
-        }
-        function h(t, e) {
-            if (!t) {
-                throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-            }
-            return e && (typeof e === "object" || typeof e === "function") ? e : t;
-        }
-        function d(t, e) {
-            if (typeof e !== "function" && e !== null) {
-                throw new TypeError("Super expression must either be null or a function, not " + typeof e);
-            }
-            t.prototype = Object.create(e && e.prototype, {
-                constructor: {
-                    value: t,
-                    enumerable: false,
-                    writable: true,
-                    configurable: true
-                }
-            });
-            if (e) Object.setPrototypeOf ? Object.setPrototypeOf(t, e) : t.__proto__ = e;
-        }
-        var p = function(t) {
-            d(e, t);
-            function e() {
-                var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-                c(this, e);
-                var n = {
-                    events: {
-                        "click #notification1": function t() {
-                            Lego.UI.message("success", "系统提示1");
-                        },
-                        "click #notification2": function t() {
-                            Lego.UI.message("info", "系统提示2");
-                        },
-                        "click #notification3": function t() {
-                            Lego.UI.message("warning", "系统提示3");
-                        },
-                        "click #notification4": function t() {
-                            Lego.UI.message("error", "系统提示4");
-                        }
-                    }
-                };
-                Object.assign(n, t);
-                var i = h(this, (e.__proto__ || Object.getPrototypeOf(e)).call(this, n));
-                Lego.UI.tooltip({
-                    el: "#tooltip1",
-                    title: "提示1",
-                    placement: "top",
-                    onHidden: function t() {
-                        console.warn("隐藏提示1");
-                    }
-                });
-                Lego.UI.tooltip({
-                    el: "#tooltip2",
-                    title: "提示2",
-                    placement: "bottom",
-                    onHidden: function t() {
-                        console.warn("隐藏提示2");
-                    }
-                });
-                Lego.UI.tooltip({
-                    el: "#tooltip3",
-                    title: "提示3",
-                    placement: "left",
-                    onHidden: function t() {
-                        console.warn("隐藏提示3");
-                    }
-                });
-                Lego.UI.tooltip({
-                    el: "#tooltip4",
-                    title: "提示4",
-                    placement: "right",
-                    onHidden: function t() {
-                        console.warn("隐藏提示4");
-                    }
-                });
-                Lego.UI.popover({
-                    el: "#popover1",
-                    title: "提示1",
-                    content: "弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。",
-                    placement: "top",
-                    onHidden: function t() {
-                        console.warn("隐藏提示1");
-                    }
-                });
-                Lego.UI.popover({
-                    el: "#popover2",
-                    title: "提示2",
-                    content: "弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。",
-                    placement: "bottom",
-                    onHidden: function t() {
-                        console.warn("隐藏提示2");
-                    }
-                });
-                Lego.UI.popover({
-                    el: "#popover3",
-                    title: "提示3",
-                    content: "弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。",
-                    placement: "left",
-                    onHidden: function t() {
-                        console.warn("隐藏提示3");
-                    }
-                });
-                Lego.UI.popover({
-                    el: "#popover4",
-                    title: "提示4",
-                    content: "弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。",
-                    placement: "right",
-                    container: "body",
-                    onHidden: function t() {
-                        console.warn("隐藏提示4");
-                    }
-                });
-                return i;
-            }
-            i(e, [ {
-                key: "render",
-                value: function t() {
-                    var e = hx(o);
-                    return e;
-                }
-            } ]);
-            return e;
-        }(Lego.UI.Baseview);
-        e.default = p;
-    },
-    254: function(t, e, n) {
-        "use strict";
-        var i = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(t) {
-            return typeof t;
-        } : function(t) {
-            return t && typeof Symbol === "function" && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : typeof t;
-        };
-        function o(t) {
-            return t && (typeof t === "undefined" ? "undefined" : i(t)) === "object" && "default" in t ? t["default"] : t;
-        }
-        var r = o(n(255));
-        var a = function(t) {
-            var e = false;
-            var n = 1e6;
-            var i = {
-                WebkitTransition: "webkitTransitionEnd",
-                MozTransition: "transitionend",
-                OTransition: "oTransitionEnd otransitionend",
-                transition: "transitionend"
-            };
-            function o(t) {
-                return {}.toString.call(t).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
-            }
-            function r(t) {
-                return (t[0] || t).nodeType;
-            }
-            function a() {
-                return {
-                    bindType: e.end,
-                    delegateType: e.end,
-                    handle: function e(n) {
-                        if (t(n.target).is(this)) {
-                            return n.handleObj.handler.apply(this, arguments);
-                        }
-                        return undefined;
-                    }
-                };
-            }
-            function s() {
-                if (window.QUnit) {
-                    return false;
-                }
-                var t = document.createElement("bootstrap");
-                for (var e in i) {
-                    if (t.style[e] !== undefined) {
-                        return {
-                            end: i[e]
-                        };
-                    }
-                }
-                return false;
-            }
-            function f(e) {
-                var n = this;
-                var i = false;
-                t(this).one(u.TRANSITION_END, function() {
-                    i = true;
-                });
-                setTimeout(function() {
-                    if (!i) {
-                        u.triggerTransitionEnd(n);
-                    }
-                }, e);
-                return this;
-            }
-            function l() {
-                e = s();
-                t.fn.emulateTransitionEnd = f;
-                if (u.supportsTransitionEnd()) {
-                    t.event.special[u.TRANSITION_END] = a();
-                }
-            }
-            var u = {
-                TRANSITION_END: "bsTransitionEnd",
-                getUID: function t(e) {
-                    do {
-                        e += ~~(Math.random() * n);
-                    } while (document.getElementById(e));
-                    return e;
-                },
-                getSelectorFromElement: function t(e) {
-                    var n = e.getAttribute("data-target");
-                    if (!n) {
-                        n = e.getAttribute("href") || "";
-                        n = /^#[a-z]/i.test(n) ? n : null;
-                    }
-                    return n;
-                },
-                reflow: function t(e) {
-                    new Function("bs", "return bs")(e.offsetHeight);
-                },
-                triggerTransitionEnd: function n(i) {
-                    t(i).trigger(e.end);
-                },
-                supportsTransitionEnd: function t() {
-                    return Boolean(e);
-                },
-                typeCheckConfig: function t(e, n, i) {
-                    for (var a in i) {
-                        if (i.hasOwnProperty(a)) {
-                            var s = i[a];
-                            var f = n[a];
-                            var l = void 0;
-                            if (f && r(f)) {
-                                l = "element";
-                            } else {
-                                l = o(f);
-                            }
-                            if (!new RegExp(s).test(l)) {
-                                throw new Error(e.toUpperCase() + ": " + ('Option "' + a + '" provided type "' + l + '" ') + ('but expected type "' + s + '".'));
-                            }
-                        }
-                    }
-                }
-            };
-            l();
-            return u;
-        }(jQuery);
-        var s = typeof Symbol === "function" && i(Symbol.iterator) === "symbol" ? function(t) {
-            return typeof t === "undefined" ? "undefined" : i(t);
-        } : function(t) {
-            return t && typeof Symbol === "function" && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : typeof t === "undefined" ? "undefined" : i(t);
-        };
-        var f = function() {
-            function t(t, e) {
-                for (var n = 0; n < e.length; n++) {
-                    var i = e[n];
-                    i.enumerable = i.enumerable || false;
-                    i.configurable = true;
-                    if ("value" in i) i.writable = true;
-                    Object.defineProperty(t, i.key, i);
-                }
-            }
-            return function(e, n, i) {
-                if (n) t(e.prototype, n);
-                if (i) t(e, i);
-                return e;
-            };
-        }();
-        function l(t, e) {
-            if (!(t instanceof e)) {
-                throw new TypeError("Cannot call a class as a function");
-            }
-        }
-        window.Tether = r;
-        var u = function(t) {
-            if (window.Tether === undefined) {
-                throw new Error("Bootstrap tooltips require Tether (http://tether.io/)");
-            }
-            var e = "tooltip";
-            var n = "4.0.0-alpha.5";
-            var i = "bs.tooltip";
-            var o = "." + i;
-            var u = t.fn[e];
-            var c = 150;
-            var h = "bs-tether";
-            var d = {
-                animation: true,
-                template: '<div class="tooltip" role="tooltip">' + '<div class="tooltip-inner"></div></div>',
-                trigger: "hover focus",
-                title: "",
-                delay: 0,
-                html: false,
-                selector: false,
-                placement: "top",
-                offset: "0 0",
-                constraints: []
-            };
-            var p = {
-                animation: "boolean",
-                template: "string",
-                title: "(string|element|function)",
-                trigger: "string",
-                delay: "(number|object)",
-                html: "boolean",
-                selector: "(string|boolean)",
-                placement: "(string|function)",
-                offset: "string",
-                constraints: "array"
-            };
-            var v = {
-                TOP: "bottom center",
-                RIGHT: "middle left",
-                BOTTOM: "top center",
-                LEFT: "middle right"
-            };
-            var g = {
-                IN: "in",
-                OUT: "out"
-            };
-            var m = {
-                HIDE: "hide" + o,
-                HIDDEN: "hidden" + o,
-                SHOW: "show" + o,
-                SHOWN: "shown" + o,
-                INSERTED: "inserted" + o,
-                CLICK: "click" + o,
-                FOCUSIN: "focusin" + o,
-                FOCUSOUT: "focusout" + o,
-                MOUSEENTER: "mouseenter" + o,
-                MOUSELEAVE: "mouseleave" + o
-            };
-            var y = {
-                FADE: "fade",
-                IN: "in"
-            };
-            var b = {
-                TOOLTIP: ".tooltip",
-                TOOLTIP_INNER: ".tooltip-inner"
-            };
-            var E = {
-                element: false,
-                enabled: false
-            };
-            var T = {
-                HOVER: "hover",
-                FOCUS: "focus",
-                CLICK: "click",
-                MANUAL: "manual"
-            };
-            var w = function() {
-                function u(t, e) {
-                    l(this, u);
-                    this._isEnabled = true;
-                    this._timeout = 0;
-                    this._hoverState = "";
-                    this._activeTrigger = {};
-                    this._tether = null;
-                    this.element = t;
-                    this.config = this._getConfig(e);
-                    this.tip = null;
-                    this._setListeners();
-                }
-                f(u, [ {
-                    key: "enable",
-                    value: function t() {
-                        this._isEnabled = true;
-                    }
-                }, {
-                    key: "disable",
-                    value: function t() {
-                        this._isEnabled = false;
-                    }
-                }, {
-                    key: "toggleEnabled",
-                    value: function t() {
-                        this._isEnabled = !this._isEnabled;
-                    }
-                }, {
-                    key: "toggle",
-                    value: function e(n) {
-                        if (n) {
-                            var i = this.constructor.DATA_KEY;
-                            var o = t(n.currentTarget).data(i);
-                            if (!o) {
-                                o = new this.constructor(n.currentTarget, this._getDelegateConfig());
-                                t(n.currentTarget).data(i, o);
-                            }
-                            o._activeTrigger.click = !o._activeTrigger.click;
-                            if (o._isWithActiveTrigger()) {
-                                o._enter(null, o);
-                            } else {
-                                o._leave(null, o);
-                            }
-                        } else {
-                            if (t(this.getTipElement()).hasClass(y.IN)) {
-                                this._leave(null, this);
-                                return;
-                            }
-                            this._enter(null, this);
-                        }
-                    }
-                }, {
-                    key: "dispose",
-                    value: function e() {
-                        clearTimeout(this._timeout);
-                        this.cleanupTether();
-                        t.removeData(this.element, this.constructor.DATA_KEY);
-                        t(this.element).off(this.constructor.EVENT_KEY);
-                        if (this.tip) {
-                            t(this.tip).remove();
-                        }
-                        this._isEnabled = null;
-                        this._timeout = null;
-                        this._hoverState = null;
-                        this._activeTrigger = null;
-                        this._tether = null;
-                        this.element = null;
-                        this.config = null;
-                        this.tip = null;
-                    }
-                }, {
-                    key: "show",
-                    value: function e() {
-                        var n = this;
-                        var i = t.Event(this.constructor.Event.SHOW);
-                        if (this.isWithContent() && this._isEnabled) {
-                            t(this.element).trigger(i);
-                            var o = t.contains(this.element.ownerDocument.documentElement, this.element);
-                            if (i.isDefaultPrevented() || !o) {
-                                return;
-                            }
-                            var s = this.getTipElement();
-                            var f = a.getUID(this.constructor.NAME);
-                            s.setAttribute("id", f);
-                            this.element.setAttribute("aria-describedby", f);
-                            this.setContent();
-                            if (this.config.animation) {
-                                t(s).addClass(y.FADE);
-                            }
-                            var l = typeof this.config.placement === "function" ? this.config.placement.call(this, s, this.element) : this.config.placement;
-                            var c = this._getAttachment(l);
-                            t(s).data(this.constructor.DATA_KEY, this).appendTo(document.body);
-                            t(this.element).trigger(this.constructor.Event.INSERTED);
-                            this._tether = new r({
-                                attachment: c,
-                                element: s,
-                                target: this.element,
-                                classes: E,
-                                classPrefix: h,
-                                offset: this.config.offset,
-                                constraints: this.config.constraints,
-                                addTargetClasses: false
-                            });
-                            a.reflow(s);
-                            this._tether.position();
-                            t(s).addClass(y.IN);
-                            var d = function e() {
-                                var i = n._hoverState;
-                                n._hoverState = null;
-                                t(n.element).trigger(n.constructor.Event.SHOWN);
-                                if (i === g.OUT) {
-                                    n._leave(null, n);
-                                }
-                            };
-                            if (a.supportsTransitionEnd() && t(this.tip).hasClass(y.FADE)) {
-                                t(this.tip).one(a.TRANSITION_END, d).emulateTransitionEnd(u._TRANSITION_DURATION);
-                                return;
-                            }
-                            d();
-                        }
-                    }
-                }, {
-                    key: "hide",
-                    value: function e(n) {
-                        var i = this;
-                        var o = this.getTipElement();
-                        var r = t.Event(this.constructor.Event.HIDE);
-                        var s = function e() {
-                            if (i._hoverState !== g.IN && o.parentNode) {
-                                o.parentNode.removeChild(o);
-                            }
-                            i.element.removeAttribute("aria-describedby");
-                            t(i.element).trigger(i.constructor.Event.HIDDEN);
-                            i.cleanupTether();
-                            if (n) {
-                                n();
-                            }
-                        };
-                        t(this.element).trigger(r);
-                        if (r.isDefaultPrevented()) {
-                            return;
-                        }
-                        t(o).removeClass(y.IN);
-                        if (a.supportsTransitionEnd() && t(this.tip).hasClass(y.FADE)) {
-                            t(o).one(a.TRANSITION_END, s).emulateTransitionEnd(c);
-                        } else {
-                            s();
-                        }
-                        this._hoverState = "";
-                    }
-                }, {
-                    key: "isWithContent",
-                    value: function t() {
-                        return Boolean(this.getTitle());
-                    }
-                }, {
-                    key: "getTipElement",
-                    value: function e() {
-                        return this.tip = this.tip || t(this.config.template)[0];
-                    }
-                }, {
-                    key: "setContent",
-                    value: function e() {
-                        var n = t(this.getTipElement());
-                        this.setElementContent(n.find(b.TOOLTIP_INNER), this.getTitle());
-                        n.removeClass(y.FADE).removeClass(y.IN);
-                        this.cleanupTether();
-                    }
-                }, {
-                    key: "setElementContent",
-                    value: function e(n, i) {
-                        var o = this.config.html;
-                        if ((typeof i === "undefined" ? "undefined" : s(i)) === "object" && (i.nodeType || i.jquery)) {
-                            if (o) {
-                                if (!t(i).parent().is(n)) {
-                                    n.empty().append(i);
-                                }
-                            } else {
-                                n.text(t(i).text());
-                            }
-                        } else {
-                            n[o ? "html" : "text"](i);
-                        }
-                    }
-                }, {
-                    key: "getTitle",
-                    value: function t() {
-                        var e = this.element.getAttribute("data-original-title");
-                        if (!e) {
-                            e = typeof this.config.title === "function" ? this.config.title.call(this.element) : this.config.title;
-                        }
-                        return e;
-                    }
-                }, {
-                    key: "cleanupTether",
-                    value: function t() {
-                        if (this._tether) {
-                            this._tether.destroy();
-                        }
-                    }
-                }, {
-                    key: "_getAttachment",
-                    value: function t(e) {
-                        return v[e.toUpperCase()];
-                    }
-                }, {
-                    key: "_setListeners",
-                    value: function e() {
-                        var n = this;
-                        var i = this.config.trigger.split(" ");
-                        i.forEach(function(e) {
-                            if (e === "click") {
-                                t(n.element).on(n.constructor.Event.CLICK, n.config.selector, t.proxy(n.toggle, n));
-                            } else if (e !== T.MANUAL) {
-                                var i = e === T.HOVER ? n.constructor.Event.MOUSEENTER : n.constructor.Event.FOCUSIN;
-                                var o = e === T.HOVER ? n.constructor.Event.MOUSELEAVE : n.constructor.Event.FOCUSOUT;
-                                t(n.element).on(i, n.config.selector, t.proxy(n._enter, n)).on(o, n.config.selector, t.proxy(n._leave, n));
-                            }
-                        });
-                        if (this.config.selector) {
-                            this.config = t.extend({}, this.config, {
-                                trigger: "manual",
-                                selector: ""
-                            });
-                        } else {
-                            this._fixTitle();
-                        }
-                    }
-                }, {
-                    key: "_fixTitle",
-                    value: function t() {
-                        var e = s(this.element.getAttribute("data-original-title"));
-                        if (this.element.getAttribute("title") || e !== "string") {
-                            this.element.setAttribute("data-original-title", this.element.getAttribute("title") || "");
-                            this.element.setAttribute("title", "");
-                        }
-                    }
-                }, {
-                    key: "_enter",
-                    value: function e(n, i) {
-                        var o = this.constructor.DATA_KEY;
-                        i = i || t(n.currentTarget).data(o);
-                        if (!i) {
-                            i = new this.constructor(n.currentTarget, this._getDelegateConfig());
-                            t(n.currentTarget).data(o, i);
-                        }
-                        if (n) {
-                            i._activeTrigger[n.type === "focusin" ? T.FOCUS : T.HOVER] = true;
-                        }
-                        if (t(i.getTipElement()).hasClass(y.IN) || i._hoverState === g.IN) {
-                            i._hoverState = g.IN;
-                            return;
-                        }
-                        clearTimeout(i._timeout);
-                        i._hoverState = g.IN;
-                        if (!i.config.delay || !i.config.delay.show) {
-                            i.show();
-                            return;
-                        }
-                        i._timeout = setTimeout(function() {
-                            if (i._hoverState === g.IN) {
-                                i.show();
-                            }
-                        }, i.config.delay.show);
-                    }
-                }, {
-                    key: "_leave",
-                    value: function e(n, i) {
-                        var o = this.constructor.DATA_KEY;
-                        i = i || t(n.currentTarget).data(o);
-                        if (!i) {
-                            i = new this.constructor(n.currentTarget, this._getDelegateConfig());
-                            t(n.currentTarget).data(o, i);
-                        }
-                        if (n) {
-                            i._activeTrigger[n.type === "focusout" ? T.FOCUS : T.HOVER] = false;
-                        }
-                        if (i._isWithActiveTrigger()) {
-                            return;
-                        }
-                        clearTimeout(i._timeout);
-                        i._hoverState = g.OUT;
-                        if (!i.config.delay || !i.config.delay.hide) {
-                            i.hide();
-                            return;
-                        }
-                        i._timeout = setTimeout(function() {
-                            if (i._hoverState === g.OUT) {
-                                i.hide();
-                            }
-                        }, i.config.delay.hide);
-                    }
-                }, {
-                    key: "_isWithActiveTrigger",
-                    value: function t() {
-                        for (var e in this._activeTrigger) {
-                            if (this._activeTrigger[e]) {
-                                return true;
-                            }
-                        }
-                        return false;
-                    }
-                }, {
-                    key: "_getConfig",
-                    value: function n(i) {
-                        i = t.extend({}, this.constructor.Default, t(this.element).data(), i);
-                        if (i.delay && typeof i.delay === "number") {
-                            i.delay = {
-                                show: i.delay,
-                                hide: i.delay
-                            };
-                        }
-                        a.typeCheckConfig(e, i, this.constructor.DefaultType);
-                        return i;
-                    }
-                }, {
-                    key: "_getDelegateConfig",
-                    value: function t() {
-                        var e = {};
-                        if (this.config) {
-                            for (var n in this.config) {
-                                if (this.constructor.Default[n] !== this.config[n]) {
-                                    e[n] = this.config[n];
-                                }
-                            }
-                        }
-                        return e;
-                    }
-                } ], [ {
-                    key: "_jQueryInterface",
-                    value: function e(n) {
-                        return this.each(function() {
-                            var e = t(this).data(i);
-                            var o = (typeof n === "undefined" ? "undefined" : s(n)) === "object" ? n : null;
-                            if (!e && /dispose|hide/.test(n)) {
-                                return;
-                            }
-                            if (!e) {
-                                e = new u(this, o);
-                                t(this).data(i, e);
-                            }
-                            if (typeof n === "string") {
-                                if (e[n] === undefined) {
-                                    throw new Error('No method named "' + n + '"');
-                                }
-                                e[n]();
-                            }
-                        });
-                    }
-                }, {
-                    key: "VERSION",
-                    get: function t() {
-                        return n;
-                    }
-                }, {
-                    key: "Default",
-                    get: function t() {
-                        return d;
-                    }
-                }, {
-                    key: "NAME",
-                    get: function t() {
-                        return e;
-                    }
-                }, {
-                    key: "DATA_KEY",
-                    get: function t() {
-                        return i;
-                    }
-                }, {
-                    key: "Event",
-                    get: function t() {
-                        return m;
-                    }
-                }, {
-                    key: "EVENT_KEY",
-                    get: function t() {
-                        return o;
-                    }
-                }, {
-                    key: "DefaultType",
-                    get: function t() {
-                        return p;
-                    }
-                } ]);
-                return u;
-            }();
-            t.fn[e] = w._jQueryInterface;
-            t.fn[e].Constructor = w;
-            t.fn[e].noConflict = function() {
-                t.fn[e] = u;
-                return w._jQueryInterface;
-            };
-            return w;
-        }(jQuery);
-        var c = function() {
-            function t(t, e) {
-                for (var n = 0; n < e.length; n++) {
-                    var i = e[n];
-                    i.enumerable = i.enumerable || false;
-                    i.configurable = true;
-                    if ("value" in i) i.writable = true;
-                    Object.defineProperty(t, i.key, i);
-                }
-            }
-            return function(e, n, i) {
-                if (n) t(e.prototype, n);
-                if (i) t(e, i);
-                return e;
-            };
-        }();
-        function h(t, e) {
-            if (!(t instanceof e)) {
-                throw new TypeError("Cannot call a class as a function");
-            }
-        }
-        var d = function() {
-            function t() {
-                var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-                h(this, t);
-                var n = {
-                    el: "",
-                    selector: false,
-                    title: "",
-                    content: "",
-                    animation: true,
-                    container: false,
-                    delay: 0,
-                    html: false,
-                    placement: "top",
-                    template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
-                    eventName: "hover focus",
-                    constraints: [],
-                    offset: "0 0",
-                    onHidden: function t() {}
-                };
-                Object.assign(n, e);
-                this.el = n.el;
-                this.onHidden = n.onHidden;
-                this.options = {
-                    selector: n.selector,
-                    title: n.title,
-                    content: n.content,
-                    animation: n.animation,
-                    container: n.container,
-                    delay: n.delay,
-                    html: n.html,
-                    placement: n.placement,
-                    template: n.template,
-                    constraints: n.constraints,
-                    trigger: n.eventName,
-                    offset: n.offset
-                };
-                this.render();
-            }
-            c(t, [ {
-                key: "render",
-                value: function t() {
-                    var e = this;
-                    var n = this.el instanceof $ ? this.el : $(this.el);
-                    if (n.length) {
-                        n.tooltip(this.options);
-                        n.on("hidden.bs.tooltip", function() {
-                            if (typeof e.onHidden === "function") e.onHidden(event);
-                        });
-                    }
-                    return n;
-                }
-            } ]);
-            return t;
-        }();
-        var p = function t(e) {
-            return new d(e);
-        };
-        Lego.components("tooltip", p);
-        t.exports = p;
-    },
-    255: function(t, e, n) {
         var i, o;
         (function(r, a) {
             if (true) {
@@ -2671,7 +1728,252 @@
             return Q;
         });
     },
+    255: function(t, e) {
+        "use strict";
+        Object.defineProperty(e, "__esModule", {
+            value: true
+        });
+        var n = function() {
+            function t(t, e) {
+                for (var n = 0; n < e.length; n++) {
+                    var i = e[n];
+                    i.enumerable = i.enumerable || false;
+                    i.configurable = true;
+                    if ("value" in i) i.writable = true;
+                    Object.defineProperty(t, i.key, i);
+                }
+            }
+            return function(e, n, i) {
+                if (n) t(e.prototype, n);
+                if (i) t(e, i);
+                return e;
+            };
+        }();
+        var i = o([ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/tips/0" class="', '">Tips 提示框</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ], [ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/tips/0" class="', '">Tips 提示框</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ]);
+        function o(t, e) {
+            return Object.freeze(Object.defineProperties(t, {
+                raw: {
+                    value: Object.freeze(e)
+                }
+            }));
+        }
+        function r(t, e) {
+            if (!(t instanceof e)) {
+                throw new TypeError("Cannot call a class as a function");
+            }
+        }
+        function a(t, e) {
+            if (!t) {
+                throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+            }
+            return e && (typeof e === "object" || typeof e === "function") ? e : t;
+        }
+        function s(t, e) {
+            if (typeof e !== "function" && e !== null) {
+                throw new TypeError("Super expression must either be null or a function, not " + typeof e);
+            }
+            t.prototype = Object.create(e && e.prototype, {
+                constructor: {
+                    value: t,
+                    enumerable: false,
+                    writable: true,
+                    configurable: true
+                }
+            });
+            if (e) Object.setPrototypeOf ? Object.setPrototypeOf(t, e) : t.__proto__ = e;
+        }
+        var f = function(t) {
+            s(e, t);
+            function e() {
+                var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+                r(this, e);
+                var n = {
+                    currentTab: 0
+                };
+                Object.assign(n, t);
+                return a(this, (e.__proto__ || Object.getPrototypeOf(e)).call(this, n));
+            }
+            n(e, [ {
+                key: "render",
+                value: function t() {
+                    var e = this.options;
+                    var n = hx(i, e.currentTab == 0 ? "active" : "");
+                    return n;
+                }
+            } ]);
+            return e;
+        }(Lego.UI.Baseview);
+        e.default = f;
+    },
     256: function(t, e, n) {
+        "use strict";
+        Object.defineProperty(e, "__esModule", {
+            value: true
+        });
+        var i = function() {
+            function t(t, e) {
+                for (var n = 0; n < e.length; n++) {
+                    var i = e[n];
+                    i.enumerable = i.enumerable || false;
+                    i.configurable = true;
+                    if ("value" in i) i.writable = true;
+                    Object.defineProperty(t, i.key, i);
+                }
+            }
+            return function(e, n, i) {
+                if (n) t(e.prototype, n);
+                if (i) t(e, i);
+                return e;
+            };
+        }();
+        var o = u([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip4">Right</button>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover4">Right</button>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification1">系统提示1</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification2">系统提示2</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification3">系统提示3</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification4">系统提示4</button>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="tooltip4">Right</button>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover1">Top</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover2">Bottom</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover3">Left</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-secondary" id="popover4">Right</button>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification1">系统提示1</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification2">系统提示2</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification3">系统提示3</button>\n            </div>\n            <div class="col-sm-3">\n              <button type="button" class="btn btn-primary" id="notification4">系统提示4</button>\n            </div>\n          </div>\n        </div>\n        ' ]);
+        var r = n(257);
+        var a = l(r);
+        var s = n(258);
+        var f = l(s);
+        function l(t) {
+            return t && t.__esModule ? t : {
+                default: t
+            };
+        }
+        function u(t, e) {
+            return Object.freeze(Object.defineProperties(t, {
+                raw: {
+                    value: Object.freeze(e)
+                }
+            }));
+        }
+        function c(t, e) {
+            if (!(t instanceof e)) {
+                throw new TypeError("Cannot call a class as a function");
+            }
+        }
+        function h(t, e) {
+            if (!t) {
+                throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+            }
+            return e && (typeof e === "object" || typeof e === "function") ? e : t;
+        }
+        function d(t, e) {
+            if (typeof e !== "function" && e !== null) {
+                throw new TypeError("Super expression must either be null or a function, not " + typeof e);
+            }
+            t.prototype = Object.create(e && e.prototype, {
+                constructor: {
+                    value: t,
+                    enumerable: false,
+                    writable: true,
+                    configurable: true
+                }
+            });
+            if (e) Object.setPrototypeOf ? Object.setPrototypeOf(t, e) : t.__proto__ = e;
+        }
+        var p = function(t) {
+            d(e, t);
+            function e() {
+                var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+                c(this, e);
+                var n = {
+                    events: {
+                        "click #notification1": function t() {
+                            Lego.UI.message("success", "系统提示1");
+                        },
+                        "click #notification2": function t() {
+                            Lego.UI.message("info", "系统提示2");
+                        },
+                        "click #notification3": function t() {
+                            Lego.UI.message("warning", "系统提示3");
+                        },
+                        "click #notification4": function t() {
+                            Lego.UI.message("error", "系统提示4");
+                        }
+                    }
+                };
+                Object.assign(n, t);
+                var i = h(this, (e.__proto__ || Object.getPrototypeOf(e)).call(this, n));
+                Lego.UI.tooltip({
+                    el: "#tooltip1",
+                    title: "提示1",
+                    placement: "top",
+                    onHidden: function t() {
+                        console.warn("隐藏提示1");
+                    }
+                });
+                Lego.UI.tooltip({
+                    el: "#tooltip2",
+                    title: "提示2",
+                    placement: "bottom",
+                    onHidden: function t() {
+                        console.warn("隐藏提示2");
+                    }
+                });
+                Lego.UI.tooltip({
+                    el: "#tooltip3",
+                    title: "提示3",
+                    placement: "left",
+                    onHidden: function t() {
+                        console.warn("隐藏提示3");
+                    }
+                });
+                Lego.UI.tooltip({
+                    el: "#tooltip4",
+                    title: "提示4",
+                    placement: "right",
+                    onHidden: function t() {
+                        console.warn("隐藏提示4");
+                    }
+                });
+                Lego.UI.popover({
+                    el: "#popover1",
+                    title: "提示1",
+                    content: "弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。",
+                    placement: "top",
+                    onHidden: function t() {
+                        console.warn("隐藏提示1");
+                    }
+                });
+                Lego.UI.popover({
+                    el: "#popover2",
+                    title: "提示2",
+                    content: "弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。",
+                    placement: "bottom",
+                    onHidden: function t() {
+                        console.warn("隐藏提示2");
+                    }
+                });
+                Lego.UI.popover({
+                    el: "#popover3",
+                    title: "提示3",
+                    content: "弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。",
+                    placement: "left",
+                    onHidden: function t() {
+                        console.warn("隐藏提示3");
+                    }
+                });
+                Lego.UI.popover({
+                    el: "#popover4",
+                    title: "提示4",
+                    content: "弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。",
+                    placement: "right",
+                    container: "body",
+                    onHidden: function t() {
+                        console.warn("隐藏提示4");
+                    }
+                });
+                return i;
+            }
+            i(e, [ {
+                key: "render",
+                value: function t() {
+                    var e = hx(o);
+                    return e;
+                }
+            } ]);
+            return e;
+        }(Lego.UI.Baseview);
+        e.default = p;
+    },
+    257: function(t, e, n) {
         "use strict";
         var i = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(t) {
             return typeof t;
@@ -2681,7 +1983,705 @@
         function o(t) {
             return t && (typeof t === "undefined" ? "undefined" : i(t)) === "object" && "default" in t ? t["default"] : t;
         }
-        var r = o(n(255));
+        var r = o(n(253));
+        var a = function(t) {
+            var e = false;
+            var n = 1e6;
+            var i = {
+                WebkitTransition: "webkitTransitionEnd",
+                MozTransition: "transitionend",
+                OTransition: "oTransitionEnd otransitionend",
+                transition: "transitionend"
+            };
+            function o(t) {
+                return {}.toString.call(t).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+            }
+            function r(t) {
+                return (t[0] || t).nodeType;
+            }
+            function a() {
+                return {
+                    bindType: e.end,
+                    delegateType: e.end,
+                    handle: function e(n) {
+                        if (t(n.target).is(this)) {
+                            return n.handleObj.handler.apply(this, arguments);
+                        }
+                        return undefined;
+                    }
+                };
+            }
+            function s() {
+                if (window.QUnit) {
+                    return false;
+                }
+                var t = document.createElement("bootstrap");
+                for (var e in i) {
+                    if (t.style[e] !== undefined) {
+                        return {
+                            end: i[e]
+                        };
+                    }
+                }
+                return false;
+            }
+            function f(e) {
+                var n = this;
+                var i = false;
+                t(this).one(u.TRANSITION_END, function() {
+                    i = true;
+                });
+                setTimeout(function() {
+                    if (!i) {
+                        u.triggerTransitionEnd(n);
+                    }
+                }, e);
+                return this;
+            }
+            function l() {
+                e = s();
+                t.fn.emulateTransitionEnd = f;
+                if (u.supportsTransitionEnd()) {
+                    t.event.special[u.TRANSITION_END] = a();
+                }
+            }
+            var u = {
+                TRANSITION_END: "bsTransitionEnd",
+                getUID: function t(e) {
+                    do {
+                        e += ~~(Math.random() * n);
+                    } while (document.getElementById(e));
+                    return e;
+                },
+                getSelectorFromElement: function t(e) {
+                    var n = e.getAttribute("data-target");
+                    if (!n) {
+                        n = e.getAttribute("href") || "";
+                        n = /^#[a-z]/i.test(n) ? n : null;
+                    }
+                    return n;
+                },
+                reflow: function t(e) {
+                    new Function("bs", "return bs")(e.offsetHeight);
+                },
+                triggerTransitionEnd: function n(i) {
+                    t(i).trigger(e.end);
+                },
+                supportsTransitionEnd: function t() {
+                    return Boolean(e);
+                },
+                typeCheckConfig: function t(e, n, i) {
+                    for (var a in i) {
+                        if (i.hasOwnProperty(a)) {
+                            var s = i[a];
+                            var f = n[a];
+                            var l = void 0;
+                            if (f && r(f)) {
+                                l = "element";
+                            } else {
+                                l = o(f);
+                            }
+                            if (!new RegExp(s).test(l)) {
+                                throw new Error(e.toUpperCase() + ": " + ('Option "' + a + '" provided type "' + l + '" ') + ('but expected type "' + s + '".'));
+                            }
+                        }
+                    }
+                }
+            };
+            l();
+            return u;
+        }(jQuery);
+        var s = typeof Symbol === "function" && i(Symbol.iterator) === "symbol" ? function(t) {
+            return typeof t === "undefined" ? "undefined" : i(t);
+        } : function(t) {
+            return t && typeof Symbol === "function" && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : typeof t === "undefined" ? "undefined" : i(t);
+        };
+        var f = function() {
+            function t(t, e) {
+                for (var n = 0; n < e.length; n++) {
+                    var i = e[n];
+                    i.enumerable = i.enumerable || false;
+                    i.configurable = true;
+                    if ("value" in i) i.writable = true;
+                    Object.defineProperty(t, i.key, i);
+                }
+            }
+            return function(e, n, i) {
+                if (n) t(e.prototype, n);
+                if (i) t(e, i);
+                return e;
+            };
+        }();
+        function l(t, e) {
+            if (!(t instanceof e)) {
+                throw new TypeError("Cannot call a class as a function");
+            }
+        }
+        window.Tether = r;
+        var u = function(t) {
+            if (window.Tether === undefined) {
+                throw new Error("Bootstrap tooltips require Tether (http://tether.io/)");
+            }
+            var e = "tooltip";
+            var n = "4.0.0-alpha.5";
+            var i = "bs.tooltip";
+            var o = "." + i;
+            var u = t.fn[e];
+            var c = 150;
+            var h = "bs-tether";
+            var d = {
+                animation: true,
+                template: '<div class="tooltip" role="tooltip">' + '<div class="tooltip-inner"></div></div>',
+                trigger: "hover focus",
+                title: "",
+                delay: 0,
+                html: false,
+                selector: false,
+                placement: "top",
+                offset: "0 0",
+                constraints: []
+            };
+            var p = {
+                animation: "boolean",
+                template: "string",
+                title: "(string|element|function)",
+                trigger: "string",
+                delay: "(number|object)",
+                html: "boolean",
+                selector: "(string|boolean)",
+                placement: "(string|function)",
+                offset: "string",
+                constraints: "array"
+            };
+            var v = {
+                TOP: "bottom center",
+                RIGHT: "middle left",
+                BOTTOM: "top center",
+                LEFT: "middle right"
+            };
+            var g = {
+                IN: "in",
+                OUT: "out"
+            };
+            var m = {
+                HIDE: "hide" + o,
+                HIDDEN: "hidden" + o,
+                SHOW: "show" + o,
+                SHOWN: "shown" + o,
+                INSERTED: "inserted" + o,
+                CLICK: "click" + o,
+                FOCUSIN: "focusin" + o,
+                FOCUSOUT: "focusout" + o,
+                MOUSEENTER: "mouseenter" + o,
+                MOUSELEAVE: "mouseleave" + o
+            };
+            var y = {
+                FADE: "fade",
+                IN: "in"
+            };
+            var b = {
+                TOOLTIP: ".tooltip",
+                TOOLTIP_INNER: ".tooltip-inner"
+            };
+            var E = {
+                element: false,
+                enabled: false
+            };
+            var T = {
+                HOVER: "hover",
+                FOCUS: "focus",
+                CLICK: "click",
+                MANUAL: "manual"
+            };
+            var w = function() {
+                function u(t, e) {
+                    l(this, u);
+                    this._isEnabled = true;
+                    this._timeout = 0;
+                    this._hoverState = "";
+                    this._activeTrigger = {};
+                    this._tether = null;
+                    this.element = t;
+                    this.config = this._getConfig(e);
+                    this.tip = null;
+                    this._setListeners();
+                }
+                f(u, [ {
+                    key: "enable",
+                    value: function t() {
+                        this._isEnabled = true;
+                    }
+                }, {
+                    key: "disable",
+                    value: function t() {
+                        this._isEnabled = false;
+                    }
+                }, {
+                    key: "toggleEnabled",
+                    value: function t() {
+                        this._isEnabled = !this._isEnabled;
+                    }
+                }, {
+                    key: "toggle",
+                    value: function e(n) {
+                        if (n) {
+                            var i = this.constructor.DATA_KEY;
+                            var o = t(n.currentTarget).data(i);
+                            if (!o) {
+                                o = new this.constructor(n.currentTarget, this._getDelegateConfig());
+                                t(n.currentTarget).data(i, o);
+                            }
+                            o._activeTrigger.click = !o._activeTrigger.click;
+                            if (o._isWithActiveTrigger()) {
+                                o._enter(null, o);
+                            } else {
+                                o._leave(null, o);
+                            }
+                        } else {
+                            if (t(this.getTipElement()).hasClass(y.IN)) {
+                                this._leave(null, this);
+                                return;
+                            }
+                            this._enter(null, this);
+                        }
+                    }
+                }, {
+                    key: "dispose",
+                    value: function e() {
+                        clearTimeout(this._timeout);
+                        this.cleanupTether();
+                        t.removeData(this.element, this.constructor.DATA_KEY);
+                        t(this.element).off(this.constructor.EVENT_KEY);
+                        if (this.tip) {
+                            t(this.tip).remove();
+                        }
+                        this._isEnabled = null;
+                        this._timeout = null;
+                        this._hoverState = null;
+                        this._activeTrigger = null;
+                        this._tether = null;
+                        this.element = null;
+                        this.config = null;
+                        this.tip = null;
+                    }
+                }, {
+                    key: "show",
+                    value: function e() {
+                        var n = this;
+                        var i = t.Event(this.constructor.Event.SHOW);
+                        if (this.isWithContent() && this._isEnabled) {
+                            t(this.element).trigger(i);
+                            var o = t.contains(this.element.ownerDocument.documentElement, this.element);
+                            if (i.isDefaultPrevented() || !o) {
+                                return;
+                            }
+                            var s = this.getTipElement();
+                            var f = a.getUID(this.constructor.NAME);
+                            s.setAttribute("id", f);
+                            this.element.setAttribute("aria-describedby", f);
+                            this.setContent();
+                            if (this.config.animation) {
+                                t(s).addClass(y.FADE);
+                            }
+                            var l = typeof this.config.placement === "function" ? this.config.placement.call(this, s, this.element) : this.config.placement;
+                            var c = this._getAttachment(l);
+                            t(s).data(this.constructor.DATA_KEY, this).appendTo(document.body);
+                            t(this.element).trigger(this.constructor.Event.INSERTED);
+                            this._tether = new r({
+                                attachment: c,
+                                element: s,
+                                target: this.element,
+                                classes: E,
+                                classPrefix: h,
+                                offset: this.config.offset,
+                                constraints: this.config.constraints,
+                                addTargetClasses: false
+                            });
+                            a.reflow(s);
+                            this._tether.position();
+                            t(s).addClass(y.IN);
+                            var d = function e() {
+                                var i = n._hoverState;
+                                n._hoverState = null;
+                                t(n.element).trigger(n.constructor.Event.SHOWN);
+                                if (i === g.OUT) {
+                                    n._leave(null, n);
+                                }
+                            };
+                            if (a.supportsTransitionEnd() && t(this.tip).hasClass(y.FADE)) {
+                                t(this.tip).one(a.TRANSITION_END, d).emulateTransitionEnd(u._TRANSITION_DURATION);
+                                return;
+                            }
+                            d();
+                        }
+                    }
+                }, {
+                    key: "hide",
+                    value: function e(n) {
+                        var i = this;
+                        var o = this.getTipElement();
+                        var r = t.Event(this.constructor.Event.HIDE);
+                        var s = function e() {
+                            if (i._hoverState !== g.IN && o.parentNode) {
+                                o.parentNode.removeChild(o);
+                            }
+                            i.element.removeAttribute("aria-describedby");
+                            t(i.element).trigger(i.constructor.Event.HIDDEN);
+                            i.cleanupTether();
+                            if (n) {
+                                n();
+                            }
+                        };
+                        t(this.element).trigger(r);
+                        if (r.isDefaultPrevented()) {
+                            return;
+                        }
+                        t(o).removeClass(y.IN);
+                        if (a.supportsTransitionEnd() && t(this.tip).hasClass(y.FADE)) {
+                            t(o).one(a.TRANSITION_END, s).emulateTransitionEnd(c);
+                        } else {
+                            s();
+                        }
+                        this._hoverState = "";
+                    }
+                }, {
+                    key: "isWithContent",
+                    value: function t() {
+                        return Boolean(this.getTitle());
+                    }
+                }, {
+                    key: "getTipElement",
+                    value: function e() {
+                        return this.tip = this.tip || t(this.config.template)[0];
+                    }
+                }, {
+                    key: "setContent",
+                    value: function e() {
+                        var n = t(this.getTipElement());
+                        this.setElementContent(n.find(b.TOOLTIP_INNER), this.getTitle());
+                        n.removeClass(y.FADE).removeClass(y.IN);
+                        this.cleanupTether();
+                    }
+                }, {
+                    key: "setElementContent",
+                    value: function e(n, i) {
+                        var o = this.config.html;
+                        if ((typeof i === "undefined" ? "undefined" : s(i)) === "object" && (i.nodeType || i.jquery)) {
+                            if (o) {
+                                if (!t(i).parent().is(n)) {
+                                    n.empty().append(i);
+                                }
+                            } else {
+                                n.text(t(i).text());
+                            }
+                        } else {
+                            n[o ? "html" : "text"](i);
+                        }
+                    }
+                }, {
+                    key: "getTitle",
+                    value: function t() {
+                        var e = this.element.getAttribute("data-original-title");
+                        if (!e) {
+                            e = typeof this.config.title === "function" ? this.config.title.call(this.element) : this.config.title;
+                        }
+                        return e;
+                    }
+                }, {
+                    key: "cleanupTether",
+                    value: function t() {
+                        if (this._tether) {
+                            this._tether.destroy();
+                        }
+                    }
+                }, {
+                    key: "_getAttachment",
+                    value: function t(e) {
+                        return v[e.toUpperCase()];
+                    }
+                }, {
+                    key: "_setListeners",
+                    value: function e() {
+                        var n = this;
+                        var i = this.config.trigger.split(" ");
+                        i.forEach(function(e) {
+                            if (e === "click") {
+                                t(n.element).on(n.constructor.Event.CLICK, n.config.selector, t.proxy(n.toggle, n));
+                            } else if (e !== T.MANUAL) {
+                                var i = e === T.HOVER ? n.constructor.Event.MOUSEENTER : n.constructor.Event.FOCUSIN;
+                                var o = e === T.HOVER ? n.constructor.Event.MOUSELEAVE : n.constructor.Event.FOCUSOUT;
+                                t(n.element).on(i, n.config.selector, t.proxy(n._enter, n)).on(o, n.config.selector, t.proxy(n._leave, n));
+                            }
+                        });
+                        if (this.config.selector) {
+                            this.config = t.extend({}, this.config, {
+                                trigger: "manual",
+                                selector: ""
+                            });
+                        } else {
+                            this._fixTitle();
+                        }
+                    }
+                }, {
+                    key: "_fixTitle",
+                    value: function t() {
+                        var e = s(this.element.getAttribute("data-original-title"));
+                        if (this.element.getAttribute("title") || e !== "string") {
+                            this.element.setAttribute("data-original-title", this.element.getAttribute("title") || "");
+                            this.element.setAttribute("title", "");
+                        }
+                    }
+                }, {
+                    key: "_enter",
+                    value: function e(n, i) {
+                        var o = this.constructor.DATA_KEY;
+                        i = i || t(n.currentTarget).data(o);
+                        if (!i) {
+                            i = new this.constructor(n.currentTarget, this._getDelegateConfig());
+                            t(n.currentTarget).data(o, i);
+                        }
+                        if (n) {
+                            i._activeTrigger[n.type === "focusin" ? T.FOCUS : T.HOVER] = true;
+                        }
+                        if (t(i.getTipElement()).hasClass(y.IN) || i._hoverState === g.IN) {
+                            i._hoverState = g.IN;
+                            return;
+                        }
+                        clearTimeout(i._timeout);
+                        i._hoverState = g.IN;
+                        if (!i.config.delay || !i.config.delay.show) {
+                            i.show();
+                            return;
+                        }
+                        i._timeout = setTimeout(function() {
+                            if (i._hoverState === g.IN) {
+                                i.show();
+                            }
+                        }, i.config.delay.show);
+                    }
+                }, {
+                    key: "_leave",
+                    value: function e(n, i) {
+                        var o = this.constructor.DATA_KEY;
+                        i = i || t(n.currentTarget).data(o);
+                        if (!i) {
+                            i = new this.constructor(n.currentTarget, this._getDelegateConfig());
+                            t(n.currentTarget).data(o, i);
+                        }
+                        if (n) {
+                            i._activeTrigger[n.type === "focusout" ? T.FOCUS : T.HOVER] = false;
+                        }
+                        if (i._isWithActiveTrigger()) {
+                            return;
+                        }
+                        clearTimeout(i._timeout);
+                        i._hoverState = g.OUT;
+                        if (!i.config.delay || !i.config.delay.hide) {
+                            i.hide();
+                            return;
+                        }
+                        i._timeout = setTimeout(function() {
+                            if (i._hoverState === g.OUT) {
+                                i.hide();
+                            }
+                        }, i.config.delay.hide);
+                    }
+                }, {
+                    key: "_isWithActiveTrigger",
+                    value: function t() {
+                        for (var e in this._activeTrigger) {
+                            if (this._activeTrigger[e]) {
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+                }, {
+                    key: "_getConfig",
+                    value: function n(i) {
+                        i = t.extend({}, this.constructor.Default, t(this.element).data(), i);
+                        if (i.delay && typeof i.delay === "number") {
+                            i.delay = {
+                                show: i.delay,
+                                hide: i.delay
+                            };
+                        }
+                        a.typeCheckConfig(e, i, this.constructor.DefaultType);
+                        return i;
+                    }
+                }, {
+                    key: "_getDelegateConfig",
+                    value: function t() {
+                        var e = {};
+                        if (this.config) {
+                            for (var n in this.config) {
+                                if (this.constructor.Default[n] !== this.config[n]) {
+                                    e[n] = this.config[n];
+                                }
+                            }
+                        }
+                        return e;
+                    }
+                } ], [ {
+                    key: "_jQueryInterface",
+                    value: function e(n) {
+                        return this.each(function() {
+                            var e = t(this).data(i);
+                            var o = (typeof n === "undefined" ? "undefined" : s(n)) === "object" ? n : null;
+                            if (!e && /dispose|hide/.test(n)) {
+                                return;
+                            }
+                            if (!e) {
+                                e = new u(this, o);
+                                t(this).data(i, e);
+                            }
+                            if (typeof n === "string") {
+                                if (e[n] === undefined) {
+                                    throw new Error('No method named "' + n + '"');
+                                }
+                                e[n]();
+                            }
+                        });
+                    }
+                }, {
+                    key: "VERSION",
+                    get: function t() {
+                        return n;
+                    }
+                }, {
+                    key: "Default",
+                    get: function t() {
+                        return d;
+                    }
+                }, {
+                    key: "NAME",
+                    get: function t() {
+                        return e;
+                    }
+                }, {
+                    key: "DATA_KEY",
+                    get: function t() {
+                        return i;
+                    }
+                }, {
+                    key: "Event",
+                    get: function t() {
+                        return m;
+                    }
+                }, {
+                    key: "EVENT_KEY",
+                    get: function t() {
+                        return o;
+                    }
+                }, {
+                    key: "DefaultType",
+                    get: function t() {
+                        return p;
+                    }
+                } ]);
+                return u;
+            }();
+            t.fn[e] = w._jQueryInterface;
+            t.fn[e].Constructor = w;
+            t.fn[e].noConflict = function() {
+                t.fn[e] = u;
+                return w._jQueryInterface;
+            };
+            return w;
+        }(jQuery);
+        var c = function() {
+            function t(t, e) {
+                for (var n = 0; n < e.length; n++) {
+                    var i = e[n];
+                    i.enumerable = i.enumerable || false;
+                    i.configurable = true;
+                    if ("value" in i) i.writable = true;
+                    Object.defineProperty(t, i.key, i);
+                }
+            }
+            return function(e, n, i) {
+                if (n) t(e.prototype, n);
+                if (i) t(e, i);
+                return e;
+            };
+        }();
+        function h(t, e) {
+            if (!(t instanceof e)) {
+                throw new TypeError("Cannot call a class as a function");
+            }
+        }
+        var d = function() {
+            function t() {
+                var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+                h(this, t);
+                var n = {
+                    el: "",
+                    selector: false,
+                    title: "",
+                    content: "",
+                    animation: true,
+                    container: false,
+                    delay: 0,
+                    html: false,
+                    placement: "top",
+                    template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
+                    eventName: "hover focus",
+                    constraints: [],
+                    offset: "0 0",
+                    onHidden: function t() {}
+                };
+                Object.assign(n, e);
+                this.el = n.el;
+                this.onHidden = n.onHidden;
+                this.options = {
+                    selector: n.selector,
+                    title: n.title,
+                    content: n.content,
+                    animation: n.animation,
+                    container: n.container,
+                    delay: n.delay,
+                    html: n.html,
+                    placement: n.placement,
+                    template: n.template,
+                    constraints: n.constraints,
+                    trigger: n.eventName,
+                    offset: n.offset
+                };
+                this.render();
+            }
+            c(t, [ {
+                key: "render",
+                value: function t() {
+                    var e = this;
+                    var n = this.el instanceof $ ? this.el : $(this.el);
+                    if (n.length) {
+                        n.tooltip(this.options);
+                        n.on("hidden.bs.tooltip", function() {
+                            if (typeof e.onHidden === "function") e.onHidden(event);
+                        });
+                    }
+                    return n;
+                }
+            } ]);
+            return t;
+        }();
+        var p = function t(e) {
+            return new d(e);
+        };
+        Lego.components("tooltip", p);
+        t.exports = p;
+    },
+    258: function(t, e, n) {
+        "use strict";
+        var i = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(t) {
+            return typeof t;
+        } : function(t) {
+            return t && typeof Symbol === "function" && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : typeof t;
+        };
+        function o(t) {
+            return t && (typeof t === "undefined" ? "undefined" : i(t)) === "object" && "default" in t ? t["default"] : t;
+        }
+        var r = o(n(253));
         var a = function(t) {
             var e = false;
             var n = 1e6;

@@ -2,6 +2,7 @@ import Steps from '../../../../dist/Steps';
 import Buttons from '../../../../dist/Buttons';
 import Facial from '../../../../dist/Facial';
 import Collapse from '../../../../dist/Collapse';
+import Reply from '../../../../dist/Reply';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -10,6 +11,15 @@ class HomeView extends Lego.UI.Baseview {
                 'click #collapseBtn': function(event){
                     Lego.UI.collapse('#collapseExample', function(result, target){
                         console.warn(result, target);
+                    });
+                },
+                'click #collapseBtn2': function(event){
+                    Lego.UI.collapse({
+                        target: '#collapseExample2',
+                        restHeight: 20,
+                        onChange(result, target){
+                            console.warn(result, target);
+                        }
                     });
                 }
             },
@@ -83,12 +93,10 @@ class HomeView extends Lego.UI.Baseview {
                     if(view) view.next();
                 }
             }, {
-                el: '#facial1',
-                target: '#content',
+                el: '#reply1',
                 iconsUrl: '/example/dist/img/face_icons/',
-                onClick(self){
-                    const view = Lego.getView('#steps2');
-                    if(view) view.next();
+                onSubmit(self, result){
+                    console.warn('回复框', self, result);
                 }
             }]
         };
@@ -119,9 +127,7 @@ class HomeView extends Lego.UI.Baseview {
           </div>
           <div class="row" style="margin-bottom: 40px;">
             <div class="col-sm-6">
-            <div class="textarea_content_text" id="content" style="width:284px; height: 100px; border: 1px #ccc solid; margin-bottom:10px;"></div>
-              <facial id="facial1"></facial>
-              <style>.lego-facial{width: 30px;height:30px;}</style>
+              <reply id="reply1"></reply>
             </div>
             <div class="col-sm-6">
                 <p>
@@ -131,6 +137,20 @@ class HomeView extends Lego.UI.Baseview {
                 </p>
                 <div class="collapse" id="collapseExample">
                   <div class="card card-block">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                  </div>
+                </div>
+                <p>
+                  <button class="btn btn-primary" type="button" id="collapseBtn2">
+                    展开/折叠
+                  </button>
+                </p>
+                <div class="collapse" id="collapseExample2" style="display:block;overflow:hidden; height: 20px;">
+                  <div class="">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
                     Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
                   </div>
                 </div>

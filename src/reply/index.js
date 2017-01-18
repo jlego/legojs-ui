@@ -2,88 +2,106 @@
  * 回复框
  * ronghui Yu
  * 2017/1/17
- * item: {
- *     status: '', //指定状态。当不配置该属性时，会使用 Steps 的 current 来自动指定状态。可选：wait process finish error
- *     title: '',
- *     description: '',
- *     icon: ''
- * }
  */
 import './asset/index.scss';
+import Facial from '../facial/index';
+import Popover from '../popover/index';
+import Upload from '../upload/index';
 
 class Reply extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
-            current: 0, //指定当前步骤，从 0 开始记数。在子 Step 元素中，可以通过 status 属性覆盖状态
-            status: 'process', //指定当前步骤的状态，可选 wait process finish error
-            size: 'default', //指定大小，目前支持普通（default）和迷你（small）
-            direction: 'horizontal', //指定步骤条方向。目前支持水平（horizontal）和竖直（vertical）两种方向
-            titleWidth: 120,    //标题宽度
-            showDescription: true,  //显示描述
-            showIcon: true, //是否显示图标
-            showNum: true, //是否显示序号
-            data: [],
-            onNext(){},  //事件回调
-            onPrevious(){}
+            events: {
+                'focus .lego-reply-content': 'onFocus',
+                'blur .lego-reply-content': 'onblur',
+                'click .lego-reply-submit': 'onSubmit',
+                'click .lego-reply-annex': 'showUpload',
+                'click .popover-title i': 'showUpload',
+                'keydown .lego-reply-content': '_enterSearch'
+            },
+            placeholder: '请输入回复内容', //
+            contentHeight: 70,  //输入框高度
+            showFacial: true,   //显示表情
+            showUpload: true,   //显示上传文件
+            uploadDataSource: null,    //上传文件token数据源
+            iconsUrl: '',
+            submitText: '回复',   //
+            onSubmit(){},  //事件回调
+            onUploaded(){},
+            components: []
         };
         Object.assign(options, opts);
+        if(options.showFacial){
+            options.components.push({
+                el: '#facial-' + options.vid,
+                target: '#content-' + options.vid,
+                iconsUrl: options.iconsUrl
+            });
+        }
+        if(options.showUpload){
+            options.components.push({
+                el: '#upload-' + options.vid,
+                dataSource: options.uploadDataSource,
+                onComplete(self, result) {
+                    if(typeof options.onUploaded == 'function') options.onUploaded(self, result);
+                }
+            });
+        }
         super(options);
+        this.placeholder = '<span class="lego-reply-ph">' + this.options.placeholder + '</span>';
     }
     render() {
-        const options = this.options,
-            dataLength = options.data.length,
-            widthPercent = 10 / (dataLength - 1) * 10;
+        const options = this.options;
         const vDom = hx`
-        <div class="lego-steps lego-steps-${options.direction} lego-steps-label-${options.direction} ${!options.showNum ? 'lego-steps-sm' : ''}">
-        ${options.data.map((item, index) => {
-            return hx`
-            <div class="lego-steps-item lego-steps-status-${options.current == index ? options.status : (item.status ? item.status : 'wait')}"
-            style="${index == dataLength - 1 ? '' : ('width:' + widthPercent + '%;')} margin-right:-${(options.titleWidth)/2}px;">
-                ${index < dataLength ? hx`<div class="lego-steps-tail"
-                style="${index == dataLength - 1 ? ('padding-right:' + options.titleWidth + 'px') : ('padding-right:' + options.titleWidth/2 + 'px')}"><i></i></div>` : ''}
-                <div class="lego-steps-step">
-                    <div class="lego-steps-head">
-                        <div class="lego-steps-head-inner">
-                        ${options.showIcon ?
-                            hx`<span class="lego-steps-icon anticon ${item.icon ? item.icon : (item.status == 'finish' ? 'anticon-check' : '')}">
-                            ${item.status !== 'finish' ? (item.icon ? item.icon : (options.showNum ? (index + 1) : '')) : ''}
-                            </span>` :
-                            hx`<span class="lego-steps-icon">${options.showNum ? (index + 1) : ''}</span>`}
-                        </div>
-                    </div>
-                    <div class="lego-steps-main">
-                        <div class="lego-steps-title">${val(item.title)}</div>
-                        ${options.showDescription ? hx`<div class="lego-steps-description">${val(item.description)}</div>` : ''}
-                    </div>
-                </div>
+        <div class="lego-reply">
+            <p class="lego-reply-content" id="content-${options.vid}"><span class="lego-reply-ph">${val(options.placeholder)}</span></p>
+            <button type="button" class="btn btn-primary lego-reply-submit">${val(options.submitText)}</button>
+            <div class="lego-reply-toolbar">
+                ${options.showFacial ? hx`<facial id="facial-${options.vid}"></facial>` : ''}
+                ${options.showUpload ? hx`<div id="annex-${options.vid}" class="lego-reply-annex"><i class="anticon anticon-paper-clip"></i></div>` : ''}
             </div>
-            `;
-        })}
+            <div class="popover popover-bottom" style="display:none;">
+                <div class="popover-arrow"></div><h3 class="popover-title">上传附件 <i class="anticon anticon-close" style="float:right"></i></h3>
+                <div class="popover-content"><upload id="upload-${options.vid}"></upload></div>
+            </div>
         </div>
         `;
         return vDom;
     }
-    changeStatus(){
-        const options = this.options;
-        if(options.current > options.data.length) options.current = options.data.length;
-        options.data.forEach((item, index) => {
-            item.status = 'wait';
-            if(index < options.current) item.status = 'finish';
-            if(options.current == index) item.status = options.status;
-        });
-        this.refresh();
+    renderAfter(){
+        this.$('.lego-reply-content').attr('contenteditable', 'true').height(this.options.contentHeight);
     }
-    next(event){
-        const options = this.options;
-        options.current ++;
-        this.changeStatus();
-        if(typeof options.onNext == 'function') options.onNext(this, options.current);
+    onFocus(event){
+        const target = $(event.currentTarget);
+        if(target.find('.lego-reply-ph').length) target.html('');
     }
-    previous(event){
-        const options = this.options;
-        options.current --;
-        this.changeStatus();
-        if(typeof options.onPrevious == 'function') options.onPrevious(this, options.current);
+    onblur(event){
+        const target = $(event.currentTarget),
+            options = this.options;
+        if(!target.text() && !target.find('img').length) target.html(this.placeholder);
+    }
+    showUpload(event){
+        this.$('.popover').toggleClass('show');
+    }
+    _enterSearch(event) {
+        const target = $(event.currentTarget);
+        if (event.which === 13) {
+            if (!event.ctrlKey) {
+                this.onSubmit(event);
+            }
+            if (event.ctrlKey) {
+                Lego.UI.Util.insertText(target, Lego.UI.Util.checkBrowser().mozilla ? '<br>' : '<br><br>');
+            }
+        }
+    }
+    onSubmit(event){
+        event.stopPropagation();
+        const contentEl = this.$('.lego-reply-content');
+        let contentHtml = contentEl.html();
+        contentHtml = Lego.UI.Util.faceToText(contentHtml, this.options.iconsUrl);
+        contentEl.html(this.placeholder);
+        contentHtml = contentHtml == this.placeholder ? '' : contentHtml;
+        if(typeof this.options.onSubmit == 'function') this.options.onSubmit(this, contentHtml);
     }
 }
 Lego.components('reply', Reply);

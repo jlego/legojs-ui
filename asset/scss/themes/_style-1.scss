@@ -17,7 +17,12 @@ pre {
 pre p {
     margin: 0;
 }
-
+.float-right{
+    float: right !important;
+}
+.float-left{
+    float: left !important;
+}
 .symbol.required {
     margin: 2px;
     color: #f30;

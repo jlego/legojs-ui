@@ -10,8 +10,8 @@ class Search extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
-                'click .search-button': 'onSearch',
-                'keydown .search-input': '_enterSearch'
+                'click .lego-search-button': 'onSearch',
+                'keydown .lego-search-input': '_enterSearch'
             },
             placeholder: '输入关键字搜索',
             activeKey: '',  //选中的key
@@ -35,7 +35,7 @@ class Search extends Lego.UI.Baseview {
     render() {
         const options = this.options || {};
         const vDom = hx`
-        <div class="input-group search">
+        <div class="input-group lego-search">
         ${options.hasSelect ? hx`
           <div class="input-group-btn dropdown" id="select-${options.vid}">
             <button type="button" class="btn btn-secondary dropdown-toggle">
@@ -44,9 +44,9 @@ class Search extends Lego.UI.Baseview {
             <dropdown id="dropdown-${options.vid}"></dropdown>
           </div>
         ` : ''}
-          <input type="text" class="form-control search-input" placeholder="${options.placeholder}">
+          <input type="text" class="form-control lego-search-input" placeholder="${options.placeholder}">
           <div class="input-group-btn">
-            <button type="button" class="btn search-button">
+            <button type="button" class="btn lego-search-button">
               <i class="anticon anticon-search"></i>
             </button>
           </div>
@@ -61,7 +61,7 @@ class Search extends Lego.UI.Baseview {
     }
     onSearch(event) {
         event.stopPropagation();
-        const keyword = this.$('.search-input').val();
+        const keyword = this.$('.lego-search-input').val();
         if (typeof this.options.onSearch === 'function') this.options.onSearch(this, {
             key: this.options.activeKey,
             value: this.options.activeValue,

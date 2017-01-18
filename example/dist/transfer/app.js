@@ -34,9 +34,9 @@
                 return t;
             };
         }();
-        var o = n(257);
+        var o = n(259);
         var a = l(o);
-        var i = n(258);
+        var i = n(260);
         var s = l(i);
         function l(e) {
             return e && e.__esModule ? e : {
@@ -80,7 +80,7 @@
         }();
         HBY.router(new c());
     },
-    257: function(e, t) {
+    259: function(e, t) {
         "use strict";
         Object.defineProperty(t, "__esModule", {
             value: true
@@ -157,7 +157,7 @@
         }(Lego.UI.Baseview);
         t.default = l;
     },
-    258: function(e, t, n) {
+    260: function(e, t, n) {
         "use strict";
         Object.defineProperty(t, "__esModule", {
             value: true
@@ -179,7 +179,7 @@
             };
         }();
         var o = l([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <transfer id="transfer1"></transfer>\n            </div>\n            <div class="col-sm-6">\n              <transfer id="transfer2"></transfer>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <transfer id="transfer1"></transfer>\n            </div>\n            <div class="col-sm-6">\n              <transfer id="transfer2"></transfer>\n            </div>\n          </div>\n        </div>\n        ' ]);
-        var a = n(259);
+        var a = n(261);
         var i = s(a);
         function s(e) {
             return e && e.__esModule ? e : {
@@ -341,14 +341,14 @@
         }(Lego.UI.Baseview);
         t.default = f;
     },
-    259: function(e, t, n) {
+    261: function(e, t, n) {
         "use strict";
         var r = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
             return typeof e;
         } : function(e) {
             return e && typeof Symbol === "function" && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e;
         };
-        var o = n(260);
+        var o = n(262);
         var a = function() {
             function e(e, t) {
                 for (var n = 0; n < t.length; n++) {
@@ -786,7 +786,7 @@
                 return t;
             };
         }();
-        var x = A([ '\n        <div class="input-group search">\n        ', '\n          <input type="text" class="form-control search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group search">\n        ', '\n          <input type="text" class="form-control search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
+        var x = A([ '\n        <div class="input-group lego-search">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group lego-search">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
         var L = A([ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ]);
         function A(e, t) {
             return Object.freeze(Object.defineProperties(e, {
@@ -827,8 +827,8 @@
                 j(this, t);
                 var n = {
                     events: {
-                        "click .search-button": "onSearch",
-                        "keydown .search-input": "_enterSearch"
+                        "click .lego-search-button": "onSearch",
+                        "keydown .lego-search-input": "_enterSearch"
                     },
                     placeholder: "输入关键字搜索",
                     activeKey: "",
@@ -866,7 +866,7 @@
                 key: "onSearch",
                 value: function e(t) {
                     t.stopPropagation();
-                    var n = this.$(".search-input").val();
+                    var n = this.$(".lego-search-input").val();
                     if (typeof this.options.onSearch === "function") this.options.onSearch(this, {
                         key: this.options.activeKey,
                         value: this.options.activeValue,
@@ -1039,7 +1039,7 @@
         Lego.components("transfer", W);
         e.exports = W;
     },
-    260: function(module, exports) {
+    262: function(module, exports) {
         (function($) {
             var settings = {}, roots = {}, caches = {}, _consts = {
                 className: {

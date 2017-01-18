@@ -30,41 +30,42 @@ class Tabs extends Lego.UI.Baseview {
             hideAdd: false,    //是否隐藏加号图标，在 type="editable-card" 时有效
             animate: '',  //是否使用动画切换 Tabs，在 tabPosition=top|bottom 时有效
             data: [],
-            components: [{
-                el: '#' + opts.vid + '-navs',
-                eventName: opts.eventName || 'click',
-                type: 'tabs', //菜单类型，现在支持垂直、水平、和内嵌模式三种base, inline, tabs, pills, pills-stacked
-                activeKey: opts.activeKey, //当前激活的key
-                // direction: '',  //显示方向
-                onClick(self, item){
-                    const parentView = this.context;
-                    if(!item.children){
-                        parentView.options.activeKey = item.key;
-                    }else{
-                        const theModel = item.children.find(subItem => subItem.active == true);
-                        if(theModel){
-                            parentView.options.data.forEach(model => {
-                                if(model.key == item.key){
-                                    if(theModel.content){
-                                        model.content = theModel.content;
-                                        parentView.options.activeKey = item.key;
-                                    }
-                                }
-                            });
-                        }
-                    }
-                }, //点击的回调
-                data: opts.data
-            }]
+            components: []
         };
         Object.assign(options, opts);
+        options.components.push({
+            el: '#navs-' + options.vid,
+            eventName: options.eventName || 'click',
+            type: 'tabs', //菜单类型，现在支持垂直、水平、和内嵌模式三种base, inline, tabs, pills, pills-stacked
+            activeKey: options.activeKey, //当前激活的key
+            // direction: '',  //显示方向
+            onClick(self, item){
+                const parentView = this.context;
+                if(!item.children){
+                    parentView.options.activeKey = item.key;
+                }else{
+                    const theModel = item.children.find(subItem => subItem.active == true);
+                    if(theModel){
+                        parentView.options.data.forEach(model => {
+                            if(model.key == item.key){
+                                if(theModel.content){
+                                    model.content = theModel.content;
+                                    parentView.options.activeKey = item.key;
+                                }
+                            }
+                        });
+                    }
+                }
+            }, //点击的回调
+            data: options.data
+        });
         super(options);
     }
     render() {
         const options = this.options || {};
-        const vDom = hx `
+        const vDom = hx`
         <div class="tabs">
-            <navs id="${options.vid + '-navs'}"></navs>
+            <navs id="navs-${options.vid}"></navs>
             <div class="tab-content">
             ${options.data.map(item => {
                 if(!item.disabled && item.content){

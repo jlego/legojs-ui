@@ -167,7 +167,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="tabs">\n            <navs id="', '"></navs>\n            <div class="tab-content">\n            ', "\n            </div>\n        </div>\n        " ], [ '\n        <div class="tabs">\n            <navs id="', '"></navs>\n            <div class="tab-content">\n            ', "\n            </div>\n        </div>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="tabs">\n            <navs id="navs-', '"></navs>\n            <div class="tab-content">\n            ', "\n            </div>\n        </div>\n        " ], [ '\n        <div class="tabs">\n            <navs id="navs-', '"></navs>\n            <div class="tab-content">\n            ', "\n            </div>\n        </div>\n        " ]);
 
 var _templateObject2 = _taggedTemplateLiteral([ '<div class="tab-pane ', " ", '" id="', '-pane">', "</div>" ], [ '<div class="tab-pane ', " ", '" id="', '-pane">', "</div>" ]);
 
@@ -225,44 +225,45 @@ var Tabs = function(_Lego$UI$Baseview) {
             hideAdd: false,
             animate: "",
             data: [],
-            components: [ {
-                el: "#" + opts.vid + "-navs",
-                eventName: opts.eventName || "click",
-                type: "tabs",
-                activeKey: opts.activeKey,
-                onClick: function onClick(self, item) {
-                    var parentView = this.context;
-                    if (!item.children) {
-                        parentView.options.activeKey = item.key;
-                    } else {
-                        (function() {
-                            var theModel = item.children.find(function(subItem) {
-                                return subItem.active == true;
-                            });
-                            if (theModel) {
-                                parentView.options.data.forEach(function(model) {
-                                    if (model.key == item.key) {
-                                        if (theModel.content) {
-                                            model.content = theModel.content;
-                                            parentView.options.activeKey = item.key;
-                                        }
-                                    }
-                                });
-                            }
-                        })();
-                    }
-                },
-                data: opts.data
-            } ]
+            components: []
         };
         Object.assign(options, opts);
+        options.components.push({
+            el: "#navs-" + options.vid,
+            eventName: options.eventName || "click",
+            type: "tabs",
+            activeKey: options.activeKey,
+            onClick: function onClick(self, item) {
+                var parentView = this.context;
+                if (!item.children) {
+                    parentView.options.activeKey = item.key;
+                } else {
+                    (function() {
+                        var theModel = item.children.find(function(subItem) {
+                            return subItem.active == true;
+                        });
+                        if (theModel) {
+                            parentView.options.data.forEach(function(model) {
+                                if (model.key == item.key) {
+                                    if (theModel.content) {
+                                        model.content = theModel.content;
+                                        parentView.options.activeKey = item.key;
+                                    }
+                                }
+                            });
+                        }
+                    })();
+                }
+            },
+            data: options.data
+        });
         return _possibleConstructorReturn(this, (Tabs.__proto__ || Object.getPrototypeOf(Tabs)).call(this, options));
     }
     _createClass(Tabs, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject, options.vid + "-navs", options.data.map(function(item) {
+            var vDom = hx(_templateObject, options.vid, options.data.map(function(item) {
                 if (!item.disabled && item.content) {
                     return hx(_templateObject2, options.animate ? options.animate : "", item.key === options.activeKey ? "active in" : "", item.key, item.content ? item.content : "");
                 }

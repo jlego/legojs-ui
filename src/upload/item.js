@@ -32,8 +32,8 @@ class UploadItem extends UploadBase {
     constructor(opts = {}) {
         const options = {
             events: {
-                'click .cancelbtn': 'onCancel',
-                'click .closebtn': 'onRemove'
+                'click .lego-cancelbtn': 'onCancel',
+                'click .lego-closebtn': 'onRemove'
             },
             uploadUri: '',
             percent: 0,     //上传进度百分比
@@ -55,7 +55,7 @@ class UploadItem extends UploadBase {
     render() {
         const options = this.options || {};
         const vDom = hx`
-        <div class="media upload-item">
+        <div class="media lego-upload-item">
             <div class="media-left">
                 <i class="anticon anticon-${Lego.UI.Util.getFileIcon(options.file.name)}"></i>
             </div>
@@ -63,7 +63,7 @@ class UploadItem extends UploadBase {
             <div class="media-body">
                 <h4 class="media-heading">
                     <div class="right">
-                        <a href="javascript:;" class="cancelbtn"><i class="anticon anticon-cross float-xs-right close"></i></a>
+                        <a href="javascript:;" class="lego-cancelbtn"><i class="anticon anticon-cross float-xs-right close"></i></a>
                     </div>
                     ${val(options.file.name)}
                 </h4>
@@ -73,7 +73,7 @@ class UploadItem extends UploadBase {
                 <h4 class="media-heading">
                     ${!options.readonly && options.percent == 100 ? hx`
                     <div class="right">
-                        <a href="javascript:;" class="closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>
+                        <a href="javascript:;" class="lego-closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>
                     </div>
                     ` : ''}
                     ${val(options.file.name)}

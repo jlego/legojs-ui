@@ -66,7 +66,8 @@ build([{
 {alias: 'avatar'},
 {alias: 'steps'},
 {alias: 'facial'},
-{alias: 'collapse'}
+{alias: 'collapse'},
+{alias: 'reply'}
 ].map(genConfig));
 
 function ucfirst(str) {

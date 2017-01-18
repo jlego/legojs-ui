@@ -8,6 +8,8 @@ class Collapse {
         const options = {
             direction: 'updown', //指定步骤条方向。目前支持水平updown/toggle
             target: '',
+            restHeight: 0,  //剩余高度
+            realHeight: '100%',  //实高
             onChange(){}
         };
         const that = this;
@@ -15,32 +17,32 @@ class Collapse {
         if (typeof opts == 'object') {
             // 对象型参数
             Object.assign(options, opts);
-            options.target = options.target instanceof $ ? options.target : $(options.target);
-            if(!options.target.length) return;
-            if(!options.target.hasClass('collapse')) options.target.addClass('collapse');
+            this.options = options;
             this.callback = options.onChange;
-            if(options.direction == 'updown'){
-                if(options.target.hasClass('show')){
-                    options.target.slideDown('normal', function(){
-                        that.handler($(this));
-                    });
-                }else{
-                    options.target.slideUp('normal', function(){
-                        that.handler($(this));
-                    });
-                }
+            if(options.restHeight){
+                this.showHide(options.target, 'animate');
             }else{
-                options.target.slideToggle('normal', function(){
-                    that.handler($(this));
-                });
+                this.showHide(options.target, 'slideToggle');
             }
         }
         // 简洁型参数
         if (typeof opts == 'string') {
-            const target = opts instanceof $ ? opts : $(opts);
-            if(!target.length) return;
-            if(!target.hasClass('collapse')) target.addClass('collapse');
-            target.slideToggle('normal', function(){
+            this.showHide(opts, 'slideToggle');
+        }
+    }
+    showHide(target, type){
+        const that = this;
+        target = target instanceof $ ? target : $(target);
+        if(!target.length) return;
+        if(!target.hasClass('collapse')) target.addClass('collapse');
+        if(type == 'animate'){
+            const height = parseInt(this.options.restHeight);
+            const params = !target.hasClass('show') ? {height: this.options.realHeight} : {height: height};
+            target[type](params, 'normal', function(){
+                that.handler($(this));
+            });
+        }else{
+            target[type]('normal', function(){
                 that.handler($(this));
             });
         }

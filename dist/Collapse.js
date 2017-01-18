@@ -40,42 +40,50 @@ var Collapse = function() {
         var options = {
             direction: "updown",
             target: "",
+            restHeight: 0,
+            realHeight: "100%",
             onChange: function onChange() {}
         };
         var that = this;
         this.callback = callback;
         if ((typeof opts === "undefined" ? "undefined" : _typeof(opts)) == "object") {
             Object.assign(options, opts);
-            options.target = options.target instanceof $ ? options.target : $(options.target);
-            if (!options.target.length) return;
-            if (!options.target.hasClass("collapse")) options.target.addClass("collapse");
+            this.options = options;
             this.callback = options.onChange;
-            if (options.direction == "updown") {
-                if (options.target.hasClass("show")) {
-                    options.target.slideDown("normal", function() {
-                        that.handler($(this));
-                    });
-                } else {
-                    options.target.slideUp("normal", function() {
-                        that.handler($(this));
-                    });
-                }
+            if (options.restHeight) {
+                this.showHide(options.target, "animate");
             } else {
-                options.target.slideToggle("normal", function() {
+                this.showHide(options.target, "slideToggle");
+            }
+        }
+        if (typeof opts == "string") {
+            this.showHide(opts, "slideToggle");
+        }
+    }
+    _createClass(Collapse, [ {
+        key: "showHide",
+        value: function showHide(target, type) {
+            var that = this;
+            target = target instanceof $ ? target : $(target);
+            if (!target.length) return;
+            if (!target.hasClass("collapse")) target.addClass("collapse");
+            if (type == "animate") {
+                var height = parseInt(this.options.restHeight);
+                var params = !target.hasClass("show") ? {
+                    height: this.options.realHeight
+                } : {
+                    height: height
+                };
+                target[type](params, "normal", function() {
+                    that.handler($(this));
+                });
+            } else {
+                target[type]("normal", function() {
                     that.handler($(this));
                 });
             }
         }
-        if (typeof opts == "string") {
-            var target = opts instanceof $ ? opts : $(opts);
-            if (!target.length) return;
-            if (!target.hasClass("collapse")) target.addClass("collapse");
-            target.slideToggle("normal", function() {
-                that.handler($(this));
-            });
-        }
-    }
-    _createClass(Collapse, [ {
+    }, {
         key: "handler",
         value: function handler(target) {
             if (typeof this.callback == "function") {

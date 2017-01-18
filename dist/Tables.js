@@ -752,8 +752,8 @@ var Tables = function(_Lego$UI$Baseview) {
         key: "getSelected",
         value: function getSelected() {
             if (Array.isArray(this.options.data)) {
-                return this.options.data.map(function(row) {
-                    return row.selected;
+                return this.options.data.filter(function(row) {
+                    return row.selected == true;
                 });
             }
             return [];

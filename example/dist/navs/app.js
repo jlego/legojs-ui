@@ -613,7 +613,7 @@
                 return n;
             };
         }();
-        var y = m([ '\n        <div class="tabs">\n            <navs id="', '"></navs>\n            <div class="tab-content">\n            ', "\n            </div>\n        </div>\n        " ], [ '\n        <div class="tabs">\n            <navs id="', '"></navs>\n            <div class="tab-content">\n            ', "\n            </div>\n        </div>\n        " ]);
+        var y = m([ '\n        <div class="tabs">\n            <navs id="navs-', '"></navs>\n            <div class="tab-content">\n            ', "\n            </div>\n        </div>\n        " ], [ '\n        <div class="tabs">\n            <navs id="navs-', '"></navs>\n            <div class="tab-content">\n            ', "\n            </div>\n        </div>\n        " ]);
         var h = m([ '<div class="tab-pane ', " ", '" id="', '-pane">', "</div>" ], [ '<div class="tab-pane ', " ", '" id="', '-pane">', "</div>" ]);
         function m(e, n) {
             return Object.freeze(Object.defineProperties(e, {
@@ -665,44 +665,45 @@
                     hideAdd: false,
                     animate: "",
                     data: [],
-                    components: [ {
-                        el: "#" + e.vid + "-navs",
-                        eventName: e.eventName || "click",
-                        type: "tabs",
-                        activeKey: e.activeKey,
-                        onClick: function e(n, t) {
-                            var i = this.context;
-                            if (!t.children) {
-                                i.options.activeKey = t.key;
-                            } else {
-                                (function() {
-                                    var e = t.children.find(function(e) {
-                                        return e.active == true;
-                                    });
-                                    if (e) {
-                                        i.options.data.forEach(function(n) {
-                                            if (n.key == t.key) {
-                                                if (e.content) {
-                                                    n.content = e.content;
-                                                    i.options.activeKey = t.key;
-                                                }
-                                            }
-                                        });
-                                    }
-                                })();
-                            }
-                        },
-                        data: e.data
-                    } ]
+                    components: []
                 };
                 Object.assign(t, e);
+                t.components.push({
+                    el: "#navs-" + t.vid,
+                    eventName: t.eventName || "click",
+                    type: "tabs",
+                    activeKey: t.activeKey,
+                    onClick: function e(n, t) {
+                        var i = this.context;
+                        if (!t.children) {
+                            i.options.activeKey = t.key;
+                        } else {
+                            (function() {
+                                var e = t.children.find(function(e) {
+                                    return e.active == true;
+                                });
+                                if (e) {
+                                    i.options.data.forEach(function(n) {
+                                        if (n.key == t.key) {
+                                            if (e.content) {
+                                                n.content = e.content;
+                                                i.options.activeKey = t.key;
+                                            }
+                                        }
+                                    });
+                                }
+                            })();
+                        }
+                    },
+                    data: t.data
+                });
                 return w(this, (n.__proto__ || Object.getPrototypeOf(n)).call(this, t));
             }
             b(n, [ {
                 key: "render",
                 value: function e() {
                     var n = this.options || {};
-                    var t = hx(y, n.vid + "-navs", n.data.map(function(e) {
+                    var t = hx(y, n.vid, n.data.map(function(e) {
                         if (!e.disabled && e.content) {
                             return hx(h, n.animate ? n.animate : "", e.key === n.activeKey ? "active in" : "", e.key, e.content ? e.content : "");
                         }

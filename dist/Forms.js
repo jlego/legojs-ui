@@ -30,7 +30,7 @@ var _createClass = function() {
 
 var _templateObject = _taggedTemplateLiteral([ '<div>\n                    <button type="submit" class="btn btn-primary">', '</button>\n                    <button type="reset" class="btn btn-secondary">', "</button>\n                    </div>" ], [ '<div>\n                    <button type="submit" class="btn btn-primary">', '</button>\n                    <button type="reset" class="btn btn-secondary">', "</button>\n                    </div>" ]);
 
-var _templateObject2 = _taggedTemplateLiteral([ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', '</button>\n                        <button type="reset" class="btn btn-secondary">', "</button>\n                      </div>\n                    </div>\n                    " ], [ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', '</button>\n                        <button type="reset" class="btn btn-secondary">', "</button>\n                      </div>\n                    </div>\n                    " ]);
+var _templateObject2 = _taggedTemplateLiteral([ '\n                    <div class="form-group row">\n                      <div class="offset-sm-', " col-sm-", '">\n                        <button type="submit" class="btn btn-primary">', '</button>\n                        <button type="reset" class="btn btn-secondary">', "</button>\n                      </div>\n                    </div>\n                    " ], [ '\n                    <div class="form-group row">\n                      <div class="offset-sm-', " col-sm-", '">\n                        <button type="submit" class="btn btn-primary">', '</button>\n                        <button type="reset" class="btn btn-secondary">', "</button>\n                      </div>\n                    </div>\n                    " ]);
 
 var _templateObject3 = _taggedTemplateLiteral([ '<p class="form-control-static mb-0">', "</p>" ], [ '<p class="form-control-static mb-0">', "</p>" ]);
 
@@ -40,7 +40,7 @@ var _templateObject5 = _taggedTemplateLiteral([ '<span class="symbol required">*
 
 var _templateObject6 = _taggedTemplateLiteral([ '<small class="form-text text-muted">', "</small>" ], [ '<small class="form-text text-muted">', "</small>" ]);
 
-var _templateObject7 = _taggedTemplateLiteral([ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 col-form-label">', "", '</label>\n                  <div class="col-sm-10">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ], [ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 col-form-label">', "", '</label>\n                  <div class="col-sm-10">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ]);
+var _templateObject7 = _taggedTemplateLiteral([ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-', ' col-form-label">', "", '</label>\n                  <div class="col-sm-', '">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ], [ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-', ' col-form-label">', "", '</label>\n                  <div class="col-sm-', '">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ]);
 
 var _templateObject8 = _taggedTemplateLiteral([ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ], [ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ]);
 
@@ -111,8 +111,11 @@ var Forms = function(_Lego$UI$Baseview) {
                 rules: {},
                 messages: {}
             },
+            labelCols: 2,
+            comCols: 10,
             submitEl: "",
             submitText: "提 交",
+            showSubmit: true,
             resetText: "重 置",
             data: [],
             format: function format(result) {
@@ -131,11 +134,11 @@ var Forms = function(_Lego$UI$Baseview) {
             var options = this.options || {}, that = this;
             function submitBtn() {
                 var submit = "";
-                if (!options.submitEl) {
+                if (!options.submitEl && options.showSubmit) {
                     if (options.layout == "vertical") {
                         submit = hx(_templateObject, options.submitText, options.resetText);
                     } else {
-                        submit = hx(_templateObject2, options.submitText, options.resetText);
+                        submit = hx(_templateObject2, options.labelCols, options.comCols, options.submitText, options.resetText);
                     }
                 }
                 return submit;
@@ -150,7 +153,7 @@ var Forms = function(_Lego$UI$Baseview) {
                 if (layout == "vertical") {
                     vDom = hx(_templateObject4, id, val(item.label), item.required ? hx(_templateObject5) : "", comTag, item.help ? hx(_templateObject6, val(item.help)) : "");
                 } else {
-                    vDom = hx(_templateObject7, id, val(item.label), item.required ? hx(_templateObject5) : "", comTag, item.help ? hx(_templateObject6, val(item.help)) : "");
+                    vDom = hx(_templateObject7, id, that.options.labelCols, val(item.label), item.required ? hx(_templateObject5) : "", that.options.comCols, comTag, item.help ? hx(_templateObject6, val(item.help)) : "");
                 }
                 return vDom;
             }

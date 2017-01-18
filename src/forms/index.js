@@ -45,8 +45,11 @@ class Forms extends Lego.UI.Baseview {
             },
             // rules: null,
             // messages: null,
+            labelCols: 2,
+            comCols: 10,
             submitEl: '',    //按钮
             submitText: '提 交',    //按钮内容
+            showSubmit: true,
             resetText: '重 置',    //按钮内容
             data: [], //
             format(result){ return result }, //格式化数据
@@ -61,7 +64,7 @@ class Forms extends Lego.UI.Baseview {
             that = this;
         function submitBtn(){
             let submit = '';
-            if(!options.submitEl){
+            if(!options.submitEl && options.showSubmit){
                 if(options.layout == 'vertical'){
                     submit = hx`<div>
                     <button type="submit" class="btn btn-primary">${options.submitText}</button>
@@ -70,7 +73,7 @@ class Forms extends Lego.UI.Baseview {
                 }else{
                     submit = hx`
                     <div class="form-group row">
-                      <div class="offset-sm-2 col-sm-10">
+                      <div class="offset-sm-${options.labelCols} col-sm-${options.comCols}">
                         <button type="submit" class="btn btn-primary">${options.submitText}</button>
                         <button type="reset" class="btn btn-secondary">${options.resetText}</button>
                       </div>
@@ -98,8 +101,8 @@ class Forms extends Lego.UI.Baseview {
             }else{
                 vDom = hx`
                 <div class="form-group row">
-                  <label for="${id}" class="col-sm-2 col-form-label">${val(item.label)}${item.required ? hx`<span class="symbol required">*</span>` : ''}</label>
-                  <div class="col-sm-10">
+                  <label for="${id}" class="col-sm-${that.options.labelCols} col-form-label">${val(item.label)}${item.required ? hx`<span class="symbol required">*</span>` : ''}</label>
+                  <div class="col-sm-${that.options.comCols}">
                     ${comTag}
                     ${item.help ? hx`<small class="form-text text-muted">${val(item.help)}</small>` : ''}
                   </div>

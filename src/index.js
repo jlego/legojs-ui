@@ -30,6 +30,7 @@ import Avatar from "./avatar/index";
 import Steps from "./steps/index";
 import Facial from "./facial/index";
 import Collapse from "./collapse/index";
+import Reply from "./reply/index";
 
 Lego.components({
 	baseview: Baseview,
@@ -61,6 +62,7 @@ Lego.components({
 	avatar: Avatar,
 	steps: Steps,
 	facial: Facial,
-	collapse: Collapse
+	collapse: Collapse,
+	reply: Reply
 });
 export default Lego.UI;

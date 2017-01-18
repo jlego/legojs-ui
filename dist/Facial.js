@@ -81,8 +81,8 @@ var Facial = function(_Lego$UI$Baseview) {
             eventName: "hover",
             iconsUrl: "",
             itemClassPrefix: "f0",
-            direction: "",
-            data: [ "[微笑]", "[撇嘴]", "[色]", "[发呆]", "[得意]", "[流泪]", "[害羞]", "[闭嘴]", "[睡]", "[大哭]", "[尴尬]", "[发怒]", "[调皮]", "[呲牙]", "[惊讶]", "[酷]", "[冷汗]", "[抓狂]", "[吐]", "[偷笑]", "[白眼]", "[傲慢]", "[饥饿]", "[困]", "[惊恐]", "[流汗]", "[憨笑]", "[大兵]", "[奋斗]", "[疑问]", "[嘘]", "[晕]", "[敲打]", "[再见]", "[擦汗]", "[抠鼻]", "[鼓掌]", "[糗大了]", "[坏笑]", "[左哼哼]", "[右哼哼]", "[哈欠]", "[鄙视]", "[委屈]", "[快哭了]", "[阴脸]", "[亲亲]", "[吓]", "[可怜]", "[菜刀]", "[啤酒]", "[篮球]", "[乒乓球]", "[咖啡]", "[示爱]", "[爱心]", "[心碎]", "[刀]", "[足球]", "[瓢虫]", "[便便]", "[拥抱]", "[强]", "[弱]", "[握手]", "[胜利]", "[抱拳]", "[勾引]", "[拳头]", "[差劲]", "[爱你]", "[NO]", "[OK]", "[可爱]", "[咒骂]", "[折磨]", "[玫瑰]", "[凋谢]", "[衰]", "[骷髅]", "[猪头]", "[闪电]", "[炸弹]", "[饭]", "[西瓜]", "[蛋糕]", "[礼物]", "[太阳]", "[月亮]", "[鞭炮]" ]
+            direction: "top",
+            data: Lego.UI.Util.faceTags
         };
         Object.assign(options, opts);
         var _this = _possibleConstructorReturn(this, (Facial.__proto__ || Object.getPrototypeOf(Facial)).call(this, options));
@@ -172,7 +172,7 @@ var Facial = function(_Lego$UI$Baseview) {
             var sel = void 0, range = void 0, el = selector[0], that = this;
             el.focus();
             if (!selector.html().length) this.cursorPos = 0;
-            text = Lego.UI.Util.textToFace(text, this.options.data, this.options.iconsUrl + this.options.itemClassPrefix);
+            text = Lego.UI.Util.textToFace(text, this.options.iconsUrl + this.options.itemClassPrefix);
             if (window.getSelection) {
                 sel = window.getSelection();
                 range = sel.getRangeAt(0);

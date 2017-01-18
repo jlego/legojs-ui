@@ -318,7 +318,7 @@ class Tables extends Lego.UI.Baseview {
     // 获取选中行
     getSelected() {
         if (Array.isArray(this.options.data)) {
-            return this.options.data.map((row) => row.selected);
+            return this.options.data.filter((row) => row.selected == true);
         }
         return [];
     }
