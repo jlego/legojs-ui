@@ -22,7 +22,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <button type="', '" class="btn btn-', '">\n            <span>', "</span>\n        </button>\n        " ], [ '\n        <button type="', '" class="btn btn-', '">\n            <span>', "</span>\n        </button>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <button type="', '" class="btn btn-', '" ', ">\n            <span>", "</span>\n        </button>\n        " ], [ '\n        <button type="', '" class="btn btn-', '" ', ">\n            <span>", "</span>\n        </button>\n        " ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -72,6 +72,7 @@ var Buttons = function(_Lego$UI$Baseview) {
             text: "button",
             type: "secondary",
             htmlType: "button",
+            disabled: false,
             icon: "",
             shape: "",
             size: "default",
@@ -85,7 +86,7 @@ var Buttons = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject, options.htmlType, options.type, options.html || options.text);
+            var vDom = hx(_templateObject, options.htmlType, options.type, options.disabled ? "disabled" : "", options.html || options.text);
             return vDom;
         }
     }, {

@@ -14,6 +14,7 @@ class Buttons extends Lego.UI.Baseview {
             text: 'button', //text/html
             type: 'secondary',   //设置按钮类型，可选值为 primary ghost dashed 或者不设
             htmlType: 'button', //设置 button 原生的 type 值
+            disabled: false,
             icon: '',  //设置按钮的图标类型
             shape: '',    //设置按钮形状，可选值为 circle 或者不设
             size: 'default',    //设置按钮大小，可选值为 small large 或者不设
@@ -26,7 +27,7 @@ class Buttons extends Lego.UI.Baseview {
     render() {
         const options = this.options || {};
         const vDom = hx`
-        <button type="${options.htmlType}" class="btn btn-${options.type}">
+        <button type="${options.htmlType}" class="btn btn-${options.type}" ${options.disabled ? 'disabled' : ''}>
             <span>${options.html || options.text}</span>
         </button>
         `;

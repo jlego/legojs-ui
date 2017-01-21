@@ -23,6 +23,35 @@ pre p {
 .float-left{
     float: left !important;
 }
+.lego-scroll-number {
+    overflow: hidden;
+}
+.lego-badge-dot {
+    position: absolute;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    -webkit-transform-origin: 0px center;
+    -ms-transform-origin: 0px center;
+    transform-origin: 0px center;
+    top: -4px;
+    height: 8px;
+    width: 8px;
+    border-radius: 100%;
+    background: #F04134;
+    z-index: 10;
+    box-shadow: 0 0 0 1px #fff;
+}
+
+// sub, sup {
+//     font-size: 75%;
+//     line-height: 0;
+//     position: relative;
+//     vertical-align: baseline;
+// }
+// sup {
+//     top: -0.5em;
+// }
 .symbol.required {
     margin: 2px;
     color: #f30;
@@ -229,6 +258,102 @@ pre p {
 .lego-checkbox-group-item {
     display: inline-block;
 }
+
+// radio
+.lego-radio-group {
+  display: inline-block;
+  font-size: 12px;
+}
+.lego-radio-wrapper {
+  font-size: 12px;
+  vertical-align: middle;
+  display: inline-block;
+  position: relative;
+  white-space: nowrap;
+  margin-right: 8px;
+  cursor: pointer;
+}
+.lego-radio {
+  white-space: nowrap;
+  outline: none;
+  display: inline-block;
+  position: relative;
+  line-height: 1;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.lego-radio-wrapper:hover .lego-radio .lego-radio-inner,
+.lego-radio:hover .lego-radio-inner,
+.lego-radio-focused .lego-radio-inner {
+  border-color: #108ee9;
+}
+.lego-radio-inner {
+  position: relative;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 14px;
+  border-color: #d9d9d9;
+  background-color: #fff;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.lego-radio-inner:after {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  left: 3px;
+  top: 3px;
+  border-radius: 4px;
+  display: table;
+  border-top: 0;
+  border-left: 0;
+  content: ' ';
+  background-color: #108ee9;
+  opacity: 0;
+  -webkit-transform: scale(0);
+      -ms-transform: scale(0);
+          transform: scale(0);
+  -webkit-transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+}
+.lego-radio-input {
+  position: absolute;
+  left: 0;
+  z-index: 1;
+  cursor: pointer;
+  opacity: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}
+.lego-radio-checked .lego-radio-inner {
+  border-color: #108ee9;
+}
+.lego-radio-checked .lego-radio-inner:after {
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+  opacity: 1;
+  -webkit-transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+}
+.lego-radio-disabled .lego-radio-inner {
+  border-color: #d9d9d9 !important;
+  background-color: #f3f3f3;
+}
+.lego-radio-disabled .lego-radio-inner:after {
+  background-color: #cccccc;
+}
+.lego-radio-disabled + span {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
 .dropdown-menu{
     border: 1px #ddd solid;
 }

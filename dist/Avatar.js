@@ -86,6 +86,7 @@ var Avatar = function(_Lego$UI$Baseview) {
             size: "",
             name: "",
             multiple: false,
+            readonly: false,
             radius: "50%",
             showName: true,
             width: "",
@@ -103,11 +104,11 @@ var Avatar = function(_Lego$UI$Baseview) {
         value: function render() {
             var options = this.options;
             function getItem(data) {
-                return hx(_templateObject, data.value ? "background-image:url(" + val(data.value) + ");" : "", data.key, options.multiple ? hx(_templateObject2, val(data.name)) : hx(_templateObject3, val(data.name)), options.showName ? hx(_templateObject4, val(data.name)) : "");
+                return hx(_templateObject, data.value ? "background-image:url(" + val(data.value) + ");" : "", data.key, options.multiple && !options.readonly ? hx(_templateObject2, val(data.name)) : hx(_templateObject3, val(data.name)), options.showName ? hx(_templateObject4, val(data.name)) : "");
             }
             var vDom = hx(_templateObject5, options.size, options.value.length ? hx(_templateObject6, options.multiple ? options.value.map(function(item) {
                 return getItem(item);
-            }) : getItem(options.value[0])) : "", !options.value.length || options.multiple ? hx(_templateObject7) : "", options.value.map(function(item) {
+            }) : getItem(options.value[0])) : "", (!options.value.length || options.multiple) && !options.readonly ? hx(_templateObject7) : "", options.value.map(function(item) {
                 return item.key;
             }).join(","), options.name);
             return vDom;

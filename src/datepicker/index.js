@@ -7,6 +7,11 @@ import 'bootstrap-datetimepicker-cjs/css/bootstrap-datetimepicker.css';
 class Datepicker extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
+            events: {
+                'click': function(event){
+                    event.stopPropagation();
+                }
+            },
             type: 'date', //date, time, range
             name: '',
             placeholder: '选择时间', //
@@ -17,16 +22,17 @@ class Datepicker extends Lego.UI.Baseview {
             value: null,
             startInputEl: '',
             startName: opts.name,
+            startValue: '',
             startPlaceholder: '开始时间',
             endInputEl: '',
             endName: '',
+            endValue: '',
             endPlaceholder: '结束时间',
             useCurrent: false,
             setting: {},
             onChange() {} //
         };
         Object.assign(options, opts);
-        if (options.value) options.value = typeof options.value == 'function' ? options.value() : options.value;
         super(options);
         this.initDatepicker();
     }
@@ -39,7 +45,7 @@ class Datepicker extends Lego.UI.Baseview {
             let $theEl = this.$(theEl);
             if(options.inline) $theEl = this.$el;
             $theEl.datetimepicker(options.setting);
-            $theEl.on('dp.change', function(e) {
+            $theEl.on('dp.change', function(event) {
                 if (typeof options.onChange == 'function') options.onChange(that, $(this).val());
             });
         } else {
@@ -83,22 +89,22 @@ class Datepicker extends Lego.UI.Baseview {
         let vDom = '';
         if (options.type == 'range' && !options.startInputEl && !options.endInputEl) {
             vDom = hx `
-            <div class="bootstrap-datetimepicker-widget">
+            <div class="lego-datepicker">
                 <div class="input-group input-daterange datepicker date">
-                    <input type="text" class="form-control startDate ${options.disabled ? 'disabled' : ''}" name="${options.startName}" placeholder="${options.startPlaceholder}">
+                    <input type="text" class="form-control startDate ${options.disabled ? 'disabled' : ''}" value="${val(options.startValue)}" name="${options.startName}" placeholder="${options.startPlaceholder}">
                     <span class="input-group-addon">
                         至
                     </span>
-                    <input type="text" class="form-control endDate ${options.disabled ? 'disabled' : ''}" name="${options.endName}" placeholder="${options.endPlaceholder}">
+                    <input type="text" class="form-control endDate ${options.disabled ? 'disabled' : ''}" value="${val(options.endValue)}" name="${options.endName}" placeholder="${options.endPlaceholder}">
                 </div>
             </div>
             `;
         }
         if(options.type !== 'range' || (options.type == 'range' && options.startInputEl && options.endInputEl)){
             vDom = hx `
-            <div class="bootstrap-datetimepicker-widget">
+            <div class="lego-datepicker">
                 <div class="input-group date">
-                    <input class="form-control dp-input ${options.disabled ? 'disabled' : ''}" type="text" name="${options.name}" placeholder="${options.placeholder}">
+                    <input class="form-control dp-input ${options.disabled ? 'disabled' : ''}" type="text" value="${val(options.value)}" name="${options.name}" placeholder="${options.placeholder}">
                     <span class="input-group-addon">
                         <i class="anticon anticon-${options.type == 'time' ? 'clock-circle-o' : 'calendar'}"></i>
                     </span>
