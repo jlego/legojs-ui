@@ -1,3 +1,6 @@
+import moment from 'moment';
+window.moment = moment;
+
 const Util = {
     /**
      * 唯一码
@@ -229,7 +232,7 @@ const Util = {
         "[折磨]", "[玫瑰]", "[凋谢]", "[衰]", "[骷髅]", "[猪头]", "[闪电]", "[炸弹]", "[饭]", "[西瓜]", "[蛋糕]", "[礼物]", "[太阳]", "[月亮]", "[鞭炮]"
     ],
     //表情转字符串
-    faceToText(str, iconUrl, faceTags = this.faceTags) {
+    faceToText(str, faceTags = this.faceTags) {
         const patt = new RegExp('<img face=\"\" src=\".*?f0(\\d+).gif\"+/?>', 'g');
         let newStr = str, arr;
         if (str.indexOf("<img") == -1) {
@@ -242,14 +245,14 @@ const Util = {
         return newStr;
     },
     //字符串转表情
-    textToFace(str, iconUrl, faceTags = this.faceTags) {
+    textToFace(str, faceTags = this.faceTags) {
         str = this.unFilterTag(str);
         const arr = str.match(/\[.*?\]/g);
         if (arr) {
             for (let i = 0; i < arr.length; i++) {
                 let index = faceTags.indexOf(arr[i]);
                 if (index >= 0) {
-                    str = str.replace(arr[i], '<img face="" src="' + iconUrl + index + '.gif"/>');
+                    str = str.replace(arr[i], '<img face="" src="' + Lego.config.faceIconUri + index + '.gif"/>');
                 }
             }
         }
@@ -283,7 +286,7 @@ const Util = {
 };
 // 判断是否空值(主要用于视图模板)
 window.val = function(value, defaultValue){
-    return value ? value : (defaultValue || '');
+    return value ? (typeof value == 'function' ? value() : value) : (defaultValue || '');
 };
 Lego.components('Util', Util);
 export default Util;

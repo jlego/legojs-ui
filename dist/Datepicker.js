@@ -42,9 +42,9 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n            <div class="bootstrap-datetimepicker-widget">\n                <div class="input-group input-daterange datepicker date">\n                    <input type="text" class="form-control startDate ', '" name="', '" placeholder="', '">\n                    <span class="input-group-addon">\n                        至\n                    </span>\n                    <input type="text" class="form-control endDate ', '" name="', '" placeholder="', '">\n                </div>\n            </div>\n            ' ], [ '\n            <div class="bootstrap-datetimepicker-widget">\n                <div class="input-group input-daterange datepicker date">\n                    <input type="text" class="form-control startDate ', '" name="', '" placeholder="', '">\n                    <span class="input-group-addon">\n                        至\n                    </span>\n                    <input type="text" class="form-control endDate ', '" name="', '" placeholder="', '">\n                </div>\n            </div>\n            ' ]);
+var _templateObject = _taggedTemplateLiteral([ '\n            <div class="lego-datepicker">\n                <div class="input-group input-daterange datepicker date">\n                    <input type="text" class="form-control startDate ', '" value="', '" name="', '" placeholder="', '">\n                    <span class="input-group-addon">\n                        至\n                    </span>\n                    <input type="text" class="form-control endDate ', '" value="', '" name="', '" placeholder="', '">\n                </div>\n            </div>\n            ' ], [ '\n            <div class="lego-datepicker">\n                <div class="input-group input-daterange datepicker date">\n                    <input type="text" class="form-control startDate ', '" value="', '" name="', '" placeholder="', '">\n                    <span class="input-group-addon">\n                        至\n                    </span>\n                    <input type="text" class="form-control endDate ', '" value="', '" name="', '" placeholder="', '">\n                </div>\n            </div>\n            ' ]);
 
-var _templateObject2 = _taggedTemplateLiteral([ '\n            <div class="bootstrap-datetimepicker-widget">\n                <div class="input-group date">\n                    <input class="form-control dp-input ', '" type="text" name="', '" placeholder="', '">\n                    <span class="input-group-addon">\n                        <i class="anticon anticon-', '"></i>\n                    </span>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="bootstrap-datetimepicker-widget">\n                <div class="input-group date">\n                    <input class="form-control dp-input ', '" type="text" name="', '" placeholder="', '">\n                    <span class="input-group-addon">\n                        <i class="anticon anticon-', '"></i>\n                    </span>\n                </div>\n            </div>\n            ' ]);
+var _templateObject2 = _taggedTemplateLiteral([ '\n            <div class="lego-datepicker">\n                <div class="input-group date">\n                    <input class="form-control dp-input ', '" type="text" value="', '" name="', '" placeholder="', '">\n                    <span class="input-group-addon">\n                        <i class="anticon anticon-', '"></i>\n                    </span>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="lego-datepicker">\n                <div class="input-group date">\n                    <input class="form-control dp-input ', '" type="text" value="', '" name="', '" placeholder="', '">\n                    <span class="input-group-addon">\n                        <i class="anticon anticon-', '"></i>\n                    </span>\n                </div>\n            </div>\n            ' ]);
 
 var _templateObject3 = _taggedTemplateLiteral([ "<div></div>" ], [ "<div></div>" ]);
 
@@ -90,6 +90,11 @@ var Datepicker = function(_Lego$UI$Baseview) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Datepicker);
         var options = {
+            events: {
+                click: function click(event) {
+                    event.stopPropagation();
+                }
+            },
             type: "date",
             name: "",
             placeholder: "选择时间",
@@ -100,16 +105,17 @@ var Datepicker = function(_Lego$UI$Baseview) {
             value: null,
             startInputEl: "",
             startName: opts.name,
+            startValue: "",
             startPlaceholder: "开始时间",
             endInputEl: "",
             endName: "",
+            endValue: "",
             endPlaceholder: "结束时间",
             useCurrent: false,
             setting: {},
             onChange: function onChange() {}
         };
         Object.assign(options, opts);
-        if (options.value) options.value = typeof options.value == "function" ? options.value() : options.value;
         var _this = _possibleConstructorReturn(this, (Datepicker.__proto__ || Object.getPrototypeOf(Datepicker)).call(this, options));
         _this.initDatepicker();
         return _this;
@@ -128,7 +134,7 @@ var Datepicker = function(_Lego$UI$Baseview) {
                 var $theEl = this.$(theEl);
                 if (options.inline) $theEl = this.$el;
                 $theEl.datetimepicker(options.setting);
-                $theEl.on("dp.change", function(e) {
+                $theEl.on("dp.change", function(event) {
                     if (typeof options.onChange == "function") options.onChange(that, $(this).val());
                 });
             } else {
@@ -178,10 +184,10 @@ var Datepicker = function(_Lego$UI$Baseview) {
             var options = this.options || {};
             var vDom = "";
             if (options.type == "range" && !options.startInputEl && !options.endInputEl) {
-                vDom = hx(_templateObject, options.disabled ? "disabled" : "", options.startName, options.startPlaceholder, options.disabled ? "disabled" : "", options.endName, options.endPlaceholder);
+                vDom = hx(_templateObject, options.disabled ? "disabled" : "", val(options.startValue), options.startName, options.startPlaceholder, options.disabled ? "disabled" : "", val(options.endValue), options.endName, options.endPlaceholder);
             }
             if (options.type !== "range" || options.type == "range" && options.startInputEl && options.endInputEl) {
-                vDom = hx(_templateObject2, options.disabled ? "disabled" : "", options.name, options.placeholder, options.type == "time" ? "clock-circle-o" : "calendar");
+                vDom = hx(_templateObject2, options.disabled ? "disabled" : "", val(options.value), options.name, options.placeholder, options.type == "time" ? "clock-circle-o" : "calendar");
             }
             if (options.inline) vDom = hx(_templateObject3);
             return vDom;

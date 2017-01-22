@@ -36,7 +36,7 @@ var _templateObject2$1 = _taggedTemplateLiteral$1([ '<i class="lego-facial-trigg
 
 var _templateObject3$1 = _taggedTemplateLiteral$1([ '<i class="lego-facial-trigger ', '"></i>' ], [ '<i class="lego-facial-trigger ', '"></i>' ]);
 
-var _templateObject4 = _taggedTemplateLiteral$1([ '\n                    <li class="lego-facial-item ', "", '"><a href="javascript:void(0);"\n                    title="', '"><img src="', "", "", '.gif" /></a></li>\n                ' ], [ '\n                    <li class="lego-facial-item ', "", '"><a href="javascript:void(0);"\n                    title="', '"><img src="', "", "", '.gif" /></a></li>\n                ' ]);
+var _templateObject4$1 = _taggedTemplateLiteral$1([ '\n                    <li class="lego-facial-item ', "", '"><a href="javascript:void(0);"\n                    title="', '"><img src="', "", '.gif" /></a></li>\n                ' ], [ '\n                    <li class="lego-facial-item ', "", '"><a href="javascript:void(0);"\n                    title="', '"><img src="', "", '.gif" /></a></li>\n                ' ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -84,6 +84,7 @@ var Facial = function(_Lego$UI$Baseview) {
                 "click .lego-facial-item a": "clickItem"
             },
             target: "",
+            targetType: "div",
             icon: "anticon anticon-smile-o",
             text: "",
             eventName: "hover",
@@ -103,7 +104,7 @@ var Facial = function(_Lego$UI$Baseview) {
         value: function render() {
             var options = this.options, dataLength = options.data.length, widthPercent = 10 / (dataLength - 1) * 10;
             var vDom = hx(_templateObject$1, options.text ? hx(_templateObject2$1, val(options.text)) : hx(_templateObject3$1, options.icon), options.direction ? "drop" + options.direction : "", options.data.map(function(item, index) {
-                return hx(_templateObject4, options.itemClassPrefix, index, item, options.iconsUrl, options.itemClassPrefix, index);
+                return hx(_templateObject4$1, options.itemClassPrefix, index, item, options.iconsUrl || Lego.config.faceIconUri, index);
             }));
             return vDom;
         }
@@ -141,7 +142,11 @@ var Facial = function(_Lego$UI$Baseview) {
         key: "clickItem",
         value: function clickItem(event) {
             var target = $(event.currentTarget), targetEl = this.options.target instanceof $ ? this.options.target : $(this.options.target);
-            this.addComma(targetEl, target.attr("title"));
+            if (this.options.targetType == "div") {
+                this.addComma(targetEl, target.attr("title"));
+            } else {
+                this.addOnPos(targetEl, target.attr("title"));
+            }
             this.close();
         }
     }, {
@@ -175,12 +180,37 @@ var Facial = function(_Lego$UI$Baseview) {
             }, 0);
         }
     }, {
+        key: "addOnPos",
+        value: function addOnPos(selector, myValue) {
+            selector = selector[0];
+            if (document.selection) {
+                selector.focus();
+                sel = document.selection.createRange();
+                sel.text = myValue;
+                sel.select();
+            } else if (selector.selectionStart || selector.selectionStart == "0") {
+                var startPos = selector.selectionStart;
+                var endPos = selector.selectionEnd;
+                var restoreTop = selector.scrollTop;
+                selector.value = selector.value.substring(0, startPos) + myValue + selector.value.substring(endPos, selector.value.length);
+                if (restoreTop > 0) {
+                    selector.scrollTop = restoreTop;
+                }
+                selector.focus();
+                selector.selectionStart = startPos + myValue.length;
+                selector.selectionEnd = startPos + myValue.length;
+            } else {
+                selector.value += myValue;
+                selector.focus();
+            }
+        }
+    }, {
         key: "addComma",
         value: function addComma(selector, text) {
             var sel = void 0, range = void 0, el = selector[0], that = this;
             el.focus();
             if (!selector.html().length) this.cursorPos = 0;
-            text = Lego.UI.Util.textToFace(text, this.options.iconsUrl + this.options.itemClassPrefix);
+            text = this.options.targetType == "div" ? Lego.UI.Util.textToFace(text, this.options.iconsUrl + this.options.itemClassPrefix) : text;
             if (window.getSelection) {
                 sel = window.getSelection();
                 range = sel.getRangeAt(0);
@@ -1416,7 +1446,7 @@ var _templateObject2$3 = _taggedTemplateLiteral$3([ '\n            <div class="m
 
 var _templateObject3$3 = _taggedTemplateLiteral$3([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    ', "\n                    ", "\n                </h4>\n                <small>\n                    <cite>", '</cite>\n                    <time>\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </time>\n                </small>\n            </div>\n            ' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    ', "\n                    ", "\n                </h4>\n                <small>\n                    <cite>", '</cite>\n                    <time>\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </time>\n                </small>\n            </div>\n            ' ]);
 
-var _templateObject4$1 = _taggedTemplateLiteral$3([ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ], [ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ]);
+var _templateObject4$2 = _taggedTemplateLiteral$3([ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ], [ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ]);
 
 function _taggedTemplateLiteral$3(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -1484,7 +1514,7 @@ var UploadItem = function(_UploadBase) {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject$3, Lego.UI.Util.getFileIcon(options.file.name), options.percent < 100 ? hx(_templateObject2$3, val(options.file.name), "progressbar_" + options.vid) : hx(_templateObject3$3, !options.readonly && options.percent == 100 ? hx(_templateObject4$1) : "", val(options.file.name), Lego.UI.Util.convertByteUnit(options.file.size), val(options.file.url), val(options.file.name)));
+            var vDom = hx(_templateObject$3, Lego.UI.Util.getFileIcon(options.file.name), options.percent < 100 ? hx(_templateObject2$3, val(options.file.name), "progressbar_" + options.vid) : hx(_templateObject3$3, !options.readonly && options.percent == 100 ? hx(_templateObject4$2) : "", val(options.file.name), Lego.UI.Util.convertByteUnit(options.file.size), val(options.file.url), val(options.file.name)));
             return vDom;
         }
     }, {
@@ -1820,11 +1850,15 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-reply">\n            <p class="lego-reply-content" id="content-', '"><span class="lego-reply-ph">', '</span></p>\n            <button type="button" class="btn btn-primary lego-reply-submit">', '</button>\n            <div class="lego-reply-toolbar">\n                ', "\n                ", '\n            </div>\n            <div class="popover popover-bottom" style="display:none;">\n                <div class="popover-arrow"></div><h3 class="popover-title">上传附件 <i class="anticon anticon-close" style="float:right"></i></h3>\n                <div class="popover-content"><upload id="upload-', '"></upload></div>\n            </div>\n        </div>\n        ' ], [ '\n        <div class="lego-reply">\n            <p class="lego-reply-content" id="content-', '"><span class="lego-reply-ph">', '</span></p>\n            <button type="button" class="btn btn-primary lego-reply-submit">', '</button>\n            <div class="lego-reply-toolbar">\n                ', "\n                ", '\n            </div>\n            <div class="popover popover-bottom" style="display:none;">\n                <div class="popover-arrow"></div><h3 class="popover-title">上传附件 <i class="anticon anticon-close" style="float:right"></i></h3>\n                <div class="popover-content"><upload id="upload-', '"></upload></div>\n            </div>\n        </div>\n        ' ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-reply">\n            ', '\n            <button type="button" class="btn btn-primary lego-reply-submit">', '</button>\n            <div class="lego-reply-toolbar">\n                ', "\n                ", '\n            </div>\n            <div class="popover popover-bottom" style="display:none;">\n                <div class="popover-arrow"></div><h3 class="popover-title">上传附件 <i class="anticon anticon-close" style="float:right"></i></h3>\n                <div class="popover-content"><upload id="upload-', '"></upload></div>\n            </div>\n        </div>\n        ' ], [ '\n        <div class="lego-reply">\n            ', '\n            <button type="button" class="btn btn-primary lego-reply-submit">', '</button>\n            <div class="lego-reply-toolbar">\n                ', "\n                ", '\n            </div>\n            <div class="popover popover-bottom" style="display:none;">\n                <div class="popover-arrow"></div><h3 class="popover-title">上传附件 <i class="anticon anticon-close" style="float:right"></i></h3>\n                <div class="popover-content"><upload id="upload-', '"></upload></div>\n            </div>\n        </div>\n        ' ]);
 
-var _templateObject2 = _taggedTemplateLiteral([ '<facial id="facial-', '"></facial>' ], [ '<facial id="facial-', '"></facial>' ]);
+var _templateObject2 = _taggedTemplateLiteral([ '\n            <div class="lego-reply-content" id="content-', '"><span class="lego-reply-ph">', "</span></div>\n            " ], [ '\n            <div class="lego-reply-content" id="content-', '"><span class="lego-reply-ph">', "</span></div>\n            " ]);
 
-var _templateObject3 = _taggedTemplateLiteral([ '<div id="annex-', '" class="lego-reply-annex"><i class="anticon anticon-paper-clip"></i></div>' ], [ '<div id="annex-', '" class="lego-reply-annex"><i class="anticon anticon-paper-clip"></i></div>' ]);
+var _templateObject3 = _taggedTemplateLiteral([ '\n            <textarea placeholder="', '" class="form-control lego-reply-content" id="content-', '"></textarea>\n            ' ], [ '\n            <textarea placeholder="', '" class="form-control lego-reply-content" id="content-', '"></textarea>\n            ' ]);
+
+var _templateObject4 = _taggedTemplateLiteral([ '<facial id="facial-', '"></facial>' ], [ '<facial id="facial-', '"></facial>' ]);
+
+var _templateObject5 = _taggedTemplateLiteral([ '<div id="annex-', '" class="lego-reply-annex"><i class="anticon anticon-paper-clip"></i></div>' ], [ '<div id="annex-', '" class="lego-reply-annex"><i class="anticon anticon-paper-clip"></i></div>' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -1876,6 +1910,7 @@ var Reply = function(_Lego$UI$Baseview) {
                 "click .popover-title i": "showUpload",
                 "keydown .lego-reply-content": "_enterSearch"
             },
+            inputType: "textarea",
             placeholder: "请输入回复内容",
             contentHeight: 70,
             showFacial: true,
@@ -1892,6 +1927,7 @@ var Reply = function(_Lego$UI$Baseview) {
             options.components.push({
                 el: "#facial-" + options.vid,
                 target: "#content-" + options.vid,
+                targetType: options.inputType,
                 iconsUrl: options.iconsUrl
             });
         }
@@ -1912,7 +1948,7 @@ var Reply = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options;
-            var vDom = hx(_templateObject, options.vid, val(options.placeholder), val(options.submitText), options.showFacial ? hx(_templateObject2, options.vid) : "", options.showUpload ? hx(_templateObject3, options.vid) : "", options.vid);
+            var vDom = hx(_templateObject, options.inputType == "div" ? hx(_templateObject2, options.vid, val(options.placeholder)) : hx(_templateObject3, val(options.placeholder), options.vid), val(options.submitText), options.showFacial ? hx(_templateObject4, options.vid) : "", options.showUpload ? hx(_templateObject5, options.vid) : "", options.vid);
             return vDom;
         }
     }, {
@@ -1930,7 +1966,7 @@ var Reply = function(_Lego$UI$Baseview) {
         key: "onblur",
         value: function onblur(event) {
             var target = $(event.currentTarget), options = this.options;
-            if (!target.text() && !target.find("img").length) target.html(this.placeholder);
+            if (!target.text() && !target.find("img").length && options.inputType == "div") target.html(this.placeholder);
         }
     }, {
         key: "showUpload",
@@ -1940,7 +1976,7 @@ var Reply = function(_Lego$UI$Baseview) {
     }, {
         key: "_enterSearch",
         value: function _enterSearch(event) {
-            var target = $(event.currentTarget);
+            var target = $(event.currentTarget), options = this.options;
             if (event.which === 13) {
                 if (!event.ctrlKey) {
                     this.onSubmit(event);
@@ -1955,9 +1991,13 @@ var Reply = function(_Lego$UI$Baseview) {
         value: function onSubmit(event) {
             event.stopPropagation();
             var contentEl = this.$(".lego-reply-content");
-            var contentHtml = contentEl.html();
-            contentHtml = Lego.UI.Util.faceToText(contentHtml, this.options.iconsUrl);
-            contentEl.html(this.placeholder);
+            var contentHtml = this.options.inputType == "div" ? contentEl.html() : contentEl.val();
+            contentHtml = this.options.inputType == "div" ? Lego.UI.Util.faceToText(contentHtml, this.options.iconsUrl) : contentHtml;
+            if (this.options.inputType == "div") {
+                contentEl.html(this.placeholder);
+            } else {
+                contentEl.val("");
+            }
             contentHtml = contentHtml == this.placeholder ? "" : contentHtml;
             if (typeof this.options.onSubmit == "function") this.options.onSubmit(this, contentHtml);
         }

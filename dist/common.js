@@ -21,6 +21,8 @@ var toastr = _interopDefault(require("toastr-cjs"));
 
 var toastrCjs_toastr_css = require("toastr-cjs/toastr.css");
 
+var moment = _interopDefault(require("moment"));
+
 function Notification() {
     var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "info";
     var content = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
@@ -90,6 +92,8 @@ function _defineProperty(obj, key, value) {
     }
     return obj;
 }
+
+window.moment = moment;
 
 var Util = {
     uuid: function uuid() {
@@ -238,8 +242,8 @@ var Util = {
         return str.replace(/&/gi, "&amp;").replace(/</gi, "&lt;").replace(/>/gi, "&gt;").replace(/\r?\n/gi, "<br>").replace(/&nbsp;/gi, " ");
     },
     faceTags: [ "[微笑]", "[撇嘴]", "[色]", "[发呆]", "[得意]", "[流泪]", "[害羞]", "[闭嘴]", "[睡]", "[大哭]", "[尴尬]", "[发怒]", "[调皮]", "[呲牙]", "[惊讶]", "[酷]", "[冷汗]", "[抓狂]", "[吐]", "[偷笑]", "[白眼]", "[傲慢]", "[饥饿]", "[困]", "[惊恐]", "[流汗]", "[憨笑]", "[大兵]", "[奋斗]", "[疑问]", "[嘘]", "[晕]", "[敲打]", "[再见]", "[擦汗]", "[抠鼻]", "[鼓掌]", "[糗大了]", "[坏笑]", "[左哼哼]", "[右哼哼]", "[哈欠]", "[鄙视]", "[委屈]", "[快哭了]", "[阴脸]", "[亲亲]", "[吓]", "[可怜]", "[菜刀]", "[啤酒]", "[篮球]", "[乒乓球]", "[咖啡]", "[示爱]", "[爱心]", "[心碎]", "[刀]", "[足球]", "[瓢虫]", "[便便]", "[拥抱]", "[强]", "[弱]", "[握手]", "[胜利]", "[抱拳]", "[勾引]", "[拳头]", "[差劲]", "[爱你]", "[NO]", "[OK]", "[可爱]", "[咒骂]", "[折磨]", "[玫瑰]", "[凋谢]", "[衰]", "[骷髅]", "[猪头]", "[闪电]", "[炸弹]", "[饭]", "[西瓜]", "[蛋糕]", "[礼物]", "[太阳]", "[月亮]", "[鞭炮]" ],
-    faceToText: function faceToText(str, iconUrl) {
-        var faceTags = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.faceTags;
+    faceToText: function faceToText(str) {
+        var faceTags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.faceTags;
         var patt = new RegExp('<img face="" src=".*?f0(\\d+).gif"+/?>', "g");
         var newStr = str, arr = void 0;
         if (str.indexOf("<img") == -1) {
@@ -251,15 +255,15 @@ var Util = {
         newStr = this.filterTag(newStr);
         return newStr;
     },
-    textToFace: function textToFace(str, iconUrl) {
-        var faceTags = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.faceTags;
+    textToFace: function textToFace(str) {
+        var faceTags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.faceTags;
         str = this.unFilterTag(str);
         var arr = str.match(/\[.*?\]/g);
         if (arr) {
             for (var i = 0; i < arr.length; i++) {
                 var index = faceTags.indexOf(arr[i]);
                 if (index >= 0) {
-                    str = str.replace(arr[i], '<img face="" src="' + iconUrl + index + '.gif"/>');
+                    str = str.replace(arr[i], '<img face="" src="' + Lego.config.faceIconUri + index + '.gif"/>');
                 }
             }
         }
@@ -292,7 +296,7 @@ var Util = {
 };
 
 window.val = function(value, defaultValue) {
-    return value ? value : defaultValue || "";
+    return value ? typeof value == "function" ? value() : value : defaultValue || "";
 };
 
 Lego.components("Util", Util);

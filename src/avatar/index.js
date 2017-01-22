@@ -21,6 +21,7 @@ class Avatar extends Lego.UI.Baseview {
             size: '', //大小
             name: '',
             multiple: false,  //多选
+            readonly: false,
             radius: '50%',  //半径
             showName: true,  //是否显示名称
             width: '',
@@ -39,7 +40,7 @@ class Avatar extends Lego.UI.Baseview {
             return hx`
             <div class="lego-avatar-item">
                 <div class="lego-avatar-img" style="${data.value ? ('background-image:url(' + val(data.value) + ');') : ''}" id="${data.key}">
-                    ${options.multiple ? hx`<i class="anticon anticon-close remove" title="删除 ${val(data.name)}"></i>` : hx`<i class="anticon anticon-swap change" title="更换 ${val(data.name)}"></i>`}
+                    ${options.multiple && !options.readonly ? hx`<i class="anticon anticon-close remove" title="删除 ${val(data.name)}"></i>` : hx`<i class="anticon anticon-swap change" title="更换 ${val(data.name)}"></i>`}
                 </div>
                 ${options.showName ? hx`<label>${val(data.name)}</label>` : ''}
             </div>
@@ -52,7 +53,7 @@ class Avatar extends Lego.UI.Baseview {
                 return getItem(item);
             }) : getItem(options.value[0])}
         ` : ''}
-        ${!options.value.length || options.multiple ? hx`
+        ${(!options.value.length || options.multiple) && !options.readonly ? hx`
             <div class="lego-avatar-item addbtn">
                 <div class="lego-avatar-img">
                 <i class="anticon anticon-plus add" title="添加"></i>

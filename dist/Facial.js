@@ -28,7 +28,7 @@ var _templateObject2 = _taggedTemplateLiteral([ '<i class="lego-facial-trigger">
 
 var _templateObject3 = _taggedTemplateLiteral([ '<i class="lego-facial-trigger ', '"></i>' ], [ '<i class="lego-facial-trigger ', '"></i>' ]);
 
-var _templateObject4 = _taggedTemplateLiteral([ '\n                    <li class="lego-facial-item ', "", '"><a href="javascript:void(0);"\n                    title="', '"><img src="', "", "", '.gif" /></a></li>\n                ' ], [ '\n                    <li class="lego-facial-item ', "", '"><a href="javascript:void(0);"\n                    title="', '"><img src="', "", "", '.gif" /></a></li>\n                ' ]);
+var _templateObject4 = _taggedTemplateLiteral([ '\n                    <li class="lego-facial-item ', "", '"><a href="javascript:void(0);"\n                    title="', '"><img src="', "", '.gif" /></a></li>\n                ' ], [ '\n                    <li class="lego-facial-item ', "", '"><a href="javascript:void(0);"\n                    title="', '"><img src="', "", '.gif" /></a></li>\n                ' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -76,6 +76,7 @@ var Facial = function(_Lego$UI$Baseview) {
                 "click .lego-facial-item a": "clickItem"
             },
             target: "",
+            targetType: "div",
             icon: "anticon anticon-smile-o",
             text: "",
             eventName: "hover",
@@ -95,7 +96,7 @@ var Facial = function(_Lego$UI$Baseview) {
         value: function render() {
             var options = this.options, dataLength = options.data.length, widthPercent = 10 / (dataLength - 1) * 10;
             var vDom = hx(_templateObject, options.text ? hx(_templateObject2, val(options.text)) : hx(_templateObject3, options.icon), options.direction ? "drop" + options.direction : "", options.data.map(function(item, index) {
-                return hx(_templateObject4, options.itemClassPrefix, index, item, options.iconsUrl, options.itemClassPrefix, index);
+                return hx(_templateObject4, options.itemClassPrefix, index, item, options.iconsUrl || Lego.config.faceIconUri, index);
             }));
             return vDom;
         }
@@ -133,7 +134,11 @@ var Facial = function(_Lego$UI$Baseview) {
         key: "clickItem",
         value: function clickItem(event) {
             var target = $(event.currentTarget), targetEl = this.options.target instanceof $ ? this.options.target : $(this.options.target);
-            this.addComma(targetEl, target.attr("title"));
+            if (this.options.targetType == "div") {
+                this.addComma(targetEl, target.attr("title"));
+            } else {
+                this.addOnPos(targetEl, target.attr("title"));
+            }
             this.close();
         }
     }, {
@@ -167,12 +172,37 @@ var Facial = function(_Lego$UI$Baseview) {
             }, 0);
         }
     }, {
+        key: "addOnPos",
+        value: function addOnPos(selector, myValue) {
+            selector = selector[0];
+            if (document.selection) {
+                selector.focus();
+                sel = document.selection.createRange();
+                sel.text = myValue;
+                sel.select();
+            } else if (selector.selectionStart || selector.selectionStart == "0") {
+                var startPos = selector.selectionStart;
+                var endPos = selector.selectionEnd;
+                var restoreTop = selector.scrollTop;
+                selector.value = selector.value.substring(0, startPos) + myValue + selector.value.substring(endPos, selector.value.length);
+                if (restoreTop > 0) {
+                    selector.scrollTop = restoreTop;
+                }
+                selector.focus();
+                selector.selectionStart = startPos + myValue.length;
+                selector.selectionEnd = startPos + myValue.length;
+            } else {
+                selector.value += myValue;
+                selector.focus();
+            }
+        }
+    }, {
         key: "addComma",
         value: function addComma(selector, text) {
             var sel = void 0, range = void 0, el = selector[0], that = this;
             el.focus();
             if (!selector.html().length) this.cursorPos = 0;
-            text = Lego.UI.Util.textToFace(text, this.options.iconsUrl + this.options.itemClassPrefix);
+            text = this.options.targetType == "div" ? Lego.UI.Util.textToFace(text, this.options.iconsUrl + this.options.itemClassPrefix) : text;
             if (window.getSelection) {
                 sel = window.getSelection();
                 range = sel.getRangeAt(0);

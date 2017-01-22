@@ -12,6 +12,7 @@ class Facial extends Lego.UI.Baseview {
                 'click .lego-facial-item a': 'clickItem'
             },
             target: '', //插入目标节点
+            targetType: 'div',
             icon: 'anticon anticon-smile-o',
             text: '',
             eventName: 'hover', //['click'] or ['hover']
@@ -36,7 +37,7 @@ class Facial extends Lego.UI.Baseview {
                 <ul>
                 ${options.data.map((item, index) => hx`
                     <li class="lego-facial-item ${options.itemClassPrefix}${index}"><a href="javascript:void(0);"
-                    title="${item}"><img src="${options.iconsUrl}${options.itemClassPrefix}${index}.gif" /></a></li>
+                    title="${item}"><img src="${options.iconsUrl || Lego.config.faceIconUri}${index}.gif" /></a></li>
                 `)}
                 </ul>
             </div>
@@ -77,7 +78,11 @@ class Facial extends Lego.UI.Baseview {
     clickItem(event){
         const target = $(event.currentTarget),
             targetEl = this.options.target instanceof $ ? this.options.target : $(this.options.target);
-        this.addComma(targetEl, target.attr('title'));
+        if(this.options.targetType == 'div'){
+            this.addComma(targetEl, target.attr('title'));
+        }else{
+            this.addOnPos(targetEl, target.attr('title'));
+        }
         this.close();
     }
     show(event){
@@ -107,14 +112,44 @@ class Facial extends Lego.UI.Baseview {
             }
         }, 0);
     }
-    // 插入内容
+    // areatext
+    addOnPos(selector, myValue) {
+        selector = selector[0];
+        //IE support
+        if (document.selection) {
+            selector.focus();
+            sel = document.selection.createRange();
+            sel.text = myValue;
+            sel.select();
+        }
+
+        //MOZILLA/NETSCAPE support
+        else if (selector.selectionStart || selector.selectionStart == '0') {
+            var startPos = selector.selectionStart;
+            var endPos = selector.selectionEnd;
+            // save scrollTop before insert
+            var restoreTop = selector.scrollTop;
+            selector.value = selector.value.substring(0, startPos) + myValue + selector.value.substring(endPos, selector.value.length);
+            if (restoreTop > 0) {
+                // restore previous scrollTop
+                selector.scrollTop = restoreTop;
+            }
+            selector.focus();
+            selector.selectionStart = startPos + myValue.length;
+            selector.selectionEnd = startPos + myValue.length;
+        } else {
+            selector.value += myValue;
+            selector.focus();
+        }
+    }
+    // div插入内容
     addComma(selector, text) {
         let sel, range,
         el = selector[0],
         that = this;
         el.focus();
         if (!selector.html().length) this.cursorPos = 0;
-        text = Lego.UI.Util.textToFace(text, this.options.iconsUrl + this.options.itemClassPrefix);
+        text = this.options.targetType == 'div' ? Lego.UI.Util.textToFace(text, this.options.iconsUrl + this.options.itemClassPrefix) : text;
         if (window.getSelection) {
             sel = window.getSelection();
             range = sel.getRangeAt(0);

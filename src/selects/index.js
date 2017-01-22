@@ -66,12 +66,6 @@ class Selects extends Lego.UI.Baseview {
             }]
         };
         Object.assign(options, opts);
-        if(options.value.length){
-            options.value.forEach(item => {
-                const model = options.data.find(model => model.key === item.key);
-                if(model) model.selected = true;
-            });
-        }
         super(options);
         const eventName = 'click.select_' + opts.vid,
             callback = this.clickItemClose.bind(this);
@@ -122,6 +116,16 @@ class Selects extends Lego.UI.Baseview {
             `;
         }
         return vDom;
+    }
+    renderAfter(){
+        if(this.options.value.length && this.options.multiple){
+            this.options.value.forEach(item => {
+                if(item){
+                    const model = this.options.data.find(model => model.key === item.key);
+                    if(model) model.selected = true;
+                }
+            });
+        }
     }
     clickItemClose(event){
         event.stopPropagation();

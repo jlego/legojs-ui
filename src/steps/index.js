@@ -37,7 +37,7 @@ class Steps extends Lego.UI.Baseview {
         <div class="lego-steps lego-steps-${options.direction} lego-steps-label-${options.direction} ${!options.showNum ? 'lego-steps-sm' : ''}">
         ${options.data.map((item, index) => {
             return hx`
-            <div class="lego-steps-item lego-steps-status-${options.current == index ? options.status : (item.status ? item.status : 'wait')}"
+            <div class="lego-steps-item lego-steps-status-${options.current == index ? options.status : (item.status ? item.status : (options.current > index ? 'finish': 'wait'))}"
             style="${index == dataLength - 1 ? '' : ('width:' + widthPercent + '%;')} margin-right:-${(options.titleWidth)/2}px;">
                 ${index < dataLength ? hx`<div class="lego-steps-tail"
                 style="${index == dataLength - 1 ? ('padding-right:' + options.titleWidth + 'px') : ('padding-right:' + options.titleWidth/2 + 'px')}"><i></i></div>` : ''}

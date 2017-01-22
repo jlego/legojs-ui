@@ -19,6 +19,7 @@ class Reply extends Lego.UI.Baseview {
                 'click .popover-title i': 'showUpload',
                 'keydown .lego-reply-content': '_enterSearch'
             },
+            inputType: 'textarea',   //输入框类型  textarea或div
             placeholder: '请输入回复内容', //
             contentHeight: 70,  //输入框高度
             showFacial: true,   //显示表情
@@ -35,6 +36,7 @@ class Reply extends Lego.UI.Baseview {
             options.components.push({
                 el: '#facial-' + options.vid,
                 target: '#content-' + options.vid,
+                targetType: options.inputType,
                 iconsUrl: options.iconsUrl
             });
         }
@@ -54,7 +56,11 @@ class Reply extends Lego.UI.Baseview {
         const options = this.options;
         const vDom = hx`
         <div class="lego-reply">
-            <p class="lego-reply-content" id="content-${options.vid}"><span class="lego-reply-ph">${val(options.placeholder)}</span></p>
+            ${options.inputType == 'div' ? hx`
+            <div class="lego-reply-content" id="content-${options.vid}"><span class="lego-reply-ph">${val(options.placeholder)}</span></div>
+            ` : hx`
+            <textarea placeholder="${val(options.placeholder)}" class="form-control lego-reply-content" id="content-${options.vid}"></textarea>
+            `}
             <button type="button" class="btn btn-primary lego-reply-submit">${val(options.submitText)}</button>
             <div class="lego-reply-toolbar">
                 ${options.showFacial ? hx`<facial id="facial-${options.vid}"></facial>` : ''}
@@ -78,13 +84,14 @@ class Reply extends Lego.UI.Baseview {
     onblur(event){
         const target = $(event.currentTarget),
             options = this.options;
-        if(!target.text() && !target.find('img').length) target.html(this.placeholder);
+        if(!target.text() && !target.find('img').length && options.inputType == 'div') target.html(this.placeholder);
     }
     showUpload(event){
         this.$('.popover').toggleClass('show');
     }
     _enterSearch(event) {
-        const target = $(event.currentTarget);
+        const target = $(event.currentTarget),
+            options = this.options;
         if (event.which === 13) {
             if (!event.ctrlKey) {
                 this.onSubmit(event);
@@ -97,10 +104,15 @@ class Reply extends Lego.UI.Baseview {
     onSubmit(event){
         event.stopPropagation();
         const contentEl = this.$('.lego-reply-content');
-        let contentHtml = contentEl.html();
-        contentHtml = Lego.UI.Util.faceToText(contentHtml, this.options.iconsUrl);
-        contentEl.html(this.placeholder);
+        let contentHtml = this.options.inputType == 'div' ? contentEl.html() : contentEl.val();
+        contentHtml = this.options.inputType == 'div' ? Lego.UI.Util.faceToText(contentHtml, this.options.iconsUrl) : contentHtml;
+        if(this.options.inputType == 'div'){
+            contentEl.html(this.placeholder);
+        }else{
+            contentEl.val('');
+        }
         contentHtml = contentHtml == this.placeholder ? '' : contentHtml;
+        // console.warn(contentHtml);
         if(typeof this.options.onSubmit == 'function') this.options.onSubmit(this, contentHtml);
     }
 }

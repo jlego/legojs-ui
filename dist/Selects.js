@@ -309,14 +309,6 @@ var Selects = function(_Lego$UI$Baseview) {
             } ]
         };
         Object.assign(options, opts);
-        if (options.value.length) {
-            options.value.forEach(function(item) {
-                var model = options.data.find(function(model) {
-                    return model.key === item.key;
-                });
-                if (model) model.selected = true;
-            });
-        }
         var _this = _possibleConstructorReturn(this, (Selects.__proto__ || Object.getPrototypeOf(Selects)).call(this, options));
         var eventName = "click.select_" + opts.vid, callback = _this.clickItemClose.bind(_this);
         _this.$(".select-tags-div").off(eventName).on(eventName, ".select-tag-close", callback);
@@ -345,6 +337,21 @@ var Selects = function(_Lego$UI$Baseview) {
                 vDom = hx(_templateObject4, options.vid, theValueArr.length ? "select-hasValue" : "", theValueArr.length ? "" : options.placeholder, theValueArr.join(","), options.name, theValueArr.length ? "select-tags-div-border" : "", getTags(options.value), options.vid);
             }
             return vDom;
+        }
+    }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            var _this2 = this;
+            if (this.options.value.length && this.options.multiple) {
+                this.options.value.forEach(function(item) {
+                    if (item) {
+                        var model = _this2.options.data.find(function(model) {
+                            return model.key === item.key;
+                        });
+                        if (model) model.selected = true;
+                    }
+                });
+            }
         }
     }, {
         key: "clickItemClose",

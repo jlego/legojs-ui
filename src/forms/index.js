@@ -88,7 +88,11 @@ class Forms extends Lego.UI.Baseview {
             if(item.text){
                 comTag = hx`<p class="form-control-static mb-0">${val(item.text)}</p>`;
             }else{
-                comTag = hx(`<${val(item.component.comName)} id=${id}></${val(item.component.comName)}>`);
+                if(item.component){
+                    comTag = item.component.comName ? hx(`<${val(item.component.comName)} id=${id}></${val(item.component.comName)}>`) : '';
+                }else{
+                    comTag = '';
+                }
             }
             if(layout == 'vertical'){
                 vDom = hx`
@@ -140,32 +144,40 @@ class Forms extends Lego.UI.Baseview {
         const that = this;
         this.rules = null;
         this.messages = null;
-        this.options.data.map((item, index) => {
+        let components = this.options.data;
+        components = typeof components == 'function' ? components(this.options) : (Array.isArray(components) ? components : [components]);
+        components.map((item, index) => {
             if(!item.text){
                 const comId = ['component', that.options.vid, index];
                 if(item.items){
                     item.items.map((subItem, i) => {
-                        if(subItem.rule && subItem.message){
-                            that.rules = that.options.rules || {};
-                            that.messages = that.options.messages || {};
-                            if(subItem.required) subItem.rule.required = true;
-                            that.options.setDefaults.rules[subItem.component.name] = subItem.rule;
-                            that.options.setDefaults.messages[subItem.component.name] = subItem.message;
+                        if(subItem.component){
+                            if(subItem.rule && subItem.message){
+                                that.rules = that.options.rules || {};
+                                that.messages = that.options.messages || {};
+                                if(subItem.required) subItem.rule.required = true;
+                                that.options.setDefaults.rules[subItem.component.name] = subItem.rule;
+                                that.options.setDefaults.messages[subItem.component.name] = subItem.message;
+                            }
+                            comId.push(i);
+                            subItem.component.el = '#' + comId.join('_');
+                            subItem.component.context = that;
+                            if(subItem.component.comName) Lego.create(Lego.UI[subItem.component.comName], subItem.component);
                         }
-                        comId.push(i);
-                        subItem.component.el = '#' + comId.join('_');
-                        Lego.create(Lego.UI[subItem.component.comName], subItem.component);
                     });
                 }else{
-                    if(item.rule && item.message){
-                        this.rules = this.options.rules || {};
-                        this.messages = this.options.messages || {};
-                        if(item.required) item.rule.required = true;
-                        this.options.setDefaults.rules[item.component.name] = item.rule;
-                        this.options.setDefaults.messages[item.component.name] = item.message;
+                    if(item.component){
+                        if(item.rule && item.message){
+                            this.rules = this.options.rules || {};
+                            this.messages = this.options.messages || {};
+                            if(item.required) item.rule.required = true;
+                            this.options.setDefaults.rules[item.component.name] = item.rule;
+                            this.options.setDefaults.messages[item.component.name] = item.message;
+                        }
+                        item.component.el = '#' + comId.join('_');
+                        item.component.context = this;
+                        if(item.component.comName) Lego.create(Lego.UI[item.component.comName], item.component);
                     }
-                    item.component.el = '#' + comId.join('_');
-                    Lego.create(Lego.UI[item.component.comName], item.component);
                 }
             }
         });

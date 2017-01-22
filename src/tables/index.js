@@ -13,7 +13,7 @@ class Tables extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
-                'click tbody .lego-checkbox': 'selectOne',
+                'click tbody .lego-checkbox,.lego-radio': 'selectOne',
                 'click thead .lego-checkbox > input': 'selectAll',
                 'click .lego-table-column-sorter': 'clickSorter',
                 'click .anticon-filter': 'clickFilter',
@@ -22,7 +22,7 @@ class Tables extends Lego.UI.Baseview {
             },
             scrollbar: {},
             className: '',
-            rowSelection: null, //列表项是否可选择
+            rowSelection: null, //列表行是否可选择
             pagination: null,   //分页器，配置项参考 pagination，设为 false 时不展示和进行分页
             size: 'default', //正常或迷你类型，default or small middle
             columns: [],    //表格列的配置描述，具体项见下表
@@ -148,7 +148,7 @@ class Tables extends Lego.UI.Baseview {
     // 渲染选择框
     _renderSelection(row = {}, tagName = 'td'){
         const options = this.options,
-            theType = options.type || 'checkbox',
+            theType = options.rowSelection.type || 'checkbox',
             that = this;
         const isChecked = row.selected || (tagName === 'th' && this.selectedAll === 1),
             isHarf = tagName === 'th' && that.selectedAll === 2 ? true : false;
@@ -156,10 +156,10 @@ class Tables extends Lego.UI.Baseview {
             return hx`
             <span>
                 <label class="lego-${theType}-wrapper">
-                    <span class="lego-checkbox ${row.disabled ? 'lego-checkbox-disabled' : ''} ${isChecked ?
-                        'lego-checkbox-checked lego-checkbox-checked-1' : (isHarf ? 'lego-checkbox-indeterminate' : '')}">
-                        <span class="lego-checkbox-inner"></span>
-                        <input type="${theType}" ${row.disabled ? 'disabled' : ''} class="lego-checkbox-input" value="${isChecked ? 'on' : ''}">
+                    <span class="lego-${theType} ${row.disabled ? ('lego-' + theType + '-disabled') : ''}
+                    ${isChecked ? ('lego-' + theType + '-checked lego-' + theType + '-checked-1') : (isHarf ? ('lego-' + theType + '-indeterminate') : '')}">
+                        <span class="lego-${theType}-inner"></span>
+                        <input type="${theType}" ${row.disabled ? 'disabled' : ''} name="selectedrows" class="lego-${theType}-input" value="${isChecked ? 'on' : ''}">
                     </span>
                 </label>
             </span>
@@ -288,16 +288,23 @@ class Tables extends Lego.UI.Baseview {
         const target = $(event.currentTarget),
             trEl = target.closest('tr'),
             id = trEl.attr('id'),
+            options = this.options,
             that = this;
-        if (this.options.rowSelection) {
-            const row = this.options.data.find(function(value, index, arr) {
+        if (options.rowSelection) {
+            if(options.rowSelection.type == 'radio'){
+                options.data.forEach(item => {
+                    item.selected = item.key == id ? true : false;
+                });
+            }else{
+                const row = options.data.find(function(value, index, arr) {
                     return value.key == id;
                 });
-            if(row) row.selected = !row.selected;
-            const hasSelectedArr = this.options.data.filter((value) => {
+                if(row) row.selected = !row.selected;
+            }
+            const hasSelectedArr = options.data.filter((value) => {
                 return value.selected === true;
             });
-            this.selectedAll = hasSelectedArr.length == this.options.data.length ? 1 : (hasSelectedArr.length ? 2 : 0);
+            this.selectedAll = hasSelectedArr.length == options.data.length ? 1 : (hasSelectedArr.length ? 2 : 0);
             this.refresh();
         }
     }

@@ -148,7 +148,11 @@ var Forms = function(_Lego$UI$Baseview) {
                 if (item.text) {
                     comTag = hx(_templateObject3, val(item.text));
                 } else {
-                    comTag = hx("<" + val(item.component.comName) + " id=" + id + "></" + val(item.component.comName) + ">");
+                    if (item.component) {
+                        comTag = item.component.comName ? hx("<" + val(item.component.comName) + " id=" + id + "></" + val(item.component.comName) + ">") : "";
+                    } else {
+                        comTag = "";
+                    }
                 }
                 if (layout == "vertical") {
                     vDom = hx(_templateObject4, id, val(item.label), item.required ? hx(_templateObject5) : "", comTag, item.help ? hx(_templateObject6, val(item.help)) : "");
@@ -181,33 +185,41 @@ var Forms = function(_Lego$UI$Baseview) {
             var that = this;
             this.rules = null;
             this.messages = null;
-            this.options.data.map(function(item, index) {
+            var components = this.options.data;
+            components = typeof components == "function" ? components(this.options) : Array.isArray(components) ? components : [ components ];
+            components.map(function(item, index) {
                 if (!item.text) {
                     (function() {
                         var comId = [ "component", that.options.vid, index ];
                         if (item.items) {
                             item.items.map(function(subItem, i) {
-                                if (subItem.rule && subItem.message) {
-                                    that.rules = that.options.rules || {};
-                                    that.messages = that.options.messages || {};
-                                    if (subItem.required) subItem.rule.required = true;
-                                    that.options.setDefaults.rules[subItem.component.name] = subItem.rule;
-                                    that.options.setDefaults.messages[subItem.component.name] = subItem.message;
+                                if (subItem.component) {
+                                    if (subItem.rule && subItem.message) {
+                                        that.rules = that.options.rules || {};
+                                        that.messages = that.options.messages || {};
+                                        if (subItem.required) subItem.rule.required = true;
+                                        that.options.setDefaults.rules[subItem.component.name] = subItem.rule;
+                                        that.options.setDefaults.messages[subItem.component.name] = subItem.message;
+                                    }
+                                    comId.push(i);
+                                    subItem.component.el = "#" + comId.join("_");
+                                    subItem.component.context = that;
+                                    if (subItem.component.comName) Lego.create(Lego.UI[subItem.component.comName], subItem.component);
                                 }
-                                comId.push(i);
-                                subItem.component.el = "#" + comId.join("_");
-                                Lego.create(Lego.UI[subItem.component.comName], subItem.component);
                             });
                         } else {
-                            if (item.rule && item.message) {
-                                _this2.rules = _this2.options.rules || {};
-                                _this2.messages = _this2.options.messages || {};
-                                if (item.required) item.rule.required = true;
-                                _this2.options.setDefaults.rules[item.component.name] = item.rule;
-                                _this2.options.setDefaults.messages[item.component.name] = item.message;
+                            if (item.component) {
+                                if (item.rule && item.message) {
+                                    _this2.rules = _this2.options.rules || {};
+                                    _this2.messages = _this2.options.messages || {};
+                                    if (item.required) item.rule.required = true;
+                                    _this2.options.setDefaults.rules[item.component.name] = item.rule;
+                                    _this2.options.setDefaults.messages[item.component.name] = item.message;
+                                }
+                                item.component.el = "#" + comId.join("_");
+                                item.component.context = _this2;
+                                if (item.component.comName) Lego.create(Lego.UI[item.component.comName], item.component);
                             }
-                            item.component.el = "#" + comId.join("_");
-                            Lego.create(Lego.UI[item.component.comName], item.component);
                         }
                     })();
                 }

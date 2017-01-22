@@ -433,7 +433,7 @@ var _templateObject9 = _taggedTemplateLiteral([ "<col>" ], [ "<col>" ]);
 
 var _templateObject10 = _taggedTemplateLiteral([ '<col style="width: ', ';">' ], [ '<col style="width: ', ';">' ]);
 
-var _templateObject11 = _taggedTemplateLiteral([ '\n            <span>\n                <label class="lego-', '-wrapper">\n                    <span class="lego-checkbox ', " ", '">\n                        <span class="lego-checkbox-inner"></span>\n                        <input type="', '" ', ' class="lego-checkbox-input" value="', '">\n                    </span>\n                </label>\n            </span>\n            ' ], [ '\n            <span>\n                <label class="lego-', '-wrapper">\n                    <span class="lego-checkbox ', " ", '">\n                        <span class="lego-checkbox-inner"></span>\n                        <input type="', '" ', ' class="lego-checkbox-input" value="', '">\n                    </span>\n                </label>\n            </span>\n            ' ]);
+var _templateObject11 = _taggedTemplateLiteral([ '\n            <span>\n                <label class="lego-', '-wrapper">\n                    <span class="lego-', " ", "\n                    ", '">\n                        <span class="lego-', '-inner"></span>\n                        <input type="', '" ', ' name="selectedrows" class="lego-', '-input" value="', '">\n                    </span>\n                </label>\n            </span>\n            ' ], [ '\n            <span>\n                <label class="lego-', '-wrapper">\n                    <span class="lego-', " ", "\n                    ", '">\n                        <span class="lego-', '-inner"></span>\n                        <input type="', '" ', ' name="selectedrows" class="lego-', '-input" value="', '">\n                    </span>\n                </label>\n            </span>\n            ' ]);
 
 var _templateObject12 = _taggedTemplateLiteral([ "\n        ", "\n        " ], [ "\n        ", "\n        " ]);
 
@@ -500,7 +500,7 @@ var Tables = function(_Lego$UI$Baseview) {
         _classCallCheck(this, Tables);
         var options = {
             events: {
-                "click tbody .lego-checkbox": "selectOne",
+                "click tbody .lego-checkbox,.lego-radio": "selectOne",
                 "click thead .lego-checkbox > input": "selectAll",
                 "click .lego-table-column-sorter": "clickSorter",
                 "click .anticon-filter": "clickFilter",
@@ -597,10 +597,10 @@ var Tables = function(_Lego$UI$Baseview) {
         value: function _renderSelection() {
             var row = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
             var tagName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "td";
-            var options = this.options, theType = options.type || "checkbox", that = this;
+            var options = this.options, theType = options.rowSelection.type || "checkbox", that = this;
             var isChecked = row.selected || tagName === "th" && this.selectedAll === 1, isHarf = tagName === "th" && that.selectedAll === 2 ? true : false;
             function getHx() {
-                return hx(_templateObject11, theType, row.disabled ? "lego-checkbox-disabled" : "", isChecked ? "lego-checkbox-checked lego-checkbox-checked-1" : isHarf ? "lego-checkbox-indeterminate" : "", theType, row.disabled ? "disabled" : "", isChecked ? "on" : "");
+                return hx(_templateObject11, theType, theType, row.disabled ? "lego-" + theType + "-disabled" : "", isChecked ? "lego-" + theType + "-checked lego-" + theType + "-checked-1" : isHarf ? "lego-" + theType + "-indeterminate" : "", theType, theType, row.disabled ? "disabled" : "", theType, isChecked ? "on" : "");
             }
             var vDom = hx(_templateObject12, tagName == "th" ? hx(_templateObject13, getHx()) : hx(_templateObject14, getHx()));
             return vDom;
@@ -717,16 +717,22 @@ var Tables = function(_Lego$UI$Baseview) {
         key: "selectOne",
         value: function selectOne(event) {
             event.stopPropagation();
-            var target = $(event.currentTarget), trEl = target.closest("tr"), id = trEl.attr("id"), that = this;
-            if (this.options.rowSelection) {
-                var row = this.options.data.find(function(value, index, arr) {
-                    return value.key == id;
-                });
-                if (row) row.selected = !row.selected;
-                var hasSelectedArr = this.options.data.filter(function(value) {
+            var target = $(event.currentTarget), trEl = target.closest("tr"), id = trEl.attr("id"), options = this.options, that = this;
+            if (options.rowSelection) {
+                if (options.rowSelection.type == "radio") {
+                    options.data.forEach(function(item) {
+                        item.selected = item.key == id ? true : false;
+                    });
+                } else {
+                    var row = options.data.find(function(value, index, arr) {
+                        return value.key == id;
+                    });
+                    if (row) row.selected = !row.selected;
+                }
+                var hasSelectedArr = options.data.filter(function(value) {
                     return value.selected === true;
                 });
-                this.selectedAll = hasSelectedArr.length == this.options.data.length ? 1 : hasSelectedArr.length ? 2 : 0;
+                this.selectedAll = hasSelectedArr.length == options.data.length ? 1 : hasSelectedArr.length ? 2 : 0;
                 this.refresh();
             }
         }
