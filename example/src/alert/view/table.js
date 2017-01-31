@@ -1,5 +1,4 @@
-// import Table from 'lego-ui/dist/Table';
-import Tables from '../../../../dist/Tables';
+// import Tables from '../../../../dist/tables';
 
 class TableView extends Lego.UI.Baseview {
     constructor(opts = {}) {

@@ -1,5 +1,5 @@
 /**
- * transfer.js v0.2.7
+ * transfer.js v0.2.8
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -28,7 +28,7 @@ var _templateObject$1 = _taggedTemplateLiteral$1([ '\n        <ul class="list-gr
 
 var _templateObject2$1 = _taggedTemplateLiteral$1([ '<li class="list-group-item ', " ", " ", '"\n                id="', '">\n                ', "\n                ", "\n                </li>" ], [ '<li class="list-group-item ', " ", " ", '"\n                id="', '">\n                ', "\n                ", "\n                </li>" ]);
 
-var _templateObject3 = _taggedTemplateLiteral$1([ '<i class="anticon anticon-cross float-xs-right close"></i>' ], [ '<i class="anticon anticon-cross float-xs-right close"></i>' ]);
+var _templateObject3$1 = _taggedTemplateLiteral$1([ '<i class="anticon anticon-cross float-xs-right close"></i>' ], [ '<i class="anticon anticon-cross float-xs-right close"></i>' ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -94,7 +94,7 @@ var Listgroup = function(_Lego$UI$Baseview) {
                 if (item.template) {
                     return item.template;
                 } else {
-                    return hx(_templateObject2$1, item.disabled ? "disabled" : "", options.activeKey == item.key ? "active" : "", val(item.className), val(item.key), options.removeAble ? hx(_templateObject3) : "", val(item.value));
+                    return hx(_templateObject2$1, item.disabled ? "disabled" : "", options.activeKey == item.key ? "active" : "", val(item.className), val(item.key), options.removeAble ? hx(_templateObject3$1) : "", val(item.value));
                 }
             }));
             return vDom;
@@ -299,13 +299,13 @@ var _createClass$4 = function() {
 
 var _templateObject$4 = _taggedTemplateLiteral$4([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
 
-var _templateObject2$3 = _taggedTemplateLiteral$4([ '<li id="', '" class="', '">\n                    <a href="', '">', "</a></li>" ], [ '<li id="', '" class="', '">\n                    <a href="', '">', "</a></li>" ]);
+var _templateObject2$3 = _taggedTemplateLiteral$4([ '\n                    <li id="', '" class="', " ", '">\n                    <a href="', '">', "</a>\n                    </li>" ], [ '\n                    <li id="', '" class="', " ", '">\n                    <a href="', '">', "</a>\n                    </li>" ]);
 
-var _templateObject3$1 = _taggedTemplateLiteral$4([ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ]);
+var _templateObject3$2 = _taggedTemplateLiteral$4([ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ]);
 
 var _templateObject4 = _taggedTemplateLiteral$4([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5 = _taggedTemplateLiteral$4([ '\n        <ul class="dropdown-menu clearfix ', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu clearfix ', '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject5 = _taggedTemplateLiteral$4([ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
 
 function _taggedTemplateLiteral$4(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -353,10 +353,11 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 "click li": "clickItem"
             },
             disabled: false,
-            eventName: "hover",
+            eventName: "click",
             trigger: "",
             direction: "",
             clickAndClose: true,
+            open: false,
             onChange: function onChange() {},
             data: []
         };
@@ -372,18 +373,18 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     return hx(_templateObject$4);
                 } else {
                     if (!item.children) {
-                        return hx(_templateObject2$3, item.key, item.disabled || item.selected ? "disabled" : "", item.href ? item.href : "javascript:;", item.value);
+                        return hx(_templateObject2$3, item.key, item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
                     } else {
                         return loopNav(item);
                     }
                 }
             }
             function loopNav(data) {
-                return hx(_templateObject3$1, data.value, data.children ? hx(_templateObject4, data.children.map(function(item) {
+                return hx(_templateObject3$2, val(data.value), data.children ? hx(_templateObject4, data.children.map(function(item) {
                     itemNav(item);
                 })) : "");
             }
-            var vDom = hx(_templateObject5, options.direction ? "drop" + options.direction : "", options.data.map(function(item) {
+            var vDom = hx(_templateObject5, options.direction ? "drop" + options.direction : "", options.open ? "block" : "none", options.data.map(function(item) {
                 return itemNav(item);
             }));
             return vDom;
@@ -400,11 +401,6 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     var directionResp = Lego.UI.Util.getDirection(that.trigger, that.$el);
                     that.options.direction = directionResp._y || "bottom";
                     that.show();
-                    if (that.options.eventName == "hover") {
-                        that.trigger.mouseleave(function() {
-                            that.close();
-                        });
-                    }
                 };
                 if (this.options.eventName == "click") {
                     var _eventName = "click.dropdown_" + this.options.vid;
@@ -413,7 +409,9 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     });
                     this.trigger.off(_eventName).on(_eventName, handler);
                 } else {
-                    this.trigger[this.options.eventName](handler);
+                    this.trigger.mouseenter(handler).mouseleave(function() {
+                        that.close();
+                    });
                 }
             }
         }
@@ -430,12 +428,12 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "show",
         value: function show(event) {
-            this.trigger.addClass("dropdown open");
+            this.$el.slideDown("fast");
         }
     }, {
         key: "close",
         value: function close(event) {
-            this.trigger.removeClass("dropdown open");
+            this.$el.slideUp("fast");
         }
     }, {
         key: "clickItem",
@@ -591,9 +589,11 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="row transfer">\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5><span>', "</span></h5>\n                    ", '\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <tree id="', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5><span>', '</span></h5>\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <listgroup id="', '"></listgroup>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <i class="anticon anticon-double-right"></i>\n            <i class="anticon anticon-double-left"></i>\n        </div>\n        ' ], [ '\n        <div class="row transfer">\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5><span>', "</span></h5>\n                    ", '\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <tree id="', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5><span>', '</span></h5>\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <listgroup id="', '"></listgroup>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <i class="anticon anticon-double-right"></i>\n            <i class="anticon anticon-double-left"></i>\n        </div>\n        ' ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="row transfer">\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5>\n                        ', "\n                        <span>", "</span>\n                    </h5>\n                    ", '\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <tree id="', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5><span>', '</span></h5>\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <listgroup id="', '"></listgroup>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <i class="anticon anticon-double-right"></i>\n            <i class="anticon anticon-double-left"></i>\n        </div>\n        ' ], [ '\n        <div class="row transfer">\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5>\n                        ', "\n                        <span>", "</span>\n                    </h5>\n                    ", '\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <tree id="', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5><span>', '</span></h5>\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <listgroup id="', '"></listgroup>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <i class="anticon anticon-double-right"></i>\n            <i class="anticon anticon-double-left"></i>\n        </div>\n        ' ]);
 
-var _templateObject2 = _taggedTemplateLiteral([ '<search id="', '"></search>' ], [ '<search id="', '"></search>' ]);
+var _templateObject2 = _taggedTemplateLiteral([ '<button class="btn btn-link float-right">搜索</button>' ], [ '<button class="btn btn-link float-right">搜索</button>' ]);
+
+var _templateObject3 = _taggedTemplateLiteral([ '<search id="', '"></search>' ], [ '<search id="', '"></search>' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -637,10 +637,13 @@ var Transfer = function(_Lego$UI$Baseview) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Transfer);
         var options = {
+            events: {
+                "click h5 > button": "showSearch"
+            },
             titles: [],
             value: [],
             data: [],
-            width: 560,
+            width: 450,
             height: 400,
             treeSetting: {},
             keyNames: [ "id", "name", "type" ],
@@ -705,6 +708,9 @@ var Transfer = function(_Lego$UI$Baseview) {
         if (options.showSearch) {
             options.components.push({
                 el: "#transfer_" + options.vid + "_search",
+                style: {
+                    display: "none"
+                },
                 onSearch: function onSearch(self, result) {
                     console.warn("点击了搜索框2", result);
                 }
@@ -716,8 +722,16 @@ var Transfer = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options || {}, theId = "transfer_" + options.vid;
-            var vDom = hx(_templateObject, val(options.titles[0]), options.showSearch ? hx(_templateObject2, theId + "_search") : "", theId + "_tree", val(options.titles[1]), theId + "_list");
+            var vDom = hx(_templateObject, options.showSearch ? hx(_templateObject2) : "", val(options.titles[0]), options.showSearch ? hx(_templateObject3, theId + "_search") : "", theId + "_tree", val(options.titles[1]), theId + "_list");
             return vDom;
+        }
+    }, {
+        key: "showSearch",
+        value: function showSearch(event) {
+            var target = $(event.currentTarget);
+            this.$(".lego-search").toggle(0, function() {
+                target.text(target.text() == "取消" ? "搜索" : "取消");
+            });
         }
     }, {
         key: "renderAfter",

@@ -1,5 +1,5 @@
-import Tooltip from '../../../../dist/Tooltip';
-import Popover from '../../../../dist/Popover';
+// import Tooltip from '../../../../dist/tooltip';
+// import Popover from '../../../../dist/popover';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {

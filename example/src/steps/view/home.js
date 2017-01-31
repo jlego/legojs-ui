@@ -1,8 +1,8 @@
-import Steps from '../../../../dist/Steps';
-import Buttons from '../../../../dist/Buttons';
-import Facial from '../../../../dist/Facial';
-import Collapse from '../../../../dist/Collapse';
-import Reply from '../../../../dist/Reply';
+// import Steps from '../../../../dist/steps';
+// import Buttons from '../../../../dist/buttons';
+// import Facial from '../../../../dist/facial';
+// import Collapse from '../../../../dist/collapse';
+// import Reply from '../../../../dist/reply';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -94,7 +94,6 @@ class HomeView extends Lego.UI.Baseview {
                 }
             }, {
                 el: '#reply1',
-                iconsUrl: '/example/dist/img/face_icons/',
                 onSubmit(self, result){
                     console.warn('回复框', self, result);
                 }

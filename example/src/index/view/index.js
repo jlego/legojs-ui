@@ -1,4 +1,4 @@
-import './asset/index.scss';
+import '../asset/index.scss';
 import Menu from './menu';
 
 Lego.components('menu', Menu);
@@ -10,7 +10,6 @@ class Viewport extends Lego.UI.Baseview {
                 // 'click nav a': 'clickNav'
             },
             logoUrl: 'asset/img/logo.png',
-            menu: [],
             components: [{
                 el: '#sidebar'
             }]
@@ -65,7 +64,7 @@ class Viewport extends Lego.UI.Baseview {
                     </div>
                 </header>
                 <div class="main-content">
-                    <div class="wrap-content container-fluid" id="container">
+                    <div class="container-fluid" id="container">
                         <div id="page-container"></div>
                     </div>
                     <layer id="lego-layer"></layer>

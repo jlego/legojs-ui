@@ -1,15 +1,15 @@
 (function(e) {
     var n = {};
-    function t(i) {
-        if (n[i]) return n[i].exports;
-        var a = n[i] = {
+    function t(a) {
+        if (n[a]) return n[a].exports;
+        var r = n[a] = {
             exports: {},
-            id: i,
+            id: a,
             loaded: false
         };
-        e[i].call(a.exports, a, a.exports, t);
-        a.loaded = true;
-        return a.exports;
+        e[a].call(r.exports, r, r.exports, t);
+        r.loaded = true;
+        return r.exports;
     }
     t.m = e;
     t.c = n;
@@ -18,26 +18,26 @@
 })({
     0: function(e, n, t) {
         "use strict";
-        var i = function() {
+        var a = function() {
             function e(e, n) {
                 for (var t = 0; t < n.length; t++) {
-                    var i = n[t];
-                    i.enumerable = i.enumerable || false;
-                    i.configurable = true;
-                    if ("value" in i) i.writable = true;
-                    Object.defineProperty(e, i.key, i);
+                    var a = n[t];
+                    a.enumerable = a.enumerable || false;
+                    a.configurable = true;
+                    if ("value" in a) a.writable = true;
+                    Object.defineProperty(e, a.key, a);
                 }
             }
-            return function(n, t, i) {
+            return function(n, t, a) {
                 if (t) e(n.prototype, t);
-                if (i) e(n, i);
+                if (a) e(n, a);
                 return n;
             };
         }();
-        var a = t(243);
-        var r = c(a);
-        var o = t(244);
-        var s = c(o);
+        var r = t(238);
+        var i = c(r);
+        var s = t(239);
+        var o = c(s);
         function c(e) {
             return e && e.__esModule ? e : {
                 default: e
@@ -56,10 +56,10 @@
                     "/navs/:tabs": [ this.index, this.tabs ]
                 };
             }
-            i(e, [ {
+            a(e, [ {
                 key: "index",
                 value: function e() {
-                    this.viewObj = HBY.create(r.default, {
+                    this.viewObj = HBY.create(i.default, {
                         el: HBY.config.pageEl,
                         scrollbar: {},
                         currentTab: 0
@@ -70,7 +70,7 @@
                 value: function e() {
                     var n = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
                     this.viewObj.options.currentTab = n || 0;
-                    var t = [ s.default ];
+                    var t = [ o.default ];
                     HBY.create(t[n], {
                         el: "#pageContent"
                     });
@@ -80,7 +80,7 @@
         }();
         HBY.router(new u());
     },
-    243: function(e, n) {
+    238: function(e, n) {
         "use strict";
         Object.defineProperty(n, "__esModule", {
             value: true
@@ -88,39 +88,39 @@
         var t = function() {
             function e(e, n) {
                 for (var t = 0; t < n.length; t++) {
-                    var i = n[t];
-                    i.enumerable = i.enumerable || false;
-                    i.configurable = true;
-                    if ("value" in i) i.writable = true;
-                    Object.defineProperty(e, i.key, i);
+                    var a = n[t];
+                    a.enumerable = a.enumerable || false;
+                    a.configurable = true;
+                    if ("value" in a) a.writable = true;
+                    Object.defineProperty(e, a.key, a);
                 }
             }
-            return function(n, t, i) {
+            return function(n, t, a) {
                 if (t) e(n.prototype, t);
-                if (i) e(n, i);
+                if (a) e(n, a);
                 return n;
             };
         }();
-        var i = a([ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/navs/0" class="', '">Navs 导航菜单</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ], [ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/navs/0" class="', '">Navs 导航菜单</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ]);
-        function a(e, n) {
+        var a = r([ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/navs/0" class="', '">Navs 导航菜单</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ], [ '\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/navs/0" class="', '">Navs 导航菜单</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ' ]);
+        function r(e, n) {
             return Object.freeze(Object.defineProperties(e, {
                 raw: {
                     value: Object.freeze(n)
                 }
             }));
         }
-        function r(e, n) {
+        function i(e, n) {
             if (!(e instanceof n)) {
                 throw new TypeError("Cannot call a class as a function");
             }
         }
-        function o(e, n) {
+        function s(e, n) {
             if (!e) {
                 throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             }
             return n && (typeof n === "object" || typeof n === "function") ? n : e;
         }
-        function s(e, n) {
+        function o(e, n) {
             if (typeof n !== "function" && n !== null) {
                 throw new TypeError("Super expression must either be null or a function, not " + typeof n);
             }
@@ -135,21 +135,21 @@
             if (n) Object.setPrototypeOf ? Object.setPrototypeOf(e, n) : e.__proto__ = n;
         }
         var c = function(e) {
-            s(n, e);
+            o(n, e);
             function n() {
                 var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-                r(this, n);
+                i(this, n);
                 var t = {
                     currentTab: 0
                 };
                 Object.assign(t, e);
-                return o(this, (n.__proto__ || Object.getPrototypeOf(n)).call(this, t));
+                return s(this, (n.__proto__ || Object.getPrototypeOf(n)).call(this, t));
             }
             t(n, [ {
                 key: "render",
                 value: function e() {
                     var n = this.options;
-                    var t = hx(i, n.currentTab == 0 ? "active" : "");
+                    var t = hx(a, n.currentTab == 0 ? "active" : "");
                     return t;
                 }
             } ]);
@@ -157,56 +157,47 @@
         }(Lego.UI.Baseview);
         n.default = c;
     },
-    244: function(e, n, t) {
+    239: function(e, n) {
         "use strict";
         Object.defineProperty(n, "__esModule", {
             value: true
         });
-        var i = function() {
+        var t = function() {
             function e(e, n) {
                 for (var t = 0; t < n.length; t++) {
-                    var i = n[t];
-                    i.enumerable = i.enumerable || false;
-                    i.configurable = true;
-                    if ("value" in i) i.writable = true;
-                    Object.defineProperty(e, i.key, i);
+                    var a = n[t];
+                    a.enumerable = a.enumerable || false;
+                    a.configurable = true;
+                    if ("value" in a) a.writable = true;
+                    Object.defineProperty(e, a.key, a);
                 }
             }
-            return function(n, t, i) {
+            return function(n, t, a) {
                 if (t) e(n.prototype, t);
-                if (i) e(n, i);
+                if (a) e(n, a);
                 return n;
             };
         }();
-        var a = u([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs1"></navs>\n            </div>\n            <div class="col-sm-6">\n              <navs id="navs2"></navs>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs3"></navs>\n            </div>\n            <div class="col-sm-6">\n              <navs id="navs4"></navs>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs5"></navs>\n            </div>\n            <div class="col-sm-6">\n              <tabs id="tabs6"></tabs>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs1"></navs>\n            </div>\n            <div class="col-sm-6">\n              <navs id="navs2"></navs>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs3"></navs>\n            </div>\n            <div class="col-sm-6">\n              <navs id="navs4"></navs>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs5"></navs>\n            </div>\n            <div class="col-sm-6">\n              <tabs id="tabs6"></tabs>\n            </div>\n          </div>\n        </div>\n        ' ]);
-        var r = t(245);
-        var o = l(r);
-        var s = t(246);
-        var c = l(s);
-        function l(e) {
-            return e && e.__esModule ? e : {
-                default: e
-            };
-        }
-        function u(e, n) {
+        var a = r([ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs1"></navs>\n            </div>\n            <div class="col-sm-6">\n              <navs id="navs2"></navs>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs3"></navs>\n            </div>\n            <div class="col-sm-6">\n              <navs id="navs4"></navs>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs5"></navs>\n            </div>\n            <div class="col-sm-6">\n              <tabs id="tabs6"></tabs>\n            </div>\n          </div>\n        </div>\n        ' ], [ '\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs1"></navs>\n            </div>\n            <div class="col-sm-6">\n              <navs id="navs2"></navs>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs3"></navs>\n            </div>\n            <div class="col-sm-6">\n              <navs id="navs4"></navs>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs5"></navs>\n            </div>\n            <div class="col-sm-6">\n              <tabs id="tabs6"></tabs>\n            </div>\n          </div>\n        </div>\n        ' ]);
+        function r(e, n) {
             return Object.freeze(Object.defineProperties(e, {
                 raw: {
                     value: Object.freeze(n)
                 }
             }));
         }
-        function v(e, n) {
+        function i(e, n) {
             if (!(e instanceof n)) {
                 throw new TypeError("Cannot call a class as a function");
             }
         }
-        function d(e, n) {
+        function s(e, n) {
             if (!e) {
                 throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
             }
             return n && (typeof n === "object" || typeof n === "function") ? n : e;
         }
-        function f(e, n) {
+        function o(e, n) {
             if (typeof n !== "function" && n !== null) {
                 throw new TypeError("Super expression must either be null or a function, not " + typeof n);
             }
@@ -220,11 +211,11 @@
             });
             if (n) Object.setPrototypeOf ? Object.setPrototypeOf(e, n) : e.__proto__ = n;
         }
-        var p = function(e) {
-            f(n, e);
+        var c = function(e) {
+            o(n, e);
             function n() {
                 var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-                v(this, n);
+                i(this, n);
                 var t = [ {
                     key: "nav1",
                     value: "菜单一",
@@ -254,7 +245,7 @@
                     value: "菜单四",
                     disabled: true
                 } ];
-                var i = {
+                var a = {
                     components: [ {
                         el: "#navs1",
                         type: "base",
@@ -303,10 +294,10 @@
                         data: t
                     } ]
                 };
-                Object.assign(i, e);
-                return d(this, (n.__proto__ || Object.getPrototypeOf(n)).call(this, i));
+                Object.assign(a, e);
+                return s(this, (n.__proto__ || Object.getPrototypeOf(n)).call(this, a));
             }
-            i(n, [ {
+            t(n, [ {
                 key: "render",
                 value: function e() {
                     var n = hx(a);
@@ -315,415 +306,6 @@
             } ]);
             return n;
         }(Lego.UI.Baseview);
-        n.default = p;
-    },
-    245: function(e, n) {
-        "use strict";
-        var t = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
-            return typeof e;
-        } : function(e) {
-            return e && typeof Symbol === "function" && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e;
-        };
-        var i = function() {
-            function e(e, n) {
-                for (var t = 0; t < n.length; t++) {
-                    var i = n[t];
-                    i.enumerable = i.enumerable || false;
-                    i.configurable = true;
-                    if ("value" in i) i.writable = true;
-                    Object.defineProperty(e, i.key, i);
-                }
-            }
-            return function(n, t, i) {
-                if (t) e(n.prototype, t);
-                if (i) e(n, i);
-                return n;
-            };
-        }();
-        var a = u([ '\n            <li class="nav-item ', '">\n                <a class="nav-link ', " ", " ", '" href="', '" id="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="nav-item ', '">\n                <a class="nav-link ', " ", " ", '" href="', '" id="', '">', "</a>\n                ", "\n            </li>\n            " ]);
-        var r = u([ '\n                <div class="dropdown-menu ', '">\n                ', "\n                </div>\n                " ], [ '\n                <div class="dropdown-menu ', '">\n                ', "\n                </div>\n                " ]);
-        var o = u([ "\n                    ", "\n                " ], [ "\n                    ", "\n                " ]);
-        var s = u([ '<div class="dropdown-divider"></div>' ], [ '<div class="dropdown-divider"></div>' ]);
-        var c = u([ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "</a>" ], [ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "</a>" ]);
-        var l = u([ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ]);
-        function u(e, n) {
-            return Object.freeze(Object.defineProperties(e, {
-                raw: {
-                    value: Object.freeze(n)
-                }
-            }));
-        }
-        function v(e, n) {
-            if (!(e instanceof n)) {
-                throw new TypeError("Cannot call a class as a function");
-            }
-        }
-        function d(e, n) {
-            if (!e) {
-                throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-            }
-            return n && ((typeof n === "undefined" ? "undefined" : t(n)) === "object" || typeof n === "function") ? n : e;
-        }
-        function f(e, n) {
-            if (typeof n !== "function" && n !== null) {
-                throw new TypeError("Super expression must either be null or a function, not " + (typeof n === "undefined" ? "undefined" : t(n)));
-            }
-            e.prototype = Object.create(n && n.prototype, {
-                constructor: {
-                    value: e,
-                    enumerable: false,
-                    writable: true,
-                    configurable: true
-                }
-            });
-            if (n) Object.setPrototypeOf ? Object.setPrototypeOf(e, n) : e.__proto__ = n;
-        }
-        var p = function(e) {
-            f(n, e);
-            function n() {
-                var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-                v(this, n);
-                var t = {
-                    events: {
-                        "click .nav-link:not(.disabled)": "clickItem",
-                        "click .dropdown-item:not(.disabled)": "clickSubItem"
-                    },
-                    eventName: "click",
-                    type: "base",
-                    activeKey: "",
-                    activeValue: "",
-                    direction: "",
-                    onClick: function e() {},
-                    data: []
-                };
-                Object.assign(t, e);
-                var i = d(this, (n.__proto__ || Object.getPrototypeOf(n)).call(this, t));
-                var a = i;
-                i.$(".dropdown")[t.eventName](function() {
-                    var e = Lego.UI.Util.getDirection($(this), $(this).children(".dropdown-menu"));
-                    a.options.direction = e._y || "bottom";
-                    $(this).addClass("open");
-                    $(this).mouseleave(function() {
-                        $(this).removeClass("open");
-                    });
-                });
-                return i;
-            }
-            i(n, [ {
-                key: "render",
-                value: function e() {
-                    var n = this.options || {};
-                    function t(e, t) {
-                        var i = hx(a, e.children ? "dropdown" : "", e.key === n.activeKey ? "active" : "", e.disabled ? "disabled" : "", e.children ? "dropdown-toggle" : "", e.href ? e.href : "javascript:;", e.key ? e.key : "nav-item-" + t, val(e.value), Array.isArray(e.children) ? hx(r, n.direction ? "drop" + n.direction : "", e.children.map(function(e, n) {
-                            return hx(o, e.divider ? hx(s) : hx(c, e.active ? "active" : "", e.disabled ? "disabled" : "", e.href ? e.href : "javascript:;", e.key ? e.key : "nav-sub-item-" + n, val(e.value)));
-                        })) : "");
-                        return i;
-                    }
-                    var i = hx(l, n.type === "inline" ? "nav-inline" : n.type === "tabs" ? "nav-tabs" : n.type === "pills" ? "nav-pills" : "", n.type === "pills-stacked" ? "nav-pills nav-stacked" : "", n.data.map(function(e, n) {
-                        return t(e, n);
-                    }));
-                    return i;
-                }
-            }, {
-                key: "clickItem",
-                value: function e(n) {
-                    n.stopPropagation();
-                    var t = $(n.currentTarget), i = t.attr("id");
-                    this.options.activeKey = i;
-                    var a = this.options.data.find(function(e) {
-                        return e.key === i;
-                    });
-                    if (typeof this.options.onClick === "function") this.options.onClick(this, a);
-                }
-            }, {
-                key: "clickSubItem",
-                value: function e(n) {
-                    var t = this;
-                    n.stopPropagation();
-                    var i = $(n.currentTarget), a = i.attr("id");
-                    var r = this.options.data.find(function(e) {
-                        return e.key === t.options.activeKey;
-                    });
-                    if (r) {
-                        r.children.forEach(function(e, n) {
-                            e.active = e.key === a ? true : false;
-                        });
-                        this.refresh();
-                    }
-                    if (typeof this.options.onClick === "function") this.options.onClick(this, r);
-                }
-            } ]);
-            return n;
-        }(Lego.UI.Baseview);
-        Lego.components("navs", p);
-        e.exports = p;
-    },
-    246: function(e, n) {
-        "use strict";
-        var t = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(e) {
-            return typeof e;
-        } : function(e) {
-            return e && typeof Symbol === "function" && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e;
-        };
-        var i = function() {
-            function e(e, n) {
-                for (var t = 0; t < n.length; t++) {
-                    var i = n[t];
-                    i.enumerable = i.enumerable || false;
-                    i.configurable = true;
-                    if ("value" in i) i.writable = true;
-                    Object.defineProperty(e, i.key, i);
-                }
-            }
-            return function(n, t, i) {
-                if (t) e(n.prototype, t);
-                if (i) e(n, i);
-                return n;
-            };
-        }();
-        var a = u([ '\n            <li class="nav-item ', '">\n                <a class="nav-link ', " ", " ", '" href="', '" id="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="nav-item ', '">\n                <a class="nav-link ', " ", " ", '" href="', '" id="', '">', "</a>\n                ", "\n            </li>\n            " ]);
-        var r = u([ '\n                <div class="dropdown-menu ', '">\n                ', "\n                </div>\n                " ], [ '\n                <div class="dropdown-menu ', '">\n                ', "\n                </div>\n                " ]);
-        var o = u([ "\n                    ", "\n                " ], [ "\n                    ", "\n                " ]);
-        var s = u([ '<div class="dropdown-divider"></div>' ], [ '<div class="dropdown-divider"></div>' ]);
-        var c = u([ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "</a>" ], [ '<a class="dropdown-item ', " ", '" href="', '" id="', '">', "</a>" ]);
-        var l = u([ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ]);
-        function u(e, n) {
-            return Object.freeze(Object.defineProperties(e, {
-                raw: {
-                    value: Object.freeze(n)
-                }
-            }));
-        }
-        function v(e, n) {
-            if (!(e instanceof n)) {
-                throw new TypeError("Cannot call a class as a function");
-            }
-        }
-        function d(e, n) {
-            if (!e) {
-                throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-            }
-            return n && ((typeof n === "undefined" ? "undefined" : t(n)) === "object" || typeof n === "function") ? n : e;
-        }
-        function f(e, n) {
-            if (typeof n !== "function" && n !== null) {
-                throw new TypeError("Super expression must either be null or a function, not " + (typeof n === "undefined" ? "undefined" : t(n)));
-            }
-            e.prototype = Object.create(n && n.prototype, {
-                constructor: {
-                    value: e,
-                    enumerable: false,
-                    writable: true,
-                    configurable: true
-                }
-            });
-            if (n) Object.setPrototypeOf ? Object.setPrototypeOf(e, n) : e.__proto__ = n;
-        }
-        var p = function(e) {
-            f(n, e);
-            function n() {
-                var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-                v(this, n);
-                var t = {
-                    events: {
-                        "click .nav-link:not(.disabled)": "clickItem",
-                        "click .dropdown-item:not(.disabled)": "clickSubItem"
-                    },
-                    eventName: "click",
-                    type: "base",
-                    activeKey: "",
-                    activeValue: "",
-                    direction: "",
-                    onClick: function e() {},
-                    data: []
-                };
-                Object.assign(t, e);
-                var i = d(this, (n.__proto__ || Object.getPrototypeOf(n)).call(this, t));
-                var a = i;
-                i.$(".dropdown")[t.eventName](function() {
-                    var e = Lego.UI.Util.getDirection($(this), $(this).children(".dropdown-menu"));
-                    a.options.direction = e._y || "bottom";
-                    $(this).addClass("open");
-                    $(this).mouseleave(function() {
-                        $(this).removeClass("open");
-                    });
-                });
-                return i;
-            }
-            i(n, [ {
-                key: "render",
-                value: function e() {
-                    var n = this.options || {};
-                    function t(e, t) {
-                        var i = hx(a, e.children ? "dropdown" : "", e.key === n.activeKey ? "active" : "", e.disabled ? "disabled" : "", e.children ? "dropdown-toggle" : "", e.href ? e.href : "javascript:;", e.key ? e.key : "nav-item-" + t, val(e.value), Array.isArray(e.children) ? hx(r, n.direction ? "drop" + n.direction : "", e.children.map(function(e, n) {
-                            return hx(o, e.divider ? hx(s) : hx(c, e.active ? "active" : "", e.disabled ? "disabled" : "", e.href ? e.href : "javascript:;", e.key ? e.key : "nav-sub-item-" + n, val(e.value)));
-                        })) : "");
-                        return i;
-                    }
-                    var i = hx(l, n.type === "inline" ? "nav-inline" : n.type === "tabs" ? "nav-tabs" : n.type === "pills" ? "nav-pills" : "", n.type === "pills-stacked" ? "nav-pills nav-stacked" : "", n.data.map(function(e, n) {
-                        return t(e, n);
-                    }));
-                    return i;
-                }
-            }, {
-                key: "clickItem",
-                value: function e(n) {
-                    n.stopPropagation();
-                    var t = $(n.currentTarget), i = t.attr("id");
-                    this.options.activeKey = i;
-                    var a = this.options.data.find(function(e) {
-                        return e.key === i;
-                    });
-                    if (typeof this.options.onClick === "function") this.options.onClick(this, a);
-                }
-            }, {
-                key: "clickSubItem",
-                value: function e(n) {
-                    var t = this;
-                    n.stopPropagation();
-                    var i = $(n.currentTarget), a = i.attr("id");
-                    var r = this.options.data.find(function(e) {
-                        return e.key === t.options.activeKey;
-                    });
-                    if (r) {
-                        r.children.forEach(function(e, n) {
-                            e.active = e.key === a ? true : false;
-                        });
-                        this.refresh();
-                    }
-                    if (typeof this.options.onClick === "function") this.options.onClick(this, r);
-                }
-            } ]);
-            return n;
-        }(Lego.UI.Baseview);
-        Lego.components("navs", p);
-        var b = function() {
-            function e(e, n) {
-                for (var t = 0; t < n.length; t++) {
-                    var i = n[t];
-                    i.enumerable = i.enumerable || false;
-                    i.configurable = true;
-                    if ("value" in i) i.writable = true;
-                    Object.defineProperty(e, i.key, i);
-                }
-            }
-            return function(n, t, i) {
-                if (t) e(n.prototype, t);
-                if (i) e(n, i);
-                return n;
-            };
-        }();
-        var y = m([ '\n        <div class="tabs">\n            <navs id="navs-', '"></navs>\n            <div class="tab-content">\n            ', "\n            </div>\n        </div>\n        " ], [ '\n        <div class="tabs">\n            <navs id="navs-', '"></navs>\n            <div class="tab-content">\n            ', "\n            </div>\n        </div>\n        " ]);
-        var h = m([ '<div class="tab-pane ', " ", '" id="', '-pane">', "</div>" ], [ '<div class="tab-pane ', " ", '" id="', '-pane">', "</div>" ]);
-        function m(e, n) {
-            return Object.freeze(Object.defineProperties(e, {
-                raw: {
-                    value: Object.freeze(n)
-                }
-            }));
-        }
-        function g(e, n) {
-            if (!(e instanceof n)) {
-                throw new TypeError("Cannot call a class as a function");
-            }
-        }
-        function w(e, n) {
-            if (!e) {
-                throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-            }
-            return n && ((typeof n === "undefined" ? "undefined" : t(n)) === "object" || typeof n === "function") ? n : e;
-        }
-        function k(e, n) {
-            if (typeof n !== "function" && n !== null) {
-                throw new TypeError("Super expression must either be null or a function, not " + (typeof n === "undefined" ? "undefined" : t(n)));
-            }
-            e.prototype = Object.create(n && n.prototype, {
-                constructor: {
-                    value: e,
-                    enumerable: false,
-                    writable: true,
-                    configurable: true
-                }
-            });
-            if (n) Object.setPrototypeOf ? Object.setPrototypeOf(e, n) : e.__proto__ = n;
-        }
-        var O = function(e) {
-            k(n, e);
-            function n() {
-                var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-                g(this, n);
-                var t = {
-                    events: {},
-                    eventName: "click",
-                    type: "line",
-                    size: "default",
-                    closable: false,
-                    activeKey: "",
-                    onClose: function e() {},
-                    tabPosition: "top",
-                    onEdit: function e() {},
-                    hideAdd: false,
-                    animate: "",
-                    data: [],
-                    components: []
-                };
-                Object.assign(t, e);
-                t.components.push({
-                    el: "#navs-" + t.vid,
-                    eventName: t.eventName || "click",
-                    type: "tabs",
-                    activeKey: t.activeKey,
-                    onClick: function e(n, t) {
-                        var i = this.context;
-                        if (!t.children) {
-                            i.options.activeKey = t.key;
-                        } else {
-                            (function() {
-                                var e = t.children.find(function(e) {
-                                    return e.active == true;
-                                });
-                                if (e) {
-                                    i.options.data.forEach(function(n) {
-                                        if (n.key == t.key) {
-                                            if (e.content) {
-                                                n.content = e.content;
-                                                i.options.activeKey = t.key;
-                                            }
-                                        }
-                                    });
-                                }
-                            })();
-                        }
-                    },
-                    data: t.data
-                });
-                return w(this, (n.__proto__ || Object.getPrototypeOf(n)).call(this, t));
-            }
-            b(n, [ {
-                key: "render",
-                value: function e() {
-                    var n = this.options || {};
-                    var t = hx(y, n.vid, n.data.map(function(e) {
-                        if (!e.disabled && e.content) {
-                            return hx(h, n.animate ? n.animate : "", e.key === n.activeKey ? "active in" : "", e.key, e.content ? e.content : "");
-                        }
-                    }));
-                    return t;
-                }
-            }, {
-                key: "close",
-                value: function e(n) {
-                    var t = this;
-                    n.stopPropagation();
-                    this.$el.slideUp("normal", function() {
-                        t.remove();
-                    });
-                    if (typeof this.options.onClose === "function") this.options.onClose(this, n);
-                }
-            } ]);
-            return n;
-        }(Lego.UI.Baseview);
-        Lego.components("tabs", O);
-        e.exports = O;
+        n.default = c;
     }
 });

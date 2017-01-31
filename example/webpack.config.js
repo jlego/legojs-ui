@@ -54,8 +54,7 @@ module.exports = {
     resolve: {
         extensions: ["", ".js"],
         // alias: {
-        //     'jquery': path.join(__dirname, 'node_modules/jquery/src/jquery'),
-        //     // 'datetimepicker': 'eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js'
+        //     'jquery': path.join(__dirname, 'node_modules/jquery/src/jquery')
         // }
     },
     plugins: [

@@ -1,4 +1,4 @@
-import Upload from '../../../../dist/upload';
+// import Upload from '../../../../dist/upload';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {

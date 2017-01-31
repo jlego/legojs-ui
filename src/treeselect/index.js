@@ -191,10 +191,10 @@ class Treeselect extends Selects {
         });
     }
     show(event){
-        this.$('#select-' + this.options.vid).addClass('dropdown open');
+        this.$('.dropdown-menu').slideDown('fast');
     }
     close(event){
-        this.$('#select-' + this.options.vid).removeClass('dropdown open');
+        this.$('.dropdown-menu').slideUp('fast');
     }
     clickItemClose(event){
         event.stopPropagation();

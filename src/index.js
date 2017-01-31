@@ -1,7 +1,6 @@
 import '../asset/scss/style.scss';
 
 import { Baseview } from "./common/index";
-import Viewport from "./viewport/index";
 import Alert from "./alert/index";
 import Badge from "./badge/index";
 import Buttons from "./buttons/index";
@@ -34,7 +33,6 @@ import Reply from "./reply/index";
 
 Lego.components({
 	baseview: Baseview,
-	viewport: Viewport,
 	alert: Alert,
 	badge: Badge,
 	buttons: Buttons,

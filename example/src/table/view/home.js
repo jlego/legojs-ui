@@ -1,4 +1,4 @@
-import Tables from '../../../../dist/Tables';
+// import Tables from '../../../../dist/tables';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {

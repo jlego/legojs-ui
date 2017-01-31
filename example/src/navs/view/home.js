@@ -1,5 +1,5 @@
-import Navs from '../../../../dist/Navs';
-import Tabs from '../../../../dist/Tabs';
+// import Navs from '../../../../dist/navs';
+// import Tabs from '../../../../dist/tabs';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {

@@ -7,10 +7,11 @@ class Dropdown extends Lego.UI.Baseview {
                 'click li': 'clickItem'
             },
             disabled: false,
-            eventName: 'hover', //['click'] or ['hover']
+            eventName: 'click', //['click'] or ['hover']
             trigger: '', //触发对象
             direction: '',  //显示方向
             clickAndClose: true,  //点击后关闭
+            open: false,    //展开
             onChange(){},  //改变值时调用
             data: []
         };
@@ -24,8 +25,10 @@ class Dropdown extends Lego.UI.Baseview {
                 return hx`<li class="divider"></li>`;
             }else{
                 if(!item.children){
-                    return hx`<li id="${item.key}" class="${item.disabled || item.selected ? 'disabled' : ''}">
-                    <a href="${item.href ? item.href : 'javascript:;'}">${item.value}</a></li>`;
+                    return hx`
+                    <li id="${item.key}" class="${item.disabled || item.selected ? 'disabled' : ''} ${item.active ? 'active' : ''}">
+                    <a href="${item.href ? item.href : 'javascript:;'}">${val(item.value)}</a>
+                    </li>`;
                 }else{
                     return loopNav(item);
                 }
@@ -34,7 +37,7 @@ class Dropdown extends Lego.UI.Baseview {
         function loopNav(data){
             return hx`
             <li class="dropdown">
-                ${data.value}
+                ${val(data.value)}
                 ${data.children ? hx`
                 <ul class="dropdown-menu">
                     ${data.children.map((item) => {
@@ -46,7 +49,7 @@ class Dropdown extends Lego.UI.Baseview {
             `;
         }
         const vDom = hx`
-        <ul class="dropdown-menu clearfix ${options.direction ? ('drop' + options.direction) : ''}">
+        <ul class="dropdown-menu ${options.direction ? ('drop' + options.direction) : ''}" style="display:${options.open ? 'block' : 'none'}">
             ${options.data.map(item => {
                 return itemNav(item);
             })}
@@ -64,11 +67,6 @@ class Dropdown extends Lego.UI.Baseview {
                 const directionResp = Lego.UI.Util.getDirection(that.trigger, that.$el);
                 that.options.direction = directionResp._y || 'bottom';
                 that.show();
-                if(that.options.eventName == 'hover'){
-                    that.trigger.mouseleave(function(){
-                        that.close();
-                    });
-                }
             }
             if(this.options.eventName == 'click'){
                 const _eventName = 'click.dropdown_' + this.options.vid;
@@ -77,7 +75,9 @@ class Dropdown extends Lego.UI.Baseview {
                 });
                 this.trigger.off(_eventName).on(_eventName, handler);
             }else{
-                this.trigger[this.options.eventName](handler);
+                this.trigger.mouseenter(handler).mouseleave(function(){
+                    that.close();
+                });
             }
         }
     }
@@ -93,10 +93,10 @@ class Dropdown extends Lego.UI.Baseview {
         }
     }
     show(event){
-        this.trigger.addClass('dropdown open');
+        this.$el.slideDown('fast');
     }
     close(event){
-        this.trigger.removeClass('dropdown open');
+        this.$el.slideUp('fast');
     }
     clickItem(event){
         event.stopPropagation();

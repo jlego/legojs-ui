@@ -1,6 +1,5 @@
 // 界面框架入口
-// import { Viewport } from 'lego-ui';
-import Viewport from '../../../dist/Viewport';
+import Viewport from './view/index';
 
 HBY.create(Viewport, {
     el: 'body',

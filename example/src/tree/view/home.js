@@ -1,5 +1,5 @@
-import Tree from '../../../../dist/Tree';
-import Treeselect from '../../../../dist/Treeselect';
+// import Tree from '../../../../dist/tree';
+// import Treeselect from '../../../../dist/treeselect';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {

@@ -1,4 +1,4 @@
-import Avatar from '../../../../dist/avatar';
+// import Avatar from '../../../../dist/avatar';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {

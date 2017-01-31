@@ -1,4 +1,3 @@
-// import Baseview from '../common/view';
 
 class Menu extends Lego.UI.Baseview {
     constructor(opts = {}) {

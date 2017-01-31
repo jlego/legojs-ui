@@ -1,8 +1,8 @@
-import Forms from '../../../../dist/Forms';
-import Search from '../../../../dist/Search';
-import Selects from '../../../../dist/Selects';
-import Datepicker from '../../../../dist/Datepicker';
-import Inputs from '../../../../dist/Inputs';
+// import Forms from '../../../../dist/forms';
+// import Search from '../../../../dist/search';
+// import Selects from '../../../../dist/selects';
+// import Datepicker from '../../../../dist/datepicker';
+// import Inputs from '../../../../dist/inputs';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {

@@ -33,14 +33,13 @@ if (fs.existsSync(buildStyleFile)) fs.unlinkSync(buildStyleFile);
 
 const resolve = _path => path.resolve(__dirname, '../', _path);
 build([{
-    alias: 'legoui',
+    alias: 'legoui.min',
     entry: 'src/index.js',
     dest: 'dist/legoui.js'
 },
 {alias: 'common'},
 {alias: 'alert'},
 {alias: 'badge'},
-{alias: 'viewport'},
 {alias: 'buttons'},
 {alias: 'tables'},
 {alias: 'pagination'},
@@ -71,9 +70,10 @@ build([{
 ].map(genConfig));
 
 function ucfirst(str) {
+    // .toUpperCase()
     var str = str.toLowerCase();
     str = str.replace(/\b\w+\b/g, function(word) {
-        return word.substring(0, 1).toUpperCase() + word.substring(1);
+        return word.substring(0, 1) + word.substring(1);
     });
     return str;
 }
@@ -127,7 +127,7 @@ function genConfig(opts) {
         config.plugins = [async(), regenerator()];
     }
     if (opts.env) {
-        const isMin = /min\.js$/.test(opts.alias);
+        const isMin = /\.min$/.test(opts.alias);
         config.plugins.push(
             // simplevars(),
             // nested(),
@@ -161,7 +161,7 @@ function genConfig(opts) {
             sass({
                 output: function(styles, styleNodes) {
                     // fs.writeFileSync('dist/css/legoui.css', styles);
-                    if (opts.alias === 'legoui') {
+                    if (opts.alias === 'legoui' || opts.alias === 'legoui.min') {
                         fs.appendFile(buildStyleFile, styles, function(err) {});
                     }
                 }

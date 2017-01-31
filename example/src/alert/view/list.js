@@ -1,7 +1,5 @@
-// import Button from 'lego-ui/dist/Button';
-// import Modal from 'lego-ui/dist/Modal';
-import Buttons from '../../../../dist/Buttons';
-import Modal from '../../../../dist/Modal';
+// import Buttons from '../../../../dist/buttons';
+// import Modal from '../../../../dist/modal';
 
 class ListView extends Lego.UI.Baseview {
     constructor(opts = {}) {

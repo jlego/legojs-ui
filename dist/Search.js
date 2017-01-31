@@ -1,5 +1,5 @@
 /**
- * search.js v0.2.7
+ * search.js v0.2.8
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -24,13 +24,13 @@ var _createClass$1 = function() {
 
 var _templateObject$1 = _taggedTemplateLiteral$1([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
 
-var _templateObject2$1 = _taggedTemplateLiteral$1([ '<li id="', '" class="', '">\n                    <a href="', '">', "</a></li>" ], [ '<li id="', '" class="', '">\n                    <a href="', '">', "</a></li>" ]);
+var _templateObject2$1 = _taggedTemplateLiteral$1([ '\n                    <li id="', '" class="', " ", '">\n                    <a href="', '">', "</a>\n                    </li>" ], [ '\n                    <li id="', '" class="', " ", '">\n                    <a href="', '">', "</a>\n                    </li>" ]);
 
 var _templateObject3 = _taggedTemplateLiteral$1([ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ]);
 
 var _templateObject4 = _taggedTemplateLiteral$1([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5 = _taggedTemplateLiteral$1([ '\n        <ul class="dropdown-menu clearfix ', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu clearfix ', '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject5 = _taggedTemplateLiteral$1([ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -78,10 +78,11 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 "click li": "clickItem"
             },
             disabled: false,
-            eventName: "hover",
+            eventName: "click",
             trigger: "",
             direction: "",
             clickAndClose: true,
+            open: false,
             onChange: function onChange() {},
             data: []
         };
@@ -97,18 +98,18 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     return hx(_templateObject$1);
                 } else {
                     if (!item.children) {
-                        return hx(_templateObject2$1, item.key, item.disabled || item.selected ? "disabled" : "", item.href ? item.href : "javascript:;", item.value);
+                        return hx(_templateObject2$1, item.key, item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
                     } else {
                         return loopNav(item);
                     }
                 }
             }
             function loopNav(data) {
-                return hx(_templateObject3, data.value, data.children ? hx(_templateObject4, data.children.map(function(item) {
+                return hx(_templateObject3, val(data.value), data.children ? hx(_templateObject4, data.children.map(function(item) {
                     itemNav(item);
                 })) : "");
             }
-            var vDom = hx(_templateObject5, options.direction ? "drop" + options.direction : "", options.data.map(function(item) {
+            var vDom = hx(_templateObject5, options.direction ? "drop" + options.direction : "", options.open ? "block" : "none", options.data.map(function(item) {
                 return itemNav(item);
             }));
             return vDom;
@@ -125,11 +126,6 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     var directionResp = Lego.UI.Util.getDirection(that.trigger, that.$el);
                     that.options.direction = directionResp._y || "bottom";
                     that.show();
-                    if (that.options.eventName == "hover") {
-                        that.trigger.mouseleave(function() {
-                            that.close();
-                        });
-                    }
                 };
                 if (this.options.eventName == "click") {
                     var _eventName = "click.dropdown_" + this.options.vid;
@@ -138,7 +134,9 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     });
                     this.trigger.off(_eventName).on(_eventName, handler);
                 } else {
-                    this.trigger[this.options.eventName](handler);
+                    this.trigger.mouseenter(handler).mouseleave(function() {
+                        that.close();
+                    });
                 }
             }
         }
@@ -155,12 +153,12 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "show",
         value: function show(event) {
-            this.trigger.addClass("dropdown open");
+            this.$el.slideDown("fast");
         }
     }, {
         key: "close",
         value: function close(event) {
-            this.trigger.removeClass("dropdown open");
+            this.$el.slideUp("fast");
         }
     }, {
         key: "clickItem",

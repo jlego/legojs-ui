@@ -1,4 +1,4 @@
-import Transfer from '../../../../dist/Transfer';
+// import Transfer from '../../../../dist/transfer';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {

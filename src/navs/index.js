@@ -11,49 +11,39 @@
  * }]
  */
 // import './asset/index.scss';
+import Dropdown from '../dropdown/index';
 
 class Navs extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
-                'click .nav-link:not(.disabled)': 'clickItem',
-                'click .dropdown-item:not(.disabled)': 'clickSubItem'
+                'mouseenter .dropdown': 'overItem',
+                'click .dropdown-menu a:not(.disabled)': 'clickSubItem',
+                'click .nav-item:not(.dropdown) > a': 'clickItem'
             },
             eventName: 'click', //['click'] or ['hover']
             type: 'base', //菜单类型，现在支持垂直、水平、和内嵌模式三种base, inline, tabs, pills, pills-stacked
             activeKey: '', //当前激活的key
             activeValue: '',
             direction: '',  //显示方向
+            closeAllAble: true, //点击body关闭全部
             onClick(){}, //点击的回调
             data: []
         };
         Object.assign(options, opts);
         super(options);
-        const that = this;
-        this.$('.dropdown')[options.eventName](function(){
-            const directionResp = Lego.UI.Util.getDirection($(this), $(this).children('.dropdown-menu'));
-            that.options.direction = directionResp._y || 'bottom';
-            $(this).addClass('open');
-            $(this).mouseleave(function(){
-                $(this).removeClass('open');
-            });
-        });
     }
     render() {
-        const options = this.options || {};
-        function makeItem(data, i){
+        const options = this.options;
+        function makeItem(item, i){
             const itemDom = hx`
-            <li class="nav-item ${data.children ? 'dropdown' : ''}">
-                <a class="nav-link ${data.key === options.activeKey ? 'active' : ''} ${data.disabled ? 'disabled' : ''} ${data.children ? 'dropdown-toggle' : ''}" href="${data.href ? data.href : 'javascript:;'}" id="${data.key ? data.key : ('nav-item-' + i)}">${val(data.value)}</a>
-                ${Array.isArray(data.children) ? hx`
-                <div class="dropdown-menu ${options.direction ? ('drop' + options.direction) : ''}">
-                ${data.children.map((subItem, x) => hx`
-                    ${subItem.divider ? hx`<div class="dropdown-divider"></div>` :
-                    hx`<a class="dropdown-item ${subItem.active ? 'active' : ''} ${subItem.disabled ? 'disabled' : ''}" href="${subItem.href ? subItem.href : 'javascript:;'}" id="${subItem.key ? subItem.key : ('nav-sub-item-' + x)}">${val(subItem.value)}</a>`
-                    }
-                `)}
-                </div>
-                ` : ''}
+            <li class="nav-item ${item.children ? 'dropdown' : ''} ${item.open ? 'open' : ''}">
+                <a class="nav-link ${item.key === options.activeKey ? 'active' : ''} ${item.disabled ? 'disabled' : ''} ${item.children ? 'dropdown-toggle' : ''}" href="${item.href ? item.href : 'javascript:;'}" id="${item.key ? item.key : ('nav-item-' + i)}">${val(item.value)}</a>
+                ${Array.isArray(item.children) ? Lego.create(Dropdown, {
+                    direction: options.direction,
+                    open: item.open,
+                    data: item.children
+                }).render() : ''}
             </li>
             `;
             return itemDom;
@@ -68,26 +58,65 @@ class Navs extends Lego.UI.Baseview {
         `;
         return vDom;
     }
+    renderAfter(){
+        const that = this;
+        const _eventName = 'click.dropdown_' + this.options.vid;
+        this.$('.dropdown > a').off(_eventName).on(_eventName, function(event){
+            event.stopPropagation();
+            let dropdownEl = $(this).next('.dropdown-menu');
+            let directionResp = Lego.UI.Util.getDirection($(this), dropdownEl);
+            that.options.direction = directionResp._y || 'bottom';
+            dropdownEl.slideToggle('fast', function(){
+                if($(this).css('display') == 'none'){
+                    $(this).parent().removeClass('open');
+                }else{
+                    $(this).parent().addClass('open');
+                }
+            });
+            that.clickItem(event);
+        });
+        if(this.options.closeAllAble){
+            $('body').click(function(){
+                that.closeAll();
+            });
+        }
+    }
+    showAll(){
+        this.$('.dropdown-menu').slideDown('fast');
+    }
+    closeAll(){
+        this.$('.dropdown-menu').slideUp('fast');
+    }
+    overItem(event){
+        const target = $(event.currentTarget),
+            key = target.children('a').attr('id');
+        this.activeKey = key;
+    }
     clickItem(event) {
         event.stopPropagation();
         const target = $(event.currentTarget),
             key = target.attr('id');
-        this.options.activeKey = key;
-        let model = this.options.data.find(item => item.key === key);
-        if (typeof this.options.onClick === 'function') this.options.onClick(this, model);
+        if(!target.hasClass('disabled')){
+            this.options.activeKey = key;
+            let model = this.options.data.find(item => item.key === key);
+            if (typeof this.options.onClick === 'function'){
+                this.options.onClick(this, model);
+            }
+        }
     }
     clickSubItem(event){
         event.stopPropagation();
+        this.options.activeKey = this.activeKey || this.options.activeKey;
         const target = $(event.currentTarget),
-            key = target.attr('id');
-        const model = this.options.data.find(item => item.key === this.options.activeKey);
+            key = target.parent().attr('id'),
+            model = this.options.data.find(item => item.key === this.options.activeKey);
+        let subModel = {};
         if(model){
-            model.children.forEach((subItem, i) => {
-                subItem.active = subItem.key === key ? true : false;
-            });
-            this.refresh();
+            if(model.children) subModel = model.children.find(item => item.key === key);
         }
-        if (typeof this.options.onClick === 'function') this.options.onClick(this, model);
+        this.$('.dropdown-menu li').removeClass('active');
+        this.$('#' + key).addClass('active');
+        if (typeof this.options.onClick === 'function') this.options.onClick(this, subModel);
     }
 }
 Lego.components('navs', Navs);

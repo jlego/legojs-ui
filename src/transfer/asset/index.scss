@@ -30,6 +30,7 @@
     height: 100%;
     border: 1px #ddd solid;
     border-radius: 0.25rem;
+    position: relative;
 }
 
 .transfer .transfer-col h5 {
@@ -40,23 +41,32 @@
     border-bottom: 1px solid #ececec;
     height: 40px;
 }
-.transfer .transfer-col .input-group.search {
+.transfer .transfer-col h5 button{
+    padding: 4px 0;
+}
+.transfer .transfer-col .input-group.lego-search {
     padding: 3px;
     border-bottom: 1px #ececec solid;
-    background-color: #ececec;
+    position: absolute;
+    background-color: #fff;
+    left: 0;
+    right: 0;
+    z-index: 1000;
 }
 
 .transfer .transfer-col .transfer-col-content {
     height: 100%;
     padding-bottom: 40px;
 }
-
-.transfer .transfer-col .input-group.search + .transfer-col-content {
-    padding-bottom: 83px !important;
+.transfer .transfer-col .transfer-col-content > div {
+    width: 100%;
 }
+// .transfer .transfer-col .input-group.lego-search + .transfer-col-content {
+//     padding-bottom: 83px !important;
+// }
 
 .transfer .list-group .list-group-item {
-    padding: 0.75rem 1rem 0.75rem 1rem;
+    padding: 0.5rem 1rem;
     border: none;
 }
 
