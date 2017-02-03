@@ -35,6 +35,40 @@ class HomeView extends Lego.UI.Baseview {
                 onAdd(self, result) {
                     console.warn('添加人员2', result);
                 }
+            }, {
+                el: '#avatar3',
+                name: 'user',
+                multiple: false,
+                readonly: true,
+                value: [{
+                    key: 'userId',
+                    value: './asset/demo/avatar-4.jpg',
+                    name: '张三'
+                }],
+                onAdd(self, result) {
+                    console.warn('添加人员', result);
+                }
+            }, {
+                el: '#avatar4',
+                name: 'users',
+                multiple: true,
+                readonly: true,
+                value: [{
+                    key: 'user1',
+                    value: './asset/demo/avatar-5.jpg',
+                    name: '张小三'
+                }, {
+                    key: 'user2',
+                    value: './asset/demo/avatar-6.jpg',
+                    name: '李四李四'
+                }, {
+                    key: 'user3',
+                    value: './asset/demo/avatar-7.jpg',
+                    name: '老五'
+                }],
+                onAdd(self, result) {
+                    console.warn('添加人员2', result);
+                }
             }]
         };
         Object.assign(options, opts);

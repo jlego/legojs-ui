@@ -99,7 +99,7 @@ class Treeselect extends Selects {
         super(options);
         const eventName = 'click.select_' + opts.vid,
             callback = this.clickItemClose.bind(this);
-        this.$('.select-tags-div').off(eventName).on(eventName, '.select-tag-close', callback);
+        this.$el.find('.select-tags-div').off(eventName).on(eventName, '.select-tag-close', callback);
     }
     render() {
         const options = this.options || {};
@@ -185,16 +185,16 @@ class Treeselect extends Selects {
                 trigger[options.eventName](handler);
             }
         }
-        this.$('.dropdown-menu').css({
+        this.$el.find('.dropdown-menu').css({
             width: options.dropdownWidth || '100%',
             height: options.dropdownHeight || 'auto'
         });
     }
     show(event){
-        this.$('.dropdown-menu').slideDown('fast');
+        this.$el.find('.dropdown-menu').slideDown('fast');
     }
     close(event){
-        this.$('.dropdown-menu').slideUp('fast');
+        this.$el.find('.dropdown-menu').slideUp('fast');
     }
     clickItemClose(event){
         event.stopPropagation();

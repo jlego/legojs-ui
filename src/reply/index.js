@@ -75,7 +75,7 @@ class Reply extends Lego.UI.Baseview {
         return vDom;
     }
     renderAfter(){
-        this.$('.lego-reply-content').attr('contenteditable', 'true').height(this.options.contentHeight);
+        this.$el.find('.lego-reply-content').attr('contenteditable', 'true').height(this.options.contentHeight);
     }
     onFocus(event){
         const target = $(event.currentTarget);
@@ -87,7 +87,7 @@ class Reply extends Lego.UI.Baseview {
         if(!target.text() && !target.find('img').length && options.inputType == 'div') target.html(this.placeholder);
     }
     showUpload(event){
-        this.$('.popover').toggleClass('show');
+        this.$el.find('.popover').toggleClass('show');
     }
     _enterSearch(event) {
         const target = $(event.currentTarget),
@@ -103,7 +103,7 @@ class Reply extends Lego.UI.Baseview {
     }
     onSubmit(event){
         event.stopPropagation();
-        const contentEl = this.$('.lego-reply-content');
+        const contentEl = this.$el.find('.lego-reply-content');
         let contentHtml = this.options.inputType == 'div' ? contentEl.html() : contentEl.val();
         contentHtml = this.options.inputType == 'div' ? Lego.UI.Util.faceToText(contentHtml, this.options.iconsUrl) : contentHtml;
         if(this.options.inputType == 'div'){

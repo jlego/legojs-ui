@@ -32,8 +32,8 @@ class Inputs extends Lego.UI.Baseview {
         if(options.addonBefore || options.addonAfter){
             const onEnterFun = this.onEnter.bind(this);
             const onChangeFun = this.onChange.bind(this);
-            this.$('input').keydown(onEnterFun);
-            this.$('input').change(onChangeFun);
+            this.$el.find('input').keydown(onEnterFun);
+            this.$el.find('input').change(onChangeFun);
         }
     }
     render() {

@@ -48,7 +48,7 @@ class Selects extends Lego.UI.Baseview {
                 dataSource: opts.dataSource,
                 onChange(self, model){
                     const parentView = this.context;
-                    parentView.$('.select-input').focus();
+                    parentView.$el.find('.select-input').focus();
                     if(model.key !== '0' && opts.multiple){
                         parentView.getValue();
                         if(!parentView.options.value.includes(model)){
@@ -69,7 +69,7 @@ class Selects extends Lego.UI.Baseview {
         super(options);
         const eventName = 'click.select_' + opts.vid,
             callback = this.clickItemClose.bind(this);
-        this.$('.select-tags-div').off(eventName).on(eventName, '.select-tag-close', callback);
+        this.$el.find('.select-tags-div').off(eventName).on(eventName, '.select-tag-close', callback);
     }
     render() {
         const options = this.options || {};

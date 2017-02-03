@@ -127,7 +127,7 @@ class Transfer extends Lego.UI.Baseview {
     }
     showSearch(event){
         const target = $(event.currentTarget);
-        this.$('.lego-search').toggle(0, function(){
+        this.$el.find('.lego-search').toggle(0, function(){
             target.text(target.text() == '取消' ? '搜索' : '取消');
         });
     }

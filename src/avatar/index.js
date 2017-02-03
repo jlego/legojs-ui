@@ -40,7 +40,7 @@ class Avatar extends Lego.UI.Baseview {
             return hx`
             <div class="lego-avatar-item">
                 <div class="lego-avatar-img" style="${data.value ? ('background-image:url(' + val(data.value) + ');') : ''}" id="${data.key}">
-                    ${options.multiple && !options.readonly ? hx`<i class="anticon anticon-close remove" title="删除 ${val(data.name)}"></i>` : hx`<i class="anticon anticon-swap change" title="更换 ${val(data.name)}"></i>`}
+                ${!options.readonly ? hx`${options.multiple ? hx`<i class="anticon anticon-close remove" title="删除 ${val(data.name)}"></i>` : hx`<i class="anticon anticon-swap change" title="更换 ${val(data.name)}"></i>`}` : ''}
                 </div>
                 ${options.showName ? hx`<label>${val(data.name)}</label>` : ''}
             </div>
@@ -66,9 +66,9 @@ class Avatar extends Lego.UI.Baseview {
         return vDom;
     }
     renderAfter(){
-        if(this.options.width) this.$('.lego-avatar-img').width(this.options.width);
-        if(this.options.height) this.$('.lego-avatar-img').height(this.options.height);
-        this.$('.lego-avatar-img, .lego-avatar-img i').css('border-radius', this.options.radius);
+        if(this.options.width) this.$el.find('.lego-avatar-img').width(this.options.width);
+        if(this.options.height) this.$el.find('.lego-avatar-img').height(this.options.height);
+        this.$el.find('.lego-avatar-img, .lego-avatar-img i').css('border-radius', this.options.radius);
     }
     onAdd(event){
         event.stopPropagation();

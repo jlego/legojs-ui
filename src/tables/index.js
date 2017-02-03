@@ -78,11 +78,11 @@ class Tables extends Lego.UI.Baseview {
         super(options);
         this.selectedAll = 0;
         // 同步横向滚动
-        const header = this.$('.lego-table-header');
-        this.$('.lego-table-body').scroll(function() {
+        const header = this.$el.find('.lego-table-header');
+        this.$el.find('.lego-table-body').scroll(function() {
             header.scrollLeft($(this).scrollLeft());
         });
-        this.$('.lego-table-tfoot>tr>td').attr('colspan', this.options.columns.length);
+        this.$el.find('.lego-table-tfoot>tr>td').attr('colspan', this.options.columns.length);
     }
     render() {
         const options = this.options;
@@ -257,7 +257,7 @@ class Tables extends Lego.UI.Baseview {
         event.stopPropagation();
         const target = $(event.currentTarget),
             rowKey = target.parent().attr('id'),
-            colKey = this.$('thead').find('th').eq(event.currentTarget.cellIndex).attr('id');
+            colKey = this.$el.find('thead').find('th').eq(event.currentTarget.cellIndex).attr('id');
         const row = this.options.data.find(val => val.key == rowKey);
         const col = this.options.columns.find(val => val.key == colKey);
         if(row && col){

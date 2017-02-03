@@ -98,8 +98,8 @@ var Inputs = function(_Lego$UI$Baseview) {
         if (options.addonBefore || options.addonAfter) {
             var onEnterFun = _this.onEnter.bind(_this);
             var onChangeFun = _this.onChange.bind(_this);
-            _this.$("input").keydown(onEnterFun);
-            _this.$("input").change(onChangeFun);
+            _this.$el.find("input").keydown(onEnterFun);
+            _this.$el.find("input").change(onChangeFun);
         }
         return _this;
     }

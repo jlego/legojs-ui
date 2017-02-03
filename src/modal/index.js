@@ -106,8 +106,8 @@ class Modal extends Lego.UI.Baseview {
             keyboard: options.keyboard,
             show: true
         });
-        if(options.width) this.$('.modal-dialog').width(options.width);
-        if(options.height) this.$('.modal-body').height(options.height);
+        if(options.width) this.$el.find('.modal-dialog').width(options.width);
+        if(options.height) this.$el.find('.modal-body').height(options.height);
         this.$el.on('hidden.bs.modal', function (e) {
             if(options.type == 'layer'){
                 that.$el.replaceWith('<layer id="lego-layer"></layer>');

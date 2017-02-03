@@ -43,7 +43,7 @@ class Tabs extends Lego.UI.Baseview {
             activeKey: options.activeKey, //当前激活的key
             // direction: '',  //显示方向
             onClick(self, item){
-                if(!item.disabled){
+                if(!item.disabled && item.content){
                     const parentView = this.context;
                     parentView.options.activeKey = item.key;
                     parentView.options.activeContent = item.content;

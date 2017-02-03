@@ -4,12 +4,13 @@ class Dropdown extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
-                'click li': 'clickItem'
+                'click li:not(.dropdown)': 'clickItem'
             },
             disabled: false,
             eventName: 'click', //['click'] or ['hover']
             trigger: '', //触发对象
             direction: '',  //显示方向
+            activeKey: '',
             clickAndClose: true,  //点击后关闭
             open: false,    //展开
             onChange(){},  //改变值时调用
@@ -26,22 +27,24 @@ class Dropdown extends Lego.UI.Baseview {
             }else{
                 if(!item.children){
                     return hx`
-                    <li id="${item.key}" class="${item.disabled || item.selected ? 'disabled' : ''} ${item.active ? 'active' : ''}">
-                    <a href="${item.href ? item.href : 'javascript:;'}">${val(item.value)}</a>
+                    <li>
+                    <a id="${val(item.key)}" class="${item.disabled || item.selected ? 'disabled' : ''} ${item.active ? 'active' : ''}" href="${item.href ? item.href : 'javascript:;'}">
+                    ${val(item.value)}
+                    </a>
                     </li>`;
                 }else{
                     return loopNav(item);
                 }
             }
         }
-        function loopNav(data){
+        function loopNav(item){
             return hx`
             <li class="dropdown">
-                ${val(data.value)}
-                ${data.children ? hx`
+                <a id="${val(item.key)}" class="${item.key === options.activeKey ? 'active' : ''} ${item.disabled ? 'disabled' : ''} dropdown-toggle" href="${item.href ? item.href : 'javascript:;'}">${val(item.value)}</a>
+                ${item.children ? hx`
                 <ul class="dropdown-menu">
-                    ${data.children.map((item) => {
-                        itemNav(item);
+                    ${item.children.map((item) => {
+                        return itemNav(item);
                     })}
                 </ul>
                 ` : ''}
@@ -101,7 +104,7 @@ class Dropdown extends Lego.UI.Baseview {
     clickItem(event){
         event.stopPropagation();
         const target = $(event.currentTarget);
-        const model = this.options.data.find(Item => Item.key == target.attr('id'));
+        const model = this.options.data.find(Item => Item.key == target.children('a').attr('id'));
         if(model) this.options.onChange(this, model);
         if(this.options.clickAndClose){
             this.close();

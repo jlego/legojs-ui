@@ -362,7 +362,7 @@ var Baseview = function(_Lego$View) {
         value: function renderScroll() {
             var options = this.options, that = this;
             if (options.scrollbar) {
-                var scrollbarEl = this.$(".scrollbar");
+                var scrollbarEl = this.$el.find(".scrollbar");
                 if (scrollbarEl.length) {
                     scrollbarEl.each(function(index, el) {
                         var container = $(this), eventName = "mousemove.ps" + index;

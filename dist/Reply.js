@@ -1954,7 +1954,7 @@ var Reply = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            this.$(".lego-reply-content").attr("contenteditable", "true").height(this.options.contentHeight);
+            this.$el.find(".lego-reply-content").attr("contenteditable", "true").height(this.options.contentHeight);
         }
     }, {
         key: "onFocus",
@@ -1971,7 +1971,7 @@ var Reply = function(_Lego$UI$Baseview) {
     }, {
         key: "showUpload",
         value: function showUpload(event) {
-            this.$(".popover").toggleClass("show");
+            this.$el.find(".popover").toggleClass("show");
         }
     }, {
         key: "_enterSearch",
@@ -1990,7 +1990,7 @@ var Reply = function(_Lego$UI$Baseview) {
         key: "onSubmit",
         value: function onSubmit(event) {
             event.stopPropagation();
-            var contentEl = this.$(".lego-reply-content");
+            var contentEl = this.$el.find(".lego-reply-content");
             var contentHtml = this.options.inputType == "div" ? contentEl.html() : contentEl.val();
             contentHtml = this.options.inputType == "div" ? Lego.UI.Util.faceToText(contentHtml, this.options.iconsUrl) : contentHtml;
             if (this.options.inputType == "div") {

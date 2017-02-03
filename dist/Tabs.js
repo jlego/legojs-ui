@@ -24,9 +24,9 @@ var _createClass$2 = function() {
 
 var _templateObject$2 = _taggedTemplateLiteral$2([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
 
-var _templateObject2$1 = _taggedTemplateLiteral$2([ '\n                    <li id="', '" class="', " ", '">\n                    <a href="', '">', "</a>\n                    </li>" ], [ '\n                    <li id="', '" class="', " ", '">\n                    <a href="', '">', "</a>\n                    </li>" ]);
+var _templateObject2$1 = _taggedTemplateLiteral$2([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ]);
 
-var _templateObject3 = _taggedTemplateLiteral$2([ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ]);
+var _templateObject3 = _taggedTemplateLiteral$2([ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ]);
 
 var _templateObject4 = _taggedTemplateLiteral$2([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
@@ -75,12 +75,13 @@ var Dropdown = function(_Lego$UI$Baseview) {
         _classCallCheck$2(this, Dropdown);
         var options = {
             events: {
-                "click li": "clickItem"
+                "click li:not(.dropdown)": "clickItem"
             },
             disabled: false,
             eventName: "click",
             trigger: "",
             direction: "",
+            activeKey: "",
             clickAndClose: true,
             open: false,
             onChange: function onChange() {},
@@ -98,15 +99,15 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     return hx(_templateObject$2);
                 } else {
                     if (!item.children) {
-                        return hx(_templateObject2$1, item.key, item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
+                        return hx(_templateObject2$1, val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
                     } else {
                         return loopNav(item);
                     }
                 }
             }
-            function loopNav(data) {
-                return hx(_templateObject3, val(data.value), data.children ? hx(_templateObject4, data.children.map(function(item) {
-                    itemNav(item);
+            function loopNav(item) {
+                return hx(_templateObject3, val(item.key), item.key === options.activeKey ? "active" : "", item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", val(item.value), item.children ? hx(_templateObject4, item.children.map(function(item) {
+                    return itemNav(item);
                 })) : "");
             }
             var vDom = hx(_templateObject5, options.direction ? "drop" + options.direction : "", options.open ? "block" : "none", options.data.map(function(item) {
@@ -166,7 +167,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             event.stopPropagation();
             var target = $(event.currentTarget);
             var model = this.options.data.find(function(Item) {
-                return Item.key == target.attr("id");
+                return Item.key == target.children("a").attr("id");
             });
             if (model) this.options.onChange(this, model);
             if (this.options.clickAndClose) {
@@ -245,7 +246,7 @@ var Navs = function(_Lego$UI$Baseview) {
         _classCallCheck$1(this, Navs);
         var options = {
             events: {
-                "mouseenter .dropdown": "overItem",
+                "mouseenter .nav-item.dropdown": "overItem",
                 "click .dropdown-menu a:not(.disabled)": "clickSubItem",
                 "click .nav-item:not(.dropdown) > a": "clickItem"
             },
@@ -283,7 +284,7 @@ var Navs = function(_Lego$UI$Baseview) {
         value: function renderAfter() {
             var that = this;
             var _eventName = "click.dropdown_" + this.options.vid;
-            this.$(".dropdown > a").off(_eventName).on(_eventName, function(event) {
+            this.$el.find(".dropdown > a").off(_eventName).on(_eventName, function(event) {
                 event.stopPropagation();
                 var dropdownEl = $(this).next(".dropdown-menu");
                 var directionResp = Lego.UI.Util.getDirection($(this), dropdownEl);
@@ -295,7 +296,9 @@ var Navs = function(_Lego$UI$Baseview) {
                         $(this).parent().addClass("open");
                     }
                 });
-                that.clickItem(event);
+                if (!$(this).hasClass("dropdown-toggle")) {
+                    that.clickItem(event);
+                }
             });
             if (this.options.closeAllAble) {
                 $("body").click(function() {
@@ -306,12 +309,14 @@ var Navs = function(_Lego$UI$Baseview) {
     }, {
         key: "showAll",
         value: function showAll() {
-            this.$(".dropdown-menu").slideDown("fast");
+            this.$el.find(".dropdown-menu").slideDown("fast");
         }
     }, {
         key: "closeAll",
         value: function closeAll() {
-            this.$(".dropdown-menu").slideUp("fast");
+            this.$el.find(".dropdown-menu").slideUp("fast", function() {
+                $(this).parent().removeClass("open");
+            });
         }
     }, {
         key: "overItem",
@@ -330,7 +335,7 @@ var Navs = function(_Lego$UI$Baseview) {
                     return item.key === key;
                 });
                 if (typeof this.options.onClick === "function") {
-                    this.options.onClick(this, model);
+                    this.options.onClick(this, model || {});
                 }
             }
         }
@@ -340,17 +345,32 @@ var Navs = function(_Lego$UI$Baseview) {
             var _this2 = this;
             event.stopPropagation();
             this.options.activeKey = this.activeKey || this.options.activeKey;
-            var target = $(event.currentTarget), key = target.parent().attr("id"), model = this.options.data.find(function(item) {
+            var target = $(event.currentTarget), key = target.attr("id"), model = this.options.data.find(function(item) {
                 return item.key === _this2.options.activeKey;
             });
             var subModel = {};
             if (model) {
-                if (model.children) subModel = model.children.find(function(item) {
-                    return item.key === key;
-                });
+                if (model.children) {
+                    (function() {
+                        var findModel = function findModel(data) {
+                            var result = data.find(function(item) {
+                                return item.key === key;
+                            });
+                            if (!result) {
+                                data.forEach(function(item) {
+                                    if (item.children) {
+                                        result = findModel(item.children);
+                                    }
+                                });
+                            }
+                            return result || {};
+                        };
+                        subModel = findModel(model.children);
+                    })();
+                }
             }
-            this.$(".dropdown-menu li").removeClass("active");
-            this.$("#" + key).addClass("active");
+            this.$el.find(".dropdown-menu a").removeClass("active");
+            this.$el.find("#" + key).addClass("active");
             if (typeof this.options.onClick === "function") this.options.onClick(this, subModel);
         }
     } ]);
@@ -446,7 +466,7 @@ var Tabs = function(_Lego$UI$Baseview) {
             type: "tabs",
             activeKey: options.activeKey,
             onClick: function onClick(self, item) {
-                if (!item.disabled) {
+                if (!item.disabled && item.content) {
                     var parentView = this.context;
                     parentView.options.activeKey = item.key;
                     parentView.options.activeContent = item.content;

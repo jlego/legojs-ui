@@ -131,7 +131,7 @@ var Datepicker = function(_Lego$UI$Baseview) {
             });
             var that = this, theEl = options.inline ? options.el : ".input-group input";
             if (options.type !== "range") {
-                var $theEl = this.$(theEl);
+                var $theEl = this.$el.find(theEl);
                 if (options.inline) $theEl = this.$el;
                 $theEl.datetimepicker(options.setting);
                 $theEl.on("dp.change", function(event) {
@@ -145,29 +145,29 @@ var Datepicker = function(_Lego$UI$Baseview) {
                         var endDateOpts = Object.assign({}, _extends({}, options.setting, {
                             useCurrent: options.useCurrent
                         }));
-                        var startDate = _this2.$(startEl).datetimepicker(startDateOpts);
-                        var endDate = _this2.$(endEl).datetimepicker(endDateOpts);
-                        _this2.$(startEl).on("dp.change", function(e) {
-                            that.$(endEl).data("DateTimePicker").minDate(e.date);
+                        var startDate = _this2.$el.find(startEl).datetimepicker(startDateOpts);
+                        var endDate = _this2.$el.find(endEl).datetimepicker(endDateOpts);
+                        _this2.$el.find(startEl).on("dp.change", function(e) {
+                            that.$el.find(endEl).data("DateTimePicker").minDate(e.date);
                             if (typeof options.onChange == "function") options.onChange(that, $(this).val());
                         });
-                        _this2.$(endEl).on("dp.change", function(e) {
-                            that.$(startEl).data("DateTimePicker").maxDate(e.date);
+                        _this2.$el.find(endEl).on("dp.change", function(e) {
+                            that.$el.find(startEl).data("DateTimePicker").maxDate(e.date);
                             if (typeof options.onChange == "function") options.onChange(that, $(this).val());
                         });
                     } else if (options.startInputEl || options.endInputEl) {
                         (function() {
                             var selector = options.startInputEl || options.endInputEl;
                             if (options.startInputEl) options.setting.useCurrent = false;
-                            _this2.$(theEl).datetimepicker(options.setting);
+                            _this2.$el.find(theEl).datetimepicker(options.setting);
                             if (options.endInputEl) {
-                                _this2.$(theEl).on("dp.change", function(e) {
+                                _this2.$el.find(theEl).on("dp.change", function(e) {
                                     var _el = selector instanceof $ ? selector : $(selector).find(theEl);
                                     _el.data("DateTimePicker").maxDate(e.date);
                                     if (typeof options.onChange == "function") options.onChange(that, $(this).val());
                                 });
                             } else if (options.startInputEl) {
-                                _this2.$(theEl).on("dp.change", function(e) {
+                                _this2.$el.find(theEl).on("dp.change", function(e) {
                                     var _el = selector instanceof $ ? selector : $(selector).find(theEl);
                                     _el.data("DateTimePicker").minDate(e.date);
                                     if (typeof options.onChange == "function") options.onChange(that, $(this).val());

@@ -7,7 +7,14 @@ class Menu extends Lego.UI.Baseview {
             open: true,
             children: [{
                 key: 'nav_home',
-                value: 'Button 按钮'
+                value: 'Button 按钮',
+                children: [{
+                    key: 'nav_home_1',
+                    value: 'Button 按钮'
+                }, {
+                    key: 'nav1_2_2',
+                    value: 'Icon 图标'
+                }]
             }, {
                 key: 'nav1_2',
                 value: 'Icon 图标'
@@ -18,8 +25,8 @@ class Menu extends Lego.UI.Baseview {
             icon: 'icon-account-info',
             open: true,
             children: [{
-                key: 'nav_alert',
-                value: 'Alert 警告框'
+                key: 'nav_navs',
+                value: 'Nav 导航菜单'
             }, {
                 key: 'nav_forms',
                 value: 'Form 表单'
@@ -30,8 +37,11 @@ class Menu extends Lego.UI.Baseview {
             icon: 'icon-teamwork',
             open: true,
             children: [{
-                key: 'nav_navs',
-                value: 'Nav 导航菜单'
+                key: 'nav_alert',
+                value: 'Alert 警告框'
+            }, {
+                key: 'nav_forms',
+                value: 'Form 表单'
             }, {
                 key: 'nav_tips',
                 value: 'Tips 提示框'
@@ -78,9 +88,9 @@ class Menu extends Lego.UI.Baseview {
         }];
         data.forEach(item => {
             item.value = hx `<span><i class="icon iconfont ${val(item.icon)}"></i> ${val(item.value)}</span>`;
-            if(item.children){
+            if (item.children) {
                 item.children.forEach(subItem => {
-                    if(subItem.key == ('nav_' + Lego.getAppName())){
+                    if (subItem.key == ('nav_' + Lego.getAppName())) {
                         subItem.active = true;
                     }
                 });
@@ -94,14 +104,10 @@ class Menu extends Lego.UI.Baseview {
                 activeKey: 'nav1',
                 onClick(self, item) {
                     console.warn('点击了菜单5', item);
-                    // if(event){
-                    //     setTimeout(function(){
-                    //         const target = $(event.currentTarget);
-                    //         target.toggleClass('closed');
-                    //     }, 200);
-                    // }
-                    if(item.key.indexOf('_') > 0){
-                        Lego.startApp(item.key.split('_')[1]);
+                    if(item.key){
+                        if (item.key.indexOf('_') > 0) {
+                            Lego.startApp(item.key.split('_')[1]);
+                        }
                     }
                 },
                 data: data

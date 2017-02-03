@@ -26,9 +26,9 @@ var _createClass$2 = function() {
 
 var _templateObject$2 = _taggedTemplateLiteral$2([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
 
-var _templateObject2$2 = _taggedTemplateLiteral$2([ '\n                    <li id="', '" class="', " ", '">\n                    <a href="', '">', "</a>\n                    </li>" ], [ '\n                    <li id="', '" class="', " ", '">\n                    <a href="', '">', "</a>\n                    </li>" ]);
+var _templateObject2$2 = _taggedTemplateLiteral$2([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ]);
 
-var _templateObject3$2 = _taggedTemplateLiteral$2([ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ]);
+var _templateObject3$2 = _taggedTemplateLiteral$2([ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ]);
 
 var _templateObject4$2 = _taggedTemplateLiteral$2([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
@@ -77,12 +77,13 @@ var Dropdown = function(_Lego$UI$Baseview) {
         _classCallCheck$2(this, Dropdown);
         var options = {
             events: {
-                "click li": "clickItem"
+                "click li:not(.dropdown)": "clickItem"
             },
             disabled: false,
             eventName: "click",
             trigger: "",
             direction: "",
+            activeKey: "",
             clickAndClose: true,
             open: false,
             onChange: function onChange() {},
@@ -100,15 +101,15 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     return hx(_templateObject$2);
                 } else {
                     if (!item.children) {
-                        return hx(_templateObject2$2, item.key, item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
+                        return hx(_templateObject2$2, val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
                     } else {
                         return loopNav(item);
                     }
                 }
             }
-            function loopNav(data) {
-                return hx(_templateObject3$2, val(data.value), data.children ? hx(_templateObject4$2, data.children.map(function(item) {
-                    itemNav(item);
+            function loopNav(item) {
+                return hx(_templateObject3$2, val(item.key), item.key === options.activeKey ? "active" : "", item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", val(item.value), item.children ? hx(_templateObject4$2, item.children.map(function(item) {
+                    return itemNav(item);
                 })) : "");
             }
             var vDom = hx(_templateObject5, options.direction ? "drop" + options.direction : "", options.open ? "block" : "none", options.data.map(function(item) {
@@ -168,7 +169,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             event.stopPropagation();
             var target = $(event.currentTarget);
             var model = this.options.data.find(function(Item) {
-                return Item.key == target.attr("id");
+                return Item.key == target.children("a").attr("id");
             });
             if (model) this.options.onChange(this, model);
             if (this.options.clickAndClose) {
@@ -289,7 +290,7 @@ var Selects = function(_Lego$UI$Baseview) {
                 dataSource: opts.dataSource,
                 onChange: function onChange(self, model) {
                     var parentView = this.context;
-                    parentView.$(".select-input").focus();
+                    parentView.$el.find(".select-input").focus();
                     if (model.key !== "0" && opts.multiple) {
                         parentView.getValue();
                         if (!parentView.options.value.includes(model)) {
@@ -311,7 +312,7 @@ var Selects = function(_Lego$UI$Baseview) {
         Object.assign(options, opts);
         var _this = _possibleConstructorReturn$1(this, (Selects.__proto__ || Object.getPrototypeOf(Selects)).call(this, options));
         var eventName = "click.select_" + opts.vid, callback = _this.clickItemClose.bind(_this);
-        _this.$(".select-tags-div").off(eventName).on(eventName, ".select-tag-close", callback);
+        _this.$el.find(".select-tags-div").off(eventName).on(eventName, ".select-tag-close", callback);
         return _this;
     }
     _createClass$1(Selects, [ {
@@ -710,7 +711,7 @@ var Treeselect = function(_Selects) {
         }
         var _this = _possibleConstructorReturn(this, (Treeselect.__proto__ || Object.getPrototypeOf(Treeselect)).call(this, options));
         var eventName = "click.select_" + opts.vid, callback = _this.clickItemClose.bind(_this);
-        _this.$(".select-tags-div").off(eventName).on(eventName, ".select-tag-close", callback);
+        _this.$el.find(".select-tags-div").off(eventName).on(eventName, ".select-tag-close", callback);
         return _this;
     }
     _createClass(Treeselect, [ {
@@ -769,7 +770,7 @@ var Treeselect = function(_Selects) {
                     }
                 })();
             }
-            this.$(".dropdown-menu").css({
+            this.$el.find(".dropdown-menu").css({
                 width: options.dropdownWidth || "100%",
                 height: options.dropdownHeight || "auto"
             });
@@ -777,12 +778,12 @@ var Treeselect = function(_Selects) {
     }, {
         key: "show",
         value: function show(event) {
-            this.$(".dropdown-menu").slideDown("fast");
+            this.$el.find(".dropdown-menu").slideDown("fast");
         }
     }, {
         key: "close",
         value: function close(event) {
-            this.$(".dropdown-menu").slideUp("fast");
+            this.$el.find(".dropdown-menu").slideUp("fast");
         }
     }, {
         key: "clickItemClose",

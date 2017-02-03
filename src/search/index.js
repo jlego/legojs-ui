@@ -61,7 +61,7 @@ class Search extends Lego.UI.Baseview {
     }
     onSearch(event) {
         event.stopPropagation();
-        const keyword = this.$('.lego-search-input').val();
+        const keyword = this.$el.find('.lego-search-input').val();
         if (typeof this.options.onSearch === 'function') this.options.onSearch(this, {
             key: this.options.activeKey,
             value: this.options.activeValue,
