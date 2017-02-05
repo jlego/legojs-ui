@@ -247,6 +247,7 @@ var Navs = function(_Lego$UI$Baseview) {
         var options = {
             events: {
                 "mouseover .nav-item.dropdown": "overItem",
+                "click .dropdown > a": "clickNav",
                 "click .dropdown-menu a:not(.disabled)": "clickSubItem",
                 "click .nav-item:not(.dropdown) > a": "clickItem"
             },
@@ -283,23 +284,6 @@ var Navs = function(_Lego$UI$Baseview) {
         key: "renderAfter",
         value: function renderAfter() {
             var that = this;
-            var _eventName = "click.dropdown_" + this.options.vid;
-            this.$(".dropdown > a").off(_eventName).on(_eventName, function(event) {
-                event.stopPropagation();
-                var dropdownEl = $(this).next(".dropdown-menu");
-                var directionResp = Lego.UI.Util.getDirection($(this), dropdownEl);
-                that.options.direction = directionResp._y || "bottom";
-                dropdownEl.slideToggle("fast", function() {
-                    if ($(this).css("display") == "none") {
-                        $(this).parent().removeClass("open");
-                    } else {
-                        $(this).parent().addClass("open");
-                    }
-                });
-                if (!$(this).hasClass("dropdown-toggle")) {
-                    that.clickItem(event);
-                }
-            });
             if (this.options.closeAllAble) {
                 $("body").click(function() {
                     that.closeAll();
@@ -323,6 +307,25 @@ var Navs = function(_Lego$UI$Baseview) {
         value: function overItem(event, target) {
             var targetEl = $(event.currentTarget), key = targetEl.children("a").attr("id");
             this.activeKey = key;
+        }
+    }, {
+        key: "clickNav",
+        value: function clickNav(event, target) {
+            event.stopPropagation();
+            var targetEl = $(event.currentTarget);
+            var dropdownEl = targetEl.next(".dropdown-menu");
+            var directionResp = Lego.UI.Util.getDirection(targetEl, dropdownEl);
+            this.options.direction = directionResp._y || "bottom";
+            dropdownEl.slideToggle("fast", function() {
+                if ($(this).css("display") == "none") {
+                    $(this).parent().removeClass("open");
+                } else {
+                    $(this).parent().addClass("open");
+                }
+            });
+            if (!targetEl.hasClass("dropdown-toggle")) {
+                this.clickItem(event);
+            }
         }
     }, {
         key: "clickItem",

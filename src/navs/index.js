@@ -18,6 +18,7 @@ class Navs extends Lego.UI.Baseview {
         const options = {
             events: {
                 'mouseover .nav-item.dropdown': 'overItem',
+                'click .dropdown > a': 'clickNav',
                 'click .dropdown-menu a:not(.disabled)': 'clickSubItem',
                 'click .nav-item:not(.dropdown) > a': 'clickItem'
             },
@@ -60,23 +61,6 @@ class Navs extends Lego.UI.Baseview {
     }
     renderAfter(){
         const that = this;
-        const _eventName = 'click.dropdown_' + this.options.vid;
-        this.$('.dropdown > a').off(_eventName).on(_eventName, function(event){
-            event.stopPropagation();
-            let dropdownEl = $(this).next('.dropdown-menu');
-            let directionResp = Lego.UI.Util.getDirection($(this), dropdownEl);
-            that.options.direction = directionResp._y || 'bottom';
-            dropdownEl.slideToggle('fast', function(){
-                if($(this).css('display') == 'none'){
-                    $(this).parent().removeClass('open');
-                }else{
-                    $(this).parent().addClass('open');
-                }
-            });
-            if(!$(this).hasClass('dropdown-toggle')){
-                that.clickItem(event);
-            }
-        });
         if(this.options.closeAllAble){
             $('body').click(function(){
                 that.closeAll();
@@ -95,6 +79,23 @@ class Navs extends Lego.UI.Baseview {
         const targetEl = $(event.currentTarget),
             key = targetEl.children('a').attr('id');
         this.activeKey = key;
+    }
+    clickNav(event, target) {
+        event.stopPropagation();
+        let targetEl = $(event.currentTarget);
+        let dropdownEl = targetEl.next('.dropdown-menu');
+        let directionResp = Lego.UI.Util.getDirection(targetEl, dropdownEl);
+        this.options.direction = directionResp._y || 'bottom';
+        dropdownEl.slideToggle('fast', function(){
+            if($(this).css('display') == 'none'){
+                $(this).parent().removeClass('open');
+            }else{
+                $(this).parent().addClass('open');
+            }
+        });
+        if(!targetEl.hasClass('dropdown-toggle')){
+            this.clickItem(event);
+        }
     }
     clickItem(event, target) {
         event.stopPropagation();

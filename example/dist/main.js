@@ -429,7 +429,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {/**
-	 * lego.js v1.2.10
+	 * lego.js v1.2.11
 	 * (c) 2017 Ronghui Yu
 	 * @license MIT
 	 */
@@ -946,19 +946,33 @@
 
 	View.prototype.handler = function handler(event) {
 	    var this$1 = this;
-	    var target = event.target, eventName = event.type, path = event.path, that = this;
+	    var target = event.target, eventName = event.type, path = event.path, that = this, targetIndex = path.indexOf(target);
 	    if (this.eventNameSpace.has(eventName)) {
-	        var selectorMap = this.eventNameSpace.get(eventName);
+	        var selectorMap = this.eventNameSpace.get(eventName), resultArr = [];
 	        selectorMap.forEach(function(listener, selector) {
 	            var els = selector ? this$1.el.querySelectorAll(selector) : [ this$1.el ];
 	            for (var i = 0; i < els.length; i++) {
-	                if (path.indexOf(els[i]) >= path.indexOf(target)) {
-	                    if (typeof listener == "function") {
-	                        listener(event, els[i]);
-	                    }
+	                var elIndex = path.indexOf(els[i]);
+	                if (elIndex >= targetIndex) {
+	                    resultArr.push({
+	                        order: elIndex,
+	                        listener: listener,
+	                        target: els[i]
+	                    });
 	                }
 	            }
 	        });
+	        if (resultArr.length) {
+	            resultArr.sort(function(a, b) {
+	                return a.order - b.order;
+	            });
+	            resultArr.forEach(function(value, index) {
+	                var listener = resultArr[index].listener;
+	                if (typeof listener == "function") {
+	                    listener(event, resultArr[index].target);
+	                }
+	            });
+	        }
 	    }
 	};
 
@@ -974,9 +988,9 @@
 	            var subEvent = new Map();
 	            subEvent.set(selector, listener);
 	            this.eventNameSpace.set(eventName, subEvent);
+	            this.el.removeEventListener(eventName, this.handler.bind(this));
+	            this.el.addEventListener(eventName, this.handler.bind(this), false);
 	        }
-	        this.el.removeEventListener(eventName, this.handler.bind(this));
-	        this.el.addEventListener(eventName, this.handler.bind(this), false);
 	    } else {
 	        if (this.eventNameSpace.has(eventName)) {
 	            this.eventNameSpace.get(eventName).delete(selector);
@@ -23763,7 +23777,7 @@
 	    _templateObject2$6 = _taggedTemplateLiteral$7(['\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        "], ['\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        "]),
 	    Navs = function (_Lego$UI$Baseview) {
 	  function Navs() {
-	    var opts = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};_classCallCheck$9(this, Navs);var options = { events: { "mouseover .nav-item.dropdown": "overItem", "click .dropdown-menu a:not(.disabled)": "clickSubItem", "click .nav-item:not(.dropdown) > a": "clickItem" }, eventName: "click", type: "base", activeKey: "", activeValue: "", direction: "", closeAllAble: !0, onClick: function onClick() {}, data: [] };return Object.assign(options, opts), _possibleConstructorReturn$8(this, (Navs.__proto__ || Object.getPrototypeOf(Navs)).call(this, options));
+	    var opts = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};_classCallCheck$9(this, Navs);var options = { events: { "mouseover .nav-item.dropdown": "overItem", "click .dropdown > a": "clickNav", "click .dropdown-menu a:not(.disabled)": "clickSubItem", "click .nav-item:not(.dropdown) > a": "clickItem" }, eventName: "click", type: "base", activeKey: "", activeValue: "", direction: "", closeAllAble: !0, onClick: function onClick() {}, data: [] };return Object.assign(options, opts), _possibleConstructorReturn$8(this, (Navs.__proto__ || Object.getPrototypeOf(Navs)).call(this, options));
 	  }return _inherits$8(Navs, _Lego$UI$Baseview), _createClass$9(Navs, [{ key: "render", value: function value() {
 	      function makeItem(item, i) {
 	        var itemDom = hx(_templateObject$7, item.children ? "dropdown" : "", item.open ? "open" : "", item.key === options.activeKey ? "active" : "", item.disabled ? "disabled" : "", item.children ? "dropdown-toggle" : "", item.href ? item.href : "javascript:;", item.key ? item.key : "nav-item-" + i, val(item.value), Array.isArray(item.children) ? Lego.create(Dropdown, { direction: options.direction, open: item.open, data: item.children }).render() : "");return itemDom;
@@ -23772,13 +23786,7 @@
 	        return makeItem(item, i);
 	      }));return vDom;
 	    } }, { key: "renderAfter", value: function value() {
-	      var that = this,
-	          _eventName = "click.dropdown_" + this.options.vid;this.$(".dropdown > a").off(_eventName).on(_eventName, function (event) {
-	        event.stopPropagation();var dropdownEl = $(this).next(".dropdown-menu"),
-	            directionResp = Lego.UI.Util.getDirection($(this), dropdownEl);that.options.direction = directionResp._y || "bottom", dropdownEl.slideToggle("fast", function () {
-	          "none" == $(this).css("display") ? $(this).parent().removeClass("open") : $(this).parent().addClass("open");
-	        }), $(this).hasClass("dropdown-toggle") || that.clickItem(event);
-	      }), this.options.closeAllAble && $("body").click(function () {
+	      var that = this;this.options.closeAllAble && $("body").click(function () {
 	        that.closeAll();
 	      });
 	    } }, { key: "showAll", value: function value() {
@@ -23790,6 +23798,12 @@
 	    } }, { key: "overItem", value: function value(event, target) {
 	      var targetEl = $(event.currentTarget),
 	          key = targetEl.children("a").attr("id");this.activeKey = key;
+	    } }, { key: "clickNav", value: function value(event, target) {
+	      event.stopPropagation();var targetEl = $(event.currentTarget),
+	          dropdownEl = targetEl.next(".dropdown-menu"),
+	          directionResp = Lego.UI.Util.getDirection(targetEl, dropdownEl);this.options.direction = directionResp._y || "bottom", dropdownEl.slideToggle("fast", function () {
+	        "none" == $(this).css("display") ? $(this).parent().removeClass("open") : $(this).parent().addClass("open");
+	      }), targetEl.hasClass("dropdown-toggle") || this.clickItem(event);
 	    } }, { key: "clickItem", value: function value(event, target) {
 	      event.stopPropagation();var targetEl = $(event.currentTarget),
 	          key = targetEl.attr("id");if (!targetEl.hasClass("disabled")) {
