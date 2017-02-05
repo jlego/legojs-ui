@@ -246,7 +246,7 @@ var Navs = function(_Lego$UI$Baseview) {
         _classCallCheck$1(this, Navs);
         var options = {
             events: {
-                "mouseenter .nav-item.dropdown": "overItem",
+                "mouseover .nav-item.dropdown": "overItem",
                 "click .dropdown-menu a:not(.disabled)": "clickSubItem",
                 "click .nav-item:not(.dropdown) > a": "clickItem"
             },
@@ -284,7 +284,7 @@ var Navs = function(_Lego$UI$Baseview) {
         value: function renderAfter() {
             var that = this;
             var _eventName = "click.dropdown_" + this.options.vid;
-            this.$el.find(".dropdown > a").off(_eventName).on(_eventName, function(event) {
+            this.$(".dropdown > a").off(_eventName).on(_eventName, function(event) {
                 event.stopPropagation();
                 var dropdownEl = $(this).next(".dropdown-menu");
                 var directionResp = Lego.UI.Util.getDirection($(this), dropdownEl);
@@ -309,27 +309,27 @@ var Navs = function(_Lego$UI$Baseview) {
     }, {
         key: "showAll",
         value: function showAll() {
-            this.$el.find(".dropdown-menu").slideDown("fast");
+            this.$(".dropdown-menu").slideDown("fast");
         }
     }, {
         key: "closeAll",
         value: function closeAll() {
-            this.$el.find(".dropdown-menu").slideUp("fast", function() {
+            this.$(".dropdown-menu").slideUp("fast", function() {
                 $(this).parent().removeClass("open");
             });
         }
     }, {
         key: "overItem",
-        value: function overItem(event) {
-            var target = $(event.currentTarget), key = target.children("a").attr("id");
+        value: function overItem(event, target) {
+            var targetEl = $(event.currentTarget), key = targetEl.children("a").attr("id");
             this.activeKey = key;
         }
     }, {
         key: "clickItem",
-        value: function clickItem(event) {
+        value: function clickItem(event, target) {
             event.stopPropagation();
-            var target = $(event.currentTarget), key = target.attr("id");
-            if (!target.hasClass("disabled")) {
+            var targetEl = $(event.currentTarget), key = targetEl.attr("id");
+            if (!targetEl.hasClass("disabled")) {
                 this.options.activeKey = key;
                 var model = this.options.data.find(function(item) {
                     return item.key === key;
@@ -341,11 +341,11 @@ var Navs = function(_Lego$UI$Baseview) {
         }
     }, {
         key: "clickSubItem",
-        value: function clickSubItem(event) {
+        value: function clickSubItem(event, target) {
             var _this2 = this;
             event.stopPropagation();
             this.options.activeKey = this.activeKey || this.options.activeKey;
-            var target = $(event.currentTarget), key = target.attr("id"), model = this.options.data.find(function(item) {
+            var targetEl = $(event.currentTarget), key = targetEl.attr("id"), model = this.options.data.find(function(item) {
                 return item.key === _this2.options.activeKey;
             });
             var subModel = {};
@@ -369,8 +369,8 @@ var Navs = function(_Lego$UI$Baseview) {
                     })();
                 }
             }
-            this.$el.find(".dropdown-menu a").removeClass("active");
-            this.$el.find("#" + key).addClass("active");
+            this.$(".dropdown-menu a").removeClass("active");
+            this.$("#" + key).addClass("active");
             if (typeof this.options.onClick === "function") this.options.onClick(this, subModel);
         }
     } ]);

@@ -17,7 +17,7 @@ class Navs extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
-                'mouseenter .nav-item.dropdown': 'overItem',
+                'mouseover .nav-item.dropdown': 'overItem',
                 'click .dropdown-menu a:not(.disabled)': 'clickSubItem',
                 'click .nav-item:not(.dropdown) > a': 'clickItem'
             },
@@ -61,7 +61,7 @@ class Navs extends Lego.UI.Baseview {
     renderAfter(){
         const that = this;
         const _eventName = 'click.dropdown_' + this.options.vid;
-        this.$el.find('.dropdown > a').off(_eventName).on(_eventName, function(event){
+        this.$('.dropdown > a').off(_eventName).on(_eventName, function(event){
             event.stopPropagation();
             let dropdownEl = $(this).next('.dropdown-menu');
             let directionResp = Lego.UI.Util.getDirection($(this), dropdownEl);
@@ -84,23 +84,23 @@ class Navs extends Lego.UI.Baseview {
         }
     }
     showAll(){
-        this.$el.find('.dropdown-menu').slideDown('fast');
+        this.$('.dropdown-menu').slideDown('fast');
     }
     closeAll(){
-        this.$el.find('.dropdown-menu').slideUp('fast', function(){
+        this.$('.dropdown-menu').slideUp('fast', function(){
             $(this).parent().removeClass('open');
         });
     }
-    overItem(event){
-        const target = $(event.currentTarget),
-            key = target.children('a').attr('id');
+    overItem(event, target){
+        const targetEl = $(event.currentTarget),
+            key = targetEl.children('a').attr('id');
         this.activeKey = key;
     }
-    clickItem(event) {
+    clickItem(event, target) {
         event.stopPropagation();
-        const target = $(event.currentTarget),
-            key = target.attr('id');
-        if(!target.hasClass('disabled')){
+        const targetEl = $(event.currentTarget),
+            key = targetEl.attr('id');
+        if(!targetEl.hasClass('disabled')){
             this.options.activeKey = key;
             let model = this.options.data.find(item => item.key === key);
             if (typeof this.options.onClick === 'function'){
@@ -108,11 +108,11 @@ class Navs extends Lego.UI.Baseview {
             }
         }
     }
-    clickSubItem(event){
+    clickSubItem(event, target){
         event.stopPropagation();
         this.options.activeKey = this.activeKey || this.options.activeKey;
-        const target = $(event.currentTarget),
-            key = target.attr('id'),
+        const targetEl = $(event.currentTarget),
+            key = targetEl.attr('id'),
             model = this.options.data.find(item => item.key === this.options.activeKey);
         let subModel = {};
         if(model){
@@ -131,8 +131,8 @@ class Navs extends Lego.UI.Baseview {
                 subModel = findModel(model.children);
             }
         }
-        this.$el.find('.dropdown-menu a').removeClass('active');
-        this.$el.find('#' + key).addClass('active');
+        this.$('.dropdown-menu a').removeClass('active');
+        this.$('#' + key).addClass('active');
         if (typeof this.options.onClick === 'function') this.options.onClick(this, subModel);
     }
 }

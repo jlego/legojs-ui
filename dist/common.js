@@ -375,6 +375,19 @@ var Baseview = function(_Lego$View) {
                 }
             }
         }
+    }, {
+        key: "bindEvents",
+        value: function bindEvents(eventName, selector, listener) {
+            var isUnbind = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+            this.$el.on(eventName + ".delegateEvents" + this.options.vid, selector, listener);
+            return this;
+        }
+    }, {
+        key: "unBindEvents",
+        value: function unBindEvents() {
+            if (this.$el) this.$el.off(".delegateEvents" + this.options.vid);
+            return this;
+        }
     } ]);
     return Baseview;
 }(Lego.View);

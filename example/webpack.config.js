@@ -63,14 +63,14 @@ module.exports = {
         //     jQuery: 'jquery',
         //     'windows.jQuery': 'jquery'
         // }),
-        new webpack.optimize.UglifyJsPlugin({
-            mangle: true,
-            compress: false,
-            output: {
-                beautify: true,
-                comments: false
-            },
-        }),
+        // new webpack.optimize.UglifyJsPlugin({
+        //     mangle: true,
+        //     compress: false,
+        //     output: {
+        //         beautify: true,
+        //         comments: false
+        //     },
+        // }),
         // new ExtractTextPlugin("[name].css", {
         //     allChunks: true
         // }),

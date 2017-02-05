@@ -24,6 +24,14 @@ class Baseview extends Lego.View {
             }
         }
     }
+    bindEvents(eventName, selector, listener, isUnbind = false){
+        this.$el.on(eventName + '.delegateEvents' + this.options.vid, selector, listener);
+        return this;
+    }
+    unBindEvents() {
+        if (this.$el) this.$el.off('.delegateEvents' + this.options.vid);
+        return this;
+    }
 }
 Lego.components('Baseview', Baseview);
 export default Baseview;
