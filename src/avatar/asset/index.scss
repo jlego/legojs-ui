@@ -14,6 +14,7 @@
 .lego-avatar-img{
 	width: 40px;
 	height: 40px;
+	background-color: #ececec;
 	background-image: url(./img/media-user.png);
 	background-size: cover;
 	overflow: hidden;
@@ -36,6 +37,7 @@
 	vertical-align: top;
 }
 .lego-avatar-item.addbtn .lego-avatar-img{
+	background-color: transparent;
 	background-image: none;
 }
 .lego-avatar-item.addbtn .lego-avatar-img i{

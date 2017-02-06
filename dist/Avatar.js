@@ -110,9 +110,9 @@ var Avatar = function(_Lego$UI$Baseview) {
             }
             var vDom = hx(_templateObject6, options.size, options.value.length ? hx(_templateObject7, options.multiple ? options.value.map(function(item) {
                 return getItem(item);
-            }) : getItem(options.value[0])) : "", (!options.value.length || options.multiple) && !options.readonly ? hx(_templateObject8) : "", options.value.map(function(item) {
-                return item.key;
-            }).join(","), options.name);
+            }) : getItem(options.value[0])) : "", (!options.value.length || options.multiple) && !options.readonly ? hx(_templateObject8) : "", options.value.length ? options.value.map(function(item) {
+                return item ? item.key : "";
+            }).join(",") : "", options.name);
             return vDom;
         }
     }, {

@@ -40,7 +40,8 @@ class Avatar extends Lego.UI.Baseview {
             return hx`
             <div class="lego-avatar-item">
                 <div class="lego-avatar-img" style="${data.value ? ('background-image:url(' + val(data.value) + ');') : ''}" id="${data.key}">
-                ${!options.readonly ? hx`${options.multiple ? hx`<i class="anticon anticon-close remove" title="删除 ${val(data.name)}"></i>` : hx`<i class="anticon anticon-swap change" title="更换 ${val(data.name)}"></i>`}` : ''}
+                ${!options.readonly ? hx`${options.multiple ? hx`<i class="anticon anticon-close remove" title="删除 ${val(data.name)}"></i>` :
+                hx`<i class="anticon anticon-swap change" title="更换 ${val(data.name)}"></i>`}` : ''}
                 </div>
                 ${options.showName ? hx`<label>${val(data.name)}</label>` : ''}
             </div>
@@ -60,7 +61,7 @@ class Avatar extends Lego.UI.Baseview {
                 </div>
             </div>
             ` : ''}
-            <input type="hidden" value="${options.value.map(item => item.key).join(',')}" name="${options.name}">
+            <input type="hidden" value="${options.value.length ? options.value.map(item => {return item ? item.key : ''}).join(',') : ''}" name="${options.name}">
         </div>
         `;
         return vDom;
