@@ -24,7 +24,7 @@ var _createClass$2 = function() {
 
 var _templateObject$2 = _taggedTemplateLiteral$2([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
 
-var _templateObject2$1 = _taggedTemplateLiteral$2([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ]);
+var _templateObject2$2 = _taggedTemplateLiteral$2([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ]);
 
 var _templateObject3 = _taggedTemplateLiteral$2([ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ]);
 
@@ -99,7 +99,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     return hx(_templateObject$2);
                 } else {
                     if (!item.children) {
-                        return hx(_templateObject2$1, val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
+                        return hx(_templateObject2$2, val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
                     } else {
                         return loopNav(item);
                     }
@@ -169,7 +169,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             var model = this.options.data.find(function(Item) {
                 return Item.key == target.children("a").attr("id");
             });
-            if (model) this.options.onChange(this, model);
+            if (model) this.options.onChange(this, model, event);
             if (this.options.clickAndClose) {
                 this.close();
             } else {
@@ -201,7 +201,7 @@ var _createClass$1 = function() {
 
 var _templateObject$1 = _taggedTemplateLiteral$1([ '\n            <li class="nav-item ', " ", '">\n                <a class="nav-link ', " ", " ", '" href="', '" id="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="nav-item ', " ", '">\n                <a class="nav-link ', " ", " ", '" href="', '" id="', '">', "</a>\n                ", "\n            </li>\n            " ]);
 
-var _templateObject2 = _taggedTemplateLiteral$1([ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject2$1 = _taggedTemplateLiteral$1([ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -275,7 +275,7 @@ var Navs = function(_Lego$UI$Baseview) {
                 }).render() : "");
                 return itemDom;
             }
-            var vDom = hx(_templateObject2, options.type === "inline" ? "nav-inline" : options.type === "tabs" ? "nav-tabs" : options.type === "pills" ? "nav-pills" : "", options.type === "pills-stacked" ? "nav-pills nav-stacked" : "", options.data.map(function(item, i) {
+            var vDom = hx(_templateObject2$1, options.type === "inline" ? "nav-inline" : options.type === "tabs" ? "nav-tabs" : options.type === "pills" ? "nav-pills" : "", options.type === "pills-stacked" ? "nav-pills nav-stacked" : "", options.data.map(function(item, i) {
                 return makeItem(item, i);
             }));
             return vDom;
@@ -399,7 +399,9 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="tabs">\n            <navs id="navs-', '"></navs>\n            <div class="tab-content">\n                <div class="tab-pane ', ' active in">\n                ', "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="tabs">\n            <navs id="navs-', '"></navs>\n            <div class="tab-content">\n                <div class="tab-pane ', ' active in">\n                ', "\n                </div>\n            </div>\n        </div>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="tabs">\n            <navs id="navs-', '"></navs>\n            <div class="tab-content">\n                ', "\n            </div>\n        </div>\n        " ], [ '\n        <div class="tabs">\n            <navs id="navs-', '"></navs>\n            <div class="tab-content">\n                ', "\n            </div>\n        </div>\n        " ]);
+
+var _templateObject2 = _taggedTemplateLiteral([ '<div class="tab-pane ', " ", '">\n                            ', "\n                        </div>" ], [ '<div class="tab-pane ', " ", '">\n                            ', "\n                        </div>" ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -475,15 +477,34 @@ var Tabs = function(_Lego$UI$Baseview) {
                     parentView.options.activeContent = item.content;
                 }
             },
-            data: options.data
+            data: Array.from(options.data)
         });
         return _possibleConstructorReturn(this, (Tabs.__proto__ || Object.getPrototypeOf(Tabs)).call(this, options));
     }
     _createClass(Tabs, [ {
         key: "render",
         value: function render() {
-            var options = this.options || {};
-            var vDom = hx(_templateObject, options.vid, val(options.animate), val(options.activeContent));
+            var options = this.options;
+            var newData = [];
+            function getNewData(data) {
+                if (Array.isArray(data)) {
+                    if (data.length) {
+                        data.forEach(function(item) {
+                            if (item.children) {
+                                getNewData(item.children);
+                            } else {
+                                newData.push(item);
+                            }
+                        });
+                    }
+                }
+            }
+            getNewData(options.data);
+            var vDom = hx(_templateObject, options.vid, newData.map(function(item) {
+                if (!item.disabled) {
+                    return hx(_templateObject2, val(options.animate), item.key == options.activeKey ? "active in" : "", item.key == options.activeKey ? val(options.activeContent) : "");
+                }
+            }));
             return vDom;
         }
     }, {

@@ -10,7 +10,7 @@
  *     disabled: false  //是否禁用
  * }]
  */
-// import './asset/index.scss';
+import './asset/index.scss';
 import Navs from '../navs/index';
 
 class Tabs extends Lego.UI.Baseview {
@@ -49,19 +49,38 @@ class Tabs extends Lego.UI.Baseview {
                     parentView.options.activeContent = item.content;
                 }
             }, //点击的回调
-            data: options.data
+            data: Array.from(options.data)
         });
         super(options);
     }
     render() {
-        const options = this.options || {};
+        const options = this.options;
+        let newData = [];
+        function getNewData(data){
+            if(Array.isArray(data)){
+                if(data.length){
+                    data.forEach(item => {
+                        if(item.children){
+                            getNewData(item.children);
+                        }else{
+                            newData.push(item);
+                        }
+                    });
+                }
+            }
+        }
+        getNewData(options.data);
         const vDom = hx`
         <div class="tabs">
             <navs id="navs-${options.vid}"></navs>
             <div class="tab-content">
-                <div class="tab-pane ${val(options.animate)} active in">
-                ${val(options.activeContent)}
-                </div>
+                ${newData.map(item => {
+                    if(!item.disabled){
+                        return hx`<div class="tab-pane ${val(options.animate)} ${item.key == options.activeKey ? 'active in' : ''}">
+                            ${item.key == options.activeKey ? val(options.activeContent) : ''}
+                        </div>`;
+                    }
+                })}
             </div>
         </div>
         `;

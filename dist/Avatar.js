@@ -132,12 +132,18 @@ var Avatar = function(_Lego$UI$Baseview) {
         key: "onRemove",
         value: function onRemove(event) {
             event.stopPropagation();
-            var target = $(event.currentTarget), itemEl = target.parent(), key = itemEl.attr("id").toString();
-            this.options.value = this.options.value.filter(function(item) {
-                return item.key.toString() !== key;
-            });
-            this.refresh();
-            if (typeof this.options.onRemove == "function") this.options.onRemove(this, key);
+            var that = this, target = $(event.currentTarget), itemEl = target.parent(), key = itemEl.attr("id").toString();
+            function deleteFun() {
+                that.options.value = that.options.value.filter(function(item) {
+                    return item.key.toString() !== key;
+                });
+                that.refresh();
+            }
+            if (typeof this.options.onRemove == "function") {
+                this.options.onRemove(this, key, deleteFun);
+            } else {
+                deleteFun();
+            }
         }
     }, {
         key: "onChange",

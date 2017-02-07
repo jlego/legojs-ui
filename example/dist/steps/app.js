@@ -273,6 +273,18 @@
 	                }
 	            }, {
 	                el: '#reply1',
+	                dropdown: {
+	                    data: [{
+	                        key: 'aa',
+	                        value: '回复并反馈'
+	                    }, {
+	                        key: 'aa2',
+	                        value: '回复并确认'
+	                    }],
+	                    onChange: function onChange(self, result) {
+	                        console.warn(self, result);
+	                    }
+	                },
 	                onSubmit: function onSubmit(self, result) {
 	                    console.warn('回复框', self, result);
 	                }

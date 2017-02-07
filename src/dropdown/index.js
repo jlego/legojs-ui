@@ -105,7 +105,7 @@ class Dropdown extends Lego.UI.Baseview {
         event.stopPropagation();
         const target = $(event.currentTarget);
         const model = this.options.data.find(Item => Item.key == target.children('a').attr('id'));
-        if(model) this.options.onChange(this, model);
+        if(model) this.options.onChange(this, model, event);
         if(this.options.clickAndClose){
             this.close();
         }else{

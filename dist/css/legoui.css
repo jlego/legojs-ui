@@ -9899,7 +9899,7 @@ tr.lego-table-expanded-row:hover {
   z-index: 1000;
   display: none;
   float: left;
-  min-width: 160px;
+  min-width: auto;
   padding: 5px 0;
   margin: 0px 0 0;
   list-style: none;
@@ -10109,6 +10109,8 @@ tr.lego-table-expanded-row:hover {
 .modal-body > .alert > i {
   top: 0;
   font-size: 250%; }
+.tabs .dropdown-menu {
+  min-width: 160px; }
 .lego-search input,
 .lego-search input:focus {
   height: 36px;
@@ -10467,7 +10469,7 @@ tr.lego-table-expanded-row:hover {
   display: inline-block;
   width: 0;
   height: 0;
-  margin-top: -.1em;
+  margin-top: -.3em;
   margin-left: .4em;
   vertical-align: middle;
   content: "";
@@ -10488,7 +10490,7 @@ tr.lego-table-expanded-row:hover {
   display: inline-block;
   width: 0;
   height: 0;
-  margin-top: -.1em;
+  margin-top: -.3em;
   margin-left: .6em;
   vertical-align: middle;
   content: "";
