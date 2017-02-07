@@ -169,7 +169,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             var model = this.options.data.find(function(Item) {
                 return Item.key == target.children("a").attr("id");
             });
-            if (model) this.options.onChange(this, model);
+            if (model) this.options.onChange(this, model, event);
             if (this.options.clickAndClose) {
                 this.close();
             } else {

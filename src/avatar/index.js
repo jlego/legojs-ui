@@ -77,12 +77,19 @@ class Avatar extends Lego.UI.Baseview {
     }
     onRemove(event){
         event.stopPropagation();
-        const target = $(event.currentTarget),
+        let that = this,
+            target = $(event.currentTarget),
             itemEl = target.parent(),
             key = itemEl.attr('id').toString();
-        this.options.value = this.options.value.filter(item => item.key.toString() !== key);
-        this.refresh();
-        if(typeof this.options.onRemove == 'function') this.options.onRemove(this, key);
+        function deleteFun(){
+            that.options.value = that.options.value.filter(item => item.key.toString() !== key);
+            that.refresh();
+        }
+        if(typeof this.options.onRemove == 'function'){
+            this.options.onRemove(this, key, deleteFun);
+        }else{
+            deleteFun();
+        }
     }
     onChange(event){
         event.stopPropagation();

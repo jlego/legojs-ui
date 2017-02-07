@@ -94,6 +94,18 @@ class HomeView extends Lego.UI.Baseview {
                 }
             }, {
                 el: '#reply1',
+                dropdown: {
+                    data: [{
+                        key: 'aa',
+                        value: '回复并反馈'
+                    }, {
+                        key: 'aa2',
+                        value: '回复并确认'
+                    }],
+                    onChange(self, result){
+                        console.warn(self, result);
+                    }
+                },
                 onSubmit(self, result){
                     console.warn('回复框', self, result);
                 }

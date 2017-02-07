@@ -202,13 +202,11 @@ class Treeselect extends Selects {
             key = target.attr('id'),
             value = target.attr('title'),
             treeView = $.fn.zTree.getZTreeObj('tree-' + this.options.vid);
-            // treeView = Lego.getView(this.$('#tree-' + this.options.vid))
         this.options.value.forEach(item => {
             if(item.key === key) item.selected = false;
         });
         this.getValue();
         this.refresh();
-        // if(treeView) treeView.clearChecked(this.options.keyNames[0], key);
         if(treeView){
             const treeNode = treeView.getNodeByParam(this.options.keyNames[0], key, null);
             treeView.checkNode(treeNode, !treeNode.checked, null, true);

@@ -7,6 +7,7 @@ import './asset/index.scss';
 import Facial from '../facial/index';
 import Popover from '../popover/index';
 import Upload from '../upload/index';
+import Dropdown from '../dropdown/index';
 
 class Reply extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -14,7 +15,7 @@ class Reply extends Lego.UI.Baseview {
             events: {
                 'focus .lego-reply-content': 'onFocus',
                 'blur .lego-reply-content': 'onblur',
-                'click .lego-reply-submit': 'onSubmit',
+                'click .lego-reply-submit > button:not(.dropdown-toggle)': 'submit',
                 'click .lego-reply-annex': 'showUpload',
                 'click .popover-title i': 'showUpload',
                 'keydown .lego-reply-content': '_enterSearch'
@@ -29,6 +30,7 @@ class Reply extends Lego.UI.Baseview {
             submitText: '回复',   //
             onSubmit(){},  //事件回调
             onUploaded(){},
+            dropdown: false, //下拉菜单
             components: []
         };
         Object.assign(options, opts);
@@ -40,17 +42,18 @@ class Reply extends Lego.UI.Baseview {
                 iconsUrl: options.iconsUrl
             });
         }
-        if(options.showUpload){
-            options.components.push({
-                el: '#upload-' + options.vid,
-                dataSource: options.uploadDataSource,
-                onComplete(self, result) {
-                    if(typeof options.onUploaded == 'function') options.onUploaded(self, result);
+        if(options.dropdown){
+            options.components.push(Object.assign(typeof options.dropdown == 'object' ? options.dropdown : {}, {
+                el: '#dropdown-' + options.vid,
+                trigger: '#reply-btn-' + options.vid,
+                style: {
+                    minWidth: 'auto'
                 }
-            });
+            }));
         }
         super(options);
         this.placeholder = '<span class="lego-reply-ph">' + this.options.placeholder + '</span>';
+        this.isloaded = false;
     }
     render() {
         const options = this.options;
@@ -61,7 +64,10 @@ class Reply extends Lego.UI.Baseview {
             ` : hx`
             <textarea placeholder="${val(options.placeholder)}" class="form-control lego-reply-content" id="content-${options.vid}"></textarea>
             `}
-            <button type="button" class="btn btn-primary lego-reply-submit">${val(options.submitText)}</button>
+            <div class="btn-group lego-reply-submit" id="reply-btn-${options.vid}">
+                <button type="button" class="btn btn-primary ${options.dropdown ? 'dropdown-toggle' : ''}">${val(options.submitText)}</button>
+                ${options.dropdown ? hx`<dropdown id="dropdown-${options.vid}"></dropdown>` : ''}
+            </div>
             <div class="lego-reply-toolbar">
                 ${options.showFacial ? hx`<facial id="facial-${options.vid}"></facial>` : ''}
                 ${options.showUpload ? hx`<div id="annex-${options.vid}" class="lego-reply-annex"><i class="anticon anticon-paper-clip"></i></div>` : ''}
@@ -88,6 +94,18 @@ class Reply extends Lego.UI.Baseview {
     }
     showUpload(event){
         this.$el.find('.popover').toggleClass('show');
+        let options = this.options;
+        if(options.showUpload && !this.isloaded){
+            Lego.create(Upload, {
+                el: '#upload-' + options.vid,
+                dataSource: options.uploadDataSource,
+                context: this,
+                onComplete(self, result) {
+                    if(typeof options.onUploaded == 'function') options.onUploaded(self, result);
+                }
+            });
+            this.isloaded = true;
+        }
     }
     _enterSearch(event) {
         const target = $(event.currentTarget),
@@ -101,8 +119,8 @@ class Reply extends Lego.UI.Baseview {
             }
         }
     }
-    onSubmit(event){
-        event.stopPropagation();
+    submit(event){
+        if(event) event.stopPropagation();
         const contentEl = this.$el.find('.lego-reply-content');
         let contentHtml = this.options.inputType == 'div' ? contentEl.html() : contentEl.val();
         contentHtml = this.options.inputType == 'div' ? Lego.UI.Util.faceToText(contentHtml, this.options.iconsUrl) : contentHtml;
@@ -112,7 +130,6 @@ class Reply extends Lego.UI.Baseview {
             contentEl.val('');
         }
         contentHtml = contentHtml == this.placeholder ? '' : contentHtml;
-        // console.warn(contentHtml);
         if(typeof this.options.onSubmit == 'function') this.options.onSubmit(this, contentHtml);
     }
 }
