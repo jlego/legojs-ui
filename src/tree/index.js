@@ -9,8 +9,8 @@ import './asset/index.scss';
 class Tree extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
-            disSelect: null, //禁止选择含有该属性节点, 可以是对象
-            onlySelect: null, //只选择含有该属性节点, 可以是对象
+            disSelect: '', //禁止选择含有该属性节点, 可以是对象
+            onlySelect: '', //只选择含有该属性节点, 可以是对象
             setting: {
                 data: {
                     simpleData: {
@@ -24,7 +24,6 @@ class Tree extends Lego.UI.Baseview {
             },
             keyNames: ['id', 'name', 'type'],
             value: [],
-            data: [],
             onChecked() {},
             onClick() {}
         };
@@ -32,7 +31,7 @@ class Tree extends Lego.UI.Baseview {
         super(options);
     }
     render() {
-        return hx `<ul class="ztree"></ul>`;
+        return hx `<ul class="lego-tree"></ul>`;
     }
     renderBefore() {
         const options = this.options,
@@ -40,10 +39,10 @@ class Tree extends Lego.UI.Baseview {
 
         function selectOrNo(treeNode) {
             if (options.disSelect) {
-                if (treeNode[options.disSelect] == Object.values(options.disSelect)[0]) return false;
+                if (Object.keys(treeNode).includes(options.disSelect)) return false;
             }
             if (options.onlySelect) {
-                if (treeNode[options.onlySelect] !== Object.values(options.onlySelect)[0]) return false;
+                if (!Object.keys(treeNode).includes(options.onlySelect)) return false;
             }
             return true;
         }
@@ -62,33 +61,33 @@ class Tree extends Lego.UI.Baseview {
                         });
                     const newValue = [];
                     result.forEach((val, index) => {
-                        newValue.push({
+                        newValue.push(Object.assign({
                             key: val[keyNames[0]],
                             value: val[keyNames[1]],
                             type: val[keyNames[2]]
-                        });
+                        }, val));
                     });
-                    if (typeof options.onChecked == 'function') options.onChecked(newValue);
+                    if (typeof options.onChecked == 'function') options.onChecked(that, newValue);
                 }
             });
         } else {
             options.setting.callback = Object.assign(options.setting.callback || {}, {
                 onClick: function(event, treeId, treeNode) {
                     if (!selectOrNo(treeNode)) return false;
-                    if (typeof options.onClick == 'function') options.onClick({
+                    if (typeof options.onClick == 'function') options.onClick(that, Object.assign({
                         key: treeNode[options.keyNames[0]],
                         value: treeNode[options.keyNames[1]],
                         type: treeNode[options.keyNames[2]]
-                    });
+                    }, treeNode));
                 }
             });
         }
     }
     renderAfter() {
-            const options = this.options;
-            $.fn.zTree.init(this.$el, options.setting, options.data);
-        }
-        // 取消选择
+        const options = this.options;
+        if(options.data) $.fn.zTree.init(this.$el, options.setting, options.data);
+    }
+    // 取消选择
     clearChecked(key, value) {
         const ztree = $.fn.zTree.getZTreeObj(this.options.id);
         const node = ztree.getNodeByParam(key, value, null);

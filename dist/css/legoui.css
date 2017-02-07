@@ -311,10 +311,10 @@ blockquote {
   margin: 0 0 1rem; }
 
 a {
-  color: #03a9f4;
+  color: #01a8fe;
   text-decoration: none; }
   a:focus, a:hover {
-    color: #0275a8;
+    color: #0176b2;
     text-decoration: none; }
   a:focus {
     outline: none; }
@@ -1713,35 +1713,35 @@ fieldset[disabled] a.btn {
 
 .btn-primary {
   color: #fff;
-  background-color: #03a9f4;
-  border-color: #03a9f4; }
+  background-color: #01a8fe;
+  border-color: #01a8fe; }
   .btn-primary:hover {
     color: #fff;
-    background-color: #0286c2;
-    border-color: #027fb8; }
+    background-color: #0186cb;
+    border-color: #0180c1; }
   .btn-primary:focus, .btn-primary.focus {
     color: #fff;
-    background-color: #0286c2;
-    border-color: #027fb8; }
+    background-color: #0186cb;
+    border-color: #0180c1; }
   .btn-primary:active, .btn-primary.active,
   .open > .btn-primary.dropdown-toggle {
     color: #fff;
-    background-color: #0286c2;
-    border-color: #027fb8;
+    background-color: #0186cb;
+    border-color: #0180c1;
     background-image: none; }
     .btn-primary:active:hover, .btn-primary:active:focus, .btn-primary:active.focus, .btn-primary.active:hover, .btn-primary.active:focus, .btn-primary.active.focus,
     .open > .btn-primary.dropdown-toggle:hover,
     .open > .btn-primary.dropdown-toggle:focus,
     .open > .btn-primary.dropdown-toggle.focus {
       color: #fff;
-      background-color: #026e9e;
-      border-color: #015276; }
+      background-color: #016fa8;
+      border-color: #01547f; }
   .btn-primary.disabled:focus, .btn-primary.disabled.focus, .btn-primary:disabled:focus, .btn-primary:disabled.focus {
-    background-color: #03a9f4;
-    border-color: #03a9f4; }
+    background-color: #01a8fe;
+    border-color: #01a8fe; }
   .btn-primary.disabled:hover, .btn-primary:disabled:hover {
-    background-color: #03a9f4;
-    border-color: #03a9f4; }
+    background-color: #01a8fe;
+    border-color: #01a8fe; }
 
 .btn-secondary {
   color: #373a3c;
@@ -1904,34 +1904,34 @@ fieldset[disabled] a.btn {
     border-color: #f85774; }
 
 .btn-outline-primary {
-  color: #03a9f4;
+  color: #01a8fe;
   background-image: none;
   background-color: transparent;
-  border-color: #03a9f4; }
+  border-color: #01a8fe; }
   .btn-outline-primary:hover {
     color: #fff;
-    background-color: #03a9f4;
-    border-color: #03a9f4; }
+    background-color: #01a8fe;
+    border-color: #01a8fe; }
   .btn-outline-primary:focus, .btn-outline-primary.focus {
     color: #fff;
-    background-color: #03a9f4;
-    border-color: #03a9f4; }
+    background-color: #01a8fe;
+    border-color: #01a8fe; }
   .btn-outline-primary:active, .btn-outline-primary.active,
   .open > .btn-outline-primary.dropdown-toggle {
     color: #fff;
-    background-color: #03a9f4;
-    border-color: #03a9f4; }
+    background-color: #01a8fe;
+    border-color: #01a8fe; }
     .btn-outline-primary:active:hover, .btn-outline-primary:active:focus, .btn-outline-primary:active.focus, .btn-outline-primary.active:hover, .btn-outline-primary.active:focus, .btn-outline-primary.active.focus,
     .open > .btn-outline-primary.dropdown-toggle:hover,
     .open > .btn-outline-primary.dropdown-toggle:focus,
     .open > .btn-outline-primary.dropdown-toggle.focus {
       color: #fff;
-      background-color: #026e9e;
-      border-color: #015276; }
+      background-color: #016fa8;
+      border-color: #01547f; }
   .btn-outline-primary.disabled:focus, .btn-outline-primary.disabled.focus, .btn-outline-primary:disabled:focus, .btn-outline-primary:disabled.focus {
-    border-color: #60ccfd; }
+    border-color: #67cbfe; }
   .btn-outline-primary.disabled:hover, .btn-outline-primary:disabled:hover {
-    border-color: #60ccfd; }
+    border-color: #67cbfe; }
 
 .btn-outline-secondary {
   color: #ccc;
@@ -2085,7 +2085,7 @@ fieldset[disabled] a.btn {
 
 .btn-link {
   font-weight: normal;
-  color: #03a9f4;
+  color: #01a8fe;
   border-radius: 0; }
   .btn-link, .btn-link:active, .btn-link.active, .btn-link:disabled {
     background-color: transparent; }
@@ -2094,7 +2094,7 @@ fieldset[disabled] a.btn {
   .btn-link:hover {
     border-color: transparent; }
   .btn-link:focus, .btn-link:hover {
-    color: #0275a8;
+    color: #0176b2;
     text-decoration: underline;
     background-color: transparent; }
   .btn-link:disabled:focus, .btn-link:disabled:hover {
@@ -2213,7 +2213,7 @@ tbody.collapse.in {
   .dropdown-item.active, .dropdown-item.active:focus, .dropdown-item.active:hover {
     color: #fff;
     text-decoration: none;
-    background-color: #03a9f4;
+    background-color: #01a8fe;
     outline: 0; }
   .dropdown-item.disabled, .dropdown-item.disabled:focus, .dropdown-item.disabled:hover {
     color: #999; }
@@ -2743,7 +2743,7 @@ tbody.collapse.in {
 .nav-pills .nav-item.open .nav-link:hover {
   color: #fff;
   cursor: default;
-  background-color: #03a9f4; }
+  background-color: #01a8fe; }
 
 .nav-stacked .nav-item {
   display: block;
@@ -2831,8 +2831,8 @@ tbody.collapse.in {
   margin-left: -0.625rem; }
 
 .card-primary {
-  background-color: #03a9f4;
-  border-color: #03a9f4; }
+  background-color: #01a8fe;
+  border-color: #01a8fe; }
   .card-primary .card-header,
   .card-primary .card-footer {
     background-color: transparent; }
@@ -2867,7 +2867,7 @@ tbody.collapse.in {
 
 .card-outline-primary {
   background-color: transparent;
-  border-color: #03a9f4; }
+  border-color: #01a8fe; }
 
 .card-outline-secondary {
   background-color: transparent;
@@ -3020,9 +3020,9 @@ a.tag:focus, a.tag:hover {
     background-color: #687077; }
 
 .tag-primary {
-  background-color: #03a9f4; }
+  background-color: #01a8fe; }
   .tag-primary[href]:focus, .tag-primary[href]:hover {
-    background-color: #0286c2; }
+    background-color: #0186cb; }
 
 .tag-success {
   background-color: #48d9a1; }
@@ -3255,8 +3255,8 @@ base::-moz-progress-bar,
     z-index: 2;
     color: #fff;
     text-decoration: none;
-    background-color: #03a9f4;
-    border-color: #03a9f4; }
+    background-color: #01a8fe;
+    border-color: #01a8fe; }
     .list-group-item.active .list-group-item-heading,
     .list-group-item.active .list-group-item-heading > small,
     .list-group-item.active .list-group-item-heading > .small, .list-group-item.active:focus .list-group-item-heading,
@@ -3266,7 +3266,7 @@ base::-moz-progress-bar,
     .list-group-item.active:hover .list-group-item-heading > .small {
       color: inherit; }
     .list-group-item.active .list-group-item-text, .list-group-item.active:focus .list-group-item-text, .list-group-item.active:hover .list-group-item-text {
-      color: #c5ecfe; }
+      color: #cceeff; }
 
 .list-group-flush .list-group-item {
   border-right: 0;
@@ -3750,10 +3750,10 @@ button.close {
   background-color: #f7f7f9; }
 
 .bg-primary {
-  background-color: #03a9f4 !important; }
+  background-color: #01a8fe !important; }
 
 a.bg-primary:focus, a.bg-primary:hover {
-  background-color: #0286c2 !important; }
+  background-color: #0186cb !important; }
 
 .bg-success {
   background-color: #48d9a1 !important; }
@@ -4161,10 +4161,10 @@ a.text-muted:focus, a.text-muted:hover {
   color: #687077 !important; }
 
 .text-primary {
-  color: #03a9f4 !important; }
+  color: #01a8fe !important; }
 
 a.text-primary:focus, a.text-primary:hover {
-  color: #0286c2 !important; }
+  color: #0186cb !important; }
 
 .text-success {
   color: #48d9a1 !important; }
@@ -6634,8 +6634,8 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
     -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);
     transform: skewX(-0.78125deg) skewY(-0.78125deg); }
   77.7% {
-    -webkit-transform: skewX(0.39063deg) skewY(0.39063deg);
-    transform: skewX(0.39063deg) skewY(0.39063deg); }
+    -webkit-transform: skewX(0.39062deg) skewY(0.39062deg);
+    transform: skewX(0.39062deg) skewY(0.39062deg); }
   88.8% {
     -webkit-transform: skewX(-0.19531deg) skewY(-0.19531deg);
     transform: skewX(-0.19531deg) skewY(-0.19531deg); }
@@ -6663,8 +6663,8 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
     -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);
     transform: skewX(-0.78125deg) skewY(-0.78125deg); }
   77.7% {
-    -webkit-transform: skewX(0.39063deg) skewY(0.39063deg);
-    transform: skewX(0.39063deg) skewY(0.39063deg); }
+    -webkit-transform: skewX(0.39062deg) skewY(0.39062deg);
+    transform: skewX(0.39062deg) skewY(0.39062deg); }
   88.8% {
     -webkit-transform: skewX(-0.19531deg) skewY(-0.19531deg);
     transform: skewX(-0.19531deg) skewY(-0.19531deg); }
@@ -8678,6 +8678,31 @@ pre {
 pre p {
   margin: 0; }
 
+.float-right {
+  float: right !important; }
+
+.float-left {
+  float: left !important; }
+
+.lego-scroll-number {
+  overflow: hidden; }
+
+.lego-badge-dot {
+  position: absolute;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  -webkit-transform-origin: 0px center;
+  -ms-transform-origin: 0px center;
+  transform-origin: 0px center;
+  top: -4px;
+  height: 8px;
+  width: 8px;
+  border-radius: 100%;
+  background: #F04134;
+  z-index: 10;
+  box-shadow: 0 0 0 1px #fff; }
+
 .symbol.required {
   margin: 2px;
   color: #f30;
@@ -8857,775 +8882,188 @@ pre p {
 
 .lego-checkbox-group-item {
   display: inline-block; }
-.toast-top-center {
-  top: 0;
-  right: 0;
-  width: 100%; }
 
-.toast-top50 {
-  top: 30px; }
-
-#toast-container > div {
-  position: relative;
-  pointer-events: auto;
-  overflow: hidden;
-  margin: 0 0 6px;
-  padding: 15px 15px 15px 50px;
-  width: 300px;
-  -moz-border-radius: 3px 3px 3px 3px;
-  -webkit-border-radius: 3px 3px 3px 3px;
-  border-radius: 3px 3px 3px 3px;
-  background-position: 15px center;
-  background-repeat: no-repeat;
-  color: #ffffff;
-  opacity: 1; }
-
-#toast-container > :hover {
-  -moz-box-shadow: 0 0 12px #000000;
-  -webkit-box-shadow: 0 0 12px #000000;
-  box-shadow: 0 0 12px #000000;
-  opacity: 1; }
-
-.toast {
-  background-color: #030303; }
-
-.toast-success {
-  background-color: #62d35d; }
-
-.toast-error {
-  background-color: #d9534f; }
-
-.toast-info {
-  background-color: #41c3fd; }
-
-.toast-warning {
-  background-color: #eea236; }
-.toast-top-center {
-  top: 0;
-  right: 0;
-  width: 100%; }
-
-.toast-top50 {
-  top: 30px; }
-
-#toast-container > div {
-  position: relative;
-  pointer-events: auto;
-  overflow: hidden;
-  margin: 0 0 6px;
-  padding: 15px 15px 15px 50px;
-  width: 300px;
-  -moz-border-radius: 3px 3px 3px 3px;
-  -webkit-border-radius: 3px 3px 3px 3px;
-  border-radius: 3px 3px 3px 3px;
-  background-position: 15px center;
-  background-repeat: no-repeat;
-  color: #ffffff;
-  opacity: 1; }
-
-#toast-container > :hover {
-  -moz-box-shadow: 0 0 12px #000000;
-  -webkit-box-shadow: 0 0 12px #000000;
-  box-shadow: 0 0 12px #000000;
-  opacity: 1; }
-
-.toast {
-  background-color: #030303; }
-
-.toast-success {
-  background-color: #62d35d; }
-
-.toast-error {
-  background-color: #d9534f; }
-
-.toast-info {
-  background-color: #41c3fd; }
-
-.toast-warning {
-  background-color: #eea236; }
-html,
-body {
-  height: 100%;
-  width: 100%;
-  line-height: normal;
-  background: #fff;
-  color: #666; }
-
-:focus {
-  outline: none; }
-
-@media (min-width: 992px) {
-  .app-navbar-fixed {
-    padding-top: 65px; } }
-
-#app {
-  height: 100%;
-  min-height: 100%;
-  position: relative;
-  width: 100%;
-  overflow: hidden; }
-
-#app .app-content {
-  height: 100%; }
-
-#app .app-content:before,
-#app .app-content:after {
-  content: " ";
-  display: table; }
-
-#app .app-content:after {
-  clear: both; }
-
-/* ---------------------------------------------------------------------- */
-/*  Top Navbar
-/* ---------------------------------------------------------------------- */
-.navbar {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: 1089;
-  border: none;
-  margin-bottom: 0;
-  height: 65px;
-  background: #3eb7f3; }
-
-.navbar .navbar-header {
-  z-index: 10;
-  float: left;
-  border-bottom: none;
-  position: relative;
-  width: 140px;
-  height: 65px; }
-
-.navbar .navbar-header a {
-  line-height: 65px;
-  height: 65px; }
-
-.navbar .navbar-header .navbar-brand {
-  padding: 0px 15px; }
-
-.navbar .navbar-header .navbar-brand img {
-  display: inline-block; }
-
-.navbar .navbar-collapse {
-  background: #3eb7f3; }
-
-.navbar-collapse:before,
-.navbar-collapse:after {
-  content: " ";
-  display: table; }
-
-.navbar-collapse:after {
-  clear: both; }
-
-.navbar .navbar-right {
-  position: relative;
-  margin-right: 0;
-  margin-bottom: 0;
-  float: right !important; }
-
-.navbar .navbar-right > li {
-  display: inline-block; }
-
-.navbar .navbar-right .nav {
-  margin: 0; }
-
-.navbar .navbar-right > li > a:focus {
-  background: transparent; }
-
-.navbar .navbar-right > li > a:hover,
-.navbar .navbar-right > li:hover {
-  background-color: #168ee4; }
-
-.navbar .navbar-right .badge {
-  background-color: #C82E29;
-  color: #ffffff;
-  padding: 4px 6px;
-  position: absolute;
-  top: 3px;
-  font-size: 10px;
-  left: 50%;
-  -moz-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
-  right: auto;
-  margin-left: 13px; }
-
-.navbar .navbar-right .dot-badge {
-  background-color: red;
-  border-radius: 100%;
-  width: 8px;
-  height: 8px;
-  margin: 2px;
-  position: absolute !important;
-  top: 10px;
-  left: 20px;
-  -moz-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
-  right: auto;
-  margin-left: 10px; }
-
-.navbar .navbar-right > li > a {
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: 65px;
-  text-transform: uppercase;
-  opacity: 0.9;
-  padding: 0 15px;
-  position: relative;
-  text-align: center;
-  display: block; }
-
-.navbar .navbar-right > li > a:hover {
-  background: none; }
-
-.navbar .navbar-right > li.dropdown:hover ul {
-  display: block; }
-
-.navbar .navbar-right > li > a i {
-  margin-right: 5px;
-  margin-top: 7px;
-  color: #fff;
-  font-size: 14px; }
-
-.navbar .navbar-right .dropdown-menu {
-  margin: 0;
-  border-radius: 0;
-  border-top: none; }
-
-.navbar .navbar-right .dropdown-menu > li > a {
-  padding: 8px 20px; }
-
-.navbar .navbar-right .dropdown-menu > li > a i {
-  width: 20px; }
-
-.navbar .navbar-right .dropdown .caret {
-  margin-left: 0; }
-
-/* ---------------------------------------------------------------------- */
-/*  Sidebar
-/* ---------------------------------------------------------------------- */
-#sidebar {
-  width: 140px;
-  float: left;
-  left: 0;
-  bottom: 0;
-  background: #1d252e;
-  overflow: visible;
-  z-index: 1051;
-  -webkit-box-shadow: 0 6px 5px rgba(0, 0, 0, 0.05);
-  box-shadow: 0 6px 5px rgba(0, 0, 0, 0.05); }
-
-#sidebar > div,
-#sidebar .sidebar-container {
-  height: 100%; }
-
-.app-sidebar-fixed #sidebar > .sidebar-container {
-  overflow-y: hidden;
-  overflow-x: visible;
-  position: relative; }
-
-.app-mobile #sidebar {
-  overflow: auto; }
-
-#sidebar .wrapper {
-  padding: 20px 15px; }
-
-.app-navbar-fixed.app-sidebar-fixed #sidebar {
-  top: 0; }
-
-#sidebar nav {
-  min-height: 100%; }
-
-#sidebar:before {
-  background-color: inherit;
-  border: inherit;
-  bottom: 0;
-  content: "";
-  position: absolute;
-  top: 0;
-  width: inherit;
-  z-index: -1; }
-
-.app-navbar-fixed #sidebar {
-  margin-top: 0; }
-
-.app-sidebar-fixed #sidebar {
-  position: fixed;
-  top: 65px !important;
-  margin-top: 0; }
-
-.app-sidebar-closed #sidebar {
-  width: 70px; }
-
-/* ---------------------------------------------------------------------- */
-/*  Nav
-/* ---------------------------------------------------------------------- */
-.item-content {
-  display: block;
-  padding: 18px 0;
-  text-align: center; }
-
-.item-content .item-media {
-  display: block;
-  font-size: 22px; }
-
-.item-content .item-inner {
-  display: block;
-  width: 100%; }
-
-.no-touch .item-content .item-inner {
-  -moz-transition: border 300ms linear;
-  -o-transition: border 300ms linear;
-  -webkit-transition: border 300ms linear;
-  transition: border 300ms linear; }
-
-.active .item-content .item-inner,
-.open .item-content .item-inner,
-li:last-child .item-content .item-inner {
-  border-bottom-color: transparent !important; }
-
-#sidebar > div nav > ul {
-  list-style: none;
-  margin: 0;
-  padding: 0; }
-
-#sidebar > div nav > ul > li > a {
-  color: #9aa7af;
-  border-bottom: none;
-  display: table; }
-
-#sidebar > div nav > ul > li {
-  background: #1d252e; }
-
-#sidebar > div nav > ul > li.hover,
-.no-touch #sidebar > div nav > ul > li:hover {
-  background: #242e39; }
-
-#sidebar > div nav > ul > li.active > a {
-  color: #3eb7f3; }
-
-#sidebar > div nav > ul li {
-  border: none;
-  display: block;
-  position: relative;
-  margin: 0;
-  padding: 0;
-  margin-bottom: 1px; }
-
-.no-touch #sidebar > div nav > ul li {
-  -moz-transition: background-color 300ms linear;
-  -o-transition: background-color 300ms linear;
-  -webkit-transition: background-color 300ms linear;
-  transition: background-color 300ms linear; }
-
-#sidebar > div nav > ul li.active > ul.sub-menu {
-  display: block;
-  padding: 0; }
-
-#sidebar > div nav > ul li > a {
-  font-size: 14px;
-  border: none;
-  font-weight: 300;
-  margin: 0;
-  position: relative;
-  text-decoration: none;
-  display: block; }
-
-#sidebar > div nav > ul li > a:hover {
-  background: #242e39;
-  color: #3eb7f3; }
-
-#sidebar > div nav > ul li > a:active:focus {
-  color: #3eb7f3; }
-
-#sidebar > div nav > ul li a i[class*="ti-"] {
-  margin-right: 5px;
+.lego-radio-group {
   display: inline-block;
-  font-size: 14px;
-  position: relative;
-  top: 2px; }
+  font-size: 12px; }
 
-#sidebar > div nav > ul li > ul.sub-menu i {
-  margin-right: 16px; }
-
-#sidebar > div nav > ul li a .icon-arrow {
-  float: left;
-  margin-right: 6px !important;
-  font-style: normal;
-  font-weight: normal;
-  color: #c8c7cc;
-  -webkit-transform: scale(0.75);
-  font-size: 10px; }
-
-#sidebar > div nav > ul li a .icon-arrow:before {
-  content: "\e649";
-  font-family: 'themify'; }
-
-#sidebar > div nav > ul li.open > a .icon-arrow {
-  opacity: 1; }
-
-#sidebar > div nav > ul li.open > a .icon-arrow:before {
-  content: "\e64b"; }
-
-ul.sub-menu {
-  clear: both;
-  list-style: none;
-  padding: 1px 0;
-  display: none;
-  margin: 0;
-  background: #1d252e; }
-
-ul.sub-menu li {
-  background: none;
-  margin-bottom: 0;
-  margin-left: 0;
-  margin-right: 0;
-  margin-top: 1px !important;
-  padding: 0; }
-
-ul.sub-menu li.active,
-ul.sub-menu li.open {
-  background: #242e39 !important; }
-
-.no-touch ul.sub-menu li:hover {
-  background: #242e39; }
-
-ul.sub-menu li a {
-  background: none;
-  display: block;
-  font-size: 13px !important;
-  font-weight: 300;
-  border: none;
-  margin: 0;
-  padding-bottom: 7px;
-  padding-left: 20px !important;
-  padding-right: 15px;
-  padding-top: 7px;
-  text-decoration: none; }
-
-ul.sub-menu li a .icon-arrow {
-  margin-right: 22px; }
-
-ul.sub-menu li.dropdown-header {
-  padding-left: 40px !important; }
-
-ul.sub-menu li.divider {
-  height: 1px;
-  margin: 9px 0;
-  overflow: hidden;
-  margin-left: 40px !important; }
-
-ul.sub-menu li ul.sub-menu li a {
-  padding-left: 60px !important; }
-
-ul.sub-menu li ul.sub-menu li ul.sub-menu li a {
-  padding-left: 80px !important; }
-
-.navbar-title {
-  color: #808285;
-  font-size: 10px;
-  letter-spacing: 0.2px;
-  padding-left: 15px !important;
-  padding-right: 15px !important;
-  padding-top: 20px !important;
-  padding-bottom: 5px !important;
-  text-transform: uppercase; }
-
-.s-open {
-  display: none; }
-
-.search-form {
-  float: right;
-  width: 220px; }
-
-.navbar-form {
-  border: none;
-  box-shadow: none;
-  margin: 0;
-  padding: 10px;
-  position: relative; }
-
-.navbar-form::-webkit-input-placeholder {
-  color: #fff; }
-
-.navbar-form::-moz-placeholder {
-  color: #fff; }
-
-.navbar-form:-ms-input-placeholder {
-  color: #fff; }
-
-.navbar-form a {
-  display: none; }
-
-.navbar-form .search-button {
-  background: none;
-  border: none;
-  border-radius: 0;
-  box-shadow: none !important;
-  color: #fff;
-  position: absolute;
-  right: 5px;
-  top: 0;
-  transition: all 100ms ease-in 0s;
-  line-height: 40px; }
-
-.navbar-form .search-button:hover {
-  transition: all 300ms ease-in 0s; }
-
-.navbar-form .form-control {
-  background-color: #0171a9;
-  border: medium none;
-  border-radius: 0;
-  box-shadow: none;
-  color: #fff;
-  display: block;
-  transition: all 300ms ease-in 0s;
-  width: 100%;
+.lego-radio-wrapper {
   font-size: 12px;
-  height: 30px;
-  border-radius: 3px !important; }
-
-.navbar-form .form-control:focus {
-  transition: all 300ms ease-in 0s; }
-
-.navbar-form .form-control:focus + .search-button {
-  color: #fff; }
-
-.navbar-form .form-group {
-  display: block; }
-
-/* ---------------------------------------------------------------------- */
-/*  Main Content
-/* ---------------------------------------------------------------------- */
-.main-content {
-  min-height: 100%;
-  position: relative;
-  margin-top: 65px;
-  margin-left: 140px;
-  background-color: #f0f5f7; }
-
-.main-content .container-fluid,
-.main-content .container {
-  max-width: none !important;
-  width: 100% !important;
-  display: inline-block; }
-
-.main-content > .container-fluid,
-.main-content > .container {
-  /*padding-bottom: 50px;*/
-  height: 100%;
-  overflow: hidden;
-  bottom: 0;
-  position: absolute; }
-
-.app-navbar-fixed .main-content {
-  margin-top: 0; }
-
-.app-navbar-fixed .main-content:before,
-.app-navbar-fixed .main-content:after {
-  content: " ";
-  display: table; }
-
-.app-navbar-fixed .main-content:after {
-  clear: both; }
-
-.app-sidebar-closed .main-content {
-  margin-left: 70px; }
-
-.wrap-content {
-  padding-right: 0;
-  padding-left: 0; }
-
-.container-fluid {
-  padding-left: 20px;
-  padding-right: 20px; }
-
-.caret {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  margin-left: 2px;
   vertical-align: middle;
-  border-top: 4px dashed;
-  border-top: 4px solid \9;
-  border-right: 4px solid transparent;
-  border-left: 4px solid transparent; }
+  display: inline-block;
+  position: relative;
+  white-space: nowrap;
+  margin-right: 8px;
+  cursor: pointer; }
 
-.dropup,
-.dropdown {
-  position: relative; }
+.lego-radio {
+  white-space: nowrap;
+  outline: none;
+  display: inline-block;
+  position: relative;
+  line-height: 1;
+  vertical-align: middle;
+  cursor: pointer; }
 
-.dropdown-toggle:focus {
-  outline: 0; }
+.lego-radio-wrapper:hover .lego-radio .lego-radio-inner,
+.lego-radio:hover .lego-radio-inner,
+.lego-radio-focused .lego-radio-inner {
+  border-color: #108ee9; }
 
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
+.lego-radio-inner {
+  position: relative;
+  top: 0;
   left: 0;
-  z-index: 1000;
-  display: none;
-  float: left;
-  min-width: 160px;
-  padding: 5px 0;
-  margin: 0px 0 0;
-  list-style: none;
-  font-size: 14px;
-  text-align: left;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 14px;
+  border-color: #d9d9d9;
   background-color: #fff;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s; }
+
+.lego-radio-inner:after {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  left: 3px;
+  top: 3px;
   border-radius: 4px;
-  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  background-clip: padding-box; }
+  display: table;
+  border-top: 0;
+  border-left: 0;
+  content: ' ';
+  background-color: #108ee9;
+  opacity: 0;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  -webkit-transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86); }
 
-.dropdown-menu.pull-right {
-  right: 0;
-  left: auto; }
-
-.dropdown-menu .divider {
-  height: 1px;
-  margin: 9px 0;
-  overflow: hidden;
-  background-color: #e5e5e5; }
-
-.dropdown-menu > li > a {
-  display: block;
-  padding: 3px 20px;
-  clear: both;
-  font-weight: normal;
-  line-height: 1.42857143;
-  color: #333333;
-  white-space: nowrap; }
-
-.dropdown-menu > li > a:hover,
-.dropdown-menu > li > a:focus {
-  text-decoration: none;
-  color: #262626;
-  background-color: #f5f5f5; }
-
-.dropdown-menu > .active > a,
-.dropdown-menu > .active > a:hover,
-.dropdown-menu > .active > a:focus {
-  color: #fff;
-  text-decoration: none;
-  outline: 0;
-  background-color: #3399fe; }
-
-.dropdown-menu > .disabled > a,
-.dropdown-menu > .disabled > a:hover,
-.dropdown-menu > .disabled > a:focus {
-  color: #777777; }
-
-.dropdown-menu > .disabled > a:hover,
-.dropdown-menu > .disabled > a:focus {
-  text-decoration: none;
-  background-color: transparent;
-  background-image: none;
-  cursor: not-allowed; }
-
-.open > .dropdown-menu {
-  display: block; }
-
-.open > a {
-  outline: 0; }
-
-.dropdown-menu-right {
-  left: auto;
+.lego-radio-input {
+  position: absolute;
+  left: 0;
+  z-index: 1;
+  cursor: pointer;
+  opacity: 0;
+  top: 0;
+  bottom: 0;
   right: 0; }
 
-.dropdown-menu-left {
-  left: 0;
-  right: auto; }
+.lego-radio-checked .lego-radio-inner {
+  border-color: #108ee9; }
 
-.dropdown-header {
-  display: block;
-  padding: 3px 20px;
-  font-size: 12px;
-  line-height: 1.42857143;
-  color: #777777;
-  white-space: nowrap; }
+.lego-radio-checked .lego-radio-inner:after {
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  opacity: 1;
+  -webkit-transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86); }
 
-.dropdown-backdrop {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
+.lego-radio-disabled .lego-radio-inner {
+  border-color: #d9d9d9 !important;
+  background-color: #f3f3f3; }
+
+.lego-radio-disabled .lego-radio-inner:after {
+  background-color: #cccccc; }
+
+.lego-radio-disabled + span {
+  color: #ccc;
+  cursor: not-allowed; }
+
+.dropdown-menu {
+  border: 1px #ddd solid; }
+.toast-top-center {
   top: 0;
-  z-index: 990; }
-
-.pull-right > .dropdown-menu {
   right: 0;
-  left: auto; }
+  width: 100%; }
 
-.dropup .caret,
-.navbar-fixed-bottom .dropdown .caret {
-  border-top: 0;
-  border-bottom: 4px dashed;
-  border-bottom: 4px solid \9;
-  content: ""; }
+.toast-top50 {
+  top: 30px; }
 
-.dropup .dropdown-menu,
-.navbar-fixed-bottom .dropdown .dropdown-menu {
-  top: auto;
-  bottom: 100%;
-  margin-bottom: 2px; }
+#toast-container > div {
+  position: relative;
+  pointer-events: auto;
+  overflow: hidden;
+  margin: 0 0 6px;
+  padding: 15px 15px 15px 50px;
+  width: 300px;
+  -moz-border-radius: 3px 3px 3px 3px;
+  -webkit-border-radius: 3px 3px 3px 3px;
+  border-radius: 3px 3px 3px 3px;
+  background-position: 15px center;
+  background-repeat: no-repeat;
+  color: #ffffff;
+  opacity: 1; }
 
-@media (min-width: 768px) {
-  .navbar-right .dropdown-menu {
-    right: 0;
-    left: auto; }
-  .navbar-right .dropdown-menu-left {
-    left: 0;
-    right: auto; } }
+#toast-container > :hover {
+  -moz-box-shadow: 0 0 12px #000000;
+  -webkit-box-shadow: 0 0 12px #000000;
+  box-shadow: 0 0 12px #000000;
+  opacity: 1; }
 
-/* ---------------------------------------------------------------------- */
-/*  page
-/* ---------------------------------------------------------------------- */
-.page-container {
-  height: 100%;
-  overflow: hidden; }
+.toast {
+  background-color: #030303; }
 
-.page-title {
-  font-size: 18px;
-  padding: 10px 0px;
-  margin: 10px 0; }
+.toast-success {
+  background-color: #62d35d; }
 
-.page-title a {
-  color: #999;
-  margin-right: 15px;
-  display: inline-block; }
+.toast-error {
+  background-color: #d9534f; }
 
-.page-title .active {
-  color: #34495e; }
+.toast-info {
+  background-color: #41c3fd; }
 
-.page-panel {
-  height: 100%;
-  padding-bottom: 75px;
-  overflow: hidden; }
+.toast-warning {
+  background-color: #eea236; }
+.toast-top-center {
+  top: 0;
+  right: 0;
+  width: 100%; }
 
-.page-content {
-  height: 100%;
-  padding: 15px; }
+.toast-top50 {
+  top: 30px; }
 
-.page-panel-bg {
-  border-radius: 5px;
-  background-color: #fff;
-  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); }
+#toast-container > div {
+  position: relative;
+  pointer-events: auto;
+  overflow: hidden;
+  margin: 0 0 6px;
+  padding: 15px 15px 15px 50px;
+  width: 300px;
+  -moz-border-radius: 3px 3px 3px 3px;
+  -webkit-border-radius: 3px 3px 3px 3px;
+  border-radius: 3px 3px 3px 3px;
+  background-position: 15px center;
+  background-repeat: no-repeat;
+  color: #ffffff;
+  opacity: 1; }
 
-/* ---------------------------------------------------------------------- */
-/*  other
-/* ---------------------------------------------------------------------- */
+#toast-container > :hover {
+  -moz-box-shadow: 0 0 12px #000000;
+  -webkit-box-shadow: 0 0 12px #000000;
+  box-shadow: 0 0 12px #000000;
+  opacity: 1; }
+
+.toast {
+  background-color: #030303; }
+
+.toast-success {
+  background-color: #62d35d; }
+
+.toast-error {
+  background-color: #d9534f; }
+
+.toast-info {
+  background-color: #41c3fd; }
+
+.toast-warning {
+  background-color: #eea236; }
 .alert {
   position: relative;
   padding: 8px 48px 8px 38px;
@@ -10447,6 +9885,101 @@ tr.lego-table-expanded-row:hover {
   display: inline-block;
   padding: 0;
   text-align: center; }
+.dropup,
+.dropdown {
+  position: relative; }
+
+.dropdown-toggle:focus {
+  outline: 0; }
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: auto;
+  padding: 5px 0;
+  margin: 0px 0 0;
+  list-style: none;
+  font-size: 14px;
+  text-align: left;
+  border-radius: 4px;
+  border-color: #ccc;
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background-clip: padding-box; }
+
+.dropdown-menu.pull-right {
+  right: 0;
+  left: auto; }
+
+.dropdown-menu .divider {
+  height: 1px;
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #e5e5e5; }
+
+.dropdown-menu > li > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #333333;
+  white-space: nowrap; }
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  text-decoration: none;
+  color: #262626;
+  background-color: #f5f5f5; }
+
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+  color: #fff;
+  text-decoration: none;
+  outline: 0;
+  background-color: #3399fe; }
+
+.dropdown-menu .disabled > a,
+.dropdown-menu .disabled > a:hover,
+.dropdown-menu .disabled > a:focus,
+.dropdown-menu a.disabled,
+.dropdown-menu a.disabled:hover,
+.dropdown-menu a.disabled:focus {
+  color: #777;
+  text-decoration: none;
+  background-color: transparent;
+  background-image: none;
+  cursor: not-allowed; }
+
+.dropdown-menu-right {
+  left: auto;
+  right: 0; }
+
+.dropdown-menu-left {
+  left: 0;
+  right: auto; }
+
+.dropdown-header {
+  display: block;
+  padding: 3px 20px;
+  font-size: 12px;
+  line-height: 1.42857143;
+  color: #777;
+  white-space: nowrap; }
+
+.dropdown-backdrop {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 990; }
+
 .caret.sub {
   border-left: 4px dashed;
   border-top: 4px solid transparent;
@@ -10491,7 +10024,10 @@ tr.lego-table-expanded-row:hover {
 
 .right-modal {
   z-index: 1000 !important;
-  top: 66px; }
+  top: 60px; }
+
+#lego-modal .modal-dialog {
+  max-width: 600px; }
 
 .modal-content {
   border: none;
@@ -10527,7 +10063,7 @@ tr.lego-table-expanded-row:hover {
 
 .right-modal .modal-body {
   position: absolute !important;
-  top: 57px;
+  top: 60px;
   bottom: 65px;
   width: 100%;
   overflow-y: auto; }
@@ -10543,6 +10079,7 @@ tr.lego-table-expanded-row:hover {
 .right-modalBg .modal-backdrop {
   opacity: 0.01; }
 
+.middle,
 .dialog-modal {
   display: flex !important;
   justify-content: center;
@@ -10572,27 +10109,29 @@ tr.lego-table-expanded-row:hover {
 .modal-body > .alert > i {
   top: 0;
   font-size: 250%; }
-.search input,
-.search input:focus {
+.tabs .dropdown-menu {
+  min-width: 160px; }
+.lego-search input,
+.lego-search input:focus {
   height: 36px;
   padding: 7px 12px;
   -webkit-box-shadow: none;
   box-shadow: none; }
 
-.search .search-button {
+.lego-search .lego-search-button {
   padding: 7px 12px;
   border: 1px solid #ddd;
   background: #fff;
   border-left: none;
   border-radius: 4px; }
 
-.search .search-button i {
+.lego-search .lego-search-button i {
   color: #999; }
 
-.search .search-button:hover i {
+.lego-search .lego-search-button:hover i {
   color: #0275d8; }
 
-.search .dropdown-toggle {
+.lego-search .dropdown-toggle {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -10600,20 +10139,20 @@ tr.lego-table-expanded-row:hover {
   padding: 7px 10px;
   border: 1px solid #ddd; }
 
-.search.input-group .search-input {
+.lego-search.input-group .lego-search-input {
   border-right: none; }
 
-.search.input-group .search-input:active,
-.input-group .search-input:focus,
-.input-group .search-input:hover {
+.lego-search.input-group .lego-search-input:active,
+.input-group .lego-search-input:focus,
+.input-group .lego-search-input:hover {
   border-right: none; }
 
-.input-group.search .search-input:focus,
-.input-group.search .search-input:focus ~ .input-group-btn .btn {
+.input-group.lego-search .lego-search-input:focus,
+.input-group.lego-search .lego-search-input:focus ~ .input-group-btn .btn {
   border-color: #66afe9 !important; }
 
-.input-group.search .input-group-btn:not(:first-child) > .btn,
-.input-group.search .input-group-btn:not(:first-child) > .btn-group {
+.input-group.lego-search .input-group-btn:not(:first-child) > .btn,
+.input-group.lego-search .input-group-btn:not(:first-child) > .btn-group {
   margin-left: -2px; }
 .select {
   margin: 0; }
@@ -10635,9 +10174,6 @@ tr.lego-table-expanded-row:hover {
 
 .has-danger .select:after {
   display: none; }
-
-.select .select-input:focus {
-  border-color: #66afe9 !important; }
 
 .select.multiple:after {
   content: none; }
@@ -10756,17 +10292,17 @@ tr.lego-table-expanded-row:hover {
   border-radius: .25rem !important;
   border-bottom-left-radius: 0 !important;
   border-top-left-radius: 0 !important; }
-.ztree * {
+.lego-tree * {
   padding: 0;
   margin: 0;
   font-size: 14px; }
 
-.ztree {
+.lego-tree {
   margin: 0;
   padding: 5px;
   color: #333; }
 
-.ztree li {
+.lego-tree li {
   padding: 0;
   margin: 0;
   list-style: none;
@@ -10775,14 +10311,11 @@ tr.lego-table-expanded-row:hover {
   white-space: nowrap;
   outline: 0; }
 
-.ztree li li:hover {
-  background-color: #f4f9fc; }
-
-.ztree li ul {
+.lego-tree li ul {
   margin: 0;
   padding: 0 0 0 18px; }
 
-.ztree li a {
+.lego-tree li a {
   padding: 1px 3px 0 0;
   margin: 0;
   cursor: pointer;
@@ -10793,27 +10326,27 @@ tr.lego-table-expanded-row:hover {
   vertical-align: top;
   display: inline-block; }
 
-.ztree li a:hover,
-.ztree li a:hover span.ico_docu,
-.ztree li a:hover span.ico_open,
-.ztree li a:hover span.ico_close,
-.ztree li a:hover span.root_close,
-.ztree li a:hover span.hby_ico_docu,
-.ztree li a:hover span.hby_ico_open,
-.ztree li a:hover span.hby_ico_close,
-.ztree li a:hover span.hby_root_close,
-.ztree li a.curSelectedNode,
-.ztree li a.curSelectedNode span.ico_close,
-.ztree li a.curSelectedNode span.root_close,
-.ztree li a.curSelectedNode span.ico_open,
-.ztree li a.curSelectedNode span.ico_docu,
-.ztree li a.curSelectedNode span.hby_ico_close,
-.ztree li a.curSelectedNode span.hby_root_close,
-.ztree li a.curSelectedNode span.hby_ico_open,
-.ztree li a.curSelectedNode span.hby_ico_docu {
+.lego-tree li a:hover,
+.lego-tree li a:hover span.ico_docu,
+.lego-tree li a:hover span.ico_open,
+.lego-tree li a:hover span.ico_close,
+.lego-tree li a:hover span.root_close,
+.lego-tree li a:hover span.hby_ico_docu,
+.lego-tree li a:hover span.hby_ico_open,
+.lego-tree li a:hover span.hby_ico_close,
+.lego-tree li a:hover span.hby_root_close,
+.lego-tree li a.curSelectedNode,
+.lego-tree li a.curSelectedNode span.ico_close,
+.lego-tree li a.curSelectedNode span.root_close,
+.lego-tree li a.curSelectedNode span.ico_open,
+.lego-tree li a.curSelectedNode span.ico_docu,
+.lego-tree li a.curSelectedNode span.hby_ico_close,
+.lego-tree li a.curSelectedNode span.hby_root_close,
+.lego-tree li a.curSelectedNode span.hby_ico_open,
+.lego-tree li a.curSelectedNode span.hby_ico_docu {
   color: #3399fe; }
 
-.ztree li a.tmpTargetNode_inner {
+.lego-tree li a.tmpTargetNode_inner {
   padding-top: 0px;
   background-color: #316AC5;
   color: white;
@@ -10822,7 +10355,7 @@ tr.lego-table-expanded-row:hover {
   opacity: 0.8;
   filter: alpha(opacity=80); }
 
-.ztree li a input.rename {
+.lego-tree li a input.rename {
   height: 14px;
   width: 80px;
   padding: 0;
@@ -10831,11 +10364,11 @@ tr.lego-table-expanded-row:hover {
   border: 1px #7EC4CC solid;
   *border: 0px; }
 
-.ztree li span {
+.lego-tree li span {
   line-height: 16px;
   margin-right: 2px; }
 
-.ztree li span.button {
+.lego-tree li span.button {
   font-family: 'hbyicon';
   color: #bbb;
   line-height: 25px;
@@ -10851,28 +10384,28 @@ tr.lego-table-expanded-row:hover {
   /*    background-image: url("./img/zTreeStandard.png");
     *background-image: url("./img/zTreeStandard.gif")*/ }
 
-.ztree li span.folder_ico_open,
-.ztree li span.folder_ico_close {
+.lego-tree li span.folder_ico_open,
+.lego-tree li span.folder_ico_close {
   width: 20px;
   margin-left: 3px; }
 
-.ztree li span.folder_ico_open:before,
-.ztree li span.folder_ico_close:before {
+.lego-tree li span.folder_ico_open:before,
+.lego-tree li span.folder_ico_close:before {
   content: "\e90b";
   width: 16px;
   height: 16px;
   color: #ffb700; }
 
-.ztree li span.button.chk {
+.lego-tree li span.button.chk {
   width: 13px;
   height: 25px;
   margin: 2px 2px 0 3px;
   cursor: auto; }
 
-.ztree li span.button.chk.checkbox_false_full:before,
-.ztree li span.button.chk.checkbox_false_full_focus:before,
-.ztree li span.button.chk.checkbox_false_part:before,
-.ztree li span.button.chk.checkbox_false_part_focus:before {
+.lego-tree li span.button.chk.checkbox_false_full:before,
+.lego-tree li span.button.chk.checkbox_false_full_focus:before,
+.lego-tree li span.button.chk.checkbox_false_part:before,
+.lego-tree li span.button.chk.checkbox_false_part_focus:before {
   content: "";
   display: inline-block;
   width: 14px;
@@ -10880,17 +10413,17 @@ tr.lego-table-expanded-row:hover {
   border: 1px solid #ddd;
   border-radius: 2px; }
 
-.ztree li span.button.chk.checkbox_true_full:before,
-.ztree li span.button.chk.checkbox_true_full_focus:before,
-.ztree li span.button.chk.checkbox_true_part:before,
-.ztree li span.button.chk.checkbox_true_part_focus:before {
+.lego-tree li span.button.chk.checkbox_true_full:before,
+.lego-tree li span.button.chk.checkbox_true_full_focus:before,
+.lego-tree li span.button.chk.checkbox_true_part:before,
+.lego-tree li span.button.chk.checkbox_true_part_focus:before {
   content: "\ea52";
   color: #3399fe; }
 
-.ztree li span.button.chk.radio_false_full:before,
-.ztree li span.button.chk.radio_false_full_focus:before,
-.ztree li span.button.chk.radio_false_part:before,
-.ztree li span.button.chk.radio_false_part_focus:before {
+.lego-tree li span.button.chk.radio_false_full:before,
+.lego-tree li span.button.chk.radio_false_full_focus:before,
+.lego-tree li span.button.chk.radio_false_part:before,
+.lego-tree li span.button.chk.radio_false_part_focus:before {
   content: "";
   display: inline-block;
   width: 14px;
@@ -10898,45 +10431,45 @@ tr.lego-table-expanded-row:hover {
   border: 1px solid #ddd;
   border-radius: 50%; }
 
-.ztree li span.button.chk.radio_true_full:before,
-.ztree li span.button.chk.radio_true_full_focus:before,
-.ztree li span.button.chk.radio_true_part:before,
-.ztree li span.button.chk.radio_true_part_focus:before {
+.lego-tree li span.button.chk.radio_true_full:before,
+.lego-tree li span.button.chk.radio_true_full_focus:before,
+.lego-tree li span.button.chk.radio_true_part:before,
+.lego-tree li span.button.chk.radio_true_part_focus:before {
   content: "\ea55";
   color: #3399fe; }
 
-.ztree li span.button.chk.checkbox_false_disable,
-.ztree li span.button.chk.checkbox_true_disable,
-.ztree li span.button.chk.checkbox_false_disable:before,
-.ztree li span.button.chk.checkbox_true_disable:before,
-.ztree li span.button.chk.radio_false_disable,
-.ztree li span.button.chk.radio_true_disable,
-.ztree li span.button.chk.radio_false_disable:before,
-.ztree li span.button.chk.radio_true_disable:before {
+.lego-tree li span.button.chk.checkbox_false_disable,
+.lego-tree li span.button.chk.checkbox_true_disable,
+.lego-tree li span.button.chk.checkbox_false_disable:before,
+.lego-tree li span.button.chk.checkbox_true_disable:before,
+.lego-tree li span.button.chk.radio_false_disable,
+.lego-tree li span.button.chk.radio_true_disable,
+.lego-tree li span.button.chk.radio_false_disable:before,
+.lego-tree li span.button.chk.radio_true_disable:before {
   width: 0;
   content: ""; }
 
-.ztree li span.button.switch {
+.lego-tree li span.button.switch {
   width: 16px;
   height: 25px;
   margin-top: 1px;
   line-height: 25px;
   color: #666; }
 
-.ztree li span.button.center_open:before,
-.ztree li span.button.bottom_open:before,
-.ztree li span.button.root_open:before,
-.ztree li span.button.roots_open:before,
-.ztree li span.button.noline_open:before,
-.ztree li span.button.hby_center_open:before,
-.ztree li span.button.hby_bottom_open:before,
-.ztree li span.button.hby_root_open:before,
-.ztree li span.button.hby_roots_open:before,
-.ztree li span.button.hby_noline_open:before {
+.lego-tree li span.button.center_open:before,
+.lego-tree li span.button.bottom_open:before,
+.lego-tree li span.button.root_open:before,
+.lego-tree li span.button.roots_open:before,
+.lego-tree li span.button.noline_open:before,
+.lego-tree li span.button.hby_center_open:before,
+.lego-tree li span.button.hby_bottom_open:before,
+.lego-tree li span.button.hby_root_open:before,
+.lego-tree li span.button.hby_roots_open:before,
+.lego-tree li span.button.hby_noline_open:before {
   display: inline-block;
   width: 0;
   height: 0;
-  margin-top: -.1em;
+  margin-top: -.3em;
   margin-left: .4em;
   vertical-align: middle;
   content: "";
@@ -10944,20 +10477,20 @@ tr.lego-table-expanded-row:hover {
   border-right: 0.3em solid transparent;
   border-left: 0.3em solid transparent; }
 
-.ztree li span.button.center_close:before,
-.ztree li span.button.bottom_close:before,
-.ztree li span.button.root_close:before,
-.ztree li span.button.roots_close:before,
-.ztree li span.button.noline_close:before,
-.ztree li span.button.hby_center_close:before,
-.ztree li span.button.hby_bottom_close:before,
-.ztree li span.button.hby_root_close:before,
-.ztree li span.button.hby_roots_close:before,
-.ztree li span.button.hby_noline_close:before {
+.lego-tree li span.button.center_close:before,
+.lego-tree li span.button.bottom_close:before,
+.lego-tree li span.button.root_close:before,
+.lego-tree li span.button.roots_close:before,
+.lego-tree li span.button.noline_close:before,
+.lego-tree li span.button.hby_center_close:before,
+.lego-tree li span.button.hby_bottom_close:before,
+.lego-tree li span.button.hby_root_close:before,
+.lego-tree li span.button.hby_roots_close:before,
+.lego-tree li span.button.hby_noline_close:before {
   display: inline-block;
   width: 0;
   height: 0;
-  margin-top: -.1em;
+  margin-top: -.3em;
   margin-left: .6em;
   vertical-align: middle;
   content: "";
@@ -10965,63 +10498,63 @@ tr.lego-table-expanded-row:hover {
   border-bottom: 0.3em solid transparent;
   border-left: 0.3em solid; }
 
-.ztree li span.button.root_docu {
+.lego-tree li span.button.root_docu {
   background: none; }
 
-.ztree li span.button.roots_docu {
+.lego-tree li span.button.roots_docu {
   background-position: -56px 0; }
 
-.ztree li span.button.center_docu {
+.lego-tree li span.button.center_docu {
   background-position: -56px -18px; }
 
-.ztree li span.button.bottom_docu {
+.lego-tree li span.button.bottom_docu {
   background-position: -56px -36px; }
 
-.ztree li span.button.noline_docu {
+.lego-tree li span.button.noline_docu {
   background: none; }
 
-.ztree li span.button.add,
-.ztree li span.button.edit,
-.ztree li span.button.remove {
+.lego-tree li span.button.add,
+.lego-tree li span.button.edit,
+.lego-tree li span.button.remove {
   font-family: 'anticon';
   font-size: 12px; }
 
-.ztree li span.button.ico_docu {
+.lego-tree li span.button.ico_docu {
   margin-left: 2px;
   vertical-align: top;
   *vertical-align: middle;
   width: 0; }
 
-.ztree li span.button.hby_ico_docu,
-.ztree li span.button.ico_open,
-.ztree li span.button.ico_close,
-.ztree li span.button.hby_ico_open,
-.ztree li span.button.hby_ico_close,
-.ztree li span.button.add,
-.ztree li span.button.edit,
-.ztree li span.button.remove {
+.lego-tree li span.button.hby_ico_docu,
+.lego-tree li span.button.ico_open,
+.lego-tree li span.button.ico_close,
+.lego-tree li span.button.hby_ico_open,
+.lego-tree li span.button.hby_ico_close,
+.lego-tree li span.button.add,
+.lego-tree li span.button.edit,
+.lego-tree li span.button.remove {
   margin-right: 4px;
   vertical-align: top;
   *vertical-align: middle; }
 
-.ztree li span.button.ico_docu:before {
+.lego-tree li span.button.ico_docu:before {
   content: ""; }
 
-.ztree li span.button.add:before {
+.lego-tree li span.button.add:before {
   content: "\E625"; }
 
-.ztree li span.button.edit:before {
+.lego-tree li span.button.edit:before {
   content: "\E692"; }
 
-.ztree li span.button.remove:before {
+.lego-tree li span.button.remove:before {
   content: "\E623"; }
 
-.ztree li a span.button.add:hover,
-.ztree li a span.button.edit:hover,
-.ztree li a span.button.remove:hover {
+.lego-tree li a span.button.add:hover,
+.lego-tree li a span.button.edit:hover,
+.lego-tree li a span.button.remove:hover {
   color: #62d35d; }
 
-.ztree li span.button.ico_loading {
+.lego-tree li span.button.ico_loading {
   margin-right: 2px;
   background: url(./img/loading.gif) no-repeat scroll 0 0 transparent;
   vertical-align: top;
@@ -11045,7 +10578,7 @@ span.tmpzTreeMove_arrow {
   background-attachment: scroll;
   background-position: -110px -80px; }
 
-ul.ztree.zTreeDragUL {
+ul.lego-tree.zTreeDragUL {
   margin: 0;
   padding: 0;
   position: absolute;
@@ -11070,6 +10603,9 @@ form legend {
   color: #333;
   margin-bottom: 15px;
   padding-top: 20px; }
+
+form button[type="submit"] {
+  margin-right: 10px; }
 .transfer {
   position: relative; }
 
@@ -11096,7 +10632,8 @@ form legend {
 .transfer .transfer-col {
   height: 100%;
   border: 1px #ddd solid;
-  border-radius: 0.25rem; }
+  border-radius: 0.25rem;
+  position: relative; }
 
 .transfer .transfer-col h5 {
   font-size: 16px;
@@ -11106,20 +10643,27 @@ form legend {
   border-bottom: 1px solid #ececec;
   height: 40px; }
 
-.transfer .transfer-col .input-group.search {
+.transfer .transfer-col h5 button {
+  padding: 4px 0; }
+
+.transfer .transfer-col .input-group.lego-search {
   padding: 3px;
   border-bottom: 1px #ececec solid;
-  background-color: #ececec; }
+  position: absolute;
+  background-color: #fff;
+  left: 0;
+  right: 0;
+  z-index: 1000; }
 
 .transfer .transfer-col .transfer-col-content {
   height: 100%;
   padding-bottom: 40px; }
 
-.transfer .transfer-col .input-group.search + .transfer-col-content {
-  padding-bottom: 83px !important; }
+.transfer .transfer-col .transfer-col-content > div {
+  width: 100%; }
 
 .transfer .list-group .list-group-item {
-  padding: 0.75rem 1rem 0.75rem 1rem;
+  padding: 0.5rem 1rem;
   border: none; }
 
 .transfer .list-group .list-group-item:hover,
@@ -11136,35 +10680,35 @@ form legend {
 .transfer .list-group .list-group-item:active i.close,
 .transfer .list-group .list-group-item.active i.close {
   display: inline-block; }
-.upload .upload-container {
+.lego-upload .lego-upload-container {
   margin-top: 8px; }
 
-.upload .addbtn i {
+.lego-upload .lego-addbtn i {
   font-size: 16px;
   display: inline-block; }
 
-.upload .cancelbtn {
+.lego-upload .lego-cancelbtn {
   zoom: 0.8; }
 
-.upload .closebtn {
+.lego-upload .lego-closebtn {
   zoom: 0.8;
   display: none; }
 
-.upload .upload-item {
+.lego-upload .lego-upload-item {
   position: relative;
   padding: 8px;
   border-radius: 3px;
   margin-top: 8px;
   border: 1px #ddd solid; }
 
-.upload .upload-item:hover {
+.lego-upload .lego-upload-item:hover {
   border-color: #c5c5c5; }
 
-.upload .upload-item .media-left i {
+.lego-upload .lego-upload-item .media-left i {
   font-size: 40px;
   color: #f90; }
 
-.upload .upload-item .media-body .media-heading {
+.lego-upload .lego-upload-item .media-body .media-heading {
   margin-right: 40px;
   font-size: 14px;
   font-weight: normal;
@@ -11172,29 +10716,29 @@ form legend {
   word-wrap: break-word;
   word-break: break-all; }
 
-.upload .upload-item .media-body .media-heading .right {
+.lego-upload .lego-upload-item .media-body .media-heading .right {
   position: absolute;
   top: 8px;
   right: 8px; }
 
-.upload .upload-item .media-body .media-heading .right a {
+.lego-upload .lego-upload-item .media-body .media-heading .right a {
   margin-left: 8px; }
 
-.upload .upload-item .media-body small {
+.lego-upload .lego-upload-item .media-body small {
   margin-top: 8px;
   color: #999; }
 
-.upload .upload-item .media-body small cite {
+.lego-upload .lego-upload-item .media-body small cite {
   font-style: inherit; }
 
-.upload .upload-item .media-body small time {
+.lego-upload .lego-upload-item .media-body small time {
   display: none;
   margin-left: 15px; }
 
-.upload .upload-item .media-body small time a {
+.lego-upload .lego-upload-item .media-body small time a {
   margin-left: 5px; }
 
-.upload .upload-item .media-body .progress {
+.lego-upload .lego-upload-item .media-body .progress {
   margin-bottom: 0;
   margin-top: 15px;
   height: 3px;
@@ -11202,10 +10746,439 @@ form legend {
   -webkit-box-shadow: none;
   box-shadow: none; }
 
-.upload .upload-item .media-body .progress-bar {
+.lego-upload .lego-upload-item .media-body .progress-bar {
   -webkit-box-shadow: none;
   box-shadow: none; }
 
-.upload .upload-item:hover .closebtn,
-.upload .upload-item:hover small time {
+.lego-upload .lego-upload-item:hover .lego-closebtn,
+.lego-upload .lego-upload-item:hover small time {
   display: inline-block; }
+.lego-avatar-item {
+  display: inline-block;
+  text-align: center;
+  margin: 3px;
+  width: 50px; }
+
+.lego-avatar-item label {
+  display: block;
+  font-size: 12px; }
+
+.lego-avatar-img {
+  width: 40px;
+  height: 40px;
+  background-color: #ececec;
+  background-image: url(./img/media-user.png);
+  background-size: cover;
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto 5px auto; }
+
+.lego-avatar-img i {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: none;
+  color: #ccc;
+  font-size: 24px;
+  cursor: pointer;
+  border: 1px #ccc solid;
+  justify-content: center;
+  align-items: center; }
+
+.lego-avatar-item.addbtn {
+  vertical-align: top; }
+
+.lego-avatar-item.addbtn .lego-avatar-img {
+  background-color: transparent;
+  background-image: none; }
+
+.lego-avatar-item.addbtn .lego-avatar-img i {
+  display: flex !important;
+  border: 1px #ccc dashed; }
+
+.lego-avatar-item.addbtn .lego-avatar-img:hover i,
+.lego-avatar-img:hover i {
+  display: flex !important;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #f3f3f3;
+  border: none; }
+.lego-steps {
+  font-size: 0;
+  width: 100%;
+  line-height: 1.5; }
+
+.lego-steps .lego-steps-item {
+  position: relative;
+  display: inline-block;
+  vertical-align: top; }
+
+.lego-steps .lego-steps-item.lego-steps-status-wait .lego-steps-head-inner {
+  border-color: #ccc;
+  background-color: #fff; }
+
+.lego-steps .lego-steps-item.lego-steps-status-wait .lego-steps-head-inner > .lego-steps-icon {
+  color: #ccc; }
+
+.lego-steps .lego-steps-item.lego-steps-status-wait .lego-steps-title {
+  color: #999; }
+
+.lego-steps .lego-steps-item.lego-steps-status-wait .lego-steps-description {
+  color: #999; }
+
+.lego-steps .lego-steps-item.lego-steps-status-wait .lego-steps-tail > i {
+  background-color: #e9e9e9; }
+
+.lego-steps .lego-steps-item.lego-steps-status-process .lego-steps-head-inner {
+  border-color: #03a9f4;
+  background-color: #03a9f4; }
+
+.lego-steps .lego-steps-item.lego-steps-status-process .lego-steps-head-inner > .lego-steps-icon {
+  color: #fff; }
+
+.lego-steps .lego-steps-item.lego-steps-status-process .lego-steps-title {
+  color: #666; }
+
+.lego-steps .lego-steps-item.lego-steps-status-process .lego-steps-description {
+  color: #666; }
+
+.lego-steps .lego-steps-item.lego-steps-status-process .lego-steps-tail > i {
+  background-color: #e9e9e9; }
+
+.lego-steps .lego-steps-item.lego-steps-status-finish .lego-steps-head-inner {
+  border-color: #03a9f4;
+  background-color: #fff; }
+
+.lego-steps .lego-steps-item.lego-steps-status-finish .lego-steps-head-inner > .lego-steps-icon {
+  color: #03a9f4; }
+
+.lego-steps .lego-steps-item.lego-steps-status-finish .lego-steps-tail > i:after {
+  width: 100%;
+  background: #03a9f4;
+  -webkit-transition: all 0.6s;
+  transition: all 0.6s;
+  opacity: 1; }
+
+.lego-steps .lego-steps-item.lego-steps-status-finish .lego-steps-title {
+  color: #999; }
+
+.lego-steps .lego-steps-item.lego-steps-status-finish .lego-steps-description {
+  color: #999; }
+
+.lego-steps .lego-steps-item.lego-steps-status-error .lego-steps-head-inner {
+  border-color: #f50;
+  background-color: #fff; }
+
+.lego-steps .lego-steps-item.lego-steps-status-error .lego-steps-head-inner > .lego-steps-icon {
+  color: #f50; }
+
+.lego-steps .lego-steps-item.lego-steps-status-error .lego-steps-title {
+  color: #f50; }
+
+.lego-steps .lego-steps-item.lego-steps-status-error .lego-steps-description {
+  color: #f50; }
+
+.lego-steps .lego-steps-item.lego-steps-status-error .lego-steps-tail > i {
+  background-color: #e9e9e9; }
+
+.lego-steps .lego-steps-item.lego-steps-next-error .lego-steps-tail > i,
+.lego-steps .lego-steps-item.lego-steps-next-error .lego-steps-tail > i:after {
+  background-color: #f50; }
+
+.lego-steps .lego-steps-item.lego-steps-custom .lego-steps-head-inner {
+  background: none;
+  border: 0;
+  width: auto;
+  height: auto; }
+
+.lego-steps .lego-steps-item.lego-steps-custom .lego-steps-head-inner > .lego-steps-icon {
+  font-size: 26px;
+  width: 26px;
+  height: 26px; }
+
+.lego-steps .lego-steps-item.lego-steps-custom.lego-steps-status-process .lego-steps-head-inner > .lego-steps-icon {
+  color: #03a9f4; }
+
+.lego-steps .lego-steps-head,
+.lego-steps .lego-steps-main {
+  position: relative;
+  vertical-align: top; }
+
+.lego-steps .lego-steps-head {
+  background: #fff;
+  display: inline-block; }
+
+.lego-steps .lego-steps-head-inner {
+  display: block;
+  border: 1px solid #ccc;
+  width: 26px;
+  height: 26px;
+  line-height: 23px;
+  text-align: center;
+  border-radius: 26px;
+  font-size: 14px;
+  -webkit-transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition: background-color 0.3s ease, border-color 0.3s ease; }
+
+.lego-steps .lego-steps-head-inner > .lego-steps-icon {
+  line-height: 1;
+  color: #03a9f4;
+  position: relative; }
+
+.lego-steps .lego-steps-head-inner > .lego-steps-icon.anticon {
+  font-size: 12px; }
+
+.lego-steps .lego-steps-head-inner > .lego-steps-icon.anticon-cross,
+.lego-steps .lego-steps-head-inner > .lego-steps-icon.anticon-check {
+  font-weight: bold; }
+
+.lego-steps .lego-steps-main {
+  margin-top: 2.5px; }
+
+.lego-steps .lego-steps-title {
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: #666;
+  background: #fff;
+  display: inline-block;
+  padding-right: 10px; }
+
+.lego-steps .lego-steps-title > a:first-child:last-child {
+  color: #666; }
+
+.lego-steps .lego-steps-item-last .lego-steps-title {
+  padding-right: 0;
+  width: 100%; }
+
+.lego-steps .lego-steps-description {
+  font-size: 12px;
+  color: #999; }
+
+.lego-steps .lego-steps-tail {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: 11px;
+  padding: 0; }
+
+.lego-steps .lego-steps-tail > i {
+  display: inline-block;
+  vertical-align: top;
+  background: #e9e9e9;
+  height: 4px;
+  border-radius: 1px;
+  width: 100%;
+  position: relative; }
+
+.lego-steps .lego-steps-tail > i:after {
+  position: absolute;
+  content: '';
+  top: 0;
+  width: 0;
+  background: #e9e9e9;
+  height: 100%;
+  opacity: 0; }
+
+.lego-steps.lego-steps-small .lego-steps-head-inner {
+  border: 1px solid #ccc;
+  width: 18px;
+  height: 18px;
+  line-height: 15px;
+  text-align: center;
+  border-radius: 18px;
+  font-size: 12px;
+  margin-right: 10px; }
+
+.lego-steps.lego-steps-small .lego-steps-head-inner > .lego-steps-icon.anticon {
+  display: inline-block;
+  font-size: 12px;
+  font-size: 9px \9;
+  -webkit-transform: scale(0.75) rotate(0deg);
+  -ms-transform: scale(0.75) rotate(0deg);
+  transform: scale(0.75) rotate(0deg);
+  /* IE6-IE8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=1, M12=0, M21=0, M22=1)";
+  zoom: 1;
+  top: 0; }
+
+:root .lego-steps.lego-steps-small .lego-steps-head-inner > .lego-steps-icon.anticon {
+  -webkit-filter: none;
+  filter: none; }
+
+:root .lego-steps.lego-steps-small .lego-steps-head-inner > .lego-steps-icon.anticon {
+  font-size: 12px; }
+
+.lego-steps.lego-steps-small .lego-steps-main {
+  margin-top: 0; }
+
+.lego-steps.lego-steps-small .lego-steps-title {
+  font-size: 12px;
+  margin-bottom: 4px;
+  color: #666; }
+
+.lego-steps.lego-steps-small .lego-steps-description {
+  font-size: 12px;
+  color: #999; }
+
+.lego-steps.lego-steps-small .lego-steps-tail {
+  top: 8px;
+  padding: 0 8px; }
+
+.lego-steps.lego-steps-small .lego-steps-tail > i {
+  height: 1px;
+  border-radius: 1px;
+  width: 100%; }
+
+.lego-steps.lego-steps-small .lego-steps-custom .lego-steps-head-inner > .lego-steps-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px; }
+
+.lego-steps-vertical .lego-steps-item {
+  display: block; }
+
+.lego-steps-vertical .lego-steps-tail {
+  position: absolute;
+  left: 13px;
+  top: 0;
+  height: 100%;
+  width: 1px;
+  padding: 30px 0 4px 0; }
+
+.lego-steps-vertical .lego-steps-tail > i {
+  height: 100%;
+  width: 1px; }
+
+.lego-steps-vertical .lego-steps-tail > i:after {
+  height: 0;
+  width: 100%; }
+
+.lego-steps-vertical .lego-steps-status-finish .lego-steps-tail > i:after {
+  height: 100%; }
+
+.lego-steps-vertical .lego-steps-head {
+  float: left; }
+
+.lego-steps-vertical .lego-steps-head-inner {
+  margin-right: 16px; }
+
+.lego-steps-vertical .lego-steps-main {
+  min-height: 47px;
+  overflow: hidden;
+  display: block; }
+
+.lego-steps-vertical .lego-steps-main .lego-steps-title {
+  line-height: 26px; }
+
+.lego-steps-vertical .lego-steps-main .lego-steps-description {
+  padding-bottom: 12px; }
+
+.lego-steps-vertical.lego-steps-small .lego-steps-tail {
+  position: absolute;
+  left: 9px;
+  top: 0;
+  padding: 22px 0 4px 0; }
+
+.lego-steps-vertical.lego-steps-small .lego-steps-tail > i {
+  height: 100%; }
+
+.lego-steps-vertical.lego-steps-small .lego-steps-title {
+  line-height: 18px; }
+
+.lego-steps-horizontal.lego-steps-hidden {
+  visibility: hidden; }
+
+.lego-steps-horizontal .lego-steps-description {
+  max-width: 120px; }
+
+.lego-steps-sm .lego-steps-head {
+  top: 5px;
+  margin-bottom: 8px; }
+
+.lego-steps-sm .lego-steps-head-inner {
+  width: 15px;
+  height: 15px; }
+
+.lego-steps-sm .lego-steps-status-finish .lego-steps-head-inner,
+.lego-steps-sm .lego-steps-status-process .lego-steps-head-inner {
+  background-color: #03a9f4 !important; }
+
+.lego-steps-sm .lego-steps-status-wait .lego-steps-head-inner {
+  background-color: #e9e9e9 !important;
+  border-color: #e9e9e9 !important; }
+.lego-facial > i {
+  font-size: 20px;
+  cursor: pointer; }
+
+.lego-facial .dropdown-menu {
+  width: 376px;
+  height: 160px;
+  padding: 7px;
+  overflow: hidden; }
+
+.lego-facial ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: url(./face_icons/facebackground.png);
+  background-size: cover; }
+
+.lego-facial ul li {
+  float: left;
+  margin: 0; }
+
+.lego-facial ul li img {
+  width: 24px;
+  height: 24px;
+  opacity: 0; }
+
+.lego-facial ul li:hover img {
+  opacity: 1; }
+.lego-reply .lego-reply-submit {
+  float: right; }
+
+.lego-reply .lego-reply-content {
+  border: 1px solid #ddd;
+  padding: 5px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+  overflow: auto; }
+
+.lego-reply .lego-reply-ph {
+  color: #ddd; }
+
+.lego-reply .lego-reply-toolbar > div {
+  display: inline-block;
+  cursor: pointer; }
+
+.lego-reply .lego-reply-toolbar > div > i {
+  font-size: 20px;
+  padding: 6px 8px; }
+
+.lego-reply .lego-reply-toolbar > div:first-child > i {
+  padding-left: 0; }
+
+.lego-reply .lego-reply-toolbar > div > i:hover {
+  color: #03a9f4; }
+
+.lego-reply .popover {
+  top: 100%;
+  left: 14px;
+  max-width: 550px;
+  margin-top: 0px;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); }
+
+.lego-reply .popover.show {
+  display: block !important; }
+
+.lego-reply .popover-title i {
+  cursor: pointer; }
+
+.lego-reply .popover.bs-tether-element-attached-top:after,
+.lego-reply .popover.bs-tether-element-attached-top:before,
+.lego-reply .popover.popover-bottom:after,
+.lego-reply .popover.popover-bottom:before {
+  left: 50px; }

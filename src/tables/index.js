@@ -13,7 +13,7 @@ class Tables extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
-                'click tbody .lego-checkbox': 'selectOne',
+                'click tbody .lego-checkbox,.lego-radio': 'selectOne',
                 'click thead .lego-checkbox > input': 'selectAll',
                 'click .lego-table-column-sorter': 'clickSorter',
                 'click .anticon-filter': 'clickFilter',
@@ -22,7 +22,7 @@ class Tables extends Lego.UI.Baseview {
             },
             scrollbar: {},
             className: '',
-            rowSelection: null, //列表项是否可选择
+            rowSelection: null, //列表行是否可选择
             pagination: null,   //分页器，配置项参考 pagination，设为 false 时不展示和进行分页
             size: 'default', //正常或迷你类型，default or small middle
             columns: [],    //表格列的配置描述，具体项见下表
@@ -56,7 +56,7 @@ class Tables extends Lego.UI.Baseview {
         Object.assign(options, opts);
         options.components.push({
             ...options.pagination,
-            el: '#' + options.vid + '-paginationId'
+            el: '#pagination_' + options.vid
         });
         options.columns.map((col) => {
             col = Object.assign({
@@ -64,7 +64,7 @@ class Tables extends Lego.UI.Baseview {
                 key: Lego.randomKey(32),
                 isHide: false, //是否隐藏
                 dataIndex: '',  //列数据在数据项中对应的 key，支持 a.b.c 的嵌套写法
-                // render(value, row, col){ return value; },  //生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return里面可以设置表格行/列合并
+                // format(value, row, col){ return value; },  //生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return里面可以设置表格行/列合并
                 // filter(){},  //表头的筛选项
                 // sorter(){},  //排序函数，本地排序使用一个函数，需要服务端排序可设为 true
                 colSpan: 0,  //表头列合并,设置为 0 时，不渲染
@@ -78,11 +78,11 @@ class Tables extends Lego.UI.Baseview {
         super(options);
         this.selectedAll = 0;
         // 同步横向滚动
-        const header = this.$('.lego-table-header');
-        this.$('.lego-table-body').scroll(function() {
+        const header = this.$el.find('.lego-table-header');
+        this.$el.find('.lego-table-body').scroll(function() {
             header.scrollLeft($(this).scrollLeft());
         });
-        this.$('.lego-table-tfoot>tr>td').attr('colspan', this.options.columns.length);
+        this.$el.find('.lego-table-tfoot>tr>td').attr('colspan', this.options.columns.length);
     }
     render() {
         const options = this.options;
@@ -115,7 +115,7 @@ class Tables extends Lego.UI.Baseview {
                 </div>
                 ${options.pagination && options.data ? hx`
                     <div class="lego-table-footer">
-                    <pagination id="${options.vid}-paginationId"></pagination>
+                    <pagination id="pagination_${options.vid}"></pagination>
                     </div>
                 ` : ''}
                 </div>
@@ -123,6 +123,10 @@ class Tables extends Lego.UI.Baseview {
         </div>
         `;
         return vDom;
+    }
+    renderAfter(){
+        const paginationView = Lego.getView('#pagination_' + this.options.vid);
+        if(paginationView) paginationView.refresh();
     }
     _getRowKey(str = ''){
         this.rowKey = this.rowKey || 0;
@@ -144,7 +148,7 @@ class Tables extends Lego.UI.Baseview {
     // 渲染选择框
     _renderSelection(row = {}, tagName = 'td'){
         const options = this.options,
-            theType = options.type || 'checkbox',
+            theType = options.rowSelection.type || 'checkbox',
             that = this;
         const isChecked = row.selected || (tagName === 'th' && this.selectedAll === 1),
             isHarf = tagName === 'th' && that.selectedAll === 2 ? true : false;
@@ -152,10 +156,10 @@ class Tables extends Lego.UI.Baseview {
             return hx`
             <span>
                 <label class="lego-${theType}-wrapper">
-                    <span class="lego-checkbox ${row.disabled ? 'lego-checkbox-disabled' : ''} ${isChecked ?
-                        'lego-checkbox-checked lego-checkbox-checked-1' : (isHarf ? 'lego-checkbox-indeterminate' : '')}">
-                        <span class="lego-checkbox-inner"></span>
-                        <input type="${theType}" ${row.disabled ? 'disabled' : ''} class="lego-checkbox-input" value="${isChecked ? 'on' : ''}">
+                    <span class="lego-${theType} ${row.disabled ? ('lego-' + theType + '-disabled') : ''}
+                    ${isChecked ? ('lego-' + theType + '-checked lego-' + theType + '-checked-1') : (isHarf ? ('lego-' + theType + '-indeterminate') : '')}">
+                        <span class="lego-${theType}-inner"></span>
+                        <input type="${theType}" ${row.disabled ? 'disabled' : ''} name="selectedrows" class="lego-${theType}-input" value="${isChecked ? 'on' : ''}">
                     </span>
                 </label>
             </span>
@@ -193,7 +197,7 @@ class Tables extends Lego.UI.Baseview {
                 return hx`<tr class="${options.rowClassName}" id="${row.key}">
                 ${options.rowSelection ? this._renderSelection(row, 'td') : ''}
                 ${options.columns.map(col => {
-                    return !col.isHide ? hx`<td>${typeof col.render === 'function' ? col.render(row[col.dataIndex], row, col) : row[col.dataIndex]}</td>` : '';
+                    return !col.isHide ? hx`<td>${typeof col.format === 'function' ? col.format(row[col.dataIndex], row, col) : row[col.dataIndex]}</td>` : '';
                 })}
                 </tr>`;
             })}
@@ -253,7 +257,7 @@ class Tables extends Lego.UI.Baseview {
         event.stopPropagation();
         const target = $(event.currentTarget),
             rowKey = target.parent().attr('id'),
-            colKey = this.$('thead').find('th').eq(event.currentTarget.cellIndex).attr('id');
+            colKey = this.$el.find('thead').find('th').eq(event.currentTarget.cellIndex).attr('id');
         const row = this.options.data.find(val => val.key == rowKey);
         const col = this.options.columns.find(val => val.key == colKey);
         if(row && col){
@@ -276,7 +280,7 @@ class Tables extends Lego.UI.Baseview {
     }
     clickSetting(event){
         event.stopPropagation();
-        if(typeof this.options.colSetting === 'function') this.options.colSetting();
+        if(typeof this.options.colSetting === 'function') this.options.colSetting(this);
     }
     // 选中一条
     selectOne(event) {
@@ -284,16 +288,23 @@ class Tables extends Lego.UI.Baseview {
         const target = $(event.currentTarget),
             trEl = target.closest('tr'),
             id = trEl.attr('id'),
+            options = this.options,
             that = this;
-        if (this.options.rowSelection) {
-            const row = this.options.data.find(function(value, index, arr) {
+        if (options.rowSelection) {
+            if(options.rowSelection.type == 'radio'){
+                options.data.forEach(item => {
+                    item.selected = item.key == id ? true : false;
+                });
+            }else{
+                const row = options.data.find(function(value, index, arr) {
                     return value.key == id;
                 });
-            if(row) row.selected = !row.selected;
-            const hasSelectedArr = this.options.data.filter((value) => {
+                if(row) row.selected = !row.selected;
+            }
+            const hasSelectedArr = options.data.filter((value) => {
                 return value.selected === true;
             });
-            this.selectedAll = hasSelectedArr.length == this.options.data.length ? 1 : (hasSelectedArr.length ? 2 : 0);
+            this.selectedAll = hasSelectedArr.length == options.data.length ? 1 : (hasSelectedArr.length ? 2 : 0);
             this.refresh();
         }
     }
@@ -311,15 +322,12 @@ class Tables extends Lego.UI.Baseview {
             this.refresh();
         }
     }
-    // 获取先中行
+    // 获取选中行
     getSelected() {
-        let rows = [];
         if (Array.isArray(this.options.data)) {
-            this.options.data.map((row) => {
-                if(row.selected) rows.push(row);
-            });
+            return this.options.data.filter((row) => row.selected == true);
         }
-        return rows;
+        return [];
     }
 }
 Lego.components('tables', Tables);

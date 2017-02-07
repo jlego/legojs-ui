@@ -1,5 +1,5 @@
-import Navs from '../../../../dist/Navs';
-import Tabs from '../../../../dist/Tabs';
+// import Navs from '../../../../dist/navs';
+// import Tabs from '../../../../dist/tabs';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -37,7 +37,7 @@ class HomeView extends Lego.UI.Baseview {
                 el: '#navs1',
                 type: 'base',
                 activeKey: 'nav1',
-                onClick(e, item){
+                onClick(self, item){
                     console.warn('点击了菜单1', item);
                 },
                 data: data
@@ -45,7 +45,7 @@ class HomeView extends Lego.UI.Baseview {
                 el: '#navs2',
                 type: 'inline',
                 activeKey: 'nav2',
-                onClick(e, item){
+                onClick(self, item){
                     console.warn('点击了菜单2', item);
                 },
                 data: data
@@ -53,7 +53,7 @@ class HomeView extends Lego.UI.Baseview {
                 el: '#navs3',
                 type: 'tabs',
                 activeKey: 'nav2',
-                onClick(e, item){
+                onClick(self, item){
                     console.warn('点击了菜单3', item);
                 },
                 data: data
@@ -61,7 +61,7 @@ class HomeView extends Lego.UI.Baseview {
                 el: '#navs4',
                 type: 'pills',
                 activeKey: 'nav1',
-                onClick(e, item){
+                onClick(self, item){
                     console.warn('点击了菜单4', item);
                 },
                 data: data
@@ -69,7 +69,7 @@ class HomeView extends Lego.UI.Baseview {
                 el: '#navs5',
                 type: 'pills-stacked',
                 activeKey: 'nav2',
-                onClick(e, item){
+                onClick(self, item){
                     console.warn('点击了菜单5', item);
                 },
                 data: data

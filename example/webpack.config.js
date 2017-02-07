@@ -13,6 +13,8 @@ module.exports = {
         'tree/app': './src/tree/app',
         'transfer/app': './src/transfer/app',
         'upload/app': './src/upload/app',
+        'avatar/app': './src/avatar/app',
+        'steps/app': './src/steps/app',
         'main': './src/main',
     },
     output: {
@@ -52,8 +54,7 @@ module.exports = {
     resolve: {
         extensions: ["", ".js"],
         // alias: {
-        //     'jquery': path.join(__dirname, 'node_modules/jquery/src/jquery'),
-        //     // 'datetimepicker': 'eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js'
+        //     'jquery': path.join(__dirname, 'node_modules/jquery/src/jquery')
         // }
     },
     plugins: [
@@ -62,14 +63,14 @@ module.exports = {
         //     jQuery: 'jquery',
         //     'windows.jQuery': 'jquery'
         // }),
-        new webpack.optimize.UglifyJsPlugin({
-            mangle: true,
-            compress: false,
-            output: {
-                beautify: true,
-                comments: false
-            },
-        }),
+        // new webpack.optimize.UglifyJsPlugin({
+        //     mangle: true,
+        //     compress: false,
+        //     output: {
+        //         beautify: true,
+        //         comments: false
+        //     },
+        // }),
         // new ExtractTextPlugin("[name].css", {
         //     allChunks: true
         // }),

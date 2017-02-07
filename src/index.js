@@ -1,7 +1,6 @@
 import '../asset/scss/style.scss';
 
 import { Baseview } from "./common/index";
-import Viewport from "./viewport/index";
 import Alert from "./alert/index";
 import Badge from "./badge/index";
 import Buttons from "./buttons/index";
@@ -26,10 +25,14 @@ import Listgroup from "./listgroup/index";
 import Transfer from "./transfer/index";
 import Progressbar from "./progressbar/index";
 import Upload from "./upload/index";
+import Avatar from "./avatar/index";
+import Steps from "./steps/index";
+import Facial from "./facial/index";
+import Collapse from "./collapse/index";
+import Reply from "./reply/index";
 
 Lego.components({
 	baseview: Baseview,
-	viewport: Viewport,
 	alert: Alert,
 	badge: Badge,
 	buttons: Buttons,
@@ -40,7 +43,9 @@ Lego.components({
 	navs: Navs,
 	tabs: Tabs,
 	search: Search,
+	selects: Selects,
 	datepicker: Datepicker,
+	inputs: Inputs,
 	tooltip: Tooltip,
 	popover: Popover,
 	notification: Notification,
@@ -52,7 +57,10 @@ Lego.components({
 	transfer: Transfer,
 	progressbar: Progressbar,
 	upload: Upload,
-	selects: Selects,
-	inputs: Inputs
+	avatar: Avatar,
+	steps: Steps,
+	facial: Facial,
+	collapse: Collapse,
+	reply: Reply
 });
 export default Lego.UI;

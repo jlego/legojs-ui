@@ -1,5 +1,5 @@
 /**
- * buttons.js v0.2.7
+ * buttons.js v0.2.9
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -22,7 +22,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <button type="', '" class="btn btn-', '">\n            <span>', "</span>\n        </button>\n        " ], [ '\n        <button type="', '" class="btn btn-', '">\n            <span>', "</span>\n        </button>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <button type="', '" class="btn btn-', '" ', ">\n            <span>", "</span>\n        </button>\n        " ], [ '\n        <button type="', '" class="btn btn-', '" ', ">\n            <span>", "</span>\n        </button>\n        " ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -70,8 +70,9 @@ var Buttons = function(_Lego$UI$Baseview) {
                 click: "onClick"
             },
             text: "button",
-            type: "default",
+            type: "secondary",
             htmlType: "button",
+            disabled: false,
             icon: "",
             shape: "",
             size: "default",
@@ -85,14 +86,14 @@ var Buttons = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject, options.htmlType, options.type, options.html || options.text);
+            var vDom = hx(_templateObject, options.htmlType, options.type, options.disabled ? "disabled" : "", options.html || options.text);
             return vDom;
         }
     }, {
         key: "onClick",
         value: function onClick(event) {
             event.stopPropagation();
-            if (typeof this.options.onClick === "function") this.options.onClick(event);
+            if (typeof this.options.onClick == "function") this.options.onClick(this, event);
         }
     } ]);
     return Buttons;

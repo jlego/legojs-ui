@@ -1,5 +1,4 @@
-// import Table from 'lego-ui/dist/Table';
-import Tables from '../../../../dist/Tables';
+// import Tables from '../../../../dist/tables';
 
 class TableView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -31,7 +30,7 @@ class TableView extends Lego.UI.Baseview {
                     pageSize: 20,
                     showSizeChanger: true,
                     showQuickJumper: true,
-                    onChange(num){
+                    onChange(self, num){
                         const theView = Lego.getView('#theTable');
                         theView.options.data = getData(num);
                         theView.refresh();

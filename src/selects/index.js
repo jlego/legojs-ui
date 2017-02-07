@@ -32,6 +32,7 @@ class Selects extends Lego.UI.Baseview {
             dropdownStyle: null,  //下拉菜单的 style 属性
             dropdownClassName: '',  //下拉菜单的 className 属性上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。
             splitString: '',    //自动分词分隔符
+            dataSource: null,
             components: [{
                 el: '#dropdown-' + opts.vid,
                 trigger: '#select-' + opts.vid,
@@ -43,39 +44,32 @@ class Selects extends Lego.UI.Baseview {
                 }, opts.dropdownStyle || {}),
                 className: opts.dropdownClassName,
                 clickAndClose: opts.multiple ? false : true,
-                data: opts.data,
-                onChange(model){
-                    const theView = Lego.getView(opts.el);
-                    if(theView){
-                        theView.$('.select-input').focus();
-                        if(model.key !== '0' && opts.multiple){
-                            theView.getValue();
-                            if(!theView.options.value.includes(model)){
-                                model.selected = true;
-                                theView.options.value.push(model);
-                            }
-                        }else{
-                            theView.options.data.forEach(item => item.selected = false);
-                            theView.options.value = [model];
+                data: opts.data || [],
+                dataSource: opts.dataSource,
+                onChange(self, model){
+                    const parentView = this.context;
+                    parentView.$el.find('.select-input').focus();
+                    if(model.key !== '0' && opts.multiple){
+                        parentView.getValue();
+                        if(!parentView.options.value.includes(model)){
+                            model.selected = true;
+                            parentView.options.value.push(model);
                         }
-                        theView.options.onSelect(model);
-                        theView.options.onChange(model);
-                        theView.refresh();
+                    }else{
+                        parentView.options.data.forEach(item => item.selected = false);
+                        parentView.options.value = [model];
                     }
+                    parentView.options.onSelect(parentView, model);
+                    parentView.options.onChange(parentView, model);
+                    parentView.refresh();
                 }
             }]
         };
         Object.assign(options, opts);
-        if(options.value.length){
-            options.value.forEach(item => {
-                const model = options.data.find(model => model.key === item.key);
-                if(model) model.selected = true;
-            });
-        }
         super(options);
         const eventName = 'click.select_' + opts.vid,
             callback = this.clickItemClose.bind(this);
-        this.$('.select-tags-div').off(eventName).on(eventName, '.select-tag-close', callback);
+        this.$el.find('.select-tags-div').off(eventName).on(eventName, '.select-tag-close', callback);
     }
     render() {
         const options = this.options || {};
@@ -123,18 +117,28 @@ class Selects extends Lego.UI.Baseview {
         }
         return vDom;
     }
+    renderAfter(){
+        if(this.options.value.length && this.options.multiple){
+            this.options.value.forEach(item => {
+                if(item){
+                    const model = this.options.data.find(model => model.key === item.key);
+                    if(model) model.selected = true;
+                }
+            });
+        }
+    }
     clickItemClose(event){
         event.stopPropagation();
         const target = $(event.currentTarget).parent(),
             key = target.attr('id'),
             value = target.attr('title');
         this.options.data.forEach(item => {
-            if(item.key === key) item.selected = false;
+            if(item.key == key) item.selected = false;
         });
         this.getValue();
         this.refresh();
         Lego.getView('#dropdown-' + this.options.vid).refresh();
-        if(typeof this.options.onDeselect === 'function') this.options.onDeselect({
+        if(typeof this.options.onDeselect === 'function') this.options.onDeselect(this, {
             key: key,
             value: value
         });
@@ -154,7 +158,7 @@ class Selects extends Lego.UI.Baseview {
     }
     getValue(){
         this.options.value = this.options.data.filter(item => {
-            return item.selected === true && item.key !== '0';
+            return item.selected == true && item.key !== '0';
         });
         return this.options.value;
     }

@@ -1,0 +1,53 @@
+.lego-reply {}
+
+.lego-reply .lego-reply-toolbar {
+
+}
+.lego-reply .lego-reply-submit{
+    float: right;
+}
+.lego-reply .lego-reply-content {
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    overflow: auto;
+}
+.lego-reply .lego-reply-ph{
+    color: #ddd;
+}
+.lego-reply .lego-reply-toolbar > div{
+    display: inline-block;
+    cursor: pointer;
+}
+
+.lego-reply .lego-reply-toolbar > div > i{
+    font-size: 20px;
+    padding: 6px 8px;
+}
+.lego-reply .lego-reply-toolbar > div:first-child > i{
+    padding-left: 0;
+}
+.lego-reply .lego-reply-toolbar > div > i:hover{
+    color: #03a9f4;
+}
+.lego-reply .popover{
+    top: 100%;
+    left: 14px;
+    max-width: 550px;
+    margin-top: 0px;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0,0,0,.2);
+}
+.lego-reply .popover.show{
+    display: block !important;
+}
+.lego-reply .popover-title i{
+    cursor: pointer;
+}
+.lego-reply .popover.bs-tether-element-attached-top:after,
+.lego-reply .popover.bs-tether-element-attached-top:before,
+.lego-reply .popover.popover-bottom:after,
+.lego-reply .popover.popover-bottom:before {
+    left: 50px;
+}

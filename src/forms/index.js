@@ -45,8 +45,12 @@ class Forms extends Lego.UI.Baseview {
             },
             // rules: null,
             // messages: null,
+            labelCols: 2,
+            comCols: 10,
             submitEl: '',    //按钮
             submitText: '提 交',    //按钮内容
+            showSubmit: true,
+            resetText: '重 置',    //按钮内容
             data: [], //
             format(result){ return result }, //格式化数据
             onSubmit(){}   //数据验证成功后回调事件
@@ -60,14 +64,18 @@ class Forms extends Lego.UI.Baseview {
             that = this;
         function submitBtn(){
             let submit = '';
-            if(!options.submitEl){
+            if(!options.submitEl && options.showSubmit){
                 if(options.layout == 'vertical'){
-                    submit = hx`<button type="submit" class="btn btn-primary">${options.submitText}</button>`;
+                    submit = hx`<div>
+                    <button type="submit" class="btn btn-primary">${options.submitText}</button>
+                    <button type="reset" class="btn btn-secondary">${options.resetText}</button>
+                    </div>`;
                 }else{
                     submit = hx`
                     <div class="form-group row">
-                      <div class="offset-sm-2 col-sm-10">
+                      <div class="offset-sm-${options.labelCols} col-sm-${options.comCols}">
                         <button type="submit" class="btn btn-primary">${options.submitText}</button>
+                        <button type="reset" class="btn btn-secondary">${options.resetText}</button>
                       </div>
                     </div>
                     `;
@@ -80,7 +88,11 @@ class Forms extends Lego.UI.Baseview {
             if(item.text){
                 comTag = hx`<p class="form-control-static mb-0">${val(item.text)}</p>`;
             }else{
-                comTag = hx(`<${val(item.component.comName)} id=${id}></${val(item.component.comName)}>`);
+                if(item.component){
+                    comTag = item.component.comName ? hx(`<${val(item.component.comName)} id=${id}></${val(item.component.comName)}>`) : '';
+                }else{
+                    comTag = '';
+                }
             }
             if(layout == 'vertical'){
                 vDom = hx`
@@ -93,8 +105,8 @@ class Forms extends Lego.UI.Baseview {
             }else{
                 vDom = hx`
                 <div class="form-group row">
-                  <label for="${id}" class="col-sm-2 col-form-label">${val(item.label)}${item.required ? hx`<span class="symbol required">*</span>` : ''}</label>
-                  <div class="col-sm-10">
+                  <label for="${id}" class="col-sm-${that.options.labelCols} col-form-label">${val(item.label)}${item.required ? hx`<span class="symbol required">*</span>` : ''}</label>
+                  <div class="col-sm-${that.options.comCols}">
                     ${comTag}
                     ${item.help ? hx`<small class="form-text text-muted">${val(item.help)}</small>` : ''}
                   </div>
@@ -132,32 +144,40 @@ class Forms extends Lego.UI.Baseview {
         const that = this;
         this.rules = null;
         this.messages = null;
-        this.options.data.map((item, index) => {
+        let components = this.options.data;
+        components = typeof components == 'function' ? components(this.options) : (Array.isArray(components) ? components : [components]);
+        components.map((item, index) => {
             if(!item.text){
                 const comId = ['component', that.options.vid, index];
                 if(item.items){
                     item.items.map((subItem, i) => {
-                        if(subItem.rule && subItem.message){
-                            that.rules = that.options.rules || {};
-                            that.messages = that.options.messages || {};
-                            if(subItem.required) subItem.rule.required = true;
-                            that.options.setDefaults.rules[subItem.component.name] = subItem.rule;
-                            that.options.setDefaults.messages[subItem.component.name] = subItem.message;
+                        if(subItem.component){
+                            if(subItem.rule && subItem.message){
+                                that.rules = that.options.rules || {};
+                                that.messages = that.options.messages || {};
+                                if(subItem.required) subItem.rule.required = true;
+                                that.options.setDefaults.rules[subItem.component.name] = subItem.rule;
+                                that.options.setDefaults.messages[subItem.component.name] = subItem.message;
+                            }
+                            comId.push(i);
+                            subItem.component.el = '#' + comId.join('_');
+                            subItem.component.context = that;
+                            if(subItem.component.comName) Lego.create(Lego.UI[subItem.component.comName], subItem.component);
                         }
-                        comId.push(i);
-                        subItem.component.el = '#' + comId.join('_');
-                        Lego.create(Lego.UI[subItem.component.comName], subItem.component);
                     });
                 }else{
-                    if(item.rule && item.message){
-                        this.rules = this.options.rules || {};
-                        this.messages = this.options.messages || {};
-                        if(item.required) item.rule.required = true;
-                        this.options.setDefaults.rules[item.component.name] = item.rule;
-                        this.options.setDefaults.messages[item.component.name] = item.message;
+                    if(item.component){
+                        if(item.rule && item.message){
+                            this.rules = this.options.rules || {};
+                            this.messages = this.options.messages || {};
+                            if(item.required) item.rule.required = true;
+                            this.options.setDefaults.rules[item.component.name] = item.rule;
+                            this.options.setDefaults.messages[item.component.name] = item.message;
+                        }
+                        item.component.el = '#' + comId.join('_');
+                        item.component.context = this;
+                        if(item.component.comName) Lego.create(Lego.UI[item.component.comName], item.component);
                     }
-                    item.component.el = '#' + comId.join('_');
-                    Lego.create(Lego.UI[item.component.comName], item.component);
                 }
             }
         });
@@ -200,7 +220,7 @@ class Forms extends Lego.UI.Baseview {
     submitForm() {
         const format = this.options.format,
             submitEl = this.options.submitEl,
-            $submitEl = submitEl instanceof $ ? submitEl : this.$((typeof submitEl == 'string' ? submitEl : '') || '[type="submit"]'),
+            $submitEl = submitEl instanceof $ ? submitEl : this.$el.find((typeof submitEl == 'string' ? submitEl : '') || '[type="submit"]'),
             that = this;
         let data = this.serializeJson();
         if(typeof format == 'function') data = format(data);
@@ -208,7 +228,10 @@ class Forms extends Lego.UI.Baseview {
         if (!$submitEl.hasClass('disabled')) {
             $submitEl.text('提交中...').addClass('disabled');
         }
-        return this.options.onSubmit(data);
+        return this.options.onSubmit(this, data);
+    }
+    reset(){
+        this.$el.reset();
     }
 }
 Lego.components('forms', Forms);

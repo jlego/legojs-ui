@@ -15,6 +15,9 @@ class Treeselect extends Selects {
             multiple: false, //支持多选
             eventName: 'click',
             scrollbar: {},
+            disSelect: '', //禁止选择含有该属性节点, 可以是对象
+            onlySelect: '', //只选择含有该属性节点, 可以是对象
+            treeDataSource: null,   //树型动态数据源
             // showResultType: 'tag', //text, tag 多选时有效
             // allowClear: false,  //支持清除, 单选模式有效
             filterOption: true, //是否根据输入项进行筛选。当其为一个函数时，会接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。
@@ -37,48 +40,50 @@ class Treeselect extends Selects {
             dropdownClassName: '', //下拉菜单的 className 属性上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。
             splitString: '', //自动分词分隔符
             keyNames: ['id', 'name', 'type'],
+            clickAndClose: opts.multiple ? false : true,
             components: [{
-                el: '#' + opts.vid + '-tree',
+                el: '#tree-' + opts.vid,
                 disSelect: opts.disSelect, //禁止选择含有该属性节点, 可以是对象
                 onlySelect: opts.onlySelect, //只选择含有该属性节点, 可以是对象
                 setting: Object.assign({}, opts.setting),
                 keyNames: opts.keyNames || ['id', 'name', 'type'],
                 value: opts.value,
                 data: opts.data,
-                onChecked(result) {
-                    const theView = Lego.getView(opts.el);
-                    if (theView) {
-                        if (result.key !== '0' && opts.setting.check) {
-                            theView.getValue();
-                            if (result.length) {
-                                theView.options.value = [];
-                                result.forEach((val) => {
-                                    theView.options.value.push({
-                                        key: val.key,
-                                        value: val.value,
-                                        type: val.type,
-                                        selected: true
-                                    });
+                dataSource: opts.treeDataSource,
+                onChecked(self, result) {
+                    const parentView = this.context;
+                    if (result.key !== '0' && opts.setting.check) {
+                        parentView.getValue();
+                        if (result.length) {
+                            parentView.options.value = [];
+                            result.forEach((val) => {
+                                parentView.options.value.push({
+                                    key: val.key,
+                                    value: val.value,
+                                    type: val.type,
+                                    selected: true
                                 });
-                            }
+                            });
+                        }else{
+                            parentView.options.value = [];
                         }
-                        theView.options.onSelect(result);
-                        theView.options.onChange(result);
-                        theView.refresh();
                     }
+                    parentView.options.onSelect(parentView, result);
+                    parentView.options.onChange(parentView, result);
+                    parentView.refresh();
                 },
-                onClick(result) {
-                    const theView = Lego.getView(opts.el);
-                    theView.options.value.forEach(item => item.selected = false);
-                    theView.options.value = [{
+                onClick(self, result) {
+                    const parentView = this.context;
+                    parentView.options.value.forEach(item => item.selected = false);
+                    parentView.options.value = [{
                         key: result.key,
                         value: result.value,
                         type: result.type,
                         selected: true
                     }];
-                    theView.options.onSelect(result);
-                    theView.options.onChange(result);
-                    theView.refresh();
+                    parentView.options.onSelect(parentView, result);
+                    parentView.options.onChange(parentView, result);
+                    parentView.refresh();
                 },
                 disabled: opts.disabled || false,
                 className: opts.dropdownClassName
@@ -94,15 +99,15 @@ class Treeselect extends Selects {
         super(options);
         const eventName = 'click.select_' + opts.vid,
             callback = this.clickItemClose.bind(this);
-        this.$('.select-tags-div').off(eventName).on(eventName, '.select-tag-close', callback);
+        this.$el.find('.select-tags-div').off(eventName).on(eventName, '.select-tag-close', callback);
     }
     render() {
-            const options = this.options || {};
-            let vDom = '';
+        const options = this.options || {};
+        let vDom = '';
 
-            function getTags(data) {
-                if (data.length) {
-                    return hx `
+        function getTags(data) {
+            if (data.length) {
+                return hx `
                 <ul>${data.map(item => hx`
                     <li class="select-tag" id="${item.key}" title="${item.value}">
                         <div class="select-tag-content">${item.value}</div>
@@ -122,11 +127,11 @@ class Treeselect extends Selects {
         if(!options.multiple){
             vDom = hx`
             <div class="select dropdown treeselect">
-                <div id="${options.vid}-select">
+                <div id="select-${options.vid}">
                     <input type="text" class="form-control select-input ${options.disabled ? 'disabled' : ''}" placeholder="${options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
                     <div class="dropdown-menu ${options.direction ? ('drop' + options.direction) : ''}">
                         <div class="scrollbar">
-                            <tree id="${options.vid}-tree"></tree>
+                            <tree id="tree-${options.vid}"></tree>
                         </div>
                     </div>
                 </div>
@@ -136,14 +141,14 @@ class Treeselect extends Selects {
         }else{
             vDom = hx`
             <div class="select dropdown treeselect multiple">
-                <div id="${options.vid}-select">
+                <div id="select-${options.vid}">
                     <input type="text" class="form-control select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${theValueArr.length ? '' : options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
                     <div class="select-tags-div clearfix ${theValueArr.length ? 'select-tags-div-border' : ''}">
                         ${getTags(options.value)}
                     </div>
                     <div class="dropdown-menu ${options.direction ? ('drop' + options.direction) : ''}">
                         <div class="scrollbar">
-                            <tree id="${options.vid}-tree"></tree>
+                            <tree id="tree-${options.vid}"></tree>
                         </div>
                     </div>
                 </div>
@@ -156,9 +161,11 @@ class Treeselect extends Selects {
         const options = this.options,
             that = this;
         if(!options.disabled){
-            const trigger = this.$('#' + options.vid + '-select');
-            const treeEl = this.$('#' + options.vid + '-tree');
+            const trigger = this.$('#select-' + options.vid);
+            const treeEl = this.$('#tree-' + options.vid);
+            const _eventName = 'click.dropdown_' + options.vid;
             function handler(event){
+                $('body, .modal-body').trigger('click');
                 event.stopPropagation();
                 const directionResp = Lego.UI.Util.getDirection(trigger, treeEl);
                 options.direction = directionResp._y || 'bottom';
@@ -170,8 +177,7 @@ class Treeselect extends Selects {
                 }
             }
             if(options.eventName == 'click'){
-                const _eventName = 'click.dropdown_' + options.vid;
-                $('body').off(_eventName).on(_eventName, function(){
+                $('body, .modal-body').off(_eventName).on(_eventName, function(){
                     that.close();
                 });
                 trigger.off(_eventName).on(_eventName, handler);
@@ -179,30 +185,33 @@ class Treeselect extends Selects {
                 trigger[options.eventName](handler);
             }
         }
-        this.$('.dropdown-menu').css({
+        this.$el.find('.dropdown-menu').css({
             width: options.dropdownWidth || '100%',
             height: options.dropdownHeight || 'auto'
         });
     }
     show(event){
-        this.$('#' + this.options.vid + '-select').addClass('dropdown open');
+        this.$el.find('.dropdown-menu').slideDown('fast');
     }
     close(event){
-        this.$('#' + this.options.vid + '-select').removeClass('dropdown open');
+        this.$el.find('.dropdown-menu').slideUp('fast');
     }
     clickItemClose(event){
         event.stopPropagation();
         const target = $(event.currentTarget).parent(),
             key = target.attr('id'),
             value = target.attr('title'),
-            treeView = Lego.getView(this.$('#' + this.options.vid + '-tree'));
+            treeView = $.fn.zTree.getZTreeObj('tree-' + this.options.vid);
         this.options.value.forEach(item => {
             if(item.key === key) item.selected = false;
         });
         this.getValue();
         this.refresh();
-        if(treeView) treeView.clearChecked(this.options.keyNames[0], key);
-        if(typeof this.options.onDeselect === 'function') this.options.onDeselect({
+        if(treeView){
+            const treeNode = treeView.getNodeByParam(this.options.keyNames[0], key, null);
+            treeView.checkNode(treeNode, !treeNode.checked, null, true);
+        }
+        if(typeof this.options.onDeselect === 'function') this.options.onDeselect(this, {
             key: key,
             value: value
         });

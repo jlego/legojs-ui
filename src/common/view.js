@@ -10,7 +10,7 @@ class Baseview extends Lego.View {
             that = this;
         // 是否渲染滚动条
         if (options.scrollbar) {
-            const scrollbarEl = this.$('.scrollbar');
+            const scrollbarEl = this.$el.find('.scrollbar');
             if(scrollbarEl.length){
                 scrollbarEl.each(function(index, el){
                     const container = $(this),
@@ -23,6 +23,14 @@ class Baseview extends Lego.View {
                 });
             }
         }
+    }
+    bindEvents(eventName, selector, listener, isUnbind = false){
+        this.$el.on(eventName + '.delegateEvents' + this.options.vid, selector, listener);
+        return this;
+    }
+    unBindEvents() {
+        if (this.$el) this.$el.off('.delegateEvents' + this.options.vid);
+        return this;
     }
 }
 Lego.components('Baseview', Baseview);

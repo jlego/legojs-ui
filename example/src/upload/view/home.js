@@ -1,4 +1,4 @@
-import Upload from '../../../../dist/upload';
+// import Upload from '../../../../dist/upload';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -11,7 +11,7 @@ class HomeView extends Lego.UI.Baseview {
                 //     api: '',
                 //     server: null
                 // },
-                onComplete(result) {
+                onComplete(self, result) {
                     console.warn('上传成功了', result);
                 }
             }, {
@@ -20,7 +20,7 @@ class HomeView extends Lego.UI.Baseview {
                 buttonText: '单文件',
                 multiple: false,
                 // hideAddBtn: true,
-                onComplete(result) {
+                onComplete(self, result) {
                     console.warn('上传成功了2', result);
                 }
             }, {

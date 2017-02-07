@@ -1,15 +1,15 @@
-import Tree from '../../../../dist/Tree';
-import Treeselect from '../../../../dist/Treeselect';
+// import Tree from '../../../../dist/tree';
+// import Treeselect from '../../../../dist/treeselect';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             components: [{
                 el: '#tree1',
-                onChecked(result){
+                onChecked(self, result){
                     console.warn('选中了节点', result);
                 },
-                onClick(result){
+                onClick(self, result){
                     console.warn('点击了节点', result);
                 },
                 data: [{
@@ -32,10 +32,10 @@ class HomeView extends Lego.UI.Baseview {
                         enable: true
                     }
                 },
-                onChecked(result){
+                onChecked(self, result){
                     console.warn('选中了节点', result);
                 },
-                onClick(result){
+                onClick(self, result){
                     console.warn('点击了节点', result);
                 },
                 data: [{
@@ -65,10 +65,10 @@ class HomeView extends Lego.UI.Baseview {
                         chkStyle: "radio"
                     }
                 },
-                onChecked(result){
+                onChecked(self, result){
                     console.warn('选中了节点', result);
                 },
-                onClick(result){
+                onClick(self, result){
                     console.warn('点击了节点', result);
                 },
                 data: [{
@@ -98,10 +98,10 @@ class HomeView extends Lego.UI.Baseview {
                         enable: true
                     }
                 },
-                onChecked(result){
+                onChecked(self, result){
                     console.warn('选中了节点', result);
                 },
-                onClick(result){
+                onClick(self, result){
                     console.warn('点击了节点', result);
                 },
                 data: [{
@@ -134,8 +134,8 @@ class HomeView extends Lego.UI.Baseview {
                         // chkStyle: "radio"
                     }
                 },
-                onChange(result) {
-                    console.warn('点击了树型选项框1', result);
+                onChange(self, result) {
+                    console.warn('点击了树型选项框1', result, self);
                 },
                 // value: {
                 //     key: 'so2',
@@ -172,7 +172,7 @@ class HomeView extends Lego.UI.Baseview {
                         chkStyle: "radio"
                     }
                 },
-                onChange(result) {
+                onChange(self, result) {
                     console.warn('点击了树型选项框2', result);
                 },
                 value: {
@@ -208,7 +208,7 @@ class HomeView extends Lego.UI.Baseview {
                         enable: true
                     }
                 },
-                onChange(result) {
+                onChange(self, result) {
                     console.warn('点击了树型选项框3', result);
                 },
                 data: [{
@@ -233,7 +233,7 @@ class HomeView extends Lego.UI.Baseview {
             }, {
                 el: '#treeselect4',
                 placeholder: '请选择',
-                onChange(result) {
+                onChange(self, result) {
                     console.warn('点击了树型选项框3', result);
                 },
                 data: [{

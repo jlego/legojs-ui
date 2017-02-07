@@ -1,5 +1,5 @@
 /**
- * upload.js v0.2.7
+ * upload.js v0.2.9
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -116,6 +116,7 @@ var UploadView = function(_Lego$View) {
             var taking = 0, file = this.options.file, params = this.options.params;
             this.xhr.crossDomain = true;
             file.id = file.id || Lego.randomKey(32);
+            var progressbar = this["progressbar_" + this.options.vid];
             this.form = new FormData();
             this.form.append("file", file);
             if (!Object.values(params).length) {
@@ -134,8 +135,8 @@ var UploadView = function(_Lego$View) {
                         formatSpeed = uploadSpeed.toFixed(2) + "Kb/s";
                     }
                     var percent = Math.round(event.loaded * 100 / event.total);
-                    if (_this2.progressbar) {
-                        _this2.progressbar.options.percent = percent;
+                    if (progressbar) {
+                        progressbar.options.percent = percent;
                     } else {
                         _this2.options.percent = percent;
                     }
@@ -156,8 +157,8 @@ var UploadView = function(_Lego$View) {
                     if (_this2.options.params.key) {
                         _this2.options.file.url = _this2.options.downloadUri + _this2.options.key;
                     }
-                    if (_this2.progressbar) {
-                        _this2.progressbar.options.percent = 100;
+                    if (progressbar) {
+                        progressbar.options.percent = 100;
                     } else {
                         _this2.options.percent = 100;
                     }
@@ -286,7 +287,7 @@ var Progressbar = function(_Lego$UI$Baseview) {
         value: function render() {
             var options = this.options || {};
             if (options.percent == 100) {
-                if (typeof options.onComplete == "function") options.onComplete();
+                if (typeof options.onComplete == "function") options.onComplete(this);
             }
             var vDom = hx(_templateObject$2, options.showInfo ? hx(_templateObject2$2, this.format(options.percent)) : "", options.status ? options.status : "primary", options.percent);
             return vDom;
@@ -323,13 +324,13 @@ var _createClass$1 = function() {
     };
 }();
 
-var _templateObject$1 = _taggedTemplateLiteral$1([ '\n        <div class="media upload-item">\n            <div class="media-left">\n                <i class="anticon anticon-', '"></i>\n            </div>\n            ', "\n        </div>\n        " ], [ '\n        <div class="media upload-item">\n            <div class="media-left">\n                <i class="anticon anticon-', '"></i>\n            </div>\n            ', "\n        </div>\n        " ]);
+var _templateObject$1 = _taggedTemplateLiteral$1([ '\n        <div class="media lego-upload-item">\n            <div class="media-left">\n                <i class="anticon anticon-', '"></i>\n            </div>\n            ', "\n        </div>\n        " ], [ '\n        <div class="media lego-upload-item">\n            <div class="media-left">\n                <i class="anticon anticon-', '"></i>\n            </div>\n            ', "\n        </div>\n        " ]);
 
-var _templateObject2$1 = _taggedTemplateLiteral$1([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="cancelbtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="cancelbtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ]);
+var _templateObject2$1 = _taggedTemplateLiteral$1([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="lego-cancelbtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="lego-cancelbtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ]);
 
 var _templateObject3$1 = _taggedTemplateLiteral$1([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    ', "\n                    ", "\n                </h4>\n                <small>\n                    <cite>", '</cite>\n                    <time>\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </time>\n                </small>\n            </div>\n            ' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    ', "\n                    ", "\n                </h4>\n                <small>\n                    <cite>", '</cite>\n                    <time>\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </time>\n                </small>\n            </div>\n            ' ]);
 
-var _templateObject4 = _taggedTemplateLiteral$1([ '\n                    <div class="right">\n                        <a href="javascript:;" class="closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ], [ '\n                    <div class="right">\n                        <a href="javascript:;" class="closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ]);
+var _templateObject4 = _taggedTemplateLiteral$1([ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ], [ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -374,8 +375,8 @@ var UploadItem = function(_UploadBase) {
         _classCallCheck$1(this, UploadItem);
         var options = {
             events: {
-                "click .cancelbtn": "onCancel",
-                "click .closebtn": "onRemove"
+                "click .lego-cancelbtn": "onCancel",
+                "click .lego-closebtn": "onRemove"
             },
             uploadUri: "",
             percent: 0,
@@ -391,9 +392,7 @@ var UploadItem = function(_UploadBase) {
             onCancel: function onCancel() {}
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn$1(this, (UploadItem.__proto__ || Object.getPrototypeOf(UploadItem)).call(this, options));
-        _this.renderAfter();
-        return _this;
+        return _possibleConstructorReturn$1(this, (UploadItem.__proto__ || Object.getPrototypeOf(UploadItem)).call(this, options));
     }
     _createClass$1(UploadItem, [ {
         key: "render",
@@ -408,7 +407,7 @@ var UploadItem = function(_UploadBase) {
             var options = this.options;
             if (options.percent < 100) {
                 this.progressbar = Lego.create(Progressbar, {
-                    el: "#progressbar_" + options.vid,
+                    el: this.$("#progressbar_" + options.vid),
                     showInfo: false,
                     status: "success",
                     onComplete: function onComplete() {
@@ -467,11 +466,11 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="upload upload-', '">\n            ', '\n            <input type="hidden" value="', '" name="', '" class="upload-value">\n            <input multiple="multiple" type="file" class="form-control fileInput hide" accept="', '" style="display:none">\n            ', "\n        </div>\n        " ], [ '\n        <div class="upload upload-', '">\n            ', '\n            <input type="hidden" value="', '" name="', '" class="upload-value">\n            <input multiple="multiple" type="file" class="form-control fileInput hide" accept="', '" style="display:none">\n            ', "\n        </div>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-upload lego-upload-', '">\n            ', '\n            <input type="hidden" value="', '" name="', '" class="lego-upload-value">\n            <input multiple="multiple" type="file" class="form-control lego-fileInput hide" accept="', '" style="display:none">\n            ', "\n        </div>\n        " ], [ '\n        <div class="lego-upload lego-upload-', '">\n            ', '\n            <input type="hidden" value="', '" name="', '" class="lego-upload-value">\n            <input multiple="multiple" type="file" class="form-control lego-fileInput hide" accept="', '" style="display:none">\n            ', "\n        </div>\n        " ]);
 
-var _templateObject2 = _taggedTemplateLiteral([ '\n            <button class="btn btn-secondary addbtn" type="button" ', '>\n                <i class="anticon anticon-upload"></i>\n                ', "\n            </button>\n            " ], [ '\n            <button class="btn btn-secondary addbtn" type="button" ', '>\n                <i class="anticon anticon-upload"></i>\n                ', "\n            </button>\n            " ]);
+var _templateObject2 = _taggedTemplateLiteral([ '\n            <button class="btn btn-secondary lego-addbtn" type="button" ', '>\n                <i class="anticon anticon-upload"></i>\n                ', "\n            </button>\n            " ], [ '\n            <button class="btn btn-secondary lego-addbtn" type="button" ', '>\n                <i class="anticon anticon-upload"></i>\n                ', "\n            </button>\n            " ]);
 
-var _templateObject3 = _taggedTemplateLiteral([ '<div class="upload-container"></div>' ], [ '<div class="upload-container"></div>' ]);
+var _templateObject3 = _taggedTemplateLiteral([ '<div class="lego-upload-container"></div>' ], [ '<div class="lego-upload-container"></div>' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -516,7 +515,7 @@ var Upload = function(_Lego$UI$Baseview) {
         _classCallCheck(this, Upload);
         var options = {
             events: {
-                "click .addbtn": "onClickAdd"
+                "click .lego-addbtn": "onClickAdd"
             },
             keyRoot: "",
             type: "file",
@@ -679,13 +678,13 @@ var Upload = function(_Lego$UI$Baseview) {
     }, {
         key: "onClickAdd",
         value: function onClickAdd(event) {
-            this.$(".fileInput").click();
+            this.$(".lego-fileInput").click();
         }
     }, {
         key: "showItem",
         value: function showItem(uploadOption) {
             var view = Lego.create(UploadItem, uploadOption);
-            var containerEl = this.$(".upload-container");
+            var containerEl = this.$(".lego-upload-container");
             if (containerEl.length && view) {
                 if (this.options.multiple) {
                     containerEl.append(view.el);
@@ -693,6 +692,7 @@ var Upload = function(_Lego$UI$Baseview) {
                     containerEl.html(view.el);
                 }
             }
+            view.renderAfter();
             return view;
         }
     }, {

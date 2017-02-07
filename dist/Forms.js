@@ -1,5 +1,5 @@
 /**
- * forms.js v0.2.7
+ * forms.js v0.2.9
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -28,9 +28,9 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '<button type="submit" class="btn btn-primary">', "</button>" ], [ '<button type="submit" class="btn btn-primary">', "</button>" ]);
+var _templateObject = _taggedTemplateLiteral([ '<div>\n                    <button type="submit" class="btn btn-primary">', '</button>\n                    <button type="reset" class="btn btn-secondary">', "</button>\n                    </div>" ], [ '<div>\n                    <button type="submit" class="btn btn-primary">', '</button>\n                    <button type="reset" class="btn btn-secondary">', "</button>\n                    </div>" ]);
 
-var _templateObject2 = _taggedTemplateLiteral([ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', "</button>\n                      </div>\n                    </div>\n                    " ], [ '\n                    <div class="form-group row">\n                      <div class="offset-sm-2 col-sm-10">\n                        <button type="submit" class="btn btn-primary">', "</button>\n                      </div>\n                    </div>\n                    " ]);
+var _templateObject2 = _taggedTemplateLiteral([ '\n                    <div class="form-group row">\n                      <div class="offset-sm-', " col-sm-", '">\n                        <button type="submit" class="btn btn-primary">', '</button>\n                        <button type="reset" class="btn btn-secondary">', "</button>\n                      </div>\n                    </div>\n                    " ], [ '\n                    <div class="form-group row">\n                      <div class="offset-sm-', " col-sm-", '">\n                        <button type="submit" class="btn btn-primary">', '</button>\n                        <button type="reset" class="btn btn-secondary">', "</button>\n                      </div>\n                    </div>\n                    " ]);
 
 var _templateObject3 = _taggedTemplateLiteral([ '<p class="form-control-static mb-0">', "</p>" ], [ '<p class="form-control-static mb-0">', "</p>" ]);
 
@@ -40,7 +40,7 @@ var _templateObject5 = _taggedTemplateLiteral([ '<span class="symbol required">*
 
 var _templateObject6 = _taggedTemplateLiteral([ '<small class="form-text text-muted">', "</small>" ], [ '<small class="form-text text-muted">', "</small>" ]);
 
-var _templateObject7 = _taggedTemplateLiteral([ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 col-form-label">', "", '</label>\n                  <div class="col-sm-10">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ], [ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-2 col-form-label">', "", '</label>\n                  <div class="col-sm-10">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ]);
+var _templateObject7 = _taggedTemplateLiteral([ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-', ' col-form-label">', "", '</label>\n                  <div class="col-sm-', '">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ], [ '\n                <div class="form-group row">\n                  <label for="', '" class="col-sm-', ' col-form-label">', "", '</label>\n                  <div class="col-sm-', '">\n                    ', "\n                    ", "\n                  </div>\n                </div>\n                " ]);
 
 var _templateObject8 = _taggedTemplateLiteral([ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ], [ '\n                <fieldset class="', '">\n                    <legend>', "</legend>\n                    ", "\n                </fieldset>\n                " ]);
 
@@ -111,8 +111,12 @@ var Forms = function(_Lego$UI$Baseview) {
                 rules: {},
                 messages: {}
             },
+            labelCols: 2,
+            comCols: 10,
             submitEl: "",
             submitText: "提 交",
+            showSubmit: true,
+            resetText: "重 置",
             data: [],
             format: function format(result) {
                 return result;
@@ -130,11 +134,11 @@ var Forms = function(_Lego$UI$Baseview) {
             var options = this.options || {}, that = this;
             function submitBtn() {
                 var submit = "";
-                if (!options.submitEl) {
+                if (!options.submitEl && options.showSubmit) {
                     if (options.layout == "vertical") {
-                        submit = hx(_templateObject, options.submitText);
+                        submit = hx(_templateObject, options.submitText, options.resetText);
                     } else {
-                        submit = hx(_templateObject2, options.submitText);
+                        submit = hx(_templateObject2, options.labelCols, options.comCols, options.submitText, options.resetText);
                     }
                 }
                 return submit;
@@ -144,12 +148,16 @@ var Forms = function(_Lego$UI$Baseview) {
                 if (item.text) {
                     comTag = hx(_templateObject3, val(item.text));
                 } else {
-                    comTag = hx("<" + val(item.component.comName) + " id=" + id + "></" + val(item.component.comName) + ">");
+                    if (item.component) {
+                        comTag = item.component.comName ? hx("<" + val(item.component.comName) + " id=" + id + "></" + val(item.component.comName) + ">") : "";
+                    } else {
+                        comTag = "";
+                    }
                 }
                 if (layout == "vertical") {
                     vDom = hx(_templateObject4, id, val(item.label), item.required ? hx(_templateObject5) : "", comTag, item.help ? hx(_templateObject6, val(item.help)) : "");
                 } else {
-                    vDom = hx(_templateObject7, id, val(item.label), item.required ? hx(_templateObject5) : "", comTag, item.help ? hx(_templateObject6, val(item.help)) : "");
+                    vDom = hx(_templateObject7, id, that.options.labelCols, val(item.label), item.required ? hx(_templateObject5) : "", that.options.comCols, comTag, item.help ? hx(_templateObject6, val(item.help)) : "");
                 }
                 return vDom;
             }
@@ -177,33 +185,41 @@ var Forms = function(_Lego$UI$Baseview) {
             var that = this;
             this.rules = null;
             this.messages = null;
-            this.options.data.map(function(item, index) {
+            var components = this.options.data;
+            components = typeof components == "function" ? components(this.options) : Array.isArray(components) ? components : [ components ];
+            components.map(function(item, index) {
                 if (!item.text) {
                     (function() {
                         var comId = [ "component", that.options.vid, index ];
                         if (item.items) {
                             item.items.map(function(subItem, i) {
-                                if (subItem.rule && subItem.message) {
-                                    that.rules = that.options.rules || {};
-                                    that.messages = that.options.messages || {};
-                                    if (subItem.required) subItem.rule.required = true;
-                                    that.options.setDefaults.rules[subItem.component.name] = subItem.rule;
-                                    that.options.setDefaults.messages[subItem.component.name] = subItem.message;
+                                if (subItem.component) {
+                                    if (subItem.rule && subItem.message) {
+                                        that.rules = that.options.rules || {};
+                                        that.messages = that.options.messages || {};
+                                        if (subItem.required) subItem.rule.required = true;
+                                        that.options.setDefaults.rules[subItem.component.name] = subItem.rule;
+                                        that.options.setDefaults.messages[subItem.component.name] = subItem.message;
+                                    }
+                                    comId.push(i);
+                                    subItem.component.el = "#" + comId.join("_");
+                                    subItem.component.context = that;
+                                    if (subItem.component.comName) Lego.create(Lego.UI[subItem.component.comName], subItem.component);
                                 }
-                                comId.push(i);
-                                subItem.component.el = "#" + comId.join("_");
-                                Lego.create(Lego.UI[subItem.component.comName], subItem.component);
                             });
                         } else {
-                            if (item.rule && item.message) {
-                                _this2.rules = _this2.options.rules || {};
-                                _this2.messages = _this2.options.messages || {};
-                                if (item.required) item.rule.required = true;
-                                _this2.options.setDefaults.rules[item.component.name] = item.rule;
-                                _this2.options.setDefaults.messages[item.component.name] = item.message;
+                            if (item.component) {
+                                if (item.rule && item.message) {
+                                    _this2.rules = _this2.options.rules || {};
+                                    _this2.messages = _this2.options.messages || {};
+                                    if (item.required) item.rule.required = true;
+                                    _this2.options.setDefaults.rules[item.component.name] = item.rule;
+                                    _this2.options.setDefaults.messages[item.component.name] = item.message;
+                                }
+                                item.component.el = "#" + comId.join("_");
+                                item.component.context = _this2;
+                                if (item.component.comName) Lego.create(Lego.UI[item.component.comName], item.component);
                             }
-                            item.component.el = "#" + comId.join("_");
-                            Lego.create(Lego.UI[item.component.comName], item.component);
                         }
                     })();
                 }
@@ -245,14 +261,19 @@ var Forms = function(_Lego$UI$Baseview) {
     }, {
         key: "submitForm",
         value: function submitForm() {
-            var format = this.options.format, submitEl = this.options.submitEl, $submitEl = submitEl instanceof $ ? submitEl : this.$((typeof submitEl == "string" ? submitEl : "") || '[type="submit"]'), that = this;
+            var format = this.options.format, submitEl = this.options.submitEl, $submitEl = submitEl instanceof $ ? submitEl : this.$el.find((typeof submitEl == "string" ? submitEl : "") || '[type="submit"]'), that = this;
             var data = this.serializeJson();
             if (typeof format == "function") data = format(data);
             if (!Object.values(data).length) return false;
             if (!$submitEl.hasClass("disabled")) {
                 $submitEl.text("提交中...").addClass("disabled");
             }
-            return this.options.onSubmit(data);
+            return this.options.onSubmit(this, data);
+        }
+    }, {
+        key: "reset",
+        value: function reset() {
+            this.$el.reset();
         }
     } ]);
     return Forms;

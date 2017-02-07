@@ -10,8 +10,8 @@ class Search extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
-                'click .search-button': 'onSearch',
-                'keydown .search-input': '_enterSearch'
+                'click .lego-search-button': 'onSearch',
+                'keydown .lego-search-input': '_enterSearch'
             },
             placeholder: '输入关键字搜索',
             activeKey: '',  //选中的key
@@ -19,15 +19,13 @@ class Search extends Lego.UI.Baseview {
             hasSelect: false,   //是否有下拉菜单
             onSearch(){}, //点击的回调
             components: [{
-                el: '#' + opts.vid + '-dropdown',
-                trigger: '#' + opts.vid + '-select',
+                el: '#dropdown-' + opts.vid,
+                trigger: '#select-' + opts.vid,
                 data: opts.data,
-                onChange(model){
-                    const theView = Lego.getView(opts.el);
-                    if(theView){
-                        theView.options.activeKey = model.key;
-                        theView.options.activeValue = model.value;
-                    }
+                // eventName: 'click',
+                onChange(self, model){
+                    this.context.options.activeKey = model.key;
+                    this.context.options.activeValue = model.value;
                 }
             }]
         };
@@ -37,18 +35,18 @@ class Search extends Lego.UI.Baseview {
     render() {
         const options = this.options || {};
         const vDom = hx`
-        <div class="input-group search">
+        <div class="input-group lego-search">
         ${options.hasSelect ? hx`
-          <div class="input-group-btn dropdown" id="${options.vid}-select">
+          <div class="input-group-btn dropdown" id="select-${options.vid}">
             <button type="button" class="btn btn-secondary dropdown-toggle">
               ${options.activeValue || '请选择'}
             </button>
-            <dropdown id="${options.vid}-dropdown"></dropdown>
+            <dropdown id="dropdown-${options.vid}"></dropdown>
           </div>
         ` : ''}
-          <input type="text" class="form-control search-input" placeholder="${options.placeholder}">
+          <input type="text" class="form-control lego-search-input" placeholder="${options.placeholder}">
           <div class="input-group-btn">
-            <button type="button" class="btn search-button">
+            <button type="button" class="btn lego-search-button">
               <i class="anticon anticon-search"></i>
             </button>
           </div>
@@ -63,8 +61,8 @@ class Search extends Lego.UI.Baseview {
     }
     onSearch(event) {
         event.stopPropagation();
-        const keyword = this.$('.search-input').val();
-        if (typeof this.options.onSearch === 'function') this.options.onSearch({
+        const keyword = this.$el.find('.lego-search-input').val();
+        if (typeof this.options.onSearch === 'function') this.options.onSearch(this, {
             key: this.options.activeKey,
             value: this.options.activeValue,
             keyword: keyword

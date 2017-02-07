@@ -4,10 +4,9 @@
  * 2017/1/6
  */
 // import './asset/index.scss';
-import Tooltip from '../tooltip/index';
 import '../vendor/bootstrap/popover';
 
-class Popover extends Tooltip{
+class Popover{
     constructor(opts = {}) {
         const options = {
             el: '',
@@ -26,7 +25,23 @@ class Popover extends Tooltip{
             onHidden() {} //隐藏回调
         };
         Object.assign(options, opts);
-        super(options);
+        this.el = options.el;
+        this.onHidden = options.onHidden;
+        this.options = {
+            selector: options.selector,
+            title: options.title,
+            content: options.content,
+            animation: options.animation,
+            container: options.container,
+            delay: options.delay,
+            html: options.html,
+            placement: options.placement,
+            template: options.template,
+            constraints: options.constraints,
+            trigger: options.eventName,
+            offset: options.offset
+        };
+        this.render();
     }
     render(){
         const that = this;

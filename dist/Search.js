@@ -1,5 +1,5 @@
 /**
- * search.js v0.2.7
+ * search.js v0.2.9
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -24,13 +24,13 @@ var _createClass$1 = function() {
 
 var _templateObject$1 = _taggedTemplateLiteral$1([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
 
-var _templateObject2$1 = _taggedTemplateLiteral$1([ '<li id="', '" class="', '">\n                    <a href="', '">', "</a></li>" ], [ '<li id="', '" class="', '">\n                    <a href="', '">', "</a></li>" ]);
+var _templateObject2$1 = _taggedTemplateLiteral$1([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ]);
 
-var _templateObject3 = _taggedTemplateLiteral$1([ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ]);
+var _templateObject3 = _taggedTemplateLiteral$1([ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ]);
 
 var _templateObject4 = _taggedTemplateLiteral$1([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5 = _taggedTemplateLiteral$1([ '\n        <ul class="dropdown-menu clearfix ', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu clearfix ', '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject5 = _taggedTemplateLiteral$1([ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -75,47 +75,20 @@ var Dropdown = function(_Lego$UI$Baseview) {
         _classCallCheck$1(this, Dropdown);
         var options = {
             events: {
-                "click li": "clickItem"
+                "click li:not(.dropdown)": "clickItem"
             },
             disabled: false,
-            eventName: "hover",
-            activeKey: "",
-            activeValue: "",
+            eventName: "click",
             trigger: "",
-            visible: false,
             direction: "",
+            activeKey: "",
             clickAndClose: true,
+            open: false,
             onChange: function onChange() {},
-            onVisibleChange: function onVisibleChange() {}
+            data: []
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn$1(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
-        var that = _this;
-        _this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
-        if (!_this.options.disabled) {
-            var handler = function handler(event) {
-                $("body, .modal-body").trigger("click");
-                event.stopPropagation();
-                var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
-                that.options.direction = directionResp._y || "bottom";
-                that.show();
-                if (options.eventName == "hover") {
-                    that.options.trigger.mouseleave(function() {
-                        that.close();
-                    });
-                }
-            };
-            if (options.eventName == "click") {
-                var _eventName = "click.dropdown_" + opts.vid;
-                $("body, .modal-body").off(_eventName).on(_eventName, function() {
-                    that.close();
-                });
-                _this.options.trigger.off(_eventName).on(_eventName, handler);
-            } else {
-                _this.options.trigger[options.eventName](handler);
-            }
-        }
-        return _this;
+        return _possibleConstructorReturn$1(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
     }
     _createClass$1(Dropdown, [ {
         key: "render",
@@ -126,21 +99,47 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     return hx(_templateObject$1);
                 } else {
                     if (!item.children) {
-                        return hx(_templateObject2$1, item.key, item.disabled || item.selected ? "disabled" : "", item.href ? item.href : "javascript:;", item.value);
+                        return hx(_templateObject2$1, val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
                     } else {
                         return loopNav(item);
                     }
                 }
             }
-            function loopNav(data) {
-                return hx(_templateObject3, data.value, data.children ? hx(_templateObject4, data.children.map(function(item) {
-                    itemNav(item);
+            function loopNav(item) {
+                return hx(_templateObject3, val(item.key), item.key === options.activeKey ? "active" : "", item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", val(item.value), item.children ? hx(_templateObject4, item.children.map(function(item) {
+                    return itemNav(item);
                 })) : "");
             }
-            var vDom = hx(_templateObject5, options.direction ? "drop" + options.direction : "", options.data.map(function(item) {
+            var vDom = hx(_templateObject5, options.direction ? "drop" + options.direction : "", options.open ? "block" : "none", options.data.map(function(item) {
                 return itemNav(item);
             }));
             return vDom;
+        }
+    }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            var that = this;
+            this.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
+            if (!this.options.disabled) {
+                var handler = function handler(event) {
+                    $("body, .modal-body").trigger("click");
+                    event.stopPropagation();
+                    var directionResp = Lego.UI.Util.getDirection(that.trigger, that.$el);
+                    that.options.direction = directionResp._y || "bottom";
+                    that.show();
+                };
+                if (this.options.eventName == "click") {
+                    var _eventName = "click.dropdown_" + this.options.vid;
+                    $("body, .modal-body").off(_eventName).on(_eventName, function() {
+                        that.close();
+                    });
+                    this.trigger.off(_eventName).on(_eventName, handler);
+                } else {
+                    this.trigger.mouseenter(handler).mouseleave(function() {
+                        that.close();
+                    });
+                }
+            }
         }
     }, {
         key: "_getAlign",
@@ -155,14 +154,12 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "show",
         value: function show(event) {
-            this.options.trigger.addClass("dropdown open");
-            this.options.onVisibleChange(true);
+            this.$el.slideDown("fast");
         }
     }, {
         key: "close",
         value: function close(event) {
-            this.options.trigger.removeClass("dropdown open");
-            this.options.onVisibleChange(false);
+            this.$el.slideUp("fast");
         }
     }, {
         key: "clickItem",
@@ -170,14 +167,14 @@ var Dropdown = function(_Lego$UI$Baseview) {
             event.stopPropagation();
             var target = $(event.currentTarget);
             var model = this.options.data.find(function(Item) {
-                return Item.key == target.attr("id");
+                return Item.key == target.children("a").attr("id");
             });
-            if (model) {
-                this.options.onChange(model);
-                this.options.activeKey = model.key;
-                this.options.activeValue = model.value;
+            if (model) this.options.onChange(this, model, event);
+            if (this.options.clickAndClose) {
+                this.close();
+            } else {
+                this.refresh();
             }
-            if (this.options.clickAndClose) this.close();
         }
     } ]);
     return Dropdown;
@@ -202,9 +199,9 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="input-group search">\n        ', '\n          <input type="text" class="form-control search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group search">\n        ', '\n          <input type="text" class="form-control search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="input-group lego-search">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group lego-search">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
 
-var _templateObject2 = _taggedTemplateLiteral([ '\n          <div class="input-group-btn dropdown" id="', '-select">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="', '-dropdown"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="', '-select">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="', '-dropdown"></dropdown>\n          </div>\n        ' ]);
+var _templateObject2 = _taggedTemplateLiteral([ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -249,8 +246,8 @@ var Search = function(_Lego$UI$Baseview) {
         _classCallCheck(this, Search);
         var options = {
             events: {
-                "click .search-button": "onSearch",
-                "keydown .search-input": "_enterSearch"
+                "click .lego-search-button": "onSearch",
+                "keydown .lego-search-input": "_enterSearch"
             },
             placeholder: "输入关键字搜索",
             activeKey: "",
@@ -258,15 +255,12 @@ var Search = function(_Lego$UI$Baseview) {
             hasSelect: false,
             onSearch: function onSearch() {},
             components: [ {
-                el: "#" + opts.vid + "-dropdown",
-                trigger: "#" + opts.vid + "-select",
+                el: "#dropdown-" + opts.vid,
+                trigger: "#select-" + opts.vid,
                 data: opts.data,
-                onChange: function onChange(model) {
-                    var theView = Lego.getView(opts.el);
-                    if (theView) {
-                        theView.options.activeKey = model.key;
-                        theView.options.activeValue = model.value;
-                    }
+                onChange: function onChange(self, model) {
+                    this.context.options.activeKey = model.key;
+                    this.context.options.activeValue = model.value;
                 }
             } ]
         };
@@ -291,8 +285,8 @@ var Search = function(_Lego$UI$Baseview) {
         key: "onSearch",
         value: function onSearch(event) {
             event.stopPropagation();
-            var keyword = this.$(".search-input").val();
-            if (typeof this.options.onSearch === "function") this.options.onSearch({
+            var keyword = this.$el.find(".lego-search-input").val();
+            if (typeof this.options.onSearch === "function") this.options.onSearch(this, {
                 key: this.options.activeKey,
                 value: this.options.activeValue,
                 keyword: keyword

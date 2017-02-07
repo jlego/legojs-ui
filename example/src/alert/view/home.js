@@ -1,5 +1,4 @@
-// import Alert from 'lego-ui/dist/Alert';
-import Alert from '../../../../dist/Alert';
+// import Alert from '../../../../dist/alert';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -49,9 +48,9 @@ class HomeView extends Lego.UI.Baseview {
         `;
         return vDom;
     }
-    theClick(event){
-        const target = $(event.currentTarget),
-            theView = HBY.getView(target);
+    theClick(event, target){
+        let targetEl = $(event.currentTarget);
+        const theView = HBY.getView(targetEl);
         switch(theView.options.type){
             case 'success':
                 theView.options.type = 'info'

@@ -24,7 +24,7 @@ class Pagination extends Lego.UI.Baseview {
             size: '',    //当为「small」时，是小尺寸分页
             simple: null,    //当添加该属性时，显示为简单分页
             isShowTotal: true,  //用于显示数据总量和当前数据顺序
-            // showTotal(){}
+            data: {}
         };
         Object.assign(options, opts);
         if(!options.simple && options.showSizeChanger){
@@ -38,14 +38,11 @@ class Pagination extends Lego.UI.Baseview {
                 el: '#' + opts.vid + '-dropdown',
                 trigger: '#' + opts.vid + '-select',
                 data: theData,
-                onChange(result){
-                    const theView = Lego.getView(opts.el);
+                onChange(self, result){
                     const num = parseInt(result.key);
-                    if(theView){
-                        theView.options.current = 1;
-                        theView.options.pageSize = num;
-                        theView.options.onPageSizeChange(num);
-                    }
+                    this.context.options.current = 1;
+                    this.context.options.pageSize = num;
+                    this.context.options.onPageSizeChange(self, num);
                 }
             }];
         }
@@ -55,9 +52,10 @@ class Pagination extends Lego.UI.Baseview {
     render() {
         const options = this.options || {},
             current = parseInt(options.current);
+        options.pageSize = options.pageSize;
         let pageRang = parseInt(options.pageRang);
-        let totalCount = typeof options.total === 'function' ? options.total() : options.total;
-        options.totalPages = Math.ceil(totalCount / options.pageSize);
+        let totalCount = options.data.total || (typeof options.total === 'function' ? options.total() : options.total);
+        options.totalPages = options.data.totalPages || Math.ceil(totalCount / options.pageSize);
         pageRang = pageRang >= options.totalPages ? options.totalPages : pageRang;
         let baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0,
             startPage = baseTimes * pageRang + 1,
@@ -120,7 +118,7 @@ class Pagination extends Lego.UI.Baseview {
         const options = this.options;
         console.warn('点击了上一页');
         options.current--;
-        options.onChange(options.current, options.pageSize);
+        options.onChange(this, options.current, options.pageSize);
     }
     clickItemPage(event){
         event.stopPropagation();
@@ -129,14 +127,14 @@ class Pagination extends Lego.UI.Baseview {
         const options = this.options;
         console.warn('点击了' + num + '页');
         options.current = num;
-        options.onChange(num, options.pageSize);
+        options.onChange(this, num, options.pageSize);
     }
     clickNextPage(event){
         event.stopPropagation();
         const options = this.options;
         console.warn('点击了下一页');
         options.current++;
-        options.onChange(options.current, options.pageSize);
+        options.onChange(this, options.current, options.pageSize);
     }
     clickMorePage(event){
         event.stopPropagation();
@@ -147,7 +145,7 @@ class Pagination extends Lego.UI.Baseview {
         console.warn('点击了更多页');
         options.current = current + (pageRang - currentMod + 1);
         if(options.current > options.totalPages) options.current = options.totalPages;
-        options.onChange(options.current, options.pageSize);
+        options.onChange(this, options.current, options.pageSize);
     }
     _enterSearch(event) {
         const target = $(event.currentTarget);
@@ -157,7 +155,7 @@ class Pagination extends Lego.UI.Baseview {
             if(num > options.totalPages) num = options.totalPages;
             this.jumped = true;
             options.current = num;
-            options.onChange(num, options.pageSize);
+            options.onChange(this, num, options.pageSize);
         }
     }
 }

@@ -1,5 +1,5 @@
 /**
- * pagination.js v0.2.7
+ * pagination.js v0.2.9
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -24,13 +24,13 @@ var _createClass$1 = function() {
 
 var _templateObject$1 = _taggedTemplateLiteral$1([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
 
-var _templateObject2$1 = _taggedTemplateLiteral$1([ '<li id="', '" class="', '">\n                    <a href="', '">', "</a></li>" ], [ '<li id="', '" class="', '">\n                    <a href="', '">', "</a></li>" ]);
+var _templateObject2$1 = _taggedTemplateLiteral$1([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ]);
 
-var _templateObject3$1 = _taggedTemplateLiteral$1([ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ]);
+var _templateObject3$1 = _taggedTemplateLiteral$1([ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ]);
 
 var _templateObject4$1 = _taggedTemplateLiteral$1([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5$1 = _taggedTemplateLiteral$1([ '\n        <ul class="dropdown-menu clearfix ', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu clearfix ', '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject5$1 = _taggedTemplateLiteral$1([ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -75,47 +75,20 @@ var Dropdown = function(_Lego$UI$Baseview) {
         _classCallCheck$1(this, Dropdown);
         var options = {
             events: {
-                "click li": "clickItem"
+                "click li:not(.dropdown)": "clickItem"
             },
             disabled: false,
-            eventName: "hover",
-            activeKey: "",
-            activeValue: "",
+            eventName: "click",
             trigger: "",
-            visible: false,
             direction: "",
+            activeKey: "",
             clickAndClose: true,
+            open: false,
             onChange: function onChange() {},
-            onVisibleChange: function onVisibleChange() {}
+            data: []
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn$1(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
-        var that = _this;
-        _this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
-        if (!_this.options.disabled) {
-            var handler = function handler(event) {
-                $("body, .modal-body").trigger("click");
-                event.stopPropagation();
-                var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
-                that.options.direction = directionResp._y || "bottom";
-                that.show();
-                if (options.eventName == "hover") {
-                    that.options.trigger.mouseleave(function() {
-                        that.close();
-                    });
-                }
-            };
-            if (options.eventName == "click") {
-                var _eventName = "click.dropdown_" + opts.vid;
-                $("body, .modal-body").off(_eventName).on(_eventName, function() {
-                    that.close();
-                });
-                _this.options.trigger.off(_eventName).on(_eventName, handler);
-            } else {
-                _this.options.trigger[options.eventName](handler);
-            }
-        }
-        return _this;
+        return _possibleConstructorReturn$1(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
     }
     _createClass$1(Dropdown, [ {
         key: "render",
@@ -126,21 +99,47 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     return hx(_templateObject$1);
                 } else {
                     if (!item.children) {
-                        return hx(_templateObject2$1, item.key, item.disabled || item.selected ? "disabled" : "", item.href ? item.href : "javascript:;", item.value);
+                        return hx(_templateObject2$1, val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
                     } else {
                         return loopNav(item);
                     }
                 }
             }
-            function loopNav(data) {
-                return hx(_templateObject3$1, data.value, data.children ? hx(_templateObject4$1, data.children.map(function(item) {
-                    itemNav(item);
+            function loopNav(item) {
+                return hx(_templateObject3$1, val(item.key), item.key === options.activeKey ? "active" : "", item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", val(item.value), item.children ? hx(_templateObject4$1, item.children.map(function(item) {
+                    return itemNav(item);
                 })) : "");
             }
-            var vDom = hx(_templateObject5$1, options.direction ? "drop" + options.direction : "", options.data.map(function(item) {
+            var vDom = hx(_templateObject5$1, options.direction ? "drop" + options.direction : "", options.open ? "block" : "none", options.data.map(function(item) {
                 return itemNav(item);
             }));
             return vDom;
+        }
+    }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            var that = this;
+            this.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
+            if (!this.options.disabled) {
+                var handler = function handler(event) {
+                    $("body, .modal-body").trigger("click");
+                    event.stopPropagation();
+                    var directionResp = Lego.UI.Util.getDirection(that.trigger, that.$el);
+                    that.options.direction = directionResp._y || "bottom";
+                    that.show();
+                };
+                if (this.options.eventName == "click") {
+                    var _eventName = "click.dropdown_" + this.options.vid;
+                    $("body, .modal-body").off(_eventName).on(_eventName, function() {
+                        that.close();
+                    });
+                    this.trigger.off(_eventName).on(_eventName, handler);
+                } else {
+                    this.trigger.mouseenter(handler).mouseleave(function() {
+                        that.close();
+                    });
+                }
+            }
         }
     }, {
         key: "_getAlign",
@@ -155,14 +154,12 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "show",
         value: function show(event) {
-            this.options.trigger.addClass("dropdown open");
-            this.options.onVisibleChange(true);
+            this.$el.slideDown("fast");
         }
     }, {
         key: "close",
         value: function close(event) {
-            this.options.trigger.removeClass("dropdown open");
-            this.options.onVisibleChange(false);
+            this.$el.slideUp("fast");
         }
     }, {
         key: "clickItem",
@@ -170,14 +167,14 @@ var Dropdown = function(_Lego$UI$Baseview) {
             event.stopPropagation();
             var target = $(event.currentTarget);
             var model = this.options.data.find(function(Item) {
-                return Item.key == target.attr("id");
+                return Item.key == target.children("a").attr("id");
             });
-            if (model) {
-                this.options.onChange(model);
-                this.options.activeKey = model.key;
-                this.options.activeValue = model.value;
+            if (model) this.options.onChange(this, model, event);
+            if (this.options.clickAndClose) {
+                this.close();
+            } else {
+                this.refresh();
             }
-            if (this.options.clickAndClose) this.close();
         }
     } ]);
     return Dropdown;
@@ -281,7 +278,8 @@ var Pagination = function(_Lego$UI$Baseview) {
             showQuickJumper: false,
             size: "",
             simple: null,
-            isShowTotal: true
+            isShowTotal: true,
+            data: {}
         };
         Object.assign(options, opts);
         if (!options.simple && options.showSizeChanger) {
@@ -295,14 +293,11 @@ var Pagination = function(_Lego$UI$Baseview) {
                 el: "#" + opts.vid + "-dropdown",
                 trigger: "#" + opts.vid + "-select",
                 data: theData,
-                onChange: function onChange(result) {
-                    var theView = Lego.getView(opts.el);
+                onChange: function onChange(self, result) {
                     var num = parseInt(result.key);
-                    if (theView) {
-                        theView.options.current = 1;
-                        theView.options.pageSize = num;
-                        theView.options.onPageSizeChange(num);
-                    }
+                    this.context.options.current = 1;
+                    this.context.options.pageSize = num;
+                    this.context.options.onPageSizeChange(self, num);
                 }
             } ];
         }
@@ -314,9 +309,10 @@ var Pagination = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options || {}, current = parseInt(options.current);
+            options.pageSize = options.pageSize;
             var pageRang = parseInt(options.pageRang);
-            var totalCount = typeof options.total === "function" ? options.total() : options.total;
-            options.totalPages = Math.ceil(totalCount / options.pageSize);
+            var totalCount = options.data.total || (typeof options.total === "function" ? options.total() : options.total);
+            options.totalPages = options.data.totalPages || Math.ceil(totalCount / options.pageSize);
             pageRang = pageRang >= options.totalPages ? options.totalPages : pageRang;
             var baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0, startPage = baseTimes * pageRang + 1, endPage = startPage + pageRang - 1, showEllipsis = options.totalPages - current > pageRang ? true : false, pagesArr = [];
             endPage = endPage >= options.totalPages ? options.totalPages : endPage;
@@ -336,7 +332,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             var options = this.options;
             console.warn("点击了上一页");
             options.current--;
-            options.onChange(options.current, options.pageSize);
+            options.onChange(this, options.current, options.pageSize);
         }
     }, {
         key: "clickItemPage",
@@ -346,7 +342,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             var options = this.options;
             console.warn("点击了" + num + "页");
             options.current = num;
-            options.onChange(num, options.pageSize);
+            options.onChange(this, num, options.pageSize);
         }
     }, {
         key: "clickNextPage",
@@ -355,7 +351,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             var options = this.options;
             console.warn("点击了下一页");
             options.current++;
-            options.onChange(options.current, options.pageSize);
+            options.onChange(this, options.current, options.pageSize);
         }
     }, {
         key: "clickMorePage",
@@ -366,7 +362,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             console.warn("点击了更多页");
             options.current = current + (pageRang - currentMod + 1);
             if (options.current > options.totalPages) options.current = options.totalPages;
-            options.onChange(options.current, options.pageSize);
+            options.onChange(this, options.current, options.pageSize);
         }
     }, {
         key: "_enterSearch",
@@ -378,7 +374,7 @@ var Pagination = function(_Lego$UI$Baseview) {
                 if (num > options.totalPages) num = options.totalPages;
                 this.jumped = true;
                 options.current = num;
-                options.onChange(num, options.pageSize);
+                options.onChange(this, num, options.pageSize);
             }
         }
     } ]);

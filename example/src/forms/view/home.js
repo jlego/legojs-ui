@@ -1,7 +1,7 @@
-import Search from '../../../../dist/Search';
-import Selects from '../../../../dist/Selects';
-import Datepicker from '../../../../dist/Datepicker';
-import Inputs from '../../../../dist/Inputs';
+// import Search from '../../../../dist/search';
+// import Selects from '../../../../dist/selects';
+// import Datepicker from '../../../../dist/datepicker';
+// import Inputs from '../../../../dist/inputs';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -22,20 +22,20 @@ class HomeView extends Lego.UI.Baseview {
             components: [{
                 el: '#search1',
                 hasSelect: true,
-                onSearch(result) {
-                    console.warn('点击了搜索框', result);
+                onSearch(self, result) {
+                    console.warn('点击了搜索框', result, this);
                 },
                 data: $.extend(true, [], data)
             }, {
                 el: '#search2',
                 placeholder: '输入关键字',
-                onSearch(result) {
+                onSearch(self, result) {
                     console.warn('点击了搜索框2', result);
                 }
             }, {
                 el: '#select3',
                 placeholder: '请选择',
-                onChange(result) {
+                onChange(self, result) {
                     console.warn('点击了选项框1', result);
                 },
                 data: $.extend(true, [], data)
@@ -43,7 +43,7 @@ class HomeView extends Lego.UI.Baseview {
                 el: '#select4',
                 placeholder: '请选择',
                 eventName: 'click',
-                onChange(result) {
+                onChange(self, result) {
                     console.warn('点击了选项框2', result);
                 },
                 value: {
@@ -56,7 +56,7 @@ class HomeView extends Lego.UI.Baseview {
                 placeholder: '请选择',
                 multiple: true,
                 // eventName: 'click',
-                onChange(result) {
+                onChange(self, result) {
                     console.warn('点击了选项框3', result);
                 },
                 // value: {
@@ -69,7 +69,7 @@ class HomeView extends Lego.UI.Baseview {
                 placeholder: '请选择',
                 multiple: true,
                 // eventName: 'click',
-                onChange(result) {
+                onChange(self, result) {
                     console.warn('点击了选项框4', result);
                 },
                 value: [{
@@ -84,7 +84,7 @@ class HomeView extends Lego.UI.Baseview {
                 el: '#datepicker7',
                 type: 'date',
                 name: 'datepicker1',
-                onChange(result) {
+                onChange(self, result) {
                     console.warn('点击了时间选项框5', result);
                 }
             }, {
@@ -92,19 +92,19 @@ class HomeView extends Lego.UI.Baseview {
                 type: 'range',
                 startName: 'datepicker2',
                 endName: 'datepicker3',
-                onChange(result) {
+                onChange(self, result) {
                     console.warn('点击了时间选项框6', result);
                 }
             }, {
                 el: '#datepicker9',
                 inline: true,
-                onChange(result) {
+                onChange(self, result) {
                     console.warn('点击了时间选项框7', result);
                 }
             }, {
                 el: '#input10',
                 placeholder: '这是输入框',
-                onChange(result) {
+                onChange(self, result) {
                     console.warn('点击了输入框1', result);
                 },
                 style: {
@@ -117,7 +117,7 @@ class HomeView extends Lego.UI.Baseview {
                 addonAfter: true,
                 prefix: 'Http://',
                 suffix: hx`<i class="anticon anticon-setting"></i>`,
-                onChange(result) {
+                onChange(self, result) {
                     console.warn('点击了输入框2', result);
                 },
                 style: {
@@ -128,7 +128,7 @@ class HomeView extends Lego.UI.Baseview {
                 type: 'textarea',
                 placeholder: '这是文本框',
                 rows: 10,
-                onChange(result) {
+                onChange(self, result) {
                     console.warn('点击了文本框2', result);
                 }
             }]

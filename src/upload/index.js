@@ -11,7 +11,7 @@ class Upload extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
-                'click .addbtn': 'onClickAdd'
+                'click .lego-addbtn': 'onClickAdd'
             },
             keyRoot: '',
             type: 'file',   //file, photo
@@ -69,16 +69,16 @@ class Upload extends Lego.UI.Baseview {
         const options = this.options;
         let vDom = '';
         vDom = hx`
-        <div class="upload upload-${val(options.type)}">
+        <div class="lego-upload lego-upload-${val(options.type)}">
             ${!options.readonly ? hx`
-            <button class="btn btn-secondary addbtn" type="button" ${options.disabled ? 'disabled' : ''}>
+            <button class="btn btn-secondary lego-addbtn" type="button" ${options.disabled ? 'disabled' : ''}>
                 <i class="anticon anticon-upload"></i>
                 ${val(options.buttonText)}
             </button>
             ` : ''}
-            <input type="hidden" value="${this.getValue()}" name="${val(options.name)}" class="upload-value">
-            <input multiple="multiple" type="file" class="form-control fileInput hide" accept="${val(options.accept)}" style="display:none">
-            ${options.showUploadList ? hx`<div class="upload-container"></div>` : ''}
+            <input type="hidden" value="${this.getValue()}" name="${val(options.name)}" class="lego-upload-value">
+            <input multiple="multiple" type="file" class="form-control lego-fileInput hide" accept="${val(options.accept)}" style="display:none">
+            ${options.showUploadList ? hx`<div class="lego-upload-container"></div>` : ''}
         </div>
         `;
         return options.template ? options.template : vDom;
@@ -179,12 +179,12 @@ class Upload extends Lego.UI.Baseview {
         return this.options.keyRoot + Lego.UI.Util.uuid() + '.' + Lego.UI.Util.getExtName(fileName);
     }
     onClickAdd(event){
-        this.$('.fileInput').click();
+        this.$('.lego-fileInput').click();
     }
     // 展示上传的文件视图
     showItem(uploadOption) {
         const view = Lego.create(UploadItem, uploadOption);
-        const containerEl = this.$('.upload-container');
+        const containerEl = this.$('.lego-upload-container');
         if (containerEl.length && view) {
             if (this.options.multiple) {
                containerEl.append(view.el);
@@ -192,6 +192,7 @@ class Upload extends Lego.UI.Baseview {
                 containerEl.html(view.el);
             }
         }
+        view.renderAfter();
         return view;
     }
     // 返回上传结果

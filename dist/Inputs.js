@@ -1,5 +1,5 @@
 /**
- * inputs.js v0.2.7
+ * inputs.js v0.2.9
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -98,8 +98,8 @@ var Inputs = function(_Lego$UI$Baseview) {
         if (options.addonBefore || options.addonAfter) {
             var onEnterFun = _this.onEnter.bind(_this);
             var onChangeFun = _this.onChange.bind(_this);
-            _this.$("input").keydown(onEnterFun);
-            _this.$("input").change(onChangeFun);
+            _this.$el.find("input").keydown(onEnterFun);
+            _this.$el.find("input").change(onChangeFun);
         }
         return _this;
     }
@@ -124,14 +124,14 @@ var Inputs = function(_Lego$UI$Baseview) {
         value: function onEnter(event) {
             var target = $(event.currentTarget), value = target.val();
             if (event.keyCode == 13) {
-                if (typeof this.options.onEnter === "function") this.options.onEnter(value, event);
+                if (typeof this.options.onEnter === "function") this.options.onEnter(this, value, event);
             }
         }
     }, {
         key: "onChange",
         value: function onChange(event) {
             var target = $(event.currentTarget), value = target.val();
-            if (typeof this.options.onChange === "function") this.options.onChange(value, event);
+            if (typeof this.options.onChange === "function") this.options.onChange(this, value, event);
         }
     } ]);
     return Inputs;

@@ -1,5 +1,5 @@
 /**
- * selects.js v0.2.7
+ * selects.js v0.2.9
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -24,13 +24,13 @@ var _createClass$1 = function() {
 
 var _templateObject$1 = _taggedTemplateLiteral$1([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
 
-var _templateObject2$1 = _taggedTemplateLiteral$1([ '<li id="', '" class="', '">\n                    <a href="', '">', "</a></li>" ], [ '<li id="', '" class="', '">\n                    <a href="', '">', "</a></li>" ]);
+var _templateObject2$1 = _taggedTemplateLiteral$1([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ]);
 
-var _templateObject3$1 = _taggedTemplateLiteral$1([ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                ', "\n                ", "\n            </li>\n            " ]);
+var _templateObject3$1 = _taggedTemplateLiteral$1([ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ]);
 
 var _templateObject4$1 = _taggedTemplateLiteral$1([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5 = _taggedTemplateLiteral$1([ '\n        <ul class="dropdown-menu clearfix ', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu clearfix ', '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject5 = _taggedTemplateLiteral$1([ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -75,47 +75,20 @@ var Dropdown = function(_Lego$UI$Baseview) {
         _classCallCheck$1(this, Dropdown);
         var options = {
             events: {
-                "click li": "clickItem"
+                "click li:not(.dropdown)": "clickItem"
             },
             disabled: false,
-            eventName: "hover",
-            activeKey: "",
-            activeValue: "",
+            eventName: "click",
             trigger: "",
-            visible: false,
             direction: "",
+            activeKey: "",
             clickAndClose: true,
+            open: false,
             onChange: function onChange() {},
-            onVisibleChange: function onVisibleChange() {}
+            data: []
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn$1(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
-        var that = _this;
-        _this.options.trigger = opts.trigger instanceof $ ? opts.trigger : $(opts.trigger);
-        if (!_this.options.disabled) {
-            var handler = function handler(event) {
-                $("body, .modal-body").trigger("click");
-                event.stopPropagation();
-                var directionResp = Lego.UI.Util.getDirection(that.options.trigger, that.$el);
-                that.options.direction = directionResp._y || "bottom";
-                that.show();
-                if (options.eventName == "hover") {
-                    that.options.trigger.mouseleave(function() {
-                        that.close();
-                    });
-                }
-            };
-            if (options.eventName == "click") {
-                var _eventName = "click.dropdown_" + opts.vid;
-                $("body, .modal-body").off(_eventName).on(_eventName, function() {
-                    that.close();
-                });
-                _this.options.trigger.off(_eventName).on(_eventName, handler);
-            } else {
-                _this.options.trigger[options.eventName](handler);
-            }
-        }
-        return _this;
+        return _possibleConstructorReturn$1(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
     }
     _createClass$1(Dropdown, [ {
         key: "render",
@@ -126,21 +99,47 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     return hx(_templateObject$1);
                 } else {
                     if (!item.children) {
-                        return hx(_templateObject2$1, item.key, item.disabled || item.selected ? "disabled" : "", item.href ? item.href : "javascript:;", item.value);
+                        return hx(_templateObject2$1, val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
                     } else {
                         return loopNav(item);
                     }
                 }
             }
-            function loopNav(data) {
-                return hx(_templateObject3$1, data.value, data.children ? hx(_templateObject4$1, data.children.map(function(item) {
-                    itemNav(item);
+            function loopNav(item) {
+                return hx(_templateObject3$1, val(item.key), item.key === options.activeKey ? "active" : "", item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", val(item.value), item.children ? hx(_templateObject4$1, item.children.map(function(item) {
+                    return itemNav(item);
                 })) : "");
             }
-            var vDom = hx(_templateObject5, options.direction ? "drop" + options.direction : "", options.data.map(function(item) {
+            var vDom = hx(_templateObject5, options.direction ? "drop" + options.direction : "", options.open ? "block" : "none", options.data.map(function(item) {
                 return itemNav(item);
             }));
             return vDom;
+        }
+    }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            var that = this;
+            this.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
+            if (!this.options.disabled) {
+                var handler = function handler(event) {
+                    $("body, .modal-body").trigger("click");
+                    event.stopPropagation();
+                    var directionResp = Lego.UI.Util.getDirection(that.trigger, that.$el);
+                    that.options.direction = directionResp._y || "bottom";
+                    that.show();
+                };
+                if (this.options.eventName == "click") {
+                    var _eventName = "click.dropdown_" + this.options.vid;
+                    $("body, .modal-body").off(_eventName).on(_eventName, function() {
+                        that.close();
+                    });
+                    this.trigger.off(_eventName).on(_eventName, handler);
+                } else {
+                    this.trigger.mouseenter(handler).mouseleave(function() {
+                        that.close();
+                    });
+                }
+            }
         }
     }, {
         key: "_getAlign",
@@ -155,14 +154,12 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "show",
         value: function show(event) {
-            this.options.trigger.addClass("dropdown open");
-            this.options.onVisibleChange(true);
+            this.$el.slideDown("fast");
         }
     }, {
         key: "close",
         value: function close(event) {
-            this.options.trigger.removeClass("dropdown open");
-            this.options.onVisibleChange(false);
+            this.$el.slideUp("fast");
         }
     }, {
         key: "clickItem",
@@ -170,14 +167,14 @@ var Dropdown = function(_Lego$UI$Baseview) {
             event.stopPropagation();
             var target = $(event.currentTarget);
             var model = this.options.data.find(function(Item) {
-                return Item.key == target.attr("id");
+                return Item.key == target.children("a").attr("id");
             });
-            if (model) {
-                this.options.onChange(model);
-                this.options.activeKey = model.key;
-                this.options.activeValue = model.value;
+            if (model) this.options.onChange(this, model, event);
+            if (this.options.clickAndClose) {
+                this.close();
+            } else {
+                this.refresh();
             }
-            if (this.options.clickAndClose) this.close();
         }
     } ]);
     return Dropdown;
@@ -275,6 +272,7 @@ var Selects = function(_Lego$UI$Baseview) {
             dropdownStyle: null,
             dropdownClassName: "",
             splitString: "",
+            dataSource: null,
             components: [ {
                 el: "#dropdown-" + opts.vid,
                 trigger: "#select-" + opts.vid,
@@ -286,42 +284,33 @@ var Selects = function(_Lego$UI$Baseview) {
                 }, opts.dropdownStyle || {}),
                 className: opts.dropdownClassName,
                 clickAndClose: opts.multiple ? false : true,
-                data: opts.data,
-                onChange: function onChange(model) {
-                    var theView = Lego.getView(opts.el);
-                    if (theView) {
-                        theView.$(".select-input").focus();
-                        if (model.key !== "0" && opts.multiple) {
-                            theView.getValue();
-                            if (!theView.options.value.includes(model)) {
-                                model.selected = true;
-                                theView.options.value.push(model);
-                            }
-                        } else {
-                            theView.options.data.forEach(function(item) {
-                                return item.selected = false;
-                            });
-                            theView.options.value = [ model ];
+                data: opts.data || [],
+                dataSource: opts.dataSource,
+                onChange: function onChange(self, model) {
+                    var parentView = this.context;
+                    parentView.$el.find(".select-input").focus();
+                    if (model.key !== "0" && opts.multiple) {
+                        parentView.getValue();
+                        if (!parentView.options.value.includes(model)) {
+                            model.selected = true;
+                            parentView.options.value.push(model);
                         }
-                        theView.options.onSelect(model);
-                        theView.options.onChange(model);
-                        theView.refresh();
+                    } else {
+                        parentView.options.data.forEach(function(item) {
+                            return item.selected = false;
+                        });
+                        parentView.options.value = [ model ];
                     }
+                    parentView.options.onSelect(parentView, model);
+                    parentView.options.onChange(parentView, model);
+                    parentView.refresh();
                 }
             } ]
         };
         Object.assign(options, opts);
-        if (options.value.length) {
-            options.value.forEach(function(item) {
-                var model = options.data.find(function(model) {
-                    return model.key === item.key;
-                });
-                if (model) model.selected = true;
-            });
-        }
         var _this = _possibleConstructorReturn(this, (Selects.__proto__ || Object.getPrototypeOf(Selects)).call(this, options));
         var eventName = "click.select_" + opts.vid, callback = _this.clickItemClose.bind(_this);
-        _this.$(".select-tags-div").off(eventName).on(eventName, ".select-tag-close", callback);
+        _this.$el.find(".select-tags-div").off(eventName).on(eventName, ".select-tag-close", callback);
         return _this;
     }
     _createClass(Selects, [ {
@@ -349,17 +338,32 @@ var Selects = function(_Lego$UI$Baseview) {
             return vDom;
         }
     }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            var _this2 = this;
+            if (this.options.value.length && this.options.multiple) {
+                this.options.value.forEach(function(item) {
+                    if (item) {
+                        var model = _this2.options.data.find(function(model) {
+                            return model.key === item.key;
+                        });
+                        if (model) model.selected = true;
+                    }
+                });
+            }
+        }
+    }, {
         key: "clickItemClose",
         value: function clickItemClose(event) {
             event.stopPropagation();
             var target = $(event.currentTarget).parent(), key = target.attr("id"), value = target.attr("title");
             this.options.data.forEach(function(item) {
-                if (item.key === key) item.selected = false;
+                if (item.key == key) item.selected = false;
             });
             this.getValue();
             this.refresh();
             Lego.getView("#dropdown-" + this.options.vid).refresh();
-            if (typeof this.options.onDeselect === "function") this.options.onDeselect({
+            if (typeof this.options.onDeselect === "function") this.options.onDeselect(this, {
                 key: key,
                 value: value
             });
@@ -385,7 +389,7 @@ var Selects = function(_Lego$UI$Baseview) {
         key: "getValue",
         value: function getValue() {
             this.options.value = this.options.data.filter(function(item) {
-                return item.selected === true && item.key !== "0";
+                return item.selected == true && item.key !== "0";
             });
             return this.options.value;
         }
