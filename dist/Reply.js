@@ -1232,12 +1232,12 @@ var UploadView = function(_Lego$View) {
             var taking = 0, file = this.options.file, params = this.options.params;
             this.xhr.crossDomain = true;
             file.id = file.id || Lego.randomKey(32);
-            var progressbar = this["progressbar_" + this.options.vid];
+            var progressbar = Lego.getView(this.$("#progressbar_" + this.options.vid));
             this.form = new FormData();
             this.form.append("file", file);
-            if (!Object.values(params).length) {
-                for (var paramOne in params) {
-                    this.form.append(paramOne, params[paramOne]);
+            if (!Lego.isEmptyObject(params)) {
+                for (var key in params) {
+                    this.form.append(key, params[key]);
                 }
             }
             this.xhr.upload.addEventListener("progress", function(event) {
@@ -1253,8 +1253,6 @@ var UploadView = function(_Lego$View) {
                     var percent = Math.round(event.loaded * 100 / event.total);
                     if (progressbar) {
                         progressbar.options.percent = percent;
-                    } else {
-                        _this2.options.percent = percent;
                     }
                 }
                 if (typeof _this2.options.onProgress == "function") {
@@ -1269,15 +1267,14 @@ var UploadView = function(_Lego$View) {
             this.xhr.addEventListener("load", function(event) {
                 if (_this2.xhr.readyState == 4 && _this2.xhr.status == 200 && _this2.xhr.responseText != "") {
                     var resp = JSON.parse(_this2.xhr.response);
-                    Object.assign(_this2.options.file, resp);
+                    _this2.options.file.hash = resp.hash;
+                    _this2.options.file.key = resp.key;
+                    _this2.options.file.h = resp.h;
+                    _this2.options.file.w = resp.w;
                     if (_this2.options.params.key) {
-                        _this2.options.file.url = _this2.options.downloadUri + _this2.options.key;
+                        _this2.options.file.url = _this2.options.downloadUri + resp.key;
                     }
-                    if (progressbar) {
-                        progressbar.options.percent = 100;
-                    } else {
-                        _this2.options.percent = 100;
-                    }
+                    _this2.options.percent = 100;
                     if (typeof _this2.options.onComplete == "function") {
                         _this2.options.onComplete(_this2, resp);
                     }
@@ -1306,8 +1303,8 @@ var UploadView = function(_Lego$View) {
                 _this2.remove();
             }, false);
             this.xhr.open("POST", this.options.uploadUri, true);
-            for (var key in this.options.headers) {
-                this.xhr.setRequestHeader(key, this.options.headers[key]);
+            for (var _key in this.options.headers) {
+                this.xhr.setRequestHeader(_key, this.options.headers[_key]);
             }
         }
     }, {
@@ -1446,7 +1443,7 @@ var _templateObject2$3 = _taggedTemplateLiteral$3([ '\n            <div class="m
 
 var _templateObject3$3 = _taggedTemplateLiteral$3([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    ', "\n                    ", "\n                </h4>\n                <small>\n                    <cite>", '</cite>\n                    <time>\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </time>\n                </small>\n            </div>\n            ' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    ', "\n                    ", "\n                </h4>\n                <small>\n                    <cite>", '</cite>\n                    <time>\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </time>\n                </small>\n            </div>\n            ' ]);
 
-var _templateObject4$2 = _taggedTemplateLiteral$3([ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ], [ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ]);
+var _templateObject4$2 = _taggedTemplateLiteral$3([ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn" id="', '"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ], [ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn" id="', '"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ]);
 
 function _taggedTemplateLiteral$3(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -1505,7 +1502,16 @@ var UploadItem = function(_UploadBase) {
             onProgress: function onProgress() {},
             onComplete: function onComplete() {},
             onFail: function onFail() {},
-            onCancel: function onCancel() {}
+            onCancel: function onCancel() {},
+            onRemove: function onRemove() {},
+            components: [ {
+                el: "#progressbar_" + opts.vid,
+                showInfo: false,
+                status: "success",
+                onComplete: function onComplete(self) {
+                    self.options.percent = 100;
+                }
+            } ]
         };
         Object.assign(options, opts);
         return _possibleConstructorReturn$4(this, (UploadItem.__proto__ || Object.getPrototypeOf(UploadItem)).call(this, options));
@@ -1514,23 +1520,8 @@ var UploadItem = function(_UploadBase) {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject$3, Lego.UI.Util.getFileIcon(options.file.name), options.percent < 100 ? hx(_templateObject2$3, val(options.file.name), "progressbar_" + options.vid) : hx(_templateObject3$3, !options.readonly && options.percent == 100 ? hx(_templateObject4$2) : "", val(options.file.name), Lego.UI.Util.convertByteUnit(options.file.size), val(options.file.url), val(options.file.name)));
+            var vDom = hx(_templateObject$3, Lego.UI.Util.getFileIcon(options.file.name), options.percent < 100 ? hx(_templateObject2$3, val(options.file.name), "progressbar_" + options.vid) : hx(_templateObject3$3, !options.readonly && options.percent == 100 ? hx(_templateObject4$2, val(options.file.hash)) : "", val(options.file.name), Lego.UI.Util.convertByteUnit(options.file.size), val(options.file.url), val(options.file.name)));
             return vDom;
-        }
-    }, {
-        key: "renderAfter",
-        value: function renderAfter() {
-            var options = this.options;
-            if (options.percent < 100) {
-                this.progressbar = Lego.create(Progressbar, {
-                    el: this.$("#progressbar_" + options.vid),
-                    showInfo: false,
-                    status: "success",
-                    onComplete: function onComplete() {
-                        options.percent = 100;
-                    }
-                });
-            }
         }
     }, {
         key: "onCancel",
@@ -1539,7 +1530,7 @@ var UploadItem = function(_UploadBase) {
             event.stopPropagation();
             this.cancel();
             this.$el.slideUp("normal", function() {
-                _this2.remove();
+                _this2.$el.remove();
             });
         }
     }, {
@@ -1547,12 +1538,10 @@ var UploadItem = function(_UploadBase) {
         value: function onRemove(event) {
             var _this3 = this;
             event.stopPropagation();
-            var target = $(event.currentTarget), id = target.data("id"), hash = target.data("hash");
-            if (this.options.onRemove) {
-                return this.options.onRemove(id, hash);
-            }
+            var target = $(event.target), hash = target.parent().attr("id");
             this.$el.slideUp("normal", function() {
-                _this3.remove();
+                if (typeof _this3.options.onRemove == "function") _this3.options.onRemove(hash);
+                _this3.$el.remove();
             });
         }
     } ]);
@@ -1659,6 +1648,7 @@ var Upload = function(_Lego$UI$Baseview) {
             onProgress: function onProgress() {},
             onComplete: function onComplete() {},
             onFail: function onFail() {},
+            onRemove: function onRemove() {},
             onCancel: function onCancel() {}
         };
         Object.assign(options, opts);
@@ -1672,8 +1662,9 @@ var Upload = function(_Lego$UI$Baseview) {
             });
         }
         var _this = _possibleConstructorReturn$3(this, (Upload.__proto__ || Object.getPrototypeOf(Upload)).call(this, options));
-        _this.reset();
-        _this.$(".fileInput").on("change", function(event) {
+        _this.fileList = [];
+        _this.clear();
+        _this.$(".lego-fileInput").on("change", function(event) {
             var target = $(event.currentTarget)[0];
             _this.uploadInit(target.files);
         });
@@ -1689,12 +1680,13 @@ var Upload = function(_Lego$UI$Baseview) {
         value: function render() {
             var options = this.options;
             var vDom = "";
-            vDom = hx(_templateObject$2, val(options.type), !options.readonly ? hx(_templateObject2$2, options.disabled ? "disabled" : "", val(options.buttonText)) : "", this.getValue(), val(options.name), val(options.accept), options.showUploadList ? hx(_templateObject3$2) : "");
+            vDom = hx(_templateObject$2, val(options.type), !options.readonly ? hx(_templateObject2$2, options.disabled ? "disabled" : "", val(options.buttonText)) : "", this.getValue().join(","), val(options.name), val(options.accept), options.showUploadList ? hx(_templateObject3$2) : "");
             return options.template ? options.template : vDom;
         }
     }, {
         key: "uploadInit",
         value: function uploadInit(files) {
+            var _this2 = this;
             var uploadFiles = [];
             if ((typeof files === "undefined" ? "undefined" : _typeof$3(files)) == "object" && files[0]) {
                 uploadFiles = Array.prototype.slice.call(files, 0);
@@ -1707,11 +1699,14 @@ var Upload = function(_Lego$UI$Baseview) {
                     Lego.UI.message("warning", "只能上传" + maxFilesCount + "张图片");
                     return;
                 }
-                this.fileList.concat(uploadFiles);
-                this.fileList = this.fileList.slice(0, maxFilesCount);
+                uploadFiles = uploadFiles.filter(function(file) {
+                    var value = file.name + "_" + file.size;
+                    var hasFile = _this2.fileList.includes(value);
+                    if (!hasFile) _this2.fileList.push(value);
+                    return !hasFile;
+                });
                 if (typeof options.onAddFile == "function") options.onAddFile(this.fileList, uploadFiles);
                 uploadFiles.forEach(function(file, i) {
-                    file.id = Lego.randomKey(32);
                     if (Math.ceil(file.size / (1024 * 1024)) > parseInt(options.maxFileSize)) {
                         var msg = "发送文件最大为" + options.maxFileSize;
                         if (uploadFiles.length == 1) {
@@ -1721,10 +1716,9 @@ var Upload = function(_Lego$UI$Baseview) {
                         }
                         return;
                     }
-                    if (that.fileList.find(function(item) {
-                        return item == file;
-                    })) return;
+                    if (i > maxFilesCount - 1) return;
                     var uploadOption = {
+                        el: ".lego-upload-container",
                         uploadUri: options.uploadUri,
                         readonly: options.readonly,
                         isAuto: options.isAuto,
@@ -1734,36 +1728,22 @@ var Upload = function(_Lego$UI$Baseview) {
                         params: Object.assign({
                             key: options.key || that.getKey(file.name),
                             token: typeof options.data == "string" ? options.data : ""
-                        }, options.params),
+                        }, options.params || {}),
                         needToken: true,
                         onBegin: options.onBegin,
                         onProgress: options.onProgress,
-                        onComplete: options.onComplete || function(uploadObj, resp) {
-                            resp.url = Lego.config.downloadUri + resp.key;
-                            $.ajax({
-                                url: Lego.config.saveUri,
-                                type: "POST",
-                                dataType: "json",
-                                data: resp,
-                                success: function success(response) {
-                                    var theFile = options.value.find(function(item) {
-                                        return item.file.hash == response.data.hash;
-                                    });
-                                    if (theFile) {
-                                        if (response.data.id) theFile.id = response.data.id;
-                                    } else {
-                                        options.value.push({
-                                            file: response.data,
-                                            type: options.type,
-                                            percent: 100
-                                        });
-                                        that.refresh();
-                                    }
-                                },
-                                error: function error(err) {
-                                    debug.error(err);
-                                }
+                        onComplete: function onComplete(file, resp) {
+                            var hasFile = options.value.find(function(item) {
+                                return item.hash == resp.hash;
                             });
+                            if (!hasFile && options.value.length <= maxFilesCount) {
+                                options.value.push({
+                                    file: resp,
+                                    type: options.type,
+                                    percent: 100
+                                });
+                            }
+                            if (typeof options.onComplete == "function") options.onComplete(that, resp);
                         },
                         onFail: options.onFail,
                         onCancel: options.onCancel
@@ -1799,33 +1779,45 @@ var Upload = function(_Lego$UI$Baseview) {
     }, {
         key: "showItem",
         value: function showItem(uploadOption) {
-            var view = Lego.create(UploadItem, uploadOption);
-            var containerEl = this.$(".lego-upload-container");
-            if (containerEl.length && view) {
-                if (this.options.multiple) {
-                    containerEl.append(view.el);
-                } else {
-                    containerEl.html(view.el);
+            var _this3 = this;
+            uploadOption.context = this;
+            uploadOption.insert = this.options.multiple ? "append" : "html";
+            uploadOption.onRemove = function(hash) {
+                var hasFile = _this3.options.value.find(function(item) {
+                    return item.file.hash == hash;
+                });
+                if (hasFile) {
+                    _this3.fileList = _this3.fileList.filter(function(value) {
+                        return value !== hasFile.file.name + "_" + hasFile.file.size;
+                    });
                 }
-            }
-            view.renderAfter();
-            return view;
+                _this3.options.value = _this3.options.value.filter(function(item) {
+                    return item.file.hash !== hash;
+                });
+                _this3.refresh();
+            };
+            Lego.create(UploadItem, uploadOption);
         }
     }, {
         key: "getValue",
         value: function getValue() {
             var result = [];
             if (this.options.value.length) {
-                result = this.options.value.map(function(item) {
+                var newArr = this.options.value.filter(function(item) {
+                    return !!item.file.id;
+                });
+                result = newArr.map(function(item) {
                     return item.file.id;
                 });
             }
-            return result.join(",");
+            return result;
         }
     }, {
-        key: "reset",
-        value: function reset() {
-            this.fileList = [];
+        key: "clear",
+        value: function clear() {
+            this.fileList.length = 0;
+            this.options.value.length = 0;
+            return this;
         }
     } ]);
     return Upload;
@@ -2100,11 +2092,12 @@ var Reply = function(_Lego$UI$Baseview) {
             contentHeight: 70,
             showFacial: true,
             showUpload: true,
-            uploadDataSource: null,
+            uploadToken: null,
             iconsUrl: "",
             submitText: "回复",
+            maxTextLength: 500,
             onSubmit: function onSubmit() {},
-            onUploaded: function onUploaded() {},
+            onUploadComplete: function onUploadComplete() {},
             dropdown: false,
             components: []
         };
@@ -2127,8 +2120,8 @@ var Reply = function(_Lego$UI$Baseview) {
             }));
         }
         var _this = _possibleConstructorReturn(this, (Reply.__proto__ || Object.getPrototypeOf(Reply)).call(this, options));
+        _this.uploadView = null;
         _this.placeholder = '<span class="lego-reply-ph">' + _this.options.placeholder + "</span>";
-        _this.isloaded = false;
         return _this;
     }
     _createClass(Reply, [ {
@@ -2141,7 +2134,7 @@ var Reply = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            this.$el.find(".lego-reply-content").attr("contenteditable", "true").height(this.options.contentHeight);
+            this.$(".lego-reply-content").attr("contenteditable", "true").height(this.options.contentHeight);
         }
     }, {
         key: "onFocus",
@@ -2158,18 +2151,25 @@ var Reply = function(_Lego$UI$Baseview) {
     }, {
         key: "showUpload",
         value: function showUpload(event) {
-            this.$el.find(".popover").toggleClass("show");
-            var options = this.options;
-            if (options.showUpload && !this.isloaded) {
-                Lego.create(Upload, {
-                    el: "#upload-" + options.vid,
-                    dataSource: options.uploadDataSource,
-                    context: this,
-                    onComplete: function onComplete(self, result) {
-                        if (typeof options.onUploaded == "function") options.onUploaded(self, result);
-                    }
-                });
-                this.isloaded = true;
+            this.$(".popover").toggleClass("show");
+            var options = this.options, that = this;
+            if (options.showUpload && this.$(".popover").hasClass("show")) {
+                if (typeof options.uploadToken == "string") {
+                    this.uploadView = Lego.create(Upload, {
+                        el: "#upload-" + options.vid,
+                        token: options.uploadToken,
+                        context: this,
+                        onComplete: options.onUploadComplete
+                    });
+                }
+                if (_typeof(options.uploadToken) == "object") {
+                    this.uploadView = Lego.create(Upload, {
+                        el: "#upload-" + options.vid,
+                        dataSource: options.uploadToken,
+                        context: that,
+                        onComplete: options.onUploadComplete
+                    });
+                }
             }
         }
     }, {
@@ -2186,10 +2186,21 @@ var Reply = function(_Lego$UI$Baseview) {
             }
         }
     }, {
+        key: "getUploadIds",
+        value: function getUploadIds() {
+            console.warn(this.uploadView ? this.uploadView.getValue() : "llllllllllllll");
+            if (this.uploadView) return this.uploadView.getValue();
+            return [];
+        }
+    }, {
         key: "submit",
         value: function submit(event) {
             if (event) event.stopPropagation();
-            var contentEl = this.$el.find(".lego-reply-content");
+            var contentEl = this.$(".lego-reply-content");
+            if (contentEl.val().length > this.options.maxTextLength) {
+                Lego.UI.message("warning", "提交内容不能大于500个字符");
+                return;
+            }
             var contentHtml = this.options.inputType == "div" ? contentEl.html() : contentEl.val();
             contentHtml = this.options.inputType == "div" ? Lego.UI.Util.faceToText(contentHtml, this.options.iconsUrl) : contentHtml;
             if (this.options.inputType == "div") {
@@ -2198,7 +2209,10 @@ var Reply = function(_Lego$UI$Baseview) {
                 contentEl.val("");
             }
             contentHtml = contentHtml == this.placeholder ? "" : contentHtml;
-            if (typeof this.options.onSubmit == "function") this.options.onSubmit(this, contentHtml);
+            var uploadIds = Array.from(this.getUploadIds());
+            if (this.uploadView) this.uploadView.clear();
+            this.$(".popover").removeClass("show");
+            if (typeof this.options.onSubmit == "function") this.options.onSubmit(this, contentHtml, uploadIds);
         }
     } ]);
     return Reply;

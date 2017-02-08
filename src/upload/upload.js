@@ -64,13 +64,13 @@ class UploadView extends Lego.View {
             params = this.options.params;
         this.xhr.crossDomain = true;
         file.id = file.id || Lego.randomKey(32);
-        const progressbar = this['progressbar_' + this.options.vid];
+        const progressbar = Lego.getView(this.$('#progressbar_' + this.options.vid));
 
         this.form = new FormData();
         this.form.append('file', file);
-        if (!Object.values(params).length) {
-            for (let paramOne in params) {
-                this.form.append(paramOne, params[paramOne]);
+        if (!Lego.isEmptyObject(params)) {
+            for (let key in params) {
+                this.form.append(key, params[key]);
             }
         }
 
@@ -90,8 +90,6 @@ class UploadView extends Lego.View {
                 let percent = Math.round(event.loaded * 100 / event.total);
                 if (progressbar) {
                     progressbar.options.percent = percent;
-                }else{
-                    this.options.percent = percent;
                 }
             }
             if (typeof this.options.onProgress == "function") {
@@ -109,15 +107,14 @@ class UploadView extends Lego.View {
         this.xhr.addEventListener("load", (event) => {
             if (this.xhr.readyState == 4 && this.xhr.status == 200 && this.xhr.responseText != "") {
                 let resp = JSON.parse(this.xhr.response);
-                Object.assign(this.options.file, resp);
+                this.options.file.hash = resp.hash;
+                this.options.file.key = resp.key;
+                this.options.file.h = resp.h;
+                this.options.file.w = resp.w;
                 if(this.options.params.key){
-                    this.options.file.url = this.options.downloadUri + this.options.key;
+                    this.options.file.url = this.options.downloadUri + resp.key;
                 }
-                if (progressbar) {
-                    progressbar.options.percent = 100;
-                }else{
-                    this.options.percent = 100;
-                }
+                this.options.percent = 100;
                 // debug.warn("上传成功:"+ this.options.id);
                 if (typeof this.options.onComplete == "function") {
                     this.options.onComplete(this, resp);

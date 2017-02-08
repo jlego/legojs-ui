@@ -6634,8 +6634,8 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
     -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);
     transform: skewX(-0.78125deg) skewY(-0.78125deg); }
   77.7% {
-    -webkit-transform: skewX(0.39062deg) skewY(0.39062deg);
-    transform: skewX(0.39062deg) skewY(0.39062deg); }
+    -webkit-transform: skewX(0.39063deg) skewY(0.39063deg);
+    transform: skewX(0.39063deg) skewY(0.39063deg); }
   88.8% {
     -webkit-transform: skewX(-0.19531deg) skewY(-0.19531deg);
     transform: skewX(-0.19531deg) skewY(-0.19531deg); }
@@ -6663,8 +6663,8 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
     -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);
     transform: skewX(-0.78125deg) skewY(-0.78125deg); }
   77.7% {
-    -webkit-transform: skewX(0.39062deg) skewY(0.39062deg);
-    transform: skewX(0.39062deg) skewY(0.39062deg); }
+    -webkit-transform: skewX(0.39063deg) skewY(0.39063deg);
+    transform: skewX(0.39063deg) skewY(0.39063deg); }
   88.8% {
     -webkit-transform: skewX(-0.19531deg) skewY(-0.19531deg);
     transform: skewX(-0.19531deg) skewY(-0.19531deg); }
@@ -8709,7 +8709,13 @@ pre p {
   font-family: 'SimSun'; }
 
 .noborder {
-  border: none !important; }
+  border: none !important;
+  padding: 5px; }
+
+.noborder:hover,
+.noborder:focus {
+  border: 1px solid #ddd !important;
+  padding: 4px !important; }
 
 .markdown {
   color: #666;
@@ -9923,7 +9929,7 @@ tr.lego-table-expanded-row:hover {
 
 .dropdown-menu > li > a {
   display: block;
-  padding: 3px 20px;
+  padding: 3px 15px;
   clear: both;
   font-weight: normal;
   line-height: 1.42857143;
@@ -11166,7 +11172,7 @@ form button[type="submit"] {
 .lego-reply .popover {
   top: 100%;
   left: 14px;
-  max-width: 550px;
+  max-width: 400px;
   margin-top: 0px;
   width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); }

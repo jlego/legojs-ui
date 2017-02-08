@@ -25,11 +25,12 @@ class Reply extends Lego.UI.Baseview {
             contentHeight: 70,  //输入框高度
             showFacial: true,   //显示表情
             showUpload: true,   //显示上传文件
-            uploadDataSource: null,    //上传文件token数据源
+            uploadToken: null,    //上传文件token数据源
             iconsUrl: '',
             submitText: '回复',   //
+            maxTextLength: 500,  //回复内容最大长度
             onSubmit(){},  //事件回调
-            onUploaded(){},
+            onUploadComplete(){},
             dropdown: false, //下拉菜单
             components: []
         };
@@ -52,8 +53,8 @@ class Reply extends Lego.UI.Baseview {
             }));
         }
         super(options);
+        this.uploadView = null;
         this.placeholder = '<span class="lego-reply-ph">' + this.options.placeholder + '</span>';
-        this.isloaded = false;
     }
     render() {
         const options = this.options;
@@ -81,7 +82,7 @@ class Reply extends Lego.UI.Baseview {
         return vDom;
     }
     renderAfter(){
-        this.$el.find('.lego-reply-content').attr('contenteditable', 'true').height(this.options.contentHeight);
+        this.$('.lego-reply-content').attr('contenteditable', 'true').height(this.options.contentHeight);
     }
     onFocus(event){
         const target = $(event.currentTarget);
@@ -93,18 +94,26 @@ class Reply extends Lego.UI.Baseview {
         if(!target.text() && !target.find('img').length && options.inputType == 'div') target.html(this.placeholder);
     }
     showUpload(event){
-        this.$el.find('.popover').toggleClass('show');
-        let options = this.options;
-        if(options.showUpload && !this.isloaded){
-            Lego.create(Upload, {
-                el: '#upload-' + options.vid,
-                dataSource: options.uploadDataSource,
-                context: this,
-                onComplete(self, result) {
-                    if(typeof options.onUploaded == 'function') options.onUploaded(self, result);
-                }
-            });
-            this.isloaded = true;
+        this.$('.popover').toggleClass('show');
+        let options = this.options,
+            that = this;
+        if(options.showUpload && this.$('.popover').hasClass('show')){
+            if(typeof options.uploadToken == 'string'){
+                this.uploadView = Lego.create(Upload, {
+                    el: '#upload-' + options.vid,
+                    token: options.uploadToken,
+                    context: this,
+                    onComplete: options.onUploadComplete
+                });
+            }
+            if(typeof options.uploadToken == 'object'){
+                this.uploadView = Lego.create(Upload, {
+                    el: '#upload-' + options.vid,
+                    dataSource: options.uploadToken,
+                    context: that,
+                    onComplete: options.onUploadComplete
+                });
+            }
         }
     }
     _enterSearch(event) {
@@ -119,9 +128,20 @@ class Reply extends Lego.UI.Baseview {
             }
         }
     }
+    // 上传的值
+    getUploadIds(){
+        console.warn(this.uploadView ? this.uploadView.getValue() : 'llllllllllllll');
+        if(this.uploadView) return this.uploadView.getValue();
+        return [];
+    }
+    // 提交回复内容
     submit(event){
         if(event) event.stopPropagation();
-        const contentEl = this.$el.find('.lego-reply-content');
+        const contentEl = this.$('.lego-reply-content');
+        if(contentEl.val().length > this.options.maxTextLength) {
+            Lego.UI.message('warning', '提交内容不能大于500个字符');
+            return;
+        }
         let contentHtml = this.options.inputType == 'div' ? contentEl.html() : contentEl.val();
         contentHtml = this.options.inputType == 'div' ? Lego.UI.Util.faceToText(contentHtml, this.options.iconsUrl) : contentHtml;
         if(this.options.inputType == 'div'){
@@ -130,7 +150,10 @@ class Reply extends Lego.UI.Baseview {
             contentEl.val('');
         }
         contentHtml = contentHtml == this.placeholder ? '' : contentHtml;
-        if(typeof this.options.onSubmit == 'function') this.options.onSubmit(this, contentHtml);
+        let uploadIds = Array.from(this.getUploadIds());
+        if(this.uploadView) this.uploadView.clear();
+        this.$('.popover').removeClass('show');
+        if(typeof this.options.onSubmit == 'function') this.options.onSubmit(this, contentHtml, uploadIds);
     }
 }
 Lego.components('reply', Reply);
