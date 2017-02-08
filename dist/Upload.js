@@ -115,7 +115,6 @@ var UploadView = function(_Lego$View) {
             var _this2 = this;
             var taking = 0, file = this.options.file, params = this.options.params;
             this.xhr.crossDomain = true;
-            file.id = file.id || Lego.randomKey(32);
             var progressbar = Lego.getView(this.$("#progressbar_" + this.options.vid));
             this.form = new FormData();
             this.form.append("file", file);
@@ -151,13 +150,7 @@ var UploadView = function(_Lego$View) {
             this.xhr.addEventListener("load", function(event) {
                 if (_this2.xhr.readyState == 4 && _this2.xhr.status == 200 && _this2.xhr.responseText != "") {
                     var resp = JSON.parse(_this2.xhr.response);
-                    _this2.options.file.hash = resp.hash;
-                    _this2.options.file.key = resp.key;
-                    _this2.options.file.h = resp.h;
-                    _this2.options.file.w = resp.w;
-                    if (_this2.options.params.key) {
-                        _this2.options.file.url = _this2.options.downloadUri + resp.key;
-                    }
+                    resp._id = file._id;
                     _this2.options.percent = 100;
                     if (typeof _this2.options.onComplete == "function") {
                         _this2.options.onComplete(_this2, resp);
@@ -323,7 +316,7 @@ var _createClass$1 = function() {
 
 var _templateObject$1 = _taggedTemplateLiteral$1([ '\n        <div class="media lego-upload-item">\n            <div class="media-left">\n                <i class="anticon anticon-', '"></i>\n            </div>\n            ', "\n        </div>\n        " ], [ '\n        <div class="media lego-upload-item">\n            <div class="media-left">\n                <i class="anticon anticon-', '"></i>\n            </div>\n            ', "\n        </div>\n        " ]);
 
-var _templateObject2$1 = _taggedTemplateLiteral$1([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="lego-cancelbtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="lego-cancelbtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ]);
+var _templateObject2$1 = _taggedTemplateLiteral$1([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="lego-cancelbtn" id="', '"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="lego-cancelbtn" id="', '"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ]);
 
 var _templateObject3$1 = _taggedTemplateLiteral$1([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    ', "\n                    ", "\n                </h4>\n                <small>\n                    <cite>", '</cite>\n                    <time>\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </time>\n                </small>\n            </div>\n            ' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    ', "\n                    ", "\n                </h4>\n                <small>\n                    <cite>", '</cite>\n                    <time>\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </time>\n                </small>\n            </div>\n            ' ]);
 
@@ -404,7 +397,7 @@ var UploadItem = function(_UploadBase) {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject$1, Lego.UI.Util.getFileIcon(options.file.name), options.percent < 100 ? hx(_templateObject2$1, val(options.file.name), "progressbar_" + options.vid) : hx(_templateObject3$1, !options.readonly && options.percent == 100 ? hx(_templateObject4, val(options.file.hash)) : "", val(options.file.name), Lego.UI.Util.convertByteUnit(options.file.size), val(options.file.url), val(options.file.name)));
+            var vDom = hx(_templateObject$1, Lego.UI.Util.getFileIcon(options.file.name), options.percent < 100 ? hx(_templateObject2$1, val(options.file._id), val(options.file.name), "progressbar_" + options.vid) : hx(_templateObject3$1, !options.readonly && options.percent == 100 ? hx(_templateObject4, val(options.file._id)) : "", val(options.file.name), Lego.UI.Util.convertByteUnit(options.file.size), val(options.file.url), val(options.file.name)));
             return vDom;
         }
     }, {
@@ -412,7 +405,9 @@ var UploadItem = function(_UploadBase) {
         value: function onCancel(event) {
             var _this2 = this;
             event.stopPropagation();
+            var target = $(event.target), _id = target.parent().attr("id");
             this.cancel();
+            if (typeof this.options.onCancel == "function") this.options.onCancel("cancel", _id);
             this.$el.slideUp("normal", function() {
                 _this2.$el.remove();
             });
@@ -422,9 +417,9 @@ var UploadItem = function(_UploadBase) {
         value: function onRemove(event) {
             var _this3 = this;
             event.stopPropagation();
-            var target = $(event.target), hash = target.parent().attr("id");
+            var target = $(event.target), _id = target.parent().attr("id");
+            if (typeof this.options.onRemove == "function") this.options.onRemove("remove", _id);
             this.$el.slideUp("normal", function() {
-                if (typeof _this3.options.onRemove == "function") _this3.options.onRemove(hash);
                 _this3.$el.remove();
             });
         }
@@ -550,7 +545,7 @@ var Upload = function(_Lego$UI$Baseview) {
         _this.clear();
         _this.$(".lego-fileInput").on("change", function(event) {
             var target = $(event.currentTarget)[0];
-            _this.uploadInit(target.files);
+            _this.uploadInit(target.files, target);
         });
         if (_this.options.value.length) {
             _this.options.value.forEach(function(item, index) {
@@ -569,14 +564,15 @@ var Upload = function(_Lego$UI$Baseview) {
         }
     }, {
         key: "uploadInit",
-        value: function uploadInit(files) {
+        value: function uploadInit(files, fileInput) {
             var _this2 = this;
             var uploadFiles = [];
             if ((typeof files === "undefined" ? "undefined" : _typeof(files)) == "object" && files[0]) {
-                uploadFiles = Array.prototype.slice.call(files, 0);
+                uploadFiles = Array.from(Array.prototype.slice.call(files, 0));
             } else {
-                uploadFiles = [ files ];
+                uploadFiles = Array.from([ files ]);
             }
+            if (fileInput) fileInput.value = "";
             var that = this, options = this.options, filesCount = uploadFiles.length, maxFilesCount = options.maxFilesCount;
             if (filesCount) {
                 if (filesCount > maxFilesCount) {
@@ -584,9 +580,9 @@ var Upload = function(_Lego$UI$Baseview) {
                     return;
                 }
                 uploadFiles = uploadFiles.filter(function(file) {
-                    var value = file.name + "_" + file.size;
-                    var hasFile = _this2.fileList.includes(value);
-                    if (!hasFile) _this2.fileList.push(value);
+                    file._id = [ file.name, file.size, file.lastModified ].join("_");
+                    var hasFile = _this2.fileList.includes(file._id);
+                    if (!hasFile) _this2.fileList.push(file._id);
                     return !hasFile;
                 });
                 if (typeof options.onAddFile == "function") options.onAddFile(this.fileList, uploadFiles);
@@ -616,18 +612,19 @@ var Upload = function(_Lego$UI$Baseview) {
                         needToken: true,
                         onBegin: options.onBegin,
                         onProgress: options.onProgress,
-                        onComplete: function onComplete(file, resp) {
+                        onComplete: function onComplete(self, resp) {
                             var hasFile = options.value.find(function(item) {
-                                return item.hash == resp.hash;
+                                return item.file.hash == resp.hash;
                             });
                             if (!hasFile && options.value.length <= maxFilesCount) {
+                                resp.url = Lego.config.downloadUri + resp.key;
                                 options.value.push({
                                     file: resp,
                                     type: options.type,
                                     percent: 100
                                 });
                             }
-                            if (typeof options.onComplete == "function") options.onComplete(that, resp);
+                            if (typeof options.onComplete == "function") options.onComplete(self, resp);
                         },
                         onFail: options.onFail,
                         onCancel: options.onCancel
@@ -664,22 +661,24 @@ var Upload = function(_Lego$UI$Baseview) {
         key: "showItem",
         value: function showItem(uploadOption) {
             var _this3 = this;
-            uploadOption.context = this;
-            uploadOption.insert = this.options.multiple ? "append" : "html";
-            uploadOption.onRemove = function(hash) {
-                var hasFile = _this3.options.value.find(function(item) {
-                    return item.file.hash == hash;
+            var callback = function callback(type, _id) {
+                _this3.fileList = _this3.fileList.filter(function(value) {
+                    return value !== _id;
                 });
-                if (hasFile) {
-                    _this3.fileList = _this3.fileList.filter(function(value) {
-                        return value !== hasFile.file.name + "_" + hasFile.file.size;
+                if (type == "cancel") {
+                    if (typeof _this3.options.onCancel == "function") _this3.options.onCancel(_this3, _id);
+                } else {
+                    _this3.options.value = _this3.options.value.filter(function(item) {
+                        return item.file._id !== _id;
                     });
+                    if (typeof _this3.options.onRemove == "function") _this3.options.onRemove(_this3, _id);
                 }
-                _this3.options.value = _this3.options.value.filter(function(item) {
-                    return item.file.hash !== hash;
-                });
                 _this3.refresh();
             };
+            uploadOption.context = this;
+            uploadOption.insert = this.options.multiple ? "append" : "html";
+            uploadOption.onCancel = callback;
+            uploadOption.onRemove = callback;
             Lego.create(UploadItem, uploadOption);
         }
     }, {
@@ -688,10 +687,10 @@ var Upload = function(_Lego$UI$Baseview) {
             var result = [];
             if (this.options.value.length) {
                 var newArr = this.options.value.filter(function(item) {
-                    return !!item.file.id;
+                    return !!item.id;
                 });
                 result = newArr.map(function(item) {
-                    return item.file.id;
+                    return item.id;
                 });
             }
             return result;

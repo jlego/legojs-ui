@@ -130,7 +130,6 @@ class Reply extends Lego.UI.Baseview {
     }
     // 上传的值
     getUploadIds(){
-        console.warn(this.uploadView ? this.uploadView.getValue() : 'llllllllllllll');
         if(this.uploadView) return this.uploadView.getValue();
         return [];
     }

@@ -59,7 +59,7 @@ class Upload extends Lego.UI.Baseview {
         this.clear();
         this.$('.lego-fileInput').on('change', (event) => {
             var target = $(event.currentTarget)[0];
-            this.uploadInit(target.files);
+            this.uploadInit(target.files, target);
         });
         if(this.options.value.length){
             this.options.value.forEach((item, index) => {
@@ -85,13 +85,14 @@ class Upload extends Lego.UI.Baseview {
         `;
         return options.template ? options.template : vDom;
     }
-    uploadInit(files) {
+    uploadInit(files, fileInput) {
         let uploadFiles = [];
         if (typeof files == 'object' && files[0]) {
-            uploadFiles = Array.prototype.slice.call(files, 0);
+            uploadFiles = Array.from(Array.prototype.slice.call(files, 0));
         } else {
-            uploadFiles = [files];
+            uploadFiles = Array.from([files]);
         }
+        if(fileInput) fileInput.value = '';
         const that = this,
             options = this.options,
             filesCount = uploadFiles.length,
@@ -102,9 +103,9 @@ class Upload extends Lego.UI.Baseview {
                 return;
             }
             uploadFiles = uploadFiles.filter(file => {
-                let value = file.name + '_' + file.size;
-                let hasFile = this.fileList.includes(value);
-                if(!hasFile) this.fileList.push(value);
+                file._id = [file.name, file.size, file.lastModified].join('_');
+                let hasFile = this.fileList.includes(file._id);
+                if(!hasFile) this.fileList.push(file._id);
                 return !hasFile;
             });
             if (typeof options.onAddFile == 'function') options.onAddFile(this.fileList, uploadFiles);
@@ -134,16 +135,17 @@ class Upload extends Lego.UI.Baseview {
                     needToken: true,
                     onBegin: options.onBegin,
                     onProgress: options.onProgress,
-                    onComplete(file, resp){
-                        const hasFile = options.value.find(item => item.hash == resp.hash);
+                    onComplete(self, resp){
+                        const hasFile = options.value.find(item => item.file.hash == resp.hash);
                         if (!hasFile && options.value.length <= maxFilesCount) {
+                            resp.url = Lego.config.downloadUri + resp.key;
                             options.value.push({
                                 file: resp,
                                 type: options.type, //图片或文件
                                 percent: 100
                             });
                         }
-                        if(typeof options.onComplete == 'function') options.onComplete(that, resp);
+                        if(typeof options.onComplete == 'function') options.onComplete(self, resp);
                     },
                     onFail: options.onFail,
                     onCancel: options.onCancel
@@ -174,24 +176,28 @@ class Upload extends Lego.UI.Baseview {
     }
     // 展示上传的文件视图
     showItem(uploadOption) {
-        uploadOption.context = this;
-        uploadOption.insert = this.options.multiple ? 'append' : 'html';
-        uploadOption.onRemove = (hash) => {
-            let hasFile = this.options.value.find(item => item.file.hash == hash);
-            if(hasFile){
-                this.fileList = this.fileList.filter(value => value !== (hasFile.file.name + '_' + hasFile.file.size));
+        let callback = (type, _id) => {
+            this.fileList = this.fileList.filter(value => value !== _id);
+            if(type == 'cancel'){
+                if(typeof this.options.onCancel == 'function') this.options.onCancel(this, _id);
+            }else{
+                this.options.value = this.options.value.filter(item => item.file._id !== _id);
+                if(typeof this.options.onRemove == 'function') this.options.onRemove(this, _id);
             }
-            this.options.value = this.options.value.filter(item => item.file.hash !== hash);
             this.refresh();
         };
+        uploadOption.context = this;
+        uploadOption.insert = this.options.multiple ? 'append' : 'html';
+        uploadOption.onCancel = callback;
+        uploadOption.onRemove = callback;
         Lego.create(UploadItem, uploadOption);
     }
     // 返回上传结果
     getValue() {
         let result = [];
         if (this.options.value.length) {
-            let newArr = this.options.value.filter(item => !!item.file.id);
-            result = newArr.map(item => item.file.id);
+            let newArr = this.options.value.filter(item => !!item.id);
+            result = newArr.map(item => item.id);
         }
         return result;
     }

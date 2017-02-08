@@ -71,7 +71,7 @@ class UploadItem extends UploadBase {
             <div class="media-body">
                 <h4 class="media-heading">
                     <div class="right">
-                        <a href="javascript:;" class="lego-cancelbtn"><i class="anticon anticon-cross float-xs-right close"></i></a>
+                        <a href="javascript:;" class="lego-cancelbtn" id="${val(options.file._id)}"><i class="anticon anticon-cross float-xs-right close"></i></a>
                     </div>
                     ${val(options.file.name)}
                 </h4>
@@ -81,7 +81,7 @@ class UploadItem extends UploadBase {
                 <h4 class="media-heading">
                     ${!options.readonly && options.percent == 100 ? hx`
                     <div class="right">
-                        <a href="javascript:;" class="lego-closebtn" id="${val(options.file.hash)}"><i class="anticon anticon-cross float-xs-right close"></i></a>
+                        <a href="javascript:;" class="lego-closebtn" id="${val(options.file._id)}"><i class="anticon anticon-cross float-xs-right close"></i></a>
                     </div>
                     ` : ''}
                     ${val(options.file.name)}
@@ -102,7 +102,10 @@ class UploadItem extends UploadBase {
     // 取消上传
     onCancel(event) {
         event.stopPropagation();
+        const target = $(event.target),
+            _id = target.parent().attr('id');
         this.cancel();
+        if(typeof this.options.onCancel == 'function') this.options.onCancel('cancel', _id);
         this.$el.slideUp("normal", () => {
             this.$el.remove();
         });
@@ -110,9 +113,9 @@ class UploadItem extends UploadBase {
     onRemove(event){
         event.stopPropagation();
         const target = $(event.target),
-            hash = target.parent().attr('id');
+            _id = target.parent().attr('id');
+        if(typeof this.options.onRemove == 'function') this.options.onRemove('remove', _id);
         this.$el.slideUp("normal", () => {
-            if(typeof this.options.onRemove == 'function') this.options.onRemove(hash);
             this.$el.remove();
         });
     }
