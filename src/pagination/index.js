@@ -36,7 +36,7 @@ class Pagination extends Lego.UI.Baseview {
             });
             options.components = [{
                 el: '#' + opts.vid + '-dropdown',
-                trigger: '#' + opts.vid + '-select',
+                container: '#' + opts.vid + '-select',
                 data: theData,
                 onChange(self, result){
                     const num = parseInt(result.key);

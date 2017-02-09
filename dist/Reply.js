@@ -1684,9 +1684,9 @@ var Upload = function(_Lego$UI$Baseview) {
             var _this2 = this;
             var uploadFiles = [];
             if ((typeof files === "undefined" ? "undefined" : _typeof$3(files)) == "object" && files[0]) {
-                uploadFiles = Array.from(Array.prototype.slice.call(files, 0));
+                uploadFiles = Array.prototype.slice.call(files, 0);
             } else {
-                uploadFiles = Array.from([ files ]);
+                uploadFiles = [ files ];
             }
             if (fileInput) fileInput.value = "";
             var that = this, options = this.options, filesCount = uploadFiles.length, maxFilesCount = options.maxFilesCount;
@@ -1740,7 +1740,7 @@ var Upload = function(_Lego$UI$Baseview) {
                                     percent: 100
                                 });
                             }
-                            if (typeof options.onComplete == "function") options.onComplete(self, resp);
+                            if (typeof options.onComplete == "function") options.onComplete(that, resp);
                         },
                         onFail: options.onFail,
                         onCancel: options.onCancel
@@ -1824,7 +1824,7 @@ var Upload = function(_Lego$UI$Baseview) {
 
 Lego.components("upload", Upload);
 
-var _createClass$9 = function() {
+var _createClass$10 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -1841,17 +1841,17 @@ var _createClass$9 = function() {
     };
 }();
 
-var _templateObject$5 = _taggedTemplateLiteral$5([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
+var _templateObject$6 = _taggedTemplateLiteral$6([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
 
-var _templateObject2$5 = _taggedTemplateLiteral$5([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ]);
+var _templateObject2$5 = _taggedTemplateLiteral$6([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ]);
 
-var _templateObject3$4 = _taggedTemplateLiteral$5([ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ]);
+var _templateObject3$4 = _taggedTemplateLiteral$6([ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ]);
 
-var _templateObject4$3 = _taggedTemplateLiteral$5([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
+var _templateObject4$3 = _taggedTemplateLiteral$6([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5$1 = _taggedTemplateLiteral$5([ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject5$1 = _taggedTemplateLiteral$6([ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
 
-function _taggedTemplateLiteral$5(strings, raw) {
+function _taggedTemplateLiteral$6(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
         raw: {
             value: Object.freeze(raw)
@@ -1859,20 +1859,20 @@ function _taggedTemplateLiteral$5(strings, raw) {
     }));
 }
 
-function _classCallCheck$9(instance, Constructor) {
+function _classCallCheck$10(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
 }
 
-function _possibleConstructorReturn$7(self, call) {
+function _possibleConstructorReturn$8(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$7(subClass, superClass) {
+function _inherits$8(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -1888,17 +1888,17 @@ function _inherits$7(subClass, superClass) {
 }
 
 var Dropdown = function(_Lego$UI$Baseview) {
-    _inherits$7(Dropdown, _Lego$UI$Baseview);
+    _inherits$8(Dropdown, _Lego$UI$Baseview);
     function Dropdown() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$9(this, Dropdown);
+        _classCallCheck$10(this, Dropdown);
         var options = {
             events: {
                 "click li:not(.dropdown)": "clickItem"
             },
             disabled: false,
             eventName: "click",
-            trigger: "",
+            container: "",
             direction: "",
             activeKey: "",
             clickAndClose: true,
@@ -1907,15 +1907,15 @@ var Dropdown = function(_Lego$UI$Baseview) {
             data: []
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$7(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
+        return _possibleConstructorReturn$8(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
     }
-    _createClass$9(Dropdown, [ {
+    _createClass$10(Dropdown, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
             function itemNav(item) {
                 if (item.divider) {
-                    return hx(_templateObject$5);
+                    return hx(_templateObject$6);
                 } else {
                     if (!item.children) {
                         return hx(_templateObject2$5, val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
@@ -1938,12 +1938,12 @@ var Dropdown = function(_Lego$UI$Baseview) {
         key: "renderAfter",
         value: function renderAfter() {
             var that = this;
-            this.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
+            this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
             if (!this.options.disabled) {
                 var handler = function handler(event) {
                     $("body, .modal-body").trigger("click");
                     event.stopPropagation();
-                    var directionResp = Lego.UI.Util.getDirection(that.trigger, that.$el);
+                    var directionResp = Lego.UI.Util.getDirection(that.container, that.$el);
                     that.options.direction = directionResp._y || "bottom";
                     that.show();
                 };
@@ -1952,9 +1952,9 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     $("body, .modal-body").off(_eventName).on(_eventName, function() {
                         that.close();
                     });
-                    this.trigger.off(_eventName).on(_eventName, handler);
+                    this.container.off(_eventName).on(_eventName, handler);
                 } else {
-                    this.trigger.mouseenter(handler).mouseleave(function() {
+                    this.container.mouseenter(handler).mouseleave(function() {
                         that.close();
                     });
                 }
@@ -2001,6 +2001,124 @@ var Dropdown = function(_Lego$UI$Baseview) {
 
 Lego.components("dropdown", Dropdown);
 
+var _createClass$9 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+var _templateObject$5 = _taggedTemplateLiteral$5([ '\n        <div class="btn-group ', " ", '">\n            <button type="button" class="btn btn-', ' dropdownbtn">', '</button>\n            <button type="button" class="btn btn-', ' dropdown-toggle dropdown-toggle-split">\n                <span class="sr-only">Toggle Dropdown</span>\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n        </div>\n        ' ], [ '\n        <div class="btn-group ', " ", '">\n            <button type="button" class="btn btn-', ' dropdownbtn">', '</button>\n            <button type="button" class="btn btn-', ' dropdown-toggle dropdown-toggle-split">\n                <span class="sr-only">Toggle Dropdown</span>\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n        </div>\n        ' ]);
+
+function _taggedTemplateLiteral$5(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+}
+
+function _classCallCheck$9(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$7(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$7(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var Dropdownbtn = function(_Lego$UI$Baseview) {
+    _inherits$7(Dropdownbtn, _Lego$UI$Baseview);
+    function Dropdownbtn() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$9(this, Dropdownbtn);
+        var options = {
+            events: {
+                "click button.dropdownbtn": "onClick"
+            },
+            text: "button name",
+            btnType: "secondary",
+            size: "default",
+            direction: "",
+            activeKey: "",
+            dropdownOption: {},
+            onClick: function onClick() {},
+            onChange: function onChange() {},
+            components: function components(opts) {
+                return [ $.extend(opts.dropdownOption, {
+                    el: "#dropdown-" + opts.vid,
+                    container: "[view-id=" + opts.vid + "]",
+                    direction: opts.direction,
+                    activeKey: opts.activeKey,
+                    data: opts.data,
+                    onChange: function onChange(self, item, event) {
+                        var theView = self.options.context;
+                        theView.activeItem = item;
+                        if (typeof theView.options.onChange == "function") theView.options.onChange(theView, item);
+                    }
+                }) ];
+            }
+        };
+        Object.assign(options, opts);
+        var _this = _possibleConstructorReturn$7(this, (Dropdownbtn.__proto__ || Object.getPrototypeOf(Dropdownbtn)).call(this, options));
+        _this.activeItem = {};
+        return _this;
+    }
+    _createClass$9(Dropdownbtn, [ {
+        key: "render",
+        value: function render() {
+            var options = this.options;
+            var vDom = hx(_templateObject$5, options.size == "large" ? "btn-group-lg" : options.size == "small" ? "btn-group-sm" : "", options.direction == "up" ? "dropup" : "", options.btnType, val(options.html || options.text), options.btnType, options.vid);
+            return vDom;
+        }
+    }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            this.$("button").each(function(index, item) {
+                $(item).data("index", index);
+            });
+        }
+    }, {
+        key: "onClick",
+        value: function onClick(event) {
+            event.stopPropagation();
+            if (typeof this.options.onClick === "function") this.options.onClick(this, this.activeItem, event);
+        }
+    } ]);
+    return Dropdownbtn;
+}(Lego.UI.Baseview);
+
+Lego.components("dropdownbtn", Dropdownbtn);
+
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
     return typeof obj;
 } : function(obj) {
@@ -2024,17 +2142,19 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-reply">\n            ', '\n            <div class="btn-group lego-reply-submit" id="reply-btn-', '">\n                <button type="button" class="btn btn-primary ', '">', "</button>\n                ", '\n            </div>\n            <div class="lego-reply-toolbar">\n                ', "\n                ", '\n            </div>\n            <div class="popover popover-bottom" style="display:none;">\n                <div class="popover-arrow"></div><h3 class="popover-title">上传附件 <i class="anticon anticon-close" style="float:right"></i></h3>\n                <div class="popover-content"><upload id="upload-', '"></upload></div>\n            </div>\n        </div>\n        ' ], [ '\n        <div class="lego-reply">\n            ', '\n            <div class="btn-group lego-reply-submit" id="reply-btn-', '">\n                <button type="button" class="btn btn-primary ', '">', "</button>\n                ", '\n            </div>\n            <div class="lego-reply-toolbar">\n                ', "\n                ", '\n            </div>\n            <div class="popover popover-bottom" style="display:none;">\n                <div class="popover-arrow"></div><h3 class="popover-title">上传附件 <i class="anticon anticon-close" style="float:right"></i></h3>\n                <div class="popover-content"><upload id="upload-', '"></upload></div>\n            </div>\n        </div>\n        ' ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-reply">\n            ', "\n            ", '\n            <div class="lego-reply-toolbar">\n                ', "\n                ", '\n            </div>\n            <div class="popover popover-bottom" style="display:none;">\n                <div class="popover-arrow"></div><h3 class="popover-title">上传附件 <i class="anticon anticon-close" style="float:right"></i></h3>\n                <div class="popover-content"><upload id="upload-', '"></upload></div>\n            </div>\n        </div>\n        ' ], [ '\n        <div class="lego-reply">\n            ', "\n            ", '\n            <div class="lego-reply-toolbar">\n                ', "\n                ", '\n            </div>\n            <div class="popover popover-bottom" style="display:none;">\n                <div class="popover-arrow"></div><h3 class="popover-title">上传附件 <i class="anticon anticon-close" style="float:right"></i></h3>\n                <div class="popover-content"><upload id="upload-', '"></upload></div>\n            </div>\n        </div>\n        ' ]);
 
 var _templateObject2 = _taggedTemplateLiteral([ '\n            <div class="lego-reply-content" id="content-', '"><span class="lego-reply-ph">', "</span></div>\n            " ], [ '\n            <div class="lego-reply-content" id="content-', '"><span class="lego-reply-ph">', "</span></div>\n            " ]);
 
 var _templateObject3 = _taggedTemplateLiteral([ '\n            <textarea placeholder="', '" class="form-control lego-reply-content" id="content-', '"></textarea>\n            ' ], [ '\n            <textarea placeholder="', '" class="form-control lego-reply-content" id="content-', '"></textarea>\n            ' ]);
 
-var _templateObject4 = _taggedTemplateLiteral([ '<dropdown id="dropdown-', '"></dropdown>' ], [ '<dropdown id="dropdown-', '"></dropdown>' ]);
+var _templateObject4 = _taggedTemplateLiteral([ '\n            <dropdownbtn id="dropdownbtn-', '"></dropdownbtn>\n            ' ], [ '\n            <dropdownbtn id="dropdownbtn-', '"></dropdownbtn>\n            ' ]);
 
-var _templateObject5 = _taggedTemplateLiteral([ '<facial id="facial-', '"></facial>' ], [ '<facial id="facial-', '"></facial>' ]);
+var _templateObject5 = _taggedTemplateLiteral([ '\n            <button type="button" class="btn btn-', ' lego-reply-submit">', "</button>\n            " ], [ '\n            <button type="button" class="btn btn-', ' lego-reply-submit">', "</button>\n            " ]);
 
-var _templateObject6 = _taggedTemplateLiteral([ '<div id="annex-', '" class="lego-reply-annex"><i class="anticon anticon-paper-clip"></i></div>' ], [ '<div id="annex-', '" class="lego-reply-annex"><i class="anticon anticon-paper-clip"></i></div>' ]);
+var _templateObject6 = _taggedTemplateLiteral([ '<facial id="facial-', '"></facial>' ], [ '<facial id="facial-', '"></facial>' ]);
+
+var _templateObject7 = _taggedTemplateLiteral([ '<div id="annex-', '" class="lego-reply-annex"><i class="anticon anticon-paper-clip"></i></div>' ], [ '<div id="annex-', '" class="lego-reply-annex"><i class="anticon anticon-paper-clip"></i></div>' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -2081,7 +2201,7 @@ var Reply = function(_Lego$UI$Baseview) {
             events: {
                 "focus .lego-reply-content": "onFocus",
                 "blur .lego-reply-content": "onblur",
-                "click .lego-reply-submit > button:not(.dropdown-toggle)": "submit",
+                "click .lego-reply-submit": "submit",
                 "click .lego-reply-annex": "showUpload",
                 "click .popover-title i": "showUpload",
                 "keydown .lego-reply-content": "_enterSearch"
@@ -2094,10 +2214,11 @@ var Reply = function(_Lego$UI$Baseview) {
             uploadToken: null,
             iconsUrl: "",
             submitText: "回复",
+            submitType: "primary",
             maxTextLength: 500,
             onSubmit: function onSubmit() {},
             onUploadComplete: function onUploadComplete() {},
-            dropdown: false,
+            dropdownbtn: false,
             components: []
         };
         Object.assign(options, opts);
@@ -2109,12 +2230,17 @@ var Reply = function(_Lego$UI$Baseview) {
                 iconsUrl: options.iconsUrl
             });
         }
-        if (options.dropdown) {
-            options.components.push(Object.assign(_typeof(options.dropdown) == "object" ? options.dropdown : {}, {
-                el: "#dropdown-" + options.vid,
-                trigger: "#reply-btn-" + options.vid,
-                style: {
-                    minWidth: "auto"
+        if (options.dropdownbtn) {
+            options.components.push(Object.assign(_typeof(options.dropdownbtn) == "object" ? options.dropdownbtn : {}, {
+                el: "#dropdownbtn-" + options.vid,
+                text: options.submitText,
+                btnType: options.submitType,
+                className: "float-right",
+                onClick: function onClick(self, item, event) {
+                    var parentView = self.options.context;
+                    if (parentView) {
+                        parentView.submit();
+                    }
                 }
             }));
         }
@@ -2127,7 +2253,7 @@ var Reply = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options;
-            var vDom = hx(_templateObject, options.inputType == "div" ? hx(_templateObject2, options.vid, val(options.placeholder)) : hx(_templateObject3, val(options.placeholder), options.vid), options.vid, options.dropdown ? "dropdown-toggle" : "", val(options.submitText), options.dropdown ? hx(_templateObject4, options.vid) : "", options.showFacial ? hx(_templateObject5, options.vid) : "", options.showUpload ? hx(_templateObject6, options.vid) : "", options.vid);
+            var vDom = hx(_templateObject, options.inputType == "div" ? hx(_templateObject2, options.vid, val(options.placeholder)) : hx(_templateObject3, val(options.placeholder), options.vid), options.dropdownbtn ? hx(_templateObject4, options.vid) : hx(_templateObject5, options.submitType, val(options.submitText)), options.showFacial ? hx(_templateObject6, options.vid) : "", options.showUpload ? hx(_templateObject7, options.vid) : "", options.vid);
             return vDom;
         }
     }, {

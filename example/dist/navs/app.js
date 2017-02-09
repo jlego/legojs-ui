@@ -161,7 +161,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _templateObject = _taggedTemplateLiteral(['\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs1"></navs>\n            </div>\n            <div class="col-sm-6">\n              <navs id="navs2"></navs>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs3"></navs>\n            </div>\n            <div class="col-sm-6">\n              <navs id="navs4"></navs>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs5"></navs>\n            </div>\n            <div class="col-sm-6">\n              <tabs id="tabs6"></tabs>\n            </div>\n          </div>\n        </div>\n        '], ['\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs1"></navs>\n            </div>\n            <div class="col-sm-6">\n              <navs id="navs2"></navs>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs3"></navs>\n            </div>\n            <div class="col-sm-6">\n              <navs id="navs4"></navs>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs5"></navs>\n            </div>\n            <div class="col-sm-6">\n              <tabs id="tabs6"></tabs>\n            </div>\n          </div>\n        </div>\n        ']);
+	var _templateObject = _taggedTemplateLiteral(['\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs1"></navs>\n            </div>\n            <div class="col-sm-6">\n              <navs id="navs2"></navs>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs3"></navs>\n            </div>\n            <div class="col-sm-6">\n              <navs id="navs4"></navs>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs5"></navs>\n            </div>\n            <div class="col-sm-6">\n              <tabs id="tabs6"></tabs>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <btngroup id="btngroup7"></btngroup>\n            </div>\n            <div class="col-sm-6">\n              <btngroup id="btngroup8"></btngroup>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <dropdownbtn id="dropdownbtn9"></dropdownbtn>\n            </div>\n            <div class="col-sm-6">\n              <dropdownbtn id="dropdownbtn10"></dropdownbtn>\n            </div>\n          </div>\n        </div>\n        '], ['\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs1"></navs>\n            </div>\n            <div class="col-sm-6">\n              <navs id="navs2"></navs>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs3"></navs>\n            </div>\n            <div class="col-sm-6">\n              <navs id="navs4"></navs>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <navs id="navs5"></navs>\n            </div>\n            <div class="col-sm-6">\n              <tabs id="tabs6"></tabs>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <btngroup id="btngroup7"></btngroup>\n            </div>\n            <div class="col-sm-6">\n              <btngroup id="btngroup8"></btngroup>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 20px;">\n            <div class="col-sm-6">\n              <dropdownbtn id="dropdownbtn9"></dropdownbtn>\n            </div>\n            <div class="col-sm-6">\n              <dropdownbtn id="dropdownbtn10"></dropdownbtn>\n            </div>\n          </div>\n        </div>\n        ']);
 
 	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -263,6 +263,53 @@
 	                activeKey: 'nav2',
 	                animate: 'fade',
 	                data: data
+	            }, {
+	                el: '#btngroup7',
+	                onClick: function onClick(self, item, event) {
+	                    console.warn('点击了按钮组7', item);
+	                },
+
+	                data: [{
+	                    text: '按钮一'
+	                }, {
+	                    text: '按钮二'
+	                }, {
+	                    text: '按钮三'
+	                }]
+	            }, {
+	                el: '#btngroup8',
+	                size: 'small',
+	                onClick: function onClick(self, item, event) {
+	                    console.warn('点击了按钮组8', item);
+	                },
+
+	                data: [{
+	                    text: '按钮一',
+	                    type: 'primary'
+	                }, {
+	                    text: '按钮二',
+	                    type: 'primary'
+	                }, {
+	                    text: '按钮三',
+	                    type: 'primary'
+	                }]
+	            }, {
+	                el: '#dropdownbtn9',
+	                btnType: 'primary',
+	                onClick: function onClick(self, item, event) {
+	                    console.warn('点击了下拉按钮组9', item);
+	                },
+
+	                data: [{
+	                    key: 'a1',
+	                    value: '按钮一'
+	                }, {
+	                    key: 'a2',
+	                    value: '按钮二'
+	                }, {
+	                    key: 'a3',
+	                    value: '按钮三'
+	                }]
 	            }]
 	        };
 	        Object.assign(options, opts);

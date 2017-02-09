@@ -7,7 +7,7 @@ import './asset/index.scss';
 import Facial from '../facial/index';
 import Popover from '../popover/index';
 import Upload from '../upload/index';
-import Dropdown from '../dropdown/index';
+import Dropdownbtn from '../dropdownbtn/index';
 
 class Reply extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -15,7 +15,7 @@ class Reply extends Lego.UI.Baseview {
             events: {
                 'focus .lego-reply-content': 'onFocus',
                 'blur .lego-reply-content': 'onblur',
-                'click .lego-reply-submit > button:not(.dropdown-toggle)': 'submit',
+                'click .lego-reply-submit': 'submit',
                 'click .lego-reply-annex': 'showUpload',
                 'click .popover-title i': 'showUpload',
                 'keydown .lego-reply-content': '_enterSearch'
@@ -28,10 +28,11 @@ class Reply extends Lego.UI.Baseview {
             uploadToken: null,    //上传文件token数据源
             iconsUrl: '',
             submitText: '回复',   //
+            submitType: 'primary',
             maxTextLength: 500,  //回复内容最大长度
             onSubmit(){},  //事件回调
             onUploadComplete(){},
-            dropdown: false, //下拉菜单
+            dropdownbtn: false, //下拉菜单
             components: []
         };
         Object.assign(options, opts);
@@ -43,12 +44,17 @@ class Reply extends Lego.UI.Baseview {
                 iconsUrl: options.iconsUrl
             });
         }
-        if(options.dropdown){
-            options.components.push(Object.assign(typeof options.dropdown == 'object' ? options.dropdown : {}, {
-                el: '#dropdown-' + options.vid,
-                trigger: '#reply-btn-' + options.vid,
-                style: {
-                    minWidth: 'auto'
+        if(options.dropdownbtn){
+            options.components.push(Object.assign(typeof options.dropdownbtn == 'object' ? options.dropdownbtn : {}, {
+                el: '#dropdownbtn-' + options.vid,
+                text: options.submitText,
+                btnType: options.submitType,
+                className: 'float-right',
+                onClick(self, item, event){
+                    let parentView = self.options.context;
+                    if(parentView){
+                        parentView.submit();
+                    }
                 }
             }));
         }
@@ -65,10 +71,11 @@ class Reply extends Lego.UI.Baseview {
             ` : hx`
             <textarea placeholder="${val(options.placeholder)}" class="form-control lego-reply-content" id="content-${options.vid}"></textarea>
             `}
-            <div class="btn-group lego-reply-submit" id="reply-btn-${options.vid}">
-                <button type="button" class="btn btn-primary ${options.dropdown ? 'dropdown-toggle' : ''}">${val(options.submitText)}</button>
-                ${options.dropdown ? hx`<dropdown id="dropdown-${options.vid}"></dropdown>` : ''}
-            </div>
+            ${options.dropdownbtn ? hx`
+            <dropdownbtn id="dropdownbtn-${options.vid}"></dropdownbtn>
+            ` : hx`
+            <button type="button" class="btn btn-${options.submitType} lego-reply-submit">${val(options.submitText)}</button>
+            `}
             <div class="lego-reply-toolbar">
                 ${options.showFacial ? hx`<facial id="facial-${options.vid}"></facial>` : ''}
                 ${options.showUpload ? hx`<div id="annex-${options.vid}" class="lego-reply-annex"><i class="anticon anticon-paper-clip"></i></div>` : ''}

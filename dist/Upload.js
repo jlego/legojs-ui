@@ -568,9 +568,9 @@ var Upload = function(_Lego$UI$Baseview) {
             var _this2 = this;
             var uploadFiles = [];
             if ((typeof files === "undefined" ? "undefined" : _typeof(files)) == "object" && files[0]) {
-                uploadFiles = Array.from(Array.prototype.slice.call(files, 0));
+                uploadFiles = Array.prototype.slice.call(files, 0);
             } else {
-                uploadFiles = Array.from([ files ]);
+                uploadFiles = [ files ];
             }
             if (fileInput) fileInput.value = "";
             var that = this, options = this.options, filesCount = uploadFiles.length, maxFilesCount = options.maxFilesCount;
@@ -624,7 +624,7 @@ var Upload = function(_Lego$UI$Baseview) {
                                     percent: 100
                                 });
                             }
-                            if (typeof options.onComplete == "function") options.onComplete(self, resp);
+                            if (typeof options.onComplete == "function") options.onComplete(that, resp);
                         },
                         onFail: options.onFail,
                         onCancel: options.onCancel

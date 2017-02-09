@@ -88,9 +88,9 @@ class Upload extends Lego.UI.Baseview {
     uploadInit(files, fileInput) {
         let uploadFiles = [];
         if (typeof files == 'object' && files[0]) {
-            uploadFiles = Array.from(Array.prototype.slice.call(files, 0));
+            uploadFiles = Array.prototype.slice.call(files, 0);
         } else {
-            uploadFiles = Array.from([files]);
+            uploadFiles = [files];
         }
         if(fileInput) fileInput.value = '';
         const that = this,
@@ -145,7 +145,7 @@ class Upload extends Lego.UI.Baseview {
                                 percent: 100
                             });
                         }
-                        if(typeof options.onComplete == 'function') options.onComplete(self, resp);
+                        if(typeof options.onComplete == 'function') options.onComplete(that, resp);
                     },
                     onFail: options.onFail,
                     onCancel: options.onCancel

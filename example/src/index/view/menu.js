@@ -25,11 +25,14 @@ class Menu extends Lego.UI.Baseview {
             icon: 'icon-account-info',
             open: true,
             children: [{
+                key: 'nav_dropdown',
+                value: 'Dropdown 下拉菜单'
+            }, {
                 key: 'nav_navs',
                 value: 'Nav 导航菜单'
             }, {
-                key: 'nav_forms',
-                value: 'Form 表单'
+                key: 'nav_steps',
+                value: 'Steps 步骤条'
             }]
         }, {
             key: 'nav3',
@@ -37,17 +40,8 @@ class Menu extends Lego.UI.Baseview {
             icon: 'icon-teamwork',
             open: true,
             children: [{
-                key: 'nav_alert',
-                value: 'Alert 警告框'
-            }, {
                 key: 'nav_forms',
                 value: 'Form 表单'
-            }, {
-                key: 'nav_tips',
-                value: 'Tips 提示框'
-            }, {
-                key: 'nav_tree',
-                value: 'Tree 树型'
             }, {
                 key: 'nav_transfer',
                 value: 'Transfer 穿梭框'
@@ -57,9 +51,6 @@ class Menu extends Lego.UI.Baseview {
             }, {
                 key: 'nav_avatar',
                 value: 'Avatar 头像'
-            }, {
-                key: 'nav_steps',
-                value: 'Steps 步骤条'
             }]
         }, {
             key: 'nav4',
@@ -67,11 +58,11 @@ class Menu extends Lego.UI.Baseview {
             icon: 'icon-purchase',
             open: true,
             children: [{
-                key: 'nav4_1',
-                value: 'Alert 警告框'
+                key: 'nav_tips',
+                value: 'Tips 提示框'
             }, {
-                key: 'nav4_2',
-                value: 'Form 表单'
+                key: 'nav_tree',
+                value: 'Tree 树型'
             }]
         }, {
             key: 'nav5',
@@ -79,7 +70,7 @@ class Menu extends Lego.UI.Baseview {
             icon: 'icon-clues',
             open: true,
             children: [{
-                key: 'nav5_1',
+                key: 'nav_alert',
                 value: 'Alert 警告框'
             }, {
                 key: 'nav5_2',
