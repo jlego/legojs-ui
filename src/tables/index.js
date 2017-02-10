@@ -13,7 +13,7 @@ class Tables extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
-                'click tbody .lego-checkbox,.lego-radio': 'selectOne',
+                'click tbody .lego-checkbox > input,.lego-radio > input': 'selectOne',
                 'click thead .lego-checkbox > input': 'selectAll',
                 'click .lego-table-column-sorter': 'clickSorter',
                 'click .anticon-filter': 'clickFilter',
@@ -284,7 +284,6 @@ class Tables extends Lego.UI.Baseview {
     }
     // 选中一条
     selectOne(event) {
-        event.stopPropagation();
         const target = $(event.currentTarget),
             trEl = target.closest('tr'),
             id = trEl.attr('id'),

@@ -8,7 +8,7 @@ class Dropdown extends Lego.UI.Baseview {
             },
             disabled: false,
             eventName: 'click', //['click'] or ['hover']
-            container: '', //触发对象
+            container: '', //触发容器
             direction: '',  //显示方向
             activeKey: '',
             clickAndClose: true,  //点击后关闭
@@ -18,6 +18,7 @@ class Dropdown extends Lego.UI.Baseview {
         };
         Object.assign(options, opts);
         super(options);
+        this.containerEvents();
     }
     render() {
         const options = this.options || {};
@@ -60,7 +61,7 @@ class Dropdown extends Lego.UI.Baseview {
         `;
         return vDom;
     }
-    renderAfter(){
+    containerEvents(){
         const that = this;
         this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
         if(!this.options.disabled){
@@ -69,7 +70,7 @@ class Dropdown extends Lego.UI.Baseview {
                 event.stopPropagation();
                 const directionResp = Lego.UI.Util.getDirection(that.container, that.$el);
                 that.options.direction = directionResp._y || 'bottom';
-                that.show();
+                that.$el.slideToggle('fast');
             }
             if(this.options.eventName == 'click'){
                 const _eventName = 'click.dropdown_' + this.options.vid;

@@ -6634,8 +6634,8 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
     -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);
     transform: skewX(-0.78125deg) skewY(-0.78125deg); }
   77.7% {
-    -webkit-transform: skewX(0.39063deg) skewY(0.39063deg);
-    transform: skewX(0.39063deg) skewY(0.39063deg); }
+    -webkit-transform: skewX(0.39062deg) skewY(0.39062deg);
+    transform: skewX(0.39062deg) skewY(0.39062deg); }
   88.8% {
     -webkit-transform: skewX(-0.19531deg) skewY(-0.19531deg);
     transform: skewX(-0.19531deg) skewY(-0.19531deg); }
@@ -6663,8 +6663,8 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
     -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);
     transform: skewX(-0.78125deg) skewY(-0.78125deg); }
   77.7% {
-    -webkit-transform: skewX(0.39063deg) skewY(0.39063deg);
-    transform: skewX(0.39063deg) skewY(0.39063deg); }
+    -webkit-transform: skewX(0.39062deg) skewY(0.39062deg);
+    transform: skewX(0.39062deg) skewY(0.39062deg); }
   88.8% {
     -webkit-transform: skewX(-0.19531deg) skewY(-0.19531deg);
     transform: skewX(-0.19531deg) skewY(-0.19531deg); }
@@ -8695,7 +8695,7 @@ pre p {
   -webkit-transform-origin: 0px center;
   -ms-transform-origin: 0px center;
   transform-origin: 0px center;
-  top: -4px;
+  top: -2px;
   height: 8px;
   width: 8px;
   border-radius: 100%;
@@ -9456,7 +9456,7 @@ pre p {
   margin-bottom: -15px; }
 
 .lego-table-fixed-header .lego-table-body {
-  top: 51px;
+  top: 52px;
   bottom: 48px;
   width: 100%;
   position: absolute;
@@ -9933,8 +9933,7 @@ tr.lego-table-expanded-row:hover {
   clear: both;
   font-weight: normal;
   line-height: 1.42857143;
-  color: #333333;
-  white-space: nowrap; }
+  color: #333333; }
 
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {

@@ -90,7 +90,9 @@ var Dropdown = function(_Lego$UI$Baseview) {
             data: []
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$2(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
+        var _this = _possibleConstructorReturn$2(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
+        _this.containerEvents();
+        return _this;
     }
     _createClass$2(Dropdown, [ {
         key: "render",
@@ -118,8 +120,8 @@ var Dropdown = function(_Lego$UI$Baseview) {
             return vDom;
         }
     }, {
-        key: "renderAfter",
-        value: function renderAfter() {
+        key: "containerEvents",
+        value: function containerEvents() {
             var that = this;
             this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
             if (!this.options.disabled) {
@@ -128,7 +130,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     event.stopPropagation();
                     var directionResp = Lego.UI.Util.getDirection(that.container, that.$el);
                     that.options.direction = directionResp._y || "bottom";
-                    that.show();
+                    that.$el.slideToggle("fast");
                 };
                 if (this.options.eventName == "click") {
                     var _eventName = "click.dropdown_" + this.options.vid;
@@ -251,15 +253,18 @@ var Selects = function(_Lego$UI$Baseview) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck$1(this, Selects);
         var options = {
+            events: {
+                "click .select-tags-div": "clickItemClose"
+            },
             name: "",
             value: [],
             multiple: false,
             eventName: "click",
             filterOption: true,
             tags: false,
-            onSelect: function onSelect() {},
             onDeselect: function onDeselect() {},
             onChange: function onChange() {},
+            onBlur: function onBlur() {},
             onSearch: function onSearch() {},
             placeholder: "",
             notFoundContent: "",
@@ -303,7 +308,6 @@ var Selects = function(_Lego$UI$Baseview) {
                         });
                         parentView.options.value = [ model ];
                     }
-                    parentView.options.onSelect(parentView, model);
                     parentView.options.onChange(parentView, model);
                     parentView.refresh();
                 }
@@ -311,8 +315,11 @@ var Selects = function(_Lego$UI$Baseview) {
         };
         Object.assign(options, opts);
         var _this = _possibleConstructorReturn$1(this, (Selects.__proto__ || Object.getPrototypeOf(Selects)).call(this, options));
-        var eventName = "click.select_" + opts.vid, callback = _this.clickItemClose.bind(_this);
-        _this.$el.find(".select-tags-div").off(eventName).on(eventName, ".select-tag-close", callback);
+        _this.oldValue = "";
+        var that = _this;
+        _this.$(".select-input").blur(function(event) {
+            if (typeof options.onBlur == "function") options.onBlur(that, $(this).val(), event);
+        });
         return _this;
     }
     _createClass$1(Selects, [ {
@@ -577,9 +584,9 @@ var _templateObject = _taggedTemplateLiteral([ "\n                <ul>", '\n    
 
 var _templateObject2 = _taggedTemplateLiteral([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
 
-var _templateObject3 = _taggedTemplateLiteral([ '\n            <div class="select dropdown treeselect">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ]);
+var _templateObject3 = _taggedTemplateLiteral([ '\n            <div class="select dropdown treeselect">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '" style="width:100%">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '" style="width:100%">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ]);
 
-var _templateObject4 = _taggedTemplateLiteral([ '\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ]);
+var _templateObject4 = _taggedTemplateLiteral([ '\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '" style="width:100%">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '" style="width:100%">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -623,6 +630,12 @@ var Treeselect = function(_Selects) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Treeselect);
         var options = {
+            events: {
+                "click .dropdown-menu": function clickDropdownMenu(event) {
+                    event.stopPropagation();
+                },
+                "click .select-tag-close": "clickItemClose"
+            },
             name: "",
             value: [],
             multiple: false,
@@ -681,7 +694,6 @@ var Treeselect = function(_Selects) {
                     }
                     parentView.options.onSelect(parentView, result);
                     parentView.options.onChange(parentView, result);
-                    parentView.refresh();
                 },
                 onClick: function onClick(self, result) {
                     var parentView = this.context;
@@ -696,7 +708,6 @@ var Treeselect = function(_Selects) {
                     } ];
                     parentView.options.onSelect(parentView, result);
                     parentView.options.onChange(parentView, result);
-                    parentView.refresh();
                 },
                 disabled: opts.disabled || false,
                 className: opts.dropdownClassName
@@ -710,14 +721,13 @@ var Treeselect = function(_Selects) {
             });
         }
         var _this = _possibleConstructorReturn(this, (Treeselect.__proto__ || Object.getPrototypeOf(Treeselect)).call(this, options));
-        var eventName = "click.select_" + opts.vid, callback = _this.clickItemClose.bind(_this);
-        _this.$el.find(".select-tags-div").off(eventName).on(eventName, ".select-tag-close", callback);
+        _this.isLoaded = false;
         return _this;
     }
     _createClass(Treeselect, [ {
         key: "render",
         value: function render() {
-            var options = this.options || {};
+            var options = this.options;
             var vDom = "";
             function getTags(data) {
                 if (data.length) {
@@ -741,49 +751,41 @@ var Treeselect = function(_Selects) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var _this2 = this;
-            var options = this.options, that = this;
-            if (!options.disabled) {
-                (function() {
-                    var handler = function handler(event) {
-                        $("body, .modal-body").trigger("click");
-                        event.stopPropagation();
-                        var directionResp = Lego.UI.Util.getDirection(trigger, treeEl);
-                        options.direction = directionResp._y || "bottom";
-                        that.show();
-                        if (options.eventName == "hover") {
-                            trigger.mouseleave(function() {
-                                that.close();
-                            });
-                        }
-                    };
-                    var trigger = _this2.$("#select-" + options.vid);
-                    var treeEl = _this2.$("#tree-" + options.vid);
-                    var _eventName = "click.dropdown_" + options.vid;
-                    if (options.eventName == "click") {
-                        $("body, .modal-body").off(_eventName).on(_eventName, function() {
+            var options = this.options, trigger = this.$("#select-" + options.vid + " > input.select-input"), tagsDivEl = this.$(".select-tags-div"), treeEl = this.$("#tree-" + options.vid), _eventName = "click.dropdown_" + options.vid, that = this;
+            if (!options.disabled && !this.isLoaded) {
+                var handler = function handler(event) {
+                    $("body, .modal-body").trigger("click");
+                    event.stopPropagation();
+                    var directionResp = Lego.UI.Util.getDirection(trigger, treeEl);
+                    options.direction = directionResp._y || "bottom";
+                    that.show();
+                    if (options.eventName == "hover") {
+                        trigger.mouseleave(function() {
                             that.close();
                         });
-                        trigger.off(_eventName).on(_eventName, handler);
-                    } else {
-                        trigger[options.eventName](handler);
                     }
-                })();
+                };
+                if (tagsDivEl.length) trigger = tagsDivEl;
+                if (options.eventName == "click") {
+                    $("body, .modal-body").off(_eventName).on(_eventName, function() {
+                        that.close();
+                    });
+                    trigger.off(_eventName).on(_eventName, handler);
+                } else {
+                    trigger[options.eventName](handler);
+                }
+                this.isLoaded = true;
             }
-            this.$el.find(".dropdown-menu").css({
-                width: options.dropdownWidth || "100%",
-                height: options.dropdownHeight || "auto"
-            });
         }
     }, {
         key: "show",
         value: function show(event) {
-            this.$el.find(".dropdown-menu").slideDown("fast");
+            this.$(".dropdown-menu").slideDown("fast");
         }
     }, {
         key: "close",
         value: function close(event) {
-            this.$el.find(".dropdown-menu").slideUp("fast");
+            this.$(".dropdown-menu").slideUp("fast");
         }
     }, {
         key: "clickItemClose",
