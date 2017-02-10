@@ -79,6 +79,50 @@ class HomeView extends Lego.UI.Baseview {
                 activeKey: 'nav2',
                 animate: 'fade',
                 data: data
+            }, {
+                el: '#btngroup7',
+                onClick(self, item, event){
+                    console.warn('点击了按钮组7', item);
+                },
+                data: [{
+                    text: '按钮一'
+                }, {
+                    text: '按钮二'
+                }, {
+                    text: '按钮三'
+                }]
+            }, {
+                el: '#btngroup8',
+                size: 'small',
+                onClick(self, item, event){
+                    console.warn('点击了按钮组8', item);
+                },
+                data: [{
+                    text: '按钮一',
+                    type: 'primary'
+                }, {
+                    text: '按钮二',
+                    type: 'primary'
+                }, {
+                    text: '按钮三',
+                    type: 'primary'
+                }]
+            }, {
+                el: '#dropdownbtn9',
+                btnType: 'primary',
+                onClick(self, item, event){
+                    console.warn('点击了下拉按钮组9', item);
+                },
+                data: [{
+                    key: 'a1',
+                    value: '按钮一'
+                }, {
+                    key: 'a2',
+                    value: '按钮二'
+                }, {
+                    key: 'a3',
+                    value: '按钮三'
+                }]
             }]
         };
         Object.assign(options, opts);
@@ -109,6 +153,22 @@ class HomeView extends Lego.UI.Baseview {
             </div>
             <div class="col-sm-6">
               <tabs id="tabs6"></tabs>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 20px;">
+            <div class="col-sm-6">
+              <btngroup id="btngroup7"></btngroup>
+            </div>
+            <div class="col-sm-6">
+              <btngroup id="btngroup8"></btngroup>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 20px;">
+            <div class="col-sm-6">
+              <dropdownbtn id="dropdownbtn9"></dropdownbtn>
+            </div>
+            <div class="col-sm-6">
+              <dropdownbtn id="dropdownbtn10"></dropdownbtn>
             </div>
           </div>
         </div>

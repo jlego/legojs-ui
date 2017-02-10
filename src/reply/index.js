@@ -7,7 +7,7 @@ import './asset/index.scss';
 import Facial from '../facial/index';
 import Popover from '../popover/index';
 import Upload from '../upload/index';
-import Dropdown from '../dropdown/index';
+import Dropdownbtn from '../dropdownbtn/index';
 
 class Reply extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -15,7 +15,7 @@ class Reply extends Lego.UI.Baseview {
             events: {
                 'focus .lego-reply-content': 'onFocus',
                 'blur .lego-reply-content': 'onblur',
-                'click .lego-reply-submit > button:not(.dropdown-toggle)': 'submit',
+                'click .lego-reply-submit': 'submit',
                 'click .lego-reply-annex': 'showUpload',
                 'click .popover-title i': 'showUpload',
                 'keydown .lego-reply-content': '_enterSearch'
@@ -25,12 +25,14 @@ class Reply extends Lego.UI.Baseview {
             contentHeight: 70,  //输入框高度
             showFacial: true,   //显示表情
             showUpload: true,   //显示上传文件
-            uploadDataSource: null,    //上传文件token数据源
+            uploadToken: null,    //上传文件token数据源
             iconsUrl: '',
             submitText: '回复',   //
+            submitType: 'primary',
+            maxTextLength: 500,  //回复内容最大长度
             onSubmit(){},  //事件回调
-            onUploaded(){},
-            dropdown: false, //下拉菜单
+            onUploadComplete(){},
+            dropdownbtn: false, //下拉菜单
             components: []
         };
         Object.assign(options, opts);
@@ -42,18 +44,23 @@ class Reply extends Lego.UI.Baseview {
                 iconsUrl: options.iconsUrl
             });
         }
-        if(options.dropdown){
-            options.components.push(Object.assign(typeof options.dropdown == 'object' ? options.dropdown : {}, {
-                el: '#dropdown-' + options.vid,
-                trigger: '#reply-btn-' + options.vid,
-                style: {
-                    minWidth: 'auto'
+        if(options.dropdownbtn){
+            options.components.push(Object.assign(typeof options.dropdownbtn == 'object' ? options.dropdownbtn : {}, {
+                el: '#dropdownbtn-' + options.vid,
+                text: options.submitText,
+                btnType: options.submitType,
+                className: 'float-right',
+                onClick(self, item, event){
+                    let parentView = self.options.context;
+                    if(parentView){
+                        parentView.submit();
+                    }
                 }
             }));
         }
         super(options);
+        this.uploadView = null;
         this.placeholder = '<span class="lego-reply-ph">' + this.options.placeholder + '</span>';
-        this.isloaded = false;
     }
     render() {
         const options = this.options;
@@ -64,10 +71,11 @@ class Reply extends Lego.UI.Baseview {
             ` : hx`
             <textarea placeholder="${val(options.placeholder)}" class="form-control lego-reply-content" id="content-${options.vid}"></textarea>
             `}
-            <div class="btn-group lego-reply-submit" id="reply-btn-${options.vid}">
-                <button type="button" class="btn btn-primary ${options.dropdown ? 'dropdown-toggle' : ''}">${val(options.submitText)}</button>
-                ${options.dropdown ? hx`<dropdown id="dropdown-${options.vid}"></dropdown>` : ''}
-            </div>
+            ${options.dropdownbtn ? hx`
+            <dropdownbtn id="dropdownbtn-${options.vid}"></dropdownbtn>
+            ` : hx`
+            <button type="button" class="btn btn-${options.submitType} lego-reply-submit">${val(options.submitText)}</button>
+            `}
             <div class="lego-reply-toolbar">
                 ${options.showFacial ? hx`<facial id="facial-${options.vid}"></facial>` : ''}
                 ${options.showUpload ? hx`<div id="annex-${options.vid}" class="lego-reply-annex"><i class="anticon anticon-paper-clip"></i></div>` : ''}
@@ -81,7 +89,7 @@ class Reply extends Lego.UI.Baseview {
         return vDom;
     }
     renderAfter(){
-        this.$el.find('.lego-reply-content').attr('contenteditable', 'true').height(this.options.contentHeight);
+        this.$('.lego-reply-content').attr('contenteditable', 'true').height(this.options.contentHeight);
     }
     onFocus(event){
         const target = $(event.currentTarget);
@@ -93,18 +101,26 @@ class Reply extends Lego.UI.Baseview {
         if(!target.text() && !target.find('img').length && options.inputType == 'div') target.html(this.placeholder);
     }
     showUpload(event){
-        this.$el.find('.popover').toggleClass('show');
-        let options = this.options;
-        if(options.showUpload && !this.isloaded){
-            Lego.create(Upload, {
-                el: '#upload-' + options.vid,
-                dataSource: options.uploadDataSource,
-                context: this,
-                onComplete(self, result) {
-                    if(typeof options.onUploaded == 'function') options.onUploaded(self, result);
-                }
-            });
-            this.isloaded = true;
+        this.$('.popover').toggleClass('show');
+        let options = this.options,
+            that = this;
+        if(options.showUpload && this.$('.popover').hasClass('show')){
+            if(typeof options.uploadToken == 'string'){
+                this.uploadView = Lego.create(Upload, {
+                    el: '#upload-' + options.vid,
+                    token: options.uploadToken,
+                    context: this,
+                    onComplete: options.onUploadComplete
+                });
+            }
+            if(typeof options.uploadToken == 'object'){
+                this.uploadView = Lego.create(Upload, {
+                    el: '#upload-' + options.vid,
+                    dataSource: options.uploadToken,
+                    context: that,
+                    onComplete: options.onUploadComplete
+                });
+            }
         }
     }
     _enterSearch(event) {
@@ -119,9 +135,19 @@ class Reply extends Lego.UI.Baseview {
             }
         }
     }
+    // 上传的值
+    getUploadIds(){
+        if(this.uploadView) return this.uploadView.getValue();
+        return [];
+    }
+    // 提交回复内容
     submit(event){
         if(event) event.stopPropagation();
-        const contentEl = this.$el.find('.lego-reply-content');
+        const contentEl = this.$('.lego-reply-content');
+        if(contentEl.val().length > this.options.maxTextLength) {
+            Lego.UI.message('warning', '提交内容不能大于500个字符');
+            return;
+        }
         let contentHtml = this.options.inputType == 'div' ? contentEl.html() : contentEl.val();
         contentHtml = this.options.inputType == 'div' ? Lego.UI.Util.faceToText(contentHtml, this.options.iconsUrl) : contentHtml;
         if(this.options.inputType == 'div'){
@@ -130,7 +156,10 @@ class Reply extends Lego.UI.Baseview {
             contentEl.val('');
         }
         contentHtml = contentHtml == this.placeholder ? '' : contentHtml;
-        if(typeof this.options.onSubmit == 'function') this.options.onSubmit(this, contentHtml);
+        let uploadIds = Array.from(this.getUploadIds());
+        if(this.uploadView) this.uploadView.clear();
+        this.$('.popover').removeClass('show');
+        if(typeof this.options.onSubmit == 'function') this.options.onSubmit(this, contentHtml, uploadIds);
     }
 }
 Lego.components('reply', Reply);

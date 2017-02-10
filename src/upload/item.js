@@ -47,7 +47,15 @@ class UploadItem extends UploadBase {
             onComplete() {},
             onFail() {},
             onCancel() {},
-            // onRemove() {}
+            onRemove() {},
+            components: [{
+                el: '#progressbar_' + opts.vid,
+                showInfo: false,
+                status: 'success',
+                onComplete(self){
+                    self.options.percent = 100;
+                }
+            }]
         };
         Object.assign(options, opts);
         super(options);
@@ -63,7 +71,7 @@ class UploadItem extends UploadBase {
             <div class="media-body">
                 <h4 class="media-heading">
                     <div class="right">
-                        <a href="javascript:;" class="lego-cancelbtn"><i class="anticon anticon-cross float-xs-right close"></i></a>
+                        <a href="javascript:;" class="lego-cancelbtn" id="${val(options.file._id)}"><i class="anticon anticon-cross float-xs-right close"></i></a>
                     </div>
                     ${val(options.file.name)}
                 </h4>
@@ -73,7 +81,7 @@ class UploadItem extends UploadBase {
                 <h4 class="media-heading">
                     ${!options.readonly && options.percent == 100 ? hx`
                     <div class="right">
-                        <a href="javascript:;" class="lego-closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>
+                        <a href="javascript:;" class="lego-closebtn" id="${val(options.file._id)}"><i class="anticon anticon-cross float-xs-right close"></i></a>
                     </div>
                     ` : ''}
                     ${val(options.file.name)}
@@ -91,37 +99,24 @@ class UploadItem extends UploadBase {
         `;
         return vDom;
     }
-    renderAfter(){
-        const options = this.options;
-        if(options.percent < 100){
-            this.progressbar = Lego.create(Progressbar, {
-                el: this.$('#progressbar_' + options.vid),
-                showInfo: false,
-                status: 'success',
-                onComplete(){
-                    options.percent = 100;
-                }
-            });
-        }
-    }
     // 取消上传
     onCancel(event) {
         event.stopPropagation();
+        const target = $(event.target),
+            _id = target.parent().attr('id');
         this.cancel();
+        if(typeof this.options.onCancel == 'function') this.options.onCancel('cancel', _id);
         this.$el.slideUp("normal", () => {
-            this.remove();
+            this.$el.remove();
         });
     }
     onRemove(event){
         event.stopPropagation();
-        const target = $(event.currentTarget),
-            id = target.data('id'),
-            hash = target.data('hash');
-        if(this.options.onRemove){
-            return this.options.onRemove(id, hash);
-        }
+        const target = $(event.target),
+            _id = target.parent().attr('id');
+        if(typeof this.options.onRemove == 'function') this.options.onRemove('remove', _id);
         this.$el.slideUp("normal", () => {
-            this.remove();
+            this.$el.remove();
         });
     }
 }

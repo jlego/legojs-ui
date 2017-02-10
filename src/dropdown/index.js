@@ -8,7 +8,7 @@ class Dropdown extends Lego.UI.Baseview {
             },
             disabled: false,
             eventName: 'click', //['click'] or ['hover']
-            trigger: '', //触发对象
+            container: '', //触发对象
             direction: '',  //显示方向
             activeKey: '',
             clickAndClose: true,  //点击后关闭
@@ -62,12 +62,12 @@ class Dropdown extends Lego.UI.Baseview {
     }
     renderAfter(){
         const that = this;
-        this.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
+        this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
         if(!this.options.disabled){
             function handler(event){
                 $('body, .modal-body').trigger('click');
                 event.stopPropagation();
-                const directionResp = Lego.UI.Util.getDirection(that.trigger, that.$el);
+                const directionResp = Lego.UI.Util.getDirection(that.container, that.$el);
                 that.options.direction = directionResp._y || 'bottom';
                 that.show();
             }
@@ -76,9 +76,9 @@ class Dropdown extends Lego.UI.Baseview {
                 $('body, .modal-body').off(_eventName).on(_eventName, function(){
                     that.close();
                 });
-                this.trigger.off(_eventName).on(_eventName, handler);
+                this.container.off(_eventName).on(_eventName, handler);
             }else{
-                this.trigger.mouseenter(handler).mouseleave(function(){
+                this.container.mouseenter(handler).mouseleave(function(){
                     that.close();
                 });
             }

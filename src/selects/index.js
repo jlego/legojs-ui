@@ -35,7 +35,7 @@ class Selects extends Lego.UI.Baseview {
             dataSource: null,
             components: [{
                 el: '#dropdown-' + opts.vid,
-                trigger: '#select-' + opts.vid,
+                container: '#select-' + opts.vid,
                 eventName: opts.eventName || 'click',
                 disabled: opts.disabled || false,
                 style: Object.assign({

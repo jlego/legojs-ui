@@ -34,7 +34,7 @@
 .lego-reply .popover{
     top: 100%;
     left: 14px;
-    max-width: 550px;
+    max-width: 400px;
     margin-top: 0px;
     width: 100%;
     box-shadow: 0 2px 4px rgba(0,0,0,.2);
@@ -51,3 +51,6 @@
 .lego-reply .popover.popover-bottom:before {
     left: 50px;
 }
+// .lego-reply .dropdown-menu{
+//     min-width: auto !important;
+// }

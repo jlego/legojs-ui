@@ -79,7 +79,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             },
             disabled: false,
             eventName: "click",
-            trigger: "",
+            container: "",
             direction: "",
             activeKey: "",
             clickAndClose: true,
@@ -119,12 +119,12 @@ var Dropdown = function(_Lego$UI$Baseview) {
         key: "renderAfter",
         value: function renderAfter() {
             var that = this;
-            this.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
+            this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
             if (!this.options.disabled) {
                 var handler = function handler(event) {
                     $("body, .modal-body").trigger("click");
                     event.stopPropagation();
-                    var directionResp = Lego.UI.Util.getDirection(that.trigger, that.$el);
+                    var directionResp = Lego.UI.Util.getDirection(that.container, that.$el);
                     that.options.direction = directionResp._y || "bottom";
                     that.show();
                 };
@@ -133,9 +133,9 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     $("body, .modal-body").off(_eventName).on(_eventName, function() {
                         that.close();
                     });
-                    this.trigger.off(_eventName).on(_eventName, handler);
+                    this.container.off(_eventName).on(_eventName, handler);
                 } else {
-                    this.trigger.mouseenter(handler).mouseleave(function() {
+                    this.container.mouseenter(handler).mouseleave(function() {
                         that.close();
                     });
                 }
@@ -256,7 +256,7 @@ var Search = function(_Lego$UI$Baseview) {
             onSearch: function onSearch() {},
             components: [ {
                 el: "#dropdown-" + opts.vid,
-                trigger: "#select-" + opts.vid,
+                container: "#select-" + opts.vid,
                 data: opts.data,
                 onChange: function onChange(self, model) {
                     this.context.options.activeKey = model.key;

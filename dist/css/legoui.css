@@ -8709,7 +8709,13 @@ pre p {
   font-family: 'SimSun'; }
 
 .noborder {
-  border: none !important; }
+  border: none !important;
+  padding: 5px; }
+
+.noborder:hover,
+.noborder:focus {
+  border: 1px solid #ddd !important;
+  padding: 4px !important; }
 
 .markdown {
   color: #666;
@@ -9899,7 +9905,7 @@ tr.lego-table-expanded-row:hover {
   z-index: 1000;
   display: none;
   float: left;
-  min-width: auto;
+  min-width: 160px;
   padding: 5px 0;
   margin: 0px 0 0;
   list-style: none;
@@ -9923,7 +9929,7 @@ tr.lego-table-expanded-row:hover {
 
 .dropdown-menu > li > a {
   display: block;
-  padding: 3px 20px;
+  padding: 3px 15px;
   clear: both;
   font-weight: normal;
   line-height: 1.42857143;
@@ -11166,7 +11172,7 @@ form button[type="submit"] {
 .lego-reply .popover {
   top: 100%;
   left: 14px;
-  max-width: 550px;
+  max-width: 400px;
   margin-top: 0px;
   width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); }
@@ -11182,3 +11188,6 @@ form button[type="submit"] {
 .lego-reply .popover.popover-bottom:after,
 .lego-reply .popover.popover-bottom:before {
   left: 50px; }
+
+.lego-reply .dropdown-menu {
+  min-width: auto !important; }

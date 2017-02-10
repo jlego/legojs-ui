@@ -1,5 +1,5 @@
 /**
- * navs.js v0.2.9
+ * dropdownbtn.js v0.2.9
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -24,7 +24,7 @@ var _createClass$1 = function() {
 
 var _templateObject$1 = _taggedTemplateLiteral$1([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
 
-var _templateObject2$1 = _taggedTemplateLiteral$1([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ]);
+var _templateObject2 = _taggedTemplateLiteral$1([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ]);
 
 var _templateObject3 = _taggedTemplateLiteral$1([ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ]);
 
@@ -99,7 +99,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     return hx(_templateObject$1);
                 } else {
                     if (!item.children) {
-                        return hx(_templateObject2$1, val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
+                        return hx(_templateObject2, val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
                     } else {
                         return loopNav(item);
                     }
@@ -199,9 +199,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n            <li class="nav-item ', " ", '">\n                <a class="nav-link ', " ", " ", '" href="', '" id="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="nav-item ', " ", '">\n                <a class="nav-link ', " ", " ", '" href="', '" id="', '">', "</a>\n                ", "\n            </li>\n            " ]);
-
-var _templateObject2 = _taggedTemplateLiteral([ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="btn-group ', " ", '">\n            <button type="button" class="btn btn-', ' dropdownbtn">', '</button>\n            <button type="button" class="btn btn-', ' dropdown-toggle dropdown-toggle-split">\n                <span class="sr-only">Toggle Dropdown</span>\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n        </div>\n        ' ], [ '\n        <div class="btn-group ', " ", '">\n            <button type="button" class="btn btn-', ' dropdownbtn">', '</button>\n            <button type="button" class="btn btn-', ' dropdown-toggle dropdown-toggle-split">\n                <span class="sr-only">Toggle Dropdown</span>\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n        </div>\n        ' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -239,147 +237,67 @@ function _inherits(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Navs = function(_Lego$UI$Baseview) {
-    _inherits(Navs, _Lego$UI$Baseview);
-    function Navs() {
+var Dropdownbtn = function(_Lego$UI$Baseview) {
+    _inherits(Dropdownbtn, _Lego$UI$Baseview);
+    function Dropdownbtn() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck(this, Navs);
+        _classCallCheck(this, Dropdownbtn);
         var options = {
             events: {
-                "mouseover .nav-item.dropdown": "overItem",
-                "click .dropdown > a": "clickNav",
-                "click .dropdown-menu a:not(.disabled)": "clickSubItem",
-                "click .nav-item:not(.dropdown) > a": "clickItem"
+                "click button.dropdownbtn": "onClick"
             },
-            eventName: "click",
-            type: "base",
-            activeKey: "",
-            activeValue: "",
+            text: "button name",
+            btnType: "secondary",
+            size: "default",
             direction: "",
-            closeAllAble: true,
+            activeKey: "",
+            dropdownOption: {},
             onClick: function onClick() {},
-            data: []
+            onChange: function onChange() {},
+            components: function components(opts) {
+                return [ $.extend(opts.dropdownOption, {
+                    el: "#dropdown-" + opts.vid,
+                    container: "[view-id=" + opts.vid + "]",
+                    direction: opts.direction,
+                    activeKey: opts.activeKey,
+                    data: opts.data,
+                    onChange: function onChange(self, item, event) {
+                        var theView = self.options.context;
+                        theView.activeItem = item;
+                        if (typeof theView.options.onChange == "function") theView.options.onChange(theView, item);
+                    }
+                }) ];
+            }
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn(this, (Navs.__proto__ || Object.getPrototypeOf(Navs)).call(this, options));
+        var _this = _possibleConstructorReturn(this, (Dropdownbtn.__proto__ || Object.getPrototypeOf(Dropdownbtn)).call(this, options));
+        _this.activeItem = {};
+        return _this;
     }
-    _createClass(Navs, [ {
+    _createClass(Dropdownbtn, [ {
         key: "render",
         value: function render() {
             var options = this.options;
-            function makeItem(item, i) {
-                var itemDom = hx(_templateObject, item.children ? "dropdown" : "", item.open ? "open" : "", item.key === options.activeKey ? "active" : "", item.disabled ? "disabled" : "", item.children ? "dropdown-toggle" : "", item.href ? item.href : "javascript:;", item.key ? item.key : "nav-item-" + i, val(item.value), Array.isArray(item.children) ? Lego.create(Dropdown, {
-                    direction: options.direction,
-                    open: item.open,
-                    data: item.children
-                }).render() : "");
-                return itemDom;
-            }
-            var vDom = hx(_templateObject2, options.type === "inline" ? "nav-inline" : options.type === "tabs" ? "nav-tabs" : options.type === "pills" ? "nav-pills" : "", options.type === "pills-stacked" ? "nav-pills nav-stacked" : "", options.data.map(function(item, i) {
-                return makeItem(item, i);
-            }));
+            var vDom = hx(_templateObject, options.size == "large" ? "btn-group-lg" : options.size == "small" ? "btn-group-sm" : "", options.direction == "up" ? "dropup" : "", options.btnType, val(options.html || options.text), options.btnType, options.vid);
             return vDom;
         }
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var that = this;
-            if (this.options.closeAllAble) {
-                $("body").click(function() {
-                    that.closeAll();
-                });
-            }
-        }
-    }, {
-        key: "showAll",
-        value: function showAll() {
-            this.$(".dropdown-menu").slideDown("fast");
-        }
-    }, {
-        key: "closeAll",
-        value: function closeAll() {
-            this.$(".dropdown-menu").slideUp("fast", function() {
-                $(this).parent().removeClass("open");
+            this.$("button").each(function(index, item) {
+                $(item).data("index", index);
             });
         }
     }, {
-        key: "overItem",
-        value: function overItem(event, target) {
-            var targetEl = $(event.currentTarget), key = targetEl.children("a").attr("id");
-            this.activeKey = key;
-        }
-    }, {
-        key: "clickNav",
-        value: function clickNav(event, target) {
+        key: "onClick",
+        value: function onClick(event) {
             event.stopPropagation();
-            var targetEl = $(event.currentTarget);
-            var dropdownEl = targetEl.next(".dropdown-menu");
-            var directionResp = Lego.UI.Util.getDirection(targetEl, dropdownEl);
-            this.options.direction = directionResp._y || "bottom";
-            dropdownEl.slideToggle("fast", function() {
-                if ($(this).css("display") == "none") {
-                    $(this).parent().removeClass("open");
-                } else {
-                    $(this).parent().addClass("open");
-                }
-            });
-            if (!targetEl.hasClass("dropdown-toggle")) {
-                this.clickItem(event);
-            }
-        }
-    }, {
-        key: "clickItem",
-        value: function clickItem(event, target) {
-            event.stopPropagation();
-            var targetEl = $(event.currentTarget), key = targetEl.attr("id");
-            if (!targetEl.hasClass("disabled")) {
-                this.options.activeKey = key;
-                var model = this.options.data.find(function(item) {
-                    return item.key === key;
-                });
-                if (typeof this.options.onClick === "function") {
-                    this.options.onClick(this, model || {});
-                }
-            }
-        }
-    }, {
-        key: "clickSubItem",
-        value: function clickSubItem(event, target) {
-            var _this2 = this;
-            event.stopPropagation();
-            this.options.activeKey = this.activeKey || this.options.activeKey;
-            var targetEl = $(event.currentTarget), key = targetEl.attr("id"), model = this.options.data.find(function(item) {
-                return item.key === _this2.options.activeKey;
-            });
-            var subModel = {};
-            if (model) {
-                if (model.children) {
-                    (function() {
-                        var findModel = function findModel(data) {
-                            var result = data.find(function(item) {
-                                return item.key === key;
-                            });
-                            if (!result) {
-                                data.forEach(function(item) {
-                                    if (item.children) {
-                                        result = findModel(item.children);
-                                    }
-                                });
-                            }
-                            return result || {};
-                        };
-                        subModel = findModel(model.children);
-                    })();
-                }
-            }
-            this.$(".dropdown-menu a").removeClass("active");
-            this.$("#" + key).addClass("active");
-            if (typeof this.options.onClick === "function") this.options.onClick(this, subModel);
+            if (typeof this.options.onClick === "function") this.options.onClick(this, this.activeItem, event);
         }
     } ]);
-    return Navs;
+    return Dropdownbtn;
 }(Lego.UI.Baseview);
 
-Lego.components("navs", Navs);
+Lego.components("dropdownbtn", Dropdownbtn);
 
-module.exports = Navs;
+module.exports = Dropdownbtn;

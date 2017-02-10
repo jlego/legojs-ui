@@ -20,9 +20,8 @@ class Search extends Lego.UI.Baseview {
             onSearch(){}, //点击的回调
             components: [{
                 el: '#dropdown-' + opts.vid,
-                trigger: '#select-' + opts.vid,
+                container: '#select-' + opts.vid,
                 data: opts.data,
-                // eventName: 'click',
                 onChange(self, model){
                     this.context.options.activeKey = model.key;
                     this.context.options.activeValue = model.value;

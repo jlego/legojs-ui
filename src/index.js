@@ -4,9 +4,12 @@ import { Baseview } from "./common/index";
 import Alert from "./alert/index";
 import Badge from "./badge/index";
 import Buttons from "./buttons/index";
+import Btngroup from "./btngroup/index";
+import Btntoolbar from "./btntoolbar/index";
 import Tables from "./tables/index";
 import Pagination from "./pagination/index";
 import Dropdown from "./dropdown/index";
+import Dropdownbtn from "./dropdownbtn/index";
 import Modal from "./modal/index";
 import Navs from "./navs/index";
 import Tabs from "./tabs/index";
@@ -36,9 +39,12 @@ Lego.components({
 	alert: Alert,
 	badge: Badge,
 	buttons: Buttons,
+	btngroup: Btngroup,
+	btntoolbar: Btntoolbar,
 	tables: Tables,
 	pagination: Pagination,
 	dropdown: Dropdown,
+	dropdownbtn: Dropdownbtn,
 	modal: Modal,
 	navs: Navs,
 	tabs: Tabs,

@@ -1231,13 +1231,12 @@ var UploadView = function(_Lego$View) {
             var _this2 = this;
             var taking = 0, file = this.options.file, params = this.options.params;
             this.xhr.crossDomain = true;
-            file.id = file.id || Lego.randomKey(32);
-            var progressbar = this["progressbar_" + this.options.vid];
+            var progressbar = Lego.getView(this.$("#progressbar_" + this.options.vid));
             this.form = new FormData();
             this.form.append("file", file);
-            if (!Object.values(params).length) {
-                for (var paramOne in params) {
-                    this.form.append(paramOne, params[paramOne]);
+            if (!Lego.isEmptyObject(params)) {
+                for (var key in params) {
+                    this.form.append(key, params[key]);
                 }
             }
             this.xhr.upload.addEventListener("progress", function(event) {
@@ -1253,8 +1252,6 @@ var UploadView = function(_Lego$View) {
                     var percent = Math.round(event.loaded * 100 / event.total);
                     if (progressbar) {
                         progressbar.options.percent = percent;
-                    } else {
-                        _this2.options.percent = percent;
                     }
                 }
                 if (typeof _this2.options.onProgress == "function") {
@@ -1269,15 +1266,8 @@ var UploadView = function(_Lego$View) {
             this.xhr.addEventListener("load", function(event) {
                 if (_this2.xhr.readyState == 4 && _this2.xhr.status == 200 && _this2.xhr.responseText != "") {
                     var resp = JSON.parse(_this2.xhr.response);
-                    Object.assign(_this2.options.file, resp);
-                    if (_this2.options.params.key) {
-                        _this2.options.file.url = _this2.options.downloadUri + _this2.options.key;
-                    }
-                    if (progressbar) {
-                        progressbar.options.percent = 100;
-                    } else {
-                        _this2.options.percent = 100;
-                    }
+                    resp._id = file._id;
+                    _this2.options.percent = 100;
                     if (typeof _this2.options.onComplete == "function") {
                         _this2.options.onComplete(_this2, resp);
                     }
@@ -1306,8 +1296,8 @@ var UploadView = function(_Lego$View) {
                 _this2.remove();
             }, false);
             this.xhr.open("POST", this.options.uploadUri, true);
-            for (var key in this.options.headers) {
-                this.xhr.setRequestHeader(key, this.options.headers[key]);
+            for (var _key in this.options.headers) {
+                this.xhr.setRequestHeader(_key, this.options.headers[_key]);
             }
         }
     }, {
@@ -1442,11 +1432,11 @@ var _createClass$6 = function() {
 
 var _templateObject$3 = _taggedTemplateLiteral$3([ '\n        <div class="media lego-upload-item">\n            <div class="media-left">\n                <i class="anticon anticon-', '"></i>\n            </div>\n            ', "\n        </div>\n        " ], [ '\n        <div class="media lego-upload-item">\n            <div class="media-left">\n                <i class="anticon anticon-', '"></i>\n            </div>\n            ', "\n        </div>\n        " ]);
 
-var _templateObject2$3 = _taggedTemplateLiteral$3([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="lego-cancelbtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="lego-cancelbtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ]);
+var _templateObject2$3 = _taggedTemplateLiteral$3([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="lego-cancelbtn" id="', '"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="lego-cancelbtn" id="', '"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ]);
 
 var _templateObject3$3 = _taggedTemplateLiteral$3([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    ', "\n                    ", "\n                </h4>\n                <small>\n                    <cite>", '</cite>\n                    <time>\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </time>\n                </small>\n            </div>\n            ' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    ', "\n                    ", "\n                </h4>\n                <small>\n                    <cite>", '</cite>\n                    <time>\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </time>\n                </small>\n            </div>\n            ' ]);
 
-var _templateObject4$2 = _taggedTemplateLiteral$3([ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ], [ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ]);
+var _templateObject4$2 = _taggedTemplateLiteral$3([ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn" id="', '"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ], [ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn" id="', '"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ]);
 
 function _taggedTemplateLiteral$3(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -1505,7 +1495,16 @@ var UploadItem = function(_UploadBase) {
             onProgress: function onProgress() {},
             onComplete: function onComplete() {},
             onFail: function onFail() {},
-            onCancel: function onCancel() {}
+            onCancel: function onCancel() {},
+            onRemove: function onRemove() {},
+            components: [ {
+                el: "#progressbar_" + opts.vid,
+                showInfo: false,
+                status: "success",
+                onComplete: function onComplete(self) {
+                    self.options.percent = 100;
+                }
+            } ]
         };
         Object.assign(options, opts);
         return _possibleConstructorReturn$4(this, (UploadItem.__proto__ || Object.getPrototypeOf(UploadItem)).call(this, options));
@@ -1514,32 +1513,19 @@ var UploadItem = function(_UploadBase) {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject$3, Lego.UI.Util.getFileIcon(options.file.name), options.percent < 100 ? hx(_templateObject2$3, val(options.file.name), "progressbar_" + options.vid) : hx(_templateObject3$3, !options.readonly && options.percent == 100 ? hx(_templateObject4$2) : "", val(options.file.name), Lego.UI.Util.convertByteUnit(options.file.size), val(options.file.url), val(options.file.name)));
+            var vDom = hx(_templateObject$3, Lego.UI.Util.getFileIcon(options.file.name), options.percent < 100 ? hx(_templateObject2$3, val(options.file._id), val(options.file.name), "progressbar_" + options.vid) : hx(_templateObject3$3, !options.readonly && options.percent == 100 ? hx(_templateObject4$2, val(options.file._id)) : "", val(options.file.name), Lego.UI.Util.convertByteUnit(options.file.size), val(options.file.url), val(options.file.name)));
             return vDom;
-        }
-    }, {
-        key: "renderAfter",
-        value: function renderAfter() {
-            var options = this.options;
-            if (options.percent < 100) {
-                this.progressbar = Lego.create(Progressbar, {
-                    el: this.$("#progressbar_" + options.vid),
-                    showInfo: false,
-                    status: "success",
-                    onComplete: function onComplete() {
-                        options.percent = 100;
-                    }
-                });
-            }
         }
     }, {
         key: "onCancel",
         value: function onCancel(event) {
             var _this2 = this;
             event.stopPropagation();
+            var target = $(event.target), _id = target.parent().attr("id");
             this.cancel();
+            if (typeof this.options.onCancel == "function") this.options.onCancel("cancel", _id);
             this.$el.slideUp("normal", function() {
-                _this2.remove();
+                _this2.$el.remove();
             });
         }
     }, {
@@ -1547,12 +1533,10 @@ var UploadItem = function(_UploadBase) {
         value: function onRemove(event) {
             var _this3 = this;
             event.stopPropagation();
-            var target = $(event.currentTarget), id = target.data("id"), hash = target.data("hash");
-            if (this.options.onRemove) {
-                return this.options.onRemove(id, hash);
-            }
+            var target = $(event.target), _id = target.parent().attr("id");
+            if (typeof this.options.onRemove == "function") this.options.onRemove("remove", _id);
             this.$el.slideUp("normal", function() {
-                _this3.remove();
+                _this3.$el.remove();
             });
         }
     } ]);
@@ -1659,6 +1643,7 @@ var Upload = function(_Lego$UI$Baseview) {
             onProgress: function onProgress() {},
             onComplete: function onComplete() {},
             onFail: function onFail() {},
+            onRemove: function onRemove() {},
             onCancel: function onCancel() {}
         };
         Object.assign(options, opts);
@@ -1672,10 +1657,11 @@ var Upload = function(_Lego$UI$Baseview) {
             });
         }
         var _this = _possibleConstructorReturn$3(this, (Upload.__proto__ || Object.getPrototypeOf(Upload)).call(this, options));
-        _this.reset();
-        _this.$(".fileInput").on("change", function(event) {
+        _this.fileList = [];
+        _this.clear();
+        _this.$(".lego-fileInput").on("change", function(event) {
             var target = $(event.currentTarget)[0];
-            _this.uploadInit(target.files);
+            _this.uploadInit(target.files, target);
         });
         if (_this.options.value.length) {
             _this.options.value.forEach(function(item, index) {
@@ -1689,29 +1675,34 @@ var Upload = function(_Lego$UI$Baseview) {
         value: function render() {
             var options = this.options;
             var vDom = "";
-            vDom = hx(_templateObject$2, val(options.type), !options.readonly ? hx(_templateObject2$2, options.disabled ? "disabled" : "", val(options.buttonText)) : "", this.getValue(), val(options.name), val(options.accept), options.showUploadList ? hx(_templateObject3$2) : "");
+            vDom = hx(_templateObject$2, val(options.type), !options.readonly ? hx(_templateObject2$2, options.disabled ? "disabled" : "", val(options.buttonText)) : "", this.getValue().join(","), val(options.name), val(options.accept), options.showUploadList ? hx(_templateObject3$2) : "");
             return options.template ? options.template : vDom;
         }
     }, {
         key: "uploadInit",
-        value: function uploadInit(files) {
+        value: function uploadInit(files, fileInput) {
+            var _this2 = this;
             var uploadFiles = [];
             if ((typeof files === "undefined" ? "undefined" : _typeof$3(files)) == "object" && files[0]) {
                 uploadFiles = Array.prototype.slice.call(files, 0);
             } else {
                 uploadFiles = [ files ];
             }
+            if (fileInput) fileInput.value = "";
             var that = this, options = this.options, filesCount = uploadFiles.length, maxFilesCount = options.maxFilesCount;
             if (filesCount) {
                 if (filesCount > maxFilesCount) {
                     Lego.UI.message("warning", "只能上传" + maxFilesCount + "张图片");
                     return;
                 }
-                this.fileList.concat(uploadFiles);
-                this.fileList = this.fileList.slice(0, maxFilesCount);
+                uploadFiles = uploadFiles.filter(function(file) {
+                    file._id = [ file.name, file.size, file.lastModified ].join("_");
+                    var hasFile = _this2.fileList.includes(file._id);
+                    if (!hasFile) _this2.fileList.push(file._id);
+                    return !hasFile;
+                });
                 if (typeof options.onAddFile == "function") options.onAddFile(this.fileList, uploadFiles);
                 uploadFiles.forEach(function(file, i) {
-                    file.id = Lego.randomKey(32);
                     if (Math.ceil(file.size / (1024 * 1024)) > parseInt(options.maxFileSize)) {
                         var msg = "发送文件最大为" + options.maxFileSize;
                         if (uploadFiles.length == 1) {
@@ -1721,10 +1712,9 @@ var Upload = function(_Lego$UI$Baseview) {
                         }
                         return;
                     }
-                    if (that.fileList.find(function(item) {
-                        return item == file;
-                    })) return;
+                    if (i > maxFilesCount - 1) return;
                     var uploadOption = {
+                        el: ".lego-upload-container",
                         uploadUri: options.uploadUri,
                         readonly: options.readonly,
                         isAuto: options.isAuto,
@@ -1734,36 +1724,23 @@ var Upload = function(_Lego$UI$Baseview) {
                         params: Object.assign({
                             key: options.key || that.getKey(file.name),
                             token: typeof options.data == "string" ? options.data : ""
-                        }, options.params),
+                        }, options.params || {}),
                         needToken: true,
                         onBegin: options.onBegin,
                         onProgress: options.onProgress,
-                        onComplete: options.onComplete || function(uploadObj, resp) {
-                            resp.url = Lego.config.downloadUri + resp.key;
-                            $.ajax({
-                                url: Lego.config.saveUri,
-                                type: "POST",
-                                dataType: "json",
-                                data: resp,
-                                success: function success(response) {
-                                    var theFile = options.value.find(function(item) {
-                                        return item.file.hash == response.data.hash;
-                                    });
-                                    if (theFile) {
-                                        if (response.data.id) theFile.id = response.data.id;
-                                    } else {
-                                        options.value.push({
-                                            file: response.data,
-                                            type: options.type,
-                                            percent: 100
-                                        });
-                                        that.refresh();
-                                    }
-                                },
-                                error: function error(err) {
-                                    debug.error(err);
-                                }
+                        onComplete: function onComplete(self, resp) {
+                            var hasFile = options.value.find(function(item) {
+                                return item.file.hash == resp.hash;
                             });
+                            if (!hasFile && options.value.length <= maxFilesCount) {
+                                resp.url = Lego.config.downloadUri + resp.key;
+                                options.value.push({
+                                    file: resp,
+                                    type: options.type,
+                                    percent: 100
+                                });
+                            }
+                            if (typeof options.onComplete == "function") options.onComplete(that, resp);
                         },
                         onFail: options.onFail,
                         onCancel: options.onCancel
@@ -1799,33 +1776,47 @@ var Upload = function(_Lego$UI$Baseview) {
     }, {
         key: "showItem",
         value: function showItem(uploadOption) {
-            var view = Lego.create(UploadItem, uploadOption);
-            var containerEl = this.$(".lego-upload-container");
-            if (containerEl.length && view) {
-                if (this.options.multiple) {
-                    containerEl.append(view.el);
+            var _this3 = this;
+            var callback = function callback(type, _id) {
+                _this3.fileList = _this3.fileList.filter(function(value) {
+                    return value !== _id;
+                });
+                if (type == "cancel") {
+                    if (typeof _this3.options.onCancel == "function") _this3.options.onCancel(_this3, _id);
                 } else {
-                    containerEl.html(view.el);
+                    _this3.options.value = _this3.options.value.filter(function(item) {
+                        return item.file._id !== _id;
+                    });
+                    if (typeof _this3.options.onRemove == "function") _this3.options.onRemove(_this3, _id);
                 }
-            }
-            view.renderAfter();
-            return view;
+                _this3.refresh();
+            };
+            uploadOption.context = this;
+            uploadOption.insert = this.options.multiple ? "append" : "html";
+            uploadOption.onCancel = callback;
+            uploadOption.onRemove = callback;
+            Lego.create(UploadItem, uploadOption);
         }
     }, {
         key: "getValue",
         value: function getValue() {
             var result = [];
             if (this.options.value.length) {
-                result = this.options.value.map(function(item) {
-                    return item.file.id;
+                var newArr = this.options.value.filter(function(item) {
+                    return !!item.id;
+                });
+                result = newArr.map(function(item) {
+                    return item.id;
                 });
             }
-            return result.join(",");
+            return result;
         }
     }, {
-        key: "reset",
-        value: function reset() {
-            this.fileList = [];
+        key: "clear",
+        value: function clear() {
+            this.fileList.length = 0;
+            this.options.value.length = 0;
+            return this;
         }
     } ]);
     return Upload;
@@ -1833,7 +1824,7 @@ var Upload = function(_Lego$UI$Baseview) {
 
 Lego.components("upload", Upload);
 
-var _createClass$9 = function() {
+var _createClass$10 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -1850,17 +1841,17 @@ var _createClass$9 = function() {
     };
 }();
 
-var _templateObject$5 = _taggedTemplateLiteral$5([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
+var _templateObject$6 = _taggedTemplateLiteral$6([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
 
-var _templateObject2$5 = _taggedTemplateLiteral$5([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ]);
+var _templateObject2$5 = _taggedTemplateLiteral$6([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ]);
 
-var _templateObject3$4 = _taggedTemplateLiteral$5([ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ]);
+var _templateObject3$4 = _taggedTemplateLiteral$6([ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ]);
 
-var _templateObject4$3 = _taggedTemplateLiteral$5([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
+var _templateObject4$3 = _taggedTemplateLiteral$6([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5$1 = _taggedTemplateLiteral$5([ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject5$1 = _taggedTemplateLiteral$6([ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
 
-function _taggedTemplateLiteral$5(strings, raw) {
+function _taggedTemplateLiteral$6(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
         raw: {
             value: Object.freeze(raw)
@@ -1868,20 +1859,20 @@ function _taggedTemplateLiteral$5(strings, raw) {
     }));
 }
 
-function _classCallCheck$9(instance, Constructor) {
+function _classCallCheck$10(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
 }
 
-function _possibleConstructorReturn$7(self, call) {
+function _possibleConstructorReturn$8(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$7(subClass, superClass) {
+function _inherits$8(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -1897,17 +1888,17 @@ function _inherits$7(subClass, superClass) {
 }
 
 var Dropdown = function(_Lego$UI$Baseview) {
-    _inherits$7(Dropdown, _Lego$UI$Baseview);
+    _inherits$8(Dropdown, _Lego$UI$Baseview);
     function Dropdown() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$9(this, Dropdown);
+        _classCallCheck$10(this, Dropdown);
         var options = {
             events: {
                 "click li:not(.dropdown)": "clickItem"
             },
             disabled: false,
             eventName: "click",
-            trigger: "",
+            container: "",
             direction: "",
             activeKey: "",
             clickAndClose: true,
@@ -1916,15 +1907,15 @@ var Dropdown = function(_Lego$UI$Baseview) {
             data: []
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$7(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
+        return _possibleConstructorReturn$8(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
     }
-    _createClass$9(Dropdown, [ {
+    _createClass$10(Dropdown, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
             function itemNav(item) {
                 if (item.divider) {
-                    return hx(_templateObject$5);
+                    return hx(_templateObject$6);
                 } else {
                     if (!item.children) {
                         return hx(_templateObject2$5, val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
@@ -1947,12 +1938,12 @@ var Dropdown = function(_Lego$UI$Baseview) {
         key: "renderAfter",
         value: function renderAfter() {
             var that = this;
-            this.trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
+            this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
             if (!this.options.disabled) {
                 var handler = function handler(event) {
                     $("body, .modal-body").trigger("click");
                     event.stopPropagation();
-                    var directionResp = Lego.UI.Util.getDirection(that.trigger, that.$el);
+                    var directionResp = Lego.UI.Util.getDirection(that.container, that.$el);
                     that.options.direction = directionResp._y || "bottom";
                     that.show();
                 };
@@ -1961,9 +1952,9 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     $("body, .modal-body").off(_eventName).on(_eventName, function() {
                         that.close();
                     });
-                    this.trigger.off(_eventName).on(_eventName, handler);
+                    this.container.off(_eventName).on(_eventName, handler);
                 } else {
-                    this.trigger.mouseenter(handler).mouseleave(function() {
+                    this.container.mouseenter(handler).mouseleave(function() {
                         that.close();
                     });
                 }
@@ -2010,6 +2001,124 @@ var Dropdown = function(_Lego$UI$Baseview) {
 
 Lego.components("dropdown", Dropdown);
 
+var _createClass$9 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+var _templateObject$5 = _taggedTemplateLiteral$5([ '\n        <div class="btn-group ', " ", '">\n            <button type="button" class="btn btn-', ' dropdownbtn">', '</button>\n            <button type="button" class="btn btn-', ' dropdown-toggle dropdown-toggle-split">\n                <span class="sr-only">Toggle Dropdown</span>\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n        </div>\n        ' ], [ '\n        <div class="btn-group ', " ", '">\n            <button type="button" class="btn btn-', ' dropdownbtn">', '</button>\n            <button type="button" class="btn btn-', ' dropdown-toggle dropdown-toggle-split">\n                <span class="sr-only">Toggle Dropdown</span>\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n        </div>\n        ' ]);
+
+function _taggedTemplateLiteral$5(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+}
+
+function _classCallCheck$9(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$7(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$7(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var Dropdownbtn = function(_Lego$UI$Baseview) {
+    _inherits$7(Dropdownbtn, _Lego$UI$Baseview);
+    function Dropdownbtn() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$9(this, Dropdownbtn);
+        var options = {
+            events: {
+                "click button.dropdownbtn": "onClick"
+            },
+            text: "button name",
+            btnType: "secondary",
+            size: "default",
+            direction: "",
+            activeKey: "",
+            dropdownOption: {},
+            onClick: function onClick() {},
+            onChange: function onChange() {},
+            components: function components(opts) {
+                return [ $.extend(opts.dropdownOption, {
+                    el: "#dropdown-" + opts.vid,
+                    container: "[view-id=" + opts.vid + "]",
+                    direction: opts.direction,
+                    activeKey: opts.activeKey,
+                    data: opts.data,
+                    onChange: function onChange(self, item, event) {
+                        var theView = self.options.context;
+                        theView.activeItem = item;
+                        if (typeof theView.options.onChange == "function") theView.options.onChange(theView, item);
+                    }
+                }) ];
+            }
+        };
+        Object.assign(options, opts);
+        var _this = _possibleConstructorReturn$7(this, (Dropdownbtn.__proto__ || Object.getPrototypeOf(Dropdownbtn)).call(this, options));
+        _this.activeItem = {};
+        return _this;
+    }
+    _createClass$9(Dropdownbtn, [ {
+        key: "render",
+        value: function render() {
+            var options = this.options;
+            var vDom = hx(_templateObject$5, options.size == "large" ? "btn-group-lg" : options.size == "small" ? "btn-group-sm" : "", options.direction == "up" ? "dropup" : "", options.btnType, val(options.html || options.text), options.btnType, options.vid);
+            return vDom;
+        }
+    }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            this.$("button").each(function(index, item) {
+                $(item).data("index", index);
+            });
+        }
+    }, {
+        key: "onClick",
+        value: function onClick(event) {
+            event.stopPropagation();
+            if (typeof this.options.onClick === "function") this.options.onClick(this, this.activeItem, event);
+        }
+    } ]);
+    return Dropdownbtn;
+}(Lego.UI.Baseview);
+
+Lego.components("dropdownbtn", Dropdownbtn);
+
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
     return typeof obj;
 } : function(obj) {
@@ -2033,17 +2142,19 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-reply">\n            ', '\n            <div class="btn-group lego-reply-submit" id="reply-btn-', '">\n                <button type="button" class="btn btn-primary ', '">', "</button>\n                ", '\n            </div>\n            <div class="lego-reply-toolbar">\n                ', "\n                ", '\n            </div>\n            <div class="popover popover-bottom" style="display:none;">\n                <div class="popover-arrow"></div><h3 class="popover-title">上传附件 <i class="anticon anticon-close" style="float:right"></i></h3>\n                <div class="popover-content"><upload id="upload-', '"></upload></div>\n            </div>\n        </div>\n        ' ], [ '\n        <div class="lego-reply">\n            ', '\n            <div class="btn-group lego-reply-submit" id="reply-btn-', '">\n                <button type="button" class="btn btn-primary ', '">', "</button>\n                ", '\n            </div>\n            <div class="lego-reply-toolbar">\n                ', "\n                ", '\n            </div>\n            <div class="popover popover-bottom" style="display:none;">\n                <div class="popover-arrow"></div><h3 class="popover-title">上传附件 <i class="anticon anticon-close" style="float:right"></i></h3>\n                <div class="popover-content"><upload id="upload-', '"></upload></div>\n            </div>\n        </div>\n        ' ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-reply">\n            ', "\n            ", '\n            <div class="lego-reply-toolbar">\n                ', "\n                ", '\n            </div>\n            <div class="popover popover-bottom" style="display:none;">\n                <div class="popover-arrow"></div><h3 class="popover-title">上传附件 <i class="anticon anticon-close" style="float:right"></i></h3>\n                <div class="popover-content"><upload id="upload-', '"></upload></div>\n            </div>\n        </div>\n        ' ], [ '\n        <div class="lego-reply">\n            ', "\n            ", '\n            <div class="lego-reply-toolbar">\n                ', "\n                ", '\n            </div>\n            <div class="popover popover-bottom" style="display:none;">\n                <div class="popover-arrow"></div><h3 class="popover-title">上传附件 <i class="anticon anticon-close" style="float:right"></i></h3>\n                <div class="popover-content"><upload id="upload-', '"></upload></div>\n            </div>\n        </div>\n        ' ]);
 
 var _templateObject2 = _taggedTemplateLiteral([ '\n            <div class="lego-reply-content" id="content-', '"><span class="lego-reply-ph">', "</span></div>\n            " ], [ '\n            <div class="lego-reply-content" id="content-', '"><span class="lego-reply-ph">', "</span></div>\n            " ]);
 
 var _templateObject3 = _taggedTemplateLiteral([ '\n            <textarea placeholder="', '" class="form-control lego-reply-content" id="content-', '"></textarea>\n            ' ], [ '\n            <textarea placeholder="', '" class="form-control lego-reply-content" id="content-', '"></textarea>\n            ' ]);
 
-var _templateObject4 = _taggedTemplateLiteral([ '<dropdown id="dropdown-', '"></dropdown>' ], [ '<dropdown id="dropdown-', '"></dropdown>' ]);
+var _templateObject4 = _taggedTemplateLiteral([ '\n            <dropdownbtn id="dropdownbtn-', '"></dropdownbtn>\n            ' ], [ '\n            <dropdownbtn id="dropdownbtn-', '"></dropdownbtn>\n            ' ]);
 
-var _templateObject5 = _taggedTemplateLiteral([ '<facial id="facial-', '"></facial>' ], [ '<facial id="facial-', '"></facial>' ]);
+var _templateObject5 = _taggedTemplateLiteral([ '\n            <button type="button" class="btn btn-', ' lego-reply-submit">', "</button>\n            " ], [ '\n            <button type="button" class="btn btn-', ' lego-reply-submit">', "</button>\n            " ]);
 
-var _templateObject6 = _taggedTemplateLiteral([ '<div id="annex-', '" class="lego-reply-annex"><i class="anticon anticon-paper-clip"></i></div>' ], [ '<div id="annex-', '" class="lego-reply-annex"><i class="anticon anticon-paper-clip"></i></div>' ]);
+var _templateObject6 = _taggedTemplateLiteral([ '<facial id="facial-', '"></facial>' ], [ '<facial id="facial-', '"></facial>' ]);
+
+var _templateObject7 = _taggedTemplateLiteral([ '<div id="annex-', '" class="lego-reply-annex"><i class="anticon anticon-paper-clip"></i></div>' ], [ '<div id="annex-', '" class="lego-reply-annex"><i class="anticon anticon-paper-clip"></i></div>' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -2090,7 +2201,7 @@ var Reply = function(_Lego$UI$Baseview) {
             events: {
                 "focus .lego-reply-content": "onFocus",
                 "blur .lego-reply-content": "onblur",
-                "click .lego-reply-submit > button:not(.dropdown-toggle)": "submit",
+                "click .lego-reply-submit": "submit",
                 "click .lego-reply-annex": "showUpload",
                 "click .popover-title i": "showUpload",
                 "keydown .lego-reply-content": "_enterSearch"
@@ -2100,12 +2211,14 @@ var Reply = function(_Lego$UI$Baseview) {
             contentHeight: 70,
             showFacial: true,
             showUpload: true,
-            uploadDataSource: null,
+            uploadToken: null,
             iconsUrl: "",
             submitText: "回复",
+            submitType: "primary",
+            maxTextLength: 500,
             onSubmit: function onSubmit() {},
-            onUploaded: function onUploaded() {},
-            dropdown: false,
+            onUploadComplete: function onUploadComplete() {},
+            dropdownbtn: false,
             components: []
         };
         Object.assign(options, opts);
@@ -2117,31 +2230,36 @@ var Reply = function(_Lego$UI$Baseview) {
                 iconsUrl: options.iconsUrl
             });
         }
-        if (options.dropdown) {
-            options.components.push(Object.assign(_typeof(options.dropdown) == "object" ? options.dropdown : {}, {
-                el: "#dropdown-" + options.vid,
-                trigger: "#reply-btn-" + options.vid,
-                style: {
-                    minWidth: "auto"
+        if (options.dropdownbtn) {
+            options.components.push(Object.assign(_typeof(options.dropdownbtn) == "object" ? options.dropdownbtn : {}, {
+                el: "#dropdownbtn-" + options.vid,
+                text: options.submitText,
+                btnType: options.submitType,
+                className: "float-right",
+                onClick: function onClick(self, item, event) {
+                    var parentView = self.options.context;
+                    if (parentView) {
+                        parentView.submit();
+                    }
                 }
             }));
         }
         var _this = _possibleConstructorReturn(this, (Reply.__proto__ || Object.getPrototypeOf(Reply)).call(this, options));
+        _this.uploadView = null;
         _this.placeholder = '<span class="lego-reply-ph">' + _this.options.placeholder + "</span>";
-        _this.isloaded = false;
         return _this;
     }
     _createClass(Reply, [ {
         key: "render",
         value: function render() {
             var options = this.options;
-            var vDom = hx(_templateObject, options.inputType == "div" ? hx(_templateObject2, options.vid, val(options.placeholder)) : hx(_templateObject3, val(options.placeholder), options.vid), options.vid, options.dropdown ? "dropdown-toggle" : "", val(options.submitText), options.dropdown ? hx(_templateObject4, options.vid) : "", options.showFacial ? hx(_templateObject5, options.vid) : "", options.showUpload ? hx(_templateObject6, options.vid) : "", options.vid);
+            var vDom = hx(_templateObject, options.inputType == "div" ? hx(_templateObject2, options.vid, val(options.placeholder)) : hx(_templateObject3, val(options.placeholder), options.vid), options.dropdownbtn ? hx(_templateObject4, options.vid) : hx(_templateObject5, options.submitType, val(options.submitText)), options.showFacial ? hx(_templateObject6, options.vid) : "", options.showUpload ? hx(_templateObject7, options.vid) : "", options.vid);
             return vDom;
         }
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            this.$el.find(".lego-reply-content").attr("contenteditable", "true").height(this.options.contentHeight);
+            this.$(".lego-reply-content").attr("contenteditable", "true").height(this.options.contentHeight);
         }
     }, {
         key: "onFocus",
@@ -2158,18 +2276,25 @@ var Reply = function(_Lego$UI$Baseview) {
     }, {
         key: "showUpload",
         value: function showUpload(event) {
-            this.$el.find(".popover").toggleClass("show");
-            var options = this.options;
-            if (options.showUpload && !this.isloaded) {
-                Lego.create(Upload, {
-                    el: "#upload-" + options.vid,
-                    dataSource: options.uploadDataSource,
-                    context: this,
-                    onComplete: function onComplete(self, result) {
-                        if (typeof options.onUploaded == "function") options.onUploaded(self, result);
-                    }
-                });
-                this.isloaded = true;
+            this.$(".popover").toggleClass("show");
+            var options = this.options, that = this;
+            if (options.showUpload && this.$(".popover").hasClass("show")) {
+                if (typeof options.uploadToken == "string") {
+                    this.uploadView = Lego.create(Upload, {
+                        el: "#upload-" + options.vid,
+                        token: options.uploadToken,
+                        context: this,
+                        onComplete: options.onUploadComplete
+                    });
+                }
+                if (_typeof(options.uploadToken) == "object") {
+                    this.uploadView = Lego.create(Upload, {
+                        el: "#upload-" + options.vid,
+                        dataSource: options.uploadToken,
+                        context: that,
+                        onComplete: options.onUploadComplete
+                    });
+                }
             }
         }
     }, {
@@ -2186,10 +2311,20 @@ var Reply = function(_Lego$UI$Baseview) {
             }
         }
     }, {
+        key: "getUploadIds",
+        value: function getUploadIds() {
+            if (this.uploadView) return this.uploadView.getValue();
+            return [];
+        }
+    }, {
         key: "submit",
         value: function submit(event) {
             if (event) event.stopPropagation();
-            var contentEl = this.$el.find(".lego-reply-content");
+            var contentEl = this.$(".lego-reply-content");
+            if (contentEl.val().length > this.options.maxTextLength) {
+                Lego.UI.message("warning", "提交内容不能大于500个字符");
+                return;
+            }
             var contentHtml = this.options.inputType == "div" ? contentEl.html() : contentEl.val();
             contentHtml = this.options.inputType == "div" ? Lego.UI.Util.faceToText(contentHtml, this.options.iconsUrl) : contentHtml;
             if (this.options.inputType == "div") {
@@ -2198,7 +2333,10 @@ var Reply = function(_Lego$UI$Baseview) {
                 contentEl.val("");
             }
             contentHtml = contentHtml == this.placeholder ? "" : contentHtml;
-            if (typeof this.options.onSubmit == "function") this.options.onSubmit(this, contentHtml);
+            var uploadIds = Array.from(this.getUploadIds());
+            if (this.uploadView) this.uploadView.clear();
+            this.$(".popover").removeClass("show");
+            if (typeof this.options.onSubmit == "function") this.options.onSubmit(this, contentHtml, uploadIds);
         }
     } ]);
     return Reply;
