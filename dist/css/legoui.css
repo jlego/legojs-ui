@@ -11188,6 +11188,3 @@ form button[type="submit"] {
 .lego-reply .popover.popover-bottom:after,
 .lego-reply .popover.popover-bottom:before {
   left: 50px; }
-
-.lego-reply .dropdown-menu {
-  min-width: auto !important; }
