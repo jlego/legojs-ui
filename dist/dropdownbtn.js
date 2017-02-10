@@ -88,7 +88,9 @@ var Dropdown = function(_Lego$UI$Baseview) {
             data: []
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$1(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
+        var _this = _possibleConstructorReturn$1(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
+        _this.containerEvents();
+        return _this;
     }
     _createClass$1(Dropdown, [ {
         key: "render",
@@ -116,8 +118,8 @@ var Dropdown = function(_Lego$UI$Baseview) {
             return vDom;
         }
     }, {
-        key: "renderAfter",
-        value: function renderAfter() {
+        key: "containerEvents",
+        value: function containerEvents() {
             var that = this;
             this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
             if (!this.options.disabled) {
@@ -126,7 +128,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     event.stopPropagation();
                     var directionResp = Lego.UI.Util.getDirection(that.container, that.$el);
                     that.options.direction = directionResp._y || "bottom";
-                    that.show();
+                    that.$el.slideToggle("fast");
                 };
                 if (this.options.eventName == "click") {
                     var _eventName = "click.dropdown_" + this.options.vid;
@@ -244,7 +246,7 @@ var Dropdownbtn = function(_Lego$UI$Baseview) {
         _classCallCheck(this, Dropdownbtn);
         var options = {
             events: {
-                "click button.dropdownbtn": "onClick"
+                "click button.dropdownbtn, .lego-reply-submit": "onClick"
             },
             text: "button name",
             btnType: "secondary",

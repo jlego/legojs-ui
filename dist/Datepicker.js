@@ -5,7 +5,7 @@
  */
 "use strict";
 
-var moment = require("moment");
+var moment$1 = require("moment");
 
 var moment_locale_zhCn = require("moment/locale/zh-cn");
 
@@ -84,6 +84,11 @@ function _inherits(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
+function formatDate(dateStr) {
+    var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "YYYY-MM-DD HH:mm:ss";
+    return format && dateStr ? moment(dateStr, "YYYY-MM-DD HH:mm:ss").format(format) : dateStr;
+}
+
 var Datepicker = function(_Lego$UI$Baseview) {
     _inherits(Datepicker, _Lego$UI$Baseview);
     function Datepicker() {
@@ -93,7 +98,9 @@ var Datepicker = function(_Lego$UI$Baseview) {
             events: {
                 click: function click(event) {
                     event.stopPropagation();
-                }
+                },
+                "click .input-group-addon": "showpanel",
+                "blur input": "onBlur"
             },
             type: "date",
             name: "",
@@ -101,7 +108,7 @@ var Datepicker = function(_Lego$UI$Baseview) {
             disabled: false,
             inline: false,
             size: "default",
-            format: opts.type == "time" ? "LT" : "",
+            format: opts.type == "time" ? "LT" : "YYYY-MM-DD HH:mm:ss",
             value: null,
             startInputEl: "",
             startName: opts.name,
@@ -113,6 +120,7 @@ var Datepicker = function(_Lego$UI$Baseview) {
             endPlaceholder: "结束时间",
             useCurrent: false,
             setting: {},
+            onBlur: function onBlur() {},
             onChange: function onChange() {}
         };
         Object.assign(options, opts);
@@ -125,6 +133,7 @@ var Datepicker = function(_Lego$UI$Baseview) {
         value: function initDatepicker() {
             var _this2 = this;
             var options = this.options;
+            this.oldValue = formatDate(options.value, options.format);
             Object.assign(options.setting, {
                 format: options.format,
                 inline: options.inline
@@ -135,7 +144,8 @@ var Datepicker = function(_Lego$UI$Baseview) {
                 if (options.inline) $theEl = this.$el;
                 $theEl.datetimepicker(options.setting);
                 $theEl.on("dp.change", function(event) {
-                    if (typeof options.onChange == "function") options.onChange(that, $(this).val());
+                    var value = $(this).val();
+                    if (typeof options.onChange == "function") options.onChange(that, formatDate(value, options.format));
                 });
             } else {
                 (function() {
@@ -149,11 +159,9 @@ var Datepicker = function(_Lego$UI$Baseview) {
                         var endDate = _this2.$el.find(endEl).datetimepicker(endDateOpts);
                         _this2.$el.find(startEl).on("dp.change", function(e) {
                             that.$el.find(endEl).data("DateTimePicker").minDate(e.date);
-                            if (typeof options.onChange == "function") options.onChange(that, $(this).val());
                         });
                         _this2.$el.find(endEl).on("dp.change", function(e) {
                             that.$el.find(startEl).data("DateTimePicker").maxDate(e.date);
-                            if (typeof options.onChange == "function") options.onChange(that, $(this).val());
                         });
                     } else if (options.startInputEl || options.endInputEl) {
                         (function() {
@@ -164,13 +172,11 @@ var Datepicker = function(_Lego$UI$Baseview) {
                                 _this2.$el.find(theEl).on("dp.change", function(e) {
                                     var _el = selector instanceof $ ? selector : $(selector).find(theEl);
                                     _el.data("DateTimePicker").maxDate(e.date);
-                                    if (typeof options.onChange == "function") options.onChange(that, $(this).val());
                                 });
                             } else if (options.startInputEl) {
                                 _this2.$el.find(theEl).on("dp.change", function(e) {
                                     var _el = selector instanceof $ ? selector : $(selector).find(theEl);
                                     _el.data("DateTimePicker").minDate(e.date);
-                                    if (typeof options.onChange == "function") options.onChange(that, $(this).val());
                                 });
                             }
                         })();
@@ -184,13 +190,26 @@ var Datepicker = function(_Lego$UI$Baseview) {
             var options = this.options || {};
             var vDom = "";
             if (options.type == "range" && !options.startInputEl && !options.endInputEl) {
-                vDom = hx(_templateObject, options.disabled ? "disabled" : "", val(options.startValue), options.startName, options.startPlaceholder, options.disabled ? "disabled" : "", val(options.endValue), options.endName, options.endPlaceholder);
+                vDom = hx(_templateObject, options.disabled ? "disabled" : "", formatDate(options.startValue, options.format), options.startName, options.startPlaceholder, options.disabled ? "disabled" : "", formatDate(options.endValue, options.format), options.endName, options.endPlaceholder);
             }
             if (options.type !== "range" || options.type == "range" && options.startInputEl && options.endInputEl) {
-                vDom = hx(_templateObject2, options.disabled ? "disabled" : "", val(options.value), options.name, options.placeholder, options.type == "time" ? "clock-circle-o" : "calendar");
+                vDom = hx(_templateObject2, options.disabled ? "disabled" : "", formatDate(val(options.value), options.format), options.name, options.placeholder, options.type == "time" ? "clock-circle-o" : "calendar");
             }
             if (options.inline) vDom = hx(_templateObject3);
             return vDom;
+        }
+    }, {
+        key: "showpanel",
+        value: function showpanel(event) {
+            var target = $(event.currentTarget), input = target.prev("input");
+            input.focus();
+        }
+    }, {
+        key: "onBlur",
+        value: function onBlur(event) {
+            event.stopPropagation();
+            var target = $(event.currentTarget), value = target.val();
+            if (typeof this.options.onBlur == "function") this.options.onBlur(this, formatDate(value, this.options.format));
         }
     } ]);
     return Datepicker;

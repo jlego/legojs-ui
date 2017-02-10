@@ -7,6 +7,9 @@ import Dropdown from '../dropdown/index';
 class Selects extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
+            events: {
+                'click .select-tags-div': 'clickItemClose'
+            },
             name: '',
             value: [],   //指定当前选中的条目object/Array
             multiple: false,  //支持多选
@@ -15,9 +18,9 @@ class Selects extends Lego.UI.Baseview {
             // allowClear: false,  //支持清除, 单选模式有效
             filterOption: true,  //是否根据输入项进行筛选。当其为一个函数时，会接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。
             tags: false,  //可以把随意输入的条目作为 tag，输入项不需要与下拉选项匹配
-            onSelect(){},  //被选中时调用，参数为选中项的 value 值
             onDeselect(){},  //取消选中时调用，参数为选中项的 option value 值，仅在 multiple 或 tags 模式下生效
             onChange(){},  //选中 option，或 input 的 value 变化（combobox 模式下）时，调用此函数
+            onBlur(){},
             onSearch(){},   //文本框值变化时回调
             placeholder: '',  //选择框默认文字
             notFoundContent: '',  //当下拉列表为空时显示的内容
@@ -59,7 +62,6 @@ class Selects extends Lego.UI.Baseview {
                         parentView.options.data.forEach(item => item.selected = false);
                         parentView.options.value = [model];
                     }
-                    parentView.options.onSelect(parentView, model);
                     parentView.options.onChange(parentView, model);
                     parentView.refresh();
                 }
@@ -67,9 +69,11 @@ class Selects extends Lego.UI.Baseview {
         };
         Object.assign(options, opts);
         super(options);
-        const eventName = 'click.select_' + opts.vid,
-            callback = this.clickItemClose.bind(this);
-        this.$el.find('.select-tags-div').off(eventName).on(eventName, '.select-tag-close', callback);
+        this.oldValue = '';
+        let that = this;
+        this.$('.select-input').blur(function(event){
+            if(typeof options.onBlur == 'function') options.onBlur(that, $(this).val(), event);
+        });
     }
     render() {
         const options = this.options || {};

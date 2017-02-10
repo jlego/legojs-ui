@@ -10,7 +10,7 @@ class Dropdownbtn extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
-                'click button.dropdownbtn': 'onClick'
+                'click button.dropdownbtn, .lego-reply-submit': 'onClick'
             },
             text: 'button name',
             btnType: 'secondary',   //按钮类型

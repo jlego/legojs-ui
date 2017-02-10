@@ -10,6 +10,10 @@ import Tree from '../tree/index';
 class Treeselect extends Selects {
     constructor(opts = {}) {
         const options = {
+            events: {
+                'click .dropdown-menu': function(event){event.stopPropagation();},
+                'click .select-tag-close': 'clickItemClose'
+            },
             name: '',
             value: [], //指定当前选中的条目object/Array
             multiple: false, //支持多选
@@ -70,7 +74,7 @@ class Treeselect extends Selects {
                     }
                     parentView.options.onSelect(parentView, result);
                     parentView.options.onChange(parentView, result);
-                    parentView.refresh();
+                    // parentView.refresh();
                 },
                 onClick(self, result) {
                     const parentView = this.context;
@@ -83,7 +87,7 @@ class Treeselect extends Selects {
                     }];
                     parentView.options.onSelect(parentView, result);
                     parentView.options.onChange(parentView, result);
-                    parentView.refresh();
+                    // parentView.refresh();
                 },
                 disabled: opts.disabled || false,
                 className: opts.dropdownClassName
@@ -97,14 +101,11 @@ class Treeselect extends Selects {
             });
         }
         super(options);
-        const eventName = 'click.select_' + opts.vid,
-            callback = this.clickItemClose.bind(this);
-        this.$el.find('.select-tags-div').off(eventName).on(eventName, '.select-tag-close', callback);
+        this.isLoaded = false;
     }
     render() {
-        const options = this.options || {};
+        const options = this.options;
         let vDom = '';
-
         function getTags(data) {
             if (data.length) {
                 return hx `
@@ -129,7 +130,7 @@ class Treeselect extends Selects {
             <div class="select dropdown treeselect">
                 <div id="select-${options.vid}">
                     <input type="text" class="form-control select-input ${options.disabled ? 'disabled' : ''}" placeholder="${options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
-                    <div class="dropdown-menu ${options.direction ? ('drop' + options.direction) : ''}">
+                    <div class="dropdown-menu ${options.direction ? ('drop' + options.direction) : ''}" style="width:100%">
                         <div class="scrollbar">
                             <tree id="tree-${options.vid}"></tree>
                         </div>
@@ -146,7 +147,7 @@ class Treeselect extends Selects {
                     <div class="select-tags-div clearfix ${theValueArr.length ? 'select-tags-div-border' : ''}">
                         ${getTags(options.value)}
                     </div>
-                    <div class="dropdown-menu ${options.direction ? ('drop' + options.direction) : ''}">
+                    <div class="dropdown-menu ${options.direction ? ('drop' + options.direction) : ''}" style="width:100%">
                         <div class="scrollbar">
                             <tree id="tree-${options.vid}"></tree>
                         </div>
@@ -158,12 +159,14 @@ class Treeselect extends Selects {
         return vDom;
     }
     renderAfter(){
-        const options = this.options,
+        let options = this.options,
+            trigger = this.$('#select-' + options.vid + ' > input.select-input'),
+            tagsDivEl = this.$('.select-tags-div'),
+            treeEl = this.$('#tree-' + options.vid),
+            _eventName = 'click.dropdown_' + options.vid,
             that = this;
-        if(!options.disabled){
-            const trigger = this.$('#select-' + options.vid);
-            const treeEl = this.$('#tree-' + options.vid);
-            const _eventName = 'click.dropdown_' + options.vid;
+        if(!options.disabled && !this.isLoaded){
+            if(tagsDivEl.length) trigger = tagsDivEl;
             function handler(event){
                 $('body, .modal-body').trigger('click');
                 event.stopPropagation();
@@ -184,17 +187,14 @@ class Treeselect extends Selects {
             }else{
                 trigger[options.eventName](handler);
             }
+            this.isLoaded = true;
         }
-        this.$el.find('.dropdown-menu').css({
-            width: options.dropdownWidth || '100%',
-            height: options.dropdownHeight || 'auto'
-        });
     }
     show(event){
-        this.$el.find('.dropdown-menu').slideDown('fast');
+        this.$('.dropdown-menu').slideDown('fast');
     }
     close(event){
-        this.$el.find('.dropdown-menu').slideUp('fast');
+        this.$('.dropdown-menu').slideUp('fast');
     }
     clickItemClose(event){
         event.stopPropagation();
