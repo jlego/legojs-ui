@@ -89,7 +89,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
         };
         Object.assign(options, opts);
         var _this = _possibleConstructorReturn(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
-        _this.containerEvents();
+        _this.isLoaded = false;
         return _this;
     }
     _createClass(Dropdown, [ {
@@ -118,24 +118,21 @@ var Dropdown = function(_Lego$UI$Baseview) {
             return vDom;
         }
     }, {
-        key: "containerEvents",
-        value: function containerEvents() {
+        key: "renderAfter",
+        value: function renderAfter() {
             var that = this;
             this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
             if (!this.options.disabled) {
                 var handler = function handler(event) {
-                    $("body, .modal-body").trigger("click");
+                    $("body, .modal-body").trigger("click", that.options.vid);
                     event.stopPropagation();
-                    var directionResp = Lego.UI.Util.getDirection(that.container, that.$el);
-                    that.options.direction = directionResp._y || "bottom";
                     that.$el.slideToggle("fast");
                 };
                 if (this.options.eventName == "click") {
-                    var _eventName = "click.dropdown_" + this.options.vid;
-                    $("body, .modal-body").off(_eventName).on(_eventName, function() {
-                        that.close();
+                    $("body, .modal-body").on("click", function(event, vid) {
+                        if (vid !== that.options.vid) that.close();
                     });
-                    this.container.off(_eventName).on(_eventName, handler);
+                    this.container.on("click.dropdown_" + this.options.vid, handler);
                 } else {
                     this.container.mouseenter(handler).mouseleave(function() {
                         that.close();
@@ -155,12 +152,12 @@ var Dropdown = function(_Lego$UI$Baseview) {
         }
     }, {
         key: "show",
-        value: function show(event) {
+        value: function show() {
             this.$el.slideDown("fast");
         }
     }, {
         key: "close",
-        value: function close(event) {
+        value: function close() {
             this.$el.slideUp("fast");
         }
     }, {

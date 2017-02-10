@@ -11,8 +11,7 @@ class Treeselect extends Selects {
     constructor(opts = {}) {
         const options = {
             events: {
-                'click .dropdown-menu': function(event){event.stopPropagation();},
-                'click .select-tag-close': 'clickItemClose'
+                'click .dropdown-menu': function(event){event.stopPropagation();}
             },
             name: '',
             value: [], //指定当前选中的条目object/Array
@@ -26,7 +25,6 @@ class Treeselect extends Selects {
             // allowClear: false,  //支持清除, 单选模式有效
             filterOption: true, //是否根据输入项进行筛选。当其为一个函数时，会接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。
             tags: false, //可以把随意输入的条目作为 tag，输入项不需要与下拉选项匹配
-            onSelect() {}, //被选中时调用，参数为选中项的 value 值
             onDeselect() {}, //取消选中时调用，参数为选中项的 option value 值，仅在 multiple 或 tags 模式下生效
             onChange() {}, //选中 option，或 input 的 value 变化（combobox 模式下）时，调用此函数
             onSearch() {}, //文本框值变化时回调
@@ -55,13 +53,13 @@ class Treeselect extends Selects {
                 data: opts.data,
                 dataSource: opts.treeDataSource,
                 onChecked(self, result) {
-                    const parentView = this.context;
+                    const pView = this.context;
                     if (result.key !== '0' && opts.setting.check) {
-                        parentView.getValue();
+                        pView.getValue();
                         if (result.length) {
-                            parentView.options.value = [];
+                            pView.options.value = [];
                             result.forEach((val) => {
-                                parentView.options.value.push({
+                                pView.options.value.push({
                                     key: val.key,
                                     value: val.value,
                                     type: val.type,
@@ -69,25 +67,21 @@ class Treeselect extends Selects {
                                 });
                             });
                         }else{
-                            parentView.options.value = [];
+                            pView.options.value = [];
                         }
                     }
-                    parentView.options.onSelect(parentView, result);
-                    parentView.options.onChange(parentView, result);
-                    // parentView.refresh();
+                    pView.options.onChange(pView, result);
                 },
                 onClick(self, result) {
-                    const parentView = this.context;
-                    parentView.options.value.forEach(item => item.selected = false);
-                    parentView.options.value = [{
+                    const pView = this.context;
+                    pView.options.value.forEach(item => item.selected = false);
+                    pView.options.value = [{
                         key: result.key,
                         value: result.value,
                         type: result.type,
                         selected: true
                     }];
-                    parentView.options.onSelect(parentView, result);
-                    parentView.options.onChange(parentView, result);
-                    // parentView.refresh();
+                    pView.options.onChange(pView, result);
                 },
                 disabled: opts.disabled || false,
                 className: opts.dropdownClassName
@@ -160,34 +154,28 @@ class Treeselect extends Selects {
     }
     renderAfter(){
         let options = this.options,
-            trigger = this.$('#select-' + options.vid + ' > input.select-input'),
-            tagsDivEl = this.$('.select-tags-div'),
+            trigger = this.$('#select-' + options.vid + ' > input.select-input').off('click'),
+            tagsDivEl = this.$('.select-tags-div').off('click'),
             treeEl = this.$('#tree-' + options.vid),
-            _eventName = 'click.dropdown_' + options.vid,
             that = this;
-        if(!options.disabled && !this.isLoaded){
+        if(!options.disabled){
             if(tagsDivEl.length) trigger = tagsDivEl;
             function handler(event){
-                $('body, .modal-body').trigger('click');
+                $('body, .modal-body').trigger('click', options.vid);
                 event.stopPropagation();
-                const directionResp = Lego.UI.Util.getDirection(trigger, treeEl);
-                options.direction = directionResp._y || 'bottom';
-                that.show();
-                if(options.eventName == 'hover'){
-                    trigger.mouseleave(function(){
-                        that.close();
-                    });
-                }
+                that.$('.dropdown-menu').slideToggle('fast');
             }
             if(options.eventName == 'click'){
-                $('body, .modal-body').off(_eventName).on(_eventName, function(){
+                $('body, .modal-body').on('click', function(event, vid){
+                    if(vid !== options.vid) that.close();
+                });
+                trigger.on('click.dropdown_' + options.vid, handler);
+            }else{
+                trigger.mouseenter(handler).mouseleave(function(){
                     that.close();
                 });
-                trigger.off(_eventName).on(_eventName, handler);
-            }else{
-                trigger[options.eventName](handler);
             }
-            this.isLoaded = true;
+            this.$('.select-tag-close').click(this.clickItemClose.bind(this));
         }
     }
     show(event){

@@ -49,11 +49,11 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _index = __webpack_require__(245);
+	var _index = __webpack_require__(244);
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _home = __webpack_require__(246);
+	var _home = __webpack_require__(245);
 
 	var _home2 = _interopRequireDefault(_home);
 
@@ -98,7 +98,7 @@
 
 /***/ },
 
-/***/ 245:
+/***/ 244:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -150,7 +150,7 @@
 
 /***/ },
 
-/***/ 246:
+/***/ 245:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -331,7 +331,7 @@
 	                    name: "test2",
 	                    open: true,
 	                    checked: true,
-	                    children: [{ id: 'tree2_1', name: "test2_1" }, { id: 'tree2_1', name: "test2_2" }]
+	                    children: [{ id: 'tree2_1', name: "test2_1" }, { id: 'tree3_1', name: "test3_2" }]
 	                }]
 	            }, {
 	                el: '#treeselect2',
@@ -368,7 +368,7 @@
 	                    name: "test2",
 	                    open: true,
 	                    checked: true,
-	                    children: [{ id: 'tree2_1', name: "test2_1" }, { id: 'tree2_1', name: "test2_2" }]
+	                    children: [{ id: 'tree2_1', name: "test2_1" }, { id: 'tree3_1', name: "test3_2" }]
 	                }]
 	            }, {
 	                el: '#treeselect3',
@@ -397,7 +397,7 @@
 	                    id: 'tree2',
 	                    name: "test2",
 	                    open: true,
-	                    children: [{ id: 'tree2_1', name: "test2_1" }, { id: 'tree2_1', name: "test2_2" }]
+	                    children: [{ id: 'tree2_1', name: "test2_1" }, { id: 'tree3_1', name: "test3_2" }]
 	                }]
 	            }, {
 	                el: '#treeselect4',
@@ -421,7 +421,7 @@
 	                    id: 'tree2',
 	                    name: "test2",
 	                    open: true,
-	                    children: [{ id: 'tree2_1', name: "test2_1" }, { id: 'tree2_1', name: "test2_2" }]
+	                    children: [{ id: 'tree2_1', name: "test2_1" }, { id: 'tree3_1', name: "test3_2" }]
 	                }]
 	            }]
 	        };

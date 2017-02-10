@@ -8,7 +8,7 @@ class Selects extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
-                'click .select-tags-div': 'clickItemClose'
+                // 'click .select-tag-close': 'clickItemClose'
             },
             name: '',
             value: [],   //指定当前选中的条目object/Array
@@ -36,36 +36,36 @@ class Selects extends Lego.UI.Baseview {
             dropdownClassName: '',  //下拉菜单的 className 属性上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。
             splitString: '',    //自动分词分隔符
             dataSource: null,
-            components: [{
-                el: '#dropdown-' + opts.vid,
-                container: '#select-' + opts.vid,
-                eventName: opts.eventName || 'click',
-                disabled: opts.disabled || false,
-                style: Object.assign({
-                    width: opts.dropdownWidth || '100%',
-                    height: opts.dropdownHeight || 'auto'
-                }, opts.dropdownStyle || {}),
-                className: opts.dropdownClassName,
-                clickAndClose: opts.multiple ? false : true,
-                data: opts.data || [],
-                dataSource: opts.dataSource,
-                onChange(self, model){
-                    const parentView = this.context;
-                    parentView.$el.find('.select-input').focus();
-                    if(model.key !== '0' && opts.multiple){
-                        parentView.getValue();
-                        if(!parentView.options.value.includes(model)){
-                            model.selected = true;
-                            parentView.options.value.push(model);
+            components(opts = {}, self){
+                return [{
+                    el: '#dropdown-' + opts.vid,
+                    container: '#select-' + opts.vid,
+                    eventName: opts.eventName || 'click',
+                    disabled: opts.disabled || false,
+                    style: Object.assign({
+                        width: opts.dropdownWidth || '100%'
+                    }, opts.dropdownStyle || {}),
+                    className: opts.dropdownClassName,
+                    clickAndClose: opts.multiple ? false : true,
+                    data: opts.data || [],
+                    dataSource: opts.dataSource,
+                    onChange(self, model){
+                        const parentView = this.context;
+                        parentView.$('.select-input').focus();
+                        if(model.key !== '0' && opts.multiple){
+                            parentView.getValue();
+                            if(!parentView.options.value.includes(model)){
+                                model.selected = true;
+                                parentView.options.value.push(model);
+                            }
+                        }else{
+                            parentView.options.data.forEach(item => item.selected = false);
+                            parentView.options.value = [model];
                         }
-                    }else{
-                        parentView.options.data.forEach(item => item.selected = false);
-                        parentView.options.value = [model];
+                        parentView.options.onChange(parentView, model);
                     }
-                    parentView.options.onChange(parentView, model);
-                    parentView.refresh();
-                }
-            }]
+                }];
+            }
         };
         Object.assign(options, opts);
         super(options);
@@ -130,6 +130,7 @@ class Selects extends Lego.UI.Baseview {
                 }
             });
         }
+        this.$('.select-tag-close').click(this.clickItemClose.bind(this));
     }
     clickItemClose(event){
         event.stopPropagation();

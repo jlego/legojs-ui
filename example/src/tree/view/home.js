@@ -159,7 +159,7 @@ class HomeView extends Lego.UI.Baseview {
                     open: true,
                     checked: true,
                     children: [
-                        { id: 'tree2_1',name: "test2_1" }, { id: 'tree2_1',name: "test2_2" }
+                        { id: 'tree2_1',name: "test2_1" }, { id: 'tree3_1',name: "test3_2" }
                     ]
                 }]
             }, {
@@ -197,7 +197,7 @@ class HomeView extends Lego.UI.Baseview {
                     open: true,
                     checked: true,
                     children: [
-                        { id: 'tree2_1',name: "test2_1" }, { id: 'tree2_1',name: "test2_2" }
+                        { id: 'tree2_1',name: "test2_1" }, { id: 'tree3_1',name: "test3_2" }
                     ]
                 }]
             }, {
@@ -227,7 +227,7 @@ class HomeView extends Lego.UI.Baseview {
                     name: "test2",
                     open: true,
                     children: [
-                        { id: 'tree2_1',name: "test2_1" }, { id: 'tree2_1',name: "test2_2" }
+                        { id: 'tree2_1',name: "test2_1" }, { id: 'tree3_1',name: "test3_2" }
                     ]
                 }]
             }, {
@@ -252,7 +252,7 @@ class HomeView extends Lego.UI.Baseview {
                     name: "test2",
                     open: true,
                     children: [
-                        { id: 'tree2_1',name: "test2_1" }, { id: 'tree2_1',name: "test2_2" }
+                        { id: 'tree2_1',name: "test2_1" }, { id: 'tree3_1',name: "test3_2" }
                     ]
                 }]
             }]

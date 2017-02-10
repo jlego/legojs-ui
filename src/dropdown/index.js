@@ -18,7 +18,7 @@ class Dropdown extends Lego.UI.Baseview {
         };
         Object.assign(options, opts);
         super(options);
-        this.containerEvents();
+        this.isLoaded = false;
     }
     render() {
         const options = this.options || {};
@@ -61,23 +61,20 @@ class Dropdown extends Lego.UI.Baseview {
         `;
         return vDom;
     }
-    containerEvents(){
+    renderAfter(){
         const that = this;
         this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
         if(!this.options.disabled){
             function handler(event){
-                $('body, .modal-body').trigger('click');
+                $('body, .modal-body').trigger('click', that.options.vid);
                 event.stopPropagation();
-                const directionResp = Lego.UI.Util.getDirection(that.container, that.$el);
-                that.options.direction = directionResp._y || 'bottom';
                 that.$el.slideToggle('fast');
             }
             if(this.options.eventName == 'click'){
-                const _eventName = 'click.dropdown_' + this.options.vid;
-                $('body, .modal-body').off(_eventName).on(_eventName, function(){
-                    that.close();
+                $('body, .modal-body').on('click', function(event, vid){
+                    if(vid !== that.options.vid) that.close();
                 });
-                this.container.off(_eventName).on(_eventName, handler);
+                this.container.on('click.dropdown_' + this.options.vid, handler);
             }else{
                 this.container.mouseenter(handler).mouseleave(function(){
                     that.close();
@@ -96,10 +93,10 @@ class Dropdown extends Lego.UI.Baseview {
             return 'right';
         }
     }
-    show(event){
+    show(){
         this.$el.slideDown('fast');
     }
-    close(event){
+    close(){
         this.$el.slideUp('fast');
     }
     clickItem(event){
