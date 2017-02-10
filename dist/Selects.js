@@ -88,7 +88,9 @@ var Dropdown = function(_Lego$UI$Baseview) {
             data: []
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$1(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
+        var _this = _possibleConstructorReturn$1(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
+        _this.containerEvents();
+        return _this;
     }
     _createClass$1(Dropdown, [ {
         key: "render",
@@ -116,8 +118,8 @@ var Dropdown = function(_Lego$UI$Baseview) {
             return vDom;
         }
     }, {
-        key: "renderAfter",
-        value: function renderAfter() {
+        key: "containerEvents",
+        value: function containerEvents() {
             var that = this;
             this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
             if (!this.options.disabled) {
@@ -126,7 +128,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     event.stopPropagation();
                     var directionResp = Lego.UI.Util.getDirection(that.container, that.$el);
                     that.options.direction = directionResp._y || "bottom";
-                    that.show();
+                    that.$el.slideToggle("fast");
                 };
                 if (this.options.eventName == "click") {
                     var _eventName = "click.dropdown_" + this.options.vid;
@@ -249,15 +251,18 @@ var Selects = function(_Lego$UI$Baseview) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Selects);
         var options = {
+            events: {
+                "click .select-tags-div": "clickItemClose"
+            },
             name: "",
             value: [],
             multiple: false,
             eventName: "click",
             filterOption: true,
             tags: false,
-            onSelect: function onSelect() {},
             onDeselect: function onDeselect() {},
             onChange: function onChange() {},
+            onBlur: function onBlur() {},
             onSearch: function onSearch() {},
             placeholder: "",
             notFoundContent: "",
@@ -301,7 +306,6 @@ var Selects = function(_Lego$UI$Baseview) {
                         });
                         parentView.options.value = [ model ];
                     }
-                    parentView.options.onSelect(parentView, model);
                     parentView.options.onChange(parentView, model);
                     parentView.refresh();
                 }
@@ -309,8 +313,11 @@ var Selects = function(_Lego$UI$Baseview) {
         };
         Object.assign(options, opts);
         var _this = _possibleConstructorReturn(this, (Selects.__proto__ || Object.getPrototypeOf(Selects)).call(this, options));
-        var eventName = "click.select_" + opts.vid, callback = _this.clickItemClose.bind(_this);
-        _this.$el.find(".select-tags-div").off(eventName).on(eventName, ".select-tag-close", callback);
+        _this.oldValue = "";
+        var that = _this;
+        _this.$(".select-input").blur(function(event) {
+            if (typeof options.onBlur == "function") options.onBlur(that, $(this).val(), event);
+        });
         return _this;
     }
     _createClass(Selects, [ {

@@ -8695,7 +8695,7 @@ pre p {
   -webkit-transform-origin: 0px center;
   -ms-transform-origin: 0px center;
   transform-origin: 0px center;
-  top: -4px;
+  top: -2px;
   height: 8px;
   width: 8px;
   border-radius: 100%;
@@ -9456,7 +9456,7 @@ pre p {
   margin-bottom: -15px; }
 
 .lego-table-fixed-header .lego-table-body {
-  top: 51px;
+  top: 52px;
   bottom: 48px;
   width: 100%;
   position: absolute;
@@ -9933,8 +9933,7 @@ tr.lego-table-expanded-row:hover {
   clear: both;
   font-weight: normal;
   line-height: 1.42857143;
-  color: #333333;
-  white-space: nowrap; }
+  color: #333333; }
 
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
@@ -11188,6 +11187,3 @@ form button[type="submit"] {
 .lego-reply .popover.popover-bottom:after,
 .lego-reply .popover.popover-bottom:before {
   left: 50px; }
-
-.lego-reply .dropdown-menu {
-  min-width: auto !important; }
