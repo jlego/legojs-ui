@@ -120,7 +120,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var that = this;
+            var that = this, _eventName = "click.dropdown_" + this.options.vid;
             this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
             if (!this.options.disabled) {
                 var handler = function handler(event) {
@@ -129,10 +129,10 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     that.$el.slideToggle("fast");
                 };
                 if (this.options.eventName == "click") {
-                    $("body, .modal-body").on("click", function(event, vid) {
+                    $("body, .modal-body").off(_eventName).on(_eventName, function(event, vid) {
                         if (vid !== that.options.vid) that.close();
                     });
-                    this.container.on("click.dropdown_" + this.options.vid, handler);
+                    this.container.off(_eventName).on(_eventName, handler);
                 } else {
                     this.container.mouseenter(handler).mouseleave(function() {
                         that.close();
@@ -315,6 +315,7 @@ var Selects = function(_Lego$UI$Baseview) {
         _this.$(".select-input").blur(function(event) {
             if (typeof options.onBlur == "function") options.onBlur(that, $(this).val(), event);
         });
+        _this.$(".select-tags-div").on("click", ".select-tag-close", _this.clickItemClose.bind(_this));
         return _this;
     }
     _createClass(Selects, [ {
@@ -355,13 +356,12 @@ var Selects = function(_Lego$UI$Baseview) {
                     }
                 });
             }
-            this.$(".select-tag-close").click(this.clickItemClose.bind(this));
         }
     }, {
         key: "clickItemClose",
         value: function clickItemClose(event) {
             event.stopPropagation();
-            var target = $(event.currentTarget).parent(), key = target.attr("id"), value = target.attr("title");
+            var target = $(event.target).parent(), key = target.attr("id"), value = target.attr("title");
             this.options.data.forEach(function(item) {
                 if (item.key == key) item.selected = false;
             });

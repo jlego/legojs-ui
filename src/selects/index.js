@@ -74,6 +74,7 @@ class Selects extends Lego.UI.Baseview {
         this.$('.select-input').blur(function(event){
             if(typeof options.onBlur == 'function') options.onBlur(that, $(this).val(), event);
         });
+        this.$('.select-tags-div').on('click', '.select-tag-close', this.clickItemClose.bind(this));
     }
     render() {
         const options = this.options || {};
@@ -130,11 +131,10 @@ class Selects extends Lego.UI.Baseview {
                 }
             });
         }
-        this.$('.select-tag-close').click(this.clickItemClose.bind(this));
     }
     clickItemClose(event){
         event.stopPropagation();
-        const target = $(event.currentTarget).parent(),
+        const target = $(event.target).parent(),
             key = target.attr('id'),
             value = target.attr('title');
         this.options.data.forEach(item => {

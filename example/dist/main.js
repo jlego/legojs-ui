@@ -6121,12 +6121,13 @@
 	        return itemNav(item);
 	      }));return vDom;
 	    } }, { key: "renderAfter", value: function value() {
-	      var that = this;if (this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container), !this.options.disabled) {
+	      var that = this,
+	          _eventName = "click.dropdown_" + this.options.vid;if (this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container), !this.options.disabled) {
 	        var handler = function handler(event) {
 	          $("body, .modal-body").trigger("click", that.options.vid), event.stopPropagation(), that.$el.slideToggle("fast");
-	        };"click" == this.options.eventName ? ($("body, .modal-body").on("click", function (event, vid) {
+	        };"click" == this.options.eventName ? ($("body, .modal-body").off(_eventName).on(_eventName, function (event, vid) {
 	          vid !== that.options.vid && that.close();
-	        }), this.container.on("click.dropdown_" + this.options.vid, handler)) : this.container.mouseenter(handler).mouseleave(function () {
+	        }), this.container.off(_eventName).on(_eventName, handler)) : this.container.mouseenter(handler).mouseleave(function () {
 	          that.close();
 	        });
 	      }
@@ -6166,9 +6167,9 @@
 	  function Pagination() {
 	    var opts = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};_classCallCheck$8(this, Pagination);var options = { events: { "click .prev:not(.disabled)": "clickPrevPage", "click .page-item": "clickItemPage", "click .next:not(.disabled)": "clickNextPage", "click .morepage": "clickMorePage", 'keydown .info>input[type="text"]': "_enterSearch" }, current: 1, total: 0, totalPages: 0, pageSize: 10, pageRang: 10, onChange: function onChange() {}, showSizeChanger: !1, pageSizeOptions: [10, 20, 30, 40, 50], onPageSizeChange: function onPageSizeChange() {}, showQuickJumper: !1, size: "", simple: null, isShowTotal: !0, data: {} };if (Object.assign(options, opts), !options.simple && options.showSizeChanger) {
 	      var theData = options.pageSizeOptions.map(function (val) {
-	        return { key: val, value: val + " / 页" };
-	      });options.components = [{ el: "#" + opts.vid + "-dropdown",
-	        container: "#" + opts.vid + "-select", data: theData, onChange: function onChange(self, result) {
+	        return { key: val, value: val + " / 页"
+	        };
+	      });options.components = [{ el: "#" + opts.vid + "-dropdown", container: "#" + opts.vid + "-select", data: theData, onChange: function onChange(self, result) {
 	          var num = parseInt(result.key);this.context.options.current = 1, this.context.options.pageSize = num, this.context.options.onPageSizeChange(self, num);
 	        } }];
 	    }var _this = _possibleConstructorReturn$8(this, (Pagination.__proto__ || Object.getPrototypeOf(Pagination)).call(this, options));return _this.jumped = !1, _this;
@@ -6512,8 +6513,7 @@
 	      } }, { key: "_checkScrollbar", value: function value() {
 	        this._isBodyOverflowing = document.body.clientWidth < window.innerWidth, this._scrollbarWidth = this._getScrollbarWidth();
 	      } }, { key: "_setScrollbar", value: function value() {
-	        var bodyPadding = parseInt($(Selector.FIXED_CONTENT).css("padding-right") || 0, 10);
-	        this._originalBodyPadding = document.body.style.paddingRight || "", this._isBodyOverflowing && (document.body.style.paddingRight = bodyPadding + this._scrollbarWidth + "px");
+	        var bodyPadding = parseInt($(Selector.FIXED_CONTENT).css("padding-right") || 0, 10);this._originalBodyPadding = document.body.style.paddingRight || "", this._isBodyOverflowing && (document.body.style.paddingRight = bodyPadding + this._scrollbarWidth + "px");
 	      } }, { key: "_resetScrollbar", value: function value() {
 	        document.body.style.paddingRight = this._originalBodyPadding;
 	      } }, { key: "_getScrollbarWidth", value: function value() {
@@ -6743,7 +6743,7 @@
 	          } }];
 	      } };Object.assign(options, opts);var _this = _possibleConstructorReturn$15(this, (Selects.__proto__ || Object.getPrototypeOf(Selects)).call(this, options));_this.oldValue = "";var that = _this;return _this.$(".select-input").blur(function (event) {
 	      "function" == typeof options.onBlur && options.onBlur(that, $(this).val(), event);
-	    }), _this;
+	    }), _this.$(".select-tags-div").on("click", ".select-tag-close", _this.clickItemClose.bind(_this)), _this;
 	  }return _inherits$15(Selects, _Lego$UI$Baseview), _createClass$16(Selects, [{ key: "render", value: function value() {
 	      function getTags(data) {
 	        return data.length ? hx(_templateObject$14, data.map(function (item) {
@@ -6761,9 +6761,9 @@
 	            return model.key === item.key;
 	          });model && (model.selected = !0);
 	        }
-	      }), this.$(".select-tag-close").click(this.clickItemClose.bind(this));
+	      });
 	    } }, { key: "clickItemClose", value: function value(event) {
-	      event.stopPropagation();var target = $(event.currentTarget).parent(),
+	      event.stopPropagation();var target = $(event.target).parent(),
 	          key = target.attr("id"),
 	          value = target.attr("title");this.options.data.forEach(function (item) {
 	        item.key == key && (item.selected = !1);
@@ -7126,9 +7126,7 @@
 	    _templateObject4$6 = _taggedTemplateLiteral$17(['\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '" style="width:100%">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            '], ['\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '" style="width:100%">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ']),
 	    Treeselect = function (_Selects) {
 	  function Treeselect() {
-	    var opts = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};_classCallCheck$23(this, Treeselect);var options = { events: { "click .dropdown-menu": function clickDropdownMenu(event) {
-	          event.stopPropagation();
-	        } }, name: "", value: [], multiple: !1, eventName: "click", scrollbar: {}, disSelect: "", onlySelect: "", treeDataSource: null, filterOption: !0, tags: !1, onDeselect: function onDeselect() {}, onChange: function onChange() {}, onSearch: function onSearch() {}, placeholder: "", notFoundContent: "", dropdownWidth: "100%", dropdownHeight: "auto", optionFilterProp: "", combobox: !1, size: "", showSearch: !1, disabled: !1, defaultActiveFirstOption: !1, dropdownStyle: null, dropdownClassName: "", splitString: "", keyNames: ["id", "name", "type"], clickAndClose: !opts.multiple, components: [{ el: "#tree-" + opts.vid, disSelect: opts.disSelect, onlySelect: opts.onlySelect, setting: Object.assign({}, opts.setting), keyNames: opts.keyNames || ["id", "name", "type"], value: opts.value, data: opts.data, dataSource: opts.treeDataSource, onChecked: function onChecked(self, result) {
+	    var opts = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};_classCallCheck$23(this, Treeselect);var options = { name: "", value: [], multiple: !1, eventName: "click", scrollbar: {}, disSelect: "", onlySelect: "", treeDataSource: null, filterOption: !0, tags: !1, onDeselect: function onDeselect() {}, onChange: function onChange() {}, onSearch: function onSearch() {}, placeholder: "", notFoundContent: "", dropdownWidth: "100%", dropdownHeight: "auto", optionFilterProp: "", combobox: !1, size: "", showSearch: !1, disabled: !1, defaultActiveFirstOption: !1, dropdownStyle: null, dropdownClassName: "", splitString: "", keyNames: ["id", "name", "type"], clickAndClose: !opts.multiple, components: [{ el: "#tree-" + opts.vid, disSelect: opts.disSelect, onlySelect: opts.onlySelect, setting: Object.assign({}, opts.setting), keyNames: opts.keyNames || ["id", "name", "type"], value: opts.value, data: opts.data, dataSource: opts.treeDataSource, onChecked: function onChecked(self, result) {
 	          var pView = this.context;"0" !== result.key && opts.setting.check && (pView.getValue(), result.length ? (pView.options.value = [], result.forEach(function (val) {
 	            pView.options.value.push({ key: val.key, value: val.value, type: val.type, selected: !0 });
 	          })) : pView.options.value = []), pView.options.onChange(pView, result);
@@ -7151,16 +7149,18 @@
 	      }) : [] : [options.value.value];return vDom = options.multiple ? hx(_templateObject4$6, options.vid, theValueArr.length ? "select-hasValue" : "", theValueArr.length ? "" : options.placeholder, theValueArr.join(","), options.name, theValueArr.length ? "select-tags-div-border" : "", getTags(options.value), options.direction ? "drop" + options.direction : "", options.vid) : hx(_templateObject3$8, options.vid, options.disabled ? "disabled" : "", options.placeholder, theValueArr.join(","), options.name, options.direction ? "drop" + options.direction : "", options.vid);
 	    } }, { key: "renderAfter", value: function value() {
 	      var options = this.options,
-	          trigger = this.$("#select-" + options.vid + " > input.select-input").off("click"),
-	          tagsDivEl = this.$(".select-tags-div").off("click"),
-	          that = (this.$("#tree-" + options.vid), this);if (!options.disabled) {
+	          trigger = this.$("#select-" + options.vid),
+	          _eventName = (this.$(".select-tags-div"), this.$("#tree-" + options.vid), "click.dropdown_" + options.vid),
+	          that = this;if (!options.disabled) {
 	        var handler = function handler(event) {
 	          $("body, .modal-body").trigger("click", options.vid), event.stopPropagation(), that.$(".dropdown-menu").slideToggle("fast");
-	        };tagsDivEl.length && (trigger = tagsDivEl), "click" == options.eventName ? ($("body, .modal-body").on("click", function (event, vid) {
+	        };"click" == options.eventName ? ($("body, .modal-body").off(_eventName).on(_eventName, function (event, vid) {
 	          vid !== options.vid && that.close();
-	        }), trigger.on("click.dropdown_" + options.vid, handler)) : trigger.mouseenter(handler).mouseleave(function () {
+	        }), trigger.off(_eventName).on(_eventName, handler)) : trigger.mouseenter(handler).mouseleave(function () {
 	          that.close();
-	        }), this.$(".select-tag-close").click(this.clickItemClose.bind(this));
+	        }), this.$(".select-tag-close").off(_eventName).on(_eventName, this.clickItemClose.bind(this)), this.$(".dropdown-menu").off(_eventName).on(_eventName, function (event) {
+	          event.stopPropagation();
+	        });
 	      }
 	    } }, { key: "show", value: function value(event) {
 	      this.$(".dropdown-menu").slideDown("fast");

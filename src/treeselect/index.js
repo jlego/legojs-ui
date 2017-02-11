@@ -10,9 +10,6 @@ import Tree from '../tree/index';
 class Treeselect extends Selects {
     constructor(opts = {}) {
         const options = {
-            events: {
-                'click .dropdown-menu': function(event){event.stopPropagation();}
-            },
             name: '',
             value: [], //指定当前选中的条目object/Array
             multiple: false, //支持多选
@@ -154,28 +151,31 @@ class Treeselect extends Selects {
     }
     renderAfter(){
         let options = this.options,
-            trigger = this.$('#select-' + options.vid + ' > input.select-input').off('click'),
-            tagsDivEl = this.$('.select-tags-div').off('click'),
+            trigger = this.$('#select-' + options.vid),
+            tagsDivEl = this.$('.select-tags-div'),
             treeEl = this.$('#tree-' + options.vid),
+            _eventName = 'click.dropdown_' + options.vid,
             that = this;
         if(!options.disabled){
-            if(tagsDivEl.length) trigger = tagsDivEl;
             function handler(event){
                 $('body, .modal-body').trigger('click', options.vid);
                 event.stopPropagation();
                 that.$('.dropdown-menu').slideToggle('fast');
             }
             if(options.eventName == 'click'){
-                $('body, .modal-body').on('click', function(event, vid){
+                $('body, .modal-body').off(_eventName).on(_eventName, function(event, vid){
                     if(vid !== options.vid) that.close();
                 });
-                trigger.on('click.dropdown_' + options.vid, handler);
+                trigger.off(_eventName).on(_eventName, handler);
             }else{
                 trigger.mouseenter(handler).mouseleave(function(){
                     that.close();
                 });
             }
-            this.$('.select-tag-close').click(this.clickItemClose.bind(this));
+            this.$('.select-tag-close').off(_eventName).on(_eventName, this.clickItemClose.bind(this));
+            this.$('.dropdown-menu').off(_eventName).on(_eventName, function(event){
+                event.stopPropagation();
+            });
         }
     }
     show(event){

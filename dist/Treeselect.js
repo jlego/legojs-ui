@@ -122,7 +122,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var that = this;
+            var that = this, _eventName = "click.dropdown_" + this.options.vid;
             this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
             if (!this.options.disabled) {
                 var handler = function handler(event) {
@@ -131,10 +131,10 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     that.$el.slideToggle("fast");
                 };
                 if (this.options.eventName == "click") {
-                    $("body, .modal-body").on("click", function(event, vid) {
+                    $("body, .modal-body").off(_eventName).on(_eventName, function(event, vid) {
                         if (vid !== that.options.vid) that.close();
                     });
-                    this.container.on("click.dropdown_" + this.options.vid, handler);
+                    this.container.off(_eventName).on(_eventName, handler);
                 } else {
                     this.container.mouseenter(handler).mouseleave(function() {
                         that.close();
@@ -317,6 +317,7 @@ var Selects = function(_Lego$UI$Baseview) {
         _this.$(".select-input").blur(function(event) {
             if (typeof options.onBlur == "function") options.onBlur(that, $(this).val(), event);
         });
+        _this.$(".select-tags-div").on("click", ".select-tag-close", _this.clickItemClose.bind(_this));
         return _this;
     }
     _createClass$1(Selects, [ {
@@ -357,13 +358,12 @@ var Selects = function(_Lego$UI$Baseview) {
                     }
                 });
             }
-            this.$(".select-tag-close").click(this.clickItemClose.bind(this));
         }
     }, {
         key: "clickItemClose",
         value: function clickItemClose(event) {
             event.stopPropagation();
-            var target = $(event.currentTarget).parent(), key = target.attr("id"), value = target.attr("title");
+            var target = $(event.target).parent(), key = target.attr("id"), value = target.attr("title");
             this.options.data.forEach(function(item) {
                 if (item.key == key) item.selected = false;
             });
@@ -628,11 +628,6 @@ var Treeselect = function(_Selects) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Treeselect);
         var options = {
-            events: {
-                "click .dropdown-menu": function clickDropdownMenu(event) {
-                    event.stopPropagation();
-                }
-            },
             name: "",
             value: [],
             multiple: false,
@@ -745,25 +740,27 @@ var Treeselect = function(_Selects) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var options = this.options, trigger = this.$("#select-" + options.vid + " > input.select-input").off("click"), tagsDivEl = this.$(".select-tags-div").off("click"), treeEl = this.$("#tree-" + options.vid), that = this;
+            var options = this.options, trigger = this.$("#select-" + options.vid), tagsDivEl = this.$(".select-tags-div"), treeEl = this.$("#tree-" + options.vid), _eventName = "click.dropdown_" + options.vid, that = this;
             if (!options.disabled) {
                 var handler = function handler(event) {
                     $("body, .modal-body").trigger("click", options.vid);
                     event.stopPropagation();
                     that.$(".dropdown-menu").slideToggle("fast");
                 };
-                if (tagsDivEl.length) trigger = tagsDivEl;
                 if (options.eventName == "click") {
-                    $("body, .modal-body").on("click", function(event, vid) {
+                    $("body, .modal-body").off(_eventName).on(_eventName, function(event, vid) {
                         if (vid !== options.vid) that.close();
                     });
-                    trigger.on("click.dropdown_" + options.vid, handler);
+                    trigger.off(_eventName).on(_eventName, handler);
                 } else {
                     trigger.mouseenter(handler).mouseleave(function() {
                         that.close();
                     });
                 }
-                this.$(".select-tag-close").click(this.clickItemClose.bind(this));
+                this.$(".select-tag-close").off(_eventName).on(_eventName, this.clickItemClose.bind(this));
+                this.$(".dropdown-menu").off(_eventName).on(_eventName, function(event) {
+                    event.stopPropagation();
+                });
             }
         }
     }, {
