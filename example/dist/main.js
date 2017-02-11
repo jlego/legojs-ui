@@ -6737,9 +6737,11 @@
 	  function Selects() {
 	    var opts = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};_classCallCheck$16(this, Selects);var options = { events: {}, name: "", value: [], multiple: !1, eventName: "click", filterOption: !0, tags: !1, onDeselect: function onDeselect() {}, onChange: function onChange() {}, onBlur: function onBlur() {}, onSearch: function onSearch() {}, placeholder: "", notFoundContent: "", dropdownWidth: "100%", dropdownHeight: "auto", optionFilterProp: "", combobox: !1, size: "", showSearch: !1, disabled: !1, defaultActiveFirstOption: !1, dropdownStyle: null, dropdownClassName: "", splitString: "", dataSource: null, components: function components() {
 	        var opts = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};arguments[1];return [{ el: "#dropdown-" + opts.vid, container: "#select-" + opts.vid, eventName: opts.eventName || "click", disabled: opts.disabled || !1, style: Object.assign({ width: opts.dropdownWidth || "100%" }, opts.dropdownStyle || {}), className: opts.dropdownClassName, clickAndClose: !opts.multiple, data: opts.data || [], dataSource: opts.dataSource, onChange: function onChange(self, model) {
-	            var parentView = this.context;parentView.$(".select-input").focus(), "0" !== model.key && opts.multiple ? (parentView.getValue(), parentView.options.value.includes(model) || (model.selected = !0, parentView.options.value.push(model))) : (parentView.options.data.forEach(function (item) {
+	            var pView = this.context;pView.$(".select-input").focus(), "0" !== model.key && opts.multiple ? (pView.options.data.forEach(function (item) {
+	              "0" == item.key && (item.selected = !1);
+	            }), pView.getValue(), pView.options.value.includes(model) || (model.selected = !0, pView.options.value.push(model))) : (pView.options.data.forEach(function (item) {
 	              return item.selected = !1;
-	            }), parentView.options.value = [model]), parentView.options.onChange(parentView, model);
+	            }), pView.options.value = [model], pView.refresh()), pView.options.onChange(pView, model);
 	          } }];
 	      } };Object.assign(options, opts);var _this = _possibleConstructorReturn$15(this, (Selects.__proto__ || Object.getPrototypeOf(Selects)).call(this, options));_this.oldValue = "";var that = _this;return _this.$(".select-input").blur(function (event) {
 	      "function" == typeof options.onBlur && options.onBlur(that, $(this).val(), event);
@@ -6829,7 +6831,8 @@
 	      }();
 	    } }, { key: "render", value: function value() {
 	      var options = this.options || {},
-	          vDom = "";return "range" != options.type || options.startInputEl || options.endInputEl || (vDom = hx(_templateObject$15, options.disabled ? "disabled" : "", formatDate(options.startValue, options.format), options.startName, options.startPlaceholder, options.disabled ? "disabled" : "", formatDate(options.endValue, options.format), options.endName, options.endPlaceholder)), ("range" !== options.type || "range" == options.type && options.startInputEl && options.endInputEl) && (vDom = hx(_templateObject2$13, options.disabled ? "disabled" : "", formatDate(val(options.value), options.format), options.name, options.placeholder, "time" == options.type ? "clock-circle-o" : "calendar")), options.inline && (vDom = hx(_templateObject3$7)), vDom;
+	          vDom = "";
+	      return "range" != options.type || options.startInputEl || options.endInputEl || (vDom = hx(_templateObject$15, options.disabled ? "disabled" : "", formatDate(options.startValue, options.format), options.startName, options.startPlaceholder, options.disabled ? "disabled" : "", formatDate(options.endValue, options.format), options.endName, options.endPlaceholder)), ("range" !== options.type || "range" == options.type && options.startInputEl && options.endInputEl) && (vDom = hx(_templateObject2$13, options.disabled ? "disabled" : "", formatDate(val(options.value), options.format), options.name, options.placeholder, "time" == options.type ? "clock-circle-o" : "calendar")), options.inline && (vDom = hx(_templateObject3$7)), vDom;
 	    } }, { key: "showpanel", value: function value(event) {
 	      var target = $(event.currentTarget),
 	          input = target.prev("input");input.focus();

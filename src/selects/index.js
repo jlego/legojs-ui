@@ -50,19 +50,23 @@ class Selects extends Lego.UI.Baseview {
                     data: opts.data || [],
                     dataSource: opts.dataSource,
                     onChange(self, model){
-                        const parentView = this.context;
-                        parentView.$('.select-input').focus();
+                        const pView = this.context;
+                        pView.$('.select-input').focus();
                         if(model.key !== '0' && opts.multiple){
-                            parentView.getValue();
-                            if(!parentView.options.value.includes(model)){
+                            pView.options.data.forEach(item => {
+                                if(item.key == '0') item.selected = false;
+                            });
+                            pView.getValue();
+                            if(!pView.options.value.includes(model)){
                                 model.selected = true;
-                                parentView.options.value.push(model);
+                                pView.options.value.push(model);
                             }
                         }else{
-                            parentView.options.data.forEach(item => item.selected = false);
-                            parentView.options.value = [model];
+                            pView.options.data.forEach(item => item.selected = false);
+                            pView.options.value = [model];
+                            pView.refresh();
                         }
-                        parentView.options.onChange(parentView, model);
+                        pView.options.onChange(pView, model);
                     }
                 }];
             }

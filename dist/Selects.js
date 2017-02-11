@@ -289,21 +289,25 @@ var Selects = function(_Lego$UI$Baseview) {
                     data: opts.data || [],
                     dataSource: opts.dataSource,
                     onChange: function onChange(self, model) {
-                        var parentView = this.context;
-                        parentView.$(".select-input").focus();
+                        var pView = this.context;
+                        pView.$(".select-input").focus();
                         if (model.key !== "0" && opts.multiple) {
-                            parentView.getValue();
-                            if (!parentView.options.value.includes(model)) {
+                            pView.options.data.forEach(function(item) {
+                                if (item.key == "0") item.selected = false;
+                            });
+                            pView.getValue();
+                            if (!pView.options.value.includes(model)) {
                                 model.selected = true;
-                                parentView.options.value.push(model);
+                                pView.options.value.push(model);
                             }
                         } else {
-                            parentView.options.data.forEach(function(item) {
+                            pView.options.data.forEach(function(item) {
                                 return item.selected = false;
                             });
-                            parentView.options.value = [ model ];
+                            pView.options.value = [ model ];
+                            pView.refresh();
                         }
-                        parentView.options.onChange(parentView, model);
+                        pView.options.onChange(pView, model);
                     }
                 } ];
             }
