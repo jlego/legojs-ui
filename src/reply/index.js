@@ -10,67 +10,62 @@ import Upload from '../upload/index';
 import Dropdownbtn from '../dropdownbtn/index';
 
 class Reply extends Lego.UI.Baseview {
-    constructor(opts = {}) {
-        const options = {
-            events: {
-                'focus .lego-reply-content': 'onFocus',
-                'blur .lego-reply-content': 'onblur',
-                'click .lego-reply-submit': 'submit',
-                'click .lego-reply-annex': 'showUpload',
-                'click .popover-title i': 'showUpload',
-                'keydown .lego-reply-content': '_enterSearch'
-            },
-            inputType: 'textarea',   //输入框类型  textarea或div
-            placeholder: '请输入回复内容', //
-            contentHeight: 70,  //输入框高度
-            showFacial: true,   //显示表情
-            showUpload: true,   //显示上传文件
-            uploadToken: null,    //上传文件token数据源
-            iconsUrl: '',
-            submitText: '回复',   //
-            submitType: 'primary',
-            maxTextLength: 500,  //回复内容最大长度
-            onSubmit(){},  //事件回调
-            onUploadComplete(){},
-            dropdownbtn: false, //下拉菜单
-            components: []
-        };
-        Object.assign(options, opts);
-        if(options.showFacial){
-            options.components.push({
-                el: '#facial-' + options.vid,
-                target: '#content-' + options.vid,
-                targetType: options.inputType,
-                iconsUrl: options.iconsUrl
-            });
-        }
-        if(options.dropdownbtn){
-            options.components.push(Object.assign(typeof options.dropdownbtn == 'object' ? options.dropdownbtn : {}, {
-                el: '#dropdownbtn-' + options.vid,
-                text: options.submitText,
-                btnType: options.submitType,
-                className: 'float-right',
-                onClick(self, item, event){
-                    let parentView = self.options.context;
-                    if(parentView){
-                        parentView.submit();
+        constructor(opts = {}) {
+            const options = {
+                events: {
+                    'focus .lego-reply-content': 'onFocus',
+                    'click .lego-reply-submit': 'submit',
+                    'click .lego-reply-annex': 'showUpload',
+                    'click .popover-title i': 'showUpload',
+                    'keydown .lego-reply-content': '_enterSearch'
+                },
+                // inputType: 'textarea', //输入框类型  textarea或div
+                placeholder: '请输入回复内容', //
+                contentHeight: 70, //输入框高度
+                showFacial: true, //显示表情
+                showUpload: true, //显示上传文件
+                uploadToken: null, //上传文件token数据源
+                iconsUrl: '',
+                submitText: '回复', //
+                submitType: 'primary',
+                maxTextLength: 500, //回复内容最大长度
+                onSubmit() {}, //事件回调
+                onUploadComplete() {},
+                dropdownbtn: false, //下拉菜单
+                components: []
+            };
+            Object.assign(options, opts);
+            if (options.showFacial) {
+                options.components.push({
+                    el: '#facial-' + options.vid,
+                    target: '#content-' + options.vid,
+                    targetType: 'textarea',
+                    iconsUrl: options.iconsUrl
+                });
+            }
+            if (options.dropdownbtn) {
+                options.components.push(Object.assign(typeof options.dropdownbtn == 'object' ? options.dropdownbtn : {}, {
+                    el: '#dropdownbtn-' + options.vid,
+                    text: options.submitText,
+                    btnType: options.submitType,
+                    className: 'float-right',
+                    onClick(self, item, event) {
+                        let parentView = self.options.context;
+                        if (parentView) {
+                            parentView.submit();
+                        }
                     }
-                }
-            }));
+                }));
+            }
+            super(options);
+            this.uploadView = null;
+            this.placeholder = '<span class="lego-reply-ph">' + this.options.placeholder + '</span>';
         }
-        super(options);
-        this.uploadView = null;
-        this.placeholder = '<span class="lego-reply-ph">' + this.options.placeholder + '</span>';
-    }
-    render() {
-        const options = this.options;
-        const vDom = hx`
+        render() {
+                const options = this.options;
+                const vDom = hx `
         <div class="lego-reply">
-            ${options.inputType == 'div' ? hx`
-            <div class="lego-reply-content" id="content-${options.vid}"><span class="lego-reply-ph">${val(options.placeholder)}</span></div>
-            ` : hx`
             <textarea placeholder="${val(options.placeholder)}" class="form-control lego-reply-content" id="content-${options.vid}"></textarea>
-            `}
             ${options.dropdownbtn ? hx`
             <dropdownbtn id="dropdownbtn-${options.vid}"></dropdownbtn>
             ` : hx`
@@ -94,11 +89,6 @@ class Reply extends Lego.UI.Baseview {
     onFocus(event){
         const target = $(event.currentTarget);
         if(target.find('.lego-reply-ph').length) target.html('');
-    }
-    onblur(event){
-        const target = $(event.currentTarget),
-            options = this.options;
-        if(!target.text() && !target.find('img').length && options.inputType == 'div') target.html(this.placeholder);
     }
     showUpload(event){
         this.$('.popover').toggleClass('show');
@@ -148,13 +138,8 @@ class Reply extends Lego.UI.Baseview {
             Lego.UI.message('warning', '提交内容不能大于500个字符');
             return;
         }
-        let contentHtml = this.options.inputType == 'div' ? contentEl.html() : contentEl.val();
-        contentHtml = this.options.inputType == 'div' ? Lego.UI.Util.faceToText(contentHtml, this.options.iconsUrl) : contentHtml;
-        if(this.options.inputType == 'div'){
-            contentEl.html(this.placeholder);
-        }else{
-            contentEl.val('');
-        }
+        let contentHtml = contentEl.val();
+        contentEl.val('');
         contentHtml = contentHtml == this.placeholder ? '' : contentHtml;
         let uploadIds = Array.from(this.getUploadIds());
         if(this.uploadView) this.uploadView.clear();

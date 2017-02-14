@@ -6634,8 +6634,8 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
     -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);
     transform: skewX(-0.78125deg) skewY(-0.78125deg); }
   77.7% {
-    -webkit-transform: skewX(0.39062deg) skewY(0.39062deg);
-    transform: skewX(0.39062deg) skewY(0.39062deg); }
+    -webkit-transform: skewX(0.39063deg) skewY(0.39063deg);
+    transform: skewX(0.39063deg) skewY(0.39063deg); }
   88.8% {
     -webkit-transform: skewX(-0.19531deg) skewY(-0.19531deg);
     transform: skewX(-0.19531deg) skewY(-0.19531deg); }
@@ -6663,8 +6663,8 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
     -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);
     transform: skewX(-0.78125deg) skewY(-0.78125deg); }
   77.7% {
-    -webkit-transform: skewX(0.39062deg) skewY(0.39062deg);
-    transform: skewX(0.39062deg) skewY(0.39062deg); }
+    -webkit-transform: skewX(0.39063deg) skewY(0.39063deg);
+    transform: skewX(0.39063deg) skewY(0.39063deg); }
   88.8% {
     -webkit-transform: skewX(-0.19531deg) skewY(-0.19531deg);
     transform: skewX(-0.19531deg) skewY(-0.19531deg); }
@@ -9907,7 +9907,7 @@ tr.lego-table-expanded-row:hover {
   float: left;
   min-width: 160px;
   padding: 5px 0;
-  margin: 0px 0 0;
+  margin: -1px 0 0;
   list-style: none;
   font-size: 14px;
   text-align: left;
@@ -10277,6 +10277,9 @@ tr.lego-table-expanded-row:hover {
   background: transparent;
   outline: 0;
   border-radius: 4px; }
+
+.select .select-input.form-control[readonly] {
+  background-color: transparent; }
 .input-group.date .input-group-addon {
   background-color: transparent !important;
   color: #999; }
@@ -10297,6 +10300,8 @@ tr.lego-table-expanded-row:hover {
   border-radius: .25rem !important;
   border-bottom-left-radius: 0 !important;
   border-top-left-radius: 0 !important; }
+.popover {
+  border-color: #ccc; }
 .lego-tree * {
   padding: 0;
   margin: 0;

@@ -24,11 +24,13 @@ class Tree extends Lego.UI.Baseview {
             },
             keyNames: ['id', 'name', 'type'],
             value: [],
+            data: [],
             onChecked() {},
             onClick() {}
         };
         Object.assign(options, opts);
         super(options);
+        this.isLoaded = false;
     }
     render() {
         return hx `<ul class="lego-tree"></ul>`;
@@ -53,13 +55,13 @@ class Tree extends Lego.UI.Baseview {
             }, options.setting.check || {});
             options.setting.callback = Object.assign(options.setting.callback || {}, {
                 onCheck: function(event, treeId, treeNode) {
-                    const treeObj = $.fn.zTree.getZTreeObj(treeId),
+                    let treeObj = $.fn.zTree.getZTreeObj(treeId),
                         nodes = treeObj.getCheckedNodes(true),
                         keyNames = options.keyNames,
                         result = nodes.filter((node) => {
                             return selectOrNo(node);
                         });
-                    const newValue = [];
+                    let newValue = [];
                     result.forEach((val, index) => {
                         newValue.push(Object.assign({
                             key: val[keyNames[0]],
@@ -84,13 +86,18 @@ class Tree extends Lego.UI.Baseview {
         }
     }
     renderAfter() {
-        const options = this.options;
-        if(options.data) $.fn.zTree.init(this.$el, options.setting, options.data);
+        let options = this.options;
+        if(options.data.length && !this.isLoaded){
+            let ztree = $.fn.zTree.getZTreeObj(this.options.id);
+            if(ztree) $.fn.zTree.destroy(this.options.id);
+            $.fn.zTree.init(this.$el, options.setting, options.data);
+            this.isLoaded = true;
+        }
     }
     // 取消选择
     clearChecked(key, value) {
-        const ztree = $.fn.zTree.getZTreeObj(this.options.id);
-        const node = ztree.getNodeByParam(key, value, null);
+        let ztree = $.fn.zTree.getZTreeObj(this.options.id);
+        let node = ztree.getNodeByParam(key, value, null);
         if (node) {
             ztree.checkNode(node, false, false);
         }

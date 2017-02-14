@@ -1,5 +1,5 @@
 /**
- * inputs.js v0.2.9
+ * inputs.js v0.3.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -75,13 +75,14 @@ var Inputs = function(_Lego$UI$Baseview) {
         _classCallCheck(this, Inputs);
         var options = {
             events: {
-                keydown: "onEnter",
+                keyup: "onEnter",
                 change: "onChange"
             },
             type: "text",
             value: "",
             placeholder: "",
             name: "",
+            filterReg: "",
             disabled: false,
             readonly: false,
             addonBefore: "",
@@ -94,12 +95,11 @@ var Inputs = function(_Lego$UI$Baseview) {
         };
         Object.assign(options, opts);
         var _this = _possibleConstructorReturn(this, (Inputs.__proto__ || Object.getPrototypeOf(Inputs)).call(this, options));
-        var that = _this;
         if (options.addonBefore || options.addonAfter) {
             var onEnterFun = _this.onEnter.bind(_this);
             var onChangeFun = _this.onChange.bind(_this);
-            _this.$el.find("input").keydown(onEnterFun);
-            _this.$el.find("input").change(onChangeFun);
+            _this.$("input").keydown(onEnterFun);
+            _this.$("input").change(onChangeFun);
         }
         return _this;
     }
@@ -109,20 +109,32 @@ var Inputs = function(_Lego$UI$Baseview) {
             var options = this.options || {};
             var vDom = hx(_templateObject);
             if (options.addonBefore || options.addonAfter) {
-                vDom = hx(_templateObject2, options.size ? "input-group-" + options.size : "", options.addonBefore ? hx(_templateObject3, options.prefix) : "", options.type, options.placeholder, options.value, options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", options.addonAfter ? hx(_templateObject3, options.suffix) : "");
+                vDom = hx(_templateObject2, options.size ? "input-group-" + options.size : "", options.addonBefore ? hx(_templateObject3, options.prefix) : "", options.type, options.placeholder, this.filterStr(options.value), options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", options.addonAfter ? hx(_templateObject3, options.suffix) : "");
             } else {
                 if (options.type == "textarea") {
-                    vDom = hx(_templateObject4, options.size ? "form-control-" + options.size : "", options.placeholder, options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", options.value);
+                    vDom = hx(_templateObject4, options.size ? "form-control-" + options.size : "", options.placeholder, options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", this.filterStr(options.value));
                 } else {
-                    vDom = hx(_templateObject5, options.type, options.size ? "form-control-" + options.size : "", options.placeholder, options.value, options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "");
+                    vDom = hx(_templateObject5, options.type, options.size ? "form-control-" + options.size : "", options.placeholder, this.filterStr(options.value), options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "");
                 }
             }
             return vDom;
         }
     }, {
+        key: "filterStr",
+        value: function filterStr(str) {
+            var pattern = new RegExp(this.options.filterReg || "");
+            var specialStr = "";
+            for (var i = 0; i < str.length; i++) {
+                specialStr += str.substr(i, 1).replace(pattern, "");
+            }
+            return specialStr;
+        }
+    }, {
         key: "onEnter",
         value: function onEnter(event) {
-            var target = $(event.currentTarget), value = target.val();
+            var target = $(event.currentTarget), value = this.filterStr(target.val());
+            this.options.value = value;
+            if (this.options.type == "textarea") target.val(value);
             if (event.keyCode == 13) {
                 if (typeof this.options.onEnter === "function") this.options.onEnter(this, value, event);
             }
@@ -130,7 +142,9 @@ var Inputs = function(_Lego$UI$Baseview) {
     }, {
         key: "onChange",
         value: function onChange(event) {
-            var target = $(event.currentTarget), value = target.val();
+            var target = $(event.currentTarget), value = this.filterStr(target.val());
+            this.options.value = value;
+            this.refresh();
             if (typeof this.options.onChange === "function") this.options.onChange(this, value, event);
         }
     } ]);

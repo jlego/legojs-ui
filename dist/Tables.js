@@ -1,5 +1,5 @@
 /**
- * tables.js v0.2.9
+ * tables.js v0.3.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -291,7 +291,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             options.components = [ {
                 el: "#" + opts.vid + "-dropdown",
                 container: "#" + opts.vid + "-select",
-                direction: "up",
+                direction: "top",
                 data: theData,
                 onChange: function onChange(self, result) {
                     var num = parseInt(result.key);
@@ -372,6 +372,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             var num = target.val();
             if (event.keyCode == 13) {
                 if (num > options.totalPages) num = options.totalPages;
+                if (!Number(num)) num = 1;
                 this.jumped = true;
                 options.current = num;
                 options.onChange(this, num, options.pageSize);
@@ -426,35 +427,31 @@ var _templateObject6 = _taggedTemplateLiteral([ "\n        <colgroup>\n         
 
 var _templateObject7 = _taggedTemplateLiteral([ '<col style="width: 30px;">' ], [ '<col style="width: 30px;">' ]);
 
-var _templateObject8 = _taggedTemplateLiteral([ "\n                ", "\n            " ], [ "\n                ", "\n            " ]);
+var _templateObject8 = _taggedTemplateLiteral([ '<col style="', '">' ], [ '<col style="', '">' ]);
 
-var _templateObject9 = _taggedTemplateLiteral([ "<col>" ], [ "<col>" ]);
+var _templateObject9 = _taggedTemplateLiteral([ '\n            <span>\n                <label class="lego-', '-wrapper">\n                    <span class="lego-', " ", "\n                    ", '">\n                        <span class="lego-', '-inner"></span>\n                        <input type="', '" ', ' name="selectedrows" class="lego-', '-input" value="', '">\n                    </span>\n                </label>\n            </span>\n            ' ], [ '\n            <span>\n                <label class="lego-', '-wrapper">\n                    <span class="lego-', " ", "\n                    ", '">\n                        <span class="lego-', '-inner"></span>\n                        <input type="', '" ', ' name="selectedrows" class="lego-', '-input" value="', '">\n                    </span>\n                </label>\n            </span>\n            ' ]);
 
-var _templateObject10 = _taggedTemplateLiteral([ '<col style="width: ', ';">' ], [ '<col style="width: ', ';">' ]);
+var _templateObject10 = _taggedTemplateLiteral([ "\n        ", "\n        " ], [ "\n        ", "\n        " ]);
 
-var _templateObject11 = _taggedTemplateLiteral([ '\n            <span>\n                <label class="lego-', '-wrapper">\n                    <span class="lego-', " ", "\n                    ", '">\n                        <span class="lego-', '-inner"></span>\n                        <input type="', '" ', ' name="selectedrows" class="lego-', '-input" value="', '">\n                    </span>\n                </label>\n            </span>\n            ' ], [ '\n            <span>\n                <label class="lego-', '-wrapper">\n                    <span class="lego-', " ", "\n                    ", '">\n                        <span class="lego-', '-inner"></span>\n                        <input type="', '" ', ' name="selectedrows" class="lego-', '-input" value="', '">\n                    </span>\n                </label>\n            </span>\n            ' ]);
+var _templateObject11 = _taggedTemplateLiteral([ '<th class="lego-table-selection-column">', "</th>" ], [ '<th class="lego-table-selection-column">', "</th>" ]);
 
-var _templateObject12 = _taggedTemplateLiteral([ "\n        ", "\n        " ], [ "\n        ", "\n        " ]);
+var _templateObject12 = _taggedTemplateLiteral([ '<td class="lego-table-selection-column">', "</td>" ], [ '<td class="lego-table-selection-column">', "</td>" ]);
 
-var _templateObject13 = _taggedTemplateLiteral([ '<th class="lego-table-selection-column">', "</th>" ], [ '<th class="lego-table-selection-column">', "</th>" ]);
+var _templateObject13 = _taggedTemplateLiteral([ '\n        <thead class="lego-table-thead">\n            <tr>\n            ', "\n            ", "\n            </tr>\n        </thead>\n        " ], [ '\n        <thead class="lego-table-thead">\n            <tr>\n            ', "\n            ", "\n            </tr>\n        </thead>\n        " ]);
 
-var _templateObject14 = _taggedTemplateLiteral([ '<td class="lego-table-selection-column">', "</td>" ], [ '<td class="lego-table-selection-column">', "</td>" ]);
+var _templateObject14 = _taggedTemplateLiteral([ '<th class="', '" id="', '"><span>', "\n                ", "", "</span></th>" ], [ '<th class="', '" id="', '"><span>', "\n                ", "", "</span></th>" ]);
 
-var _templateObject15 = _taggedTemplateLiteral([ '\n        <thead class="lego-table-thead">\n            <tr>\n            ', "\n            ", "\n            </tr>\n        </thead>\n        " ], [ '\n        <thead class="lego-table-thead">\n            <tr>\n            ', "\n            ", "\n            </tr>\n        </thead>\n        " ]);
+var _templateObject15 = _taggedTemplateLiteral([ '\n        <tbody class="lego-table-tbody">\n            ', "\n        </tbody>\n        " ], [ '\n        <tbody class="lego-table-tbody">\n            ', "\n        </tbody>\n        " ]);
 
-var _templateObject16 = _taggedTemplateLiteral([ '<th class="', '" id="', '"><span>', "\n                ", "", "</span></th>" ], [ '<th class="', '" id="', '"><span>', "\n                ", "", "</span></th>" ]);
+var _templateObject16 = _taggedTemplateLiteral([ '<tr class="', '" id="', '">\n                ', "\n                ", "\n                </tr>" ], [ '<tr class="', '" id="', '">\n                ', "\n                ", "\n                </tr>" ]);
 
-var _templateObject17 = _taggedTemplateLiteral([ '\n        <tbody class="lego-table-tbody">\n            ', "\n        </tbody>\n        " ], [ '\n        <tbody class="lego-table-tbody">\n            ', "\n        </tbody>\n        " ]);
+var _templateObject17 = _taggedTemplateLiteral([ "<td>", "</td>" ], [ "<td>", "</td>" ]);
 
-var _templateObject18 = _taggedTemplateLiteral([ '<tr class="', '" id="', '">\n                ', "\n                ", "\n                </tr>" ], [ '<tr class="', '" id="', '">\n                ', "\n                ", "\n                </tr>" ]);
+var _templateObject18 = _taggedTemplateLiteral([ '\n        <tfoot class="lego-table-tfoot"><tr><td>', "</td></tr></tfoot>\n        " ], [ '\n        <tfoot class="lego-table-tfoot"><tr><td>', "</td></tr></tfoot>\n        " ]);
 
-var _templateObject19 = _taggedTemplateLiteral([ "<td>", "</td>" ], [ "<td>", "</td>" ]);
+var _templateObject19 = _taggedTemplateLiteral([ '\n        <div class="lego-table-column-sorter">\n            <span class="lego-table-column-sorter-up ', '" title="↑">\n                <i class="anticon anticon-caret-up"></i>\n            </span>\n            <span class="lego-table-column-sorter-down ', '" title="↓">\n                <i class="anticon anticon-caret-down"></i>\n            </span>\n        </div>\n        ' ], [ '\n        <div class="lego-table-column-sorter">\n            <span class="lego-table-column-sorter-up ', '" title="↑">\n                <i class="anticon anticon-caret-up"></i>\n            </span>\n            <span class="lego-table-column-sorter-down ', '" title="↓">\n                <i class="anticon anticon-caret-down"></i>\n            </span>\n        </div>\n        ' ]);
 
-var _templateObject20 = _taggedTemplateLiteral([ '\n        <tfoot class="lego-table-tfoot"><tr><td>', "</td></tr></tfoot>\n        " ], [ '\n        <tfoot class="lego-table-tfoot"><tr><td>', "</td></tr></tfoot>\n        " ]);
-
-var _templateObject21 = _taggedTemplateLiteral([ '\n        <div class="lego-table-column-sorter">\n            <span class="lego-table-column-sorter-up ', '" title="↑">\n                <i class="anticon anticon-caret-up"></i>\n            </span>\n            <span class="lego-table-column-sorter-down ', '" title="↓">\n                <i class="anticon anticon-caret-down"></i>\n            </span>\n        </div>\n        ' ], [ '\n        <div class="lego-table-column-sorter">\n            <span class="lego-table-column-sorter-up ', '" title="↑">\n                <i class="anticon anticon-caret-up"></i>\n            </span>\n            <span class="lego-table-column-sorter-down ', '" title="↓">\n                <i class="anticon anticon-caret-down"></i>\n            </span>\n        </div>\n        ' ]);
-
-var _templateObject22 = _taggedTemplateLiteral([ '<i title="filter" class="anticon anticon-filter"></i>' ], [ '<i title="filter" class="anticon anticon-filter"></i>' ]);
+var _templateObject20 = _taggedTemplateLiteral([ '<i title="filter" class="anticon anticon-filter"></i>' ], [ '<i title="filter" class="anticon anticon-filter"></i>' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -521,6 +518,7 @@ var Tables = function(_Lego$UI$Baseview) {
             onExpandedRowsChange: function onExpandedRowsChange() {},
             onExpand: function onExpand() {},
             onChange: function onChange() {},
+            onSelect: function onSelect() {},
             loading: false,
             locale: {
                 filterConfirm: "确定",
@@ -539,31 +537,45 @@ var Tables = function(_Lego$UI$Baseview) {
         options.components.push(_extends({}, options.pagination, {
             el: "#pagination_" + options.vid
         }));
-        options.columns.map(function(col) {
-            col = Object.assign({
-                title: "",
-                key: Lego.randomKey(32),
-                isHide: false,
-                dataIndex: "",
-                colSpan: 0,
-                width: "",
-                className: "",
-                fixed: false,
-                sortOrder: ""
-            }, col);
-        });
         var _this = _possibleConstructorReturn(this, (Tables.__proto__ || Object.getPrototypeOf(Tables)).call(this, options));
         _this.selectedAll = 0;
-        var header = _this.$el.find(".lego-table-header");
-        _this.$el.find(".lego-table-body").scroll(function() {
+        _this.hasClicked = false;
+        _this.columns = [];
+        var header = _this.$(".lego-table-header");
+        _this.$(".lego-table-body").scroll(function() {
             header.scrollLeft($(this).scrollLeft());
         });
-        _this.$el.find(".lego-table-tfoot>tr>td").attr("colspan", _this.options.columns.length);
+        _this.$(".lego-table-tfoot>tr>td").attr("colspan", _this.columns.length);
         return _this;
     }
     _createClass(Tables, [ {
+        key: "getColumns",
+        value: function getColumns() {
+            var _this2 = this;
+            var options = this.options, columns = typeof options.columns == "function" ? options.columns() : options.columns || [];
+            this.columns = [];
+            columns.forEach(function(col, index) {
+                if (!col.isHide) {
+                    _this2.columns.push(Object.assign({
+                        title: "",
+                        key: index,
+                        isHide: false,
+                        dataIndex: "",
+                        colSpan: 0,
+                        width: "",
+                        className: "",
+                        fixed: false,
+                        sortOrder: ""
+                    }, col));
+                }
+            });
+            return this.columns;
+        }
+    }, {
         key: "render",
         value: function render() {
+            this.getColumns();
+            if (!this.hasClicked) this.selectedAll = 0;
             var options = this.options;
             var vDom = hx(_templateObject, options.size, options.bordered ? "lego-table-bordered" : "", options.showHeader ? "lego-table-fixed-header" : "", options.title ? hx(_templateObject2, typeof options.title == "function" ? options.title() : options.title) : "", options.showHeader ? hx(_templateObject3, this._renderColgroup(), this._renderHeader(), options.colSetting ? hx(_templateObject4) : "") : "", options.pagination ? "48px" : "0", options.showHeader ? "scrollbar" : "", options.className, this._renderColgroup(), !options.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), options.pagination && options.data ? hx(_templateObject5, options.vid) : "");
             return vDom;
@@ -571,6 +583,7 @@ var Tables = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
+            this.hasClicked = false;
             var paginationView = Lego.getView("#pagination_" + this.options.vid);
             if (paginationView) paginationView.refresh();
         }
@@ -585,9 +598,10 @@ var Tables = function(_Lego$UI$Baseview) {
     }, {
         key: "_renderColgroup",
         value: function _renderColgroup() {
-            var _this2 = this;
-            var vDom = hx(_templateObject6, this.options.rowSelection ? hx(_templateObject7) : "", this.options.columns.map(function(col, index) {
-                return hx(_templateObject8, index === _this2.options.columns.length - 1 ? hx(_templateObject9) : hx(_templateObject10, col.width));
+            var _this3 = this;
+            var vDom = hx(_templateObject6, this.options.rowSelection ? hx(_templateObject7) : "", this.columns.map(function(col, index) {
+                var w = index !== _this3.columns.length - 1 ? "width:" + (typeof col.width == "number" ? col.width + "px" : col.width.toString()) : "";
+                return hx(_templateObject8, w);
             }));
             return vDom;
         }
@@ -599,31 +613,31 @@ var Tables = function(_Lego$UI$Baseview) {
             var options = this.options, theType = options.rowSelection.type || "checkbox", that = this;
             var isChecked = row.selected || tagName === "th" && this.selectedAll === 1, isHarf = tagName === "th" && that.selectedAll === 2 ? true : false;
             function getHx() {
-                return hx(_templateObject11, theType, theType, row.disabled ? "lego-" + theType + "-disabled" : "", isChecked ? "lego-" + theType + "-checked lego-" + theType + "-checked-1" : isHarf ? "lego-" + theType + "-indeterminate" : "", theType, theType, row.disabled ? "disabled" : "", theType, isChecked ? "on" : "");
+                return hx(_templateObject9, theType, theType, row.disabled ? "lego-" + theType + "-disabled" : "", isChecked ? "lego-" + theType + "-checked lego-" + theType + "-checked-1" : isHarf ? "lego-" + theType + "-indeterminate" : "", theType, theType, row.disabled ? "disabled" : "", theType, isChecked ? "on" : "");
             }
-            var vDom = hx(_templateObject12, tagName == "th" ? hx(_templateObject13, getHx()) : hx(_templateObject14, getHx()));
+            var vDom = hx(_templateObject10, tagName == "th" ? hx(_templateObject11, getHx()) : hx(_templateObject12, getHx()));
             return vDom;
         }
     }, {
         key: "_renderHeader",
         value: function _renderHeader() {
-            var _this3 = this;
+            var _this4 = this;
             var options = this.options;
-            var vDom = hx(_templateObject15, options.rowSelection ? this._renderSelection({}, "th") : "", options.columns.map(function(col) {
-                return !col.isHide ? hx(_templateObject16, col.sortOrder ? "lego-table-column-sort" : "", col.key, col.title, col.sorter ? _this3._renderSorter(col) : "", _this3._renderFilter(col)) : "";
+            var vDom = hx(_templateObject13, options.rowSelection ? this._renderSelection({}, "th") : "", this.columns.map(function(col) {
+                return !col.isHide ? hx(_templateObject14, col.sortOrder ? "lego-table-column-sort" : "", col.key, col.title, col.sorter ? _this4._renderSorter(col) : "", _this4._renderFilter(col)) : "";
             }));
             return vDom;
         }
     }, {
         key: "_renderBodyer",
         value: function _renderBodyer() {
-            var _this4 = this;
+            var _this5 = this;
             var options = this.options;
             if (!options.data) return;
-            var vDom = hx(_templateObject17, options.data.map(function(row, i) {
-                row.key = row.id || _this4._getRowKey("row_");
-                return hx(_templateObject18, options.rowClassName, row.key, options.rowSelection ? _this4._renderSelection(row, "td") : "", options.columns.map(function(col) {
-                    return !col.isHide ? hx(_templateObject19, typeof col.format === "function" ? col.format(row[col.dataIndex], row, col) : row[col.dataIndex]) : "";
+            var vDom = hx(_templateObject15, options.data.map(function(row, i) {
+                row.key = row.id || _this5._getRowKey("row_");
+                return hx(_templateObject16, options.rowClassName, row.key, options.rowSelection ? _this5._renderSelection(row, "td") : "", _this5.columns.map(function(col) {
+                    return !col.isHide ? hx(_templateObject17, typeof col.format === "function" ? col.format(row[col.dataIndex], row, col) : row[col.dataIndex]) : "";
                 }));
             }));
             return vDom;
@@ -632,7 +646,7 @@ var Tables = function(_Lego$UI$Baseview) {
         key: "_renderFooter",
         value: function _renderFooter() {
             var options = this.options;
-            var vDom = hx(_templateObject20, options.footer ? options.footer() : "");
+            var vDom = hx(_templateObject18, options.footer ? options.footer() : "");
             return vDom;
         }
     }, {
@@ -640,20 +654,20 @@ var Tables = function(_Lego$UI$Baseview) {
         value: function _renderSorter() {
             var col = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
             var options = this.options;
-            var vDom = hx(_templateObject21, col.sortOrder === "asc" ? "on" : "off", col.sortOrder === "desc" ? "on" : "off");
+            var vDom = hx(_templateObject19, col.sortOrder === "asc" ? "on" : "off", col.sortOrder === "desc" ? "on" : "off");
             return vDom;
         }
     }, {
         key: "_renderFilter",
         value: function _renderFilter() {
             var col = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-            return col.filter ? hx(_templateObject22) : "";
+            return col.filter ? hx(_templateObject20) : "";
         }
     }, {
         key: "clickSorter",
         value: function clickSorter(event) {
             event.stopPropagation();
-            var target = $(event.currentTarget), key = target.closest("th").attr("id"), col = this.options.columns.find(function(val) {
+            var target = $(event.currentTarget), key = target.closest("th").attr("id"), col = this.columns.find(function(val) {
                 return val.key == key;
             });
             if (col) {
@@ -683,7 +697,7 @@ var Tables = function(_Lego$UI$Baseview) {
             var row = this.options.data.find(function(val) {
                 return val.key == rowKey;
             });
-            var col = this.options.columns.find(function(val) {
+            var col = this.columns.find(function(val) {
                 return val.key == colKey;
             });
             if (row && col) {
@@ -699,7 +713,7 @@ var Tables = function(_Lego$UI$Baseview) {
         key: "clickFilter",
         value: function clickFilter(event) {
             event.stopPropagation();
-            var target = $(event.currentTarget), colKey = target.closest("th").attr("id"), col = this.options.columns.find(function(val) {
+            var target = $(event.currentTarget), colKey = target.closest("th").attr("id"), col = this.columns.find(function(val) {
                 return val.key == colKey;
             });
             if (col) {
@@ -715,6 +729,7 @@ var Tables = function(_Lego$UI$Baseview) {
     }, {
         key: "selectOne",
         value: function selectOne(event) {
+            this.hasClicked = true;
             var target = $(event.currentTarget), trEl = target.closest("tr"), id = trEl.attr("id"), options = this.options, that = this;
             if (options.rowSelection) {
                 if (options.rowSelection.type == "radio") {
@@ -731,24 +746,27 @@ var Tables = function(_Lego$UI$Baseview) {
                     return value.selected === true;
                 });
                 this.selectedAll = hasSelectedArr.length == options.data.length ? 1 : hasSelectedArr.length ? 2 : 0;
+                if (typeof options.onSelect == "function") options.onSelect(this, this.selectedAll ? Array.from(hasSelectedArr) : []);
                 this.refresh();
             }
         }
     }, {
         key: "selectAll",
         value: function selectAll(event) {
-            var _this5 = this;
+            var _this6 = this;
+            this.hasClicked = true;
             event.stopPropagation();
             var target = $(event.currentTarget);
             if (this.options.rowSelection) {
                 (function() {
                     var isChecked = target.is(":checked");
                     var isSelected = isChecked ? 1 : 0;
-                    _this5.selectedAll = isSelected;
-                    _this5.options.data.map(function(row, index) {
+                    _this6.selectedAll = isSelected;
+                    _this6.options.data.map(function(row, index) {
                         row.selected = !!isSelected;
                     });
-                    _this5.refresh();
+                    if (typeof _this6.options.onSelect == "function") _this6.options.onSelect(_this6, isSelected ? Array.from(_this6.options.data) : []);
+                    _this6.refresh();
                 })();
             }
         }

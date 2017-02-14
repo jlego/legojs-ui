@@ -1,5 +1,5 @@
 /**
- * selects.js v0.2.9
+ * selects.js v0.3.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -267,6 +267,7 @@ var Selects = function(_Lego$UI$Baseview) {
             combobox: false,
             size: "",
             showSearch: false,
+            inputAble: false,
             disabled: false,
             defaultActiveFirstOption: false,
             dropdownStyle: null,
@@ -360,6 +361,7 @@ var Selects = function(_Lego$UI$Baseview) {
                     }
                 });
             }
+            if (!this.options.inputAble) this.$(".select-input").attr("readonly", "readonly");
         }
     }, {
         key: "clickItemClose",

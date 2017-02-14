@@ -1,5 +1,5 @@
 /**
- * treeselect.js v0.2.9
+ * treeselect.js v0.3.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -269,6 +269,7 @@ var Selects = function(_Lego$UI$Baseview) {
             combobox: false,
             size: "",
             showSearch: false,
+            inputAble: false,
             disabled: false,
             defaultActiveFirstOption: false,
             dropdownStyle: null,
@@ -362,6 +363,7 @@ var Selects = function(_Lego$UI$Baseview) {
                     }
                 });
             }
+            if (!this.options.inputAble) this.$(".select-input").attr("readonly", "readonly");
         }
     }, {
         key: "clickItemClose",
@@ -483,11 +485,14 @@ var Tree = function(_Lego$UI$Baseview) {
             },
             keyNames: [ "id", "name", "type" ],
             value: [],
+            data: [],
             onChecked: function onChecked() {},
             onClick: function onClick() {}
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$3(this, (Tree.__proto__ || Object.getPrototypeOf(Tree)).call(this, options));
+        var _this = _possibleConstructorReturn$3(this, (Tree.__proto__ || Object.getPrototypeOf(Tree)).call(this, options));
+        _this.isLoaded = false;
+        return _this;
     }
     _createClass$3(Tree, [ {
         key: "render",
@@ -548,7 +553,12 @@ var Tree = function(_Lego$UI$Baseview) {
         key: "renderAfter",
         value: function renderAfter() {
             var options = this.options;
-            if (options.data) $.fn.zTree.init(this.$el, options.setting, options.data);
+            if (options.data.length && !this.isLoaded) {
+                var _ztree = $.fn.zTree.getZTreeObj(this.options.id);
+                if (_ztree) $.fn.zTree.destroy(this.options.id);
+                $.fn.zTree.init(this.$el, options.setting, options.data);
+                this.isLoaded = true;
+            }
         }
     }, {
         key: "clearChecked",
@@ -646,6 +656,7 @@ var Treeselect = function(_Selects) {
             onChange: function onChange() {},
             onSearch: function onSearch() {},
             placeholder: "",
+            inputAble: false,
             notFoundContent: "",
             dropdownWidth: "100%",
             dropdownHeight: "auto",
@@ -666,8 +677,8 @@ var Treeselect = function(_Selects) {
                 onlySelect: opts.onlySelect,
                 setting: Object.assign({}, opts.setting),
                 keyNames: opts.keyNames || [ "id", "name", "type" ],
-                value: opts.value,
-                data: opts.data,
+                value: opts.value || [],
+                data: opts.data || [],
                 dataSource: opts.treeDataSource,
                 onChecked: function onChecked(self, result) {
                     var pView = this.context;
@@ -745,6 +756,7 @@ var Treeselect = function(_Selects) {
         key: "renderAfter",
         value: function renderAfter() {
             var options = this.options, trigger = this.$("#select-" + options.vid), tagsDivEl = this.$(".select-tags-div"), treeEl = this.$("#tree-" + options.vid), _eventName = "click.dropdown_" + options.vid, that = this;
+            if (!options.inputAble) this.$(".select-input").attr("readonly", "readonly");
             if (!options.disabled) {
                 var handler = function handler(event) {
                     $("body, .modal-body").trigger("click", options.vid);

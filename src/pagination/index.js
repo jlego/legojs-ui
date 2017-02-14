@@ -154,6 +154,7 @@ class Pagination extends Lego.UI.Baseview {
         let num = target.val();
         if (event.keyCode == 13) {
             if(num > options.totalPages) num = options.totalPages;
+            if(!Number(num)) num = 1;
             this.jumped = true;
             options.current = num;
             options.onChange(this, num, options.pageSize);
