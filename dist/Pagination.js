@@ -291,6 +291,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             options.components = [ {
                 el: "#" + opts.vid + "-dropdown",
                 container: "#" + opts.vid + "-select",
+                direction: "up",
                 data: theData,
                 onChange: function onChange(self, result) {
                     var num = parseInt(result.key);
