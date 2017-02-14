@@ -5,7 +5,7 @@ import Alert from '../alert/index';
 class Modal extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const typeArr = {
-            success: 'anticon anticon-check-circle-o ',
+            success: 'anticon anticon-check-circle-o',
             info: 'anticon anticon-info-circle-o',
             warning: 'anticon anticon-exclamation-circle-o',
             error: 'anticon anticon-cross-circle-o',
@@ -17,7 +17,7 @@ class Modal extends Lego.UI.Baseview {
                 'click .modal-footer button.cancel': 'clickCancel',
                 'click .close': 'close',
                 'click .modal-dialog': function(event){event.stopPropagation()},
-                'click': 'close'
+                'click': 'clickBackdrop',
             },
             msgType: '',    //有此属性的是dialog
             title: '提示',
@@ -106,8 +106,8 @@ class Modal extends Lego.UI.Baseview {
             keyboard: options.keyboard,
             show: true
         });
-        if(options.width) this.$el.find('.modal-dialog').width(options.width);
-        if(options.height) this.$el.find('.modal-body').height(options.height);
+        if(options.width) this.$('.modal-dialog').width(options.width);
+        if(options.height) this.$('.modal-body').height(options.height);
         this.$el.on('hidden.bs.modal', function (e) {
             if(options.type == 'layer'){
                 that.$el.replaceWith('<layer id="lego-layer"></layer>');
@@ -134,12 +134,16 @@ class Modal extends Lego.UI.Baseview {
             this.$el.modal('hide');
         }
     }
+    clickBackdrop(event){
+        event.stopPropagation();
+        this._onConfirm('onCancel');
+    }
     _showDialog(){
         const that = this;
         Lego.create(Modal, {
             msgType: this.options.confirm.msgType || 'warning',
             content: this.options.confirm.content || '',
-            backdrop: false,
+            backdrop: this.options.confirm.backdrop,
             onOk(self) {
                 that.close();
                 self.close();

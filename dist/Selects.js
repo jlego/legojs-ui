@@ -1,5 +1,5 @@
 /**
- * selects.js v0.2.9
+ * selects.js v0.3.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -198,7 +198,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ], [ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ]);
+var _templateObject = _taggedTemplateLiteral([ "\n                <ul>", "\n                </ul>\n                " ], [ "\n                <ul>", "\n                </ul>\n                " ]);
 
 var _templateObject2 = _taggedTemplateLiteral([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
 
@@ -267,6 +267,7 @@ var Selects = function(_Lego$UI$Baseview) {
             combobox: false,
             size: "",
             showSearch: false,
+            inputAble: false,
             disabled: false,
             defaultActiveFirstOption: false,
             dropdownStyle: null,
@@ -360,6 +361,7 @@ var Selects = function(_Lego$UI$Baseview) {
                     }
                 });
             }
+            if (!this.options.inputAble) this.$(".select-input").attr("readonly", "readonly");
         }
     }, {
         key: "clickItemClose",

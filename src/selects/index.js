@@ -30,6 +30,7 @@ class Selects extends Lego.UI.Baseview {
             combobox: false,  //输入框自动提示模式
             size: '',  //支持多选
             showSearch: false,  //在选择框中显示搜索框
+            inputAble: false,   //是否可以输入
             disabled: false,  //是否禁用
             defaultActiveFirstOption: false,  //是否默认高亮第一个选项
             dropdownStyle: null,  //下拉菜单的 style 属性
@@ -92,9 +93,6 @@ class Selects extends Lego.UI.Baseview {
                         <span class="select-tag-close"></span>
                     </li>
                     `)}
-                    <li class="select-search">
-                        <input value="" class="select-search-input">
-                    </li>
                 </ul>
                 `;
             }else{
@@ -135,6 +133,7 @@ class Selects extends Lego.UI.Baseview {
                 }
             });
         }
+        if(!this.options.inputAble) this.$('.select-input').attr('readonly', 'readonly');
     }
     clickItemClose(event){
         event.stopPropagation();

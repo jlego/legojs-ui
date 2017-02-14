@@ -1,5 +1,5 @@
 /**
- * pagination.js v0.2.9
+ * pagination.js v0.3.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -291,6 +291,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             options.components = [ {
                 el: "#" + opts.vid + "-dropdown",
                 container: "#" + opts.vid + "-select",
+                direction: "top",
                 data: theData,
                 onChange: function onChange(self, result) {
                     var num = parseInt(result.key);
@@ -371,6 +372,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             var num = target.val();
             if (event.keyCode == 13) {
                 if (num > options.totalPages) num = options.totalPages;
+                if (!Number(num)) num = 1;
                 this.jumped = true;
                 options.current = num;
                 options.onChange(this, num, options.pageSize);

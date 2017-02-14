@@ -26,6 +26,7 @@ class Treeselect extends Selects {
             onChange() {}, //选中 option，或 input 的 value 变化（combobox 模式下）时，调用此函数
             onSearch() {}, //文本框值变化时回调
             placeholder: '', //选择框默认文字
+            inputAble: false,
             notFoundContent: '', //当下拉列表为空时显示的内容
             dropdownWidth: '100%', //下拉菜单和选择器同宽
             dropdownHeight: 'auto', //下拉菜单高度
@@ -46,8 +47,8 @@ class Treeselect extends Selects {
                 onlySelect: opts.onlySelect, //只选择含有该属性节点, 可以是对象
                 setting: Object.assign({}, opts.setting),
                 keyNames: opts.keyNames || ['id', 'name', 'type'],
-                value: opts.value,
-                data: opts.data,
+                value: opts.value || [],
+                data: opts.data || [],
                 dataSource: opts.treeDataSource,
                 onChecked(self, result) {
                     const pView = this.context;
@@ -156,6 +157,7 @@ class Treeselect extends Selects {
             treeEl = this.$('#tree-' + options.vid),
             _eventName = 'click.dropdown_' + options.vid,
             that = this;
+        if(!options.inputAble) this.$('.select-input').attr('readonly', 'readonly');
         if(!options.disabled){
             function handler(event){
                 $('body, .modal-body').trigger('click', options.vid);

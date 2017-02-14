@@ -1,5 +1,5 @@
 /**
- * modal.js v0.2.9
+ * modal.js v0.3.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -734,7 +734,7 @@ var Modal = function(_Lego$UI$Baseview) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Modal);
         var typeArr = {
-            success: "anticon anticon-check-circle-o ",
+            success: "anticon anticon-check-circle-o",
             info: "anticon anticon-info-circle-o",
             warning: "anticon anticon-exclamation-circle-o",
             error: "anticon anticon-cross-circle-o",
@@ -748,7 +748,7 @@ var Modal = function(_Lego$UI$Baseview) {
                 "click .modal-dialog": function clickModalDialog(event) {
                     event.stopPropagation();
                 },
-                click: "close"
+                click: "clickBackdrop"
             },
             msgType: "",
             title: "提示",
@@ -815,8 +815,8 @@ var Modal = function(_Lego$UI$Baseview) {
                 keyboard: options.keyboard,
                 show: true
             });
-            if (options.width) this.$el.find(".modal-dialog").width(options.width);
-            if (options.height) this.$el.find(".modal-body").height(options.height);
+            if (options.width) this.$(".modal-dialog").width(options.width);
+            if (options.height) this.$(".modal-body").height(options.height);
             this.$el.on("hidden.bs.modal", function(e) {
                 if (options.type == "layer") {
                     that.$el.replaceWith('<layer id="lego-layer"></layer>');
@@ -844,13 +844,19 @@ var Modal = function(_Lego$UI$Baseview) {
             }
         }
     }, {
+        key: "clickBackdrop",
+        value: function clickBackdrop(event) {
+            event.stopPropagation();
+            this._onConfirm("onCancel");
+        }
+    }, {
         key: "_showDialog",
         value: function _showDialog() {
             var that = this;
             Lego.create(Modal, {
                 msgType: this.options.confirm.msgType || "warning",
                 content: this.options.confirm.content || "",
-                backdrop: false,
+                backdrop: this.options.confirm.backdrop,
                 onOk: function onOk(self) {
                     that.close();
                     self.close();

@@ -37,6 +37,7 @@ class Pagination extends Lego.UI.Baseview {
             options.components = [{
                 el: '#' + opts.vid + '-dropdown',
                 container: '#' + opts.vid + '-select',
+                direction: 'top',
                 data: theData,
                 onChange(self, result){
                     const num = parseInt(result.key);
@@ -153,6 +154,7 @@ class Pagination extends Lego.UI.Baseview {
         let num = target.val();
         if (event.keyCode == 13) {
             if(num > options.totalPages) num = options.totalPages;
+            if(!Number(num)) num = 1;
             this.jumped = true;
             options.current = num;
             options.onChange(this, num, options.pageSize);

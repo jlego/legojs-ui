@@ -9,13 +9,14 @@ class Inputs extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
-                'keydown': 'onEnter',
+                'keyup': 'onEnter',
                 'change': 'onChange'
             },
             type: 'text',   //声明 input 类型，同原生 input 标签的 type 属性。另外提供 type="textarea"
             value: '', //输入框内容
             placeholder: '',
             name: '',
+            filterReg: '',  //过滤正则
             disabled: false,  //是否禁用状态，默认为 false
             readonly: false,
             addonBefore: '',    //带标签的 input，设置前置标签
@@ -28,13 +29,13 @@ class Inputs extends Lego.UI.Baseview {
         };
         Object.assign(options, opts);
         super(options);
-        const that = this;
         if(options.addonBefore || options.addonAfter){
             const onEnterFun = this.onEnter.bind(this);
             const onChangeFun = this.onChange.bind(this);
-            this.$el.find('input').keydown(onEnterFun);
-            this.$el.find('input').change(onChangeFun);
+            this.$('input').keydown(onEnterFun);
+            this.$('input').change(onChangeFun);
         }
+
     }
     render() {
         const options = this.options || {};
@@ -44,7 +45,7 @@ class Inputs extends Lego.UI.Baseview {
             <div class="input-group ${options.size ? ('input-group-' + options.size) : ''}">
               ${options.addonBefore ? hx`<span class="input-group-addon">${options.prefix}</span>` : ''}
               <input type="${options.type}" class="form-control" placeholder="${options.placeholder}"
-              value="${options.value}" name="${options.name}" ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}/>
+              value="${this.filterStr(options.value)}" name="${options.name}" ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}/>
               ${options.addonAfter ? hx`<span class="input-group-addon">${options.suffix}</span>` : ''}
             </div>
             `;
@@ -52,27 +53,41 @@ class Inputs extends Lego.UI.Baseview {
             if(options.type == 'textarea'){
                 vDom = hx`
                   <textarea type="textarea" class="form-control ${options.size ? ('form-control-' + options.size) : ''}" placeholder="${options.placeholder}" name="${options.name}"
-                  ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}>${options.value}</textarea>
+                  ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}>${this.filterStr(options.value)}</textarea>
                 `;
             }else{
                 vDom = hx`
                   <input type="${options.type}" class="form-control ${options.size ? ('form-control-' + options.size) : ''}" placeholder="${options.placeholder}"
-                  value="${options.value}" name="${options.name}" ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}/>
+                  value="${this.filterStr(options.value)}" name="${options.name}" ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}/>
                 `;
             }
         }
         return vDom;
     }
+    // 过滤特殊字符
+    filterStr(str){
+        // let pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？%+_]");
+        let pattern = new RegExp(this.options.filterReg || "");
+        let specialStr = "";
+        for(let i=0; i<str.length; i++){
+            specialStr += str.substr(i, 1).replace(pattern, '');
+        }
+        return specialStr;
+    }
     onEnter(event) {
         const target = $(event.currentTarget),
-            value = target.val();
+            value = this.filterStr(target.val());
+        this.options.value = value;
+        if(this.options.type == 'textarea') target.val(value);
         if (event.keyCode == 13) {
             if(typeof this.options.onEnter === 'function') this.options.onEnter(this, value, event);
         }
     }
     onChange(event) {
         const target = $(event.currentTarget),
-            value = target.val();
+            value = this.filterStr(target.val());
+        this.options.value = value;
+        this.refresh();
         if(typeof this.options.onChange === 'function') this.options.onChange(this, value, event);
     }
 }

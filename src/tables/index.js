@@ -35,6 +35,7 @@ class Tables extends Lego.UI.Baseview {
             onExpandedRowsChange(){}, //展开的行变化时触发
             onExpand(){}, //点击展开图标时触发
             onChange(){}, //分页、排序、筛选变化时触发
+            onSelect(){},
             loading: false, //页面是否加载中
             locale: { //默认文案设置，目前包括排序、过滤、空数据文案
                 filterConfirm: '确定',
@@ -58,33 +59,45 @@ class Tables extends Lego.UI.Baseview {
             ...options.pagination,
             el: '#pagination_' + options.vid
         });
-        options.columns.map((col) => {
-            col = Object.assign({
-                title: '',  //列头显示文字
-                key: Lego.randomKey(32),
-                isHide: false, //是否隐藏
-                dataIndex: '',  //列数据在数据项中对应的 key，支持 a.b.c 的嵌套写法
-                // format(value, row, col){ return value; },  //生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return里面可以设置表格行/列合并
-                // filter(){},  //表头的筛选项
-                // sorter(){},  //排序函数，本地排序使用一个函数，需要服务端排序可设为 true
-                colSpan: 0,  //表头列合并,设置为 0 时，不渲染
-                width: '',  //列宽度
-                className: '',  //列的 className
-                fixed: false,  //列是否固定，可选 true(等效于 left) 'left' 'right'
-                sortOrder: '',  //排序的受控属性，外界可用此控制列的排序，可设置为 'asc' 'desc' false
-                // onCellClick(){}  //单元格点击回调
-            }, col);
-        });
         super(options);
         this.selectedAll = 0;
+        this.hasClicked = false;  //已点击
+        this.columns = [];
         // 同步横向滚动
-        const header = this.$el.find('.lego-table-header');
-        this.$el.find('.lego-table-body').scroll(function() {
+        const header = this.$('.lego-table-header');
+        this.$('.lego-table-body').scroll(function() {
             header.scrollLeft($(this).scrollLeft());
         });
-        this.$el.find('.lego-table-tfoot>tr>td').attr('colspan', this.options.columns.length);
+        this.$('.lego-table-tfoot>tr>td').attr('colspan', this.columns.length);
+    }
+    getColumns(){
+        let options = this.options,
+            columns = typeof options.columns == 'function' ? options.columns() : (options.columns || []);
+        this.columns = [];
+        columns.forEach((col, index) => {
+            if(!col.isHide){
+                this.columns.push(Object.assign({
+                    title: '',  //列头显示文字
+                    key: index,
+                    isHide: false, //是否隐藏
+                    dataIndex: '',  //列数据在数据项中对应的 key，支持 a.b.c 的嵌套写法
+                    // format(value, row, col){ return value; },  //生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return里面可以设置表格行/列合并
+                    // filter(){},  //表头的筛选项
+                    // sorter(){},  //排序函数，本地排序使用一个函数，需要服务端排序可设为 true
+                    colSpan: 0,  //表头列合并,设置为 0 时，不渲染
+                    width: '',  //列宽度
+                    className: '',  //列的 className
+                    fixed: false,  //列是否固定，可选 true(等效于 left) 'left' 'right'
+                    sortOrder: '',  //排序的受控属性，外界可用此控制列的排序，可设置为 'asc' 'desc' false
+                    // onCellClick(){}  //单元格点击回调
+                }, col));
+            }
+        });
+        return this.columns;
     }
     render() {
+        this.getColumns();
+        if(!this.hasClicked) this.selectedAll = 0;
         const options = this.options;
         const vDom = hx`
         <div class="clearfix lego-table lego-table-${options.size} ${options.bordered ? 'lego-table-bordered' : ''}
@@ -125,6 +138,7 @@ class Tables extends Lego.UI.Baseview {
         return vDom;
     }
     renderAfter(){
+        this.hasClicked = false;
         const paginationView = Lego.getView('#pagination_' + this.options.vid);
         if(paginationView) paginationView.refresh();
     }
@@ -137,10 +151,10 @@ class Tables extends Lego.UI.Baseview {
         const vDom = hx`
         <colgroup>
             ${this.options.rowSelection ? hx`<col style="width: 30px;">` : ''}
-            ${this.options.columns.map((col, index) => hx`
-                ${index === this.options.columns.length -1 ? hx`<col>` :
-                hx`<col style="width: ${col.width};">`}
-            `)}
+            ${this.columns.map((col, index) => {
+                let w = index !== this.columns.length - 1 ? ('width:' + (typeof col.width == 'number' ? (col.width + 'px') : col.width.toString())) : '';
+                return hx`<col style="${w}">`
+            })}
         </colgroup>
         `;
         return vDom;
@@ -177,7 +191,7 @@ class Tables extends Lego.UI.Baseview {
         <thead class="lego-table-thead">
             <tr>
             ${options.rowSelection ? this._renderSelection({}, 'th') : ''}
-            ${options.columns.map(col => {
+            ${this.columns.map(col => {
                 return !col.isHide ? hx`<th class="${col.sortOrder ? 'lego-table-column-sort' : ''}" id="${col.key}"><span>${col.title}
                 ${col.sorter ? this._renderSorter(col) : ''}${this._renderFilter(col)}</span></th>` : '';
             })}
@@ -196,7 +210,7 @@ class Tables extends Lego.UI.Baseview {
                 row.key = row.id || this._getRowKey('row_');
                 return hx`<tr class="${options.rowClassName}" id="${row.key}">
                 ${options.rowSelection ? this._renderSelection(row, 'td') : ''}
-                ${options.columns.map(col => {
+                ${this.columns.map(col => {
                     return !col.isHide ? hx`<td>${typeof col.format === 'function' ? col.format(row[col.dataIndex], row, col) : row[col.dataIndex]}</td>` : '';
                 })}
                 </tr>`;
@@ -235,7 +249,7 @@ class Tables extends Lego.UI.Baseview {
         event.stopPropagation();
         const target = $(event.currentTarget),
             key = target.closest('th').attr('id'),
-            col = this.options.columns.find((val) => val.key == key);
+            col = this.columns.find((val) => val.key == key);
         if(col){
             col.sortOrder = col.sortOrder || '';
             switch(col.sortOrder){
@@ -259,7 +273,7 @@ class Tables extends Lego.UI.Baseview {
             rowKey = target.parent().attr('id'),
             colKey = this.$el.find('thead').find('th').eq(event.currentTarget.cellIndex).attr('id');
         const row = this.options.data.find(val => val.key == rowKey);
-        const col = this.options.columns.find(val => val.key == colKey);
+        const col = this.columns.find(val => val.key == colKey);
         if(row && col){
             if(this.options.onRowClick){
                 if(typeof col.onRowClick === 'function') col.onRowClick(row);
@@ -273,7 +287,7 @@ class Tables extends Lego.UI.Baseview {
         event.stopPropagation();
         const target = $(event.currentTarget),
             colKey = target.closest('th').attr('id'),
-            col = this.options.columns.find(val => val.key == colKey);
+            col = this.columns.find(val => val.key == colKey);
         if(col){
             if(typeof col.filter === 'function') col.filter(col);
         }
@@ -284,6 +298,7 @@ class Tables extends Lego.UI.Baseview {
     }
     // 选中一条
     selectOne(event) {
+        this.hasClicked = true;
         const target = $(event.currentTarget),
             trEl = target.closest('tr'),
             id = trEl.attr('id'),
@@ -304,11 +319,13 @@ class Tables extends Lego.UI.Baseview {
                 return value.selected === true;
             });
             this.selectedAll = hasSelectedArr.length == options.data.length ? 1 : (hasSelectedArr.length ? 2 : 0);
+            if(typeof options.onSelect == 'function') options.onSelect(this, this.selectedAll ? Array.from(hasSelectedArr) : []);
             this.refresh();
         }
     }
     // 选择全部
     selectAll(event){
+        this.hasClicked = true;
         event.stopPropagation();
         const target = $(event.currentTarget);
         if (this.options.rowSelection) {
@@ -318,6 +335,7 @@ class Tables extends Lego.UI.Baseview {
             this.options.data.map((row, index) => {
                 row.selected = !!isSelected;
             });
+            if(typeof this.options.onSelect == 'function') this.options.onSelect(this, isSelected ? Array.from(this.options.data) : []);
             this.refresh();
         }
     }

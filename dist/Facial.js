@@ -1,5 +1,5 @@
 /**
- * facial.js v0.2.9
+ * facial.js v0.3.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -76,19 +76,23 @@ var Facial = function(_Lego$UI$Baseview) {
                 "click .lego-facial-item a": "clickItem"
             },
             target: "",
-            targetType: "div",
+            targetType: "textarea",
             icon: "anticon anticon-smile-o",
             text: "",
-            eventName: "hover",
+            eventName: "click",
             iconsUrl: "",
             itemClassPrefix: "f0",
-            direction: "top",
+            direction: "bottom",
             data: Lego.UI.Util.faceTags
         };
         Object.assign(options, opts);
         var _this = _possibleConstructorReturn(this, (Facial.__proto__ || Object.getPrototypeOf(Facial)).call(this, options));
         _this.cursorPos = null;
         _this.cursorContainer = null;
+        var that = _this;
+        $("body, .modal-body").click(function() {
+            that.close();
+        });
         return _this;
     }
     _createClass(Facial, [ {
@@ -105,11 +109,8 @@ var Facial = function(_Lego$UI$Baseview) {
         value: function renderAfter() {
             var target = this.$el, that = this, targetEl = this.options.target instanceof $ ? this.options.target : $(this.options.target);
             function handler(event) {
-                $("body, .modal-body").trigger("click");
                 event.stopPropagation();
-                var directionResp = Lego.UI.Util.getDirection($("body"), that.$el);
-                that.options.direction = directionResp._y || "bottom";
-                that.show();
+                that.$el.toggleClass("dropdown open");
                 if (that.options.eventName == "hover") {
                     target.mouseleave(function() {
                         that.close();
@@ -118,9 +119,6 @@ var Facial = function(_Lego$UI$Baseview) {
             }
             if (this.options.eventName == "click") {
                 var _eventName = "click.dropdown_" + this.options.vid;
-                $("body, .modal-body").off(_eventName).on(_eventName, function() {
-                    that.close();
-                });
                 target.off(_eventName).on(_eventName, handler);
             } else {
                 target[this.options.eventName](handler);
@@ -133,6 +131,7 @@ var Facial = function(_Lego$UI$Baseview) {
     }, {
         key: "clickItem",
         value: function clickItem(event) {
+            event.stopPropagation();
             var target = $(event.currentTarget), targetEl = this.options.target instanceof $ ? this.options.target : $(this.options.target);
             if (this.options.targetType == "div") {
                 this.addComma(targetEl, target.attr("title"));

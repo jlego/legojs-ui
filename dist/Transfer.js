@@ -1,5 +1,5 @@
 /**
- * transfer.js v0.2.9
+ * transfer.js v0.3.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -198,11 +198,14 @@ var Tree = function(_Lego$UI$Baseview) {
             },
             keyNames: [ "id", "name", "type" ],
             value: [],
+            data: [],
             onChecked: function onChecked() {},
             onClick: function onClick() {}
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$2(this, (Tree.__proto__ || Object.getPrototypeOf(Tree)).call(this, options));
+        var _this = _possibleConstructorReturn$2(this, (Tree.__proto__ || Object.getPrototypeOf(Tree)).call(this, options));
+        _this.isLoaded = false;
+        return _this;
     }
     _createClass$2(Tree, [ {
         key: "render",
@@ -263,7 +266,12 @@ var Tree = function(_Lego$UI$Baseview) {
         key: "renderAfter",
         value: function renderAfter() {
             var options = this.options;
-            if (options.data) $.fn.zTree.init(this.$el, options.setting, options.data);
+            if (options.data.length && !this.isLoaded) {
+                var _ztree = $.fn.zTree.getZTreeObj(this.options.id);
+                if (_ztree) $.fn.zTree.destroy(this.options.id);
+                $.fn.zTree.init(this.$el, options.setting, options.data);
+                this.isLoaded = true;
+            }
         }
     }, {
         key: "clearChecked",
