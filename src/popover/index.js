@@ -31,7 +31,6 @@ let Popover = function(opts = {}) {
         bodyEl = $('body, .modal-body');
     if(el.length){
         if(options.showNow){
-            el.off();
             el.popover('dispose');
         }
         el.popover({
