@@ -7,15 +7,10 @@ import Dropdown from '../dropdown/index';
 class Selects extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
-            events: {
-                // 'click .select-tag-close': 'clickItemClose'
-            },
             name: '',
             value: [],   //指定当前选中的条目object/Array
             multiple: false,  //支持多选
             eventName: 'click',
-            // showResultType: 'tag', //text, tag 多选时有效
-            // allowClear: false,  //支持清除, 单选模式有效
             filterOption: true,  //是否根据输入项进行筛选。当其为一个函数时，会接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。
             tags: false,  //可以把随意输入的条目作为 tag，输入项不需要与下拉选项匹配
             onDeselect(){},  //取消选中时调用，参数为选中项的 option value 值，仅在 multiple 或 tags 模式下生效

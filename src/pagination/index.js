@@ -117,7 +117,7 @@ class Pagination extends Lego.UI.Baseview {
     clickPrevPage(event){
         event.stopPropagation();
         const options = this.options;
-        console.warn('点击了上一页');
+        debug.warn('点击了上一页');
         options.current--;
         options.onChange(this, options.current, options.pageSize);
     }
@@ -126,14 +126,14 @@ class Pagination extends Lego.UI.Baseview {
         const target = $(event.currentTarget),
             num = target.attr('title');
         const options = this.options;
-        console.warn('点击了' + num + '页');
+        debug.warn('点击了' + num + '页');
         options.current = num;
         options.onChange(this, num, options.pageSize);
     }
     clickNextPage(event){
         event.stopPropagation();
         const options = this.options;
-        console.warn('点击了下一页');
+        debug.warn('点击了下一页');
         options.current++;
         options.onChange(this, options.current, options.pageSize);
     }
@@ -143,7 +143,7 @@ class Pagination extends Lego.UI.Baseview {
         let current = parseInt(options.current),
             pageRang = parseInt(options.pageRang),
             currentMod = current % pageRang ? current % pageRang : pageRang;
-        console.warn('点击了更多页');
+        debug.warn('点击了更多页');
         options.current = current + (pageRang - currentMod + 1);
         if(options.current > options.totalPages) options.current = options.totalPages;
         options.onChange(this, options.current, options.pageSize);
