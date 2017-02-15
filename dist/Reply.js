@@ -360,7 +360,7 @@ var _typeof$2 = typeof Symbol === "function" && typeof Symbol.iterator === "symb
     return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
 
-var _createClass$4 = function() {
+var _createClass$3 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -473,7 +473,7 @@ var Tooltip = function($) {
             this.tip = null;
             this._setListeners();
         }
-        _createClass$4(Tooltip, [ {
+        _createClass$3(Tooltip, [ {
             key: "enable",
             value: function enable() {
                 this._isEnabled = true;
@@ -863,7 +863,7 @@ var _typeof$1 = typeof Symbol === "function" && typeof Symbol.iterator === "symb
     return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
 
-var _createClass$3 = function() {
+var _createClass$2 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -949,7 +949,7 @@ var Popover$1 = function($) {
             _classCallCheck$3(this, Popover);
             return _possibleConstructorReturn$2(this, (Popover.__proto__ || Object.getPrototypeOf(Popover)).apply(this, arguments));
         }
-        _createClass$3(Popover, [ {
+        _createClass$2(Popover, [ {
             key: "isWithContent",
             value: function isWithContent() {
                 return this.getTitle() || this._getContent();
@@ -1041,84 +1041,77 @@ var Popover$1 = function($) {
     return Popover;
 }(jQuery);
 
-var _createClass$2 = function() {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];
-            descriptor.enumerable = descriptor.enumerable || false;
-            descriptor.configurable = true;
-            if ("value" in descriptor) descriptor.writable = true;
-            Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }
-    return function(Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);
-        if (staticProps) defineProperties(Constructor, staticProps);
-        return Constructor;
-    };
-}();
-
 function _classCallCheck$2(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
 }
 
-var Popover = function() {
-    function Popover() {
-        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$2(this, Popover);
-        var options = {
-            el: "",
-            selector: false,
-            title: "",
-            content: "",
-            animation: true,
-            container: false,
-            delay: 0,
-            html: false,
-            placement: "right",
-            template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
-            eventName: "click",
-            constraints: [],
-            offset: "0 0",
-            onHidden: function onHidden() {}
-        };
-        Object.assign(options, opts);
-        this.el = options.el;
-        this.onHidden = options.onHidden;
-        this.options = {
-            selector: options.selector,
-            title: options.title,
-            content: options.content,
-            animation: options.animation,
-            container: options.container,
-            delay: options.delay,
-            html: options.html,
-            placement: options.placement,
-            template: options.template,
-            constraints: options.constraints,
-            trigger: options.eventName,
-            offset: options.offset
-        };
-        this.render();
-    }
-    _createClass$2(Popover, [ {
-        key: "render",
-        value: function render() {
-            var that = this;
-            var el = this.el instanceof $ ? this.el : $(this.el);
-            if (el.length) {
-                el.popover(this.options);
-                el.on("hidden.bs.popover", function() {
-                    if (typeof that.onHidden === "function") that.onHidden(event);
+var Popover = function Popover() {
+    var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    _classCallCheck$2(this, Popover);
+    var options = {
+        el: "",
+        selector: false,
+        title: "",
+        content: "",
+        animation: true,
+        container: false,
+        delay: 0,
+        html: false,
+        showNow: false,
+        placement: "bottom",
+        template: '<div class="popover"><div class="popover-arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
+        eventName: "click",
+        constraints: [],
+        offset: "0 0",
+        onHidden: function onHidden() {}
+    };
+    Object.assign(options, opts);
+    var el = options.el instanceof $ ? options.el : $(options.el), theId = "popover-" + Lego.uniqueId(), _eventName = "click." + theId, isOpen = !!el.attr("data-isopen"), bodyEl = $("body, .modal-body");
+    this.options = {
+        selector: options.selector,
+        title: options.title,
+        content: options.content,
+        animation: options.animation,
+        container: options.container,
+        delay: options.delay,
+        html: options.html,
+        placement: options.placement,
+        template: options.template,
+        constraints: options.constraints,
+        trigger: options.eventName,
+        offset: options.offset
+    };
+    if (el.length) {
+        if (options.showNow) el.popover("dispose");
+        el.popover(this.options);
+        el.on("hidden.bs.popover", function() {
+            if (typeof options.onHidden === "function") options.onHidden(event);
+        });
+        if (options.showNow) {
+            bodyEl.trigger("click", el);
+            bodyEl.off("click").on("click", function(event, data) {
+                if (data !== el[0]) {
+                    el.popover("hide");
+                    el.attr("data-isopen", "");
+                }
+            });
+            el.on("shown.bs.popover", function() {
+                $(".popover").off("click").on("click", function(event) {
+                    event.stopPropagation();
                 });
+            });
+            if (!isOpen) {
+                el.popover("show");
+                el.attr("data-isopen", "true");
+            } else {
+                el.attr("data-isopen", "");
             }
-            return el;
         }
-    } ]);
-    return Popover;
-}();
+    }
+    return this;
+};
 
 var fun = function fun(opts) {
     return new Popover(opts);
@@ -1126,7 +1119,7 @@ var fun = function fun(opts) {
 
 Lego.components("popover", fun);
 
-var _createClass$7 = function() {
+var _createClass$6 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -1224,7 +1217,7 @@ var UploadView = function(_Lego$View) {
         }
         return _this;
     }
-    _createClass$7(UploadView, [ {
+    _createClass$6(UploadView, [ {
         key: "uploadInit",
         value: function uploadInit() {
             var _this2 = this;
@@ -1314,7 +1307,7 @@ var UploadView = function(_Lego$View) {
     return UploadView;
 }(Lego.View);
 
-var _createClass$8 = function() {
+var _createClass$7 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -1387,7 +1380,7 @@ var Progressbar = function(_Lego$UI$Baseview) {
         Object.assign(options, opts);
         return _possibleConstructorReturn$6(this, (Progressbar.__proto__ || Object.getPrototypeOf(Progressbar)).call(this, options));
     }
-    _createClass$8(Progressbar, [ {
+    _createClass$7(Progressbar, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
@@ -1412,7 +1405,7 @@ var Progressbar = function(_Lego$UI$Baseview) {
 
 Lego.components("progressbar", Progressbar);
 
-var _createClass$6 = function() {
+var _createClass$5 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -1508,7 +1501,7 @@ var UploadItem = function(_UploadBase) {
         Object.assign(options, opts);
         return _possibleConstructorReturn$4(this, (UploadItem.__proto__ || Object.getPrototypeOf(UploadItem)).call(this, options));
     }
-    _createClass$6(UploadItem, [ {
+    _createClass$5(UploadItem, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
@@ -1548,7 +1541,7 @@ var _typeof$3 = typeof Symbol === "function" && typeof Symbol.iterator === "symb
     return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
 
-var _createClass$5 = function() {
+var _createClass$4 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -1669,7 +1662,7 @@ var Upload = function(_Lego$UI$Baseview) {
         }
         return _this;
     }
-    _createClass$5(Upload, [ {
+    _createClass$4(Upload, [ {
         key: "render",
         value: function render() {
             var options = this.options;
@@ -1823,7 +1816,7 @@ var Upload = function(_Lego$UI$Baseview) {
 
 Lego.components("upload", Upload);
 
-var _createClass$10 = function() {
+var _createClass$9 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -1910,7 +1903,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
         _this.isLoaded = false;
         return _this;
     }
-    _createClass$10(Dropdown, [ {
+    _createClass$9(Dropdown, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
@@ -1999,7 +1992,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
 
 Lego.components("dropdown", Dropdown);
 
-var _createClass$9 = function() {
+var _createClass$8 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -2091,7 +2084,7 @@ var Dropdownbtn = function(_Lego$UI$Baseview) {
         _this.activeItem = {};
         return _this;
     }
-    _createClass$9(Dropdownbtn, [ {
+    _createClass$8(Dropdownbtn, [ {
         key: "render",
         value: function render() {
             var options = this.options;

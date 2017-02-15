@@ -126,9 +126,9 @@
     background: #fafafa;
 }
 
-.lego-table-thead > tr > th.lego-table-column-sort {
-    background: #eaeaea;
-}
+// .lego-table-thead > tr > th.lego-table-column-sort {
+//     background: #eaeaea;
+// }
 
 .lego-table-thead > tr > th,
 .lego-table-tbody > tr > td {
@@ -242,7 +242,7 @@
 .lego-table-column-sorter {
     margin-left: 4px;
     display: inline-block;
-    width: 12px;
+    width: 15px;
     height: 14px;
     vertical-align: middle;
     text-align: center;
@@ -250,8 +250,8 @@
 
 .lego-table-column-sorter-up,
 .lego-table-column-sorter-down {
-    line-height: 4px;
-    height: 5px;
+    line-height: 7px;
+    height: 7px;
     display: block;
     width: 12px;
     cursor: pointer;
@@ -279,7 +279,7 @@
     transform: scale(0.58333333) rotate(0deg);
     /* IE6-IE8 */
     -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=1, M12=0, M21=0, M22=1)";
-    zoom: 1;
+    zoom: 1.2;
     line-height: 6px;
     height: 6px;
     color: #aaa;
@@ -343,7 +343,7 @@
     position: absolute;
 }
 
-.lego-table-fixed-header .lego-table-header .btn.noborder{
+.lego-table-fixed-header .lego-table-scroll > .btn.noborder{
     position: absolute;
     top: 6px;
     right: 5px;
@@ -356,7 +356,7 @@
     background: transparent;
     border-radius: 50%;
 }
-.lego-table-fixed-header .lego-table-header .btn.noborder:hover{
+.lego-table-fixed-header .lego-table-scroll > .btn.noborder:hover{
     color: #108ee9;
     background: #f3f3f3;
 }
