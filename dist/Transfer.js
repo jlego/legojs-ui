@@ -403,7 +403,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var that = this, _eventName = "click.dropdown_" + this.options.vid;
+            var that = this, _eventName = "click.dropdown-" + this.options.vid;
             this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
             if (!this.options.disabled) {
                 var handler = function handler(event) {
@@ -413,7 +413,9 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 };
                 if (this.options.eventName == "click") {
                     $("body, .modal-body").off(_eventName).on(_eventName, function(event, vid) {
-                        if (vid !== that.options.vid) that.close();
+                        if (vid !== that.options.vid && vid) {
+                            that.close();
+                        }
                     });
                     this.container.off(_eventName).on(_eventName, handler);
                 } else {

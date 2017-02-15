@@ -9,6 +9,7 @@ class Pagination extends Lego.UI.Baseview {
                 'click .page-item': 'clickItemPage',
                 'click .next:not(.disabled)': 'clickNextPage',
                 'click .morepage': 'clickMorePage',
+                'click .info>button': 'showPagesize',
                 'keydown .info>input[type="text"]': '_enterSearch',
             },
             current: 1, //当前页数
@@ -24,7 +25,8 @@ class Pagination extends Lego.UI.Baseview {
             size: '',    //当为「small」时，是小尺寸分页
             simple: null,    //当添加该属性时，显示为简单分页
             isShowTotal: true,  //用于显示数据总量和当前数据顺序
-            data: {}
+            data: {},
+            components: []
         };
         Object.assign(options, opts);
         if(!options.simple && options.showSizeChanger){
@@ -34,9 +36,9 @@ class Pagination extends Lego.UI.Baseview {
                     value: val + ' / 页'
                 };
             });
-            options.components = [{
-                el: '#' + opts.vid + '-dropdown',
-                container: '#' + opts.vid + '-select',
+            options.components.push({
+                el: '#dropdown-' + opts.vid,
+                container: '#select-' + opts.vid,
                 direction: 'top',
                 data: theData,
                 onChange(self, result){
@@ -45,13 +47,13 @@ class Pagination extends Lego.UI.Baseview {
                     this.context.options.pageSize = num;
                     this.context.options.onPageSizeChange(self, num);
                 }
-            }];
+            });
         }
         super(options);
         this.jumped = false;
     }
     render() {
-        const options = this.options || {},
+        let options = this.options,
             current = parseInt(options.current);
         options.pageSize = options.pageSize;
         let pageRang = parseInt(options.pageRang);
@@ -91,9 +93,9 @@ class Pagination extends Lego.UI.Baseview {
             ` : ''}
             ${!options.simple && options.showSizeChanger ? hx`
             <li class="pageSize">
-                <span class="info" id="${options.vid}-select">
+                <span class="info" id="select-${options.vid}">
                     <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">${options.pageSize} / 页 </button>
-                    <dropdown id="${options.vid}-dropdown"></dropdown>
+                    <dropdown id="dropdown-${options.vid}"></dropdown>
                 </span>
             </li>
             ` : ''}
@@ -113,6 +115,11 @@ class Pagination extends Lego.UI.Baseview {
         `;
         this.jumped = false;
         return vDom;
+    }
+    showPagesize(event){
+        event.stopPropagation();
+        let target = $(event.currentTarget).next('.dropdown-menu');
+        target.slideToggle('fast');
     }
     clickPrevPage(event){
         event.stopPropagation();

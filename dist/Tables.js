@@ -120,7 +120,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var that = this, _eventName = "click.dropdown_" + this.options.vid;
+            var that = this, _eventName = "click.dropdown-" + this.options.vid;
             this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
             if (!this.options.disabled) {
                 var handler = function handler(event) {
@@ -130,7 +130,9 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 };
                 if (this.options.eventName == "click") {
                     $("body, .modal-body").off(_eventName).on(_eventName, function(event, vid) {
-                        if (vid !== that.options.vid) that.close();
+                        if (vid !== that.options.vid && vid) {
+                            that.close();
+                        }
                     });
                     this.container.off(_eventName).on(_eventName, handler);
                 } else {
@@ -210,7 +212,7 @@ var _templateObject5$1 = _taggedTemplateLiteral$1([ '<li title="', '" class="pag
 
 var _templateObject6$1 = _taggedTemplateLiteral$1([ '\n            <li class="next ', '">\n                <a href="javascript:void(0)" title="下一页"><i class="icon iconfont icon-arrow-right"></i></a>\n            </li>\n            ' ], [ '\n            <li class="next ', '">\n                <a href="javascript:void(0)" title="下一页"><i class="icon iconfont icon-arrow-right"></i></a>\n            </li>\n            ' ]);
 
-var _templateObject7$1 = _taggedTemplateLiteral$1([ '\n            <li class="pageSize">\n                <span class="info" id="', '-select">\n                    <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </span>\n            </li>\n            ' ], [ '\n            <li class="pageSize">\n                <span class="info" id="', '-select">\n                    <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </span>\n            </li>\n            ' ]);
+var _templateObject7$1 = _taggedTemplateLiteral$1([ '\n            <li class="pageSize">\n                <span class="info" id="select-', '">\n                    <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </span>\n            </li>\n            ' ], [ '\n            <li class="pageSize">\n                <span class="info" id="select-', '">\n                    <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </span>\n            </li>\n            ' ]);
 
 var _templateObject8$1 = _taggedTemplateLiteral$1([ '\n            <li><span class="info">\n                    跳转至\n                    <input type="text" class="form-control pageJump" value="', '">\n                </span>\n                ', "\n            </li>\n            " ], [ '\n            <li><span class="info">\n                    跳转至\n                    <input type="text" class="form-control pageJump" value="', '">\n                </span>\n                ', "\n            </li>\n            " ]);
 
@@ -263,6 +265,7 @@ var Pagination = function(_Lego$UI$Baseview) {
                 "click .page-item": "clickItemPage",
                 "click .next:not(.disabled)": "clickNextPage",
                 "click .morepage": "clickMorePage",
+                "click .info>button": "showPagesize",
                 'keydown .info>input[type="text"]': "_enterSearch"
             },
             current: 1,
@@ -278,7 +281,8 @@ var Pagination = function(_Lego$UI$Baseview) {
             size: "",
             simple: null,
             isShowTotal: true,
-            data: {}
+            data: {},
+            components: []
         };
         Object.assign(options, opts);
         if (!options.simple && options.showSizeChanger) {
@@ -288,9 +292,9 @@ var Pagination = function(_Lego$UI$Baseview) {
                     value: val + " / 页"
                 };
             });
-            options.components = [ {
-                el: "#" + opts.vid + "-dropdown",
-                container: "#" + opts.vid + "-select",
+            options.components.push({
+                el: "#dropdown-" + opts.vid,
+                container: "#select-" + opts.vid,
                 direction: "top",
                 data: theData,
                 onChange: function onChange(self, result) {
@@ -299,7 +303,7 @@ var Pagination = function(_Lego$UI$Baseview) {
                     this.context.options.pageSize = num;
                     this.context.options.onPageSizeChange(self, num);
                 }
-            } ];
+            });
         }
         var _this = _possibleConstructorReturn$1(this, (Pagination.__proto__ || Object.getPrototypeOf(Pagination)).call(this, options));
         _this.jumped = false;
@@ -308,7 +312,7 @@ var Pagination = function(_Lego$UI$Baseview) {
     _createClass$1(Pagination, [ {
         key: "render",
         value: function render() {
-            var options = this.options || {}, current = parseInt(options.current);
+            var options = this.options, current = parseInt(options.current);
             options.pageSize = options.pageSize;
             var pageRang = parseInt(options.pageRang);
             var totalCount = options.data.total || (typeof options.total === "function" ? options.total() : options.total);
@@ -324,6 +328,13 @@ var Pagination = function(_Lego$UI$Baseview) {
             }) : "", showEllipsis ? hx(_templateObject4$1, options.pageSize) : "", !options.simple && showEllipsis ? hx(_templateObject5$1, options.totalPages, options.totalPages) : "", !options.simple ? hx(_templateObject6$1, current >= options.totalPages ? "disabled" : "") : "", !options.simple && options.showSizeChanger ? hx(_templateObject7$1, options.vid, options.pageSize, options.vid) : "", !options.simple && options.showQuickJumper ? hx(_templateObject8$1, this.jumped ? current : "1", options.isShowTotal ? hx(_templateObject9$1, typeof options.showTotal === "function" ? options.showTotal(totalCount) : "总数 " + totalCount) : "") : "");
             this.jumped = false;
             return vDom;
+        }
+    }, {
+        key: "showPagesize",
+        value: function showPagesize(event) {
+            event.stopPropagation();
+            var target = $(event.currentTarget).next(".dropdown-menu");
+            target.slideToggle("fast");
         }
     }, {
         key: "clickPrevPage",
@@ -384,18 +395,6 @@ var Pagination = function(_Lego$UI$Baseview) {
 
 Lego.components("pagination", Pagination);
 
-var _extends = Object.assign || function(target) {
-    for (var i = 1; i < arguments.length; i++) {
-        var source = arguments[i];
-        for (var key in source) {
-            if (Object.prototype.hasOwnProperty.call(source, key)) {
-                target[key] = source[key];
-            }
-        }
-    }
-    return target;
-};
-
 var _createClass = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
@@ -419,7 +418,7 @@ var _templateObject2 = _taggedTemplateLiteral([ '<div class="lego-table-title">'
 
 var _templateObject3 = _taggedTemplateLiteral([ '\n                <div class="lego-table-header">\n                    <table class="" style="', '">\n                        ', "\n                        ", "\n                    </table>\n                </div>\n                " ], [ '\n                <div class="lego-table-header">\n                    <table class="" style="', '">\n                        ', "\n                        ", "\n                    </table>\n                </div>\n                " ]);
 
-var _templateObject4 = _taggedTemplateLiteral([ '\n                    <div class="lego-table-footer">\n                    <pagination id="pagination_', '"></pagination>\n                    </div>\n                ' ], [ '\n                    <div class="lego-table-footer">\n                    <pagination id="pagination_', '"></pagination>\n                    </div>\n                ' ]);
+var _templateObject4 = _taggedTemplateLiteral([ '\n                    <div class="lego-table-footer">\n                    <pagination id="pagination-', '"></pagination>\n                    </div>\n                ' ], [ '\n                    <div class="lego-table-footer">\n                    <pagination id="pagination-', '"></pagination>\n                    </div>\n                ' ]);
 
 var _templateObject5 = _taggedTemplateLiteral([ '<button type="button" class="btn btn-default noborder" title="字段显示设置"><i class="anticon anticon-ellipsis"></i></button>' ], [ '<button type="button" class="btn btn-default noborder" title="字段显示设置"><i class="anticon anticon-ellipsis"></i></button>' ]);
 
@@ -538,9 +537,6 @@ var Tables = function(_Lego$UI$Baseview) {
         Object.assign(options, opts);
         var _this = _possibleConstructorReturn(this, (Tables.__proto__ || Object.getPrototypeOf(Tables)).call(this, options));
         var that = _this;
-        _this.selectedAll = 0;
-        _this.hasClicked = false;
-        _this.isLoaded = false;
         var header = _this.$(".lego-table-header");
         _this.$(".lego-table-body > .scrollbar").scroll(function() {
             header.scrollLeft($(this).scrollLeft());
@@ -597,15 +593,15 @@ var Tables = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            this.hasClicked = false;
-            console.warn(this.isLoaded, this.options.data.length);
+            this.hasClicked = this.hasClicked || false;
+            this.isLoaded = this.isLoaded || false;
             if (!this.isLoaded && this.options.data.length) {
-                this.isLoaded = true;
                 this.options.pagination = typeof this.options.pagination == "function" ? this.options.pagination(this) : this.options.pagination;
-                Lego.create(Pagination, _extends({}, this.options.pagination, {
+                Lego.create(Pagination, Object.assign(this.options.pagination, {
                     context: this,
-                    el: "#pagination_" + this.options.vid
+                    el: "#pagination-" + this.options.vid
                 }));
+                this.isLoaded = true;
             }
         }
     }, {
@@ -723,10 +719,10 @@ var Tables = function(_Lego$UI$Baseview) {
             });
             if (row && col) {
                 if (this.options.onRowClick) {
-                    if (typeof col.onRowClick === "function") col.onRowClick(this, row, event);
+                    if (typeof col.onRowClick == "function") col.onRowClick(this, row, event);
                 }
                 if (col.onCellClick) {
-                    if (typeof col.onCellClick === "function") col.onCellClick(this, row, col, event);
+                    if (typeof col.onCellClick == "function") col.onCellClick(this, row, col, event);
                 }
             }
         }
@@ -738,14 +734,14 @@ var Tables = function(_Lego$UI$Baseview) {
                 return val.key == colKey;
             });
             if (col) {
-                if (typeof col.filter === "function") col.filter(this, col, event);
+                if (typeof col.filter == "function") col.filter(this, col, event);
             }
         }
     }, {
         key: "clickSetting",
         value: function clickSetting(event) {
             event.stopPropagation();
-            if (typeof this.options.colSetting === "function") this.options.colSetting(this, event);
+            if (typeof this.options.colSetting == "function") this.options.colSetting(this, event);
         }
     }, {
         key: "selectOne",

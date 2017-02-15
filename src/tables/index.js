@@ -59,9 +59,6 @@ class Tables extends Lego.UI.Baseview {
         Object.assign(options, opts);
         super(options);
         let that = this;
-        this.selectedAll = 0;
-        this.hasClicked = false;  //已点击
-        this.isLoaded = false;
         // 同步横向滚动
         const header = this.$('.lego-table-header');
         this.$('.lego-table-body > .scrollbar').scroll(function() {
@@ -136,7 +133,7 @@ class Tables extends Lego.UI.Baseview {
                 </div>
                 ${options.pagination && options.data ? hx`
                     <div class="lego-table-footer">
-                    <pagination id="pagination_${options.vid}"></pagination>
+                    <pagination id="pagination-${options.vid}"></pagination>
                     </div>
                 ` : ''}
                 ${options.colSetting ? hx`<button type="button" class="btn btn-default noborder" title="字段显示设置"><i class="anticon anticon-ellipsis"></i></button>` : ''}
@@ -147,16 +144,15 @@ class Tables extends Lego.UI.Baseview {
         return vDom;
     }
     renderAfter(){
-        this.hasClicked = false;
-        console.warn(this.isLoaded, this.options.data.length);
+        this.hasClicked = this.hasClicked || false;
+        this.isLoaded = this.isLoaded || false;
         if(!this.isLoaded && this.options.data.length){
             this.options.pagination = typeof this.options.pagination == 'function' ? this.options.pagination(this) : this.options.pagination;
-            this.isLoaded = true;
-            Lego.create(Pagination, {
-                ...this.options.pagination,
+            Lego.create(Pagination, Object.assign(this.options.pagination, {
                 context: this,
-                el: '#pagination_' + this.options.vid
-            });
+                el: '#pagination-' + this.options.vid
+            }));
+            this.isLoaded = true;
         }
     }
     _getRowKey(str = ''){
@@ -294,10 +290,10 @@ class Tables extends Lego.UI.Baseview {
         const col = this.columns.find(val => val.key == colKey);
         if(row && col){
             if(this.options.onRowClick){
-                if(typeof col.onRowClick === 'function') col.onRowClick(this, row, event);
+                if(typeof col.onRowClick == 'function') col.onRowClick(this, row, event);
             }
             if(col.onCellClick){
-                if(typeof col.onCellClick === 'function') col.onCellClick(this, row, col, event);
+                if(typeof col.onCellClick == 'function') col.onCellClick(this, row, col, event);
             }
         }
     }
@@ -307,12 +303,12 @@ class Tables extends Lego.UI.Baseview {
             colKey = target.closest('th').attr('id'),
             col = this.columns.find(val => val.key == colKey);
         if(col){
-            if(typeof col.filter === 'function') col.filter(this, col, event);
+            if(typeof col.filter == 'function') col.filter(this, col, event);
         }
     }
     clickSetting(event){
         event.stopPropagation();
-        if(typeof this.options.colSetting === 'function') this.options.colSetting(this, event);
+        if(typeof this.options.colSetting == 'function') this.options.colSetting(this, event);
     }
     // 选中一条
     selectOne(event) {

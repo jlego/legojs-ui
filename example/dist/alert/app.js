@@ -511,19 +511,20 @@
 	                rowSelection: {
 	                    type: 'checkbox'
 	                },
-	                pagination: {
-	                    total: 300,
-	                    pageRang: 5,
-	                    pageSize: 20,
-	                    showSizeChanger: true,
-	                    showQuickJumper: true,
-	                    onChange: function onChange(self, num) {
-	                        var theView = Lego.getView('#theTable');
-	                        theView.options.data = getData(num);
-	                        // theView.refresh();
-	                        // Lego.getView('#table1').fetch();
-	                    }
+	                pagination: function pagination(listView) {
+	                    return {
+	                        total: 300,
+	                        pageRang: 5,
+	                        pageSize: 20,
+	                        showSizeChanger: true,
+	                        showQuickJumper: true,
+	                        onChange: function onChange(self, num) {
+	                            listView.options.data = getData(num);
+	                            listView.refresh();
+	                        }
+	                    };
 	                },
+
 	                // bordered: true,
 	                showHeader: true, //是否显示表头
 	                colSetting: function colSetting() {
@@ -559,7 +560,7 @@
 	                        console.warn(row, col);
 	                    },
 	                    filter: function filter(self, col, event) {
-	                        console.warn('点击了筛选', col, $(event.currentTarget));
+	                        // console.warn('点击了筛选', col, $(event.currentTarget));
 	                        Lego.UI.popover({
 	                            el: $(event.currentTarget),
 	                            content: '弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。',

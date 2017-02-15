@@ -377,7 +377,7 @@ var _createClass$3 = function() {
     };
 }();
 
-function _classCallCheck$4(instance, Constructor) {
+function _classCallCheck$3(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
@@ -462,7 +462,7 @@ var Tooltip = function($) {
     };
     var Tooltip = function() {
         function Tooltip(element, config) {
-            _classCallCheck$4(this, Tooltip);
+            _classCallCheck$3(this, Tooltip);
             this._isEnabled = true;
             this._timeout = 0;
             this._hoverState = "";
@@ -880,7 +880,7 @@ var _createClass$2 = function() {
     };
 }();
 
-function _classCallCheck$3(instance, Constructor) {
+function _classCallCheck$2(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
@@ -946,7 +946,7 @@ var Popover$1 = function($) {
     var Popover = function(_Tooltip) {
         _inherits$2(Popover, _Tooltip);
         function Popover() {
-            _classCallCheck$3(this, Popover);
+            _classCallCheck$2(this, Popover);
             return _possibleConstructorReturn$2(this, (Popover.__proto__ || Object.getPrototypeOf(Popover)).apply(this, arguments));
         }
         _createClass$2(Popover, [ {
@@ -1041,15 +1041,8 @@ var Popover$1 = function($) {
     return Popover;
 }(jQuery);
 
-function _classCallCheck$2(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-    }
-}
-
 var Popover = function Popover() {
     var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    _classCallCheck$2(this, Popover);
     var options = {
         el: "",
         selector: false,
@@ -1068,30 +1061,32 @@ var Popover = function Popover() {
         onHidden: function onHidden() {}
     };
     Object.assign(options, opts);
-    var el = options.el instanceof $ ? options.el : $(options.el), theId = "popover-" + Lego.uniqueId(), _eventName = "click." + theId, isOpen = !!el.attr("data-isopen"), bodyEl = $("body, .modal-body");
-    this.options = {
-        selector: options.selector,
-        title: options.title,
-        content: options.content,
-        animation: options.animation,
-        container: options.container,
-        delay: options.delay,
-        html: options.html,
-        placement: options.placement,
-        template: options.template,
-        constraints: options.constraints,
-        trigger: options.eventName,
-        offset: options.offset
-    };
+    var el = options.el instanceof $ ? options.el : $(options.el), _eventName = "click.popover", isOpen = !!el.attr("data-isopen"), bodyEl = $("body, .modal-body");
     if (el.length) {
-        if (options.showNow) el.popover("dispose");
-        el.popover(this.options);
+        if (options.showNow) {
+            el.off();
+            el.popover("dispose");
+        }
+        el.popover({
+            selector: options.selector,
+            title: options.title,
+            content: options.content,
+            animation: options.animation,
+            container: options.container,
+            delay: options.delay,
+            html: options.html,
+            placement: options.placement,
+            template: options.template,
+            constraints: options.constraints,
+            trigger: options.eventName,
+            offset: options.offset
+        });
         el.on("hidden.bs.popover", function() {
             if (typeof options.onHidden === "function") options.onHidden(event);
         });
         if (options.showNow) {
             bodyEl.trigger("click", el);
-            bodyEl.off("click").on("click", function(event, data) {
+            bodyEl.off(_eventName).on(_eventName, function(event, data) {
                 if (data !== el[0]) {
                     el.popover("hide");
                     el.attr("data-isopen", "");
@@ -1110,11 +1105,11 @@ var Popover = function Popover() {
             }
         }
     }
-    return this;
+    return el;
 };
 
 var fun = function fun(opts) {
-    return new Popover(opts);
+    return Popover(opts);
 };
 
 Lego.components("popover", fun);
@@ -1136,7 +1131,7 @@ var _createClass$6 = function() {
     };
 }();
 
-function _classCallCheck$7(instance, Constructor) {
+function _classCallCheck$6(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
@@ -1168,7 +1163,7 @@ var UploadView = function(_Lego$View) {
     _inherits$5(UploadView, _Lego$View);
     function UploadView() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$7(this, UploadView);
+        _classCallCheck$6(this, UploadView);
         var options = {
             uploadUri: "",
             downloadUri: Lego.config.downloadUri || "",
@@ -1336,7 +1331,7 @@ function _taggedTemplateLiteral$4(strings, raw) {
     }));
 }
 
-function _classCallCheck$8(instance, Constructor) {
+function _classCallCheck$7(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
@@ -1368,7 +1363,7 @@ var Progressbar = function(_Lego$UI$Baseview) {
     _inherits$6(Progressbar, _Lego$UI$Baseview);
     function Progressbar() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$8(this, Progressbar);
+        _classCallCheck$7(this, Progressbar);
         var options = {
             type: "",
             status: "",
@@ -1438,7 +1433,7 @@ function _taggedTemplateLiteral$3(strings, raw) {
     }));
 }
 
-function _classCallCheck$6(instance, Constructor) {
+function _classCallCheck$5(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
@@ -1470,7 +1465,7 @@ var UploadItem = function(_UploadBase) {
     _inherits$4(UploadItem, _UploadBase);
     function UploadItem() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$6(this, UploadItem);
+        _classCallCheck$5(this, UploadItem);
         var options = {
             events: {
                 "click .lego-cancelbtn": "onCancel",
@@ -1572,7 +1567,7 @@ function _taggedTemplateLiteral$2(strings, raw) {
     }));
 }
 
-function _classCallCheck$5(instance, Constructor) {
+function _classCallCheck$4(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
@@ -1604,7 +1599,7 @@ var Upload = function(_Lego$UI$Baseview) {
     _inherits$3(Upload, _Lego$UI$Baseview);
     function Upload() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$5(this, Upload);
+        _classCallCheck$4(this, Upload);
         var options = {
             events: {
                 "click .lego-addbtn": "onClickAdd"
@@ -1851,7 +1846,7 @@ function _taggedTemplateLiteral$6(strings, raw) {
     }));
 }
 
-function _classCallCheck$10(instance, Constructor) {
+function _classCallCheck$9(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
@@ -1883,7 +1878,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
     _inherits$8(Dropdown, _Lego$UI$Baseview);
     function Dropdown() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$10(this, Dropdown);
+        _classCallCheck$9(this, Dropdown);
         var options = {
             events: {
                 "click li:not(.dropdown)": "clickItem"
@@ -1931,7 +1926,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var that = this, _eventName = "click.dropdown_" + this.options.vid;
+            var that = this, _eventName = "click.dropdown-" + this.options.vid;
             this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
             if (!this.options.disabled) {
                 var handler = function handler(event) {
@@ -1941,7 +1936,9 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 };
                 if (this.options.eventName == "click") {
                     $("body, .modal-body").off(_eventName).on(_eventName, function(event, vid) {
-                        if (vid !== that.options.vid) that.close();
+                        if (vid !== that.options.vid && vid) {
+                            that.close();
+                        }
                     });
                     this.container.off(_eventName).on(_eventName, handler);
                 } else {
@@ -2019,7 +2016,7 @@ function _taggedTemplateLiteral$5(strings, raw) {
     }));
 }
 
-function _classCallCheck$9(instance, Constructor) {
+function _classCallCheck$8(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
@@ -2051,7 +2048,7 @@ var Dropdownbtn = function(_Lego$UI$Baseview) {
     _inherits$7(Dropdownbtn, _Lego$UI$Baseview);
     function Dropdownbtn() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$9(this, Dropdownbtn);
+        _classCallCheck$8(this, Dropdownbtn);
         var options = {
             events: {
                 "click button.dropdownbtn, .lego-reply-submit": "onClick"

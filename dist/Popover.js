@@ -142,7 +142,7 @@ var _createClass$1 = function() {
     };
 }();
 
-function _classCallCheck$2(instance, Constructor) {
+function _classCallCheck$1(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
@@ -227,7 +227,7 @@ var Tooltip = function($) {
     };
     var Tooltip = function() {
         function Tooltip(element, config) {
-            _classCallCheck$2(this, Tooltip);
+            _classCallCheck$1(this, Tooltip);
             this._isEnabled = true;
             this._timeout = 0;
             this._hoverState = "";
@@ -645,7 +645,7 @@ var _createClass = function() {
     };
 }();
 
-function _classCallCheck$1(instance, Constructor) {
+function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
@@ -711,7 +711,7 @@ var Popover$1 = function($) {
     var Popover = function(_Tooltip) {
         _inherits(Popover, _Tooltip);
         function Popover() {
-            _classCallCheck$1(this, Popover);
+            _classCallCheck(this, Popover);
             return _possibleConstructorReturn(this, (Popover.__proto__ || Object.getPrototypeOf(Popover)).apply(this, arguments));
         }
         _createClass(Popover, [ {
@@ -806,15 +806,8 @@ var Popover$1 = function($) {
     return Popover;
 }(jQuery);
 
-function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-    }
-}
-
 var Popover = function Popover() {
     var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    _classCallCheck(this, Popover);
     var options = {
         el: "",
         selector: false,
@@ -833,30 +826,32 @@ var Popover = function Popover() {
         onHidden: function onHidden() {}
     };
     Object.assign(options, opts);
-    var el = options.el instanceof $ ? options.el : $(options.el), theId = "popover-" + Lego.uniqueId(), _eventName = "click." + theId, isOpen = !!el.attr("data-isopen"), bodyEl = $("body, .modal-body");
-    this.options = {
-        selector: options.selector,
-        title: options.title,
-        content: options.content,
-        animation: options.animation,
-        container: options.container,
-        delay: options.delay,
-        html: options.html,
-        placement: options.placement,
-        template: options.template,
-        constraints: options.constraints,
-        trigger: options.eventName,
-        offset: options.offset
-    };
+    var el = options.el instanceof $ ? options.el : $(options.el), _eventName = "click.popover", isOpen = !!el.attr("data-isopen"), bodyEl = $("body, .modal-body");
     if (el.length) {
-        if (options.showNow) el.popover("dispose");
-        el.popover(this.options);
+        if (options.showNow) {
+            el.off();
+            el.popover("dispose");
+        }
+        el.popover({
+            selector: options.selector,
+            title: options.title,
+            content: options.content,
+            animation: options.animation,
+            container: options.container,
+            delay: options.delay,
+            html: options.html,
+            placement: options.placement,
+            template: options.template,
+            constraints: options.constraints,
+            trigger: options.eventName,
+            offset: options.offset
+        });
         el.on("hidden.bs.popover", function() {
             if (typeof options.onHidden === "function") options.onHidden(event);
         });
         if (options.showNow) {
             bodyEl.trigger("click", el);
-            bodyEl.off("click").on("click", function(event, data) {
+            bodyEl.off(_eventName).on(_eventName, function(event, data) {
                 if (data !== el[0]) {
                     el.popover("hide");
                     el.attr("data-isopen", "");
@@ -875,11 +870,11 @@ var Popover = function Popover() {
             }
         }
     }
-    return this;
+    return el;
 };
 
 var fun = function fun(opts) {
-    return new Popover(opts);
+    return Popover(opts);
 };
 
 Lego.components("popover", fun);
