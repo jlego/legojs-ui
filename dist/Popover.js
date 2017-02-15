@@ -125,7 +125,7 @@ var _typeof$1 = typeof Symbol === "function" && typeof Symbol.iterator === "symb
     return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
 
-var _createClass$2 = function() {
+var _createClass$1 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -238,7 +238,7 @@ var Tooltip = function($) {
             this.tip = null;
             this._setListeners();
         }
-        _createClass$2(Tooltip, [ {
+        _createClass$1(Tooltip, [ {
             key: "enable",
             value: function enable() {
                 this._isEnabled = true;
@@ -628,7 +628,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
 
-var _createClass$1 = function() {
+var _createClass = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -714,7 +714,7 @@ var Popover$1 = function($) {
             _classCallCheck$1(this, Popover);
             return _possibleConstructorReturn(this, (Popover.__proto__ || Object.getPrototypeOf(Popover)).apply(this, arguments));
         }
-        _createClass$1(Popover, [ {
+        _createClass(Popover, [ {
             key: "isWithContent",
             value: function isWithContent() {
                 return this.getTitle() || this._getContent();
@@ -806,84 +806,77 @@ var Popover$1 = function($) {
     return Popover;
 }(jQuery);
 
-var _createClass = function() {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];
-            descriptor.enumerable = descriptor.enumerable || false;
-            descriptor.configurable = true;
-            if ("value" in descriptor) descriptor.writable = true;
-            Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }
-    return function(Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);
-        if (staticProps) defineProperties(Constructor, staticProps);
-        return Constructor;
-    };
-}();
-
 function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
 }
 
-var Popover = function() {
-    function Popover() {
-        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck(this, Popover);
-        var options = {
-            el: "",
-            selector: false,
-            title: "",
-            content: "",
-            animation: true,
-            container: false,
-            delay: 0,
-            html: false,
-            placement: "right",
-            template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
-            eventName: "click",
-            constraints: [],
-            offset: "0 0",
-            onHidden: function onHidden() {}
-        };
-        Object.assign(options, opts);
-        this.el = options.el;
-        this.onHidden = options.onHidden;
-        this.options = {
-            selector: options.selector,
-            title: options.title,
-            content: options.content,
-            animation: options.animation,
-            container: options.container,
-            delay: options.delay,
-            html: options.html,
-            placement: options.placement,
-            template: options.template,
-            constraints: options.constraints,
-            trigger: options.eventName,
-            offset: options.offset
-        };
-        this.render();
-    }
-    _createClass(Popover, [ {
-        key: "render",
-        value: function render() {
-            var that = this;
-            var el = this.el instanceof $ ? this.el : $(this.el);
-            if (el.length) {
-                el.popover(this.options);
-                el.on("hidden.bs.popover", function() {
-                    if (typeof that.onHidden === "function") that.onHidden(event);
+var Popover = function Popover() {
+    var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    _classCallCheck(this, Popover);
+    var options = {
+        el: "",
+        selector: false,
+        title: "",
+        content: "",
+        animation: true,
+        container: false,
+        delay: 0,
+        html: false,
+        showNow: false,
+        placement: "bottom",
+        template: '<div class="popover"><div class="popover-arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
+        eventName: "click",
+        constraints: [],
+        offset: "0 0",
+        onHidden: function onHidden() {}
+    };
+    Object.assign(options, opts);
+    var el = options.el instanceof $ ? options.el : $(options.el), theId = "popover-" + Lego.uniqueId(), _eventName = "click." + theId, isOpen = !!el.attr("data-isopen"), bodyEl = $("body, .modal-body");
+    this.options = {
+        selector: options.selector,
+        title: options.title,
+        content: options.content,
+        animation: options.animation,
+        container: options.container,
+        delay: options.delay,
+        html: options.html,
+        placement: options.placement,
+        template: options.template,
+        constraints: options.constraints,
+        trigger: options.eventName,
+        offset: options.offset
+    };
+    if (el.length) {
+        if (options.showNow) el.popover("dispose");
+        el.popover(this.options);
+        el.on("hidden.bs.popover", function() {
+            if (typeof options.onHidden === "function") options.onHidden(event);
+        });
+        if (options.showNow) {
+            bodyEl.trigger("click", el);
+            bodyEl.off("click").on("click", function(event, data) {
+                if (data !== el[0]) {
+                    el.popover("hide");
+                    el.attr("data-isopen", "");
+                }
+            });
+            el.on("shown.bs.popover", function() {
+                $(".popover").off("click").on("click", function(event) {
+                    event.stopPropagation();
                 });
+            });
+            if (!isOpen) {
+                el.popover("show");
+                el.attr("data-isopen", "true");
+            } else {
+                el.attr("data-isopen", "");
             }
-            return el;
         }
-    } ]);
-    return Popover;
-}();
+    }
+    return this;
+};
 
 var fun = function fun(opts) {
     return new Popover(opts);

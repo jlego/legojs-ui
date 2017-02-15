@@ -520,7 +520,7 @@
 	                    onChange: function onChange(self, num) {
 	                        var theView = Lego.getView('#theTable');
 	                        theView.options.data = getData(num);
-	                        theView.refresh();
+	                        // theView.refresh();
 	                        // Lego.getView('#table1').fetch();
 	                    }
 	                },
@@ -546,29 +546,38 @@
 	                    title: '姓名',
 	                    dataIndex: 'name',
 	                    key: 'name',
-	                    width: '200px',
-	                    filter: function filter(col) {
+	                    width: '400px',
+	                    filter: function filter(self, col) {
 	                        console.warn('点击了筛选', col);
 	                    }
 	                }, {
 	                    title: '年龄',
 	                    dataIndex: 'age',
 	                    key: 'age',
-	                    width: '200px',
-	                    onCellClick: function onCellClick(row, col) {
+	                    width: '300px',
+	                    onCellClick: function onCellClick(self, row, col) {
 	                        console.warn(row, col);
 	                    },
-	                    filter: function filter(col) {
-	                        console.warn('点击了筛选', col);
+	                    filter: function filter(self, col, event) {
+	                        console.warn('点击了筛选', col, $(event.currentTarget));
+	                        Lego.UI.popover({
+	                            el: $(event.currentTarget),
+	                            content: '弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。',
+	                            placement: 'bottom',
+	                            showNow: true,
+	                            onHidden: function onHidden() {
+	                                console.warn('隐藏提示2');
+	                            }
+	                        });
 	                    },
-	                    sorter: function sorter(col) {
+	                    sorter: function sorter(self, col) {
 	                        console.warn('点击了排序', col);
 	                    }
 	                }, {
 	                    title: '住址',
 	                    dataIndex: 'address',
 	                    key: 'address',
-	                    width: '200px'
+	                    width: '300px'
 	                }]
 	            }]
 	        };
@@ -581,6 +590,19 @@
 	        value: function render() {
 	            var vDom = hx(_templateObject);
 	            return vDom;
+	        }
+	    }, {
+	        key: 'renderAfter',
+	        value: function renderAfter() {
+	            // Lego.UI.popover({
+	            //     el: '#popover2',
+	            //     title: '提示2',
+	            //     content: '弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。',
+	            //     placement: 'bottom',
+	            //     onHidden() {
+	            //         console.warn('隐藏提示2');
+	            //     }
+	            // });
 	        }
 	    }]);
 

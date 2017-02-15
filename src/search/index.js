@@ -13,7 +13,7 @@ class Search extends Lego.UI.Baseview {
                 'click .lego-search-button': 'onSearch',
                 'keydown .lego-search-input': '_enterSearch'
             },
-            placeholder: '输入关键字搜索',
+            placeholder: '请输入关键字',
             activeKey: '',  //选中的key
             activeValue: '',
             hasSelect: false,   //是否有下拉菜单

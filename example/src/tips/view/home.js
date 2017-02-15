@@ -16,7 +16,8 @@ class HomeView extends Lego.UI.Baseview {
                 },
                 'click #notification4': function(){
                     Lego.UI.message('error', '系统提示4');
-                }
+                },
+                'click #popover2': 'showPopover'
             }
         };
         Object.assign(options, opts);
@@ -62,15 +63,15 @@ class HomeView extends Lego.UI.Baseview {
                 console.warn('隐藏提示1');
             }
         });
-        Lego.UI.popover({
-            el: '#popover2',
-            title: '提示2',
-            content: '弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。',
-            placement: 'bottom',
-            onHidden() {
-                console.warn('隐藏提示2');
-            }
-        });
+        // Lego.UI.popover({
+        //     el: $('#popover2'),
+        //     title: '提示2',
+        //     content: '弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。',
+        //     placement: 'bottom',
+        //     onHidden() {
+        //         console.warn('隐藏提示2');
+        //     }
+        // });
         Lego.UI.popover({
             el: '#popover3',
             title: '提示3',
@@ -139,6 +140,20 @@ class HomeView extends Lego.UI.Baseview {
         </div>
         `;
         return vDom;
+    }
+    showPopover(event){
+        event.stopPropagation();
+        let target = $(event.currentTarget);
+        Lego.UI.popover({
+            el: target,
+            title: '提示2',
+            content: '弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。',
+            placement: 'bottom',
+            showNow: true,
+            onHidden() {
+                console.warn('隐藏提示2');
+            }
+        });
     }
 }
 export default HomeView;
