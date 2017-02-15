@@ -250,7 +250,6 @@ var Selects = function(_Lego$UI$Baseview) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck$1(this, Selects);
         var options = {
-            events: {},
             name: "",
             value: [],
             multiple: false,

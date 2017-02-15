@@ -330,7 +330,7 @@ var Pagination = function(_Lego$UI$Baseview) {
         value: function clickPrevPage(event) {
             event.stopPropagation();
             var options = this.options;
-            console.warn("点击了上一页");
+            debug.warn("点击了上一页");
             options.current--;
             options.onChange(this, options.current, options.pageSize);
         }
@@ -340,7 +340,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             event.stopPropagation();
             var target = $(event.currentTarget), num = target.attr("title");
             var options = this.options;
-            console.warn("点击了" + num + "页");
+            debug.warn("点击了" + num + "页");
             options.current = num;
             options.onChange(this, num, options.pageSize);
         }
@@ -349,7 +349,7 @@ var Pagination = function(_Lego$UI$Baseview) {
         value: function clickNextPage(event) {
             event.stopPropagation();
             var options = this.options;
-            console.warn("点击了下一页");
+            debug.warn("点击了下一页");
             options.current++;
             options.onChange(this, options.current, options.pageSize);
         }
@@ -359,7 +359,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             event.stopPropagation();
             var options = this.options;
             var current = parseInt(options.current), pageRang = parseInt(options.pageRang), currentMod = current % pageRang ? current % pageRang : pageRang;
-            console.warn("点击了更多页");
+            debug.warn("点击了更多页");
             options.current = current + (pageRang - currentMod + 1);
             if (options.current > options.totalPages) options.current = options.totalPages;
             options.onChange(this, options.current, options.pageSize);
