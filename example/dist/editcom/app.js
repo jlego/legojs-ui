@@ -49,11 +49,11 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _index = __webpack_require__(244);
+	var _index = __webpack_require__(8);
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _home = __webpack_require__(245);
+	var _home = __webpack_require__(9);
 
 	var _home2 = _interopRequireDefault(_home);
 
@@ -66,16 +66,16 @@
 	        _classCallCheck(this, Router);
 
 	        return {
-	            '/transfer': [this.index, this.tabs],
-	            '/transfer/:tabs': [this.index, this.tabs]
+	            '/editcom': [this.index, this.tabs],
+	            '/editcom/:tabs': [this.index, this.tabs]
 	        };
 	    }
 
 	    _createClass(Router, [{
 	        key: 'index',
 	        value: function index() {
-	            this.viewObj = HBY.create(_index2.default, {
-	                el: HBY.config.pageEl,
+	            this.viewObj = Lego.create(_index2.default, {
+	                el: Lego.config.pageEl,
 	                scrollbar: {},
 	                currentTab: 0
 	            });
@@ -87,18 +87,18 @@
 
 	            this.viewObj.options.currentTab = _tabs || 0;
 	            var appArray = [_home2.default];
-	            HBY.create(appArray[_tabs], { el: '#pageContent' });
+	            Lego.create(appArray[_tabs], { el: '#pageContent' });
 	        }
 	    }]);
 
 	    return Router;
 	}();
 
-	HBY.router(new Router());
+	Lego.router(new Router());
 
 /***/ },
 
-/***/ 244:
+/***/ 8:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -109,7 +109,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _templateObject = _taggedTemplateLiteral(['\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/transfer/0" class="', '">Transfer \u7A7F\u68AD\u6846</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        '], ['\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/transfer/0" class="', '">Transfer \u7A7F\u68AD\u6846</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ']);
+	var _templateObject = _taggedTemplateLiteral(['\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/editcom/0" class="', '">Editcom \u7F16\u8F91\u7EC4\u4EF6</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        '], ['\n        <div class="page-container" id="page-container">\n            <h1 class="page-title">\n                <a href="#/editcom/0" class="', '">Editcom \u7F16\u8F91\u7EC4\u4EF6</a>\n            </h1>\n            <div class="page-panel">\n                <div class="page-content page-panel-bg scrollbar">\n                    <div id="pageContent"></div>\n                </div>\n            </div>\n        </div>\n        ']);
 
 	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -150,7 +150,7 @@
 
 /***/ },
 
-/***/ 245:
+/***/ 9:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -161,7 +161,9 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _templateObject = _taggedTemplateLiteral(['\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <transfer id="transfer1"></transfer>\n            </div>\n            <div class="col-sm-6">\n              <transfer id="transfer2"></transfer>\n            </div>\n          </div>\n        </div>\n        '], ['\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <transfer id="transfer1"></transfer>\n            </div>\n            <div class="col-sm-6">\n              <transfer id="transfer2"></transfer>\n            </div>\n          </div>\n        </div>\n        ']);
+	var _templateObject = _taggedTemplateLiteral(['<a href="#">\u70B9\u51FB\u4E86\u7F16\u8F91\u7EC4\u4EF62</a>'], ['<a href="#">\u70B9\u51FB\u4E86\u7F16\u8F91\u7EC4\u4EF62</a>']),
+	    _templateObject2 = _taggedTemplateLiteral(['<a href="#">', '</a>'], ['<a href="#">', '</a>']),
+	    _templateObject3 = _taggedTemplateLiteral(['\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <editcom id="editcom1"></editcom>\n            </div>\n            <div class="col-sm-6">\n              <editcom id="editcom2"></editcom>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <editcom id="editcom3"></editcom>\n            </div>\n            <div class="col-sm-6">\n              <editcom id="editcom4"></editcom>\n            </div>\n          </div>\n        </div>\n        '], ['\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <editcom id="editcom1"></editcom>\n            </div>\n            <div class="col-sm-6">\n              <editcom id="editcom2"></editcom>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <editcom id="editcom3"></editcom>\n            </div>\n            <div class="col-sm-6">\n              <editcom id="editcom4"></editcom>\n            </div>\n          </div>\n        </div>\n        ']);
 
 	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -170,8 +172,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	// import Transfer from '../../../../dist/transfer';
 
 	var HomeView = function (_Lego$UI$Baseview) {
 	    _inherits(HomeView, _Lego$UI$Baseview);
@@ -183,109 +183,51 @@
 
 	        var options = {
 	            components: [{
-	                el: '#transfer1',
-	                titles: ['左边标题', '右边标题'],
-	                // showSearch: true,
-	                onChange: function onChange(self, result) {
-	                    console.warn('穿梭框的值', result);
-	                },
-
+	                el: '#editcom1',
+	                name: 'editcomname',
+	                size: 'sm',
+	                text: '点击了编辑组件',
+	                // html: hx`<a href="#">点击了编辑组件</a>`,
 	                data: [{
-	                    id: 't1',
-	                    name: "test1",
-	                    checked: true,
-	                    open: true,
-	                    children: [{
-	                        id: 't1_1',
-	                        name: "test1_1",
-	                        checked: true
-	                    }, {
-	                        id: 't1_2',
-	                        name: "test1_2",
-	                        checked: true
-	                    }]
-	                }, {
-	                    id: 't2',
-	                    name: "test2",
-	                    open: true,
-	                    children: [{
-	                        id: 't2_1',
-	                        name: "test2_1"
-	                    }, {
-	                        id: 't2_2',
-	                        name: "test2_2"
-	                    }]
-	                }, {
-	                    id: 't3',
-	                    name: "test3",
-	                    open: true,
-	                    children: [{
-	                        id: 't2_1',
-	                        name: "test2_1"
-	                    }, {
-	                        id: 't2_2',
-	                        name: "test2_2"
-	                    }]
-	                }, {
-	                    id: 't4',
-	                    name: "test4",
-	                    open: true,
-	                    children: [{
-	                        id: 't2_1',
-	                        name: "test2_1"
-	                    }, {
-	                        id: 't2_2',
-	                        name: "test2_2"
-	                    }]
-	                }]
+	                    key: 'inputs1',
+	                    comName: 'inputs',
+	                    onChange: function onChange(self, value) {
+	                        console.warn(self, value);
+	                        this.context.options.value = value;
+	                        this.context.options.text = value;
+	                        this.context.close();
+	                    }
+	                }],
+	                onEdit: function onEdit(self) {
+	                    console.warn('点击了编辑组件', self);
+	                },
+	                //编辑回调
+	                onFinish: function onFinish(self) {
+	                    console.warn('完成了编辑', self);
+	                }
 	            }, {
-	                el: '#transfer2',
-	                titles: ['左边标题', '右边标题'],
-	                showSearch: true,
-	                onChange: function onChange(self, result) {
-	                    console.warn('穿梭框的值2', result);
-	                },
-
+	                el: '#editcom2',
+	                name: 'editcomname2',
+	                size: 'sm',
+	                html: hx(_templateObject),
+	                value: '点击了编辑组件2',
 	                data: [{
-	                    id: 't1',
-	                    name: "test1",
-	                    checked: true
-	                }, {
-	                    id: 't1_1',
-	                    name: "test1_1",
-	                    checked: true
-	                }, {
-	                    id: 't1_2',
-	                    name: "test1_2",
-	                    checked: true
-	                }, {
-	                    id: 't2',
-	                    name: "test2"
-	                }, {
-	                    id: 't2_1',
-	                    name: "test2_1"
-	                }, {
-	                    id: 't2_2',
-	                    name: "test2_2"
-	                }, {
-	                    id: 't3',
-	                    name: "test3"
-	                }, {
-	                    id: 't3_1',
-	                    name: "test3_1"
-	                }, {
-	                    id: 't3_2',
-	                    name: "test3_2"
-	                }, {
-	                    id: 't4',
-	                    name: "test4"
-	                }, {
-	                    id: 't4_1',
-	                    name: "test4_1"
-	                }, {
-	                    id: 't4_2',
-	                    name: "test4_2"
-	                }]
+	                    key: 'inputs1',
+	                    comName: 'inputs',
+	                    onChange: function onChange(self, value) {
+	                        console.warn(self, value);
+	                        this.context.options.value = value;
+	                        this.context.options.html = hx(_templateObject2, value);
+	                        this.context.close();
+	                    }
+	                }],
+	                onEdit: function onEdit(self) {
+	                    console.warn('点击了编辑组件2', self);
+	                },
+	                //编辑回调
+	                onFinish: function onFinish(self) {
+	                    console.warn('完成了编辑2', self);
+	                }
 	            }]
 	        };
 	        Object.assign(options, opts);
@@ -295,7 +237,7 @@
 	    _createClass(HomeView, [{
 	        key: 'render',
 	        value: function render() {
-	            var vDom = hx(_templateObject);
+	            var vDom = hx(_templateObject3);
 	            return vDom;
 	        }
 	    }]);

@@ -40,21 +40,22 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _home = __webpack_require__(11);
+	var _home = __webpack_require__(13);
 
 	var _home2 = _interopRequireDefault(_home);
 
-	var _list = __webpack_require__(12);
+	var _list = __webpack_require__(14);
 
 	var _list2 = _interopRequireDefault(_list);
 
-	var _list3 = __webpack_require__(13);
+	var _list3 = __webpack_require__(15);
 
 	var _list4 = _interopRequireDefault(_list3);
 
@@ -109,17 +110,8 @@
 	});
 
 /***/ },
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */
+
+/***/ 13:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -182,7 +174,8 @@
 	exports.default = HomeView;
 
 /***/ },
-/* 12 */
+
+/***/ 14:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -250,7 +243,8 @@
 	exports.default = ListView;
 
 /***/ },
-/* 13 */
+
+/***/ 15:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -307,4 +301,5 @@
 	exports.default = new ListData();
 
 /***/ }
-/******/ ]);
+
+/******/ });

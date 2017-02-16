@@ -109,12 +109,12 @@ var Inputs = function(_Lego$UI$Baseview) {
             var options = this.options || {};
             var vDom = hx(_templateObject);
             if (options.addonBefore || options.addonAfter) {
-                vDom = hx(_templateObject2, options.size ? "input-group-" + options.size : "", options.addonBefore ? hx(_templateObject3, options.prefix) : "", options.type, options.placeholder, this.filterStr(options.value), options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", options.addonAfter ? hx(_templateObject3, options.suffix) : "");
+                vDom = hx(_templateObject2, options.size ? "input-group-" + options.size : "", options.addonBefore ? hx(_templateObject3, options.prefix) : "", options.type, options.placeholder, this.filterStr(val(options.value)), options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", options.addonAfter ? hx(_templateObject3, options.suffix) : "");
             } else {
                 if (options.type == "textarea") {
-                    vDom = hx(_templateObject4, options.size ? "form-control-" + options.size : "", options.placeholder, options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", this.filterStr(options.value));
+                    vDom = hx(_templateObject4, options.size ? "form-control-" + options.size : "", options.placeholder, options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", this.filterStr(val(options.value)));
                 } else {
-                    vDom = hx(_templateObject5, options.type, options.size ? "form-control-" + options.size : "", options.placeholder, this.filterStr(options.value), options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "");
+                    vDom = hx(_templateObject5, options.type, options.size ? "form-control-" + options.size : "", options.placeholder, this.filterStr(val(options.value)), options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "");
                 }
             }
             return vDom;

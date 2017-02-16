@@ -23,7 +23,7 @@ class Inputs extends Lego.UI.Baseview {
             addonAfter: '',    //带标签的 input，设置后置标签
             prefix: '',      //带有前缀图标的 input
             suffix: '',      // 带有后缀图标的 input
-            size: '',    //设置按钮大小，可选值为 small large 或者不设
+            size: '',    //设置按钮大小，可选值为 sm lg 或者不设
             onChange(){},
             onEnter(){}   //   按下回车的回调
         };
@@ -45,7 +45,7 @@ class Inputs extends Lego.UI.Baseview {
             <div class="input-group ${options.size ? ('input-group-' + options.size) : ''}">
               ${options.addonBefore ? hx`<span class="input-group-addon">${options.prefix}</span>` : ''}
               <input type="${options.type}" class="form-control" placeholder="${options.placeholder}"
-              value="${this.filterStr(options.value)}" name="${options.name}" ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}/>
+              value="${this.filterStr(val(options.value))}" name="${options.name}" ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}/>
               ${options.addonAfter ? hx`<span class="input-group-addon">${options.suffix}</span>` : ''}
             </div>
             `;
@@ -53,12 +53,12 @@ class Inputs extends Lego.UI.Baseview {
             if(options.type == 'textarea'){
                 vDom = hx`
                   <textarea type="textarea" class="form-control ${options.size ? ('form-control-' + options.size) : ''}" placeholder="${options.placeholder}" name="${options.name}"
-                  ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}>${this.filterStr(options.value)}</textarea>
+                  ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}>${this.filterStr(val(options.value))}</textarea>
                 `;
             }else{
                 vDom = hx`
                   <input type="${options.type}" class="form-control ${options.size ? ('form-control-' + options.size) : ''}" placeholder="${options.placeholder}"
-                  value="${this.filterStr(options.value)}" name="${options.name}" ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}/>
+                  value="${this.filterStr(val(options.value))}" name="${options.name}" ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}/>
                 `;
             }
         }

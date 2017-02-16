@@ -51,6 +51,9 @@ class Menu extends Lego.UI.Baseview {
             }, {
                 key: 'nav_avatar',
                 value: 'Avatar 头像'
+            }, {
+                key: 'nav_editcom',
+                value: 'Editcom 编辑组件'
             }]
         }, {
             key: 'nav4',

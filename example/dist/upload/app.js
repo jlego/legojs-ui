@@ -49,11 +49,11 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _index = __webpack_require__(246);
+	var _index = __webpack_require__(248);
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _home = __webpack_require__(247);
+	var _home = __webpack_require__(249);
 
 	var _home2 = _interopRequireDefault(_home);
 
@@ -74,8 +74,8 @@
 	    _createClass(Router, [{
 	        key: 'index',
 	        value: function index() {
-	            this.viewObj = HBY.create(_index2.default, {
-	                el: HBY.config.pageEl,
+	            this.viewObj = Lego.create(_index2.default, {
+	                el: Lego.config.pageEl,
 	                scrollbar: {},
 	                currentTab: 0
 	            });
@@ -87,18 +87,18 @@
 
 	            this.viewObj.options.currentTab = _tabs || 0;
 	            var appArray = [_home2.default];
-	            HBY.create(appArray[_tabs], { el: '#pageContent' });
+	            Lego.create(appArray[_tabs], { el: '#pageContent' });
 	        }
 	    }]);
 
 	    return Router;
 	}();
 
-	HBY.router(new Router());
+	Lego.router(new Router());
 
 /***/ },
 
-/***/ 246:
+/***/ 248:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -150,7 +150,7 @@
 
 /***/ },
 
-/***/ 247:
+/***/ 249:
 /***/ function(module, exports) {
 
 	'use strict';

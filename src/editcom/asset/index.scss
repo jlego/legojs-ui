@@ -1,0 +1,17 @@
+.lego-editcom{
+	line-height: 25px;
+}
+.lego-editcom > *{
+	display: inline-block;
+}
+.lego-editcom > i{
+	display: none;
+	cursor: pointer;
+	zoom: 1.3;
+}
+.lego-editcom:hover > i{
+	display: inline-block;
+}
+.lego-editcom > i:hover{
+	color: #01a8fe;
+}
