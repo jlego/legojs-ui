@@ -187,8 +187,7 @@
 	                name: 'editcomname',
 	                size: 'sm',
 	                text: '点击了编辑组件',
-	                // html: hx`<a href="#">点击了编辑组件</a>`,
-	                data: [{
+	                components: [{
 	                    key: 'inputs1',
 	                    comName: 'inputs',
 	                    onChange: function onChange(self, value) {
@@ -211,7 +210,7 @@
 	                size: 'sm',
 	                html: hx(_templateObject),
 	                value: '点击了编辑组件2',
-	                data: [{
+	                components: [{
 	                    key: 'inputs1',
 	                    comName: 'inputs',
 	                    onChange: function onChange(self, value) {

@@ -6,8 +6,7 @@ class HomeView extends Lego.UI.Baseview {
                 name: 'editcomname',
                 size: 'sm',
                 text: '点击了编辑组件',
-                // html: hx`<a href="#">点击了编辑组件</a>`,
-                data: [{
+                components: [{
                     key: 'inputs1',
                     comName: 'inputs',
                     onChange(self, value){
@@ -29,7 +28,7 @@ class HomeView extends Lego.UI.Baseview {
                 size: 'sm',
                 html: hx`<a href="#">点击了编辑组件2</a>`,
                 value: '点击了编辑组件2',
-                data: [{
+                components: [{
                     key: 'inputs1',
                     comName: 'inputs',
                     onChange(self, value){

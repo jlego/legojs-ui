@@ -7764,12 +7764,12 @@
 	  function Editcom() {
 	    var opts = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};_classCallCheck$35(this, Editcom);var options = { events: { "click i": "onClick" }, text: "", html: "", template: "", width: "auto", clicked: !1, readonly: !1, data: [], icon: "edit", size: "", onEdit: function onEdit() {}, onFinish: function onFinish() {}, components: [] };return Object.assign(options, opts), _possibleConstructorReturn$31(this, (Editcom.__proto__ || Object.getPrototypeOf(Editcom)).call(this, options));
 	  }return _inherits$31(Editcom, _Lego$UI$Baseview), _createClass$35(Editcom, [{ key: "renderBefore", value: function value() {
-	      var options = this.options;options.data = Array.isArray(options.data) ? options.data : [options.data], options.data.length && options.data.forEach(function (item) {
-	        item.key = item.key + options.vid, item.el = "#" + item.key, item.size = options.size, item.value = options.value || options.text, options.components.push(item);
+	      var options = this.options;options.components.length && options.components.forEach(function (item) {
+	        item.key = item.key + options.vid, item.el = "#" + item.key, item.size = options.size, item.value = options.value || options.text;
 	      });
 	    } }, { key: "render", value: function value() {
 	      var options = this.options,
-	          vDom = hx(_templateObject$28, options.size, val(options.width), options.clicked ? options.template ? val(options.template) : options.data.map(function (item) {
+	          vDom = hx(_templateObject$28, options.size, val(options.width), options.clicked ? options.template ? val(options.template) : options.components.map(function (item) {
 	        return hx("<" + item.comName + " id=" + item.key + "></" + item.comName + ">");
 	      }) : val(options.html || options.text), options.readonly || options.clicked ? "" : hx(_templateObject2$25, val(options.icon)));return vDom;
 	    } }, { key: "onClick", value: function value(event) {

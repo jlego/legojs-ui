@@ -91,14 +91,12 @@ var Editcom = function(_Lego$UI$Baseview) {
         key: "renderBefore",
         value: function renderBefore() {
             var options = this.options;
-            options.data = Array.isArray(options.data) ? options.data : [ options.data ];
-            if (options.data.length) {
-                options.data.forEach(function(item) {
+            if (options.components.length) {
+                options.components.forEach(function(item) {
                     item.key = item.key + options.vid;
                     item.el = "#" + item.key;
                     item.size = options.size;
                     item.value = options.value || options.text;
-                    options.components.push(item);
                 });
             }
         }
@@ -106,7 +104,7 @@ var Editcom = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options;
-            var vDom = hx(_templateObject, options.size, val(options.width), options.clicked ? options.template ? val(options.template) : options.data.map(function(item) {
+            var vDom = hx(_templateObject, options.size, val(options.width), options.clicked ? options.template ? val(options.template) : options.components.map(function(item) {
                 return hx("<" + item.comName + " id=" + item.key + "></" + item.comName + ">");
             }) : val(options.html || options.text), !options.readonly && !options.clicked ? hx(_templateObject2, val(options.icon)) : "");
             return vDom;
