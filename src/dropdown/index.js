@@ -73,7 +73,7 @@ class Dropdown extends Lego.UI.Baseview {
             }
             if(this.options.eventName == 'click'){
                 $('body, .modal-body').off(_eventName).on(_eventName, function(event, vid){
-                    if(vid !== that.options.vid && vid){
+                    if(vid !== that.options.vid){
                         that.close();
                     }
                 });

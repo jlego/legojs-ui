@@ -777,7 +777,6 @@ var Modal = function(_Lego$UI$Baseview) {
         };
         Object.assign(options, opts);
         if (options.msgType) options.type = "dialog";
-        var modalEl = "#lego-layer";
         if (typeArr[options.msgType] && typeof options.content == "string") {
             var alertObj = Lego.create(Alert, {
                 type: options.msgType,
@@ -788,13 +787,9 @@ var Modal = function(_Lego$UI$Baseview) {
             options.content = alertObj.render();
         }
         if (!options.el) {
-            if (options.type == "modal" || options.type == "dialog") {
-                var modalId = "lego-" + options.type + "-" + options.vid;
-                $("body").append("<" + options.type + ' id="' + modalId + '"></' + options.type + ">");
-                options.el = "#" + modalId;
-            } else {
-                options.el = modalEl;
-            }
+            var modalId = "lego-" + options.type + "-" + options.vid;
+            $("body").append("<" + options.type + ' id="' + modalId + '"></' + options.type + ">");
+            options.el = "#" + modalId;
         }
         if (options.type == "layer") options.animate = "slideInRight";
         return _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, options));
@@ -818,11 +813,7 @@ var Modal = function(_Lego$UI$Baseview) {
             if (options.width) this.$(".modal-dialog").width(options.width);
             if (options.height) this.$(".modal-body").height(options.height);
             this.$el.on("hidden.bs.modal", function(e) {
-                if (options.type == "layer") {
-                    that.$el.replaceWith('<layer id="lego-layer"></layer>');
-                } else {
-                    that.$el.remove();
-                }
+                that.$el.remove();
                 if (typeof options.onHidden === "function") options.onHidden(that);
             });
             if (options.animate) {
@@ -893,20 +884,8 @@ var theModal = function theModal() {
     var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var vid = arguments[1];
     if (typeof opts == "string") {
-        var view = null;
-        switch (opts) {
-          case "close":
-            view = Lego.getView("#lego-layer");
-            break;
-
-          case "close.modal":
-            view = Lego.getView("#lego-modal-" + vid);
-            break;
-
-          case "close.dialog":
-            view = Lego.getView("#lego-dialog-" + vid);
-            break;
-        }
+        var type = opts.indexOf(".") > 0 ? opts.split(".")[1] : "layer";
+        var view = Lego.getView("#lego-" + type + "-" + vid);
         if (view) view.close();
     } else {
         Lego.create(Modal, opts);

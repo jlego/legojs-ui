@@ -1064,7 +1064,6 @@ var Popover = function Popover() {
     var el = options.el instanceof $ ? options.el : $(options.el), _eventName = "click.popover", isOpen = !!el.attr("data-isopen"), bodyEl = $("body, .modal-body");
     if (el.length) {
         if (options.showNow) {
-            el.off();
             el.popover("dispose");
         }
         el.popover({
@@ -1936,7 +1935,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 };
                 if (this.options.eventName == "click") {
                     $("body, .modal-body").off(_eventName).on(_eventName, function(event, vid) {
-                        if (vid !== that.options.vid && vid) {
+                        if (vid !== that.options.vid) {
                             that.close();
                         }
                     });

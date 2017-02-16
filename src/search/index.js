@@ -14,6 +14,7 @@ class Search extends Lego.UI.Baseview {
                 'keydown .lego-search-input': '_enterSearch'
             },
             placeholder: '请输入关键字',
+            name: '',
             activeKey: '',  //选中的key
             activeValue: '',
             hasSelect: false,   //是否有下拉菜单
@@ -43,7 +44,7 @@ class Search extends Lego.UI.Baseview {
             <dropdown id="dropdown-${options.vid}"></dropdown>
           </div>
         ` : ''}
-          <input type="text" class="form-control lego-search-input" placeholder="${options.placeholder}">
+          <input type="text" class="form-control lego-search-input" placeholder="${options.placeholder}" name="${options.name}" value="${val(options.value)}">
           <div class="input-group-btn">
             <button type="button" class="btn lego-search-button">
               <i class="anticon anticon-search"></i>

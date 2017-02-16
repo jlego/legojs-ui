@@ -18,7 +18,7 @@ class Tables extends Lego.UI.Baseview {
                 'click .lego-table-column-sorter': 'clickSorter',
                 'click .anticon-filter': 'clickFilter',
                 'click .lego-table-tbody td': 'clickItem',
-                'click .lego-table-header .lego-btn-circle': 'clickSetting'
+                'click .lego-table-scroll > button': 'clickSetting'
             },
             scrollbar: {},
             className: '',
@@ -27,6 +27,7 @@ class Tables extends Lego.UI.Baseview {
             pagination: null,   //分页器，配置项参考 pagination，设为 false 时不展示和进行分页
             size: 'default', //正常或迷你类型，default or small middle
             columns: [],    //表格列的配置描述，具体项见下表
+            tempColumns: [],
             rowKey: '',    //表格行 key 的取值，可以是字符串或一个函数
             rowClassName: '',    //表格行的类名
             expandedRowRender(){},   //额外的展开行
@@ -70,33 +71,36 @@ class Tables extends Lego.UI.Baseview {
         });
     }
     getColumns(){
-        this.columns = this.columns || [];
-        if(!this.columns.length){
-            let options = this.options,
-                columns = typeof options.columns == 'function' ? options.columns() : (options.columns || []);
-            this.tableRealWidth = this.options.rowSelection ? 30 : 0;    //表格实宽
-            columns.forEach((col, index) => {
-                if(!col.isHide){
-                    this.columns.push(Object.assign({
-                        title: '',  //列头显示文字
-                        key: index,
-                        isHide: false, //是否隐藏
-                        dataIndex: '',  //列数据在数据项中对应的 key，支持 a.b.c 的嵌套写法
-                        // format(value, row, col){ return value; },  //生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return里面可以设置表格行/列合并
-                        // filter(){},  //表头的筛选项
-                        // sorter(){},  //排序函数，本地排序使用一个函数，需要服务端排序可设为 true
-                        colSpan: 0,  //表头列合并,设置为 0 时，不渲染
-                        width: '',  //列宽度
-                        className: '',  //列的 className
-                        fixed: false,  //列是否固定，可选 true(等效于 left) 'left' 'right'
-                        sortOrder: '',  //排序的受控属性，外界可用此控制列的排序，可设置为 'asc' 'desc' false
-                        // onCellClick(){}  //单元格点击回调
-                    }, col));
-                    this.tableRealWidth += parseInt(col.width || 200);
-                }
-            });
-            this.resizeWidth();
+        let options = this.options;
+        this.columnsObj = this.columnsObj || {};
+        this.columns = [];
+        if(options.columns){
+            options.tempColumns = typeof options.columns == 'function' ? (options.columns(this) || []) : (options.columns || []);
+            this.columns = Array.from(options.tempColumns);
         }
+        this.tableRealWidth = this.options.rowSelection ? 30 : 0;    //表格实宽
+        this.columns = options.tempColumns.filter(col => !col.isHide);
+        this.columns.forEach((col, index) => {
+            col.key = col.key || index;
+            this.columnsObj[col.key] = this.columnsObj[col.key] || col;
+            Object.assign(col, this.columnsObj[col.key]);
+            this.tableRealWidth += parseInt(col.width || 200);
+            // {
+            //     title: '',  //列头显示文字
+            //     key: index,
+            //     isHide: false, //是否隐藏
+            //     dataIndex: '',  //列数据在数据项中对应的 key，支持 a.b.c 的嵌套写法
+            //     // format(value, row, col){ return value; },  //生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return里面可以设置表格行/列合并
+            //     // filter(){},  //表头的筛选项
+            //     // sorter(){},  //排序函数，本地排序使用一个函数，需要服务端排序可设为 true
+            //     colSpan: 0,  //表头列合并,设置为 0 时，不渲染
+            //     width: '',  //列宽度
+            //     className: '',  //列的 className
+            //     fixed: false,  //列是否固定，可选 true(等效于 left) 'left' 'right'
+            //     sortOrder: '',  //排序的受控属性，外界可用此控制列的排序，可设置为 'asc' 'desc' false
+            //     // onCellClick(){}  //单元格点击回调
+            // }
+        });
         return this.columns;
     }
     resizeWidth(){
@@ -146,13 +150,20 @@ class Tables extends Lego.UI.Baseview {
     renderAfter(){
         this.hasClicked = this.hasClicked || false;
         this.isLoaded = this.isLoaded || false;
-        if(!this.isLoaded && this.options.data.length){
+        let el = '#pagination-' + this.options.vid;
+        if(!this.isLoaded && this.options.data.length && this.options.pagination){
             this.options.pagination = typeof this.options.pagination == 'function' ? this.options.pagination(this) : this.options.pagination;
+            let that = this;
             Lego.create(Pagination, Object.assign(this.options.pagination, {
                 context: this,
-                el: '#pagination-' + this.options.vid
+                el: el
             }));
             this.isLoaded = true;
+        }else{
+            let pgView = Lego.getView(el);
+            if(pgView){
+                Object.assign(pgView.options, this.options.pagination);
+            };
         }
     }
     _getRowKey(str = ''){
@@ -263,7 +274,7 @@ class Tables extends Lego.UI.Baseview {
         event.stopPropagation();
         const target = $(event.currentTarget),
             key = target.closest('th').attr('id'),
-            col = this.columns.find((val) => val.key == key);
+            col = this.columnsObj[key];
         if(col){
             col.sortOrder = col.sortOrder || '';
             switch(col.sortOrder){

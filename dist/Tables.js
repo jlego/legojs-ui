@@ -130,7 +130,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 };
                 if (this.options.eventName == "click") {
                     $("body, .modal-body").off(_eventName).on(_eventName, function(event, vid) {
-                        if (vid !== that.options.vid && vid) {
+                        if (vid !== that.options.vid) {
                             that.close();
                         }
                     });
@@ -269,7 +269,7 @@ var Pagination = function(_Lego$UI$Baseview) {
                 'keydown .info>input[type="text"]': "_enterSearch"
             },
             current: 1,
-            total: 0,
+            totalCount: 0,
             totalPages: 0,
             pageSize: 10,
             pageRang: 10,
@@ -315,7 +315,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             var options = this.options, current = parseInt(options.current);
             options.pageSize = options.pageSize;
             var pageRang = parseInt(options.pageRang);
-            var totalCount = options.data.total || (typeof options.total === "function" ? options.total() : options.total);
+            var totalCount = options.data.totalCount || (typeof options.totalCount === "function" ? options.totalCount() : options.totalCount);
             options.totalPages = options.data.totalPages || Math.ceil(totalCount / options.pageSize);
             pageRang = pageRang >= options.totalPages ? options.totalPages : pageRang;
             var baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0, startPage = baseTimes * pageRang + 1, endPage = startPage + pageRang - 1, showEllipsis = options.totalPages - current > pageRang ? true : false, pagesArr = [];
@@ -500,7 +500,7 @@ var Tables = function(_Lego$UI$Baseview) {
                 "click .lego-table-column-sorter": "clickSorter",
                 "click .anticon-filter": "clickFilter",
                 "click .lego-table-tbody td": "clickItem",
-                "click .lego-table-header .lego-btn-circle": "clickSetting"
+                "click .lego-table-scroll > button": "clickSetting"
             },
             scrollbar: {},
             className: "",
@@ -509,6 +509,7 @@ var Tables = function(_Lego$UI$Baseview) {
             pagination: null,
             size: "default",
             columns: [],
+            tempColumns: [],
             rowKey: "",
             rowClassName: "",
             expandedRowRender: function expandedRowRender() {},
@@ -551,28 +552,23 @@ var Tables = function(_Lego$UI$Baseview) {
         key: "getColumns",
         value: function getColumns() {
             var _this2 = this;
-            this.columns = this.columns || [];
-            if (!this.columns.length) {
-                var options = this.options, columns = typeof options.columns == "function" ? options.columns() : options.columns || [];
-                this.tableRealWidth = this.options.rowSelection ? 30 : 0;
-                columns.forEach(function(col, index) {
-                    if (!col.isHide) {
-                        _this2.columns.push(Object.assign({
-                            title: "",
-                            key: index,
-                            isHide: false,
-                            dataIndex: "",
-                            colSpan: 0,
-                            width: "",
-                            className: "",
-                            fixed: false,
-                            sortOrder: ""
-                        }, col));
-                        _this2.tableRealWidth += parseInt(col.width || 200);
-                    }
-                });
-                this.resizeWidth();
+            var options = this.options;
+            this.columnsObj = this.columnsObj || {};
+            this.columns = [];
+            if (options.columns) {
+                options.tempColumns = typeof options.columns == "function" ? options.columns(this) || [] : options.columns || [];
+                this.columns = Array.from(options.tempColumns);
             }
+            this.tableRealWidth = this.options.rowSelection ? 30 : 0;
+            this.columns = options.tempColumns.filter(function(col) {
+                return !col.isHide;
+            });
+            this.columns.forEach(function(col, index) {
+                col.key = col.key || index;
+                _this2.columnsObj[col.key] = _this2.columnsObj[col.key] || col;
+                Object.assign(col, _this2.columnsObj[col.key]);
+                _this2.tableRealWidth += parseInt(col.width || 200);
+            });
             return this.columns;
         }
     }, {
@@ -595,13 +591,20 @@ var Tables = function(_Lego$UI$Baseview) {
         value: function renderAfter() {
             this.hasClicked = this.hasClicked || false;
             this.isLoaded = this.isLoaded || false;
-            if (!this.isLoaded && this.options.data.length) {
+            var el = "#pagination-" + this.options.vid;
+            if (!this.isLoaded && this.options.data.length && this.options.pagination) {
                 this.options.pagination = typeof this.options.pagination == "function" ? this.options.pagination(this) : this.options.pagination;
+                var that = this;
                 Lego.create(Pagination, Object.assign(this.options.pagination, {
                     context: this,
-                    el: "#pagination-" + this.options.vid
+                    el: el
                 }));
                 this.isLoaded = true;
+            } else {
+                var pgView = Lego.getView(el);
+                if (pgView) {
+                    Object.assign(pgView.options, this.options.pagination);
+                }
             }
         }
     }, {
@@ -684,9 +687,7 @@ var Tables = function(_Lego$UI$Baseview) {
         key: "clickSorter",
         value: function clickSorter(event) {
             event.stopPropagation();
-            var target = $(event.currentTarget), key = target.closest("th").attr("id"), col = this.columns.find(function(val) {
-                return val.key == key;
-            });
+            var target = $(event.currentTarget), key = target.closest("th").attr("id"), col = this.columnsObj[key];
             if (col) {
                 col.sortOrder = col.sortOrder || "";
                 switch (col.sortOrder) {

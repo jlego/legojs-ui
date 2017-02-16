@@ -13,7 +13,7 @@ class Pagination extends Lego.UI.Baseview {
                 'keydown .info>input[type="text"]': '_enterSearch',
             },
             current: 1, //当前页数
-            total: 0, //数据总数
+            totalCount: 0, //数据总数
             totalPages: 0,  //总页数
             pageSize: 10,    //每页条数
             pageRang: 10,   //每页分页范围
@@ -57,7 +57,7 @@ class Pagination extends Lego.UI.Baseview {
             current = parseInt(options.current);
         options.pageSize = options.pageSize;
         let pageRang = parseInt(options.pageRang);
-        let totalCount = options.data.total || (typeof options.total === 'function' ? options.total() : options.total);
+        let totalCount = options.data.totalCount || (typeof options.totalCount === 'function' ? options.totalCount() : options.totalCount);
         options.totalPages = options.data.totalPages || Math.ceil(totalCount / options.pageSize);
         pageRang = pageRang >= options.totalPages ? options.totalPages : pageRang;
         let baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0,

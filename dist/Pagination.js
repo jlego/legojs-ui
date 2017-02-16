@@ -130,7 +130,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 };
                 if (this.options.eventName == "click") {
                     $("body, .modal-body").off(_eventName).on(_eventName, function(event, vid) {
-                        if (vid !== that.options.vid && vid) {
+                        if (vid !== that.options.vid) {
                             that.close();
                         }
                     });
@@ -269,7 +269,7 @@ var Pagination = function(_Lego$UI$Baseview) {
                 'keydown .info>input[type="text"]': "_enterSearch"
             },
             current: 1,
-            total: 0,
+            totalCount: 0,
             totalPages: 0,
             pageSize: 10,
             pageRang: 10,
@@ -315,7 +315,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             var options = this.options, current = parseInt(options.current);
             options.pageSize = options.pageSize;
             var pageRang = parseInt(options.pageRang);
-            var totalCount = options.data.total || (typeof options.total === "function" ? options.total() : options.total);
+            var totalCount = options.data.totalCount || (typeof options.totalCount === "function" ? options.totalCount() : options.totalCount);
             options.totalPages = options.data.totalPages || Math.ceil(totalCount / options.pageSize);
             pageRang = pageRang >= options.totalPages ? options.totalPages : pageRang;
             var baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0, startPage = baseTimes * pageRang + 1, endPage = startPage + pageRang - 1, showEllipsis = options.totalPages - current > pageRang ? true : false, pagesArr = [];
