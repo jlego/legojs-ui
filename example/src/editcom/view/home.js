@@ -44,6 +44,50 @@ class HomeView extends Lego.UI.Baseview {
                 onFinish(self) {
                     console.warn('完成了编辑2', self);
                 }
+            }, {
+                el: '#editcom3',
+                name: 'editcomname3',
+                // size: 'sm',
+                text: '点击了编辑组件3',
+                width: 200,
+                components: [{
+                    key: 'search1',
+                    comName: 'search',
+                    onChange(self, value){
+                        console.warn(self, value);
+                        this.context.options.keyword = value;
+                        this.context.close();
+                    }
+                }]
+            }, {
+                el: '#editcom4',
+                name: 'editcomname4',
+                text: '选择项一',
+                size: 'sm',
+                width: 200,
+                value: {
+                    key: 'key1',
+                    value: 'title1',
+                },
+                components: [{
+                    key: 'selects',
+                    comName: 'selects',
+                    data: [{
+                        key: 'key1',
+                        value: 'title1'
+                    }, {
+                        key: 'key2',
+                        value: 'title2'
+                    }, {
+                        key: 'key3',
+                        value: 'title3'
+                    }],
+                    onChange(self, value){
+                        console.warn(self, value);
+                        this.context.options.value = value;
+                        this.context.close();
+                    }
+                }]
             }]
         };
         Object.assign(options, opts);

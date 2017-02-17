@@ -97,18 +97,18 @@ class Selects extends Lego.UI.Baseview {
         const theValueArr = Array.isArray(options.value) ? (options.value.length ? options.value.map(item => item.value) : []) : [options.value.value];
         if(!options.multiple){
             vDom = hx`
-            <div class="select dropdown">
+            <div class="select dropdown ${options.size}">
                 <div id="select-${options.vid}">
-                    <input type="text" class="form-control select-input ${options.disabled ? 'disabled' : ''}" placeholder="${options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
+                    <input type="text" class="form-control ${options.size ? ('form-control-' + options.size) : ''} select-input ${options.disabled ? 'disabled' : ''}" placeholder="${options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
                     <dropdown id="dropdown-${options.vid}"></dropdown>
                 </div>
             </div>
             `;
         }else{
             vDom = hx`
-            <div class="select dropdown multiple">
+            <div class="select dropdown multiple ${options.size}">
                 <div id="select-${options.vid}">
-                    <input type="text" class="form-control select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${theValueArr.length ? '' : options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
+                    <input type="text" class="form-control ${options.size ? ('form-control-' + options.size) : ''} select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${theValueArr.length ? '' : options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
                     <div class="select-tags-div clearfix ${theValueArr.length ? 'select-tags-div-border' : ''}">
                         ${getTags(options.value)}
                     </div>
