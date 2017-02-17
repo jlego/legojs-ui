@@ -462,27 +462,40 @@ var Tabs = function(_Lego$UI$Baseview) {
             components: []
         };
         Object.assign(options, opts);
-        var model = options.data.find(function(item) {
-            return item.key == options.activeKey;
-        });
-        options.activeContent = model ? val(model.content) : "";
-        options.components.push({
-            el: "#navs-" + options.vid,
-            eventName: options.eventName || "click",
-            type: "tabs",
-            activeKey: options.activeKey,
-            onClick: function onClick(self, item) {
-                if (!item.disabled && item.content) {
-                    var parentView = this.context;
-                    parentView.options.activeKey = item.key;
-                    parentView.options.activeContent = item.content;
-                }
-            },
-            data: Array.from(options.data)
-        });
         return _possibleConstructorReturn(this, (Tabs.__proto__ || Object.getPrototypeOf(Tabs)).call(this, options));
     }
     _createClass(Tabs, [ {
+        key: "renderBefore",
+        value: function renderBefore() {
+            var options = this.options;
+            options.data = options.data.filter(function(item) {
+                return !item.isHide;
+            });
+            if (typeof options.activeKey == "number") options.activeKey = options.data[options.activeKey].key;
+            var model = options.data.find(function(item) {
+                return item.key == options.activeKey;
+            });
+            options.activeContent = model ? val(model.content) : "";
+            if (!options.components.find(function(item) {
+                return item.el == "#navs-" + options.vid;
+            })) {
+                options.components.push({
+                    el: "#navs-" + options.vid,
+                    eventName: options.eventName || "click",
+                    type: "tabs",
+                    activeKey: options.activeKey,
+                    onClick: function onClick(self, item) {
+                        if (!item.disabled && item.content) {
+                            var parentView = this.context;
+                            parentView.options.activeKey = item.key;
+                            parentView.options.activeContent = item.content;
+                        }
+                    },
+                    data: Array.from(options.data)
+                });
+            }
+        }
+    }, {
         key: "render",
         value: function render() {
             var options = this.options;

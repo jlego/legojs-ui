@@ -1,17 +1,34 @@
 .lego-editcom{
 	line-height: 25px;
+	min-width: 20px;
+    min-height: 20px;
 }
 .lego-editcom > *{
 	display: inline-block;
+	float: left;
 }
 .lego-editcom > i{
 	display: none;
 	cursor: pointer;
-	zoom: 1.3;
+    margin-top: 3px;
+    line-height: 36px;
+    margin-left: 5px;
+}
+.lego-editcom.sm > i{
+    line-height: 20px;
 }
 .lego-editcom:hover > i{
 	display: inline-block;
 }
-.lego-editcom > i:hover{
-	color: #01a8fe;
+.lego-editcom > i.edit{
+	zoom: 1.3;
+}
+.lego-editcom > i.edit:hover{
+	color: #48d9a1;
+}
+.lego-editcom > i.cancel{
+	color: #999;
+}
+.lego-editcom > i.cancel:hover{
+	color: #f85774;
 }

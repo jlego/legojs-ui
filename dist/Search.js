@@ -200,7 +200,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="input-group lego-search">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '" name="', '" value="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group lego-search">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '" name="', '" value="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="input-group lego-search ', '">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '" name="', '" value="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group lego-search ', '">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '" name="', '" value="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
 
 var _templateObject2 = _taggedTemplateLiteral([ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ]);
 
@@ -248,14 +248,18 @@ var Search = function(_Lego$UI$Baseview) {
         var options = {
             events: {
                 "click .lego-search-button": "onSearch",
+                "change .lego-search-input": "onChange",
                 "keydown .lego-search-input": "_enterSearch"
             },
             placeholder: "请输入关键字",
             name: "",
+            size: "",
+            keyword: "",
             activeKey: "",
             activeValue: "",
             hasSelect: false,
             onSearch: function onSearch() {},
+            onChange: function onChange() {},
             components: [ {
                 el: "#dropdown-" + opts.vid,
                 container: "#select-" + opts.vid,
@@ -267,13 +271,17 @@ var Search = function(_Lego$UI$Baseview) {
             } ]
         };
         Object.assign(options, opts);
+        if (typeof options.value == "string") {
+            options.keyword = options.value;
+            options.value = null;
+        }
         return _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, options));
     }
     _createClass(Search, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject, options.hasSelect ? hx(_templateObject2, options.vid, options.activeValue || "请选择", options.vid) : "", options.placeholder, options.name, val(options.value));
+            var vDom = hx(_templateObject, options.size ? "input-group-" + options.size : "", options.hasSelect ? hx(_templateObject2, options.vid, options.activeValue || "请选择", options.vid) : "", options.placeholder, options.name, val(options.keyword));
             return vDom;
         }
     }, {
@@ -284,15 +292,26 @@ var Search = function(_Lego$UI$Baseview) {
             }
         }
     }, {
-        key: "onSearch",
-        value: function onSearch(event) {
-            event.stopPropagation();
-            var keyword = this.$el.find(".lego-search-input").val();
-            if (typeof this.options.onSearch === "function") this.options.onSearch(this, {
+        key: "getValue",
+        value: function getValue(event) {
+            var keyword = event ? this.$(".lego-search-input").val() : this.options.keyword;
+            return {
                 key: this.options.activeKey,
                 value: this.options.activeValue,
                 keyword: keyword
-            });
+            };
+        }
+    }, {
+        key: "onChange",
+        value: function onChange(event) {
+            if (event) event.stopPropagation();
+            if (typeof this.options.onChange === "function") this.options.onChange(this, this.getValue(event));
+        }
+    }, {
+        key: "onSearch",
+        value: function onSearch(event) {
+            if (event) event.stopPropagation();
+            if (typeof this.options.onSearch === "function") this.options.onSearch(this, this.getValue(event));
         }
     } ]);
     return Search;

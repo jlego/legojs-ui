@@ -542,7 +542,7 @@ var Upload = function(_Lego$UI$Baseview) {
         }
         var _this = _possibleConstructorReturn(this, (Upload.__proto__ || Object.getPrototypeOf(Upload)).call(this, options));
         _this.fileList = [];
-        _this.clear();
+        _this.reset();
         _this.$(".lego-fileInput").on("change", function(event) {
             var target = $(event.currentTarget)[0];
             _this.uploadInit(target.files, target);
@@ -585,6 +585,12 @@ var Upload = function(_Lego$UI$Baseview) {
                     if (!hasFile) _this2.fileList.push(file._id);
                     return !hasFile;
                 });
+                if (this.fileList.length > maxFilesCount) {
+                    Lego.UI.message("warning", "只能上传" + maxFilesCount + "张图片");
+                    this.fileList.length = maxFilesCount;
+                    if (uploadFiles.length > maxFilesCount) uploadFiles.length = maxFilesCount;
+                    return;
+                }
                 if (typeof options.onAddFile == "function") options.onAddFile(this.fileList, uploadFiles);
                 uploadFiles.forEach(function(file, i) {
                     if (Math.ceil(file.size / (1024 * 1024)) > parseInt(options.maxFileSize)) {
@@ -696,10 +702,10 @@ var Upload = function(_Lego$UI$Baseview) {
             return result;
         }
     }, {
-        key: "clear",
-        value: function clear() {
-            this.fileList.length = 0;
-            this.options.value.length = 0;
+        key: "reset",
+        value: function reset() {
+            this.fileList = [];
+            this.options.value = [];
             return this;
         }
     } ]);

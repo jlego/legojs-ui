@@ -6,6 +6,7 @@
  *     key: '', //选项key
  *     text: '',    //文字
  *     href: '',    //超链接
+ *     isHide: false,
  *     content: '', //面板内容
  *     disabled: false  //是否禁用
  * }]
@@ -34,24 +35,31 @@ class Tabs extends Lego.UI.Baseview {
             components: []
         };
         Object.assign(options, opts);
+        super(options);
+    }
+    renderBefore(){
+        let options = this.options;
+        options.data = options.data.filter(item => !item.isHide);
+        if(typeof options.activeKey == 'number') options.activeKey = options.data[options.activeKey].key;
         let model = options.data.find(item => item.key == options.activeKey);
         options.activeContent = model ? val(model.content) : '';
-        options.components.push({
-            el: '#navs-' + options.vid,
-            eventName: options.eventName || 'click',
-            type: 'tabs', //菜单类型，现在支持垂直、水平、和内嵌模式三种base, inline, tabs, pills, pills-stacked
-            activeKey: options.activeKey, //当前激活的key
-            // direction: '',  //显示方向
-            onClick(self, item){
-                if(!item.disabled && item.content){
-                    const parentView = this.context;
-                    parentView.options.activeKey = item.key;
-                    parentView.options.activeContent = item.content;
-                }
-            }, //点击的回调
-            data: Array.from(options.data)
-        });
-        super(options);
+        if(!options.components.find(item => item.el == ('#navs-' + options.vid))){
+            options.components.push({
+                el: '#navs-' + options.vid,
+                eventName: options.eventName || 'click',
+                type: 'tabs', //菜单类型，现在支持垂直、水平、和内嵌模式三种base, inline, tabs, pills, pills-stacked
+                activeKey: options.activeKey, //当前激活的key
+                // direction: '',  //显示方向
+                onClick(self, item){
+                    if(!item.disabled && item.content){
+                        const parentView = this.context;
+                        parentView.options.activeKey = item.key;
+                        parentView.options.activeContent = item.content;
+                    }
+                }, //点击的回调
+                data: Array.from(options.data)
+            });
+        }
     }
     render() {
         const options = this.options;

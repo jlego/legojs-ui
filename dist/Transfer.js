@@ -225,6 +225,20 @@ var Tree = function(_Lego$UI$Baseview) {
                 }
                 return true;
             }
+            function selectResult(treeId, treeNode) {
+                var treeObj = $.fn.zTree.getZTreeObj(treeId), nodes = treeObj.getCheckedNodes(true), keyNames = options.keyNames, result = nodes.filter(function(node) {
+                    return selectOrNo(node);
+                });
+                var newValue = [];
+                result.forEach(function(val, index) {
+                    newValue.push(Object.assign({
+                        key: val[keyNames[0]],
+                        value: val[keyNames[1]],
+                        type: val[keyNames[2]]
+                    }, val));
+                });
+                if (typeof options.onChecked == "function") options.onChecked(that, newValue);
+            }
             if (options.setting.check) {
                 options.setting.check = $.extend(true, {
                     enable: true,
@@ -235,18 +249,13 @@ var Tree = function(_Lego$UI$Baseview) {
                 }, options.setting.check || {});
                 options.setting.callback = Object.assign(options.setting.callback || {}, {
                     onCheck: function onCheck(event, treeId, treeNode) {
-                        var treeObj = $.fn.zTree.getZTreeObj(treeId), nodes = treeObj.getCheckedNodes(true), keyNames = options.keyNames, result = nodes.filter(function(node) {
-                            return selectOrNo(node);
-                        });
-                        var newValue = [];
-                        result.forEach(function(val, index) {
-                            newValue.push(Object.assign({
-                                key: val[keyNames[0]],
-                                value: val[keyNames[1]],
-                                type: val[keyNames[2]]
-                            }, val));
-                        });
-                        if (typeof options.onChecked == "function") options.onChecked(that, newValue);
+                        selectResult(treeId, treeNode);
+                    },
+                    onClick: function onClick(event, treeId, treeNode) {
+                        if (!selectOrNo(treeNode)) return false;
+                        var treeObj = $.fn.zTree.getZTreeObj(treeId);
+                        treeObj.checkNode(treeNode, null, false);
+                        selectResult(treeId, treeNode);
                     }
                 });
             } else {
@@ -483,7 +492,7 @@ var _createClass$3 = function() {
     };
 }();
 
-var _templateObject$3 = _taggedTemplateLiteral$3([ '\n        <div class="input-group lego-search">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '" name="', '" value="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group lego-search">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '" name="', '" value="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
+var _templateObject$3 = _taggedTemplateLiteral$3([ '\n        <div class="input-group lego-search ', '">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '" name="', '" value="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group lego-search ', '">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '" name="', '" value="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
 
 var _templateObject2$2 = _taggedTemplateLiteral$3([ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ]);
 
@@ -531,14 +540,18 @@ var Search = function(_Lego$UI$Baseview) {
         var options = {
             events: {
                 "click .lego-search-button": "onSearch",
+                "change .lego-search-input": "onChange",
                 "keydown .lego-search-input": "_enterSearch"
             },
             placeholder: "请输入关键字",
             name: "",
+            size: "",
+            keyword: "",
             activeKey: "",
             activeValue: "",
             hasSelect: false,
             onSearch: function onSearch() {},
+            onChange: function onChange() {},
             components: [ {
                 el: "#dropdown-" + opts.vid,
                 container: "#select-" + opts.vid,
@@ -550,13 +563,17 @@ var Search = function(_Lego$UI$Baseview) {
             } ]
         };
         Object.assign(options, opts);
+        if (typeof options.value == "string") {
+            options.keyword = options.value;
+            options.value = null;
+        }
         return _possibleConstructorReturn$3(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, options));
     }
     _createClass$3(Search, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject$3, options.hasSelect ? hx(_templateObject2$2, options.vid, options.activeValue || "请选择", options.vid) : "", options.placeholder, options.name, val(options.value));
+            var vDom = hx(_templateObject$3, options.size ? "input-group-" + options.size : "", options.hasSelect ? hx(_templateObject2$2, options.vid, options.activeValue || "请选择", options.vid) : "", options.placeholder, options.name, val(options.keyword));
             return vDom;
         }
     }, {
@@ -567,15 +584,26 @@ var Search = function(_Lego$UI$Baseview) {
             }
         }
     }, {
-        key: "onSearch",
-        value: function onSearch(event) {
-            event.stopPropagation();
-            var keyword = this.$el.find(".lego-search-input").val();
-            if (typeof this.options.onSearch === "function") this.options.onSearch(this, {
+        key: "getValue",
+        value: function getValue(event) {
+            var keyword = event ? this.$(".lego-search-input").val() : this.options.keyword;
+            return {
                 key: this.options.activeKey,
                 value: this.options.activeValue,
                 keyword: keyword
-            });
+            };
+        }
+    }, {
+        key: "onChange",
+        value: function onChange(event) {
+            if (event) event.stopPropagation();
+            if (typeof this.options.onChange === "function") this.options.onChange(this, this.getValue(event));
+        }
+    }, {
+        key: "onSearch",
+        value: function onSearch(event) {
+            if (event) event.stopPropagation();
+            if (typeof this.options.onSearch === "function") this.options.onSearch(this, this.getValue(event));
         }
     } ]);
     return Search;

@@ -1644,7 +1644,7 @@ var Upload = function(_Lego$UI$Baseview) {
         }
         var _this = _possibleConstructorReturn$3(this, (Upload.__proto__ || Object.getPrototypeOf(Upload)).call(this, options));
         _this.fileList = [];
-        _this.clear();
+        _this.reset();
         _this.$(".lego-fileInput").on("change", function(event) {
             var target = $(event.currentTarget)[0];
             _this.uploadInit(target.files, target);
@@ -1687,6 +1687,12 @@ var Upload = function(_Lego$UI$Baseview) {
                     if (!hasFile) _this2.fileList.push(file._id);
                     return !hasFile;
                 });
+                if (this.fileList.length > maxFilesCount) {
+                    Lego.UI.message("warning", "只能上传" + maxFilesCount + "张图片");
+                    this.fileList.length = maxFilesCount;
+                    if (uploadFiles.length > maxFilesCount) uploadFiles.length = maxFilesCount;
+                    return;
+                }
                 if (typeof options.onAddFile == "function") options.onAddFile(this.fileList, uploadFiles);
                 uploadFiles.forEach(function(file, i) {
                     if (Math.ceil(file.size / (1024 * 1024)) > parseInt(options.maxFileSize)) {
@@ -1798,10 +1804,10 @@ var Upload = function(_Lego$UI$Baseview) {
             return result;
         }
     }, {
-        key: "clear",
-        value: function clear() {
-            this.fileList.length = 0;
-            this.options.value.length = 0;
+        key: "reset",
+        value: function reset() {
+            this.fileList = [];
+            this.options.value = [];
             return this;
         }
     } ]);
@@ -2192,6 +2198,7 @@ var Reply = function(_Lego$UI$Baseview) {
             contentHeight: 70,
             showFacial: true,
             showUpload: true,
+            filterHtml: true,
             uploadToken: null,
             iconsUrl: "",
             submitText: "回复",
@@ -2278,7 +2285,7 @@ var Reply = function(_Lego$UI$Baseview) {
             var target = $(event.currentTarget), options = this.options;
             if (event.which === 13) {
                 if (!event.ctrlKey) {
-                    this.onSubmit(event);
+                    this.submit(event);
                 }
                 if (event.ctrlKey) {
                     Lego.UI.Util.insertText(target, Lego.UI.Util.checkBrowser().mozilla ? "<br>" : "<br><br>");
@@ -2301,10 +2308,16 @@ var Reply = function(_Lego$UI$Baseview) {
                 return;
             }
             var contentHtml = contentEl.val();
+            contentHtml = this.options.filterHtml ? contentHtml.replace(/<[^>]+>/g, "") : contentHtml;
+            contentHtml = $.trim(contentHtml);
+            if (!contentHtml.length) {
+                Lego.UI.message("warning", "提交内容不能为空");
+                return;
+            }
             contentEl.val("");
             contentHtml = contentHtml == this.placeholder ? "" : contentHtml;
             var uploadIds = Array.from(this.getUploadIds());
-            if (this.uploadView) this.uploadView.clear();
+            if (this.uploadView) this.uploadView.reset();
             this.$(".popover").removeClass("show");
             if (typeof this.options.onSubmit == "function") this.options.onSubmit(this, contentHtml, uploadIds);
         }

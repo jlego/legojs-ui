@@ -22,9 +22,11 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-editcom ', '" style="width:', '">\n            <span>', "\n            </span>\n            ", "\n        </div>\n        " ], [ '\n        <div class="lego-editcom ', '" style="width:', '">\n            <span>', "\n            </span>\n            ", "\n        </div>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-editcom clearfix ', '">\n            <span>', "\n            </span>\n            ", "\n            ", "\n        </div>\n        " ], [ '\n        <div class="lego-editcom clearfix ', '">\n            <span>', "\n            </span>\n            ", "\n            ", "\n        </div>\n        " ]);
 
-var _templateObject2 = _taggedTemplateLiteral([ '<i class="anticon anticon-', '" title="点击编辑"></i>' ], [ '<i class="anticon anticon-', '" title="点击编辑"></i>' ]);
+var _templateObject2 = _taggedTemplateLiteral([ '<i class="anticon anticon-', ' edit" title="编辑"></i>' ], [ '<i class="anticon anticon-', ' edit" title="编辑"></i>' ]);
+
+var _templateObject3 = _taggedTemplateLiteral([ '<i class="anticon anticon-close-circle cancel" title="取消编辑"></i>' ], [ '<i class="anticon anticon-close-circle cancel" title="取消编辑"></i>' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -69,7 +71,8 @@ var Editcom = function(_Lego$UI$Baseview) {
         _classCallCheck(this, Editcom);
         var options = {
             events: {
-                "click i": "onClick"
+                "click i.edit": "onClick",
+                "click i.cancel": "onClose"
             },
             text: "",
             html: "",
@@ -81,6 +84,7 @@ var Editcom = function(_Lego$UI$Baseview) {
             icon: "edit",
             size: "",
             onEdit: function onEdit() {},
+            onCancel: function onCancel() {},
             onFinish: function onFinish() {},
             components: []
         };
@@ -96,6 +100,10 @@ var Editcom = function(_Lego$UI$Baseview) {
                     item.key = item.key + options.vid;
                     item.el = "#" + item.key;
                     item.size = options.size;
+                    if (options.width) {
+                        item.style = item.style || {};
+                        item.style.width = options.width;
+                    }
                     item.value = options.value || options.text;
                 });
             }
@@ -104,9 +112,9 @@ var Editcom = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options;
-            var vDom = hx(_templateObject, options.size, val(options.width), options.clicked ? options.template ? val(options.template) : options.components.map(function(item) {
+            var vDom = hx(_templateObject, options.size, options.clicked ? options.template ? val(options.template) : options.components.map(function(item) {
                 return hx("<" + item.comName + " id=" + item.key + "></" + item.comName + ">");
-            }) : val(options.html || options.text), !options.readonly && !options.clicked ? hx(_templateObject2, val(options.icon)) : "");
+            }) : val(options.html || options.text), !options.readonly && !options.clicked ? hx(_templateObject2, val(options.icon)) : "", !options.readonly && options.clicked ? hx(_templateObject3) : "");
             return vDom;
         }
     }, {
@@ -115,6 +123,13 @@ var Editcom = function(_Lego$UI$Baseview) {
             event.stopPropagation();
             this.options.clicked = true;
             if (typeof this.options.onEdit == "function") this.options.onEdit(this, event);
+        }
+    }, {
+        key: "onClose",
+        value: function onClose(event) {
+            event.stopPropagation();
+            this.close();
+            if (typeof this.options.onCancel == "function") this.options.onCancel(this, event);
         }
     }, {
         key: "close",

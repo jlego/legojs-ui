@@ -48,6 +48,23 @@ class Tree extends Lego.UI.Baseview {
             }
             return true;
         }
+        function selectResult(treeId, treeNode){
+            let treeObj = $.fn.zTree.getZTreeObj(treeId),
+                nodes = treeObj.getCheckedNodes(true),
+                keyNames = options.keyNames,
+                result = nodes.filter((node) => {
+                    return selectOrNo(node);
+                });
+            let newValue = [];
+            result.forEach((val, index) => {
+                newValue.push(Object.assign({
+                    key: val[keyNames[0]],
+                    value: val[keyNames[1]],
+                    type: val[keyNames[2]]
+                }, val));
+            });
+            if (typeof options.onChecked == 'function') options.onChecked(that, newValue);
+        }
         if (options.setting.check) {
             options.setting.check = $.extend(true, {
                 enable: true,
@@ -55,21 +72,13 @@ class Tree extends Lego.UI.Baseview {
             }, options.setting.check || {});
             options.setting.callback = Object.assign(options.setting.callback || {}, {
                 onCheck: function(event, treeId, treeNode) {
-                    let treeObj = $.fn.zTree.getZTreeObj(treeId),
-                        nodes = treeObj.getCheckedNodes(true),
-                        keyNames = options.keyNames,
-                        result = nodes.filter((node) => {
-                            return selectOrNo(node);
-                        });
-                    let newValue = [];
-                    result.forEach((val, index) => {
-                        newValue.push(Object.assign({
-                            key: val[keyNames[0]],
-                            value: val[keyNames[1]],
-                            type: val[keyNames[2]]
-                        }, val));
-                    });
-                    if (typeof options.onChecked == 'function') options.onChecked(that, newValue);
+                    selectResult(treeId, treeNode);
+                },
+                onClick: function(event, treeId, treeNode) {
+                    if (!selectOrNo(treeNode)) return false;
+                    let treeObj = $.fn.zTree.getZTreeObj(treeId);
+                    treeObj.checkNode(treeNode, null, false);
+                    selectResult(treeId, treeNode);
                 }
             });
         } else {

@@ -15,7 +15,7 @@ class Modal extends Lego.UI.Baseview {
             events: {
                 'click .modal-footer button.ok': 'clickOk',
                 'click .modal-footer button.cancel': 'clickCancel',
-                'click .close': 'close',
+                'click .close': 'clickCancel',
                 'click .modal-dialog': function(event){event.stopPropagation()},
                 'click': 'clickBackdrop',
             },

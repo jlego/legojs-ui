@@ -24,6 +24,7 @@ class Reply extends Lego.UI.Baseview {
                 contentHeight: 70, //输入框高度
                 showFacial: true, //显示表情
                 showUpload: true, //显示上传文件
+                filterHtml: true,   //过滤html
                 uploadToken: null, //上传文件token数据源
                 iconsUrl: '',
                 submitText: '回复', //
@@ -118,7 +119,7 @@ class Reply extends Lego.UI.Baseview {
             options = this.options;
         if (event.which === 13) {
             if (!event.ctrlKey) {
-                this.onSubmit(event);
+                this.submit(event);
             }
             if (event.ctrlKey) {
                 Lego.UI.Util.insertText(target, Lego.UI.Util.checkBrowser().mozilla ? '<br>' : '<br><br>');
@@ -139,10 +140,16 @@ class Reply extends Lego.UI.Baseview {
             return;
         }
         let contentHtml = contentEl.val();
+        contentHtml = this.options.filterHtml ? contentHtml.replace(/<[^>]+>/g,"") : contentHtml;
+        contentHtml = $.trim(contentHtml);
+        if(!contentHtml.length) {
+            Lego.UI.message('warning', '提交内容不能为空');
+            return;
+        }
         contentEl.val('');
         contentHtml = contentHtml == this.placeholder ? '' : contentHtml;
         let uploadIds = Array.from(this.getUploadIds());
-        if(this.uploadView) this.uploadView.clear();
+        if(this.uploadView) this.uploadView.reset();
         this.$('.popover').removeClass('show');
         if(typeof this.options.onSubmit == 'function') this.options.onSubmit(this, contentHtml, uploadIds);
     }
