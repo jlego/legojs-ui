@@ -381,7 +381,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
         };
         Object.assign(options, opts);
         var _this = _possibleConstructorReturn$4(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
-        _this.isLoaded = false;
+        _this.isClose = false;
         return _this;
     }
     _createClass$4(Dropdown, [ {
@@ -418,7 +418,13 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 var handler = function handler(event) {
                     $("body, .modal-body").trigger("click", that.options.vid);
                     event.stopPropagation();
-                    that.$el.slideToggle("fast");
+                    that.$el.slideToggle("fast", function() {
+                        if ($(this).css("display") == "none") {
+                            that.isClose = true;
+                        } else {
+                            that.isClose = false;
+                        }
+                    });
                 };
                 if (this.options.eventName == "click") {
                     $("body, .modal-body").off(_eventName).on(_eventName, function(event, vid) {
@@ -447,12 +453,16 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "show",
         value: function show() {
+            this.isClose = false;
             this.$el.slideDown("fast");
         }
     }, {
         key: "close",
         value: function close() {
-            this.$el.slideUp("fast");
+            if (!this.isClose) {
+                this.$el.slideUp("fast");
+                this.isClose = true;
+            }
         }
     }, {
         key: "clickItem",

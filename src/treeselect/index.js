@@ -93,7 +93,7 @@ class Treeselect extends Selects {
             });
         }
         super(options);
-        this.isLoaded = false;
+        this.isClose = false;
     }
     render() {
         const options = this.options;
@@ -162,7 +162,13 @@ class Treeselect extends Selects {
             function handler(event){
                 $('body, .modal-body').trigger('click', options.vid);
                 event.stopPropagation();
-                that.$('.dropdown-menu').slideToggle('fast');
+                that.$('.dropdown-menu').slideToggle('fast', function(){
+                    if($(this).css('display') == 'none'){
+                        that.isClose = true;
+                    }else{
+                        that.isClose = false;
+                    }
+                });
             }
             if(options.eventName == 'click'){
                 $('body, .modal-body').off(_eventName).on(_eventName, function(event, vid){
@@ -181,10 +187,14 @@ class Treeselect extends Selects {
         }
     }
     show(event){
+        this.isClose = false;
         this.$('.dropdown-menu').slideDown('fast');
     }
     close(event){
-        this.$('.dropdown-menu').slideUp('fast');
+        if(!this.isClose){
+            this.isClose = true;
+            this.$('.dropdown-menu').slideUp('fast');
+        }
     }
     clickItemClose(event){
         event.stopPropagation();

@@ -304,6 +304,7 @@
 	            components: [{
 	                el: '#button1',
 	                type: 'info',
+	                size: 'sm',
 	                text: '模态框',
 	                onClick: function onClick(self) {
 	                    console.warn('点击了此按钮button1');
@@ -326,7 +327,6 @@
 	            }, {
 	                el: '#button2',
 	                type: 'primary',
-	                // className: 'btn-sm',
 	                text: '对话框',
 	                onClick: function onClick(self) {
 	                    console.warn('点击了此按钮button2');
@@ -350,6 +350,7 @@
 	            }, {
 	                el: '#button3',
 	                type: 'secondary',
+	                size: 'lg',
 	                onClick: function onClick(self) {
 	                    console.warn('点击了此按钮button3');
 	                    Lego.UI.modal({
@@ -400,6 +401,7 @@
 	            }, {
 	                el: '#button5',
 	                type: 'success',
+	                text: 'success',
 	                onClick: function onClick() {
 	                    console.warn('点击了此按钮button5');
 	                },
@@ -410,6 +412,7 @@
 	            }, {
 	                el: '#button6',
 	                type: 'warning',
+	                text: 'warning',
 	                onClick: function onClick() {
 	                    console.warn('点击了此按钮button6');
 	                },
@@ -420,6 +423,7 @@
 	            }, {
 	                el: '#button7',
 	                type: 'danger',
+	                text: 'danger',
 	                onClick: function onClick() {
 	                    console.warn('点击了此按钮button7');
 	                },
@@ -513,7 +517,7 @@
 	                },
 	                pagination: function pagination(listView) {
 	                    return {
-	                        total: 300,
+	                        totalCount: 300,
 	                        pageRang: 5,
 	                        pageSize: 20,
 	                        showSizeChanger: true,

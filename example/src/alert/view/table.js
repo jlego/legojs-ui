@@ -26,7 +26,7 @@ class TableView extends Lego.UI.Baseview {
                 },
                 pagination(listView){
                     return {
-                        total: 300,
+                        totalCount: 300,
                         pageRang: 5,
                         pageSize: 20,
                         showSizeChanger: true,

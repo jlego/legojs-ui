@@ -9179,6 +9179,10 @@ pre p {
   right: 16px;
   cursor: pointer;
   font-size: 12px; }
+.btn-sm, .btn-group-sm > .btn {
+  padding: 0.1rem 0.3rem;
+  font-size: 0.75rem;
+  border-radius: 0.2rem; }
 .lego-table {
   font-size: 14px;
   color: #666;
@@ -9904,7 +9908,7 @@ tr.lego-table-expanded-row:hover {
   float: left;
   min-width: 160px;
   padding: 5px 0;
-  margin: -1px 0 0;
+  margin: 0px 0 0;
   list-style: none;
   font-size: 14px;
   text-align: left;
