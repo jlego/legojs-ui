@@ -163,7 +163,7 @@
 
 	var _templateObject = _taggedTemplateLiteral(['<a href="#">\u70B9\u51FB\u4E86\u7F16\u8F91\u7EC4\u4EF62</a>'], ['<a href="#">\u70B9\u51FB\u4E86\u7F16\u8F91\u7EC4\u4EF62</a>']),
 	    _templateObject2 = _taggedTemplateLiteral(['<a href="#">', '</a>'], ['<a href="#">', '</a>']),
-	    _templateObject3 = _taggedTemplateLiteral(['\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <editcom id="editcom1"></editcom>\n            </div>\n            <div class="col-sm-6">\n              <editcom id="editcom2"></editcom>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <editcom id="editcom3"></editcom>\n            </div>\n            <div class="col-sm-6">\n              <editcom id="editcom4"></editcom>\n            </div>\n          </div>\n        </div>\n        '], ['\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <editcom id="editcom1"></editcom>\n            </div>\n            <div class="col-sm-6">\n              <editcom id="editcom2"></editcom>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <editcom id="editcom3"></editcom>\n            </div>\n            <div class="col-sm-6">\n              <editcom id="editcom4"></editcom>\n            </div>\n          </div>\n        </div>\n        ']);
+	    _templateObject3 = _taggedTemplateLiteral(['\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <editcom id="editcom1"></editcom>\n            </div>\n            <div class="col-sm-6">\n              <editcom id="editcom2"></editcom>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <editcom id="editcom3"></editcom>\n            </div>\n            <div class="col-sm-6">\n              <editcom id="editcom4"></editcom>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <button class="btn btn-primary" onclick=', '>\u70B9\u6211\u5427</button>\n            </div>\n            <div class="col-sm-6">\n              \n            </div>\n          </div>\n        </div>\n        '], ['\n        <div id="pageContent" class="container">\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <editcom id="editcom1"></editcom>\n            </div>\n            <div class="col-sm-6">\n              <editcom id="editcom2"></editcom>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <editcom id="editcom3"></editcom>\n            </div>\n            <div class="col-sm-6">\n              <editcom id="editcom4"></editcom>\n            </div>\n          </div>\n          <div class="row" style="margin-bottom: 40px;">\n            <div class="col-sm-6">\n              <button class="btn btn-primary" onclick=', '>\u70B9\u6211\u5427</button>\n            </div>\n            <div class="col-sm-6">\n              \n            </div>\n          </div>\n        </div>\n        ']);
 
 	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -280,8 +280,13 @@
 	    _createClass(HomeView, [{
 	        key: 'render',
 	        value: function render() {
-	            var vDom = hx(_templateObject3);
+	            var vDom = hx(_templateObject3, this.onclick);
 	            return vDom;
+	        }
+	    }, {
+	        key: 'onclick',
+	        value: function onclick(event) {
+	            console.warn('你点击了我', event);
 	        }
 	    }]);
 
