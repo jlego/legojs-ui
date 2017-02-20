@@ -112,9 +112,20 @@ class HomeView extends Lego.UI.Baseview {
               <editcom id="editcom4"></editcom>
             </div>
           </div>
+          <div class="row" style="margin-bottom: 40px;">
+            <div class="col-sm-6">
+              <button class="btn btn-primary" onclick=${this.onclick}>点我吧</button>
+            </div>
+            <div class="col-sm-6">
+              
+            </div>
+          </div>
         </div>
         `;
         return vDom;
+    }
+    onclick(event){
+        console.warn('你点击了我', event);
     }
 }
 export default HomeView;
