@@ -2076,13 +2076,14 @@ var Dropdownbtn = function(_Lego$UI$Baseview) {
             dropdownOption: {},
             onClick: function onClick() {},
             onChange: function onChange() {},
-            components: function components(opts) {
-                return [ $.extend(opts.dropdownOption, {
-                    el: "#dropdown-" + opts.vid,
-                    container: "[view-id=" + opts.vid + "]",
-                    direction: opts.direction,
-                    activeKey: opts.activeKey,
-                    data: opts.data,
+            components: function components(self) {
+                var options = self.options;
+                return [ $.extend(options.dropdownOption, {
+                    el: "#dropdown-" + options.vid,
+                    container: "[view-id=" + options.vid + "]",
+                    direction: options.direction,
+                    activeKey: options.activeKey,
+                    data: options.data,
                     onChange: function onChange(self, item, event) {
                         var theView = self.options.context;
                         theView.activeItem = item;

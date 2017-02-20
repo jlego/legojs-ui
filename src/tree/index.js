@@ -32,13 +32,9 @@ class Tree extends Lego.UI.Baseview {
         super(options);
         this.isLoaded = false;
     }
-    render() {
-        return hx `<ul class="lego-tree"></ul>`;
-    }
     renderBefore() {
         const options = this.options,
             that = this;
-
         function selectOrNo(treeNode) {
             if (options.disSelect) {
                 if (Object.keys(treeNode).includes(options.disSelect)) return false;
@@ -93,6 +89,9 @@ class Tree extends Lego.UI.Baseview {
                 }
             });
         }
+    }
+    render() {
+        return hx `<ul class="lego-tree"></ul>`;
     }
     renderAfter() {
         let options = this.options;

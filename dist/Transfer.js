@@ -208,11 +208,6 @@ var Tree = function(_Lego$UI$Baseview) {
         return _this;
     }
     _createClass$2(Tree, [ {
-        key: "render",
-        value: function render() {
-            return hx(_templateObject$2);
-        }
-    }, {
         key: "renderBefore",
         value: function renderBefore() {
             var options = this.options, that = this;
@@ -270,6 +265,11 @@ var Tree = function(_Lego$UI$Baseview) {
                     }
                 });
             }
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            return hx(_templateObject$2);
         }
     }, {
         key: "renderAfter",

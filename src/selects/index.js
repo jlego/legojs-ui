@@ -32,23 +32,24 @@ class Selects extends Lego.UI.Baseview {
             dropdownClassName: '',  //下拉菜单的 className 属性上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。
             splitString: '',    //自动分词分隔符
             dataSource: null,
-            components(opts = {}, self){
+            components(self){
+                let options = self.options;
                 return [{
-                    el: '#dropdown-' + opts.vid,
-                    container: '#select-' + opts.vid,
-                    eventName: opts.eventName || 'click',
-                    disabled: opts.disabled || false,
+                    el: '#dropdown-' + options.vid,
+                    container: '#select-' + options.vid,
+                    eventName: options.eventName || 'click',
+                    disabled: options.disabled || false,
                     style: Object.assign({
-                        width: opts.dropdownWidth || '100%'
-                    }, opts.dropdownStyle || {}),
-                    className: opts.dropdownClassName,
-                    clickAndClose: opts.multiple ? false : true,
-                    data: opts.data || [],
-                    dataSource: opts.dataSource,
+                        width: options.dropdownWidth || '100%'
+                    }, options.dropdownStyle || {}),
+                    className: options.dropdownClassName,
+                    clickAndClose: options.multiple ? false : true,
+                    data: options.data || [],
+                    dataSource: options.dataSource,
                     onChange(self, model){
                         const pView = this.context;
                         pView.$('.select-input').focus();
-                        if(model.key !== '0' && opts.multiple){
+                        if(model.key !== '0' && options.multiple){
                             pView.options.data.forEach(item => {
                                 if(item.key == '0') item.selected = false;
                             });

@@ -32,34 +32,31 @@ class Tabs extends Lego.UI.Baseview {
             hideAdd: false,    //是否隐藏加号图标，在 type="editable-card" 时有效
             animate: '',  //是否使用动画切换 Tabs，在 tabPosition=top|bottom 时有效
             data: [],
-            components: []
+            components(self){
+                let options = self.options,
+                    comId = '#navs-' + options.vid;
+                options.data = options.data.filter(item => !item.isHide);
+                if(typeof options.activeKey == 'number') options.activeKey = options.data[options.activeKey].key;
+                let model = options.data.find(item => item.key == options.activeKey);
+                options.activeContent = model ? val(model.content) : '';
+                return [{
+                    el: comId,
+                    eventName: options.eventName || 'click',
+                    type: 'tabs', //菜单类型，现在支持垂直、水平、和内嵌模式三种base, inline, tabs, pills, pills-stacked
+                    activeKey: options.activeKey, //当前激活的key
+                    onClick(self, item){
+                        if(!item.disabled && item.content){
+                            const parentView = this.context;
+                            parentView.options.activeKey = item.key;
+                            parentView.options.activeContent = item.content;
+                        }
+                    }, //点击的回调
+                    data: Array.from(options.data)
+                }];
+            }
         };
         Object.assign(options, opts);
         super(options);
-    }
-    renderBefore(){
-        let options = this.options;
-        options.data = options.data.filter(item => !item.isHide);
-        if(typeof options.activeKey == 'number') options.activeKey = options.data[options.activeKey].key;
-        let model = options.data.find(item => item.key == options.activeKey);
-        options.activeContent = model ? val(model.content) : '';
-        if(!options.components.find(item => item.el == ('#navs-' + options.vid))){
-            options.components.push({
-                el: '#navs-' + options.vid,
-                eventName: options.eventName || 'click',
-                type: 'tabs', //菜单类型，现在支持垂直、水平、和内嵌模式三种base, inline, tabs, pills, pills-stacked
-                activeKey: options.activeKey, //当前激活的key
-                // direction: '',  //显示方向
-                onClick(self, item){
-                    if(!item.disabled && item.content){
-                        const parentView = this.context;
-                        parentView.options.activeKey = item.key;
-                        parentView.options.activeContent = item.content;
-                    }
-                }, //点击的回调
-                data: Array.from(options.data)
-            });
-        }
     }
     render() {
         const options = this.options;
