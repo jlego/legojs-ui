@@ -11222,6 +11222,9 @@ form button[type="submit"] {
   cursor: pointer;
   margin-left: 5px; }
 
+.lego-editcom.sm > i {
+  line-height: 25px; }
+
 .lego-editcom:hover > i {
   display: inline-block; }
 

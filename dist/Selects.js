@@ -285,10 +285,28 @@ var Selects = function(_Lego$UI$Baseview) {
             dropdownClassName: "",
             splitString: "",
             dataSource: null,
-            components: function components(self) {
-                var options = self.options;
-                return [ {
-                    el: "#dropdown-" + options.vid,
+            components: []
+        };
+        Object.assign(options, opts);
+        var _this = _possibleConstructorReturn(this, (Selects.__proto__ || Object.getPrototypeOf(Selects)).call(this, options));
+        _this.oldValue = "";
+        var that = _this;
+        _this.$(".select-input").blur(function(event) {
+            if (typeof options.onBlur == "function") options.onBlur(that, $(this).val(), event);
+        });
+        _this.$(".select-tags-div").on("click", ".select-tag-close", _this.clickItemClose.bind(_this));
+        return _this;
+    }
+    _createClass(Selects, [ {
+        key: "renderBefore",
+        value: function renderBefore() {
+            var options = this.options;
+            var comId = "#dropdown-" + options.vid;
+            if (!this.options.components.find(function(item) {
+                return item.el == comId;
+            }) && options.data.length) {
+                this.options.components.push({
+                    el: comId,
                     container: "#select-" + options.vid,
                     eventName: options.eventName || "click",
                     disabled: options.disabled || false,
@@ -320,20 +338,10 @@ var Selects = function(_Lego$UI$Baseview) {
                         }
                         pView.options.onChange(pView, model);
                     }
-                } ];
+                });
             }
-        };
-        Object.assign(options, opts);
-        var _this = _possibleConstructorReturn(this, (Selects.__proto__ || Object.getPrototypeOf(Selects)).call(this, options));
-        _this.oldValue = "";
-        var that = _this;
-        _this.$(".select-input").blur(function(event) {
-            if (typeof options.onBlur == "function") options.onBlur(that, $(this).val(), event);
-        });
-        _this.$(".select-tags-div").on("click", ".select-tag-close", _this.clickItemClose.bind(_this));
-        return _this;
-    }
-    _createClass(Selects, [ {
+        }
+    }, {
         key: "render",
         value: function render() {
             var options = this.options || {};

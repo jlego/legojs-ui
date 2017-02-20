@@ -469,17 +469,27 @@ var Tabs = function(_Lego$UI$Baseview) {
             hideAdd: false,
             animate: "",
             data: [],
-            components: function components(self) {
-                var options = self.options, comId = "#navs-" + options.vid;
-                options.data = options.data.filter(function(item) {
+            components: []
+        };
+        Object.assign(options, opts);
+        return _possibleConstructorReturn(this, (Tabs.__proto__ || Object.getPrototypeOf(Tabs)).call(this, options));
+    }
+    _createClass(Tabs, [ {
+        key: "renderBefore",
+        value: function renderBefore() {
+            var options = this.options, comId = "#navs-" + options.vid;
+            if (!options.components.find(function(item) {
+                return item.el == comId;
+            })) {
+                var data = options.data.filter(function(item) {
                     return !item.isHide;
                 });
-                if (typeof options.activeKey == "number") options.activeKey = options.data[options.activeKey].key;
-                var model = options.data.find(function(item) {
+                options.activeKey = typeof options.activeKey == "number" ? data[options.activeKey].key : options.activeKey;
+                var model = data.find(function(item) {
                     return item.key == options.activeKey;
                 });
-                options.activeContent = model ? val(model.content) : "";
-                return [ {
+                if (model) options.activeContent = val(model.content);
+                options.components.push({
                     el: comId,
                     eventName: options.eventName || "click",
                     type: "tabs",
@@ -491,14 +501,11 @@ var Tabs = function(_Lego$UI$Baseview) {
                             parentView.options.activeContent = item.content;
                         }
                     },
-                    data: Array.from(options.data)
-                } ];
+                    data: data
+                });
             }
-        };
-        Object.assign(options, opts);
-        return _possibleConstructorReturn(this, (Tabs.__proto__ || Object.getPrototypeOf(Tabs)).call(this, options));
-    }
-    _createClass(Tabs, [ {
+        }
+    }, {
         key: "render",
         value: function render() {
             var options = this.options;

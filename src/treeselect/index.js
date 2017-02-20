@@ -41,52 +41,7 @@ class Treeselect extends Selects {
             splitString: '', //自动分词分隔符
             keyNames: ['id', 'name', 'type'],
             clickAndClose: opts.multiple ? false : true,
-            components(self){
-                let options = self.options;
-                return [{
-                    el: '#tree-' + options.vid,
-                    disSelect: options.disSelect, //禁止选择含有该属性节点, 可以是对象
-                    onlySelect: options.onlySelect, //只选择含有该属性节点, 可以是对象
-                    setting: Object.assign({}, options.setting),
-                    keyNames: options.keyNames || ['id', 'name', 'type'],
-                    value: options.value || [],
-                    data: options.data || [],
-                    dataSource: options.treeDataSource,
-                    onChecked(self, result) {
-                        const pView = this.context;
-                        if (result.key !== '0' && options.setting.check) {
-                            pView.getValue();
-                            if (result.length) {
-                                pView.options.value = [];
-                                result.forEach((val) => {
-                                    pView.options.value.push({
-                                        key: val.key,
-                                        value: val.value,
-                                        type: val.type,
-                                        selected: true
-                                    });
-                                });
-                            }else{
-                                pView.options.value = [];
-                            }
-                        }
-                        pView.options.onChange(pView, result);
-                    },
-                    onClick(self, result) {
-                        const pView = this.context;
-                        pView.options.value.forEach(item => item.selected = false);
-                        pView.options.value = [{
-                            key: result.key,
-                            value: result.value,
-                            type: result.type,
-                            selected: true
-                        }];
-                        pView.options.onChange(pView, result);
-                    },
-                    disabled: options.disabled || false,
-                    className: options.dropdownClassName
-                }];
-            }
+            components: []
         };
         Object.assign(options, opts);
         if (options.value) {
@@ -97,6 +52,53 @@ class Treeselect extends Selects {
         }
         super(options);
         this.isClose = false;
+    }
+    renderBefore(){
+        let options = self.options;
+        
+        options.components.push({
+            el: '#tree-' + options.vid,
+            disSelect: options.disSelect, //禁止选择含有该属性节点, 可以是对象
+            onlySelect: options.onlySelect, //只选择含有该属性节点, 可以是对象
+            setting: Object.assign({}, options.setting),
+            keyNames: options.keyNames || ['id', 'name', 'type'],
+            value: options.value || [],
+            data: options.data || [],
+            dataSource: options.treeDataSource,
+            onChecked(self, result) {
+                const pView = this.context;
+                if (result.key !== '0' && options.setting.check) {
+                    pView.getValue();
+                    if (result.length) {
+                        pView.options.value = [];
+                        result.forEach((val) => {
+                            pView.options.value.push({
+                                key: val.key,
+                                value: val.value,
+                                type: val.type,
+                                selected: true
+                            });
+                        });
+                    }else{
+                        pView.options.value = [];
+                    }
+                }
+                pView.options.onChange(pView, result);
+            },
+            onClick(self, result) {
+                const pView = this.context;
+                pView.options.value.forEach(item => item.selected = false);
+                pView.options.value = [{
+                    key: result.key,
+                    value: result.value,
+                    type: result.type,
+                    selected: true
+                }];
+                pView.options.onChange(pView, result);
+            },
+            disabled: options.disabled || false,
+            className: options.dropdownClassName
+        });
     }
     render() {
         const options = this.options;
