@@ -88,14 +88,11 @@ var Dropdown = function(_Lego$UI$Baseview) {
             data: []
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn$1(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
-        _this.isClose = false;
-        return _this;
+        return _possibleConstructorReturn$1(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
     }
     _createClass$1(Dropdown, [ {
         key: "render",
         value: function render() {
-            console.warn("fffffff");
             var options = this.options || {};
             function itemNav(item) {
                 if (item.divider) {
@@ -121,7 +118,6 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            console.warn("ooooooooo");
             var that = this, _eventName = "click.dropdown-" + this.options.vid;
             this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
             if (!this.options.disabled) {
@@ -287,38 +283,22 @@ var Selects = function(_Lego$UI$Baseview) {
             dropdownClassName: "",
             splitString: "",
             dataSource: null,
-            components: []
-        };
-        Object.assign(options, opts);
-        var _this = _possibleConstructorReturn(this, (Selects.__proto__ || Object.getPrototypeOf(Selects)).call(this, options));
-        _this.oldValue = "";
-        var that = _this;
-        _this.$(".select-input").blur(function(event) {
-            if (typeof options.onBlur == "function") options.onBlur(that, $(this).val(), event);
-        });
-        _this.$(".select-tags-div").on("click", ".select-tag-close", _this.clickItemClose.bind(_this));
-        return _this;
-    }
-    _createClass(Selects, [ {
-        key: "renderBefore",
-        value: function renderBefore() {
-            var options = this.options;
-            this.addCom({
-                el: "#dropdown-" + options.vid,
-                container: "#select-" + options.vid,
-                eventName: options.eventName || "click",
-                disabled: options.disabled || false,
+            components: [ {
+                el: "#dropdown-" + opts.vid,
+                container: "#select-" + opts.vid,
+                eventName: opts.eventName || "click",
+                disabled: opts.disabled || false,
                 style: Object.assign({
-                    width: options.dropdownWidth || "100%"
-                }, options.dropdownStyle || {}),
-                className: options.dropdownClassName,
-                clickAndClose: options.multiple ? false : true,
-                data: options.data || [],
-                dataSource: options.dataSource,
+                    width: opts.dropdownWidth || "100%"
+                }, opts.dropdownStyle || {}),
+                className: opts.dropdownClassName,
+                clickAndClose: opts.multiple ? false : true,
+                data: opts.data || [],
+                dataSource: opts.dataSource,
                 onChange: function onChange(self, model) {
                     var pView = this.context;
                     pView.$(".select-input").focus();
-                    if (model.key !== "0" && options.multiple) {
+                    if (model.key !== "0" && opts.multiple) {
                         pView.options.data.forEach(function(item) {
                             if (item.key == "0") item.selected = false;
                         });
@@ -336,9 +316,19 @@ var Selects = function(_Lego$UI$Baseview) {
                     }
                     pView.options.onChange(pView, model);
                 }
-            });
-        }
-    }, {
+            } ]
+        };
+        Object.assign(options, opts);
+        var _this = _possibleConstructorReturn(this, (Selects.__proto__ || Object.getPrototypeOf(Selects)).call(this, options));
+        _this.oldValue = "";
+        var that = _this;
+        _this.$(".select-input").blur(function(event) {
+            if (typeof options.onBlur == "function") options.onBlur(that, $(this).val(), event);
+        });
+        _this.$(".select-tags-div").on("click", ".select-tag-close", _this.clickItemClose.bind(_this));
+        return _this;
+    }
+    _createClass(Selects, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};

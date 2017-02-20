@@ -6072,7 +6072,7 @@
 	    _templateObject5$3 = _taggedTemplateLiteral$8(['\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        "], ['\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        "]),
 	    Dropdown = function (_Lego$UI$Baseview) {
 	  function Dropdown() {
-	    var opts = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};_classCallCheck$9(this, Dropdown);var options = { events: { "click li:not(.dropdown)": "clickItem" }, disabled: !1, eventName: "click", container: "", direction: "", activeKey: "", clickAndClose: !0, open: !1, onChange: function onChange() {}, data: [] };Object.assign(options, opts);var _this = _possibleConstructorReturn$9(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));return _this.isClose = !1, _this;
+	    var opts = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};_classCallCheck$9(this, Dropdown);var options = { events: { "click li:not(.dropdown)": "clickItem" }, disabled: !1, eventName: "click", container: "", direction: "", activeKey: "", clickAndClose: !0, open: !1, onChange: function onChange() {}, data: [] };return Object.assign(options, opts), _possibleConstructorReturn$9(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
 	  }return _inherits$9(Dropdown, _Lego$UI$Baseview), _createClass$9(Dropdown, [{ key: "render", value: function value() {
 	      function itemNav(item) {
 	        return item.divider ? hx(_templateObject$8) : item.children ? loopNav(item) : hx(_templateObject2$7, val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
@@ -6080,12 +6080,12 @@
 	        return hx(_templateObject3$4, val(item.key), item.key === options.activeKey ? "active" : "", item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", val(item.value), item.children ? hx(_templateObject4$3, item.children.map(function (item) {
 	          return itemNav(item);
 	        })) : "");
-	      }console.warn("fffffff");var options = this.options || {},
+	      }var options = this.options || {},
 	          vDom = hx(_templateObject5$3, options.direction ? "drop" + options.direction : "", options.open ? "block" : "none", options.data.map(function (item) {
 	        return itemNav(item);
 	      }));return vDom;
 	    } }, { key: "renderAfter", value: function value() {
-	      console.warn("ooooooooo");var that = this,
+	      var that = this,
 	          _eventName = "click.dropdown-" + this.options.vid;if (this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container), !this.options.disabled) {
 	        var handler = function handler(event) {
 	          $("body, .modal-body").trigger("click", that.options.vid), event.stopPropagation(), that.$el.slideToggle("fast", function () {
@@ -6719,18 +6719,16 @@
 	    _templateObject4$5 = _taggedTemplateLiteral$14(['\n            <div class="select dropdown multiple ', '">\n                <div id="select-', '">\n                    <input type="text" class="form-control ', " select-input ", '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            '], ['\n            <div class="select dropdown multiple ', '">\n                <div id="select-', '">\n                    <input type="text" class="form-control ', " select-input ", '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ']),
 	    Selects = function (_Lego$UI$Baseview) {
 	  function Selects() {
-	    var opts = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};_classCallCheck$16(this, Selects);var options = { name: "", value: [], multiple: !1, eventName: "click", filterOption: !0, tags: !1, onDeselect: function onDeselect() {}, onChange: function onChange() {}, onBlur: function onBlur() {}, onSearch: function onSearch() {}, placeholder: "", notFoundContent: "", dropdownWidth: "100%", dropdownHeight: "auto", optionFilterProp: "", combobox: !1, size: "", showSearch: !1, inputAble: !1, disabled: !1, defaultActiveFirstOption: !1, dropdownStyle: null, dropdownClassName: "", splitString: "", dataSource: null, components: [] };Object.assign(options, opts);var _this = _possibleConstructorReturn$15(this, (Selects.__proto__ || Object.getPrototypeOf(Selects)).call(this, options));_this.oldValue = "";var that = _this;return _this.$(".select-input").blur(function (event) {
-	      "function" == typeof options.onBlur && options.onBlur(that, $(this).val(), event);
-	    }), _this.$(".select-tags-div").on("click", ".select-tag-close", _this.clickItemClose.bind(_this)), _this;
-	  }return _inherits$15(Selects, _Lego$UI$Baseview), _createClass$16(Selects, [{ key: "renderBefore", value: function value() {
-	      var options = this.options;this.addCom({ el: "#dropdown-" + options.vid, container: "#select-" + options.vid, eventName: options.eventName || "click", disabled: options.disabled || !1, style: Object.assign({ width: options.dropdownWidth || "100%" }, options.dropdownStyle || {}), className: options.dropdownClassName, clickAndClose: !options.multiple, data: options.data || [], dataSource: options.dataSource, onChange: function onChange(self, model) {
-	          var pView = this.context;pView.$(".select-input").focus(), "0" !== model.key && options.multiple ? (pView.options.data.forEach(function (item) {
+	    var opts = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};_classCallCheck$16(this, Selects);var options = { name: "", value: [], multiple: !1, eventName: "click", filterOption: !0, tags: !1, onDeselect: function onDeselect() {}, onChange: function onChange() {}, onBlur: function onBlur() {}, onSearch: function onSearch() {}, placeholder: "", notFoundContent: "", dropdownWidth: "100%", dropdownHeight: "auto", optionFilterProp: "", combobox: !1, size: "", showSearch: !1, inputAble: !1, disabled: !1, defaultActiveFirstOption: !1, dropdownStyle: null, dropdownClassName: "", splitString: "", dataSource: null, components: [{ el: "#dropdown-" + opts.vid, container: "#select-" + opts.vid, eventName: opts.eventName || "click", disabled: opts.disabled || !1, style: Object.assign({ width: opts.dropdownWidth || "100%" }, opts.dropdownStyle || {}), className: opts.dropdownClassName, clickAndClose: !opts.multiple, data: opts.data || [], dataSource: opts.dataSource, onChange: function onChange(self, model) {
+	          var pView = this.context;pView.$(".select-input").focus(), "0" !== model.key && opts.multiple ? (pView.options.data.forEach(function (item) {
 	            "0" == item.key && (item.selected = !1);
 	          }), pView.getValue(), pView.options.value.includes(model) || (model.selected = !0, pView.options.value.push(model))) : (pView.options.data.forEach(function (item) {
 	            return item.selected = !1;
 	          }), pView.options.value = [model], pView.refresh()), pView.options.onChange(pView, model);
-	        } });
-	    } }, { key: "render", value: function value() {
+	        } }] };Object.assign(options, opts);var _this = _possibleConstructorReturn$15(this, (Selects.__proto__ || Object.getPrototypeOf(Selects)).call(this, options));_this.oldValue = "";var that = _this;return _this.$(".select-input").blur(function (event) {
+	      "function" == typeof options.onBlur && options.onBlur(that, $(this).val(), event);
+	    }), _this.$(".select-tags-div").on("click", ".select-tag-close", _this.clickItemClose.bind(_this)), _this;
+	  }return _inherits$15(Selects, _Lego$UI$Baseview), _createClass$16(Selects, [{ key: "render", value: function value() {
 	      function getTags(data) {
 	        return data.length ? hx(_templateObject$14, data.map(function (item) {
 	          return hx(_templateObject2$12, item.key, item.value, item.value);
@@ -6786,7 +6784,8 @@
 	    _templateObject3$7 = _taggedTemplateLiteral$15(["<div></div>"], ["<div></div>"]),
 	    Datepicker = function (_Lego$UI$Baseview) {
 	  function Datepicker() {
-	    var opts = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};_classCallCheck$17(this, Datepicker);var options = { events: { click: function click(event) {
+	    var opts = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};_classCallCheck$17(this, Datepicker);
+	    var options = { events: { click: function click(event) {
 	          event.stopPropagation();
 	        }, "click .input-group-addon": "showpanel", "blur input": "onBlur" }, type: "date", name: "", placeholder: "选择时间", disabled: !1, inline: !1, size: "default", format: "time" == opts.type ? "LT" : "YYYY-MM-DD HH:mm:ss", value: null, startInputEl: "", startName: opts.name, startValue: "", startPlaceholder: "开始时间", endInputEl: "", endName: "", endValue: "", endPlaceholder: "结束时间", useCurrent: !1, setting: {}, onBlur: function onBlur() {}, onChange: function onChange() {} };Object.assign(options, opts);var _this = _possibleConstructorReturn$16(this, (Datepicker.__proto__ || Object.getPrototypeOf(Datepicker)).call(this, options));return _this.initDatepicker(), _this;
 	  }return _inherits$16(Datepicker, _Lego$UI$Baseview), _createClass$17(Datepicker, [{ key: "initDatepicker", value: function value() {
@@ -7439,8 +7438,8 @@
 	    _templateObject3$12 = _taggedTemplateLiteral$22(['<div class="lego-upload-container"></div>'], ['<div class="lego-upload-container"></div>']),
 	    Upload = function (_Lego$UI$Baseview) {
 	  function Upload() {
-	    var opts = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};_classCallCheck$27(this, Upload);var options = { events: { "click .lego-addbtn": "onClickAdd" }, keyRoot: "", type: "file", buttonText: "添加附件", name: "", token: "", params: {}, uploadUri: "https:" === window.location.protocol ? "https://up.qbox.me" : "http://upload.qiniu.com", saveUri: "", accept: "", previewOption: null, multiple: !0, context: null, template: "", maxFileSize: "5mb", maxFilesCount: 9, isAuto: !0,
-	      readonly: !1, disabled: !1, hasCookie: !1, showUploadList: !0, value: [], onAddFile: function onAddFile() {}, onBegin: function onBegin() {}, onProgress: function onProgress() {}, onComplete: function onComplete() {}, onFail: function onFail() {}, onRemove: function onRemove() {}, onCancel: function onCancel() {} };Object.assign(options, opts), options.value.length && (options.value = options.value.map(function (file) {
+	    var opts = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};_classCallCheck$27(this, Upload);var options = { events: { "click .lego-addbtn": "onClickAdd" }, keyRoot: "", type: "file", buttonText: "添加附件", name: "", token: "", params: {}, uploadUri: "https:" === window.location.protocol ? "https://up.qbox.me" : "http://upload.qiniu.com", saveUri: "", accept: "", previewOption: null, multiple: !0, context: null, template: "", maxFileSize: "5mb", maxFilesCount: 9, isAuto: !0, readonly: !1, disabled: !1, hasCookie: !1, showUploadList: !0, value: [], onAddFile: function onAddFile() {}, onBegin: function onBegin() {},
+	      onProgress: function onProgress() {}, onComplete: function onComplete() {}, onFail: function onFail() {}, onRemove: function onRemove() {}, onCancel: function onCancel() {} };Object.assign(options, opts), options.value.length && (options.value = options.value.map(function (file) {
 	      return { readonly: options.readonly, percent: 100, file: file };
 	    }));var _this = _possibleConstructorReturn$24(this, (Upload.__proto__ || Object.getPrototypeOf(Upload)).call(this, options));return _this.fileList = [], _this.reset(), _this.$(".lego-fileInput").on("change", function (event) {
 	      var target = $(event.currentTarget)[0];_this.uploadInit(target.files, target);
@@ -7740,7 +7739,8 @@
 	      }) : val(options.html || options.text), options.readonly || options.clicked ? "" : hx(_templateObject2$25, val(options.icon)), !options.readonly && options.clicked ? hx(_templateObject3$18) : "");return vDom;
 	    } }, { key: "onClick", value: function value(event) {
 	      event.stopPropagation(), this.options.clicked = !0, "function" == typeof this.options.onEdit && this.options.onEdit(this, event);
-	    } }, { key: "onClose", value: function value(event) {
+	    } }, { key: "onClose",
+	    value: function value(event) {
 	      event.stopPropagation(), this.close(), "function" == typeof this.options.onCancel && this.options.onCancel(this, event);
 	    } }, { key: "close", value: function value() {
 	      this.options.clicked = !1, "function" == typeof this.options.onFinish && this.options.onFinish(this);
