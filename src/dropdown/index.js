@@ -18,7 +18,6 @@ class Dropdown extends Lego.UI.Baseview {
         };
         Object.assign(options, opts);
         super(options);
-        // this.isClose = false;
     }
     render() {
         const options = this.options || {};
@@ -67,19 +66,14 @@ class Dropdown extends Lego.UI.Baseview {
         this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
         if(!this.options.disabled){
             function handler(event){
-                $('body, .modal-body').trigger('click', that.options.vid);
-                event.stopPropagation();
-                that.$el.slideToggle('fast', function(){
-                    if($(this).css('display') == 'none'){
-                        that.isClose = true;
-                    }else{
-                        that.isClose = false;
-                    }
-                });
+                that.$el.slideToggle('fast');
             }
             if(this.options.eventName == 'click'){
-                $('body, .modal-body').off(_eventName).on(_eventName, function(event, vid){
-                    if(vid !== that.options.vid){
+                $('body, .modal-body').off(_eventName).on(_eventName, function(event){
+                    let index_a = event.originalEvent.path.indexOf(event.target),
+                        index_b = event.originalEvent.path.indexOf(that.container[0]);
+                    if(index_a <= index_b){
+                    }else{
                         that.close();
                     }
                 });
@@ -103,14 +97,10 @@ class Dropdown extends Lego.UI.Baseview {
         }
     }
     show(){
-        this.isClose = false;
         this.$el.slideDown('fast');
     }
     close(){
-        if(!this.isClose){
-            this.$el.slideUp('fast');
-            this.isClose = true;
-        }
+        this.$el.slideUp('fast');
     }
     clickItem(event){
         event.stopPropagation();

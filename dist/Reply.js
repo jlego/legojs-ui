@@ -1933,19 +1933,12 @@ var Dropdown = function(_Lego$UI$Baseview) {
             this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
             if (!this.options.disabled) {
                 var handler = function handler(event) {
-                    $("body, .modal-body").trigger("click", that.options.vid);
-                    event.stopPropagation();
-                    that.$el.slideToggle("fast", function() {
-                        if ($(this).css("display") == "none") {
-                            that.isClose = true;
-                        } else {
-                            that.isClose = false;
-                        }
-                    });
+                    that.$el.slideToggle("fast");
                 };
                 if (this.options.eventName == "click") {
-                    $("body, .modal-body").off(_eventName).on(_eventName, function(event, vid) {
-                        if (vid !== that.options.vid) {
+                    $("body, .modal-body").off(_eventName).on(_eventName, function(event) {
+                        var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.container[0]);
+                        if (index_a <= index_b) {} else {
                             that.close();
                         }
                     });
@@ -1970,16 +1963,12 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "show",
         value: function show() {
-            this.isClose = false;
             this.$el.slideDown("fast");
         }
     }, {
         key: "close",
         value: function close() {
-            if (!this.isClose) {
-                this.$el.slideUp("fast");
-                this.isClose = true;
-            }
+            this.$el.slideUp("fast");
         }
     }, {
         key: "clickItem",
