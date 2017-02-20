@@ -95,6 +95,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
     _createClass$1(Dropdown, [ {
         key: "render",
         value: function render() {
+            console.warn("fffffff");
             var options = this.options || {};
             function itemNav(item) {
                 if (item.divider) {
@@ -120,6 +121,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
+            console.warn("ooooooooo");
             var that = this, _eventName = "click.dropdown-" + this.options.vid;
             this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
             if (!this.options.disabled) {
@@ -301,45 +303,40 @@ var Selects = function(_Lego$UI$Baseview) {
         key: "renderBefore",
         value: function renderBefore() {
             var options = this.options;
-            var comId = "#dropdown-" + options.vid;
-            if (!this.options.components.find(function(item) {
-                return item.el == comId;
-            }) && options.data.length) {
-                this.options.components.push({
-                    el: comId,
-                    container: "#select-" + options.vid,
-                    eventName: options.eventName || "click",
-                    disabled: options.disabled || false,
-                    style: Object.assign({
-                        width: options.dropdownWidth || "100%"
-                    }, options.dropdownStyle || {}),
-                    className: options.dropdownClassName,
-                    clickAndClose: options.multiple ? false : true,
-                    data: options.data || [],
-                    dataSource: options.dataSource,
-                    onChange: function onChange(self, model) {
-                        var pView = this.context;
-                        pView.$(".select-input").focus();
-                        if (model.key !== "0" && options.multiple) {
-                            pView.options.data.forEach(function(item) {
-                                if (item.key == "0") item.selected = false;
-                            });
-                            pView.getValue();
-                            if (!pView.options.value.includes(model)) {
-                                model.selected = true;
-                                pView.options.value.push(model);
-                            }
-                        } else {
-                            pView.options.data.forEach(function(item) {
-                                return item.selected = false;
-                            });
-                            pView.options.value = [ model ];
-                            pView.refresh();
+            this.addCom({
+                el: "#dropdown-" + options.vid,
+                container: "#select-" + options.vid,
+                eventName: options.eventName || "click",
+                disabled: options.disabled || false,
+                style: Object.assign({
+                    width: options.dropdownWidth || "100%"
+                }, options.dropdownStyle || {}),
+                className: options.dropdownClassName,
+                clickAndClose: options.multiple ? false : true,
+                data: options.data || [],
+                dataSource: options.dataSource,
+                onChange: function onChange(self, model) {
+                    var pView = this.context;
+                    pView.$(".select-input").focus();
+                    if (model.key !== "0" && options.multiple) {
+                        pView.options.data.forEach(function(item) {
+                            if (item.key == "0") item.selected = false;
+                        });
+                        pView.getValue();
+                        if (!pView.options.value.includes(model)) {
+                            model.selected = true;
+                            pView.options.value.push(model);
                         }
-                        pView.options.onChange(pView, model);
+                    } else {
+                        pView.options.data.forEach(function(item) {
+                            return item.selected = false;
+                        });
+                        pView.options.value = [ model ];
+                        pView.refresh();
                     }
-                });
-            }
+                    pView.options.onChange(pView, model);
+                }
+            });
         }
     }, {
         key: "render",

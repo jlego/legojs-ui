@@ -387,6 +387,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
     _createClass$4(Dropdown, [ {
         key: "render",
         value: function render() {
+            console.warn("fffffff");
             var options = this.options || {};
             function itemNav(item) {
                 if (item.divider) {
@@ -412,6 +413,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
+            console.warn("ooooooooo");
             var that = this, _eventName = "click.dropdown-" + this.options.vid;
             this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
             if (!this.options.disabled) {

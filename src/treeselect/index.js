@@ -51,12 +51,10 @@ class Treeselect extends Selects {
             });
         }
         super(options);
-        this.isClose = false;
     }
     renderBefore(){
-        let options = self.options;
-        
-        options.components.push({
+        let options = this.options;
+        this.addCom({
             el: '#tree-' + options.vid,
             disSelect: options.disSelect, //禁止选择含有该属性节点, 可以是对象
             onlySelect: options.onlySelect, //只选择含有该属性节点, 可以是对象

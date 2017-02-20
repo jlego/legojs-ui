@@ -62,6 +62,7 @@ class Dropdown extends Lego.UI.Baseview {
         return vDom;
     }
     renderAfter(){
+                    console.warn('ooooooooo');
         let that = this,
             _eventName = 'click.dropdown-' + this.options.vid;
         this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
