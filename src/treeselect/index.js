@@ -52,7 +52,7 @@ class Treeselect extends Selects {
         }
         super(options);
     }
-    renderBefore(){
+    components(){
         let options = this.options;
         this.addCom({
             el: '#tree-' + options.vid,
@@ -163,19 +163,18 @@ class Treeselect extends Selects {
         if(!options.inputAble) this.$('.select-input').attr('readonly', 'readonly');
         if(!options.disabled){
             function handler(event){
-                $('body, .modal-body').trigger('click', options.vid);
-                event.stopPropagation();
-                that.$('.dropdown-menu').slideToggle('fast', function(){
-                    if($(this).css('display') == 'none'){
-                        that.isClose = true;
-                    }else{
-                        that.isClose = false;
-                    }
-                });
+                that.$('.dropdown-menu').slideToggle('fast');
             }
             if(options.eventName == 'click'){
-                $('body, .modal-body').off(_eventName).on(_eventName, function(event, vid){
-                    if(vid !== options.vid) that.close();
+                $('body, .modal-body').off(_eventName).on(_eventName, function(event){
+                    if(event.originalEvent){
+                        let index_a = event.originalEvent.path.indexOf(event.target),
+                            index_b = event.originalEvent.path.indexOf(trigger[0]);
+                        if(index_a <= index_b){
+                        }else{
+                            that.close();
+                        }
+                    }
                 });
                 trigger.off(_eventName).on(_eventName, handler);
             }else{
@@ -190,14 +189,10 @@ class Treeselect extends Selects {
         }
     }
     show(event){
-        this.isClose = false;
         this.$('.dropdown-menu').slideDown('fast');
     }
     close(event){
-        if(!this.isClose){
-            this.isClose = true;
-            this.$('.dropdown-menu').slideUp('fast');
-        }
+        this.$('.dropdown-menu').slideUp('fast');
     }
     clickItemClose(event){
         event.stopPropagation();

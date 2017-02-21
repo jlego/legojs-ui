@@ -20,7 +20,7 @@ class Selects extends Lego.UI.Baseview {
             placeholder: '',  //选择框默认文字
             notFoundContent: '',  //当下拉列表为空时显示的内容
             dropdownWidth: '100%', //下拉菜单和选择器同宽
-            dropdownHeight: 'auto', //下拉菜单高度
+            dropdownHeight: 200, //下拉菜单高度
             optionFilterProp: '',  //搜索时过滤对应的 option 属性，如设置为 children 表示对内嵌内容进行搜索的子元素。比如在子元素需要高亮效果时，此值可以设为 value。
             combobox: false,  //输入框自动提示模式
             size: '',  //支持多选
@@ -43,15 +43,18 @@ class Selects extends Lego.UI.Baseview {
         });
         this.$('.select-tags-div').on('click', '.select-tag-close', this.clickItemClose.bind(this));
     }
-    renderBefore(){
+    components(){
         let options = this.options;
         this.addCom({
             el: '#dropdown-' + options.vid,
             container: '#select-' + options.vid,
             eventName: options.eventName || 'click',
             disabled: options.disabled || false,
+            scrollbar: {},
             style: Object.assign({
-                width: options.dropdownWidth || '100%'
+                width: options.dropdownWidth,
+                maxHeight: options.dropdownHeight,
+                overflow: 'auto'
             }, options.dropdownStyle || {}),
             className: options.dropdownClassName,
             clickAndClose: options.multiple ? false : true,

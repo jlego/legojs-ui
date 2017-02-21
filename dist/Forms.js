@@ -264,7 +264,7 @@ var Forms = function(_Lego$UI$Baseview) {
             var format = this.options.format, submitEl = this.options.submitEl, $submitEl = submitEl instanceof $ ? submitEl : this.$el.find((typeof submitEl == "string" ? submitEl : "") || '[type="submit"]'), that = this;
             var data = this.serializeJson();
             if (typeof format == "function") data = format(data);
-            if (!Object.values(data).length) return false;
+            if (Lego.isEmptyObject(data)) return false;
             if (!$submitEl.hasClass("disabled")) {
                 $submitEl.text("提交中...").addClass("disabled");
             }

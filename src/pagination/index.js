@@ -9,7 +9,6 @@ class Pagination extends Lego.UI.Baseview {
                 'click .page-item': 'clickItemPage',
                 'click .next:not(.disabled)': 'clickNextPage',
                 'click .morepage': 'clickMorePage',
-                'click .info>button': 'showPagesize',
                 'keydown .info>input[type="text"]': '_enterSearch',
             },
             current: 1, //当前页数
@@ -29,6 +28,11 @@ class Pagination extends Lego.UI.Baseview {
             components: []
         };
         Object.assign(options, opts);
+        super(options);
+        this.jumped = false;
+    }
+    components(){
+        let options = this.options;
         if(!options.simple && options.showSizeChanger){
             let theData = options.pageSizeOptions.map(val => {
                 return {
@@ -36,9 +40,9 @@ class Pagination extends Lego.UI.Baseview {
                     value: val + ' / 页'
                 };
             });
-            options.components.push({
-                el: '#dropdown-' + opts.vid,
-                container: '#select-' + opts.vid,
+            this.addCom({
+                el: '#dropdown-' + options.vid,
+                container: '#select-' + options.vid,
                 direction: 'top',
                 data: theData,
                 onChange(self, result){
@@ -49,8 +53,6 @@ class Pagination extends Lego.UI.Baseview {
                 }
             });
         }
-        super(options);
-        this.jumped = false;
     }
     render() {
         let options = this.options,
@@ -115,11 +117,6 @@ class Pagination extends Lego.UI.Baseview {
         `;
         this.jumped = false;
         return vDom;
-    }
-    showPagesize(event){
-        event.stopPropagation();
-        let target = $(event.currentTarget).next('.dropdown-menu');
-        target.slideToggle('fast');
     }
     clickPrevPage(event){
         event.stopPropagation();

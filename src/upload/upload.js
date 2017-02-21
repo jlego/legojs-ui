@@ -64,7 +64,7 @@ class UploadView extends Lego.View {
             params = this.options.params;
         this.xhr.crossDomain = true;
         // file.id = file.id || Lego.randomKey(32);
-        const progressbar = Lego.getView(this.$('#progressbar_' + this.options.vid));
+        const progressbar = Lego.getView('#progressbar_' + this.options.vid);
 
         this.form = new FormData();
         this.form.append('file', file);

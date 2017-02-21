@@ -224,7 +224,7 @@ class Forms extends Lego.UI.Baseview {
             that = this;
         let data = this.serializeJson();
         if(typeof format == 'function') data = format(data);
-        if (!Object.values(data).length) return false;
+        if (Lego.isEmptyObject(data)) return false;
         if (!$submitEl.hasClass('disabled')) {
             $submitEl.text('提交中...').addClass('disabled');
         }

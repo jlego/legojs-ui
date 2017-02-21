@@ -37,29 +37,27 @@ class Tabs extends Lego.UI.Baseview {
         Object.assign(options, opts);
         super(options);
     }
-    renderBefore(){
+    components(){
         let options = this.options,
             comId = '#navs-' + options.vid;
-        if(!options.components.find(item => item.el == comId)){
-            let data = options.data.filter(item => !item.isHide);
-            options.activeKey = typeof options.activeKey == 'number' ? data[options.activeKey].key : options.activeKey;
-            let model = data.find(item => item.key == options.activeKey);
-            if(model) options.activeContent = val(model.content);
-            options.components.push({
-                el: comId,
-                eventName: options.eventName || 'click',
-                type: 'tabs', //菜单类型，现在支持垂直、水平、和内嵌模式三种base, inline, tabs, pills, pills-stacked
-                activeKey: options.activeKey, //当前激活的key
-                onClick(self, item){
-                    if(!item.disabled && item.content){
-                        const parentView = this.context;
-                        parentView.options.activeKey = item.key;
-                        parentView.options.activeContent = item.content;
-                    }
-                }, //点击的回调
-                data: data
-            });
-        }
+        let data = options.data.filter(item => !item.isHide);
+        options.activeKey = typeof options.activeKey == 'number' ? data[options.activeKey].key : options.activeKey;
+        let model = data.find(item => item.key == options.activeKey);
+        if(model) options.activeContent = model.content;
+        this.addCom({
+            el: comId,
+            eventName: options.eventName || 'click',
+            type: 'tabs', //菜单类型，现在支持垂直、水平、和内嵌模式三种base, inline, tabs, pills, pills-stacked
+            activeKey: options.activeKey, //当前激活的key
+            onClick(self, item){
+                if(!item.disabled && item.content){
+                    const parentView = this.context;
+                    parentView.options.activeKey = item.key;
+                    parentView.options.activeContent = item.content;
+                }
+            }, //点击的回调
+            data: data
+        });
     }
     render() {
         const options = this.options;
@@ -85,7 +83,7 @@ class Tabs extends Lego.UI.Baseview {
                 ${newData.map(item => {
                     if(!item.disabled){
                         return hx`<div class="tab-pane ${val(options.animate)} ${item.key == options.activeKey ? 'active in' : ''}">
-                            ${item.key == options.activeKey ? val(options.activeContent) : ''}
+                            ${item.key == options.activeKey ? options.activeContent : ''}
                         </div>`;
                     }
                 })}

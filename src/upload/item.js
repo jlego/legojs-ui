@@ -31,10 +31,6 @@ import Progressbar from '../progressbar/index';
 class UploadItem extends UploadBase {
     constructor(opts = {}) {
         const options = {
-            events: {
-                'click .lego-cancelbtn': 'onCancel',
-                'click .lego-closebtn': 'onRemove'
-            },
             uploadUri: '',
             percent: 0,     //上传进度百分比
             isAuto: true,
@@ -48,17 +44,21 @@ class UploadItem extends UploadBase {
             onFail() {},
             onCancel() {},
             onRemove() {},
-            components: [{
-                el: '#progressbar_' + opts.vid,
-                showInfo: false,
-                status: 'success',
-                onComplete(self){
-                    self.options.percent = 100;
-                }
-            }]
+            components: []
         };
         Object.assign(options, opts);
         super(options);
+    }
+    components(){
+        let options = this.options;
+        this.addCom({
+            el: '#progressbar_' + options.vid,
+            showInfo: false,
+            status: 'success',
+            onComplete(self){
+                self.options.percent = 100;
+            }
+        });
     }
     render() {
         const options = this.options || {};
@@ -71,7 +71,7 @@ class UploadItem extends UploadBase {
             <div class="media-body">
                 <h4 class="media-heading">
                     <div class="right">
-                        <a href="javascript:;" class="lego-cancelbtn" id="${val(options.file._id)}"><i class="anticon anticon-cross float-xs-right close"></i></a>
+                        <a href="javascript:;" class="lego-cancelbtn" id="${val(options.file._id)}" onclick=${this.onCancel.bind(this)}><i class="anticon anticon-cross float-xs-right close"></i></a>
                     </div>
                     ${val(options.file.name)}
                 </h4>
@@ -81,7 +81,7 @@ class UploadItem extends UploadBase {
                 <h4 class="media-heading">
                     ${!options.readonly && options.percent == 100 ? hx`
                     <div class="right">
-                        <a href="javascript:;" class="lego-closebtn" id="${val(options.file._id)}"><i class="anticon anticon-cross float-xs-right close"></i></a>
+                        <a href="javascript:;" class="lego-closebtn" id="${val(options.file._id)}" onclick=${this.onRemove.bind(this)}><i class="anticon anticon-cross float-xs-right close"></i></a>
                     </div>
                     ` : ''}
                     ${val(options.file.name)}

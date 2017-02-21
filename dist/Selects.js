@@ -126,9 +126,11 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 };
                 if (this.options.eventName == "click") {
                     $("body, .modal-body").off(_eventName).on(_eventName, function(event) {
-                        var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.container[0]);
-                        if (index_a <= index_b) {} else {
-                            that.close();
+                        if (event.originalEvent) {
+                            var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.container[0]);
+                            if (index_a <= index_b) {} else {
+                                that.close();
+                            }
                         }
                     });
                     this.container.off(_eventName).on(_eventName, handler);
@@ -260,7 +262,7 @@ var Selects = function(_Lego$UI$Baseview) {
             placeholder: "",
             notFoundContent: "",
             dropdownWidth: "100%",
-            dropdownHeight: "auto",
+            dropdownHeight: 200,
             optionFilterProp: "",
             combobox: false,
             size: "",
@@ -285,16 +287,19 @@ var Selects = function(_Lego$UI$Baseview) {
         return _this;
     }
     _createClass(Selects, [ {
-        key: "renderBefore",
-        value: function renderBefore() {
+        key: "components",
+        value: function components() {
             var options = this.options;
             this.addCom({
                 el: "#dropdown-" + options.vid,
                 container: "#select-" + options.vid,
                 eventName: options.eventName || "click",
                 disabled: options.disabled || false,
+                scrollbar: {},
                 style: Object.assign({
-                    width: options.dropdownWidth || "100%"
+                    width: options.dropdownWidth,
+                    maxHeight: options.dropdownHeight,
+                    overflow: "auto"
                 }, options.dropdownStyle || {}),
                 className: options.dropdownClassName,
                 clickAndClose: options.multiple ? false : true,

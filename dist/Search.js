@@ -126,9 +126,11 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 };
                 if (this.options.eventName == "click") {
                     $("body, .modal-body").off(_eventName).on(_eventName, function(event) {
-                        var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.container[0]);
-                        if (index_a <= index_b) {} else {
-                            that.close();
+                        if (event.originalEvent) {
+                            var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.container[0]);
+                            if (index_a <= index_b) {} else {
+                                that.close();
+                            }
                         }
                     });
                     this.container.off(_eventName).on(_eventName, handler);

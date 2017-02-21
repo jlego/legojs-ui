@@ -126,9 +126,11 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 };
                 if (this.options.eventName == "click") {
                     $("body, .modal-body").off(_eventName).on(_eventName, function(event) {
-                        var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.container[0]);
-                        if (index_a <= index_b) {} else {
-                            that.close();
+                        if (event.originalEvent) {
+                            var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.container[0]);
+                            if (index_a <= index_b) {} else {
+                                that.close();
+                            }
                         }
                     });
                     this.container.off(_eventName).on(_eventName, handler);
@@ -462,35 +464,31 @@ var Tabs = function(_Lego$UI$Baseview) {
         return _possibleConstructorReturn(this, (Tabs.__proto__ || Object.getPrototypeOf(Tabs)).call(this, options));
     }
     _createClass(Tabs, [ {
-        key: "renderBefore",
-        value: function renderBefore() {
+        key: "components",
+        value: function components() {
             var options = this.options, comId = "#navs-" + options.vid;
-            if (!options.components.find(function(item) {
-                return item.el == comId;
-            })) {
-                var data = options.data.filter(function(item) {
-                    return !item.isHide;
-                });
-                options.activeKey = typeof options.activeKey == "number" ? data[options.activeKey].key : options.activeKey;
-                var model = data.find(function(item) {
-                    return item.key == options.activeKey;
-                });
-                if (model) options.activeContent = val(model.content);
-                options.components.push({
-                    el: comId,
-                    eventName: options.eventName || "click",
-                    type: "tabs",
-                    activeKey: options.activeKey,
-                    onClick: function onClick(self, item) {
-                        if (!item.disabled && item.content) {
-                            var parentView = this.context;
-                            parentView.options.activeKey = item.key;
-                            parentView.options.activeContent = item.content;
-                        }
-                    },
-                    data: data
-                });
-            }
+            var data = options.data.filter(function(item) {
+                return !item.isHide;
+            });
+            options.activeKey = typeof options.activeKey == "number" ? data[options.activeKey].key : options.activeKey;
+            var model = data.find(function(item) {
+                return item.key == options.activeKey;
+            });
+            if (model) options.activeContent = model.content;
+            this.addCom({
+                el: comId,
+                eventName: options.eventName || "click",
+                type: "tabs",
+                activeKey: options.activeKey,
+                onClick: function onClick(self, item) {
+                    if (!item.disabled && item.content) {
+                        var parentView = this.context;
+                        parentView.options.activeKey = item.key;
+                        parentView.options.activeContent = item.content;
+                    }
+                },
+                data: data
+            });
         }
     }, {
         key: "render",
@@ -513,7 +511,7 @@ var Tabs = function(_Lego$UI$Baseview) {
             getNewData(options.data);
             var vDom = hx(_templateObject, options.vid, newData.map(function(item) {
                 if (!item.disabled) {
-                    return hx(_templateObject2, val(options.animate), item.key == options.activeKey ? "active in" : "", item.key == options.activeKey ? val(options.activeContent) : "");
+                    return hx(_templateObject2, val(options.animate), item.key == options.activeKey ? "active in" : "", item.key == options.activeKey ? options.activeContent : "");
                 }
             }));
             return vDom;

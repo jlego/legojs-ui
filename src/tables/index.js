@@ -69,6 +69,8 @@ class Tables extends Lego.UI.Baseview {
         $(window).resize(function(){
             that.resizeWidth();
         });
+        this.resizeWidth();
+        // selectedAll 1为全选，2为半选，0为没选
     }
     getColumns(){
         let options = this.options;
@@ -109,7 +111,6 @@ class Tables extends Lego.UI.Baseview {
     }
     render() {
         this.getColumns();
-        if(!this.hasClicked) this.selectedAll = 0;
         const options = this.options;
         const vDom = hx`
         <div class="clearfix lego-table lego-table-${options.size} ${options.bordered ? 'lego-table-bordered' : ''}
@@ -148,7 +149,7 @@ class Tables extends Lego.UI.Baseview {
         return vDom;
     }
     renderAfter(){
-        this.hasClicked = this.hasClicked || false;
+        // this.hasClicked = this.hasClicked || false;
         this.isLoaded = this.isLoaded || false;
         let el = '#pagination-' + this.options.vid;
         if(!this.isLoaded && this.options.data.length && this.options.pagination){
@@ -185,21 +186,21 @@ class Tables extends Lego.UI.Baseview {
         return vDom;
     }
     // 渲染选择框
-    _renderSelection(row = {}, tagName = 'td'){
+    _renderSelection(row = {}, tagName = 'td', isHarf){
         const options = this.options,
             theType = options.rowSelection.type || 'checkbox',
+            isCheckbox = theType == 'checkbox',
             that = this;
-        const isChecked = row.selected || (tagName === 'th' && this.selectedAll === 1),
-            isHarf = tagName === 'th' && that.selectedAll === 2 ? true : false;
+        const isChecked = row.selected || (tagName === 'th' && this.getSelectedStatus() === 1);
         function getHx(){
             return hx`
             <span>
                 <label class="lego-${theType}-wrapper">
-                    <span class="lego-${theType} ${row.disabled ? ('lego-' + theType + '-disabled') : ''}
+                    ${tagName !== 'th' || isCheckbox ? hx`<span class="lego-${theType} ${row.disabled ? ('lego-' + theType + '-disabled') : ''}
                     ${isChecked ? ('lego-' + theType + '-checked lego-' + theType + '-checked-1') : (isHarf ? ('lego-' + theType + '-indeterminate') : '')}">
                         <span class="lego-${theType}-inner"></span>
                         <input type="${theType}" ${row.disabled ? 'disabled' : ''} name="selectedrows" class="lego-${theType}-input" value="${isChecked ? 'on' : ''}">
-                    </span>
+                    </span>` : ''}
                 </label>
             </span>
             `;
@@ -215,7 +216,7 @@ class Tables extends Lego.UI.Baseview {
         const vDom = hx`
         <thead class="lego-table-thead">
             <tr>
-            ${options.rowSelection ? this._renderSelection({}, 'th') : ''}
+            ${options.rowSelection ? this._renderSelection({}, 'th', this.getSelectedStatus() === 2 ? true : false) : ''}
             ${this.columns.map(col => {
                 return !col.isHide ? hx`<th class="${col.sortOrder ? 'lego-table-column-sort' : ''}" id="${col.key}"><span>${col.title}
                 ${col.sorter ? this._renderSorter(col) : ''}${this._renderFilter(col)}</span></th>` : '';
@@ -323,7 +324,7 @@ class Tables extends Lego.UI.Baseview {
     }
     // 选中一条
     selectOne(event) {
-        this.hasClicked = true;
+        // this.hasClicked = true;
         const target = $(event.currentTarget),
             trEl = target.closest('tr'),
             id = trEl.attr('id'),
@@ -340,17 +341,24 @@ class Tables extends Lego.UI.Baseview {
                 });
                 if(row) row.selected = !row.selected;
             }
-            const hasSelectedArr = options.data.filter((value) => {
-                return value.selected === true;
-            });
-            this.selectedAll = hasSelectedArr.length == options.data.length ? 1 : (hasSelectedArr.length ? 2 : 0);
-            if(typeof options.onSelect == 'function') options.onSelect(this, this.selectedAll ? Array.from(hasSelectedArr) : []);
+            let hasSelectedArr = this.options.data.filter((value) => {
+                    return value.selected === true;
+                });
+            if(typeof options.onSelect == 'function') options.onSelect(this, this.getSelectedStatus() ? Array.from(hasSelectedArr) : []);
             this.refresh();
         }
     }
+    // 取是否全选
+    getSelectedStatus(){
+        let hasSelectedArr = this.options.data.filter((value) => {
+                return value.selected === true;
+            });
+        this.selectedAll = hasSelectedArr.length == this.options.data.length ? 1 : (hasSelectedArr.length ? 2 : 0);
+        return this.selectedAll;
+    }
     // 选择全部
     selectAll(event){
-        this.hasClicked = true;
+        // this.hasClicked = true;
         event.stopPropagation();
         const target = $(event.currentTarget);
         if (this.options.rowSelection) {

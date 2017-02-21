@@ -128,9 +128,11 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 };
                 if (this.options.eventName == "click") {
                     $("body, .modal-body").off(_eventName).on(_eventName, function(event) {
-                        var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.container[0]);
-                        if (index_a <= index_b) {} else {
-                            that.close();
+                        if (event.originalEvent) {
+                            var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.container[0]);
+                            if (index_a <= index_b) {} else {
+                                that.close();
+                            }
                         }
                     });
                     this.container.off(_eventName).on(_eventName, handler);
@@ -262,7 +264,7 @@ var Selects = function(_Lego$UI$Baseview) {
             placeholder: "",
             notFoundContent: "",
             dropdownWidth: "100%",
-            dropdownHeight: "auto",
+            dropdownHeight: 200,
             optionFilterProp: "",
             combobox: false,
             size: "",
@@ -287,16 +289,19 @@ var Selects = function(_Lego$UI$Baseview) {
         return _this;
     }
     _createClass$1(Selects, [ {
-        key: "renderBefore",
-        value: function renderBefore() {
+        key: "components",
+        value: function components() {
             var options = this.options;
             this.addCom({
                 el: "#dropdown-" + options.vid,
                 container: "#select-" + options.vid,
                 eventName: options.eventName || "click",
                 disabled: options.disabled || false,
+                scrollbar: {},
                 style: Object.assign({
-                    width: options.dropdownWidth || "100%"
+                    width: options.dropdownWidth,
+                    maxHeight: options.dropdownHeight,
+                    overflow: "auto"
                 }, options.dropdownStyle || {}),
                 className: options.dropdownClassName,
                 clickAndClose: options.multiple ? false : true,
@@ -692,8 +697,8 @@ var Treeselect = function(_Selects) {
         return _possibleConstructorReturn(this, (Treeselect.__proto__ || Object.getPrototypeOf(Treeselect)).call(this, options));
     }
     _createClass(Treeselect, [ {
-        key: "renderBefore",
-        value: function renderBefore() {
+        key: "components",
+        value: function components() {
             var options = this.options;
             this.addCom({
                 el: "#tree-" + options.vid,
@@ -772,19 +777,16 @@ var Treeselect = function(_Selects) {
             if (!options.inputAble) this.$(".select-input").attr("readonly", "readonly");
             if (!options.disabled) {
                 var handler = function handler(event) {
-                    $("body, .modal-body").trigger("click", options.vid);
-                    event.stopPropagation();
-                    that.$(".dropdown-menu").slideToggle("fast", function() {
-                        if ($(this).css("display") == "none") {
-                            that.isClose = true;
-                        } else {
-                            that.isClose = false;
-                        }
-                    });
+                    that.$(".dropdown-menu").slideToggle("fast");
                 };
                 if (options.eventName == "click") {
-                    $("body, .modal-body").off(_eventName).on(_eventName, function(event, vid) {
-                        if (vid !== options.vid) that.close();
+                    $("body, .modal-body").off(_eventName).on(_eventName, function(event) {
+                        if (event.originalEvent) {
+                            var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(trigger[0]);
+                            if (index_a <= index_b) {} else {
+                                that.close();
+                            }
+                        }
                     });
                     trigger.off(_eventName).on(_eventName, handler);
                 } else {
@@ -801,16 +803,12 @@ var Treeselect = function(_Selects) {
     }, {
         key: "show",
         value: function show(event) {
-            this.isClose = false;
             this.$(".dropdown-menu").slideDown("fast");
         }
     }, {
         key: "close",
         value: function close(event) {
-            if (!this.isClose) {
-                this.isClose = true;
-                this.$(".dropdown-menu").slideUp("fast");
-            }
+            this.$(".dropdown-menu").slideUp("fast");
         }
     }, {
         key: "clickItemClose",

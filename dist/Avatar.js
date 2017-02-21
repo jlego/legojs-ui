@@ -95,7 +95,6 @@ var Avatar = function(_Lego$UI$Baseview) {
             height: "",
             value: [],
             onAdd: function onAdd() {},
-            onRemove: function onRemove() {},
             onChange: function onChange() {}
         };
         Object.assign(options, opts);

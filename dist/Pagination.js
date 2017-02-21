@@ -126,9 +126,11 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 };
                 if (this.options.eventName == "click") {
                     $("body, .modal-body").off(_eventName).on(_eventName, function(event) {
-                        var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.container[0]);
-                        if (index_a <= index_b) {} else {
-                            that.close();
+                        if (event.originalEvent) {
+                            var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.container[0]);
+                            if (index_a <= index_b) {} else {
+                                that.close();
+                            }
                         }
                     });
                     this.container.off(_eventName).on(_eventName, handler);
@@ -262,7 +264,6 @@ var Pagination = function(_Lego$UI$Baseview) {
                 "click .page-item": "clickItemPage",
                 "click .next:not(.disabled)": "clickNextPage",
                 "click .morepage": "clickMorePage",
-                "click .info>button": "showPagesize",
                 'keydown .info>input[type="text"]': "_enterSearch"
             },
             current: 1,
@@ -282,31 +283,36 @@ var Pagination = function(_Lego$UI$Baseview) {
             components: []
         };
         Object.assign(options, opts);
-        if (!options.simple && options.showSizeChanger) {
-            var theData = options.pageSizeOptions.map(function(val) {
-                return {
-                    key: val,
-                    value: val + " / 页"
-                };
-            });
-            options.components.push({
-                el: "#dropdown-" + opts.vid,
-                container: "#select-" + opts.vid,
-                direction: "top",
-                data: theData,
-                onChange: function onChange(self, result) {
-                    var num = parseInt(result.key);
-                    this.context.options.current = 1;
-                    this.context.options.pageSize = num;
-                    this.context.options.onPageSizeChange(self, num);
-                }
-            });
-        }
         var _this = _possibleConstructorReturn(this, (Pagination.__proto__ || Object.getPrototypeOf(Pagination)).call(this, options));
         _this.jumped = false;
         return _this;
     }
     _createClass(Pagination, [ {
+        key: "components",
+        value: function components() {
+            var options = this.options;
+            if (!options.simple && options.showSizeChanger) {
+                var theData = options.pageSizeOptions.map(function(val) {
+                    return {
+                        key: val,
+                        value: val + " / 页"
+                    };
+                });
+                this.addCom({
+                    el: "#dropdown-" + options.vid,
+                    container: "#select-" + options.vid,
+                    direction: "top",
+                    data: theData,
+                    onChange: function onChange(self, result) {
+                        var num = parseInt(result.key);
+                        this.context.options.current = 1;
+                        this.context.options.pageSize = num;
+                        this.context.options.onPageSizeChange(self, num);
+                    }
+                });
+            }
+        }
+    }, {
         key: "render",
         value: function render() {
             var options = this.options, current = parseInt(options.current);
@@ -325,13 +331,6 @@ var Pagination = function(_Lego$UI$Baseview) {
             }) : "", showEllipsis ? hx(_templateObject4, options.pageSize) : "", !options.simple && showEllipsis ? hx(_templateObject5, options.totalPages, options.totalPages) : "", !options.simple ? hx(_templateObject6, current >= options.totalPages ? "disabled" : "") : "", !options.simple && options.showSizeChanger ? hx(_templateObject7, options.vid, options.pageSize, options.vid) : "", !options.simple && options.showQuickJumper ? hx(_templateObject8, this.jumped ? current : "1", options.isShowTotal ? hx(_templateObject9, typeof options.showTotal === "function" ? options.showTotal(totalCount) : "总数 " + totalCount) : "") : "");
             this.jumped = false;
             return vDom;
-        }
-    }, {
-        key: "showPagesize",
-        value: function showPagesize(event) {
-            event.stopPropagation();
-            var target = $(event.currentTarget).next(".dropdown-menu");
-            target.slideToggle("fast");
         }
     }, {
         key: "clickPrevPage",
