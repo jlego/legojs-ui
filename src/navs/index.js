@@ -10,7 +10,7 @@
  *     disabled: false  //是否禁用
  * }]
  */
-// import './asset/index.scss';
+import './asset/index.scss';
 import Dropdown from '../dropdown/index';
 
 class Navs extends Lego.UI.Baseview {
@@ -50,7 +50,7 @@ class Navs extends Lego.UI.Baseview {
             return itemDom;
         }
         const vDom = hx `
-        <ul class="nav ${options.type === 'inline' ? 'nav-inline' : (options.type === 'tabs' ? 'nav-tabs' : (options.type === 'pills' ? 'nav-pills' : ''))}
+        <ul class="lego-nav ${options.type === 'inline' ? 'nav-inline' : (options.type === 'tabs' ? 'nav-tabs' : (options.type === 'pills' ? 'nav-pills' : ''))}
         ${options.type === 'pills-stacked' ? 'nav-pills nav-stacked' : ''}">
             ${options.data.map((item, i) => {
                 return makeItem(item, i);

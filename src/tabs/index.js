@@ -77,7 +77,7 @@ class Tabs extends Lego.UI.Baseview {
         }
         getNewData(options.data);
         const vDom = hx`
-        <div class="tabs">
+        <div class="lego-tabs">
             <navs id="navs-${options.vid}"></navs>
             <div class="tab-content">
                 ${newData.map(item => {

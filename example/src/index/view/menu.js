@@ -3,7 +3,7 @@ class Menu extends Lego.UI.Baseview {
         let data = [{
             key: 'nav1',
             value: '基本',
-            icon: 'icon-home',
+            icon: 'lego-icon-home',
             open: true,
             children: [{
                 key: 'nav_home',
@@ -22,7 +22,7 @@ class Menu extends Lego.UI.Baseview {
         }, {
             key: 'nav2',
             value: '导航',
-            icon: 'icon-account-info',
+            icon: 'lego-icon-account-info',
             open: true,
             children: [{
                 key: 'nav_dropdown',
@@ -37,7 +37,7 @@ class Menu extends Lego.UI.Baseview {
         }, {
             key: 'nav3',
             value: '数据输入',
-            icon: 'icon-teamwork',
+            icon: 'lego-icon-teamwork',
             open: true,
             children: [{
                 key: 'nav_forms',
@@ -58,7 +58,7 @@ class Menu extends Lego.UI.Baseview {
         }, {
             key: 'nav4',
             value: '数据展示',
-            icon: 'icon-purchase',
+            icon: 'lego-icon-purchase',
             open: true,
             children: [{
                 key: 'nav_tips',
@@ -70,7 +70,7 @@ class Menu extends Lego.UI.Baseview {
         }, {
             key: 'nav5',
             value: '反馈',
-            icon: 'icon-clues',
+            icon: 'lego-icon-clues',
             open: true,
             children: [{
                 key: 'nav_alert',
