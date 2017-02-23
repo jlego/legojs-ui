@@ -5800,346 +5800,346 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
-.icon-weixin:before {
+.lego-icon-weixin:before {
   content: "\e603"; }
 
-.icon-more-1:before {
+.lego-icon-more-1:before {
   content: "\e620"; }
 
-.icon-qq:before {
+.lego-icon-qq:before {
   content: "\e636"; }
 
-.icon-unie61d:before {
+.lego-icon-unie61d:before {
   content: "\e60a"; }
 
-.icon-qzone:before {
+.lego-icon-qzone:before {
   content: "\e604"; }
 
-.icon-erweima:before {
+.lego-icon-erweima:before {
   content: "\e61c"; }
 
-.icon-collect:before {
+.lego-icon-collect:before {
   content: "\e600"; }
 
-.icon-checkbox:before {
+.lego-icon-checkbox:before {
   content: "\e731"; }
 
-.icon-delete:before {
+.lego-icon-delete:before {
   content: "\e74b"; }
 
-.icon-xiazai:before {
+.lego-icon-xiazai:before {
   content: "\e8b1"; }
 
-.icon-full:before {
+.lego-icon-full:before {
   content: "\e605"; }
 
-.icon-set:before {
+.lego-icon-set:before {
   content: "\e607"; }
 
-.icon-expenses:before {
+.lego-icon-expenses:before {
   content: "\e609"; }
 
-.icon-logo:before {
+.lego-icon-logo:before {
   content: "\e610"; }
 
-.icon-crm:before {
+.lego-icon-crm:before {
   content: "\e611"; }
 
-.icon-office-params:before {
+.lego-icon-office-params:before {
   content: "\e612"; }
 
-.icon-products:before {
+.lego-icon-products:before {
   content: "\e613"; }
 
-.icon-com-manage:before {
+.lego-icon-com-manage:before {
   content: "\e615"; }
 
-.icon-purchase:before {
+.lego-icon-purchase:before {
   content: "\e616"; }
 
-.icon-admin:before {
+.lego-icon-admin:before {
   content: "\e617"; }
 
-.icon-roles:before {
+.lego-icon-roles:before {
   content: "\e618"; }
 
-.icon-powers:before {
+.lego-icon-powers:before {
   content: "\e61a"; }
 
-.icon-contacts:before {
+.lego-icon-contacts:before {
   content: "\e61b"; }
 
-.icon-clients:before {
+.lego-icon-clients:before {
   content: "\e61e"; }
 
-.icon-reports:before {
+.lego-icon-reports:before {
   content: "\e61f"; }
 
-.icon-settings:before {
+.lego-icon-settings:before {
   content: "\e621"; }
 
-.icon-approvals:before {
+.lego-icon-approvals:before {
   content: "\e622"; }
 
-.icon-schedules:before {
+.lego-icon-schedules:before {
   content: "\e623"; }
 
-.icon-biz:before {
+.lego-icon-biz:before {
   content: "\e624"; }
 
-.icon-markets:before {
+.lego-icon-markets:before {
   content: "\e625"; }
 
-.icon-tasks:before {
+.lego-icon-tasks:before {
   content: "\e626"; }
 
-.icon-refull:before {
+.lego-icon-refull:before {
   content: "\e627"; }
 
-.icon-d-arrow-left:before {
+.lego-icon-d-arrow-left:before {
   content: "\e628"; }
 
-.icon-home:before {
+.lego-icon-home:before {
   content: "\e629"; }
 
-.icon-dm:before {
+.lego-icon-dm:before {
   content: "\e62a"; }
 
-.icon-analysis:before {
+.lego-icon-analysis:before {
   content: "\e62b"; }
 
-.icon-friends:before {
+.lego-icon-friends:before {
   content: "\e62c"; }
 
-.icon-e-dropdown:before {
+.lego-icon-e-dropdown:before {
   content: "\e62e"; }
 
-.icon-clues:before {
+.lego-icon-clues:before {
   content: "\e62f"; }
 
-.icon-s-dropdown:before {
+.lego-icon-s-dropdown:before {
   content: "\e630"; }
 
-.icon-params:before {
+.lego-icon-params:before {
   content: "\e631"; }
 
-.icon-dashboard:before {
+.lego-icon-dashboard:before {
   content: "\e632"; }
 
-.icon-field:before {
+.lego-icon-field:before {
   content: "\e633"; }
 
-.icon-teamwork:before {
+.lego-icon-teamwork:before {
   content: "\e634"; }
 
-.icon-forecast:before {
+.lego-icon-forecast:before {
   content: "\e635"; }
 
-.icon-email-settings:before {
+.lego-icon-email-settings:before {
   content: "\e637"; }
 
-.icon-targets:before {
+.lego-icon-targets:before {
   content: "\e638"; }
 
-.icon-knowledge:before {
+.lego-icon-knowledge:before {
   content: "\e639"; }
 
-.icon-account-info:before {
+.lego-icon-account-info:before {
   content: "\e63a"; }
 
-.icon-ex-menu:before {
+.lego-icon-ex-menu:before {
   content: "\e63b"; }
 
-.icon-edit:before {
+.lego-icon-edit:before {
   content: "\e63d"; }
 
-.icon-play:before {
+.lego-icon-play:before {
   content: "\e640"; }
 
-.icon-text-edit:before {
+.lego-icon-text-edit:before {
   content: "\e641"; }
 
-.icon-email-draft:before {
+.lego-icon-email-draft:before {
   content: "\e642"; }
 
-.icon-trip:before {
+.lego-icon-trip:before {
   content: "\e643"; }
 
-.icon-timing-email:before {
+.lego-icon-timing-email:before {
   content: "\e644"; }
 
-.icon-print:before {
+.lego-icon-print:before {
   content: "\e645"; }
 
-.icon-likes:before {
+.lego-icon-likes:before {
   content: "\e646"; }
 
-.icon-attachment:before {
+.lego-icon-attachment:before {
   content: "\e647"; }
 
-.icon-pay:before {
+.lego-icon-pay:before {
   content: "\e648"; }
 
-.icon-more:before {
+.lego-icon-more:before {
   content: "\e649"; }
 
-.icon-shut:before {
+.lego-icon-shut:before {
   content: "\e64a"; }
 
-.icon-close:before {
+.lego-icon-close:before {
   content: "\e64b"; }
 
-.icon-unflag:before {
+.lego-icon-unflag:before {
   content: "\e64c"; }
 
-.icon-flag:before {
+.lego-icon-flag:before {
   content: "\e64d"; }
 
-.icon-emer-mail:before {
+.lego-icon-emer-mail:before {
   content: "\e64e"; }
 
-.icon-disabled:before {
+.lego-icon-disabled:before {
   content: "\e64f"; }
 
-.icon-build:before {
+.lego-icon-build:before {
   content: "\e650"; }
 
-.icon-absence:before {
+.lego-icon-absence:before {
   content: "\e651"; }
 
-.icon-comment:before {
+.lego-icon-comment:before {
   content: "\e652"; }
 
-.icon-filter:before {
+.lego-icon-filter:before {
   content: "\e653"; }
 
-.icon-enabled:before {
+.lego-icon-enabled:before {
   content: "\e654"; }
 
-.icon-del:before {
+.lego-icon-del:before {
   content: "\e656"; }
 
-.icon-transport-list:before {
+.lego-icon-transport-list:before {
   content: "\e657"; }
 
-.icon-keep:before {
+.lego-icon-keep:before {
   content: "\e658"; }
 
-.icon-menu-app:before {
+.lego-icon-menu-app:before {
   content: "\e659"; }
 
-.icon-inbox:before {
+.lego-icon-inbox:before {
   content: "\e65a"; }
 
-.icon-search:before {
+.lego-icon-search:before {
   content: "\e65b"; }
 
-.icon-notice:before {
+.lego-icon-notice:before {
   content: "\e65c"; }
 
-.icon-eg-apply:before {
+.lego-icon-eg-apply:before {
   content: "\e65d"; }
 
-.icon-drag:before {
+.lego-icon-drag:before {
   content: "\e65e"; }
 
-.icon-folder:before {
+.lego-icon-folder:before {
   content: "\e65f"; }
 
-.icon-question:before {
+.lego-icon-question:before {
   content: "\e660"; }
 
-.icon-arrow-down:before {
+.lego-icon-arrow-down:before {
   content: "\e661"; }
 
-.icon-caret-bottom:before {
+.lego-icon-caret-bottom:before {
   content: "\e662"; }
 
-.icon-write-letter:before {
+.lego-icon-write-letter:before {
   content: "\e663"; }
 
-.icon-mail-read:before {
+.lego-icon-mail-read:before {
   content: "\e664"; }
 
-.icon-pause:before {
+.lego-icon-pause:before {
   content: "\e665"; }
 
-.icon-expand:before {
+.lego-icon-expand:before {
   content: "\e666"; }
 
-.icon-mail-send:before {
+.lego-icon-mail-send:before {
   content: "\e667"; }
 
-.icon-forwarded:before {
+.lego-icon-forwarded:before {
   content: "\e668"; }
 
-.icon-subfile:before {
+.lego-icon-subfile:before {
   content: "\e669"; }
 
-.icon-email:before {
+.lego-icon-email:before {
   content: "\e66a"; }
 
-.icon-arrow-left:before {
+.lego-icon-arrow-left:before {
   content: "\e66b"; }
 
-.icon-arrow-right:before {
+.lego-icon-arrow-right:before {
   content: "\e66c"; }
 
-.icon-arrow-up:before {
+.lego-icon-arrow-up:before {
   content: "\e74d"; }
 
-.icon-redo:before {
+.lego-icon-redo:before {
   content: "\e67a"; }
 
-.icon-undo:before {
+.lego-icon-undo:before {
   content: "\e67b"; }
 
-.icon-interactive:before {
+.lego-icon-interactive:before {
   content: "\e66d"; }
 
-.icon-background:before {
+.lego-icon-background:before {
   content: "\e66e"; }
 
-.icon-image:before {
+.lego-icon-image:before {
   content: "\e66f"; }
 
-.icon-shape:before {
+.lego-icon-shape:before {
   content: "\e670"; }
 
-.icon-left-alignment:before {
+.lego-icon-left-alignment:before {
   content: "\e671"; }
 
-.icon-chuizhijuzhong:before {
+.lego-icon-chuizhijuzhong:before {
   content: "\e672"; }
 
-.icon-top-alignment:before {
+.lego-icon-top-alignment:before {
   content: "\e673"; }
 
-.icon-bottom-alignment:before {
+.lego-icon-bottom-alignment:before {
   content: "\e674"; }
 
-.icon-center:before {
+.lego-icon-center:before {
   content: "\e675"; }
 
-.icon-text:before {
+.lego-icon-text:before {
   content: "\e676"; }
 
-.icon-copy:before {
+.lego-icon-copy:before {
   content: "\e677"; }
 
-.icon-back:before {
+.lego-icon-back:before {
   content: "\e678"; }
 
-.icon-add:before {
+.lego-icon-add:before {
   content: "\e679"; }
 
-.icon-grid:before {
+.lego-icon-grid:before {
   content: "\e67c"; }
 
-.icon-export:before {
+.lego-icon-export:before {
   content: "\e62d"; }
 
-.icon-upload-lists-copy:before {
+.lego-icon-upload-lists-copy:before {
   content: "\e74e"; }
 
 @font-face {
@@ -9292,7 +9292,8 @@ pre p {
 .lego-table-thead > tr > th,
 .lego-table-tbody > tr > td {
   padding: 10px 8px;
-  word-break: break-all; }
+  word-break: break-all;
+  line-height: 18px; }
 
 .lego-table-thead > tr > th.lego-table-selection-column label,
 .lego-table-tbody > tr > td.lego-table-selection-column label {
@@ -9728,17 +9729,17 @@ tr.lego-table-expanded-row:hover {
 /* ---------------------------------------------------------------------- */
 /*  Pagination
 /* ---------------------------------------------------------------------- */
-.pagination {
+.lego-pagination {
   display: inline-block;
   padding-left: 0;
   margin: 0;
   border-radius: 4px; }
 
-.pagination > li {
+.lego-pagination > li {
   display: inline; }
 
-.pagination > li > a,
-.pagination > li > span {
+.lego-pagination > li > a,
+.lego-pagination > li > span {
   position: relative;
   float: left;
   padding: 7px 12px;
@@ -9749,103 +9750,103 @@ tr.lego-table-expanded-row:hover {
   border: 1px solid #ddd;
   margin-left: -1px; }
 
-.pagination > li:first-child > a,
-.pagination > li:first-child > span {
+.lego-pagination > li:first-child > a,
+.lego-pagination > li:first-child > span {
   margin-left: 0;
   border-bottom-left-radius: 4px;
   border-top-left-radius: 4px; }
 
-.pagination > li:last-child > a,
-.pagination > li:last-child > span {
+.lego-pagination > li:last-child > a,
+.lego-pagination > li:last-child > span {
   border-bottom-right-radius: 4px;
   border-top-right-radius: 4px; }
 
-.pagination > li > a:hover,
-.pagination > li > a:focus,
-.pagination > li > span:hover,
-.pagination > li > span:focus {
+.lego-pagination > li > a:hover,
+.lego-pagination > li > a:focus,
+.lego-pagination > li > span:hover,
+.lego-pagination > li > span:focus {
   z-index: 3;
   color: #0173e3;
   background-color: #eeeeee;
   border-color: #ddd; }
 
-.pagination > .active > a,
-.pagination > .active > a:hover,
-.pagination > .active > a:focus,
-.pagination > .active > span,
-.pagination > .active > span:hover,
-.pagination > .active > span:focus {
+.lego-pagination > .active > a,
+.lego-pagination > .active > a:hover,
+.lego-pagination > .active > a:focus,
+.lego-pagination > .active > span,
+.lego-pagination > .active > span:hover,
+.lego-pagination > .active > span:focus {
   z-index: 2;
   color: #fff;
   background-color: #3399fe;
   border-color: #3399fe;
   cursor: default; }
 
-.pagination > .disabled > span,
-.pagination > .disabled > span:hover,
-.pagination > .disabled > span:focus,
-.pagination > .disabled > a,
-.pagination > .disabled > a:hover,
-.pagination > .disabled > a:focus {
+.lego-pagination > .disabled > span,
+.lego-pagination > .disabled > span:hover,
+.lego-pagination > .disabled > span:focus,
+.lego-pagination > .disabled > a,
+.lego-pagination > .disabled > a:hover,
+.lego-pagination > .disabled > a:focus {
   color: #777777;
   background-color: #fff;
   border-color: #ddd;
   cursor: not-allowed; }
 
-.pagination-lg > li > a,
-.pagination-lg > li > span {
+.lego-pagination-lg > li > a,
+.lego-pagination-lg > li > span {
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.3333333; }
 
-.pagination-lg > li:first-child > a,
-.pagination-lg > li:first-child > span {
+.lego-pagination-lg > li:first-child > a,
+.lego-pagination-lg > li:first-child > span {
   border-bottom-left-radius: 6px;
   border-top-left-radius: 6px; }
 
-.pagination-lg > li:last-child > a,
-.pagination-lg > li:last-child > span {
+.lego-pagination-lg > li:last-child > a,
+.lego-pagination-lg > li:last-child > span {
   border-bottom-right-radius: 6px;
   border-top-right-radius: 6px; }
 
-.pagination-sm > li > a,
-.pagination-sm > li > span {
+.lego-pagination-sm > li > a,
+.lego-pagination-sm > li > span {
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5; }
 
-.pagination-sm > li:first-child > a,
-.pagination-sm > li:first-child > span {
+.lego-pagination-sm > li:first-child > a,
+.lego-pagination-sm > li:first-child > span {
   border-bottom-left-radius: 3px;
   border-top-left-radius: 3px; }
 
-.pagination-sm > li:last-child > a,
-.pagination-sm > li:last-child > span {
+.lego-pagination-sm > li:last-child > a,
+.lego-pagination-sm > li:last-child > span {
   border-bottom-right-radius: 3px;
   border-top-right-radius: 3px; }
 
-.pagination > li > a,
-.pagination > li > span {
+.lego-pagination > li > a,
+.lego-pagination > li > span {
   margin-left: 5px;
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer; }
 
-.pagination.squared {
+.lego-pagination.squared {
   border-radius: 0 !important; }
 
-.pagination.squared li:first-child a,
-.pagination.squared li:first-child > span {
+.lego-pagination.squared li:first-child a,
+.lego-pagination.squared li:first-child > span {
   border-bottom-left-radius: 0px !important;
   border-left-width: 1px;
   border-top-left-radius: 0px !important; }
 
-.pagination.squared li:last-child > a,
-.pagination.squared li:last-child > span {
+.lego-pagination.squared li:last-child > a,
+.lego-pagination.squared li:last-child > span {
   border-bottom-right-radius: 0px !important;
   border-top-right-radius: 0px !important; }
 
-.pagination .info {
+.lego-pagination .info {
   border: none;
   cursor: inherit;
   color: #333;
@@ -9854,39 +9855,39 @@ tr.lego-table-expanded-row:hover {
   margin: 0 0 0 10px;
   display: inline-block; }
 
-.pagination .info:hover {
+.lego-pagination .info:hover {
   background-color: transparent;
   color: #333; }
 
-.pagination input,
-.pagination button {
+.lego-pagination input,
+.lego-pagination button {
   background-color: #fff;
   border: 1px solid #ddd;
   color: #666;
   font-size: 14px; }
 
-.pagination button .caret {
+.lego-pagination button .caret {
   margin-left: 3px; }
 
-.pagination .dropdown-menu {
+.lego-pagination .dropdown-menu {
   min-width: 50px; }
 
-.pagination .dropdown-menu a {
+.lego-pagination .dropdown-menu a {
   padding: 2px 10px;
   color: #666; }
 
-.pagination .icon {
+.lego-pagination .icon {
   border: none; }
 
-.pagination .morepage a {
+.lego-pagination .morepage a {
   border: none;
   font-size: 18px;
   padding: 3px 5px; }
 
-.pagination > li > span {
+.lego-pagination > li > span {
   float: none; }
 
-.pagination .pageJump {
+.lego-pagination .pageJump {
   width: 50px;
   height: 26px;
   display: inline-block;
@@ -10115,7 +10116,9 @@ tr.lego-table-expanded-row:hover {
 .modal-body > .alert > i {
   top: 0;
   font-size: 250%; }
-.tabs .dropdown-menu {
+.lego-nav {
+  line-height: 20px; }
+.lego-tabs .dropdown-menu {
   min-width: 160px; }
 .lego-search input,
 .lego-search input:focus {
@@ -10187,6 +10190,9 @@ tr.lego-table-expanded-row:hover {
   border-top: 0.3em solid;
   border-right: 0.3em solid transparent;
   border-left: 0.3em solid transparent; }
+
+.select .dropdown-menu {
+  position: absolute !important; }
 
 .has-danger .select:after {
   display: none; }

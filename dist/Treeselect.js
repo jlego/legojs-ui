@@ -32,7 +32,7 @@ var _templateObject3$2 = _taggedTemplateLiteral$2([ '\n            <li class="dr
 
 var _templateObject4$2 = _taggedTemplateLiteral$2([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5 = _taggedTemplateLiteral$2([ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject5 = _taggedTemplateLiteral$2([ '\n        <ul class="dropdown-menu scrollbar ', '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu scrollbar ', '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
 
 function _taggedTemplateLiteral$2(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -184,6 +184,12 @@ var Dropdown = function(_Lego$UI$Baseview) {
 
 Lego.components("dropdown", Dropdown);
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
+    return typeof obj;
+} : function(obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
 var _createClass$1 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
@@ -259,7 +265,6 @@ var Selects = function(_Lego$UI$Baseview) {
             tags: false,
             onDeselect: function onDeselect() {},
             onChange: function onChange() {},
-            onBlur: function onBlur() {},
             onSearch: function onSearch() {},
             placeholder: "",
             notFoundContent: "",
@@ -282,8 +287,8 @@ var Selects = function(_Lego$UI$Baseview) {
         var _this = _possibleConstructorReturn$1(this, (Selects.__proto__ || Object.getPrototypeOf(Selects)).call(this, options));
         _this.oldValue = "";
         var that = _this;
-        _this.$(".select-input").blur(function(event) {
-            if (typeof options.onBlur == "function") options.onBlur(that, $(this).val(), event);
+        _this.$(".select-input").change(function(event) {
+            if (typeof options.onChange == "function") options.onChange(that, $(this).val());
         });
         _this.$(".select-tags-div").on("click", ".select-tag-close", _this.clickItemClose.bind(_this));
         return _this;
@@ -295,9 +300,9 @@ var Selects = function(_Lego$UI$Baseview) {
             this.addCom({
                 el: "#dropdown-" + options.vid,
                 container: "#select-" + options.vid,
+                scrollbar: {},
                 eventName: options.eventName || "click",
                 disabled: options.disabled || false,
-                scrollbar: {},
                 style: Object.assign({
                     width: options.dropdownWidth,
                     maxHeight: options.dropdownHeight,
@@ -346,7 +351,7 @@ var Selects = function(_Lego$UI$Baseview) {
             }
             var theValueArr = Array.isArray(options.value) ? options.value.length ? options.value.map(function(item) {
                 return item.value;
-            }) : [] : [ options.value.value ];
+            }) : [] : [ _typeof(options.value) == "object" ? options.value.value : options.value ];
             if (!options.multiple) {
                 vDom = hx(_templateObject3$1, options.size, options.vid, options.size ? "form-control-" + options.size : "", options.disabled ? "disabled" : "", options.placeholder, theValueArr.join(","), options.name, options.vid);
             } else {

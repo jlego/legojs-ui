@@ -65,16 +65,16 @@ class Pagination extends Lego.UI.Baseview {
         let baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0,
             startPage = baseTimes * pageRang + 1,
             endPage = startPage + pageRang - 1,
-            showEllipsis = options.totalPages - current > pageRang ? true : false,
+            showEllipsis = Math.ceil(current / pageRang) !== Math.ceil(options.totalPages / pageRang) ? true : false,
             pagesArr = [];
         endPage = endPage >= options.totalPages ? options.totalPages : endPage;
         for(let i = startPage; i <= endPage; i++) {
             pagesArr.push(i);
         }
         const vDom = hx`
-        <ul class="pagination ${options.simple ? 'pagination-simple' : ''} ${options.size == 'small' ? 'mini' : ''}">
+        <ul class="lego-pagination ${options.simple ? 'pagination-simple' : ''} ${options.size == 'small' ? 'mini' : ''}">
             <li class="prev ${ current <= 1 ? 'disabled' : ''}">
-                <a href="javascript:void(0)" title="上一页"><i class="icon iconfont icon-arrow-left"></i></a>
+                <a href="javascript:void(0)" title="上一页"><i class="icon iconfont lego-icon-arrow-left"></i></a>
             </li>
             ${options.simple ? hx`
             <div title="${current}/${options.endPage}" class="lego-pagination-simple-pager">
@@ -85,12 +85,12 @@ class Pagination extends Lego.UI.Baseview {
             <li title="${x}" class="page page-item ${ x == current ? 'active' : ''}"><a href="javascript:void(0)">${x}</a></li>
             `) : ''}
             ${showEllipsis ? hx`
-            <li title="下 ${options.pageSize} 页" class="page morepage"><a href="javascript:void(0)"><i class="icon iconfont icon-more-1"></a></i></li>
+            <li title="下 ${options.pageSize} 页" class="page morepage"><a href="javascript:void(0)"><i class="icon iconfont lego-icon-more-1"></a></i></li>
             ` : ''}
             ${!options.simple && showEllipsis ? hx`<li title="${options.totalPages}" class="page page-item"><a href="javascript:void(0)">${options.totalPages}</a></li>` : ''}
             ${!options.simple ? hx`
             <li class="next ${ current >= options.totalPages ? 'disabled' : ''}">
-                <a href="javascript:void(0)" title="下一页"><i class="icon iconfont icon-arrow-right"></i></a>
+                <a href="javascript:void(0)" title="下一页"><i class="icon iconfont lego-icon-arrow-right"></i></a>
             </li>
             ` : ''}
             ${!options.simple && options.showSizeChanger ? hx`

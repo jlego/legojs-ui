@@ -15,7 +15,6 @@ class Selects extends Lego.UI.Baseview {
             tags: false,  //可以把随意输入的条目作为 tag，输入项不需要与下拉选项匹配
             onDeselect(){},  //取消选中时调用，参数为选中项的 option value 值，仅在 multiple 或 tags 模式下生效
             onChange(){},  //选中 option，或 input 的 value 变化（combobox 模式下）时，调用此函数
-            onBlur(){},
             onSearch(){},   //文本框值变化时回调
             placeholder: '',  //选择框默认文字
             notFoundContent: '',  //当下拉列表为空时显示的内容
@@ -38,8 +37,8 @@ class Selects extends Lego.UI.Baseview {
         super(options);
         this.oldValue = '';
         let that = this;
-        this.$('.select-input').blur(function(event){
-            if(typeof options.onBlur == 'function') options.onBlur(that, $(this).val(), event);
+        this.$('.select-input').change(function(event){
+            if(typeof options.onChange == 'function') options.onChange(that, $(this).val());
         });
         this.$('.select-tags-div').on('click', '.select-tag-close', this.clickItemClose.bind(this));
     }
@@ -48,9 +47,9 @@ class Selects extends Lego.UI.Baseview {
         this.addCom({
             el: '#dropdown-' + options.vid,
             container: '#select-' + options.vid,
+            scrollbar: {},
             eventName: options.eventName || 'click',
             disabled: options.disabled || false,
-            scrollbar: {},
             style: Object.assign({
                 width: options.dropdownWidth,
                 maxHeight: options.dropdownHeight,
@@ -99,7 +98,8 @@ class Selects extends Lego.UI.Baseview {
                 return '';
             }
         }
-        const theValueArr = Array.isArray(options.value) ? (options.value.length ? options.value.map(item => item.value) : []) : [options.value.value];
+        const theValueArr = Array.isArray(options.value) ? (options.value.length ? options.value.map(item => item.value) : []) :
+            [typeof options.value == 'object' ? options.value.value : options.value];
         if(!options.multiple){
             vDom = hx`
             <div class="select dropdown ${options.size}">

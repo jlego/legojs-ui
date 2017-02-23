@@ -2,7 +2,6 @@
 .select {
     margin: 0;
 }
-
 .select:after {
     position: absolute;
     top: 50%;
@@ -17,6 +16,9 @@
     border-top: 0.3em solid;
     border-right: 0.3em solid transparent;
     border-left: 0.3em solid transparent;
+}
+.select .dropdown-menu {
+    position: absolute !important;
 }
 .has-danger .select:after {
     display: none;

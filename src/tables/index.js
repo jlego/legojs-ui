@@ -27,7 +27,6 @@ class Tables extends Lego.UI.Baseview {
             pagination: null,   //分页器，配置项参考 pagination，设为 false 时不展示和进行分页
             size: 'default', //正常或迷你类型，default or small middle
             columns: [],    //表格列的配置描述，具体项见下表
-            tempColumns: [],
             rowKey: '',    //表格行 key 的取值，可以是字符串或一个函数
             rowClassName: '',    //表格行的类名
             expandedRowRender(){},   //额外的展开行
@@ -73,15 +72,15 @@ class Tables extends Lego.UI.Baseview {
         // selectedAll 1为全选，2为半选，0为没选
     }
     getColumns(){
+        this.columns = [];
         let options = this.options;
         this.columnsObj = this.columnsObj || {};
-        this.columns = [];
         if(options.columns){
-            options.tempColumns = typeof options.columns == 'function' ? (options.columns(this) || []) : (options.columns || []);
-            this.columns = Array.from(options.tempColumns);
+            let tempColumns = typeof options.columns == 'function' ? (options.columns(this) || []) : (options.columns || []);
+            this.columns = Array.from(tempColumns);
         }
         this.tableRealWidth = this.options.rowSelection ? 30 : 0;    //表格实宽
-        this.columns = options.tempColumns.filter(col => !col.isHide);
+        this.columns = this.columns.filter(col => !col.isHide);
         this.columns.forEach((col, index) => {
             col.key = col.key || index;
             this.columnsObj[col.key] = this.columnsObj[col.key] || col;
