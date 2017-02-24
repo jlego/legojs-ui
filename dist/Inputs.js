@@ -107,14 +107,14 @@ var Inputs = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject);
+            var vDom = hx(_templateObject), value = options.value ? Lego.UI.Util.unFilterTag(options.value.toString()) : "";
             if (options.addonBefore || options.addonAfter) {
-                vDom = hx(_templateObject2, options.size ? "input-group-" + options.size : "", options.addonBefore ? hx(_templateObject3, options.prefix) : "", options.type, options.placeholder, this.filterStr(val(options.value)), options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", options.addonAfter ? hx(_templateObject3, options.suffix) : "");
+                vDom = hx(_templateObject2, options.size ? "input-group-" + options.size : "", options.addonBefore ? hx(_templateObject3, options.prefix) : "", options.type, options.placeholder, val(value), options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", options.addonAfter ? hx(_templateObject3, options.suffix) : "");
             } else {
                 if (options.type == "textarea") {
-                    vDom = hx(_templateObject4, options.size ? "form-control-" + options.size : "", options.placeholder, options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", this.filterStr(val(options.value)));
+                    vDom = hx(_templateObject4, options.size ? "form-control-" + options.size : "", options.placeholder, options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", val(value));
                 } else {
-                    vDom = hx(_templateObject5, options.type, options.size ? "form-control-" + options.size : "", options.placeholder, this.filterStr(val(options.value)), options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "");
+                    vDom = hx(_templateObject5, options.type, options.size ? "form-control-" + options.size : "", options.placeholder, val(options.value), options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "");
                 }
             }
             return vDom;
@@ -122,12 +122,7 @@ var Inputs = function(_Lego$UI$Baseview) {
     }, {
         key: "filterStr",
         value: function filterStr(str) {
-            var pattern = new RegExp(this.options.filterReg || "");
-            var specialStr = "";
-            for (var i = 0; i < str.length; i++) {
-                specialStr += str.substr(i, 1).replace(pattern, "");
-            }
-            return specialStr;
+            return str;
         }
     }, {
         key: "onEnter",

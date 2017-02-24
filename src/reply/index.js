@@ -140,7 +140,7 @@ class Reply extends Lego.UI.Baseview {
             return;
         }
         let contentHtml = contentEl.val();
-        contentHtml = this.options.filterHtml ? contentHtml.replace(/<[^>]+>/g,"") : contentHtml;
+        contentHtml = this.options.filterHtml ? contentHtml.replace(/<[^>]+>/g,"").replace(/\r\n/g,"").replace(/\n/g,"") : contentHtml;
         contentHtml = $.trim(contentHtml);
         if(!contentHtml.length) {
             Lego.UI.message('warning', '提交内容不能为空');

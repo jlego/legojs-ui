@@ -23,6 +23,7 @@ class Tables extends Lego.UI.Baseview {
             scrollbar: {},
             className: '',
             tableWidth: 0,
+            isNowrap: true, //表格内容是否不换行
             rowSelection: null, //列表行是否可选择
             pagination: null,   //分页器，配置项参考 pagination，设为 false 时不展示和进行分页
             size: 'default', //正常或迷你类型，default or small middle
@@ -112,8 +113,8 @@ class Tables extends Lego.UI.Baseview {
         this.getColumns();
         const options = this.options;
         const vDom = hx`
-        <div class="clearfix lego-table lego-table-${options.size} ${options.bordered ? 'lego-table-bordered' : ''}
-        ${options.showHeader ? 'lego-table-fixed-header' : ''} lego-table-scroll-position-left">
+        <div class="lego-table clearfix lego-table-${options.size} ${options.bordered ? 'lego-table-bordered' : ''}
+        ${options.showHeader ? 'lego-table-fixed-header' : ''} ${options.isNowrap ? 'lego-nr' : ''} lego-table-scroll-position-left">
             ${options.title ? hx`<div class="lego-table-title">${typeof options.title == 'function' ? options.title() : options.title}</div>` : ''}
             <div class="lego-table-content">
                 <div class="lego-table-scroll">

@@ -145,6 +145,7 @@ class Upload extends Lego.UI.Baseview {
                         const hasFile = options.value.find(item => item.file.hash == resp.hash);
                         if (!hasFile && options.value.length <= maxFilesCount) {
                             resp.url = Lego.config.downloadUri + resp.key;
+                            self.options.file = resp;
                             options.value.push({
                                 file: resp,
                                 type: options.type, //图片或文件

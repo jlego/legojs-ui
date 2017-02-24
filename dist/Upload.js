@@ -626,6 +626,7 @@ var Upload = function(_Lego$UI$Baseview) {
                             });
                             if (!hasFile && options.value.length <= maxFilesCount) {
                                 resp.url = Lego.config.downloadUri + resp.key;
+                                self.options.file = resp;
                                 options.value.push({
                                     file: resp,
                                     type: options.type,

@@ -1728,6 +1728,7 @@ var Upload = function(_Lego$UI$Baseview) {
                             });
                             if (!hasFile && options.value.length <= maxFilesCount) {
                                 resp.url = Lego.config.downloadUri + resp.key;
+                                self.options.file = resp;
                                 options.value.push({
                                     file: resp,
                                     type: options.type,
@@ -2310,7 +2311,7 @@ var Reply = function(_Lego$UI$Baseview) {
                 return;
             }
             var contentHtml = contentEl.val();
-            contentHtml = this.options.filterHtml ? contentHtml.replace(/<[^>]+>/g, "") : contentHtml;
+            contentHtml = this.options.filterHtml ? contentHtml.replace(/<[^>]+>/g, "").replace(/\r\n/g, "").replace(/\n/g, "") : contentHtml;
             contentHtml = $.trim(contentHtml);
             if (!contentHtml.length) {
                 Lego.UI.message("warning", "提交内容不能为空");

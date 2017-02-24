@@ -39,13 +39,14 @@ class Inputs extends Lego.UI.Baseview {
     }
     render() {
         const options = this.options || {};
-        let vDom = hx`<div></div>`;
+        let vDom = hx`<div></div>`,
+            value = options.value ? Lego.UI.Util.unFilterTag(options.value.toString()) : '';
         if(options.addonBefore || options.addonAfter){
             vDom = hx`
             <div class="input-group ${options.size ? ('input-group-' + options.size) : ''}">
               ${options.addonBefore ? hx`<span class="input-group-addon">${options.prefix}</span>` : ''}
               <input type="${options.type}" class="form-control" placeholder="${options.placeholder}"
-              value="${this.filterStr(val(options.value))}" name="${options.name}" ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}/>
+              value="${val(value)}" name="${options.name}" ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}/>
               ${options.addonAfter ? hx`<span class="input-group-addon">${options.suffix}</span>` : ''}
             </div>
             `;
@@ -53,12 +54,12 @@ class Inputs extends Lego.UI.Baseview {
             if(options.type == 'textarea'){
                 vDom = hx`
                   <textarea type="textarea" class="form-control ${options.size ? ('form-control-' + options.size) : ''}" placeholder="${options.placeholder}" name="${options.name}"
-                  ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}>${this.filterStr(val(options.value))}</textarea>
+                  ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}>${val(value)}</textarea>
                 `;
             }else{
                 vDom = hx`
                   <input type="${options.type}" class="form-control ${options.size ? ('form-control-' + options.size) : ''}" placeholder="${options.placeholder}"
-                  value="${this.filterStr(val(options.value))}" name="${options.name}" ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}/>
+                  value="${val(options.value)}" name="${options.name}" ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}/>
                 `;
             }
         }
@@ -66,13 +67,7 @@ class Inputs extends Lego.UI.Baseview {
     }
     // 过滤特殊字符
     filterStr(str){
-        // let pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？%+_]");
-        let pattern = new RegExp(this.options.filterReg || "");
-        let specialStr = "";
-        for(let i=0; i<str.length; i++){
-            specialStr += str.substr(i, 1).replace(pattern, '');
-        }
-        return specialStr;
+        return str;
     }
     onEnter(event) {
         const target = $(event.currentTarget),
