@@ -93,6 +93,7 @@ class Treeselect extends Selects {
                     selected: true
                 }];
                 pView.options.onChange(pView, result);
+                if(pView.options.clickAndClose) pView.close();
             },
             disabled: options.disabled || false,
             className: options.dropdownClassName

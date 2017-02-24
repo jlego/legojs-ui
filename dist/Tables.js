@@ -770,7 +770,7 @@ var Tables = function(_Lego$UI$Baseview) {
             var hasSelectedArr = this.options.data.filter(function(value) {
                 return value.selected === true;
             });
-            this.selectedAll = hasSelectedArr.length == this.options.data.length ? 1 : hasSelectedArr.length ? 2 : 0;
+            this.selectedAll = hasSelectedArr.length ? hasSelectedArr.length == this.options.data.length ? 1 : hasSelectedArr.length ? 2 : 0 : 0;
             return this.selectedAll;
         }
     }, {

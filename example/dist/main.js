@@ -6344,7 +6344,7 @@
 	    } }, { key: "getSelectedStatus", value: function value() {
 	      var hasSelectedArr = this.options.data.filter(function (value) {
 	        return value.selected === !0;
-	      });return this.selectedAll = hasSelectedArr.length == this.options.data.length ? 1 : hasSelectedArr.length ? 2 : 0, this.selectedAll;
+	      });return this.selectedAll = hasSelectedArr.length ? hasSelectedArr.length == this.options.data.length ? 1 : hasSelectedArr.length ? 2 : 0 : 0, this.selectedAll;
 	    } }, { key: "selectAll", value: function value(event) {
 	      var _this6 = this;event.stopPropagation();var target = $(event.currentTarget);this.options.rowSelection && !function () {
 	        var isChecked = target.is(":checked"),
@@ -7163,7 +7163,7 @@
 	        }, onClick: function onClick(self, result) {
 	          var pView = this.context;pView.options.value.forEach(function (item) {
 	            return item.selected = !1;
-	          }), pView.options.value = [{ key: result.key, value: result.value, type: result.type, selected: !0 }], pView.options.onChange(pView, result);
+	          }), pView.options.value = [{ key: result.key, value: result.value, type: result.type, selected: !0 }], pView.options.onChange(pView, result), pView.options.clickAndClose && pView.close();
 	        }, disabled: options.disabled || !1, className: options.dropdownClassName });
 	    } }, { key: "render", value: function value() {
 	      function getTags(data) {
