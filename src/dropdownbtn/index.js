@@ -20,25 +20,26 @@ class Dropdownbtn extends Lego.UI.Baseview {
             dropdownOption: {},
             onClick(){},   //click 事件的 handler
             onChange(){},
-            components(self){
-                let options = self.options;
-                return [$.extend(options.dropdownOption, {
-                    el: '#dropdown-' + options.vid,
-                    container: '[view-id=' + options.vid + ']',
-                    direction: options.direction,
-                    activeKey: options.activeKey,
-                    data: options.data,
-                    onChange(self, item, event){
-                        let theView = self.options.context;
-                        theView.activeItem = item;
-                        if(typeof theView.options.onChange == 'function') theView.options.onChange(theView, item);
-                    }
-                })];
-            }
+            components: []
         };
         Object.assign(options, opts);
         super(options);
         this.activeItem = {};
+    }
+    components(){
+        let options = this.options;
+        this.addCom($.extend(options.dropdownOption, {
+            el: '#dropdown-' + options.vid,
+            container: '[view-id=' + options.vid + ']',
+            direction: options.direction,
+            activeKey: options.activeKey,
+            data: options.data,
+            onChange(self, item, event){
+                let theView = self.options.context;
+                theView.activeItem = item;
+                if(typeof theView.options.onChange == 'function') theView.options.onChange(theView, item);
+            }
+        }));
     }
     render() {
         const options = this.options;

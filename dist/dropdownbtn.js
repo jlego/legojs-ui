@@ -254,21 +254,7 @@ var Dropdownbtn = function(_Lego$UI$Baseview) {
             dropdownOption: {},
             onClick: function onClick() {},
             onChange: function onChange() {},
-            components: function components(self) {
-                var options = self.options;
-                return [ $.extend(options.dropdownOption, {
-                    el: "#dropdown-" + options.vid,
-                    container: "[view-id=" + options.vid + "]",
-                    direction: options.direction,
-                    activeKey: options.activeKey,
-                    data: options.data,
-                    onChange: function onChange(self, item, event) {
-                        var theView = self.options.context;
-                        theView.activeItem = item;
-                        if (typeof theView.options.onChange == "function") theView.options.onChange(theView, item);
-                    }
-                }) ];
-            }
+            components: []
         };
         Object.assign(options, opts);
         var _this = _possibleConstructorReturn(this, (Dropdownbtn.__proto__ || Object.getPrototypeOf(Dropdownbtn)).call(this, options));
@@ -276,6 +262,23 @@ var Dropdownbtn = function(_Lego$UI$Baseview) {
         return _this;
     }
     _createClass(Dropdownbtn, [ {
+        key: "components",
+        value: function components() {
+            var options = this.options;
+            this.addCom($.extend(options.dropdownOption, {
+                el: "#dropdown-" + options.vid,
+                container: "[view-id=" + options.vid + "]",
+                direction: options.direction,
+                activeKey: options.activeKey,
+                data: options.data,
+                onChange: function onChange(self, item, event) {
+                    var theView = self.options.context;
+                    theView.activeItem = item;
+                    if (typeof theView.options.onChange == "function") theView.options.onChange(theView, item);
+                }
+            }));
+        }
+    }, {
         key: "render",
         value: function render() {
             var options = this.options;

@@ -10128,7 +10128,8 @@ tr.lego-table-expanded-row:hover {
 .lego-nav {
   line-height: 20px;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  list-style: none; }
 .lego-tabs .dropdown-menu {
   min-width: 160px; }
 .lego-search input,
