@@ -4,8 +4,8 @@ import homeView from './view/home';
 class Router {
     constructor() {
         return {
-            '/editcom': [this.index, this.tabs],
-            '/editcom/:tabs': [this.index, this.tabs]
+            '/rating': [this.index, this.tabs],
+            '/rating/:tabs': [this.index, this.tabs]
         };
     }
     index(){

@@ -35,6 +35,7 @@ import Collapse from "./collapse/index";
 import Reply from "./reply/index";
 import Editcom from "./editcom/index";
 import Permis from "./permis/index";
+import Rating from "./rating/index";
 
 Lego.components({
 	baseview: Baseview,
@@ -71,6 +72,7 @@ Lego.components({
 	collapse: Collapse,
 	reply: Reply,
 	editcom: Editcom,
-	permis: Permis
+	permis: Permis,
+	rating: Rating
 });
 export default Lego.UI;

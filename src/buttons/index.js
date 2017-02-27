@@ -25,7 +25,7 @@ class Buttons extends Lego.UI.Baseview {
         super(options);
     }
     render() {
-        const options = this.options || {};
+        const options = this.options;
         const vDom = hx`
         <button type="${options.htmlType}" class="btn btn-${options.type} ${options.size ? ('btn-' + options.size) : ''}" ${options.disabled ? 'disabled' : ''}>
             <span>${options.html || options.text}</span>

@@ -1,0 +1,27 @@
+.lego-rating.lego-rating-sm .rating-symbol{
+    font-size: 0.9rem;
+}
+.lego-rating.lego-rating-sm .badge{
+    font-size: 0.6rem;
+}
+.lego-rating .rating-symbol{
+    font-size: 1.2rem;
+}
+.lego-rating .badge{
+    font-size: 1rem;
+}
+.lego-rating.lego-rating-lg .rating-symbol{
+    font-size: 1.8rem;
+}
+.lego-rating.lego-rating-lg .badge{
+    font-size: 1.4rem;
+}
+// .lego-rating .rating-symbol{
+//     margin-right: 6px;
+// }
+.lego-rating .rating-symbol-background{
+	color: #ccc;
+}
+.lego-rating .rating-symbol-foreground span{
+	color: #f5a623;
+}
