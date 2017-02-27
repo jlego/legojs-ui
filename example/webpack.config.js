@@ -16,6 +16,7 @@ module.exports = {
         'avatar/app': './src/avatar/app',
         'steps/app': './src/steps/app',
         'editcom/app': './src/editcom/app',
+        'rating/app': './src/rating/app',
         'main': './src/main',
     },
     output: {

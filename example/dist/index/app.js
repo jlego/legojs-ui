@@ -582,6 +582,9 @@
 	            }, {
 	                key: 'nav_editcom',
 	                value: 'Editcom 编辑组件'
+	            }, {
+	                key: 'nav_rating',
+	                value: 'Rating 评分'
 	            }]
 	        }, {
 	            key: 'nav4',

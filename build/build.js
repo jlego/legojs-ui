@@ -70,7 +70,8 @@ build([{
 {alias: 'collapse'},
 {alias: 'reply'},
 {alias: 'editcom'},
-{alias: 'permis'}
+{alias: 'permis'},
+{alias: 'rating'}
 ].map(genConfig));
 
 function ucfirst(str) {

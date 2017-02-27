@@ -73,13 +73,13 @@ class Steps extends Lego.UI.Baseview {
         });
         this.refresh();
     }
-    next(event){
+    next(){
         const options = this.options;
         options.current ++;
         this.changeStatus();
         if(typeof options.onNext == 'function') options.onNext(this, options.current);
     }
-    previous(event){
+    previous(){
         const options = this.options;
         options.current --;
         this.changeStatus();

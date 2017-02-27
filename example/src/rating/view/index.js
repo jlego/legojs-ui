@@ -11,7 +11,7 @@ class IndexView extends Lego.UI.Baseview {
         const vDom = hx`
         <div class="page-container" id="page-container">
             <h1 class="page-title">
-                <a href="#/editcom/0" class="${options.currentTab == 0 ? 'active' : ''}">Editcom 编辑组件</a>
+                <a href="#/rating/0" class="${options.currentTab == 0 ? 'active' : ''}">Rating 评分</a>
             </h1>
             <div class="page-panel">
                 <div class="page-content page-panel-bg scrollbar">

@@ -85,7 +85,7 @@ var Buttons = function(_Lego$UI$Baseview) {
     _createClass(Buttons, [ {
         key: "render",
         value: function render() {
-            var options = this.options || {};
+            var options = this.options;
             var vDom = hx(_templateObject, options.htmlType, options.type, options.size ? "btn-" + options.size : "", options.disabled ? "disabled" : "", options.html || options.text);
             return vDom;
         }

@@ -114,7 +114,7 @@ var Steps = function(_Lego$UI$Baseview) {
         }
     }, {
         key: "next",
-        value: function next(event) {
+        value: function next() {
             var options = this.options;
             options.current++;
             this.changeStatus();
@@ -122,7 +122,7 @@ var Steps = function(_Lego$UI$Baseview) {
         }
     }, {
         key: "previous",
-        value: function previous(event) {
+        value: function previous() {
             var options = this.options;
             options.current--;
             this.changeStatus();
