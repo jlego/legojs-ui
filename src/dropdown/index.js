@@ -28,9 +28,7 @@ class Dropdown extends Lego.UI.Baseview {
                 if(!item.children){
                     return hx`
                     <li>
-                    <a id="${val(item.key)}" class="${item.disabled || item.selected ? 'disabled' : ''} ${item.active ? 'active' : ''}" href="${item.href ? item.href : 'javascript:;'}">
-                    ${val(item.value)}
-                    </a>
+                    <a id="${val(item.key)}" class="${item.disabled || item.selected ? 'disabled' : ''} ${item.active ? 'active' : ''}" href="${item.href ? item.href : 'javascript:;'}">${val(item.value)}</a>
                     </li>`;
                 }else{
                     return loopNav(item);
