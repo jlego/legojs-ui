@@ -4,16 +4,13 @@
 // `<nav>`s or `<ul>`s.
 
 .nav {
-  display: flex;
-  flex-wrap: wrap;
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
 }
 
 .nav-link {
-  display: block;
-  padding: $nav-link-padding;
+  display: inline-block;
 
   @include hover-focus {
     text-decoration: none;
@@ -22,7 +19,26 @@
   // Disabled state lightens text and removes hover/tab effects
   &.disabled {
     color: $nav-disabled-link-color;
-    cursor: $cursor-disabled;
+
+    @include plain-hover-focus {
+      color: $nav-disabled-link-hover-color;
+      cursor: $cursor-disabled;
+      background-color: $nav-disabled-link-hover-bg;
+    }
+  }
+}
+
+
+// Nav inline
+
+.nav-inline {
+  .nav-item {
+    display: inline-block;
+  }
+
+  .nav-item + .nav-item,
+  .nav-link + .nav-link {
+    margin-left: $nav-item-inline-spacer;
   }
 }
 
@@ -33,12 +49,21 @@
 
 .nav-tabs {
   border-bottom: $nav-tabs-border-width solid $nav-tabs-border-color;
+  @include clearfix();
 
   .nav-item {
+    float: left;
+    // Make the list-items overlay the bottom border
     margin-bottom: -$nav-tabs-border-width;
+
+    + .nav-item {
+      margin-left: $nav-item-margin;
+    }
   }
 
   .nav-link {
+    display: block;
+    padding: $nav-link-padding;
     border: $nav-tabs-border-width solid transparent;
     @include border-top-radius($nav-tabs-border-radius);
 
@@ -47,17 +72,21 @@
     }
 
     &.disabled {
-      color: $nav-disabled-link-color;
-      background-color: transparent;
-      border-color: transparent;
+      @include plain-hover-focus {
+        color: $nav-disabled-link-color;
+        background-color: transparent;
+        border-color: transparent;
+      }
     }
   }
 
   .nav-link.active,
-  .nav-item.show .nav-link {
-    color: $nav-tabs-active-link-hover-color;
-    background-color: $nav-tabs-active-link-hover-bg;
-    border-color: $nav-tabs-active-link-hover-border-color $nav-tabs-active-link-hover-border-color $nav-tabs-active-link-hover-bg;
+  .nav-item.open .nav-link {
+    @include plain-hover-focus {
+      color: $nav-tabs-active-link-hover-color;
+      background-color: $nav-tabs-active-link-hover-bg;
+      border-color: $nav-tabs-active-link-hover-border-color $nav-tabs-active-link-hover-border-color transparent;
+    }
   }
 
   .dropdown-menu {
@@ -74,41 +103,50 @@
 //
 
 .nav-pills {
+  @include clearfix();
+
+  .nav-item {
+    float: left;
+
+    + .nav-item {
+      margin-left: $nav-item-margin;
+    }
+  }
+
   .nav-link {
+    display: block;
+    padding: $nav-link-padding;
     @include border-radius($nav-pills-border-radius);
   }
 
   .nav-link.active,
-  .nav-item.show .nav-link {
-    color: $nav-pills-active-link-color;
-    background-color: $nav-pills-active-link-bg;
+  .nav-item.open .nav-link {
+    @include plain-hover-focus {
+      color: $nav-pills-active-link-color;
+      cursor: default;
+      background-color: $nav-pills-active-link-bg;
+    }
+  }
+}
+
+.nav-stacked {
+  .nav-item {
+    display: block;
+    float: none;
+
+    + .nav-item {
+      margin-top: $nav-item-margin;
+      margin-left: 0;
+    }
   }
 }
 
 
 //
-// Justified variants
-//
-
-.nav-fill {
-  .nav-item {
-    flex: 1 1 auto;
-    text-align: center;
-  }
-}
-
-.nav-justified {
-  .nav-item {
-    flex: 1 1 100%;
-    text-align: center;
-  }
-}
-
-
 // Tabbable tabs
 //
-// Hide tabbable panes to start, show them when `.active`
 
+// Hide tabbable panes to start, show them when `.active`
 .tab-content {
   > .tab-pane {
     display: none;

@@ -11,33 +11,40 @@
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
+  cursor: pointer;
   user-select: none;
   border: $input-btn-border-width solid transparent;
   @include button-size($btn-padding-y, $btn-padding-x, $font-size-base, $btn-border-radius);
-  @include transition($btn-transition);
+  @include transition(all .2s ease-in-out);
 
-  // Share hover and focus styles
+  &,
+  &:active,
+  &.active {
+    &:focus,
+    &.focus {
+      @include tab-focus();
+    }
+  }
+
   @include hover-focus {
     text-decoration: none;
   }
-  &:focus,
   &.focus {
-    outline: 0;
-    box-shadow: $btn-focus-box-shadow;
-  }
-
-  // Disabled comes first so active can properly restyle
-  &.disabled,
-  &:disabled {
-    cursor: $cursor-disabled;
-    opacity: .65;
-    @include box-shadow(none);
+    text-decoration: none;
   }
 
   &:active,
   &.active {
     background-image: none;
-    @include box-shadow($btn-focus-box-shadow, $btn-active-box-shadow);
+    outline: 0;
+    @include box-shadow($btn-active-box-shadow);
+  }
+
+  &.disabled,
+  &:disabled {
+    cursor: $cursor-disabled;
+    opacity: .65;
+    @include box-shadow(none);
   }
 }
 
@@ -98,7 +105,7 @@ fieldset[disabled] a.btn {
 
 // Make a button look and behave like a link
 .btn-link {
-  font-weight: $font-weight-normal;
+  font-weight: normal;
   color: $link-color;
   border-radius: 0;
 
@@ -123,9 +130,8 @@ fieldset[disabled] a.btn {
     background-color: transparent;
   }
   &:disabled {
-    color: $btn-link-disabled-color;
-
     @include hover-focus {
+      color: $btn-link-disabled-color;
       text-decoration: none;
     }
   }

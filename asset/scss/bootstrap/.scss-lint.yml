@@ -3,6 +3,9 @@ scss_files:
   - "**/*.scss"
   - "docs/assets/scss/**/*.scss"
 
+exclude:
+  - "scss/_normalize.scss"
+
 plugin_directories: ['.scss-linters']
 
 # List of gem names to load custom linters from (make sure they are already
@@ -25,6 +28,8 @@ linters:
   BorderZero:
     enabled: true
     convention: zero # or `none`
+    exclude:
+      - _normalize.scss
 
   ChainedClasses:
     enabled: false
@@ -38,6 +43,7 @@ linters:
   Comment:
     enabled: true
     exclude:
+      - _normalize.scss
       - bootstrap.scss
     style: silent
 
@@ -102,6 +108,8 @@ linters:
   LeadingZero:
     enabled: true
     style: exclude_zero # or 'include_zero'
+    exclude:
+      - _normalize.scss
 
   MergeableSelector:
     enabled: false
@@ -130,6 +138,8 @@ linters:
     ignore_unspecified: false
     min_properties: 2
     separate_groups: false
+    exclude:
+      - _normalize.scss
     order:
       - position
       - top
@@ -145,14 +155,10 @@ linters:
       - flex-align
       - flex-basis
       - flex-direction
-      - flex-wrap
       - flex-flow
       - flex-grow
       - flex-order
       - flex-pack
-      - align-items
-      - align-self
-      - justify-content
       - float
       - width
       - min-width
@@ -225,7 +231,6 @@ linters:
       - word-spacing
       - -ms-word-wrap
       - word-wrap
-      - overflow-wrap
       - -moz-tab-size
       - -o-tab-size
       - tab-size
@@ -485,7 +490,7 @@ linters:
   SpaceBeforeBrace:
     enabled: true
     style: space # or 'new_line'
-    allow_single_line_padding: true
+    allow_single_line_padding: false
 
   SpaceBetweenParens:
     enabled: true
@@ -528,6 +533,8 @@ linters:
     identifier_list: base
     additional_identifiers: []
     excluded_identifiers: []
+    exclude:
+      - _normalize.scss
 
   ZeroUnit:
     enabled: true

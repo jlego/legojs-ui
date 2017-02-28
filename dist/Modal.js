@@ -684,7 +684,7 @@ var _createClass = function() {
 
 var _templateObject = _taggedTemplateLiteral([ '\n        <div class="modal ', "\n        ", "\n        ", "\n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              ', '\n              <div class="modal-body ', '" style="', "\n              ", '">\n                ', "\n              </div>\n              ", "\n            </div>\n          </div>\n        </div>\n        " ], [ '\n        <div class="modal ', "\n        ", "\n        ", "\n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              ', '\n              <div class="modal-body ', '" style="', "\n              ", '">\n                ', "\n              </div>\n              ", "\n            </div>\n          </div>\n        </div>\n        " ]);
 
-var _templateObject2 = _taggedTemplateLiteral([ '<div class="modal-header">\n              ', '\n                <h4 class="modal-title">', "</h4>\n              </div>" ], [ '<div class="modal-header">\n              ', '\n                <h4 class="modal-title">', "</h4>\n              </div>" ]);
+var _templateObject2 = _taggedTemplateLiteral([ '<div class="modal-header">\n              ', '\n                <h5 class="modal-title">', "</h5>\n              </div>" ], [ '<div class="modal-header">\n              ', '\n                <h5 class="modal-title">', "</h5>\n              </div>" ]);
 
 var _templateObject3 = _taggedTemplateLiteral([ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ], [ '<button type="button" class="close"><span class="anticon anticon-close"></span></button>' ]);
 
@@ -769,7 +769,7 @@ var Modal = function(_Lego$UI$Baseview) {
             scrollAble: true,
             okText: "确定",
             cancelText: "取消",
-            onHidden: function onHidden() {},
+            onClose: function onClose() {},
             animates: {
                 fadeIn: "fadeOut",
                 slideInRight: "slideOutRight"
@@ -814,7 +814,7 @@ var Modal = function(_Lego$UI$Baseview) {
             if (options.height) this.$(".modal-body").height(options.height);
             this.$el.on("hidden.bs.modal", function(e) {
                 that.$el.remove();
-                if (typeof options.onHidden === "function") options.onHidden(that);
+                if (typeof options.onClose === "function") options.onClose(that);
             });
             if (options.animate) {
                 this.$el.data("animate", options.animate);

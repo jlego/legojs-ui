@@ -11,10 +11,13 @@
 
 .custom-control {
   position: relative;
-  display: inline-flex;
-  min-height: (1rem * $line-height-base);
+  display: inline-block;
   padding-left: $custom-control-gutter;
-  margin-right: $custom-control-spacer-x;
+  cursor: pointer;
+
+  + .custom-control {
+    margin-left: $custom-control-spacer-x;
+  }
 }
 
 .custom-control-input {
@@ -58,7 +61,7 @@
 
 .custom-control-indicator {
   position: absolute;
-  top: (($line-height-base - $custom-control-indicator-size) / 2);
+  top: .25rem;
   left: 0;
   display: block;
   width: $custom-control-indicator-size;
@@ -113,11 +116,9 @@
 // set. Use these optional classes to tweak the layout.
 
 .custom-controls-stacked {
-  display: flex;
-  flex-direction: column;
-
   .custom-control {
-    margin-bottom: $custom-control-spacer-y;
+    float: left;
+    clear: left;
 
     + .custom-control {
       margin-left: 0;
@@ -131,21 +132,25 @@
 // Replaces the browser default select with a custom one, mostly pulled from
 // http://primercss.io.
 //
+// Includes IE9-specific hacks (noted by ` \9`).
 
 .custom-select {
   display: inline-block;
   max-width: 100%;
   $select-border-width: ($border-width * 2);
-  height: calc(#{$input-height} + #{$select-border-width});
+  height: calc(#{$input-height} - #{$select-border-width});
   padding: $custom-select-padding-y ($custom-select-padding-x + $custom-select-indicator-padding) $custom-select-padding-y $custom-select-padding-x;
-  line-height: $custom-select-line-height;
+  padding-right: $custom-select-padding-x \9;
   color: $custom-select-color;
   vertical-align: middle;
   background: $custom-select-bg $custom-select-indicator no-repeat right $custom-select-padding-x center;
+  background-image: none \9;
   background-size: $custom-select-bg-size;
   border: $custom-select-border-width solid $custom-select-border-color;
   @include border-radius($custom-select-border-radius);
-  appearance: none;
+  // Use vendor prefixes as `appearance` isn't part of the CSS spec.
+  -moz-appearance: none;
+  -webkit-appearance: none;
 
   &:focus {
     border-color: $custom-select-focus-border-color;
@@ -196,14 +201,14 @@
   display: inline-block;
   max-width: 100%;
   height: $custom-file-height;
-  margin-bottom: 0;
+  cursor: pointer;
 }
 
 .custom-file-input {
   min-width: $custom-file-width;
   max-width: 100%;
-  height: $custom-file-height;
   margin: 0;
+  filter: alpha(opacity = 0);
   opacity: 0;
 
   &:focus ~ .custom-file-control {
@@ -221,7 +226,6 @@
   padding: $custom-file-padding-x $custom-file-padding-y;
   line-height: $custom-file-line-height;
   color: $custom-file-color;
-  pointer-events: none;
   user-select: none;
   background-color: $custom-file-bg;
   border: $custom-file-border-width solid $custom-file-border-color;

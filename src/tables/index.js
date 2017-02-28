@@ -1,5 +1,6 @@
 import './asset/index.scss';
 import Pagination from '../pagination/index';
+// import Modal from '../modal/index';
 /**
  * rowSelection
  * type = '' 多选/单选，checkbox or radio
@@ -38,6 +39,7 @@ class Tables extends Lego.UI.Baseview {
             onExpand(){}, //点击展开图标时触发
             onChange(){}, //分页、排序、筛选变化时触发
             onSelect(){},
+            onSetting(){},
             loading: false, //页面是否加载中
             locale: { //默认文案设置，目前包括排序、过滤、空数据文案
                 filterConfirm: '确定',
@@ -141,7 +143,8 @@ class Tables extends Lego.UI.Baseview {
                     <pagination id="pagination-${options.vid}"></pagination>
                     </div>
                 ` : ''}
-                ${options.colSetting ? hx`<button type="button" class="btn btn-default noborder" title="字段显示设置"><i class="anticon anticon-ellipsis"></i></button>` : ''}
+                ${options.colSetting ? hx`<button type="button" class="btn btn-default noborder" title="设置"><i class="anticon anticon-ellipsis"></i></button>` : ''}
+                // ${options.colSetting ? hx`<layer id="colSetting-${options.vid}"></layer>` : ''}
                 </div>
             </div>
         </div>
@@ -320,7 +323,9 @@ class Tables extends Lego.UI.Baseview {
     }
     clickSetting(event){
         event.stopPropagation();
-        if(typeof this.options.colSetting == 'function') this.options.colSetting(this, event);
+        let target = $(event.currentTarget),
+            theId = 'setting-' + this.options.vid;
+        if(typeof this.options.onSetting == 'function') this.options.onSetting(this, event);
     }
     // 选中一条
     selectOne(event) {

@@ -667,3 +667,16 @@ tr.lego-table-expanded-row:hover {
 .table-striped>tbody>tr:hover {
     background-color: #f3f3f3;
 }
+.lego-table .modal{
+    position: absolute;
+    top: 0;
+}
+.lego-table .modal .modal-header{
+    padding: 12px;
+}
+.lego-table .modal .modal-title{
+    font-size: 16px;
+}
+.lego-table .modal .modal-body{
+    top: 50px;
+}

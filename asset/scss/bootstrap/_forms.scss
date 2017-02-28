@@ -29,7 +29,7 @@
   }
 
   @include box-shadow($input-box-shadow);
-  @include transition($input-transition);
+  @include transition(border-color ease-in-out .15s, box-shadow ease-in-out .15s);
 
   // Unstyle the caret on `<select>`s in IE10+.
   &::-ms-expand {
@@ -67,7 +67,7 @@
 select.form-control {
   &:not([size]):not([multiple]) {
     $select-border-width: ($border-width * 2);
-    height: calc(#{$input-height} + #{$select-border-width});
+    height: calc(#{$input-height} - #{$select-border-width});
   }
 
   &:focus::-ms-value {
@@ -95,20 +95,20 @@ select.form-control {
 // For use with horizontal and inline forms, when you need the label text to
 // align with the form controls.
 .col-form-label {
-  padding-top: calc(#{$input-padding-y} - #{$input-btn-border-width} * 2);
-  padding-bottom: calc(#{$input-padding-y} - #{$input-btn-border-width} * 2);
+  padding-top: $input-padding-y;
+  padding-bottom: $input-padding-y;
   margin-bottom: 0; // Override the `<label>` default
 }
 
 .col-form-label-lg {
-  padding-top: calc(#{$input-padding-y-lg} - #{$input-btn-border-width} * 2);
-  padding-bottom: calc(#{$input-padding-y-lg} - #{$input-btn-border-width} * 2);
+  padding-top: $input-padding-y-lg;
+  padding-bottom: $input-padding-y-lg;
   font-size: $font-size-lg;
 }
 
 .col-form-label-sm {
-  padding-top: calc(#{$input-padding-y-sm} - #{$input-btn-border-width} * 2);
-  padding-bottom: calc(#{$input-padding-y-sm} - #{$input-btn-border-width} * 2);
+  padding-top: $input-padding-y-sm;
+  padding-bottom: $input-padding-y-sm;
   font-size: $font-size-sm;
 }
 
@@ -135,10 +135,9 @@ select.form-control {
 .form-control-static {
   padding-top: $input-padding-y;
   padding-bottom: $input-padding-y;
-  margin-bottom: 0; // match inputs if this class comes on inputs with default margins
   line-height: $input-line-height;
   border: solid transparent;
-  border-width: $input-btn-border-width 0;
+  border-width: 1px 0;
 
   &.form-control-sm,
   &.form-control-lg {
@@ -192,7 +191,7 @@ select.form-control-lg {
 
 .form-text {
   display: block;
-  margin-top: $form-text-margin-top;
+  margin-top: ($spacer * .25);
 }
 
 
@@ -203,7 +202,12 @@ select.form-control-lg {
 .form-check {
   position: relative;
   display: block;
-  margin-bottom: $form-check-margin-bottom;
+  margin-bottom: ($spacer * .75);
+
+  // Move up sibling radios or checkboxes for tighter spacing
+  + .form-check {
+    margin-top: -.25rem;
+  }
 
   &.disabled {
     .form-check-label {
@@ -214,14 +218,15 @@ select.form-control-lg {
 }
 
 .form-check-label {
-  padding-left: $form-check-input-gutter;
+  padding-left: 1.25rem;
   margin-bottom: 0; // Override default `<label>` bottom margin
+  cursor: pointer;
 }
 
 .form-check-input {
   position: absolute;
-  margin-top: $form-check-input-margin-y;
-  margin-left: -$form-check-input-gutter;
+  margin-top: .25rem;
+  margin-left: -1.25rem;
 
   &:only-child {
     position: static;
@@ -230,14 +235,20 @@ select.form-control-lg {
 
 // Radios and checkboxes on same line
 .form-check-inline {
+  position: relative;
   display: inline-block;
-
-  .form-check-label {
-    vertical-align: middle;
-  }
+  padding-left: 1.25rem;
+  margin-bottom: 0; // Override default `<label>` bottom margin
+  vertical-align: middle;
+  cursor: pointer;
 
   + .form-check-inline {
-    margin-left: $form-check-inline-margin-x;
+    margin-left: .75rem;
+  }
+
+  &.disabled {
+    color: $text-muted;
+    cursor: $cursor-disabled;
   }
 }
 
@@ -247,7 +258,7 @@ select.form-control-lg {
 // Apply contextual and semantic states to individual form controls.
 
 .form-control-feedback {
-  margin-top: $form-feedback-margin-top;
+  margin-top: ($spacer * .25);
 }
 
 .form-control-success,
@@ -295,33 +306,14 @@ select.form-control-lg {
 // default HTML form controls and our custom form controls (e.g., input groups).
 
 .form-inline {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center; // Prevent shorter elements from growing to same height as others (e.g., small buttons growing to normal sized button height)
-
-  // Because we use flex, the initial sizing of checkboxes is collapsed and
-  // doesn't occupy the full-width (which is what we want for xs grid tier),
-  // so we force that here.
-  .form-check {
-    width: 100%;
-  }
 
   // Kick in the inline
   @include media-breakpoint-up(sm) {
-    label {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 0;
-    }
-
     // Inline-block all the things for "inline"
     .form-group {
-      display: flex;
-      flex: 0 0 auto;
-      flex-flow: row wrap;
-      align-items: center;
+      display: inline-block;
       margin-bottom: 0;
+      vertical-align: middle;
     }
 
     // Allow folks to *not* use `.form-group`
@@ -337,7 +329,20 @@ select.form-control-lg {
     }
 
     .input-group {
+      display: inline-table;
       width: auto;
+      vertical-align: middle;
+
+      .input-group-addon,
+      .input-group-btn,
+      .form-control {
+        width: auto;
+      }
+    }
+
+    // Input groups need that 100% width though
+    .input-group > .form-control {
+      width: 100%;
     }
 
     .form-control-label {
@@ -348,35 +353,17 @@ select.form-control-lg {
     // Remove default margin on radios/checkboxes that were used for stacking, and
     // then undo the floating of radios and checkboxes to match.
     .form-check {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: auto;
+      display: inline-block;
       margin-top: 0;
       margin-bottom: 0;
+      vertical-align: middle;
     }
     .form-check-label {
       padding-left: 0;
     }
     .form-check-input {
       position: relative;
-      margin-top: 0;
-      margin-right: $form-check-input-margin-x;
       margin-left: 0;
-    }
-
-    // Custom form controls
-    .custom-control {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding-left: 0;
-    }
-    .custom-control-indicator {
-      position: static;
-      display: inline-block;
-      margin-right: $form-check-input-margin-x; // Flexbox alignment means we lose our HTML space here, so we compensate.
-      vertical-align: text-bottom;
     }
 
     // Re-override the feedback icon.

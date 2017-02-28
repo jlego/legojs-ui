@@ -52,6 +52,20 @@ class TableView extends Lego.UI.Baseview {
                 style: {
                     height: '100%'
                 },
+                onSetting(self, event){
+                    console.warn('dddddddddddddd');
+                    // Lego.create(Modal, {
+                    //     type: 'layer',
+                    //     context: this,
+                    //     title: '字段设置',
+                    //     content: 'Designed and ',
+                    //     width: 220,
+                    //     showFooter: false,
+                    //     onClose(self){
+                    //         target.after('<layer id="' + theId + '"></layer>');
+                    //     }
+                    // });
+                },
                 data: getData(),
                 columns: [{
                     title: '姓名',

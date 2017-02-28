@@ -4,17 +4,16 @@
 
 .card {
   position: relative;
-  display: flex;
-  flex-direction: column;
+  display: block;
+  margin-bottom: $card-spacer-y;
   background-color: $card-bg;
-  border: $card-border-width solid $card-border-color;
+  // border: $card-border-width solid $card-border-color;
   @include border-radius($card-border-radius);
+  border: $card-border-width solid $card-border-color;
 }
 
 .card-block {
-  // Enable `flex-grow: 1` for decks and groups so that card blocks take up
-  // as much space as possible, ensuring footers are aligned to the bottom.
-  flex: 1 1 auto;
+  @include clearfix;
   padding: $card-spacer-x;
 }
 
@@ -30,6 +29,14 @@
 .card-text:last-child {
   margin-bottom: 0;
 }
+
+// .card-actions {
+//   padding: $card-spacer-y $card-spacer-x;
+
+//   .card-link + .card-link {
+//     margin-left: $card-spacer-x;
+//   }
+// }
 
 .card-link {
   @include hover {
@@ -61,6 +68,7 @@
 //
 
 .card-header {
+  @include clearfix;
   padding: $card-spacer-y $card-spacer-x;
   margin-bottom: 0; // Removes the default margin-bottom of <hN>
   background-color: $card-cap-bg;
@@ -72,6 +80,7 @@
 }
 
 .card-footer {
+  @include clearfix;
   padding: $card-spacer-y $card-spacer-x;
   background-color: $card-cap-bg;
   border-top: $card-border-width solid $card-border-color;
@@ -182,27 +191,54 @@
 }
 
 
-// Card deck
+// Card set
+//
+// Heads up! We do some funky style resetting here for margins across our two
+// variations (one flex, one table). Individual cards have margin-bottom by
+// default, but they're ignored due to table styles. For a consistent design,
+// we've done the same to the flex variation.
+//
+// Those changes are noted by `// Margin balancing`.
 
-@include media-breakpoint-up(sm) {
-  .card-deck {
-    display: flex;
-    flex-flow: row wrap;
-
-    .card {
+@if $enable-flex {
+  @include media-breakpoint-up(sm) {
+    .card-deck {
       display: flex;
-      flex: 1 0 0;
-      flex-direction: column;
+      flex-flow: row wrap;
+      margin-right: -$card-deck-margin;
+      margin-bottom: $card-spacer-y; // Margin balancing
+      margin-left: -$card-deck-margin;
 
-      // Selectively apply horizontal margins to cards to avoid doing the
-      // negative margin dance like our grid. This differs from the grid
-      // due to the use of margins as gutters instead of padding.
-      &:not(:first-child) { margin-left: $card-deck-margin; }
-      &:not(:last-child) { margin-right: $card-deck-margin; }
+      .card {
+        flex: 1 0 0;
+        margin-right: $card-deck-margin;
+        margin-bottom: 0; // Margin balancing
+        margin-left: $card-deck-margin;
+      }
+    }
+  }
+} @else {
+  @include media-breakpoint-up(sm) {
+    $space-between-cards: (2 * $card-deck-margin);
+    .card-deck {
+      display: table;
+      width: 100%;
+      margin-bottom: $card-spacer-y; // Margin balancing
+      table-layout: fixed;
+      border-spacing: $space-between-cards 0;
+
+      .card {
+        display: table-cell;
+        margin-bottom: 0; // Margin balancing
+        vertical-align: top;
+      }
+    }
+    .card-deck-wrapper {
+      margin-right: (-$space-between-cards);
+      margin-left: (-$space-between-cards);
     }
   }
 }
-
 
 //
 // Card groups
@@ -210,11 +246,22 @@
 
 @include media-breakpoint-up(sm) {
   .card-group {
-    display: flex;
-    flex-flow: row wrap;
+    @if $enable-flex {
+      display: flex;
+      flex-flow: row wrap;
+    } @else {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+    }
 
     .card {
-      flex: 1 0 0;
+      @if $enable-flex {
+        flex: 1 0 0;
+      } @else {
+        display: table-cell;
+        vertical-align: top;
+      }
 
       + .card {
         margin-left: 0;
@@ -259,18 +306,17 @@
 
 
 //
-// Columns
+// Card
 //
 
 @include media-breakpoint-up(sm) {
   .card-columns {
-    column-count: $card-columns-count;
-    column-gap: $card-columns-gap;
+    column-count: 3;
+    column-gap: $card-columns-sm-up-column-gap;
 
     .card {
       display: inline-block; // Don't let them vertically span multiple columns
-      width: 100%; // Don't let their width change
-      margin-bottom: $card-columns-margin;
+      width: 100%; // Don't let them exceed the column width
     }
   }
 }

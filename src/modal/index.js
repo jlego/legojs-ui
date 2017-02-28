@@ -40,7 +40,7 @@ class Modal extends Lego.UI.Baseview {
             cancelText: '取消',
             // onOk() {},
             // onCancel() {},
-            onHidden() {},
+            onClose() {},
             animates: {
                 'fadeIn': 'fadeOut',
                 'slideInRight': 'slideOutRight'
@@ -77,7 +77,7 @@ class Modal extends Lego.UI.Baseview {
             <div class="modal-content">
               ${options.showHeader ? hx`<div class="modal-header">
               ${options.closable ? hx`<button type="button" class="close"><span class="anticon anticon-close"></span></button>` : ''}
-                <h4 class="modal-title">${options.title}</h4>
+                <h5 class="modal-title">${options.title}</h5>
               </div>` : ''}
               <div class="modal-body ${!options.msgType && options.scrollAble ? 'scrollbar' : ''}" style="${!options.showHeader && options.type == 'layer' ? 'top:0;' : ''}
               ${!options.showFooter && options.type == 'layer' ? 'bottom:0;' : ''}">
@@ -105,7 +105,7 @@ class Modal extends Lego.UI.Baseview {
         if(options.height) this.$('.modal-body').height(options.height);
         this.$el.on('hidden.bs.modal', function (e) {
             that.$el.remove();
-            if(typeof options.onHidden === 'function') options.onHidden(that);
+            if(typeof options.onClose === 'function') options.onClose(that);
         });
         if (options.animate) {
             this.$el.data('animate', options.animate);

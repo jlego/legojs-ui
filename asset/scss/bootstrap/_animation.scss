@@ -1,27 +1,27 @@
 .fade {
   opacity: 0;
-  @include transition($transition-fade);
+  transition: opacity .15s linear;
 
-  &.show {
+  &.in {
     opacity: 1;
   }
 }
 
 .collapse {
   display: none;
-  &.show {
+  &.in {
     display: block;
   }
 }
 
 tr {
-  &.collapse.show {
+  &.collapse.in {
     display: table-row;
   }
 }
 
 tbody {
-  &.collapse.show {
+  &.collapse.in {
     display: table-row-group;
   }
 }
@@ -30,5 +30,7 @@ tbody {
   position: relative;
   height: 0;
   overflow: hidden;
-  @include transition($transition-collapse);
+  transition-timing-function: ease;
+  transition-duration: .35s;
+  transition-property: height;
 }
