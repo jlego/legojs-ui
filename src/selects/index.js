@@ -125,7 +125,7 @@ class Selects extends Lego.UI.Baseview {
         return vDom;
     }
     renderAfter(){
-        if(this.options.value.length && this.options.multiple){
+        if(this.options.value && this.options.multiple){
             this.options.value.forEach(item => {
                 if(item){
                     const model = this.options.data.find(model => model.key === item.key);

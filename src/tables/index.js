@@ -52,7 +52,7 @@ class Tables extends Lego.UI.Baseview {
             showHeader: false, //是否显示表头
             showBodyer: true, //是否显示表体
             showFooter: false, //是否显示表尾
-            // colSetting(){}  //列设置
+            showSetting: false, //是否显示设置
             // footer(){}, //表格尾部
             // title(){}, //表格标题
             // scroll: {}, //横向或纵向支持滚动，也可用于指定滚动区域的宽高度：{{ x: true, y: 300 }}
@@ -74,21 +74,25 @@ class Tables extends Lego.UI.Baseview {
         this.resizeWidth();
         // selectedAll 1为全选，2为半选，0为没选
     }
+    // 列宽更新
     getColumns(){
         this.columns = [];
-        let options = this.options;
+        let options = this.options,
+            oldWidth = this.tableRealWidth;
         this.columnsObj = this.columnsObj || {};
         if(options.columns){
-            let tempColumns = typeof options.columns == 'function' ? (options.columns(this) || []) : (options.columns || []);
-            this.columns = Array.from(tempColumns);
+            this.allColumns = typeof options.columns == 'function' ? options.columns(this) : options.columns;
+            this.columns = Array.from(this.allColumns || []);
         }
         this.tableRealWidth = this.options.rowSelection ? 30 : 0;    //表格实宽
-        this.columns = this.columns.filter(col => !col.isHide);
         this.columns.forEach((col, index) => {
             col.key = col.key || index;
-            this.columnsObj[col.key] = this.columnsObj[col.key] || col;
-            Object.assign(col, this.columnsObj[col.key]);
-            this.tableRealWidth += parseInt(col.width || 200);
+            if(this.columnsObj[col.key]){
+                Object.assign(col, this.columnsObj[col.key]);
+            }else{
+                this.columnsObj[col.key] = col;
+            }
+            if(!col.isHide) this.tableRealWidth += parseInt(col.width || 200);
             // {
             //     title: '',  //列头显示文字
             //     key: index,
@@ -105,6 +109,8 @@ class Tables extends Lego.UI.Baseview {
             //     // onCellClick(){}  //单元格点击回调
             // }
         });
+        this.columns = this.columns.filter(col => !col.isHide);
+        if(this.tableRealWidth !== oldWidth) this.resizeWidth();
         return this.columns;
     }
     resizeWidth(){
@@ -143,8 +149,8 @@ class Tables extends Lego.UI.Baseview {
                     <pagination id="pagination-${options.vid}"></pagination>
                     </div>
                 ` : ''}
-                ${options.colSetting ? hx`<button type="button" class="btn btn-default noborder" title="设置"><i class="anticon anticon-ellipsis"></i></button>` : ''}
-                // ${options.colSetting ? hx`<layer id="colSetting-${options.vid}"></layer>` : ''}
+                ${options.showSetting ? hx`<button type="button" class="btn btn-default noborder" title="表格设置"><i class="anticon anticon-ellipsis"></i></button>` : ''}
+                // ${options.showSetting ? hx`<layer id="showSetting-${options.vid}"></layer>` : ''}
                 </div>
             </div>
         </div>

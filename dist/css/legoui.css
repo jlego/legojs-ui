@@ -10661,7 +10661,8 @@ form legend {
 form button[type="submit"] {
   margin-right: 10px; }
 .transfer {
-  position: relative; }
+  position: relative;
+  overflow: hidden; }
 
 .transfer > div,
 .transfer > div > .transfer-col,
@@ -10717,7 +10718,7 @@ form button[type="submit"] {
   width: 100%; }
 
 .transfer .list-group .list-group-item {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.2rem 0.5rem 1rem;
   border: none; }
 
 .transfer .list-group .list-group-item:hover,
