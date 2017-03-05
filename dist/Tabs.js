@@ -1,5 +1,5 @@
 /**
- * tabs.js v0.2.9
+ * tabs.js v0.3.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -24,13 +24,13 @@ var _createClass$2 = function() {
 
 var _templateObject$2 = _taggedTemplateLiteral$2([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
 
-var _templateObject2$2 = _taggedTemplateLiteral$2([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ]);
+var _templateObject2$2 = _taggedTemplateLiteral$2([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">', "</a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">', "</a>\n                    </li>" ]);
 
 var _templateObject3 = _taggedTemplateLiteral$2([ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ]);
 
 var _templateObject4 = _taggedTemplateLiteral$2([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5 = _taggedTemplateLiteral$2([ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject5 = _taggedTemplateLiteral$2([ '\n        <ul class="dropdown-menu scrollbar ', '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu scrollbar ', '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
 
 function _taggedTemplateLiteral$2(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -88,9 +88,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             data: []
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn$2(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
-        _this.containerEvents();
-        return _this;
+        return _possibleConstructorReturn$2(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
     }
     _createClass$2(Dropdown, [ {
         key: "render",
@@ -118,22 +116,22 @@ var Dropdown = function(_Lego$UI$Baseview) {
             return vDom;
         }
     }, {
-        key: "containerEvents",
-        value: function containerEvents() {
-            var that = this;
+        key: "renderAfter",
+        value: function renderAfter() {
+            var that = this, _eventName = "click.dropdown-" + this.options.vid;
             this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
             if (!this.options.disabled) {
                 var handler = function handler(event) {
-                    $("body, .modal-body").trigger("click");
-                    event.stopPropagation();
-                    var directionResp = Lego.UI.Util.getDirection(that.container, that.$el);
-                    that.options.direction = directionResp._y || "bottom";
                     that.$el.slideToggle("fast");
                 };
                 if (this.options.eventName == "click") {
-                    var _eventName = "click.dropdown_" + this.options.vid;
-                    $("body, .modal-body").off(_eventName).on(_eventName, function() {
-                        that.close();
+                    $("body, .modal-body").off(_eventName).on(_eventName, function(event) {
+                        if (event.originalEvent) {
+                            var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.container[0]);
+                            if (index_a <= index_b) {} else {
+                                that.close();
+                            }
+                        }
                     });
                     this.container.off(_eventName).on(_eventName, handler);
                 } else {
@@ -155,12 +153,12 @@ var Dropdown = function(_Lego$UI$Baseview) {
         }
     }, {
         key: "show",
-        value: function show(event) {
+        value: function show() {
             this.$el.slideDown("fast");
         }
     }, {
         key: "close",
-        value: function close(event) {
+        value: function close() {
             this.$el.slideUp("fast");
         }
     }, {
@@ -203,7 +201,7 @@ var _createClass$1 = function() {
 
 var _templateObject$1 = _taggedTemplateLiteral$1([ '\n            <li class="nav-item ', " ", '">\n                <a class="nav-link ', " ", " ", '" href="', '" id="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="nav-item ', " ", '">\n                <a class="nav-link ', " ", " ", '" href="', '" id="', '">', "</a>\n                ", "\n            </li>\n            " ]);
 
-var _templateObject2$1 = _taggedTemplateLiteral$1([ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject2$1 = _taggedTemplateLiteral$1([ '\n        <ul class="lego-nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="lego-nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -401,7 +399,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="tabs">\n            <navs id="navs-', '"></navs>\n            <div class="tab-content">\n                ', "\n            </div>\n        </div>\n        " ], [ '\n        <div class="tabs">\n            <navs id="navs-', '"></navs>\n            <div class="tab-content">\n                ', "\n            </div>\n        </div>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-tabs">\n            <navs id="navs-', '"></navs>\n            <div class="tab-content">\n                ', "\n            </div>\n        </div>\n        " ], [ '\n        <div class="lego-tabs">\n            <navs id="navs-', '"></navs>\n            <div class="tab-content">\n                ', "\n            </div>\n        </div>\n        " ]);
 
 var _templateObject2 = _taggedTemplateLiteral([ '<div class="tab-pane ', " ", '">\n                            ', "\n                        </div>" ], [ '<div class="tab-pane ', " ", '">\n                            ', "\n                        </div>" ]);
 
@@ -463,27 +461,36 @@ var Tabs = function(_Lego$UI$Baseview) {
             components: []
         };
         Object.assign(options, opts);
-        var model = options.data.find(function(item) {
-            return item.key == options.activeKey;
-        });
-        options.activeContent = model ? val(model.content) : "";
-        options.components.push({
-            el: "#navs-" + options.vid,
-            eventName: options.eventName || "click",
-            type: "tabs",
-            activeKey: options.activeKey,
-            onClick: function onClick(self, item) {
-                if (!item.disabled && item.content) {
-                    var parentView = this.context;
-                    parentView.options.activeKey = item.key;
-                    parentView.options.activeContent = item.content;
-                }
-            },
-            data: Array.from(options.data)
-        });
         return _possibleConstructorReturn(this, (Tabs.__proto__ || Object.getPrototypeOf(Tabs)).call(this, options));
     }
     _createClass(Tabs, [ {
+        key: "components",
+        value: function components() {
+            var options = this.options, comId = "#navs-" + options.vid;
+            var data = options.data.filter(function(item) {
+                return !item.isHide;
+            });
+            options.activeKey = typeof options.activeKey == "number" ? data[options.activeKey].key : options.activeKey;
+            var model = data.find(function(item) {
+                return item.key == options.activeKey;
+            });
+            if (model) options.activeContent = model.content;
+            this.addCom({
+                el: comId,
+                eventName: options.eventName || "click",
+                type: "tabs",
+                activeKey: options.activeKey,
+                onClick: function onClick(self, item) {
+                    if (!item.disabled && item.content) {
+                        var parentView = this.context;
+                        parentView.options.activeKey = item.key;
+                        parentView.options.activeContent = item.content;
+                    }
+                },
+                data: data
+            });
+        }
+    }, {
         key: "render",
         value: function render() {
             var options = this.options;
@@ -504,7 +511,7 @@ var Tabs = function(_Lego$UI$Baseview) {
             getNewData(options.data);
             var vDom = hx(_templateObject, options.vid, newData.map(function(item) {
                 if (!item.disabled) {
-                    return hx(_templateObject2, val(options.animate), item.key == options.activeKey ? "active in" : "", item.key == options.activeKey ? val(options.activeContent) : "");
+                    return hx(_templateObject2, val(options.animate), item.key == options.activeKey ? "active in" : "", item.key == options.activeKey ? options.activeContent : "");
                 }
             }));
             return vDom;

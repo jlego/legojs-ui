@@ -33,6 +33,9 @@ import Steps from "./steps/index";
 import Facial from "./facial/index";
 import Collapse from "./collapse/index";
 import Reply from "./reply/index";
+import Editcom from "./editcom/index";
+import Permis from "./permis/index";
+import Rating from "./rating/index";
 
 Lego.components({
 	baseview: Baseview,
@@ -67,6 +70,9 @@ Lego.components({
 	steps: Steps,
 	facial: Facial,
 	collapse: Collapse,
-	reply: Reply
+	reply: Reply,
+	editcom: Editcom,
+	permis: Permis,
+	rating: Rating
 });
 export default Lego.UI;

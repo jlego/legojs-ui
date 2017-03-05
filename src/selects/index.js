@@ -7,72 +7,77 @@ import Dropdown from '../dropdown/index';
 class Selects extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
-            events: {
-                'click .select-tags-div': 'clickItemClose'
-            },
             name: '',
             value: [],   //指定当前选中的条目object/Array
             multiple: false,  //支持多选
             eventName: 'click',
-            // showResultType: 'tag', //text, tag 多选时有效
-            // allowClear: false,  //支持清除, 单选模式有效
             filterOption: true,  //是否根据输入项进行筛选。当其为一个函数时，会接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。
             tags: false,  //可以把随意输入的条目作为 tag，输入项不需要与下拉选项匹配
             onDeselect(){},  //取消选中时调用，参数为选中项的 option value 值，仅在 multiple 或 tags 模式下生效
             onChange(){},  //选中 option，或 input 的 value 变化（combobox 模式下）时，调用此函数
-            onBlur(){},
             onSearch(){},   //文本框值变化时回调
             placeholder: '',  //选择框默认文字
             notFoundContent: '',  //当下拉列表为空时显示的内容
             dropdownWidth: '100%', //下拉菜单和选择器同宽
-            dropdownHeight: 'auto', //下拉菜单高度
+            dropdownHeight: 200, //下拉菜单高度
             optionFilterProp: '',  //搜索时过滤对应的 option 属性，如设置为 children 表示对内嵌内容进行搜索的子元素。比如在子元素需要高亮效果时，此值可以设为 value。
             combobox: false,  //输入框自动提示模式
             size: '',  //支持多选
             showSearch: false,  //在选择框中显示搜索框
+            inputAble: false,   //是否可以输入
             disabled: false,  //是否禁用
             defaultActiveFirstOption: false,  //是否默认高亮第一个选项
             dropdownStyle: null,  //下拉菜单的 style 属性
             dropdownClassName: '',  //下拉菜单的 className 属性上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。
             splitString: '',    //自动分词分隔符
             dataSource: null,
-            components: [{
-                el: '#dropdown-' + opts.vid,
-                container: '#select-' + opts.vid,
-                eventName: opts.eventName || 'click',
-                disabled: opts.disabled || false,
-                style: Object.assign({
-                    width: opts.dropdownWidth || '100%',
-                    height: opts.dropdownHeight || 'auto'
-                }, opts.dropdownStyle || {}),
-                className: opts.dropdownClassName,
-                clickAndClose: opts.multiple ? false : true,
-                data: opts.data || [],
-                dataSource: opts.dataSource,
-                onChange(self, model){
-                    const parentView = this.context;
-                    parentView.$el.find('.select-input').focus();
-                    if(model.key !== '0' && opts.multiple){
-                        parentView.getValue();
-                        if(!parentView.options.value.includes(model)){
-                            model.selected = true;
-                            parentView.options.value.push(model);
-                        }
-                    }else{
-                        parentView.options.data.forEach(item => item.selected = false);
-                        parentView.options.value = [model];
-                    }
-                    parentView.options.onChange(parentView, model);
-                    parentView.refresh();
-                }
-            }]
+            components: []
         };
         Object.assign(options, opts);
         super(options);
         this.oldValue = '';
         let that = this;
-        this.$('.select-input').blur(function(event){
-            if(typeof options.onBlur == 'function') options.onBlur(that, $(this).val(), event);
+        this.$('.select-input').change(function(event){
+            if(typeof options.onChange == 'function') options.onChange(that, $(this).val());
+        });
+        this.$('.select-tags-div').on('click', '.select-tag-close', this.clickItemClose.bind(this));
+    }
+    components(){
+        let options = this.options;
+        this.addCom({
+            el: '#dropdown-' + options.vid,
+            container: '#select-' + options.vid,
+            scrollbar: {},
+            eventName: options.eventName || 'click',
+            disabled: options.disabled || false,
+            style: Object.assign({
+                width: options.dropdownWidth,
+                maxHeight: options.dropdownHeight,
+                overflow: 'auto'
+            }, options.dropdownStyle || {}),
+            className: options.dropdownClassName,
+            clickAndClose: options.multiple ? false : true,
+            data: options.data || [],
+            dataSource: options.dataSource,
+            onChange(self, model){
+                const pView = this.context;
+                pView.$('.select-input').focus();
+                if(model.key !== '0' && options.multiple){
+                    pView.options.data.forEach(item => {
+                        if(item.key == '0') item.selected = false;
+                    });
+                    pView.getValue();
+                    if(!pView.options.value.includes(model)){
+                        model.selected = true;
+                        pView.options.value.push(model);
+                    }
+                }else{
+                    pView.options.data.forEach(item => item.selected = false);
+                    pView.options.value = [model];
+                    pView.refresh();
+                }
+                pView.options.onChange(pView, model);
+            }
         });
     }
     render() {
@@ -87,30 +92,28 @@ class Selects extends Lego.UI.Baseview {
                         <span class="select-tag-close"></span>
                     </li>
                     `)}
-                    <li class="select-search">
-                        <input value="" class="select-search-input">
-                    </li>
                 </ul>
                 `;
             }else{
                 return '';
             }
         }
-        const theValueArr = Array.isArray(options.value) ? (options.value.length ? options.value.map(item => item.value) : []) : [options.value.value];
+        const theValueArr = Array.isArray(options.value) ? (options.value.length ? options.value.map(item => item.value) : []) :
+            [typeof options.value == 'object' ? options.value.value : options.value];
         if(!options.multiple){
             vDom = hx`
-            <div class="select dropdown">
+            <div class="select dropdown ${options.size}">
                 <div id="select-${options.vid}">
-                    <input type="text" class="form-control select-input ${options.disabled ? 'disabled' : ''}" placeholder="${options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
+                    <input type="text" class="form-control ${options.size ? ('form-control-' + options.size) : ''} select-input ${options.disabled ? 'disabled' : ''}" placeholder="${options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
                     <dropdown id="dropdown-${options.vid}"></dropdown>
                 </div>
             </div>
             `;
         }else{
             vDom = hx`
-            <div class="select dropdown multiple">
+            <div class="select dropdown multiple ${options.size}">
                 <div id="select-${options.vid}">
-                    <input type="text" class="form-control select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${theValueArr.length ? '' : options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
+                    <input type="text" class="form-control ${options.size ? ('form-control-' + options.size) : ''} select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${theValueArr.length ? '' : options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
                     <div class="select-tags-div clearfix ${theValueArr.length ? 'select-tags-div-border' : ''}">
                         ${getTags(options.value)}
                     </div>
@@ -122,7 +125,7 @@ class Selects extends Lego.UI.Baseview {
         return vDom;
     }
     renderAfter(){
-        if(this.options.value.length && this.options.multiple){
+        if(this.options.value && this.options.multiple){
             this.options.value.forEach(item => {
                 if(item){
                     const model = this.options.data.find(model => model.key === item.key);
@@ -130,10 +133,11 @@ class Selects extends Lego.UI.Baseview {
                 }
             });
         }
+        if(!this.options.inputAble) this.$('.select-input').attr('readonly', 'readonly');
     }
     clickItemClose(event){
         event.stopPropagation();
-        const target = $(event.currentTarget).parent(),
+        const target = $(event.target).parent(),
             key = target.attr('id'),
             value = target.attr('title');
         this.options.data.forEach(item => {

@@ -1,5 +1,5 @@
 /**
- * tree.js v0.2.9
+ * tree.js v0.3.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -80,18 +80,16 @@ var Tree = function(_Lego$UI$Baseview) {
             },
             keyNames: [ "id", "name", "type" ],
             value: [],
+            data: [],
             onChecked: function onChecked() {},
             onClick: function onClick() {}
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn(this, (Tree.__proto__ || Object.getPrototypeOf(Tree)).call(this, options));
+        var _this = _possibleConstructorReturn(this, (Tree.__proto__ || Object.getPrototypeOf(Tree)).call(this, options));
+        _this.isLoaded = false;
+        return _this;
     }
     _createClass(Tree, [ {
-        key: "render",
-        value: function render() {
-            return hx(_templateObject);
-        }
-    }, {
         key: "renderBefore",
         value: function renderBefore() {
             var options = this.options, that = this;
@@ -104,6 +102,20 @@ var Tree = function(_Lego$UI$Baseview) {
                 }
                 return true;
             }
+            function selectResult(treeId, treeNode) {
+                var treeObj = $.fn.zTree.getZTreeObj(treeId), nodes = treeObj.getCheckedNodes(true), keyNames = options.keyNames, result = nodes.filter(function(node) {
+                    return selectOrNo(node);
+                });
+                var newValue = [];
+                result.forEach(function(val, index) {
+                    newValue.push(Object.assign({
+                        key: val[keyNames[0]],
+                        value: val[keyNames[1]],
+                        type: val[keyNames[2]]
+                    }, val));
+                });
+                if (typeof options.onChecked == "function") options.onChecked(that, newValue);
+            }
             if (options.setting.check) {
                 options.setting.check = $.extend(true, {
                     enable: true,
@@ -114,18 +126,13 @@ var Tree = function(_Lego$UI$Baseview) {
                 }, options.setting.check || {});
                 options.setting.callback = Object.assign(options.setting.callback || {}, {
                     onCheck: function onCheck(event, treeId, treeNode) {
-                        var treeObj = $.fn.zTree.getZTreeObj(treeId), nodes = treeObj.getCheckedNodes(true), keyNames = options.keyNames, result = nodes.filter(function(node) {
-                            return selectOrNo(node);
-                        });
-                        var newValue = [];
-                        result.forEach(function(val, index) {
-                            newValue.push(Object.assign({
-                                key: val[keyNames[0]],
-                                value: val[keyNames[1]],
-                                type: val[keyNames[2]]
-                            }, val));
-                        });
-                        if (typeof options.onChecked == "function") options.onChecked(that, newValue);
+                        selectResult(treeId, treeNode);
+                    },
+                    onClick: function onClick(event, treeId, treeNode) {
+                        if (!selectOrNo(treeNode)) return false;
+                        var treeObj = $.fn.zTree.getZTreeObj(treeId);
+                        treeObj.checkNode(treeNode, null, false);
+                        selectResult(treeId, treeNode);
                     }
                 });
             } else {
@@ -142,10 +149,20 @@ var Tree = function(_Lego$UI$Baseview) {
             }
         }
     }, {
+        key: "render",
+        value: function render() {
+            return hx(_templateObject);
+        }
+    }, {
         key: "renderAfter",
         value: function renderAfter() {
             var options = this.options;
-            if (options.data) $.fn.zTree.init(this.$el, options.setting, options.data);
+            if (options.data.length && !this.isLoaded) {
+                var _ztree = $.fn.zTree.getZTreeObj(this.options.id);
+                if (_ztree) $.fn.zTree.destroy(this.options.id);
+                $.fn.zTree.init(this.$el, options.setting, options.data);
+                this.isLoaded = true;
+            }
         }
     }, {
         key: "clearChecked",

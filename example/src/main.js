@@ -1,13 +1,9 @@
-// import jQuery from 'jquery';
-// window.$ = window.jQuery = jQuery;
 import Lego from 'lego-core';
-import lo from 'lodash';
+// import lo from 'lodash';
 import "../ux/util/util";
-// import { Baseview } from '../../dist/common';
 import '../../dist/legoui';
 import '../../dist/css/legoui.css';
-// import { Baseview } from 'lego-ui/dist/Common';
-// import 'lego-ui/dist/css/legoui.css';
+
 import showdown from 'showdown';
 window.markdown = new showdown.Converter();
 markdown.setFlavor('github');
@@ -16,12 +12,12 @@ import hljs from 'highlight.js/lib/highlight';
 import 'highlight.js/styles/atom-one-light.css';
 hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'));
 window.hljs = hljs;
-window._ = lo;
+// window._ = lo;
 
 // 设置全局参数，初始化应用
 Lego.init({
     alias: 'HBY', //框架实例别名
-    version:  _.now(), //版本号'2016' ||
+    version:  (new Date()).getTime(), //版本号'2016' ||
     pageEl: '#page-container', //页面渲染容器
     defaultApp: 'home', //默认应用
     rootUri: '/example/dist/', //系统根目录

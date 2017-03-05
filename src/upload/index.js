@@ -56,7 +56,7 @@ class Upload extends Lego.UI.Baseview {
         super(options);
         this.fileList = [];
 
-        this.clear();
+        this.reset();
         this.$('.lego-fileInput').on('change', (event) => {
             var target = $(event.currentTarget)[0];
             this.uploadInit(target.files, target);
@@ -108,6 +108,12 @@ class Upload extends Lego.UI.Baseview {
                 if(!hasFile) this.fileList.push(file._id);
                 return !hasFile;
             });
+            if (this.fileList.length > maxFilesCount) {
+                Lego.UI.message('warning', '只能上传' + maxFilesCount + '张图片');
+                this.fileList.length = maxFilesCount;
+                if(uploadFiles.length > maxFilesCount) uploadFiles.length = maxFilesCount;
+                return;
+            }
             if (typeof options.onAddFile == 'function') options.onAddFile(this.fileList, uploadFiles);
             uploadFiles.forEach((file, i) => {
                 if (Math.ceil(file.size / (1024 * 1024)) > parseInt(options.maxFileSize)) {
@@ -139,6 +145,7 @@ class Upload extends Lego.UI.Baseview {
                         const hasFile = options.value.find(item => item.file.hash == resp.hash);
                         if (!hasFile && options.value.length <= maxFilesCount) {
                             resp.url = Lego.config.downloadUri + resp.key;
+                            self.options.file = resp;
                             options.value.push({
                                 file: resp,
                                 type: options.type, //图片或文件
@@ -202,9 +209,9 @@ class Upload extends Lego.UI.Baseview {
         return result;
     }
     // 清空
-    clear(){
-        this.fileList.length = 0;   //已经添加了的文件列表
-        this.options.value.length = 0;
+    reset(){
+        this.fileList = [];   //已经添加了的文件列表
+        this.options.value = [];
         return this;
     }
 }

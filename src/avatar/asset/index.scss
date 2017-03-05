@@ -10,6 +10,9 @@
 .lego-avatar-item label{
 	display: block;
 	font-size: 12px;
+	white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 .lego-avatar-img{
 	width: 40px;

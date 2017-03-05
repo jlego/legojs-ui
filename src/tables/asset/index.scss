@@ -5,7 +5,6 @@
     border-radius: 4px 4px 0 0;
     overflow: hidden;
 }
-
 .lego-table-body {
     -webkit-transition: opacity 0.3s ease;
     transition: opacity 0.3s ease;
@@ -18,11 +17,12 @@
     text-align: left;
     border-radius: 0;
     overflow: hidden;
+    table-layout: fixed;
 }
 
 .lego-table-thead > tr > th {
     background: #fff;
-    height: 44px;
+    height: 52px;
     font-weight: bold;
     -webkit-transition: background .3s ease;
     transition: background .3s ease;
@@ -126,19 +126,27 @@
     background: #fafafa;
 }
 
-.lego-table-thead > tr > th.lego-table-column-sort {
-    background: #eaeaea;
-}
+// .lego-table-thead > tr > th.lego-table-column-sort {
+//     background: #eaeaea;
+// }
 
 .lego-table-thead > tr > th,
 .lego-table-tbody > tr > td {
     padding: 10px 8px;
     word-break: break-all;
+    height: 50px;
+    line-height: 20px;
+}
+.lego-nr td{
+    word-break: inherit !important;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .lego-table-thead > tr > th.lego-table-selection-column label,
 .lego-table-tbody > tr > td.lego-table-selection-column label{
-    margin: 0.3rem;
+    margin: 0;
 }
 
 .lego-table-thead > tr > th.lego-table-selection-column,
@@ -242,7 +250,7 @@
 .lego-table-column-sorter {
     margin-left: 4px;
     display: inline-block;
-    width: 12px;
+    width: 15px;
     height: 14px;
     vertical-align: middle;
     text-align: center;
@@ -250,8 +258,8 @@
 
 .lego-table-column-sorter-up,
 .lego-table-column-sorter-down {
-    line-height: 4px;
-    height: 5px;
+    line-height: 7px;
+    height: 7px;
     display: block;
     width: 12px;
     cursor: pointer;
@@ -279,7 +287,7 @@
     transform: scale(0.58333333) rotate(0deg);
     /* IE6-IE8 */
     -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=1, M12=0, M21=0, M22=1)";
-    zoom: 1;
+    zoom: 1.2;
     line-height: 6px;
     height: 6px;
     color: #aaa;
@@ -328,7 +336,7 @@
     margin-bottom: -15px;
 }
 .lego-table-fixed-header .lego-table-body{
-    top: 52px;
+    top: 50px;
     bottom: 48px;
     width: 100%;
     position: absolute;
@@ -343,7 +351,7 @@
     position: absolute;
 }
 
-.lego-table-fixed-header .lego-table-header .btn.noborder{
+.lego-table-fixed-header .lego-table-scroll > .btn.noborder{
     position: absolute;
     top: 6px;
     right: 5px;
@@ -353,10 +361,11 @@
     border: none;
     font-weight: bold;
     padding: 5px;
-    background: transparent;
+    background: #fff;
+    color: #666;
     border-radius: 50%;
 }
-.lego-table-fixed-header .lego-table-header .btn.noborder:hover{
+.lego-table-fixed-header .lego-table-scroll > .btn.noborder:hover{
     color: #108ee9;
     background: #f3f3f3;
 }
@@ -657,4 +666,17 @@ tr.lego-table-expanded-row:hover {
 }
 .table-striped>tbody>tr:hover {
     background-color: #f3f3f3;
+}
+.lego-table .modal{
+    position: absolute;
+    top: 0;
+}
+.lego-table .modal .modal-header{
+    padding: 12px;
+}
+.lego-table .modal .modal-title{
+    font-size: 16px;
+}
+.lego-table .modal .modal-body{
+    top: 50px;
 }

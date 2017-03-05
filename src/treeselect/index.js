@@ -1,5 +1,5 @@
 /**
- * 选择树下拉框
+ * 下拉选择树
  * ronghui Yu
  * 2017/1/10
  */
@@ -10,10 +10,6 @@ import Tree from '../tree/index';
 class Treeselect extends Selects {
     constructor(opts = {}) {
         const options = {
-            events: {
-                'click .dropdown-menu': function(event){event.stopPropagation();},
-                'click .select-tag-close': 'clickItemClose'
-            },
             name: '',
             value: [], //指定当前选中的条目object/Array
             multiple: false, //支持多选
@@ -26,11 +22,11 @@ class Treeselect extends Selects {
             // allowClear: false,  //支持清除, 单选模式有效
             filterOption: true, //是否根据输入项进行筛选。当其为一个函数时，会接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。
             tags: false, //可以把随意输入的条目作为 tag，输入项不需要与下拉选项匹配
-            onSelect() {}, //被选中时调用，参数为选中项的 value 值
             onDeselect() {}, //取消选中时调用，参数为选中项的 option value 值，仅在 multiple 或 tags 模式下生效
             onChange() {}, //选中 option，或 input 的 value 变化（combobox 模式下）时，调用此函数
             onSearch() {}, //文本框值变化时回调
             placeholder: '', //选择框默认文字
+            inputAble: false,
             notFoundContent: '', //当下拉列表为空时显示的内容
             dropdownWidth: '100%', //下拉菜单和选择器同宽
             dropdownHeight: 'auto', //下拉菜单高度
@@ -45,53 +41,7 @@ class Treeselect extends Selects {
             splitString: '', //自动分词分隔符
             keyNames: ['id', 'name', 'type'],
             clickAndClose: opts.multiple ? false : true,
-            components: [{
-                el: '#tree-' + opts.vid,
-                disSelect: opts.disSelect, //禁止选择含有该属性节点, 可以是对象
-                onlySelect: opts.onlySelect, //只选择含有该属性节点, 可以是对象
-                setting: Object.assign({}, opts.setting),
-                keyNames: opts.keyNames || ['id', 'name', 'type'],
-                value: opts.value,
-                data: opts.data,
-                dataSource: opts.treeDataSource,
-                onChecked(self, result) {
-                    const parentView = this.context;
-                    if (result.key !== '0' && opts.setting.check) {
-                        parentView.getValue();
-                        if (result.length) {
-                            parentView.options.value = [];
-                            result.forEach((val) => {
-                                parentView.options.value.push({
-                                    key: val.key,
-                                    value: val.value,
-                                    type: val.type,
-                                    selected: true
-                                });
-                            });
-                        }else{
-                            parentView.options.value = [];
-                        }
-                    }
-                    parentView.options.onSelect(parentView, result);
-                    parentView.options.onChange(parentView, result);
-                    // parentView.refresh();
-                },
-                onClick(self, result) {
-                    const parentView = this.context;
-                    parentView.options.value.forEach(item => item.selected = false);
-                    parentView.options.value = [{
-                        key: result.key,
-                        value: result.value,
-                        type: result.type,
-                        selected: true
-                    }];
-                    parentView.options.onSelect(parentView, result);
-                    parentView.options.onChange(parentView, result);
-                    // parentView.refresh();
-                },
-                disabled: opts.disabled || false,
-                className: opts.dropdownClassName
-            }]
+            components: []
         };
         Object.assign(options, opts);
         if (options.value) {
@@ -101,7 +51,53 @@ class Treeselect extends Selects {
             });
         }
         super(options);
-        this.isLoaded = false;
+    }
+    components(){
+        let options = this.options;
+        this.addCom({
+            el: '#tree-' + options.vid,
+            disSelect: options.disSelect, //禁止选择含有该属性节点, 可以是对象
+            onlySelect: options.onlySelect, //只选择含有该属性节点, 可以是对象
+            setting: Object.assign({}, options.setting),
+            keyNames: options.keyNames || ['id', 'name', 'type'],
+            value: options.value || [],
+            data: options.data || [],
+            dataSource: options.treeDataSource,
+            onChecked(self, result) {
+                const pView = this.context;
+                if (result.key !== '0' && options.setting.check) {
+                    pView.getValue();
+                    if (result.length) {
+                        pView.options.value = [];
+                        result.forEach((val) => {
+                            pView.options.value.push({
+                                key: val.key,
+                                value: val.value,
+                                type: val.type,
+                                selected: true
+                            });
+                        });
+                    }else{
+                        pView.options.value = [];
+                    }
+                }
+                pView.options.onChange(pView, result);
+            },
+            onClick(self, result) {
+                const pView = this.context;
+                pView.options.value.forEach(item => item.selected = false);
+                pView.options.value = [{
+                    key: result.key,
+                    value: result.value,
+                    type: result.type,
+                    selected: true
+                }];
+                pView.options.onChange(pView, result);
+                if(pView.options.clickAndClose) pView.close();
+            },
+            disabled: options.disabled || false,
+            className: options.dropdownClassName
+        });
     }
     render() {
         const options = this.options;
@@ -160,34 +156,37 @@ class Treeselect extends Selects {
     }
     renderAfter(){
         let options = this.options,
-            trigger = this.$('#select-' + options.vid + ' > input.select-input'),
+            trigger = this.$('#select-' + options.vid),
             tagsDivEl = this.$('.select-tags-div'),
             treeEl = this.$('#tree-' + options.vid),
             _eventName = 'click.dropdown_' + options.vid,
             that = this;
-        if(!options.disabled && !this.isLoaded){
-            if(tagsDivEl.length) trigger = tagsDivEl;
+        if(!options.inputAble) this.$('.select-input').attr('readonly', 'readonly');
+        if(!options.disabled){
             function handler(event){
-                $('body, .modal-body').trigger('click');
-                event.stopPropagation();
-                const directionResp = Lego.UI.Util.getDirection(trigger, treeEl);
-                options.direction = directionResp._y || 'bottom';
-                that.show();
-                if(options.eventName == 'hover'){
-                    trigger.mouseleave(function(){
-                        that.close();
-                    });
-                }
+                that.$('.dropdown-menu').slideToggle('fast');
             }
             if(options.eventName == 'click'){
-                $('body, .modal-body').off(_eventName).on(_eventName, function(){
-                    that.close();
+                $('body, .modal-body').off(_eventName).on(_eventName, function(event){
+                    if(event.originalEvent){
+                        let index_a = event.originalEvent.path.indexOf(event.target),
+                            index_b = event.originalEvent.path.indexOf(trigger[0]);
+                        if(index_a <= index_b){
+                        }else{
+                            that.close();
+                        }
+                    }
                 });
                 trigger.off(_eventName).on(_eventName, handler);
             }else{
-                trigger[options.eventName](handler);
+                trigger.mouseenter(handler).mouseleave(function(){
+                    that.close();
+                });
             }
-            this.isLoaded = true;
+            this.$('.select-tag-close').off(_eventName).on(_eventName, this.clickItemClose.bind(this));
+            this.$('.dropdown-menu').off(_eventName).on(_eventName, function(event){
+                event.stopPropagation();
+            });
         }
     }
     show(event){

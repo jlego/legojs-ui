@@ -3,7 +3,7 @@
  * ronghui Yu
  * 2017/1/7
  */
-// import './asset/index.scss';
+import './asset/index.scss';
 
 class Buttons extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -17,7 +17,7 @@ class Buttons extends Lego.UI.Baseview {
             disabled: false,
             icon: '',  //设置按钮的图标类型
             shape: '',    //设置按钮形状，可选值为 circle 或者不设
-            size: 'default',    //设置按钮大小，可选值为 small large 或者不设
+            size: '',    //设置按钮大小，可选值为 small large 或者不设
             loading: false,    //设置按钮载入状态
             onClick(){}   //click 事件的 handler
         };
@@ -25,9 +25,9 @@ class Buttons extends Lego.UI.Baseview {
         super(options);
     }
     render() {
-        const options = this.options || {};
+        const options = this.options;
         const vDom = hx`
-        <button type="${options.htmlType}" class="btn btn-${options.type}" ${options.disabled ? 'disabled' : ''}>
+        <button type="${options.htmlType}" class="btn btn-${options.type} ${options.size ? ('btn-' + options.size) : ''}" ${options.disabled ? 'disabled' : ''}>
             <span>${options.html || options.text}</span>
         </button>
         `;

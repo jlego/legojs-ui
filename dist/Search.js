@@ -1,5 +1,5 @@
 /**
- * search.js v0.2.9
+ * search.js v0.3.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -24,13 +24,13 @@ var _createClass$1 = function() {
 
 var _templateObject$1 = _taggedTemplateLiteral$1([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
 
-var _templateObject2$1 = _taggedTemplateLiteral$1([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ]);
+var _templateObject2$1 = _taggedTemplateLiteral$1([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">', "</a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">', "</a>\n                    </li>" ]);
 
 var _templateObject3 = _taggedTemplateLiteral$1([ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ]);
 
 var _templateObject4 = _taggedTemplateLiteral$1([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5 = _taggedTemplateLiteral$1([ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject5 = _taggedTemplateLiteral$1([ '\n        <ul class="dropdown-menu scrollbar ', '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu scrollbar ', '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -88,9 +88,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             data: []
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn$1(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
-        _this.containerEvents();
-        return _this;
+        return _possibleConstructorReturn$1(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
     }
     _createClass$1(Dropdown, [ {
         key: "render",
@@ -118,22 +116,22 @@ var Dropdown = function(_Lego$UI$Baseview) {
             return vDom;
         }
     }, {
-        key: "containerEvents",
-        value: function containerEvents() {
-            var that = this;
+        key: "renderAfter",
+        value: function renderAfter() {
+            var that = this, _eventName = "click.dropdown-" + this.options.vid;
             this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
             if (!this.options.disabled) {
                 var handler = function handler(event) {
-                    $("body, .modal-body").trigger("click");
-                    event.stopPropagation();
-                    var directionResp = Lego.UI.Util.getDirection(that.container, that.$el);
-                    that.options.direction = directionResp._y || "bottom";
                     that.$el.slideToggle("fast");
                 };
                 if (this.options.eventName == "click") {
-                    var _eventName = "click.dropdown_" + this.options.vid;
-                    $("body, .modal-body").off(_eventName).on(_eventName, function() {
-                        that.close();
+                    $("body, .modal-body").off(_eventName).on(_eventName, function(event) {
+                        if (event.originalEvent) {
+                            var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.container[0]);
+                            if (index_a <= index_b) {} else {
+                                that.close();
+                            }
+                        }
                     });
                     this.container.off(_eventName).on(_eventName, handler);
                 } else {
@@ -155,12 +153,12 @@ var Dropdown = function(_Lego$UI$Baseview) {
         }
     }, {
         key: "show",
-        value: function show(event) {
+        value: function show() {
             this.$el.slideDown("fast");
         }
     }, {
         key: "close",
-        value: function close(event) {
+        value: function close() {
             this.$el.slideUp("fast");
         }
     }, {
@@ -201,7 +199,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="input-group lego-search">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group lego-search">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="input-group lego-search ', '">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '" name="', '" value="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group lego-search ', '">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '" name="', '" value="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
 
 var _templateObject2 = _taggedTemplateLiteral([ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ]);
 
@@ -249,13 +247,18 @@ var Search = function(_Lego$UI$Baseview) {
         var options = {
             events: {
                 "click .lego-search-button": "onSearch",
+                "change .lego-search-input": "onChange",
                 "keydown .lego-search-input": "_enterSearch"
             },
-            placeholder: "输入关键字搜索",
+            placeholder: "请输入关键字",
+            name: "",
+            size: "",
+            keyword: "",
             activeKey: "",
             activeValue: "",
             hasSelect: false,
             onSearch: function onSearch() {},
+            onChange: function onChange() {},
             components: [ {
                 el: "#dropdown-" + opts.vid,
                 container: "#select-" + opts.vid,
@@ -267,13 +270,17 @@ var Search = function(_Lego$UI$Baseview) {
             } ]
         };
         Object.assign(options, opts);
+        if (typeof options.value == "string") {
+            options.keyword = options.value;
+            options.value = null;
+        }
         return _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, options));
     }
     _createClass(Search, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject, options.hasSelect ? hx(_templateObject2, options.vid, options.activeValue || "请选择", options.vid) : "", options.placeholder);
+            var vDom = hx(_templateObject, options.size ? "input-group-" + options.size : "", options.hasSelect ? hx(_templateObject2, options.vid, options.activeValue || "请选择", options.vid) : "", options.placeholder, options.name, val(options.keyword));
             return vDom;
         }
     }, {
@@ -284,15 +291,26 @@ var Search = function(_Lego$UI$Baseview) {
             }
         }
     }, {
-        key: "onSearch",
-        value: function onSearch(event) {
-            event.stopPropagation();
-            var keyword = this.$el.find(".lego-search-input").val();
-            if (typeof this.options.onSearch === "function") this.options.onSearch(this, {
+        key: "getValue",
+        value: function getValue(event) {
+            var keyword = event ? this.$(".lego-search-input").val() : this.options.keyword;
+            return {
                 key: this.options.activeKey,
                 value: this.options.activeValue,
                 keyword: keyword
-            });
+            };
+        }
+    }, {
+        key: "onChange",
+        value: function onChange(event) {
+            if (event) event.stopPropagation();
+            if (typeof this.options.onChange === "function") this.options.onChange(this, this.getValue(event));
+        }
+    }, {
+        key: "onSearch",
+        value: function onSearch(event) {
+            if (event) event.stopPropagation();
+            if (typeof this.options.onSearch === "function") this.options.onSearch(this, this.getValue(event));
         }
     } ]);
     return Search;

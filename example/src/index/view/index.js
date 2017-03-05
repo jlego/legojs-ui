@@ -73,7 +73,7 @@ class Viewport extends Lego.UI.Baseview {
             <footer>
                 <div class="footer-inner">
                     <div class="pull-left">
-                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">HBY</span>. <span>All rights reserved</span>
+                        &copy; <span class="current-year"></span><span class="text-bold text-uppercase">Lego</span>. <span>All rights reserved</span>
                     </div>
                     <div class="pull-right">
                         <span class="go-top"><i class="ti-angle-up"></i></span>
@@ -85,9 +85,9 @@ class Viewport extends Lego.UI.Baseview {
         return tmpl;
     }
     clickNav(event){
-        const target = HBY.$(event.currentTarget),
+        const target = Lego.$(event.currentTarget),
             app = target.data('app');
-        HBY.startApp(app);
+        Lego.startApp(app);
     }
 }
 export default Viewport;

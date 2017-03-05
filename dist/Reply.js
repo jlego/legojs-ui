@@ -1,5 +1,5 @@
 /**
- * reply.js v0.2.9
+ * reply.js v0.3.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -84,19 +84,23 @@ var Facial = function(_Lego$UI$Baseview) {
                 "click .lego-facial-item a": "clickItem"
             },
             target: "",
-            targetType: "div",
+            targetType: "textarea",
             icon: "anticon anticon-smile-o",
             text: "",
-            eventName: "hover",
+            eventName: "click",
             iconsUrl: "",
             itemClassPrefix: "f0",
-            direction: "top",
+            direction: "bottom",
             data: Lego.UI.Util.faceTags
         };
         Object.assign(options, opts);
         var _this = _possibleConstructorReturn$1(this, (Facial.__proto__ || Object.getPrototypeOf(Facial)).call(this, options));
         _this.cursorPos = null;
         _this.cursorContainer = null;
+        var that = _this;
+        $("body, .modal-body").click(function() {
+            that.close();
+        });
         return _this;
     }
     _createClass$1(Facial, [ {
@@ -113,11 +117,8 @@ var Facial = function(_Lego$UI$Baseview) {
         value: function renderAfter() {
             var target = this.$el, that = this, targetEl = this.options.target instanceof $ ? this.options.target : $(this.options.target);
             function handler(event) {
-                $("body, .modal-body").trigger("click");
                 event.stopPropagation();
-                var directionResp = Lego.UI.Util.getDirection($("body"), that.$el);
-                that.options.direction = directionResp._y || "bottom";
-                that.show();
+                that.$el.toggleClass("dropdown open");
                 if (that.options.eventName == "hover") {
                     target.mouseleave(function() {
                         that.close();
@@ -126,9 +127,6 @@ var Facial = function(_Lego$UI$Baseview) {
             }
             if (this.options.eventName == "click") {
                 var _eventName = "click.dropdown_" + this.options.vid;
-                $("body, .modal-body").off(_eventName).on(_eventName, function() {
-                    that.close();
-                });
                 target.off(_eventName).on(_eventName, handler);
             } else {
                 target[this.options.eventName](handler);
@@ -141,6 +139,7 @@ var Facial = function(_Lego$UI$Baseview) {
     }, {
         key: "clickItem",
         value: function clickItem(event) {
+            event.stopPropagation();
             var target = $(event.currentTarget), targetEl = this.options.target instanceof $ ? this.options.target : $(this.options.target);
             if (this.options.targetType == "div") {
                 this.addComma(targetEl, target.attr("title"));
@@ -361,7 +360,7 @@ var _typeof$2 = typeof Symbol === "function" && typeof Symbol.iterator === "symb
     return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
 
-var _createClass$4 = function() {
+var _createClass$3 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -378,7 +377,7 @@ var _createClass$4 = function() {
     };
 }();
 
-function _classCallCheck$4(instance, Constructor) {
+function _classCallCheck$3(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
@@ -463,7 +462,7 @@ var Tooltip = function($) {
     };
     var Tooltip = function() {
         function Tooltip(element, config) {
-            _classCallCheck$4(this, Tooltip);
+            _classCallCheck$3(this, Tooltip);
             this._isEnabled = true;
             this._timeout = 0;
             this._hoverState = "";
@@ -474,7 +473,7 @@ var Tooltip = function($) {
             this.tip = null;
             this._setListeners();
         }
-        _createClass$4(Tooltip, [ {
+        _createClass$3(Tooltip, [ {
             key: "enable",
             value: function enable() {
                 this._isEnabled = true;
@@ -864,7 +863,7 @@ var _typeof$1 = typeof Symbol === "function" && typeof Symbol.iterator === "symb
     return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
 
-var _createClass$3 = function() {
+var _createClass$2 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -881,7 +880,7 @@ var _createClass$3 = function() {
     };
 }();
 
-function _classCallCheck$3(instance, Constructor) {
+function _classCallCheck$2(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
@@ -947,10 +946,10 @@ var Popover$1 = function($) {
     var Popover = function(_Tooltip) {
         _inherits$2(Popover, _Tooltip);
         function Popover() {
-            _classCallCheck$3(this, Popover);
+            _classCallCheck$2(this, Popover);
             return _possibleConstructorReturn$2(this, (Popover.__proto__ || Object.getPrototypeOf(Popover)).apply(this, arguments));
         }
-        _createClass$3(Popover, [ {
+        _createClass$2(Popover, [ {
             key: "isWithContent",
             value: function isWithContent() {
                 return this.getTitle() || this._getContent();
@@ -1042,53 +1041,32 @@ var Popover$1 = function($) {
     return Popover;
 }(jQuery);
 
-var _createClass$2 = function() {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];
-            descriptor.enumerable = descriptor.enumerable || false;
-            descriptor.configurable = true;
-            if ("value" in descriptor) descriptor.writable = true;
-            Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }
-    return function(Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);
-        if (staticProps) defineProperties(Constructor, staticProps);
-        return Constructor;
+var Popover = function Popover() {
+    var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var options = {
+        el: "",
+        selector: false,
+        title: "",
+        content: "",
+        animation: true,
+        container: false,
+        delay: 0,
+        html: false,
+        showNow: false,
+        placement: "bottom",
+        template: '<div class="popover"><div class="popover-arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
+        eventName: "click",
+        constraints: [],
+        offset: "0 0",
+        onHidden: function onHidden() {}
     };
-}();
-
-function _classCallCheck$2(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-    }
-}
-
-var Popover = function() {
-    function Popover() {
-        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$2(this, Popover);
-        var options = {
-            el: "",
-            selector: false,
-            title: "",
-            content: "",
-            animation: true,
-            container: false,
-            delay: 0,
-            html: false,
-            placement: "right",
-            template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
-            eventName: "click",
-            constraints: [],
-            offset: "0 0",
-            onHidden: function onHidden() {}
-        };
-        Object.assign(options, opts);
-        this.el = options.el;
-        this.onHidden = options.onHidden;
-        this.options = {
+    Object.assign(options, opts);
+    var el = options.el instanceof $ ? options.el : $(options.el), _eventName = "click.popover", isOpen = !!el.attr("data-isopen"), bodyEl = $("body, .modal-body");
+    if (el.length) {
+        if (options.showNow) {
+            el.popover("dispose");
+        }
+        el.popover({
             selector: options.selector,
             title: options.title,
             content: options.content,
@@ -1101,33 +1079,41 @@ var Popover = function() {
             constraints: options.constraints,
             trigger: options.eventName,
             offset: options.offset
-        };
-        this.render();
-    }
-    _createClass$2(Popover, [ {
-        key: "render",
-        value: function render() {
-            var that = this;
-            var el = this.el instanceof $ ? this.el : $(this.el);
-            if (el.length) {
-                el.popover(this.options);
-                el.on("hidden.bs.popover", function() {
-                    if (typeof that.onHidden === "function") that.onHidden(event);
+        });
+        el.on("hidden.bs.popover", function() {
+            if (typeof options.onHidden === "function") options.onHidden(event);
+        });
+        if (options.showNow) {
+            bodyEl.trigger("click", el);
+            bodyEl.off(_eventName).on(_eventName, function(event, data) {
+                if (data !== el[0]) {
+                    el.popover("hide");
+                    el.attr("data-isopen", "");
+                }
+            });
+            el.on("shown.bs.popover", function() {
+                $(".popover").off("click").on("click", function(event) {
+                    event.stopPropagation();
                 });
+            });
+            if (!isOpen) {
+                el.popover("show");
+                el.attr("data-isopen", "true");
+            } else {
+                el.attr("data-isopen", "");
             }
-            return el;
         }
-    } ]);
-    return Popover;
-}();
+    }
+    return el;
+};
 
 var fun = function fun(opts) {
-    return new Popover(opts);
+    return Popover(opts);
 };
 
 Lego.components("popover", fun);
 
-var _createClass$7 = function() {
+var _createClass$6 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -1144,7 +1130,7 @@ var _createClass$7 = function() {
     };
 }();
 
-function _classCallCheck$7(instance, Constructor) {
+function _classCallCheck$6(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
@@ -1176,7 +1162,7 @@ var UploadView = function(_Lego$View) {
     _inherits$5(UploadView, _Lego$View);
     function UploadView() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$7(this, UploadView);
+        _classCallCheck$6(this, UploadView);
         var options = {
             uploadUri: "",
             downloadUri: Lego.config.downloadUri || "",
@@ -1225,13 +1211,13 @@ var UploadView = function(_Lego$View) {
         }
         return _this;
     }
-    _createClass$7(UploadView, [ {
+    _createClass$6(UploadView, [ {
         key: "uploadInit",
         value: function uploadInit() {
             var _this2 = this;
             var taking = 0, file = this.options.file, params = this.options.params;
             this.xhr.crossDomain = true;
-            var progressbar = Lego.getView(this.$("#progressbar_" + this.options.vid));
+            var progressbar = Lego.getView("#progressbar_" + this.options.vid);
             this.form = new FormData();
             this.form.append("file", file);
             if (!Lego.isEmptyObject(params)) {
@@ -1315,7 +1301,7 @@ var UploadView = function(_Lego$View) {
     return UploadView;
 }(Lego.View);
 
-var _createClass$8 = function() {
+var _createClass$7 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -1344,7 +1330,7 @@ function _taggedTemplateLiteral$4(strings, raw) {
     }));
 }
 
-function _classCallCheck$8(instance, Constructor) {
+function _classCallCheck$7(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
@@ -1376,7 +1362,7 @@ var Progressbar = function(_Lego$UI$Baseview) {
     _inherits$6(Progressbar, _Lego$UI$Baseview);
     function Progressbar() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$8(this, Progressbar);
+        _classCallCheck$7(this, Progressbar);
         var options = {
             type: "",
             status: "",
@@ -1388,7 +1374,7 @@ var Progressbar = function(_Lego$UI$Baseview) {
         Object.assign(options, opts);
         return _possibleConstructorReturn$6(this, (Progressbar.__proto__ || Object.getPrototypeOf(Progressbar)).call(this, options));
     }
-    _createClass$8(Progressbar, [ {
+    _createClass$7(Progressbar, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
@@ -1413,7 +1399,7 @@ var Progressbar = function(_Lego$UI$Baseview) {
 
 Lego.components("progressbar", Progressbar);
 
-var _createClass$6 = function() {
+var _createClass$5 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -1432,11 +1418,11 @@ var _createClass$6 = function() {
 
 var _templateObject$3 = _taggedTemplateLiteral$3([ '\n        <div class="media lego-upload-item">\n            <div class="media-left">\n                <i class="anticon anticon-', '"></i>\n            </div>\n            ', "\n        </div>\n        " ], [ '\n        <div class="media lego-upload-item">\n            <div class="media-left">\n                <i class="anticon anticon-', '"></i>\n            </div>\n            ', "\n        </div>\n        " ]);
 
-var _templateObject2$3 = _taggedTemplateLiteral$3([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="lego-cancelbtn" id="', '"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="lego-cancelbtn" id="', '"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ]);
+var _templateObject2$3 = _taggedTemplateLiteral$3([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="lego-cancelbtn" id="', '" onclick=', '><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="lego-cancelbtn" id="', '" onclick=', '><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ]);
 
 var _templateObject3$3 = _taggedTemplateLiteral$3([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    ', "\n                    ", "\n                </h4>\n                <small>\n                    <cite>", '</cite>\n                    <time>\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </time>\n                </small>\n            </div>\n            ' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    ', "\n                    ", "\n                </h4>\n                <small>\n                    <cite>", '</cite>\n                    <time>\n                        <a href="', "?attname=", '" target="_blank">下载</a>\n                        <a href="#" style="display:none">预览</a>\n                    </time>\n                </small>\n            </div>\n            ' ]);
 
-var _templateObject4$2 = _taggedTemplateLiteral$3([ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn" id="', '"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ], [ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn" id="', '"><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ]);
+var _templateObject4$2 = _taggedTemplateLiteral$3([ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn" id="', '" onclick=', '><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ], [ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn" id="', '" onclick=', '><i class="anticon anticon-cross float-xs-right close"></i></a>\n                    </div>\n                    ' ]);
 
 function _taggedTemplateLiteral$3(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -1446,7 +1432,7 @@ function _taggedTemplateLiteral$3(strings, raw) {
     }));
 }
 
-function _classCallCheck$6(instance, Constructor) {
+function _classCallCheck$5(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
@@ -1478,12 +1464,8 @@ var UploadItem = function(_UploadBase) {
     _inherits$4(UploadItem, _UploadBase);
     function UploadItem() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$6(this, UploadItem);
+        _classCallCheck$5(this, UploadItem);
         var options = {
-            events: {
-                "click .lego-cancelbtn": "onCancel",
-                "click .lego-closebtn": "onRemove"
-            },
             uploadUri: "",
             percent: 0,
             isAuto: true,
@@ -1497,23 +1479,29 @@ var UploadItem = function(_UploadBase) {
             onFail: function onFail() {},
             onCancel: function onCancel() {},
             onRemove: function onRemove() {},
-            components: [ {
-                el: "#progressbar_" + opts.vid,
+            components: []
+        };
+        Object.assign(options, opts);
+        return _possibleConstructorReturn$4(this, (UploadItem.__proto__ || Object.getPrototypeOf(UploadItem)).call(this, options));
+    }
+    _createClass$5(UploadItem, [ {
+        key: "components",
+        value: function components() {
+            var options = this.options;
+            this.addCom({
+                el: "#progressbar_" + options.vid,
                 showInfo: false,
                 status: "success",
                 onComplete: function onComplete(self) {
                     self.options.percent = 100;
                 }
-            } ]
-        };
-        Object.assign(options, opts);
-        return _possibleConstructorReturn$4(this, (UploadItem.__proto__ || Object.getPrototypeOf(UploadItem)).call(this, options));
-    }
-    _createClass$6(UploadItem, [ {
+            });
+        }
+    }, {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject$3, Lego.UI.Util.getFileIcon(options.file.name), options.percent < 100 ? hx(_templateObject2$3, val(options.file._id), val(options.file.name), "progressbar_" + options.vid) : hx(_templateObject3$3, !options.readonly && options.percent == 100 ? hx(_templateObject4$2, val(options.file._id)) : "", val(options.file.name), Lego.UI.Util.convertByteUnit(options.file.size), val(options.file.url), val(options.file.name)));
+            var vDom = hx(_templateObject$3, Lego.UI.Util.getFileIcon(options.file.name), options.percent < 100 ? hx(_templateObject2$3, val(options.file._id), this.onCancel.bind(this), val(options.file.name), "progressbar_" + options.vid) : hx(_templateObject3$3, !options.readonly && options.percent == 100 ? hx(_templateObject4$2, val(options.file._id), this.onRemove.bind(this)) : "", val(options.file.name), Lego.UI.Util.convertByteUnit(options.file.size), val(options.file.url), val(options.file.name)));
             return vDom;
         }
     }, {
@@ -1549,7 +1537,7 @@ var _typeof$3 = typeof Symbol === "function" && typeof Symbol.iterator === "symb
     return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
 
-var _createClass$5 = function() {
+var _createClass$4 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -1580,7 +1568,7 @@ function _taggedTemplateLiteral$2(strings, raw) {
     }));
 }
 
-function _classCallCheck$5(instance, Constructor) {
+function _classCallCheck$4(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
@@ -1612,7 +1600,7 @@ var Upload = function(_Lego$UI$Baseview) {
     _inherits$3(Upload, _Lego$UI$Baseview);
     function Upload() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$5(this, Upload);
+        _classCallCheck$4(this, Upload);
         var options = {
             events: {
                 "click .lego-addbtn": "onClickAdd"
@@ -1658,7 +1646,7 @@ var Upload = function(_Lego$UI$Baseview) {
         }
         var _this = _possibleConstructorReturn$3(this, (Upload.__proto__ || Object.getPrototypeOf(Upload)).call(this, options));
         _this.fileList = [];
-        _this.clear();
+        _this.reset();
         _this.$(".lego-fileInput").on("change", function(event) {
             var target = $(event.currentTarget)[0];
             _this.uploadInit(target.files, target);
@@ -1670,7 +1658,7 @@ var Upload = function(_Lego$UI$Baseview) {
         }
         return _this;
     }
-    _createClass$5(Upload, [ {
+    _createClass$4(Upload, [ {
         key: "render",
         value: function render() {
             var options = this.options;
@@ -1701,6 +1689,12 @@ var Upload = function(_Lego$UI$Baseview) {
                     if (!hasFile) _this2.fileList.push(file._id);
                     return !hasFile;
                 });
+                if (this.fileList.length > maxFilesCount) {
+                    Lego.UI.message("warning", "只能上传" + maxFilesCount + "张图片");
+                    this.fileList.length = maxFilesCount;
+                    if (uploadFiles.length > maxFilesCount) uploadFiles.length = maxFilesCount;
+                    return;
+                }
                 if (typeof options.onAddFile == "function") options.onAddFile(this.fileList, uploadFiles);
                 uploadFiles.forEach(function(file, i) {
                     if (Math.ceil(file.size / (1024 * 1024)) > parseInt(options.maxFileSize)) {
@@ -1734,6 +1728,7 @@ var Upload = function(_Lego$UI$Baseview) {
                             });
                             if (!hasFile && options.value.length <= maxFilesCount) {
                                 resp.url = Lego.config.downloadUri + resp.key;
+                                self.options.file = resp;
                                 options.value.push({
                                     file: resp,
                                     type: options.type,
@@ -1812,10 +1807,10 @@ var Upload = function(_Lego$UI$Baseview) {
             return result;
         }
     }, {
-        key: "clear",
-        value: function clear() {
-            this.fileList.length = 0;
-            this.options.value.length = 0;
+        key: "reset",
+        value: function reset() {
+            this.fileList = [];
+            this.options.value = [];
             return this;
         }
     } ]);
@@ -1824,7 +1819,7 @@ var Upload = function(_Lego$UI$Baseview) {
 
 Lego.components("upload", Upload);
 
-var _createClass$10 = function() {
+var _createClass$9 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -1843,13 +1838,13 @@ var _createClass$10 = function() {
 
 var _templateObject$6 = _taggedTemplateLiteral$6([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
 
-var _templateObject2$5 = _taggedTemplateLiteral$6([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ]);
+var _templateObject2$5 = _taggedTemplateLiteral$6([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">', "</a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">', "</a>\n                    </li>" ]);
 
 var _templateObject3$4 = _taggedTemplateLiteral$6([ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ]);
 
 var _templateObject4$3 = _taggedTemplateLiteral$6([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5$1 = _taggedTemplateLiteral$6([ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject5$1 = _taggedTemplateLiteral$6([ '\n        <ul class="dropdown-menu scrollbar ', '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu scrollbar ', '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
 
 function _taggedTemplateLiteral$6(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -1859,7 +1854,7 @@ function _taggedTemplateLiteral$6(strings, raw) {
     }));
 }
 
-function _classCallCheck$10(instance, Constructor) {
+function _classCallCheck$9(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
@@ -1891,7 +1886,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
     _inherits$8(Dropdown, _Lego$UI$Baseview);
     function Dropdown() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$10(this, Dropdown);
+        _classCallCheck$9(this, Dropdown);
         var options = {
             events: {
                 "click li:not(.dropdown)": "clickItem"
@@ -1907,11 +1902,9 @@ var Dropdown = function(_Lego$UI$Baseview) {
             data: []
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn$8(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
-        _this.containerEvents();
-        return _this;
+        return _possibleConstructorReturn$8(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
     }
-    _createClass$10(Dropdown, [ {
+    _createClass$9(Dropdown, [ {
         key: "render",
         value: function render() {
             var options = this.options || {};
@@ -1937,22 +1930,22 @@ var Dropdown = function(_Lego$UI$Baseview) {
             return vDom;
         }
     }, {
-        key: "containerEvents",
-        value: function containerEvents() {
-            var that = this;
+        key: "renderAfter",
+        value: function renderAfter() {
+            var that = this, _eventName = "click.dropdown-" + this.options.vid;
             this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
             if (!this.options.disabled) {
                 var handler = function handler(event) {
-                    $("body, .modal-body").trigger("click");
-                    event.stopPropagation();
-                    var directionResp = Lego.UI.Util.getDirection(that.container, that.$el);
-                    that.options.direction = directionResp._y || "bottom";
                     that.$el.slideToggle("fast");
                 };
                 if (this.options.eventName == "click") {
-                    var _eventName = "click.dropdown_" + this.options.vid;
-                    $("body, .modal-body").off(_eventName).on(_eventName, function() {
-                        that.close();
+                    $("body, .modal-body").off(_eventName).on(_eventName, function(event) {
+                        if (event.originalEvent) {
+                            var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.container[0]);
+                            if (index_a <= index_b) {} else {
+                                that.close();
+                            }
+                        }
                     });
                     this.container.off(_eventName).on(_eventName, handler);
                 } else {
@@ -1974,12 +1967,12 @@ var Dropdown = function(_Lego$UI$Baseview) {
         }
     }, {
         key: "show",
-        value: function show(event) {
+        value: function show() {
             this.$el.slideDown("fast");
         }
     }, {
         key: "close",
-        value: function close(event) {
+        value: function close() {
             this.$el.slideUp("fast");
         }
     }, {
@@ -2003,7 +1996,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
 
 Lego.components("dropdown", Dropdown);
 
-var _createClass$9 = function() {
+var _createClass$8 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -2030,7 +2023,7 @@ function _taggedTemplateLiteral$5(strings, raw) {
     }));
 }
 
-function _classCallCheck$9(instance, Constructor) {
+function _classCallCheck$8(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
@@ -2062,7 +2055,7 @@ var Dropdownbtn = function(_Lego$UI$Baseview) {
     _inherits$7(Dropdownbtn, _Lego$UI$Baseview);
     function Dropdownbtn() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$9(this, Dropdownbtn);
+        _classCallCheck$8(this, Dropdownbtn);
         var options = {
             events: {
                 "click button.dropdownbtn, .lego-reply-submit": "onClick"
@@ -2075,27 +2068,31 @@ var Dropdownbtn = function(_Lego$UI$Baseview) {
             dropdownOption: {},
             onClick: function onClick() {},
             onChange: function onChange() {},
-            components: function components(opts) {
-                return [ $.extend(opts.dropdownOption, {
-                    el: "#dropdown-" + opts.vid,
-                    container: "[view-id=" + opts.vid + "]",
-                    direction: opts.direction,
-                    activeKey: opts.activeKey,
-                    data: opts.data,
-                    onChange: function onChange(self, item, event) {
-                        var theView = self.options.context;
-                        theView.activeItem = item;
-                        if (typeof theView.options.onChange == "function") theView.options.onChange(theView, item);
-                    }
-                }) ];
-            }
+            components: []
         };
         Object.assign(options, opts);
         var _this = _possibleConstructorReturn$7(this, (Dropdownbtn.__proto__ || Object.getPrototypeOf(Dropdownbtn)).call(this, options));
         _this.activeItem = {};
         return _this;
     }
-    _createClass$9(Dropdownbtn, [ {
+    _createClass$8(Dropdownbtn, [ {
+        key: "components",
+        value: function components() {
+            var options = this.options;
+            this.addCom($.extend(options.dropdownOption, {
+                el: "#dropdown-" + options.vid,
+                container: "[view-id=" + options.vid + "]",
+                direction: options.direction,
+                activeKey: options.activeKey,
+                data: options.data,
+                onChange: function onChange(self, item, event) {
+                    var theView = self.options.context;
+                    theView.activeItem = item;
+                    if (typeof theView.options.onChange == "function") theView.options.onChange(theView, item);
+                }
+            }));
+        }
+    }, {
         key: "render",
         value: function render() {
             var options = this.options;
@@ -2144,19 +2141,15 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-reply">\n            ', "\n            ", '\n            <div class="lego-reply-toolbar">\n                ', "\n                ", '\n            </div>\n            <div class="popover popover-bottom" style="display:none;">\n                <div class="popover-arrow"></div><h3 class="popover-title">上传附件 <i class="anticon anticon-close" style="float:right"></i></h3>\n                <div class="popover-content"><upload id="upload-', '"></upload></div>\n            </div>\n        </div>\n        ' ], [ '\n        <div class="lego-reply">\n            ', "\n            ", '\n            <div class="lego-reply-toolbar">\n                ', "\n                ", '\n            </div>\n            <div class="popover popover-bottom" style="display:none;">\n                <div class="popover-arrow"></div><h3 class="popover-title">上传附件 <i class="anticon anticon-close" style="float:right"></i></h3>\n                <div class="popover-content"><upload id="upload-', '"></upload></div>\n            </div>\n        </div>\n        ' ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-reply">\n            <textarea placeholder="', '" class="form-control lego-reply-content" id="content-', '"></textarea>\n            ', '\n            <div class="lego-reply-toolbar">\n                ', "\n                ", '\n            </div>\n            <div class="popover popover-bottom" style="display:none;">\n                <div class="popover-arrow"></div><h3 class="popover-title">上传附件 <i class="anticon anticon-close" style="float:right"></i></h3>\n                <div class="popover-content"><upload id="upload-', '"></upload></div>\n            </div>\n        </div>\n        ' ], [ '\n        <div class="lego-reply">\n            <textarea placeholder="', '" class="form-control lego-reply-content" id="content-', '"></textarea>\n            ', '\n            <div class="lego-reply-toolbar">\n                ', "\n                ", '\n            </div>\n            <div class="popover popover-bottom" style="display:none;">\n                <div class="popover-arrow"></div><h3 class="popover-title">上传附件 <i class="anticon anticon-close" style="float:right"></i></h3>\n                <div class="popover-content"><upload id="upload-', '"></upload></div>\n            </div>\n        </div>\n        ' ]);
 
-var _templateObject2 = _taggedTemplateLiteral([ '\n            <div class="lego-reply-content" id="content-', '"><span class="lego-reply-ph">', "</span></div>\n            " ], [ '\n            <div class="lego-reply-content" id="content-', '"><span class="lego-reply-ph">', "</span></div>\n            " ]);
+var _templateObject2 = _taggedTemplateLiteral([ '\n            <dropdownbtn id="dropdownbtn-', '"></dropdownbtn>\n            ' ], [ '\n            <dropdownbtn id="dropdownbtn-', '"></dropdownbtn>\n            ' ]);
 
-var _templateObject3 = _taggedTemplateLiteral([ '\n            <textarea placeholder="', '" class="form-control lego-reply-content" id="content-', '"></textarea>\n            ' ], [ '\n            <textarea placeholder="', '" class="form-control lego-reply-content" id="content-', '"></textarea>\n            ' ]);
+var _templateObject3 = _taggedTemplateLiteral([ '\n            <button type="button" class="btn btn-', ' lego-reply-submit">', "</button>\n            " ], [ '\n            <button type="button" class="btn btn-', ' lego-reply-submit">', "</button>\n            " ]);
 
-var _templateObject4 = _taggedTemplateLiteral([ '\n            <dropdownbtn id="dropdownbtn-', '"></dropdownbtn>\n            ' ], [ '\n            <dropdownbtn id="dropdownbtn-', '"></dropdownbtn>\n            ' ]);
+var _templateObject4 = _taggedTemplateLiteral([ '<facial id="facial-', '"></facial>' ], [ '<facial id="facial-', '"></facial>' ]);
 
-var _templateObject5 = _taggedTemplateLiteral([ '\n            <button type="button" class="btn btn-', ' lego-reply-submit">', "</button>\n            " ], [ '\n            <button type="button" class="btn btn-', ' lego-reply-submit">', "</button>\n            " ]);
-
-var _templateObject6 = _taggedTemplateLiteral([ '<facial id="facial-', '"></facial>' ], [ '<facial id="facial-', '"></facial>' ]);
-
-var _templateObject7 = _taggedTemplateLiteral([ '<div id="annex-', '" class="lego-reply-annex"><i class="anticon anticon-paper-clip"></i></div>' ], [ '<div id="annex-', '" class="lego-reply-annex"><i class="anticon anticon-paper-clip"></i></div>' ]);
+var _templateObject5 = _taggedTemplateLiteral([ '<div id="annex-', '" class="lego-reply-annex"><i class="anticon anticon-paper-clip"></i></div>' ], [ '<div id="annex-', '" class="lego-reply-annex"><i class="anticon anticon-paper-clip"></i></div>' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -2202,17 +2195,16 @@ var Reply = function(_Lego$UI$Baseview) {
         var options = {
             events: {
                 "focus .lego-reply-content": "onFocus",
-                "blur .lego-reply-content": "onblur",
                 "click .lego-reply-submit": "submit",
                 "click .lego-reply-annex": "showUpload",
                 "click .popover-title i": "showUpload",
                 "keydown .lego-reply-content": "_enterSearch"
             },
-            inputType: "textarea",
             placeholder: "请输入回复内容",
             contentHeight: 70,
             showFacial: true,
             showUpload: true,
+            filterHtml: true,
             uploadToken: null,
             iconsUrl: "",
             submitText: "回复",
@@ -2228,7 +2220,7 @@ var Reply = function(_Lego$UI$Baseview) {
             options.components.push({
                 el: "#facial-" + options.vid,
                 target: "#content-" + options.vid,
-                targetType: options.inputType,
+                targetType: "textarea",
                 iconsUrl: options.iconsUrl
             });
         }
@@ -2255,7 +2247,7 @@ var Reply = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options;
-            var vDom = hx(_templateObject, options.inputType == "div" ? hx(_templateObject2, options.vid, val(options.placeholder)) : hx(_templateObject3, val(options.placeholder), options.vid), options.dropdownbtn ? hx(_templateObject4, options.vid) : hx(_templateObject5, options.submitType, val(options.submitText)), options.showFacial ? hx(_templateObject6, options.vid) : "", options.showUpload ? hx(_templateObject7, options.vid) : "", options.vid);
+            var vDom = hx(_templateObject, val(options.placeholder), options.vid, options.dropdownbtn ? hx(_templateObject2, options.vid) : hx(_templateObject3, options.submitType, val(options.submitText)), options.showFacial ? hx(_templateObject4, options.vid) : "", options.showUpload ? hx(_templateObject5, options.vid) : "", options.vid);
             return vDom;
         }
     }, {
@@ -2268,12 +2260,6 @@ var Reply = function(_Lego$UI$Baseview) {
         value: function onFocus(event) {
             var target = $(event.currentTarget);
             if (target.find(".lego-reply-ph").length) target.html("");
-        }
-    }, {
-        key: "onblur",
-        value: function onblur(event) {
-            var target = $(event.currentTarget), options = this.options;
-            if (!target.text() && !target.find("img").length && options.inputType == "div") target.html(this.placeholder);
         }
     }, {
         key: "showUpload",
@@ -2305,7 +2291,7 @@ var Reply = function(_Lego$UI$Baseview) {
             var target = $(event.currentTarget), options = this.options;
             if (event.which === 13) {
                 if (!event.ctrlKey) {
-                    this.onSubmit(event);
+                    this.submit(event);
                 }
                 if (event.ctrlKey) {
                     Lego.UI.Util.insertText(target, Lego.UI.Util.checkBrowser().mozilla ? "<br>" : "<br><br>");
@@ -2327,16 +2313,17 @@ var Reply = function(_Lego$UI$Baseview) {
                 Lego.UI.message("warning", "提交内容不能大于500个字符");
                 return;
             }
-            var contentHtml = this.options.inputType == "div" ? contentEl.html() : contentEl.val();
-            contentHtml = this.options.inputType == "div" ? Lego.UI.Util.faceToText(contentHtml, this.options.iconsUrl) : contentHtml;
-            if (this.options.inputType == "div") {
-                contentEl.html(this.placeholder);
-            } else {
-                contentEl.val("");
+            var contentHtml = contentEl.val();
+            contentHtml = this.options.filterHtml ? contentHtml.replace(/<[^>]+>/g, "").replace(/\r\n/g, "").replace(/\n/g, "") : contentHtml;
+            contentHtml = $.trim(contentHtml);
+            if (!contentHtml.length) {
+                Lego.UI.message("warning", "提交内容不能为空");
+                return;
             }
+            contentEl.val("");
             contentHtml = contentHtml == this.placeholder ? "" : contentHtml;
             var uploadIds = Array.from(this.getUploadIds());
-            if (this.uploadView) this.uploadView.clear();
+            if (this.uploadView) this.uploadView.reset();
             this.$(".popover").removeClass("show");
             if (typeof this.options.onSubmit == "function") this.options.onSubmit(this, contentHtml, uploadIds);
         }

@@ -5,7 +5,13 @@
     -webkit-box-shadow: none;
     box-shadow: none;
 }
-
+.lego-search.input-group-sm input,
+.lego-search.input-group-sm input:focus {
+    height: auto;
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    border-radius: .2rem;
+}
 .lego-search .lego-search-button {
     padding: 7px 12px;
     // background: #f3f3f3;
@@ -50,4 +56,7 @@
 .input-group.lego-search .input-group-btn:not(:first-child)>.btn,
 .input-group.lego-search .input-group-btn:not(:first-child)>.btn-group {
     margin-left: -2px;
+}
+.lego-search.input-group-sm .input-group-btn > .btn{
+    padding: 3px 6px;
 }

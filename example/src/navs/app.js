@@ -9,8 +9,8 @@ class navsRouter {
         };
     }
     index(){
-        this.viewObj = HBY.create(IndexView, {
-            el: HBY.config.pageEl,
+        this.viewObj = Lego.create(IndexView, {
+            el: Lego.config.pageEl,
             scrollbar: {},
             currentTab: 0
         });
@@ -18,7 +18,7 @@ class navsRouter {
     tabs(tabs = 0){
         this.viewObj.options.currentTab = tabs || 0;
         const appArray = [homeView];
-        HBY.create(appArray[tabs], { el: '#pageContent' });
+        Lego.create(appArray[tabs], { el: '#pageContent' });
     }
 }
-HBY.router(new navsRouter());
+Lego.router(new navsRouter());

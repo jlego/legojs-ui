@@ -12,19 +12,23 @@ class Facial extends Lego.UI.Baseview {
                 'click .lego-facial-item a': 'clickItem'
             },
             target: '', //插入目标节点
-            targetType: 'div',
+            targetType: 'textarea',
             icon: 'anticon anticon-smile-o',
             text: '',
-            eventName: 'hover', //['click'] or ['hover']
+            eventName: 'click', //['click'] or ['hover']
             iconsUrl: '', //图标地址
             itemClassPrefix: 'f0',  //节点样式前缀
-            direction: 'top',
+            direction: 'bottom',
             data: Lego.UI.Util.faceTags
         };
         Object.assign(options, opts);
         super(options);
         this.cursorPos = null;
         this.cursorContainer = null;
+        let that = this;
+        $('body, .modal-body').click(function(){
+            that.close();
+        });
     }
     render() {
         const options = this.options,
@@ -50,11 +54,8 @@ class Facial extends Lego.UI.Baseview {
             that = this,
             targetEl = this.options.target instanceof $ ? this.options.target : $(this.options.target);
         function handler(event){
-            $('body, .modal-body').trigger('click');
             event.stopPropagation();
-            const directionResp = Lego.UI.Util.getDirection($('body'), that.$el);
-            that.options.direction = directionResp._y || 'bottom';
-            that.show();
+            that.$el.toggleClass('dropdown open');
             if(that.options.eventName == 'hover'){
                 target.mouseleave(function(){
                     that.close();
@@ -63,9 +64,6 @@ class Facial extends Lego.UI.Baseview {
         }
         if(this.options.eventName == 'click'){
             const _eventName = 'click.dropdown_' + this.options.vid;
-            $('body, .modal-body').off(_eventName).on(_eventName, function(){
-                that.close();
-            });
             target.off(_eventName).on(_eventName, handler);
         }else{
             target[this.options.eventName](handler);
@@ -76,6 +74,7 @@ class Facial extends Lego.UI.Baseview {
         });
     }
     clickItem(event){
+        event.stopPropagation();
         const target = $(event.currentTarget),
             targetEl = this.options.target instanceof $ ? this.options.target : $(this.options.target);
         if(this.options.targetType == 'div'){

@@ -1,5 +1,5 @@
 /**
- * tables.js v0.2.9
+ * tables.js v0.3.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -24,13 +24,13 @@ var _createClass$2 = function() {
 
 var _templateObject$2 = _taggedTemplateLiteral$2([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
 
-var _templateObject2$2 = _taggedTemplateLiteral$2([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">\n                    ', "\n                    </a>\n                    </li>" ]);
+var _templateObject2$2 = _taggedTemplateLiteral$2([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">', "</a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">', "</a>\n                    </li>" ]);
 
 var _templateObject3$2 = _taggedTemplateLiteral$2([ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ]);
 
 var _templateObject4$2 = _taggedTemplateLiteral$2([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5$2 = _taggedTemplateLiteral$2([ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject5$2 = _taggedTemplateLiteral$2([ '\n        <ul class="dropdown-menu scrollbar ', '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu scrollbar ', '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
 
 function _taggedTemplateLiteral$2(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -88,9 +88,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             data: []
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn$2(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
-        _this.containerEvents();
-        return _this;
+        return _possibleConstructorReturn$2(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
     }
     _createClass$2(Dropdown, [ {
         key: "render",
@@ -118,22 +116,22 @@ var Dropdown = function(_Lego$UI$Baseview) {
             return vDom;
         }
     }, {
-        key: "containerEvents",
-        value: function containerEvents() {
-            var that = this;
+        key: "renderAfter",
+        value: function renderAfter() {
+            var that = this, _eventName = "click.dropdown-" + this.options.vid;
             this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
             if (!this.options.disabled) {
                 var handler = function handler(event) {
-                    $("body, .modal-body").trigger("click");
-                    event.stopPropagation();
-                    var directionResp = Lego.UI.Util.getDirection(that.container, that.$el);
-                    that.options.direction = directionResp._y || "bottom";
                     that.$el.slideToggle("fast");
                 };
                 if (this.options.eventName == "click") {
-                    var _eventName = "click.dropdown_" + this.options.vid;
-                    $("body, .modal-body").off(_eventName).on(_eventName, function() {
-                        that.close();
+                    $("body, .modal-body").off(_eventName).on(_eventName, function(event) {
+                        if (event.originalEvent) {
+                            var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.container[0]);
+                            if (index_a <= index_b) {} else {
+                                that.close();
+                            }
+                        }
                     });
                     this.container.off(_eventName).on(_eventName, handler);
                 } else {
@@ -155,12 +153,12 @@ var Dropdown = function(_Lego$UI$Baseview) {
         }
     }, {
         key: "show",
-        value: function show(event) {
+        value: function show() {
             this.$el.slideDown("fast");
         }
     }, {
         key: "close",
-        value: function close(event) {
+        value: function close() {
             this.$el.slideUp("fast");
         }
     }, {
@@ -201,19 +199,19 @@ var _createClass$1 = function() {
     };
 }();
 
-var _templateObject$1 = _taggedTemplateLiteral$1([ '\n        <ul class="pagination ', " ", '">\n            <li class="prev ', '">\n                <a href="javascript:void(0)" title="上一页"><i class="icon iconfont icon-arrow-left"></i></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ], [ '\n        <ul class="pagination ', " ", '">\n            <li class="prev ', '">\n                <a href="javascript:void(0)" title="上一页"><i class="icon iconfont icon-arrow-left"></i></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ]);
+var _templateObject$1 = _taggedTemplateLiteral$1([ '\n        <ul class="lego-pagination ', " ", '">\n            <li class="prev ', '">\n                <a href="javascript:void(0)" title="上一页"><i class="icon iconfont lego-icon-arrow-left"></i></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ], [ '\n        <ul class="lego-pagination ', " ", '">\n            <li class="prev ', '">\n                <a href="javascript:void(0)" title="上一页"><i class="icon iconfont lego-icon-arrow-left"></i></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ]);
 
 var _templateObject2$1 = _taggedTemplateLiteral$1([ '\n            <div title="', "/", '" class="lego-pagination-simple-pager">\n                <input type="text" value="', '"><span class="lego-pagination-slash">／</span>\n            </div>\n            ' ], [ '\n            <div title="', "/", '" class="lego-pagination-simple-pager">\n                <input type="text" value="', '"><span class="lego-pagination-slash">／</span>\n            </div>\n            ' ]);
 
 var _templateObject3$1 = _taggedTemplateLiteral$1([ '\n            <li title="', '" class="page page-item ', '"><a href="javascript:void(0)">', "</a></li>\n            " ], [ '\n            <li title="', '" class="page page-item ', '"><a href="javascript:void(0)">', "</a></li>\n            " ]);
 
-var _templateObject4$1 = _taggedTemplateLiteral$1([ '\n            <li title="下 ', ' 页" class="page morepage"><a href="javascript:void(0)"><i class="icon iconfont icon-more-1"></a></i></li>\n            ' ], [ '\n            <li title="下 ', ' 页" class="page morepage"><a href="javascript:void(0)"><i class="icon iconfont icon-more-1"></a></i></li>\n            ' ]);
+var _templateObject4$1 = _taggedTemplateLiteral$1([ '\n            <li title="下 ', ' 页" class="page morepage"><a href="javascript:void(0)"><i class="icon iconfont lego-icon-more-1"></a></i></li>\n            ' ], [ '\n            <li title="下 ', ' 页" class="page morepage"><a href="javascript:void(0)"><i class="icon iconfont lego-icon-more-1"></a></i></li>\n            ' ]);
 
 var _templateObject5$1 = _taggedTemplateLiteral$1([ '<li title="', '" class="page page-item"><a href="javascript:void(0)">', "</a></li>" ], [ '<li title="', '" class="page page-item"><a href="javascript:void(0)">', "</a></li>" ]);
 
-var _templateObject6$1 = _taggedTemplateLiteral$1([ '\n            <li class="next ', '">\n                <a href="javascript:void(0)" title="下一页"><i class="icon iconfont icon-arrow-right"></i></a>\n            </li>\n            ' ], [ '\n            <li class="next ', '">\n                <a href="javascript:void(0)" title="下一页"><i class="icon iconfont icon-arrow-right"></i></a>\n            </li>\n            ' ]);
+var _templateObject6$1 = _taggedTemplateLiteral$1([ '\n            <li class="next ', '">\n                <a href="javascript:void(0)" title="下一页"><i class="icon iconfont lego-icon-arrow-right"></i></a>\n            </li>\n            ' ], [ '\n            <li class="next ', '">\n                <a href="javascript:void(0)" title="下一页"><i class="icon iconfont lego-icon-arrow-right"></i></a>\n            </li>\n            ' ]);
 
-var _templateObject7$1 = _taggedTemplateLiteral$1([ '\n            <li class="pageSize">\n                <span class="info" id="', '-select">\n                    <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </span>\n            </li>\n            ' ], [ '\n            <li class="pageSize">\n                <span class="info" id="', '-select">\n                    <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                    <dropdown id="', '-dropdown"></dropdown>\n                </span>\n            </li>\n            ' ]);
+var _templateObject7$1 = _taggedTemplateLiteral$1([ '\n            <li class="pageSize">\n                <span class="info" id="select-', '">\n                    <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </span>\n            </li>\n            ' ], [ '\n            <li class="pageSize">\n                <span class="info" id="select-', '">\n                    <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </span>\n            </li>\n            ' ]);
 
 var _templateObject8$1 = _taggedTemplateLiteral$1([ '\n            <li><span class="info">\n                    跳转至\n                    <input type="text" class="form-control pageJump" value="', '">\n                </span>\n                ', "\n            </li>\n            " ], [ '\n            <li><span class="info">\n                    跳转至\n                    <input type="text" class="form-control pageJump" value="', '">\n                </span>\n                ', "\n            </li>\n            " ]);
 
@@ -269,7 +267,7 @@ var Pagination = function(_Lego$UI$Baseview) {
                 'keydown .info>input[type="text"]': "_enterSearch"
             },
             current: 1,
-            total: 0,
+            totalCount: 0,
             totalPages: 0,
             pageSize: 10,
             pageRang: 10,
@@ -281,42 +279,49 @@ var Pagination = function(_Lego$UI$Baseview) {
             size: "",
             simple: null,
             isShowTotal: true,
-            data: {}
+            data: {},
+            components: []
         };
         Object.assign(options, opts);
-        if (!options.simple && options.showSizeChanger) {
-            var theData = options.pageSizeOptions.map(function(val) {
-                return {
-                    key: val,
-                    value: val + " / 页"
-                };
-            });
-            options.components = [ {
-                el: "#" + opts.vid + "-dropdown",
-                container: "#" + opts.vid + "-select",
-                data: theData,
-                onChange: function onChange(self, result) {
-                    var num = parseInt(result.key);
-                    this.context.options.current = 1;
-                    this.context.options.pageSize = num;
-                    this.context.options.onPageSizeChange(self, num);
-                }
-            } ];
-        }
         var _this = _possibleConstructorReturn$1(this, (Pagination.__proto__ || Object.getPrototypeOf(Pagination)).call(this, options));
         _this.jumped = false;
         return _this;
     }
     _createClass$1(Pagination, [ {
+        key: "components",
+        value: function components() {
+            var options = this.options;
+            if (!options.simple && options.showSizeChanger) {
+                var theData = options.pageSizeOptions.map(function(val) {
+                    return {
+                        key: val,
+                        value: val + " / 页"
+                    };
+                });
+                this.addCom({
+                    el: "#dropdown-" + options.vid,
+                    container: "#select-" + options.vid,
+                    direction: "top",
+                    data: theData,
+                    onChange: function onChange(self, result) {
+                        var num = parseInt(result.key);
+                        this.context.options.current = 1;
+                        this.context.options.pageSize = num;
+                        this.context.options.onPageSizeChange(self, num);
+                    }
+                });
+            }
+        }
+    }, {
         key: "render",
         value: function render() {
-            var options = this.options || {}, current = parseInt(options.current);
+            var options = this.options, current = parseInt(options.current);
             options.pageSize = options.pageSize;
             var pageRang = parseInt(options.pageRang);
-            var totalCount = options.data.total || (typeof options.total === "function" ? options.total() : options.total);
+            var totalCount = options.data.totalCount || (typeof options.totalCount === "function" ? options.totalCount() : options.totalCount);
             options.totalPages = options.data.totalPages || Math.ceil(totalCount / options.pageSize);
             pageRang = pageRang >= options.totalPages ? options.totalPages : pageRang;
-            var baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0, startPage = baseTimes * pageRang + 1, endPage = startPage + pageRang - 1, showEllipsis = options.totalPages - current > pageRang ? true : false, pagesArr = [];
+            var baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0, startPage = baseTimes * pageRang + 1, endPage = startPage + pageRang - 1, showEllipsis = Math.ceil(current / pageRang) !== Math.ceil(options.totalPages / pageRang) ? true : false, pagesArr = [];
             endPage = endPage >= options.totalPages ? options.totalPages : endPage;
             for (var i = startPage; i <= endPage; i++) {
                 pagesArr.push(i);
@@ -332,7 +337,7 @@ var Pagination = function(_Lego$UI$Baseview) {
         value: function clickPrevPage(event) {
             event.stopPropagation();
             var options = this.options;
-            console.warn("点击了上一页");
+            debug.warn("点击了上一页");
             options.current--;
             options.onChange(this, options.current, options.pageSize);
         }
@@ -342,7 +347,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             event.stopPropagation();
             var target = $(event.currentTarget), num = target.attr("title");
             var options = this.options;
-            console.warn("点击了" + num + "页");
+            debug.warn("点击了" + num + "页");
             options.current = num;
             options.onChange(this, num, options.pageSize);
         }
@@ -351,7 +356,7 @@ var Pagination = function(_Lego$UI$Baseview) {
         value: function clickNextPage(event) {
             event.stopPropagation();
             var options = this.options;
-            console.warn("点击了下一页");
+            debug.warn("点击了下一页");
             options.current++;
             options.onChange(this, options.current, options.pageSize);
         }
@@ -361,7 +366,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             event.stopPropagation();
             var options = this.options;
             var current = parseInt(options.current), pageRang = parseInt(options.pageRang), currentMod = current % pageRang ? current % pageRang : pageRang;
-            console.warn("点击了更多页");
+            debug.warn("点击了更多页");
             options.current = current + (pageRang - currentMod + 1);
             if (options.current > options.totalPages) options.current = options.totalPages;
             options.onChange(this, options.current, options.pageSize);
@@ -374,6 +379,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             var num = target.val();
             if (event.keyCode == 13) {
                 if (num > options.totalPages) num = options.totalPages;
+                if (!Number(num)) num = 1;
                 this.jumped = true;
                 options.current = num;
                 options.onChange(this, num, options.pageSize);
@@ -384,18 +390,6 @@ var Pagination = function(_Lego$UI$Baseview) {
 }(Lego.UI.Baseview);
 
 Lego.components("pagination", Pagination);
-
-var _extends = Object.assign || function(target) {
-    for (var i = 1; i < arguments.length; i++) {
-        var source = arguments[i];
-        for (var key in source) {
-            if (Object.prototype.hasOwnProperty.call(source, key)) {
-                target[key] = source[key];
-            }
-        }
-    }
-    return target;
-};
 
 var _createClass = function() {
     function defineProperties(target, props) {
@@ -414,27 +408,27 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="clearfix lego-table lego-table-', " ", "\n        ", ' lego-table-scroll-position-left">\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body" style="bottom: ', '">\n                    <div class="', '">\n                        <table class="', '">\n                            ', "\n                            ", "\n                            ", "\n                            ", "\n                        </table>\n                    </div>\n                </div>\n                ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="clearfix lego-table lego-table-', " ", "\n        ", ' lego-table-scroll-position-left">\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body" style="bottom: ', '">\n                    <div class="', '">\n                        <table class="', '">\n                            ', "\n                            ", "\n                            ", "\n                            ", "\n                        </table>\n                    </div>\n                </div>\n                ", "\n                </div>\n            </div>\n        </div>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-table clearfix lego-table-', " ", "\n        ", " ", ' lego-table-scroll-position-left">\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body" style="bottom: ', '">\n                    <div class="', '">\n                        <table class="', '" style="', '">\n                            ', "\n                            ", "\n                            ", "\n                            ", "\n                        </table>\n                    </div>\n                </div>\n                ", "\n                ", "\n                // ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="lego-table clearfix lego-table-', " ", "\n        ", " ", ' lego-table-scroll-position-left">\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body" style="bottom: ', '">\n                    <div class="', '">\n                        <table class="', '" style="', '">\n                            ', "\n                            ", "\n                            ", "\n                            ", "\n                        </table>\n                    </div>\n                </div>\n                ", "\n                ", "\n                // ", "\n                </div>\n            </div>\n        </div>\n        " ]);
 
 var _templateObject2 = _taggedTemplateLiteral([ '<div class="lego-table-title">', "</div>" ], [ '<div class="lego-table-title">', "</div>" ]);
 
-var _templateObject3 = _taggedTemplateLiteral([ '\n                <div class="lego-table-header">\n                    <table class="">\n                        ', "\n                        ", "\n                    </table>\n                    ", "\n                </div>\n                " ], [ '\n                <div class="lego-table-header">\n                    <table class="">\n                        ', "\n                        ", "\n                    </table>\n                    ", "\n                </div>\n                " ]);
+var _templateObject3 = _taggedTemplateLiteral([ '\n                <div class="lego-table-header">\n                    <table class="" style="', '">\n                        ', "\n                        ", "\n                    </table>\n                </div>\n                " ], [ '\n                <div class="lego-table-header">\n                    <table class="" style="', '">\n                        ', "\n                        ", "\n                    </table>\n                </div>\n                " ]);
 
-var _templateObject4 = _taggedTemplateLiteral([ '\n                        <button type="button" class="btn btn-default noborder">\n                        <i class="anticon anticon-ellipsis"></i></button>' ], [ '\n                        <button type="button" class="btn btn-default noborder">\n                        <i class="anticon anticon-ellipsis"></i></button>' ]);
+var _templateObject4 = _taggedTemplateLiteral([ '\n                    <div class="lego-table-footer">\n                    <pagination id="pagination-', '"></pagination>\n                    </div>\n                ' ], [ '\n                    <div class="lego-table-footer">\n                    <pagination id="pagination-', '"></pagination>\n                    </div>\n                ' ]);
 
-var _templateObject5 = _taggedTemplateLiteral([ '\n                    <div class="lego-table-footer">\n                    <pagination id="pagination_', '"></pagination>\n                    </div>\n                ' ], [ '\n                    <div class="lego-table-footer">\n                    <pagination id="pagination_', '"></pagination>\n                    </div>\n                ' ]);
+var _templateObject5 = _taggedTemplateLiteral([ '<button type="button" class="btn btn-default noborder" title="表格设置"><i class="anticon anticon-ellipsis"></i></button>' ], [ '<button type="button" class="btn btn-default noborder" title="表格设置"><i class="anticon anticon-ellipsis"></i></button>' ]);
 
-var _templateObject6 = _taggedTemplateLiteral([ "\n        <colgroup>\n            ", "\n            ", "\n        </colgroup>\n        " ], [ "\n        <colgroup>\n            ", "\n            ", "\n        </colgroup>\n        " ]);
+var _templateObject6 = _taggedTemplateLiteral([ '<layer id="showSetting-', '"></layer>' ], [ '<layer id="showSetting-', '"></layer>' ]);
 
-var _templateObject7 = _taggedTemplateLiteral([ '<col style="width: 30px;">' ], [ '<col style="width: 30px;">' ]);
+var _templateObject7 = _taggedTemplateLiteral([ "\n        <colgroup>\n            ", "\n            ", "\n        </colgroup>\n        " ], [ "\n        <colgroup>\n            ", "\n            ", "\n        </colgroup>\n        " ]);
 
-var _templateObject8 = _taggedTemplateLiteral([ "\n                ", "\n            " ], [ "\n                ", "\n            " ]);
+var _templateObject8 = _taggedTemplateLiteral([ '<col style="width: 30px;">' ], [ '<col style="width: 30px;">' ]);
 
-var _templateObject9 = _taggedTemplateLiteral([ "<col>" ], [ "<col>" ]);
+var _templateObject9 = _taggedTemplateLiteral([ '<col style="', '">' ], [ '<col style="', '">' ]);
 
-var _templateObject10 = _taggedTemplateLiteral([ '<col style="width: ', ';">' ], [ '<col style="width: ', ';">' ]);
+var _templateObject10 = _taggedTemplateLiteral([ '\n            <span>\n                <label class="lego-', '-wrapper">\n                    ', "\n                </label>\n            </span>\n            " ], [ '\n            <span>\n                <label class="lego-', '-wrapper">\n                    ', "\n                </label>\n            </span>\n            " ]);
 
-var _templateObject11 = _taggedTemplateLiteral([ '\n            <span>\n                <label class="lego-', '-wrapper">\n                    <span class="lego-', " ", "\n                    ", '">\n                        <span class="lego-', '-inner"></span>\n                        <input type="', '" ', ' name="selectedrows" class="lego-', '-input" value="', '">\n                    </span>\n                </label>\n            </span>\n            ' ], [ '\n            <span>\n                <label class="lego-', '-wrapper">\n                    <span class="lego-', " ", "\n                    ", '">\n                        <span class="lego-', '-inner"></span>\n                        <input type="', '" ', ' name="selectedrows" class="lego-', '-input" value="', '">\n                    </span>\n                </label>\n            </span>\n            ' ]);
+var _templateObject11 = _taggedTemplateLiteral([ '<span class="lego-', " ", "\n                    ", '">\n                        <span class="lego-', '-inner"></span>\n                        <input type="', '" ', ' name="selectedrows" class="lego-', '-input" value="', '">\n                    </span>' ], [ '<span class="lego-', " ", "\n                    ", '">\n                        <span class="lego-', '-inner"></span>\n                        <input type="', '" ', ' name="selectedrows" class="lego-', '-input" value="', '">\n                    </span>' ]);
 
 var _templateObject12 = _taggedTemplateLiteral([ "\n        ", "\n        " ], [ "\n        ", "\n        " ]);
 
@@ -456,7 +450,7 @@ var _templateObject20 = _taggedTemplateLiteral([ '\n        <tfoot class="lego-t
 
 var _templateObject21 = _taggedTemplateLiteral([ '\n        <div class="lego-table-column-sorter">\n            <span class="lego-table-column-sorter-up ', '" title="↑">\n                <i class="anticon anticon-caret-up"></i>\n            </span>\n            <span class="lego-table-column-sorter-down ', '" title="↓">\n                <i class="anticon anticon-caret-down"></i>\n            </span>\n        </div>\n        ' ], [ '\n        <div class="lego-table-column-sorter">\n            <span class="lego-table-column-sorter-up ', '" title="↑">\n                <i class="anticon anticon-caret-up"></i>\n            </span>\n            <span class="lego-table-column-sorter-down ', '" title="↓">\n                <i class="anticon anticon-caret-down"></i>\n            </span>\n        </div>\n        ' ]);
 
-var _templateObject22 = _taggedTemplateLiteral([ '<i title="filter" class="anticon anticon-filter"></i>' ], [ '<i title="filter" class="anticon anticon-filter"></i>' ]);
+var _templateObject22 = _taggedTemplateLiteral([ '<i class="anticon anticon-filter"></i>' ], [ '<i class="anticon anticon-filter"></i>' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -506,10 +500,12 @@ var Tables = function(_Lego$UI$Baseview) {
                 "click .lego-table-column-sorter": "clickSorter",
                 "click .anticon-filter": "clickFilter",
                 "click .lego-table-tbody td": "clickItem",
-                "click .lego-table-header .lego-btn-circle": "clickSetting"
+                "click .lego-table-scroll > button": "clickSetting"
             },
             scrollbar: {},
             className: "",
+            tableWidth: 0,
+            isNowrap: true,
             rowSelection: null,
             pagination: null,
             size: "default",
@@ -523,6 +519,8 @@ var Tables = function(_Lego$UI$Baseview) {
             onExpandedRowsChange: function onExpandedRowsChange() {},
             onExpand: function onExpand() {},
             onChange: function onChange() {},
+            onSelect: function onSelect() {},
+            onSetting: function onSetting() {},
             loading: false,
             locale: {
                 filterConfirm: "确定",
@@ -535,46 +533,84 @@ var Tables = function(_Lego$UI$Baseview) {
             showHeader: false,
             showBodyer: true,
             showFooter: false,
+            showSetting: false,
+            data: [],
             components: []
         };
         Object.assign(options, opts);
-        options.components.push(_extends({}, options.pagination, {
-            el: "#pagination_" + options.vid
-        }));
-        options.columns.map(function(col) {
-            col = Object.assign({
-                title: "",
-                key: Lego.randomKey(32),
-                isHide: false,
-                dataIndex: "",
-                colSpan: 0,
-                width: "",
-                className: "",
-                fixed: false,
-                sortOrder: ""
-            }, col);
-        });
         var _this = _possibleConstructorReturn(this, (Tables.__proto__ || Object.getPrototypeOf(Tables)).call(this, options));
-        _this.selectedAll = 0;
-        var header = _this.$el.find(".lego-table-header");
-        _this.$el.find(".lego-table-body").scroll(function() {
+        var that = _this;
+        var header = _this.$(".lego-table-header");
+        _this.$(".lego-table-body > .scrollbar").scroll(function() {
             header.scrollLeft($(this).scrollLeft());
         });
-        _this.$el.find(".lego-table-tfoot>tr>td").attr("colspan", _this.options.columns.length);
+        _this.$(".lego-table-tfoot>tr>td").attr("colspan", _this.columns.length);
+        $(window).resize(function() {
+            that.resizeWidth();
+        });
+        _this.resizeWidth();
         return _this;
     }
     _createClass(Tables, [ {
+        key: "getColumns",
+        value: function getColumns() {
+            var _this2 = this;
+            this.columns = [];
+            var options = this.options, oldWidth = this.tableRealWidth;
+            this.columnsObj = this.columnsObj || {};
+            if (options.columns) {
+                this.allColumns = typeof options.columns == "function" ? options.columns(this) : options.columns;
+                this.columns = Array.from(this.allColumns || []);
+            }
+            this.tableRealWidth = this.options.rowSelection ? 30 : 0;
+            this.columns.forEach(function(col, index) {
+                col.key = col.key || index;
+                if (_this2.columnsObj[col.key]) {
+                    Object.assign(col, _this2.columnsObj[col.key]);
+                } else {
+                    _this2.columnsObj[col.key] = col;
+                }
+                if (!col.isHide) _this2.tableRealWidth += parseInt(col.width || 200);
+            });
+            this.columns = this.columns.filter(function(col) {
+                return !col.isHide;
+            });
+            if (this.tableRealWidth !== oldWidth) this.resizeWidth();
+            return this.columns;
+        }
+    }, {
+        key: "resizeWidth",
+        value: function resizeWidth() {
+            var tableWidth = $(this.options.el).parent().width();
+            this.options.tableWidth = this.tableRealWidth > tableWidth ? this.tableRealWidth : 0;
+        }
+    }, {
         key: "render",
         value: function render() {
+            this.getColumns();
             var options = this.options;
-            var vDom = hx(_templateObject, options.size, options.bordered ? "lego-table-bordered" : "", options.showHeader ? "lego-table-fixed-header" : "", options.title ? hx(_templateObject2, typeof options.title == "function" ? options.title() : options.title) : "", options.showHeader ? hx(_templateObject3, this._renderColgroup(), this._renderHeader(), options.colSetting ? hx(_templateObject4) : "") : "", options.pagination ? "48px" : "0", options.showHeader ? "scrollbar" : "", options.className, this._renderColgroup(), !options.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), options.pagination && options.data ? hx(_templateObject5, options.vid) : "");
+            var vDom = hx(_templateObject, options.size, options.bordered ? "lego-table-bordered" : "", options.showHeader ? "lego-table-fixed-header" : "", options.isNowrap ? "lego-nr" : "", options.title ? hx(_templateObject2, typeof options.title == "function" ? options.title() : options.title) : "", options.showHeader ? hx(_templateObject3, options.tableWidth ? "width:" + options.tableWidth + "px" : "", this._renderColgroup(), this._renderHeader()) : "", options.pagination ? "48px" : "0", options.showHeader ? "scrollbar" : "", options.className, options.tableWidth ? "width:" + options.tableWidth + "px" : "", this._renderColgroup(), !options.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), options.pagination && options.data ? hx(_templateObject4, options.vid) : "", options.showSetting ? hx(_templateObject5) : "", options.showSetting ? hx(_templateObject6, options.vid) : "");
             return vDom;
         }
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var paginationView = Lego.getView("#pagination_" + this.options.vid);
-            if (paginationView) paginationView.refresh();
+            this.isLoaded = this.isLoaded || false;
+            var el = "#pagination-" + this.options.vid;
+            if (!this.isLoaded && this.options.data.length && this.options.pagination) {
+                this.options.pagination = typeof this.options.pagination == "function" ? this.options.pagination(this) : this.options.pagination;
+                var that = this;
+                Lego.create(Pagination, Object.assign(this.options.pagination, {
+                    context: this,
+                    el: el
+                }));
+                this.isLoaded = true;
+            } else {
+                var pgView = Lego.getView(el);
+                if (pgView) {
+                    Object.assign(pgView.options, this.options.pagination);
+                }
+            }
         }
     }, {
         key: "_getRowKey",
@@ -587,9 +623,10 @@ var Tables = function(_Lego$UI$Baseview) {
     }, {
         key: "_renderColgroup",
         value: function _renderColgroup() {
-            var _this2 = this;
-            var vDom = hx(_templateObject6, this.options.rowSelection ? hx(_templateObject7) : "", this.options.columns.map(function(col, index) {
-                return hx(_templateObject8, index === _this2.options.columns.length - 1 ? hx(_templateObject9) : hx(_templateObject10, col.width));
+            var _this3 = this;
+            var vDom = hx(_templateObject7, this.options.rowSelection ? hx(_templateObject8) : "", this.columns.map(function(col, index) {
+                var w = index !== _this3.columns.length - 1 || _this3.options.tableWidth ? "width:" + (typeof col.width == "number" ? col.width + "px" : col.width.toString()) : "";
+                return hx(_templateObject9, w);
             }));
             return vDom;
         }
@@ -598,10 +635,11 @@ var Tables = function(_Lego$UI$Baseview) {
         value: function _renderSelection() {
             var row = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
             var tagName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "td";
-            var options = this.options, theType = options.rowSelection.type || "checkbox", that = this;
-            var isChecked = row.selected || tagName === "th" && this.selectedAll === 1, isHarf = tagName === "th" && that.selectedAll === 2 ? true : false;
+            var isHarf = arguments[2];
+            var options = this.options, theType = options.rowSelection.type || "checkbox", isCheckbox = theType == "checkbox", that = this;
+            var isChecked = row.selected || tagName === "th" && this.getSelectedStatus() === 1;
             function getHx() {
-                return hx(_templateObject11, theType, theType, row.disabled ? "lego-" + theType + "-disabled" : "", isChecked ? "lego-" + theType + "-checked lego-" + theType + "-checked-1" : isHarf ? "lego-" + theType + "-indeterminate" : "", theType, theType, row.disabled ? "disabled" : "", theType, isChecked ? "on" : "");
+                return hx(_templateObject10, theType, tagName !== "th" || isCheckbox ? hx(_templateObject11, theType, row.disabled ? "lego-" + theType + "-disabled" : "", isChecked ? "lego-" + theType + "-checked lego-" + theType + "-checked-1" : isHarf ? "lego-" + theType + "-indeterminate" : "", theType, theType, row.disabled ? "disabled" : "", theType, isChecked ? "on" : "") : "");
             }
             var vDom = hx(_templateObject12, tagName == "th" ? hx(_templateObject13, getHx()) : hx(_templateObject14, getHx()));
             return vDom;
@@ -609,22 +647,22 @@ var Tables = function(_Lego$UI$Baseview) {
     }, {
         key: "_renderHeader",
         value: function _renderHeader() {
-            var _this3 = this;
+            var _this4 = this;
             var options = this.options;
-            var vDom = hx(_templateObject15, options.rowSelection ? this._renderSelection({}, "th") : "", options.columns.map(function(col) {
-                return !col.isHide ? hx(_templateObject16, col.sortOrder ? "lego-table-column-sort" : "", col.key, col.title, col.sorter ? _this3._renderSorter(col) : "", _this3._renderFilter(col)) : "";
+            var vDom = hx(_templateObject15, options.rowSelection ? this._renderSelection({}, "th", this.getSelectedStatus() === 2 ? true : false) : "", this.columns.map(function(col) {
+                return !col.isHide ? hx(_templateObject16, col.sortOrder ? "lego-table-column-sort" : "", col.key, col.title, col.sorter ? _this4._renderSorter(col) : "", _this4._renderFilter(col)) : "";
             }));
             return vDom;
         }
     }, {
         key: "_renderBodyer",
         value: function _renderBodyer() {
-            var _this4 = this;
+            var _this5 = this;
             var options = this.options;
             if (!options.data) return;
             var vDom = hx(_templateObject17, options.data.map(function(row, i) {
-                row.key = row.id || _this4._getRowKey("row_");
-                return hx(_templateObject18, options.rowClassName, row.key, options.rowSelection ? _this4._renderSelection(row, "td") : "", options.columns.map(function(col) {
+                row.key = row.id || _this5._getRowKey("row_");
+                return hx(_templateObject18, options.rowClassName, row.key, options.rowSelection ? _this5._renderSelection(row, "td") : "", _this5.columns.map(function(col) {
                     return !col.isHide ? hx(_templateObject19, typeof col.format === "function" ? col.format(row[col.dataIndex], row, col) : row[col.dataIndex]) : "";
                 }));
             }));
@@ -655,9 +693,7 @@ var Tables = function(_Lego$UI$Baseview) {
         key: "clickSorter",
         value: function clickSorter(event) {
             event.stopPropagation();
-            var target = $(event.currentTarget), key = target.closest("th").attr("id"), col = this.options.columns.find(function(val) {
-                return val.key == key;
-            });
+            var target = $(event.currentTarget), key = target.closest("th").attr("id"), col = this.columnsObj[key];
             if (col) {
                 col.sortOrder = col.sortOrder || "";
                 switch (col.sortOrder) {
@@ -674,7 +710,7 @@ var Tables = function(_Lego$UI$Baseview) {
                     break;
                 }
                 this.refresh();
-                if (typeof col.sorter === "function") col.sorter(col);
+                if (typeof col.sorter === "function") col.sorter(this, col, event);
             }
         }
     }, {
@@ -685,15 +721,15 @@ var Tables = function(_Lego$UI$Baseview) {
             var row = this.options.data.find(function(val) {
                 return val.key == rowKey;
             });
-            var col = this.options.columns.find(function(val) {
+            var col = this.columns.find(function(val) {
                 return val.key == colKey;
             });
             if (row && col) {
                 if (this.options.onRowClick) {
-                    if (typeof col.onRowClick === "function") col.onRowClick(row);
+                    if (typeof col.onRowClick == "function") col.onRowClick(this, row, event);
                 }
                 if (col.onCellClick) {
-                    if (typeof col.onCellClick === "function") col.onCellClick(row, col);
+                    if (typeof col.onCellClick == "function") col.onCellClick(this, row, col, event);
                 }
             }
         }
@@ -701,18 +737,19 @@ var Tables = function(_Lego$UI$Baseview) {
         key: "clickFilter",
         value: function clickFilter(event) {
             event.stopPropagation();
-            var target = $(event.currentTarget), colKey = target.closest("th").attr("id"), col = this.options.columns.find(function(val) {
+            var target = $(event.currentTarget), colKey = target.closest("th").attr("id"), col = this.columns.find(function(val) {
                 return val.key == colKey;
             });
             if (col) {
-                if (typeof col.filter === "function") col.filter(col);
+                if (typeof col.filter == "function") col.filter(this, col, event);
             }
         }
     }, {
         key: "clickSetting",
         value: function clickSetting(event) {
             event.stopPropagation();
-            if (typeof this.options.colSetting === "function") this.options.colSetting(this);
+            var target = $(event.currentTarget), theId = "setting-" + this.options.vid;
+            if (typeof this.options.onSetting == "function") this.options.onSetting(this, event);
         }
     }, {
         key: "selectOne",
@@ -729,28 +766,38 @@ var Tables = function(_Lego$UI$Baseview) {
                     });
                     if (row) row.selected = !row.selected;
                 }
-                var hasSelectedArr = options.data.filter(function(value) {
+                var hasSelectedArr = this.options.data.filter(function(value) {
                     return value.selected === true;
                 });
-                this.selectedAll = hasSelectedArr.length == options.data.length ? 1 : hasSelectedArr.length ? 2 : 0;
+                if (typeof options.onSelect == "function") options.onSelect(this, this.getSelectedStatus() ? Array.from(hasSelectedArr) : []);
                 this.refresh();
             }
         }
     }, {
+        key: "getSelectedStatus",
+        value: function getSelectedStatus() {
+            var hasSelectedArr = this.options.data.filter(function(value) {
+                return value.selected === true;
+            });
+            this.selectedAll = hasSelectedArr.length ? hasSelectedArr.length == this.options.data.length ? 1 : hasSelectedArr.length ? 2 : 0 : 0;
+            return this.selectedAll;
+        }
+    }, {
         key: "selectAll",
         value: function selectAll(event) {
-            var _this5 = this;
+            var _this6 = this;
             event.stopPropagation();
             var target = $(event.currentTarget);
             if (this.options.rowSelection) {
                 (function() {
                     var isChecked = target.is(":checked");
                     var isSelected = isChecked ? 1 : 0;
-                    _this5.selectedAll = isSelected;
-                    _this5.options.data.map(function(row, index) {
+                    _this6.selectedAll = isSelected;
+                    _this6.options.data.map(function(row, index) {
                         row.selected = !!isSelected;
                     });
-                    _this5.refresh();
+                    if (typeof _this6.options.onSelect == "function") _this6.options.onSelect(_this6, isSelected ? Array.from(_this6.options.data) : []);
+                    _this6.refresh();
                 })();
             }
         }

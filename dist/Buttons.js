@@ -1,5 +1,5 @@
 /**
- * buttons.js v0.2.9
+ * buttons.js v0.3.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -22,7 +22,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <button type="', '" class="btn btn-', '" ', ">\n            <span>", "</span>\n        </button>\n        " ], [ '\n        <button type="', '" class="btn btn-', '" ', ">\n            <span>", "</span>\n        </button>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <button type="', '" class="btn btn-', " ", '" ', ">\n            <span>", "</span>\n        </button>\n        " ], [ '\n        <button type="', '" class="btn btn-', " ", '" ', ">\n            <span>", "</span>\n        </button>\n        " ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -75,7 +75,7 @@ var Buttons = function(_Lego$UI$Baseview) {
             disabled: false,
             icon: "",
             shape: "",
-            size: "default",
+            size: "",
             loading: false,
             onClick: function onClick() {}
         };
@@ -85,8 +85,8 @@ var Buttons = function(_Lego$UI$Baseview) {
     _createClass(Buttons, [ {
         key: "render",
         value: function render() {
-            var options = this.options || {};
-            var vDom = hx(_templateObject, options.htmlType, options.type, options.disabled ? "disabled" : "", options.html || options.text);
+            var options = this.options;
+            var vDom = hx(_templateObject, options.htmlType, options.type, options.size ? "btn-" + options.size : "", options.disabled ? "disabled" : "", options.html || options.text);
             return vDom;
         }
     }, {

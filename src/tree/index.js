@@ -24,19 +24,17 @@ class Tree extends Lego.UI.Baseview {
             },
             keyNames: ['id', 'name', 'type'],
             value: [],
+            data: [],
             onChecked() {},
             onClick() {}
         };
         Object.assign(options, opts);
         super(options);
-    }
-    render() {
-        return hx `<ul class="lego-tree"></ul>`;
+        this.isLoaded = false;
     }
     renderBefore() {
         const options = this.options,
             that = this;
-
         function selectOrNo(treeNode) {
             if (options.disSelect) {
                 if (Object.keys(treeNode).includes(options.disSelect)) return false;
@@ -46,6 +44,23 @@ class Tree extends Lego.UI.Baseview {
             }
             return true;
         }
+        function selectResult(treeId, treeNode){
+            let treeObj = $.fn.zTree.getZTreeObj(treeId),
+                nodes = treeObj.getCheckedNodes(true),
+                keyNames = options.keyNames,
+                result = nodes.filter((node) => {
+                    return selectOrNo(node);
+                });
+            let newValue = [];
+            result.forEach((val, index) => {
+                newValue.push(Object.assign({
+                    key: val[keyNames[0]],
+                    value: val[keyNames[1]],
+                    type: val[keyNames[2]]
+                }, val));
+            });
+            if (typeof options.onChecked == 'function') options.onChecked(that, newValue);
+        }
         if (options.setting.check) {
             options.setting.check = $.extend(true, {
                 enable: true,
@@ -53,21 +68,13 @@ class Tree extends Lego.UI.Baseview {
             }, options.setting.check || {});
             options.setting.callback = Object.assign(options.setting.callback || {}, {
                 onCheck: function(event, treeId, treeNode) {
-                    const treeObj = $.fn.zTree.getZTreeObj(treeId),
-                        nodes = treeObj.getCheckedNodes(true),
-                        keyNames = options.keyNames,
-                        result = nodes.filter((node) => {
-                            return selectOrNo(node);
-                        });
-                    const newValue = [];
-                    result.forEach((val, index) => {
-                        newValue.push(Object.assign({
-                            key: val[keyNames[0]],
-                            value: val[keyNames[1]],
-                            type: val[keyNames[2]]
-                        }, val));
-                    });
-                    if (typeof options.onChecked == 'function') options.onChecked(that, newValue);
+                    selectResult(treeId, treeNode);
+                },
+                onClick: function(event, treeId, treeNode) {
+                    if (!selectOrNo(treeNode)) return false;
+                    let treeObj = $.fn.zTree.getZTreeObj(treeId);
+                    treeObj.checkNode(treeNode, null, false);
+                    selectResult(treeId, treeNode);
                 }
             });
         } else {
@@ -83,14 +90,22 @@ class Tree extends Lego.UI.Baseview {
             });
         }
     }
+    render() {
+        return hx `<ul class="lego-tree"></ul>`;
+    }
     renderAfter() {
-        const options = this.options;
-        if(options.data) $.fn.zTree.init(this.$el, options.setting, options.data);
+        let options = this.options;
+        if(options.data.length && !this.isLoaded){
+            let ztree = $.fn.zTree.getZTreeObj(this.options.id);
+            if(ztree) $.fn.zTree.destroy(this.options.id);
+            $.fn.zTree.init(this.$el, options.setting, options.data);
+            this.isLoaded = true;
+        }
     }
     // 取消选择
     clearChecked(key, value) {
-        const ztree = $.fn.zTree.getZTreeObj(this.options.id);
-        const node = ztree.getNodeByParam(key, value, null);
+        let ztree = $.fn.zTree.getZTreeObj(this.options.id);
+        let node = ztree.getNodeByParam(key, value, null);
         if (node) {
             ztree.checkNode(node, false, false);
         }

@@ -1,5 +1,5 @@
 /**
- * common.js v0.2.9
+ * common.js v0.3.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -351,9 +351,12 @@ var Baseview = function(_Lego$View) {
     function Baseview() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Baseview);
-        var options = {};
+        var options = {
+            events: null
+        };
         Object.assign(options, opts);
         var _this = _possibleConstructorReturn(this, (Baseview.__proto__ || Object.getPrototypeOf(Baseview)).call(this, options));
+        _this.setEvent();
         _this.renderScroll();
         return _this;
     }
@@ -362,7 +365,7 @@ var Baseview = function(_Lego$View) {
         value: function renderScroll() {
             var options = this.options, that = this;
             if (options.scrollbar) {
-                var scrollbarEl = this.$el.find(".scrollbar");
+                var scrollbarEl = this.$(".scrollbar").length ? this.$(".scrollbar") : this.$el.hasClass("scrollbar") ? this.$el : [];
                 if (scrollbarEl.length) {
                     scrollbarEl.each(function(index, el) {
                         var container = $(this), eventName = "mousemove.ps" + index;
@@ -376,9 +379,21 @@ var Baseview = function(_Lego$View) {
             }
         }
     }, {
+        key: "$",
+        value: function $(selector) {
+            this.$el = this.$el || window.$(this.el);
+            return window.$ ? this.$el.find(selector) : null;
+        }
+    }, {
+        key: "setEvent",
+        value: function setEvent() {
+            this.unBindEvents();
+            this.delegateEvents();
+            return this;
+        }
+    }, {
         key: "bindEvents",
         value: function bindEvents(eventName, selector, listener) {
-            var isUnbind = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
             this.$el.on(eventName + ".delegateEvents" + this.options.vid, selector, listener);
             return this;
         }
@@ -386,6 +401,20 @@ var Baseview = function(_Lego$View) {
         key: "unBindEvents",
         value: function unBindEvents() {
             if (this.$el) this.$el.off(".delegateEvents" + this.options.vid);
+            return this;
+        }
+    }, {
+        key: "delegateEvents",
+        value: function delegateEvents() {
+            var events = this.options.events;
+            if (!events) return this;
+            for (var key in events) {
+                var method = events[key];
+                if (typeof method !== "function") method = this[method];
+                if (!method) continue;
+                var match = key.match(delegateEventSplitter);
+                this.bindEvents(match[1], match[2], method.bind(this));
+            }
             return this;
         }
     } ]);

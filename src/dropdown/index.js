@@ -18,7 +18,6 @@ class Dropdown extends Lego.UI.Baseview {
         };
         Object.assign(options, opts);
         super(options);
-        this.containerEvents();
     }
     render() {
         const options = this.options || {};
@@ -29,9 +28,7 @@ class Dropdown extends Lego.UI.Baseview {
                 if(!item.children){
                     return hx`
                     <li>
-                    <a id="${val(item.key)}" class="${item.disabled || item.selected ? 'disabled' : ''} ${item.active ? 'active' : ''}" href="${item.href ? item.href : 'javascript:;'}">
-                    ${val(item.value)}
-                    </a>
+                    <a id="${val(item.key)}" class="${item.disabled || item.selected ? 'disabled' : ''} ${item.active ? 'active' : ''}" href="${item.href ? item.href : 'javascript:;'}">${val(item.value)}</a>
                     </li>`;
                 }else{
                     return loopNav(item);
@@ -53,7 +50,7 @@ class Dropdown extends Lego.UI.Baseview {
             `;
         }
         const vDom = hx`
-        <ul class="dropdown-menu ${options.direction ? ('drop' + options.direction) : ''}" style="display:${options.open ? 'block' : 'none'}">
+        <ul class="dropdown-menu scrollbar ${options.direction ? ('drop' + options.direction) : ''}" style="display:${options.open ? 'block' : 'none'}">
             ${options.data.map(item => {
                 return itemNav(item);
             })}
@@ -61,21 +58,24 @@ class Dropdown extends Lego.UI.Baseview {
         `;
         return vDom;
     }
-    containerEvents(){
-        const that = this;
+    renderAfter(){
+        let that = this,
+            _eventName = 'click.dropdown-' + this.options.vid;
         this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
         if(!this.options.disabled){
             function handler(event){
-                $('body, .modal-body').trigger('click');
-                event.stopPropagation();
-                const directionResp = Lego.UI.Util.getDirection(that.container, that.$el);
-                that.options.direction = directionResp._y || 'bottom';
                 that.$el.slideToggle('fast');
             }
             if(this.options.eventName == 'click'){
-                const _eventName = 'click.dropdown_' + this.options.vid;
-                $('body, .modal-body').off(_eventName).on(_eventName, function(){
-                    that.close();
+                $('body, .modal-body').off(_eventName).on(_eventName, function(event){
+                    if(event.originalEvent){
+                        let index_a = event.originalEvent.path.indexOf(event.target),
+                            index_b = event.originalEvent.path.indexOf(that.container[0]);
+                        if(index_a <= index_b){
+                        }else{
+                            that.close();
+                        }
+                    }
                 });
                 this.container.off(_eventName).on(_eventName, handler);
             }else{
@@ -96,10 +96,10 @@ class Dropdown extends Lego.UI.Baseview {
             return 'right';
         }
     }
-    show(event){
+    show(){
         this.$el.slideDown('fast');
     }
-    close(event){
+    close(){
         this.$el.slideUp('fast');
     }
     clickItem(event){

@@ -48,15 +48,15 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _index = __webpack_require__(8);
+	var _index = __webpack_require__(10);
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _home = __webpack_require__(9);
+	var _home = __webpack_require__(11);
 
 	var _home2 = _interopRequireDefault(_home);
 
-	var _form = __webpack_require__(10);
+	var _form = __webpack_require__(12);
 
 	var _form2 = _interopRequireDefault(_form);
 
@@ -107,7 +107,9 @@
 /* 5 */,
 /* 6 */,
 /* 7 */,
-/* 8 */
+/* 8 */,
+/* 9 */,
+/* 10 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -158,7 +160,7 @@
 	exports.default = IndexView;
 
 /***/ },
-/* 9 */
+/* 11 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -346,7 +348,7 @@
 	exports.default = HomeView;
 
 /***/ },
-/* 10 */
+/* 12 */
 /***/ function(module, exports) {
 
 	'use strict';

@@ -5,7 +5,7 @@ import Alert from '../alert/index';
 class Modal extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const typeArr = {
-            success: 'anticon anticon-check-circle-o ',
+            success: 'anticon anticon-check-circle-o',
             info: 'anticon anticon-info-circle-o',
             warning: 'anticon anticon-exclamation-circle-o',
             error: 'anticon anticon-cross-circle-o',
@@ -15,9 +15,9 @@ class Modal extends Lego.UI.Baseview {
             events: {
                 'click .modal-footer button.ok': 'clickOk',
                 'click .modal-footer button.cancel': 'clickCancel',
-                'click .close': 'close',
+                'click .close': 'clickCancel',
                 'click .modal-dialog': function(event){event.stopPropagation()},
-                'click': 'close'
+                'click': 'clickBackdrop',
             },
             msgType: '',    //有此属性的是dialog
             title: '提示',
@@ -40,7 +40,7 @@ class Modal extends Lego.UI.Baseview {
             cancelText: '取消',
             // onOk() {},
             // onCancel() {},
-            onHidden() {},
+            onClose() {},
             animates: {
                 'fadeIn': 'fadeOut',
                 'slideInRight': 'slideOutRight'
@@ -48,7 +48,6 @@ class Modal extends Lego.UI.Baseview {
         };
         Object.assign(options, opts);
         if(options.msgType) options.type = 'dialog';
-        const modalEl = '#lego-layer';
         // 对话框类型
         if (typeArr[options.msgType] && typeof options.content == 'string') {
             const alertObj = Lego.create(Alert, {
@@ -60,13 +59,9 @@ class Modal extends Lego.UI.Baseview {
             options.content = alertObj.render();
         }
         if(!options.el){
-            if(options.type == 'modal' || options.type == 'dialog'){
-                const modalId = 'lego-' + options.type + '-' + options.vid;
-                $('body').append('<' + options.type + ' id="' + modalId + '"></' + options.type + '>');
-                options.el = '#' + modalId;
-            }else{
-                options.el = modalEl;
-            }
+            const modalId = 'lego-' + options.type + '-' + options.vid;
+            $('body').append('<' + options.type + ' id="' + modalId + '"></' + options.type + '>');
+            options.el = '#' + modalId;
         }
         if(options.type == 'layer') options.animate = 'slideInRight';
         super(options);
@@ -82,7 +77,7 @@ class Modal extends Lego.UI.Baseview {
             <div class="modal-content">
               ${options.showHeader ? hx`<div class="modal-header">
               ${options.closable ? hx`<button type="button" class="close"><span class="anticon anticon-close"></span></button>` : ''}
-                <h4 class="modal-title">${options.title}</h4>
+                <h5 class="modal-title">${options.title}</h5>
               </div>` : ''}
               <div class="modal-body ${!options.msgType && options.scrollAble ? 'scrollbar' : ''}" style="${!options.showHeader && options.type == 'layer' ? 'top:0;' : ''}
               ${!options.showFooter && options.type == 'layer' ? 'bottom:0;' : ''}">
@@ -106,15 +101,11 @@ class Modal extends Lego.UI.Baseview {
             keyboard: options.keyboard,
             show: true
         });
-        if(options.width) this.$el.find('.modal-dialog').width(options.width);
-        if(options.height) this.$el.find('.modal-body').height(options.height);
+        if(options.width) this.$('.modal-dialog').width(options.width);
+        if(options.height) this.$('.modal-body').height(options.height);
         this.$el.on('hidden.bs.modal', function (e) {
-            if(options.type == 'layer'){
-                that.$el.replaceWith('<layer id="lego-layer"></layer>');
-            }else{
-                that.$el.remove();
-            }
-            if(typeof options.onHidden === 'function') options.onHidden(that);
+            that.$el.remove();
+            if(typeof options.onClose === 'function') options.onClose(that);
         });
         if (options.animate) {
             this.$el.data('animate', options.animate);
@@ -134,12 +125,16 @@ class Modal extends Lego.UI.Baseview {
             this.$el.modal('hide');
         }
     }
+    clickBackdrop(event){
+        event.stopPropagation();
+        this._onConfirm('onCancel');
+    }
     _showDialog(){
         const that = this;
         Lego.create(Modal, {
             msgType: this.options.confirm.msgType || 'warning',
             content: this.options.confirm.content || '',
-            backdrop: false,
+            backdrop: this.options.confirm.backdrop,
             onOk(self) {
                 that.close();
                 self.close();
@@ -165,18 +160,8 @@ class Modal extends Lego.UI.Baseview {
 }
 const theModal = function(opts = {}, vid){
     if(typeof opts == 'string'){
-        let view = null;
-        switch(opts){
-            case 'close':
-                view = Lego.getView('#lego-layer');
-                break;
-            case 'close.modal':
-                view = Lego.getView('#lego-modal-' + vid);
-                break;
-            case 'close.dialog':
-                view = Lego.getView('#lego-dialog-' + vid);
-                break;
-        }
+        let type = opts.indexOf('.') > 0 ? opts.split('.')[1] : 'layer';
+        let view = Lego.getView(`#lego-${type}-${vid}`);
         if(view) view.close();
     }else{
         Lego.create(Modal, opts);
