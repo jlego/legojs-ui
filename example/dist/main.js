@@ -421,7 +421,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {/**
-	 * lego.js v1.6.12
+	 * lego.js v1.6.14
 	 * (c) 2017 Ronghui Yu
 	 * @license MIT
 	 */
@@ -887,8 +887,8 @@
 	    components = Array.isArray(components) ? components : [ components ];
 	    if (components.length) {
 	        components.forEach(function(item, i) {
-	            if (that.find(item.el).length) {
-	                var tagName = item.el ? that.find(item.el)[0].tagName.toLowerCase() : "";
+	            if (that.$(item.el).length) {
+	                var tagName = item.el ? that.$(item.el)[0].tagName.toLowerCase() : "";
 	                if (tagName) {
 	                    item.context = that;
 	                    Lego.create(Lego.UI[tagName], item);
@@ -953,8 +953,8 @@
 	    }
 	};
 
-	View.prototype.find = function find(selector) {
-	    return this.el.querySelectorAll(selector);
+	View.prototype.$ = function $(selector) {
+	    return this.$el ? this.$el.find(selector) : this.el.querySelectorAll(selector);
 	};
 
 	View.prototype.components = function components() {
@@ -5931,8 +5931,6 @@
 	          });
 	        });
 	      }
-	    } }, { key: "$", value: function value(selector) {
-	      return this.$el = this.$el || window.$(this.el), window.$ ? this.$el.find(selector) : null;
 	    } }, { key: "setEvent", value: function value() {
 	      return this.unBindEvents(), this.delegateEvents(), this;
 	    } }, { key: "bindEvents", value: function value(eventName, selector, listener) {

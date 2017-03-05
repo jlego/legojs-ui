@@ -379,12 +379,6 @@ var Baseview = function(_Lego$View) {
             }
         }
     }, {
-        key: "$",
-        value: function $(selector) {
-            this.$el = this.$el || window.$(this.el);
-            return window.$ ? this.$el.find(selector) : null;
-        }
-    }, {
         key: "setEvent",
         value: function setEvent() {
             this.unBindEvents();
