@@ -66,7 +66,7 @@
     "bootstrap-rating": "0.0.1",
     "highlight.js": "^9.9.0",
     "jquery-validation-cjs": "^1.0.0",
-    "lego-core": "^1.6.9",
+    "lego-core": "^1.6.12",
     "localresizeimg-cjs": "^1.0.0",
     "lodash": "^4.17.3",
     "moment": "^2.17.1",
