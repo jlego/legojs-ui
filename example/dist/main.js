@@ -78,13 +78,13 @@
 
 	// 设置全局参数，初始化应用
 	_legoCore2.default.init({
-	    alias: 'HBY', //框架实例别名
+	    alias: 'Lego', //框架实例别名
 	    version: new Date().getTime(), //版本号'2016' ||
 	    pageEl: '#page-container', //页面渲染容器
 	    defaultApp: 'home', //默认应用
-	    rootUri: '/example/dist/', //系统根目录
+	    rootUri: './dist/', //系统根目录
 	    serviceUri: '', //后台根地址
-	    faceIconUri: '/example/dist/img/face_icons/f0', //表情图标地址
+	    faceIconUri: './dist/img/face_icons/f0', //表情图标地址
 	    downloadUri: window.location.protocol + '//dn-openwinbons.qbox.me/', //七牛文件下载地址
 	    saveUri: '/upload/complete',
 	    avatarUri: 'http://192.168.2.165:8080/upload' });
@@ -5517,7 +5517,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * legoui.min.js v0.3.0
+	 * legoui.min.js v0.3.1
 	 * (c) 2017 Ronghui Yu
 	 * @license MIT
 	 */

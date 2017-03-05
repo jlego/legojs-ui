@@ -61,19 +61,19 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	HBY.components('home', _home2.default);
+	Lego.components('home', _home2.default);
 
-	HBY.router({
+	Lego.router({
 	    '/home': function home() {
-	        HBY.create(_list2.default, {
-	            el: HBY.config.pageEl,
+	        Lego.create(_list2.default, {
+	            el: Lego.config.pageEl,
 	            dataSource: {
 	                api: ['test', 'ok'],
 	                server: _list4.default
 	            },
 	            onAfter: function onAfter(self) {
 	                var i = 0;
-	                HBY.setTimer('theTime', setInterval(function () {
+	                Lego.setTimer('theTime', setInterval(function () {
 	                    self.options.data[0].last = i;
 	                    self.refresh();
 	                    i++;
@@ -90,8 +90,8 @@
 	        });
 	    },
 	    '/home/list': function homeList() {
-	        HBY.create(_list2.default, {
-	            el: HBY.config.pageEl,
+	        Lego.create(_list2.default, {
+	            el: Lego.config.pageEl,
 	            data: {
 	                list: [{ first: 'home', last: 'Bond' }, { first: 'test', last: 'bbbb' }]
 	            },
@@ -164,7 +164,7 @@
 	        key: 'theClick',
 	        value: function theClick(event) {
 	            event.stopPropagation();
-	            HBY.trigger('data_update', { aa: 1 });
+	            Lego.trigger('data_update', { aa: 1 });
 	        }
 	    }]);
 
@@ -261,8 +261,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ListData = function (_HBY$Data) {
-	    _inherits(ListData, _HBY$Data);
+	var ListData = function (_Lego$Data) {
+	    _inherits(ListData, _Lego$Data);
 
 	    function ListData() {
 	        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -296,7 +296,7 @@
 	    }]);
 
 	    return ListData;
-	}(HBY.Data);
+	}(Lego.Data);
 
 	exports.default = new ListData();
 

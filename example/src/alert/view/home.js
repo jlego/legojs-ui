@@ -50,7 +50,7 @@ class HomeView extends Lego.UI.Baseview {
     }
     theClick(event, target){
         let targetEl = $(event.currentTarget);
-        const theView = HBY.getView(targetEl);
+        const theView = Lego.getView(targetEl);
         switch(theView.options.type){
             case 'success':
                 theView.options.type = 'info'
