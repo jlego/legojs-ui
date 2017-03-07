@@ -11274,23 +11274,29 @@ form button[type="submit"] {
 
 .lego-editcom > i.cancel:hover {
   color: #f85774; }
-.lego-rating.lego-rating-sm .rating-symbol {
-  font-size: 0.9rem; }
+.lego-rating .rating-symbol {
+  cursor: pointer; }
+
+.lego-rating.lego-rating-sm .rating-symbol > * {
+  font-size: 12px;
+  line-height: 12px; }
 
 .lego-rating.lego-rating-sm .badge {
-  font-size: 0.6rem; }
+  font-size: 10px; }
 
-.lego-rating .rating-symbol {
-  font-size: 1.2rem; }
+.lego-rating .rating-symbol > * {
+  font-size: 18px;
+  line-height: 18px; }
 
 .lego-rating .badge {
-  font-size: 1rem; }
+  font-size: 14px; }
 
-.lego-rating.lego-rating-lg .rating-symbol {
-  font-size: 1.8rem; }
+.lego-rating.lego-rating-lg .rating-symbol > * {
+  font-size: 30px;
+  line-height: 30px; }
 
 .lego-rating.lego-rating-lg .badge {
-  font-size: 1.4rem; }
+  font-size: 22px; }
 
 .lego-rating .rating-symbol-background {
   color: #ccc; }

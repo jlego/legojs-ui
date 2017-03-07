@@ -97,7 +97,7 @@ class Forms extends Lego.UI.Baseview {
             if(layout == 'vertical'){
                 vDom = hx`
                 <div class="form-group">
-                    <label for="${id}">${val(item.label)}${item.required ? hx`<span class="symbol required">*</span>` : ''}</label>
+                    <label for="${id}">${val(item.label)}${item.rule || item.required ? (item.rule.required || item.required ? hx`<span class="symbol required">*</span>` : '') : ''}</label>
                     ${comTag}
                     ${item.help ? hx`<small class="form-text text-muted">${val(item.help)}</small>` : ''}
                 </div>
@@ -105,7 +105,7 @@ class Forms extends Lego.UI.Baseview {
             }else{
                 vDom = hx`
                 <div class="form-group row">
-                  <label for="${id}" class="col-sm-${that.options.labelCols} col-form-label">${val(item.label)}${item.required ? hx`<span class="symbol required">*</span>` : ''}</label>
+                  <label for="${id}" class="col-sm-${that.options.labelCols} col-form-label">${val(item.label)}${item.rule || item.required ? (item.rule.required || item.required ? hx`<span class="symbol required">*</span>` : '') : ''}</label>
                   <div class="col-sm-${that.options.comCols}">
                     ${comTag}
                     ${item.help ? hx`<small class="form-text text-muted">${val(item.help)}</small>` : ''}
