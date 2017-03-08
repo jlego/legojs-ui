@@ -13,8 +13,8 @@ class alertRouter {
         };
     }
     index(){
-        this.viewObj = HBY.create(IndexView, {
-            el: HBY.config.pageEl,
+        this.viewObj = Lego.create(IndexView, {
+            el: Lego.config.pageEl,
             scrollbar: {},
             currentTab: 0
         });
@@ -26,7 +26,7 @@ class alertRouter {
             listView,
             tableView
         ];
-        HBY.create(appArray[tabs], { el: '#pageContent' });
+        Lego.create(appArray[tabs], { el: '#pageContent' });
     }
 }
-HBY.router(new alertRouter());
+Lego.router(new alertRouter());

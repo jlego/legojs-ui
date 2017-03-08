@@ -85,8 +85,8 @@
 	    _createClass(alertRouter, [{
 	        key: 'index',
 	        value: function index() {
-	            this.viewObj = HBY.create(_index2.default, {
-	                el: HBY.config.pageEl,
+	            this.viewObj = Lego.create(_index2.default, {
+	                el: Lego.config.pageEl,
 	                scrollbar: {},
 	                currentTab: 0
 	            });
@@ -98,14 +98,14 @@
 
 	            this.viewObj.options.currentTab = _tabs || 0;
 	            var appArray = [_home2.default, _list2.default, _table2.default];
-	            HBY.create(appArray[_tabs], { el: '#pageContent' });
+	            Lego.create(appArray[_tabs], { el: '#pageContent' });
 	        }
 	    }]);
 
 	    return alertRouter;
 	}();
 
-	HBY.router(new alertRouter());
+	Lego.router(new alertRouter());
 
 /***/ },
 /* 1 */
@@ -239,7 +239,7 @@
 	        key: 'theClick',
 	        value: function theClick(event, target) {
 	            var targetEl = $(event.currentTarget);
-	            var theView = HBY.getView(targetEl);
+	            var theView = Lego.getView(targetEl);
 	            switch (theView.options.type) {
 	                case 'success':
 	                    theView.options.type = 'info';
@@ -649,8 +649,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ListData = function (_HBY$Data) {
-	    _inherits(ListData, _HBY$Data);
+	var ListData = function (_Lego$Data) {
+	    _inherits(ListData, _Lego$Data);
 
 	    function ListData() {
 	        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -684,7 +684,7 @@
 	    }]);
 
 	    return ListData;
-	}(HBY.Data);
+	}(Lego.Data);
 
 	exports.default = new ListData();
 

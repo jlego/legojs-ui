@@ -69,7 +69,7 @@ module.exports = {
         //     mangle: true,
         //     compress: false,
         //     output: {
-        //         beautify: true,
+        //         beautify: false,
         //         comments: false
         //     },
         // }),

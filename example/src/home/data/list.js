@@ -1,4 +1,4 @@
-class ListData extends HBY.Data {
+class ListData extends Lego.Data {
     constructor(opts = {}) {
         const options = {
             'test': {

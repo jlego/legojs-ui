@@ -10,8 +10,8 @@ class Router {
         };
     }
     index(){
-        this.viewObj = HBY.create(IndexView, {
-            el: HBY.config.pageEl,
+        this.viewObj = Lego.create(IndexView, {
+            el: Lego.config.pageEl,
             scrollbar: {},
             currentTab: 0
         });
@@ -19,7 +19,7 @@ class Router {
     tabs(tabs = 0){
         this.viewObj.options.currentTab = tabs || 0;
         const appArray = [homeView, formView];
-        HBY.create(appArray[tabs], { el: '#pageContent' });
+        Lego.create(appArray[tabs], { el: '#pageContent' });
     }
 }
-HBY.router(new Router());
+Lego.router(new Router());

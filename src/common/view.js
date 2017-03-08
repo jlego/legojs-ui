@@ -28,15 +28,6 @@ class Baseview extends Lego.View {
         }
     }
     /**
-     * [$ 简化jquery选择节点]
-     * @param  {[type]} selector [description]
-     * @return {[type]}          [description]
-     */
-    $(selector) {
-        this.$el = this.$el || window.$(this.el);
-        return window.$ ? this.$el.find(selector) : null;
-    }
-    /**
      * [setEvent 设置dom]
      * @param {[type]} element [description]
      */

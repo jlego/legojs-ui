@@ -77,8 +77,8 @@
 	    _createClass(Router, [{
 	        key: 'index',
 	        value: function index() {
-	            this.viewObj = HBY.create(_index2.default, {
-	                el: HBY.config.pageEl,
+	            this.viewObj = Lego.create(_index2.default, {
+	                el: Lego.config.pageEl,
 	                scrollbar: {},
 	                currentTab: 0
 	            });
@@ -90,14 +90,14 @@
 
 	            this.viewObj.options.currentTab = _tabs || 0;
 	            var appArray = [_home2.default, _form2.default];
-	            HBY.create(appArray[_tabs], { el: '#pageContent' });
+	            Lego.create(appArray[_tabs], { el: '#pageContent' });
 	        }
 	    }]);
 
 	    return Router;
 	}();
 
-	HBY.router(new Router());
+	Lego.router(new Router());
 
 /***/ },
 /* 1 */,

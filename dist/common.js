@@ -1,5 +1,5 @@
 /**
- * common.js v0.3.0
+ * common.js v0.3.1
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -377,12 +377,6 @@ var Baseview = function(_Lego$View) {
                     });
                 }
             }
-        }
-    }, {
-        key: "$",
-        value: function $(selector) {
-            this.$el = this.$el || window.$(this.el);
-            return window.$ ? this.$el.find(selector) : null;
         }
     }, {
         key: "setEvent",
