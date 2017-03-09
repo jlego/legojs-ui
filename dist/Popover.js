@@ -1,5 +1,5 @@
 /**
- * popover.js v0.3.1
+ * popover.js v0.3.3
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
