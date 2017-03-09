@@ -1,5 +1,5 @@
 /**
- * datepicker.js v0.3.3
+ * datepicker.js v0.3.4
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -142,7 +142,7 @@ var Datepicker = function(_Lego$UI$Baseview) {
             if (options.type !== "range") {
                 var $theEl = this.$el.find(theEl);
                 if (options.inline) $theEl = this.$el;
-                $theEl.datetimepicker(options.setting);
+                $theEl.datepicker(options.setting);
                 $theEl.on("dp.change", function(event) {
                     var value = $(this).val();
                     if (typeof options.onChange == "function") options.onChange(that, formatDate(value, options.format));
@@ -155,8 +155,8 @@ var Datepicker = function(_Lego$UI$Baseview) {
                         var endDateOpts = Object.assign({}, _extends({}, options.setting, {
                             useCurrent: options.useCurrent
                         }));
-                        var startDate = _this2.$el.find(startEl).datetimepicker(startDateOpts);
-                        var endDate = _this2.$el.find(endEl).datetimepicker(endDateOpts);
+                        var startDate = _this2.$el.find(startEl).datepicker(startDateOpts);
+                        var endDate = _this2.$el.find(endEl).datepicker(endDateOpts);
                         _this2.$el.find(startEl).on("dp.change", function(e) {
                             that.$el.find(endEl).data("DateTimePicker").minDate(e.date);
                         });
@@ -167,7 +167,7 @@ var Datepicker = function(_Lego$UI$Baseview) {
                         (function() {
                             var selector = options.startInputEl || options.endInputEl;
                             if (options.startInputEl) options.setting.useCurrent = false;
-                            _this2.$el.find(theEl).datetimepicker(options.setting);
+                            _this2.$el.find(theEl).datepicker(options.setting);
                             if (options.endInputEl) {
                                 _this2.$el.find(theEl).on("dp.change", function(e) {
                                     var _el = selector instanceof $ ? selector : $(selector).find(theEl);
