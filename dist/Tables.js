@@ -1,5 +1,5 @@
 /**
- * tables.js v0.3.1
+ * tables.js v0.3.4
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

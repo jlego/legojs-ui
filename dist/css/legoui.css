@@ -9483,7 +9483,7 @@ pre p {
 .lego-table-fixed-header .lego-table-scroll > .btn.noborder {
   position: absolute;
   top: 6px;
-  right: 5px;
+  right: 0;
   width: 40px;
   height: 40px;
   font-size: 20px;

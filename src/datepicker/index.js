@@ -51,7 +51,7 @@ class Datepicker extends Lego.UI.Baseview {
         if (options.type !== 'range') {
             let $theEl = this.$el.find(theEl);
             if(options.inline) $theEl = this.$el;
-            $theEl.datetimepicker(options.setting);
+            $theEl.datepicker(options.setting);
             $theEl.on('dp.change', function(event) {
                 let value = $(this).val();
                 if (typeof options.onChange == 'function') options.onChange(that, formatDate(value, options.format));
@@ -62,8 +62,8 @@ class Datepicker extends Lego.UI.Baseview {
             if (!options.startInputEl && !options.endInputEl) {
                 const startDateOpts = Object.assign({}, options.setting);
                 const endDateOpts = Object.assign({},{...options.setting, useCurrent: options.useCurrent});
-                const startDate = this.$el.find(startEl).datetimepicker(startDateOpts);
-                const endDate = this.$el.find(endEl).datetimepicker(endDateOpts);
+                const startDate = this.$el.find(startEl).datepicker(startDateOpts);
+                const endDate = this.$el.find(endEl).datepicker(endDateOpts);
                 this.$el.find(startEl).on('dp.change', function(e) {
                     that.$el.find(endEl).data("DateTimePicker").minDate(e.date);
                 });
@@ -73,7 +73,7 @@ class Datepicker extends Lego.UI.Baseview {
             } else if (options.startInputEl || options.endInputEl) {
                 const selector = options.startInputEl || options.endInputEl;
                 if (options.startInputEl) options.setting.useCurrent = false;
-                this.$el.find(theEl).datetimepicker(options.setting);
+                this.$el.find(theEl).datepicker(options.setting);
                 if (options.endInputEl) {
                     this.$el.find(theEl).on("dp.change", function(e) {
                         const _el = selector instanceof $ ? selector : $(selector).find(theEl);
