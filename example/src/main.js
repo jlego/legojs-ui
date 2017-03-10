@@ -1,10 +1,10 @@
 import Lego from 'lego-core';
 // import lo from 'lodash';
 import "../ux/util/util";
-import 'lego-ui';
-import 'lego-ui/dist/css/legoui.css';
-// import '../../dist/legoui';
-// import '../../dist/css/legoui.css';
+// import 'lego-ui';
+// import 'lego-ui/dist/css/legoui.css';
+import '../../dist/legoui';
+import '../../dist/css/legoui.css';
 
 import showdown from 'showdown';
 window.markdown = new showdown.Converter();

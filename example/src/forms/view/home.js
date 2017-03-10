@@ -84,6 +84,8 @@ class HomeView extends Lego.UI.Baseview {
                 el: '#datepicker7',
                 type: 'date',
                 name: 'datepicker1',
+                showClose: true,
+                showClear: true,
                 onChange(self, result) {
                     console.warn('点击了时间选项框5', result);
                 }
