@@ -22,6 +22,7 @@ class Datepicker extends Lego.UI.Baseview {
             placeholder: '选择时间', //
             disabled: false, //
             inline: false,
+            keepOpen: true,
             size: 'default', //设置按钮大小，可选值为 small large 或者不设
             format: opts.type == 'time' ? 'LT' : 'YYYY-MM-DD HH:mm:ss', //
             value: null,
@@ -45,7 +46,11 @@ class Datepicker extends Lego.UI.Baseview {
     initDatepicker() {
         const options = this.options;
         this.oldValue = formatDate(options.value, options.format);
-        Object.assign(options.setting, {format: options.format, inline: options.inline});
+        Object.assign(options.setting, {
+            format: options.format,
+            keepOpen: options.keepOpen,
+            inline: options.inline
+        });
         const that = this,
             theEl = options.inline ? options.el : '.input-group input';
         if (options.type !== 'range') {

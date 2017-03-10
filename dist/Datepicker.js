@@ -1,5 +1,5 @@
 /**
- * datepicker.js v0.3.4
+ * datepicker.js v0.3.6
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -107,6 +107,7 @@ var Datepicker = function(_Lego$UI$Baseview) {
             placeholder: "选择时间",
             disabled: false,
             inline: false,
+            keepOpen: true,
             size: "default",
             format: opts.type == "time" ? "LT" : "YYYY-MM-DD HH:mm:ss",
             value: null,
@@ -136,6 +137,7 @@ var Datepicker = function(_Lego$UI$Baseview) {
             this.oldValue = formatDate(options.value, options.format);
             Object.assign(options.setting, {
                 format: options.format,
+                keepOpen: options.keepOpen,
                 inline: options.inline
             });
             var that = this, theEl = options.inline ? options.el : ".input-group input";
