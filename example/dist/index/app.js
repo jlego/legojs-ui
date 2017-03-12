@@ -117,9 +117,6 @@
 	        _classCallCheck(this, Viewport);
 
 	        var options = {
-	            events: {
-	                // 'click nav a': 'clickNav'
-	            },
 	            logoUrl: 'asset/img/logo.png',
 	            components: [{
 	                el: '#sidebar'
@@ -134,13 +131,6 @@
 	        value: function render() {
 	            var tmpl = hx(_templateObject, this.options.logoUrl);
 	            return tmpl;
-	        }
-	    }, {
-	        key: 'clickNav',
-	        value: function clickNav(event) {
-	            var target = Lego.$(event.currentTarget),
-	                app = target.data('app');
-	            Lego.startApp(app);
 	        }
 	    }]);
 
@@ -628,7 +618,7 @@
 	                closeAllAble: false,
 	                activeKey: 'nav1',
 	                onClick: function onClick(self, item) {
-	                    console.warn('点击了菜单5', item);
+	                    // console.warn('点击了菜单5', item);
 	                    if (item.key) {
 	                        if (item.key.indexOf('_') > 0) {
 	                            Lego.startApp(item.key.split('_')[1]);

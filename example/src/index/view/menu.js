@@ -100,7 +100,7 @@ class Menu extends Lego.UI.Baseview {
                 closeAllAble: false,
                 activeKey: 'nav1',
                 onClick(self, item) {
-                    console.warn('点击了菜单5', item);
+                    // console.warn('点击了菜单5', item);
                     if(item.key){
                         if (item.key.indexOf('_') > 0) {
                             Lego.startApp(item.key.split('_')[1]);
