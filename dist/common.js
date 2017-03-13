@@ -1,5 +1,5 @@
 /**
- * common.js v0.3.6
+ * common.js v0.3.9
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -73,7 +73,8 @@ function Message() {
     };
     var typeArr = [ "success", "info", "warning", "error" ];
     if (typeArr.indexOf(type) >= 0 || content) {
-        toastr[type](content);
+        if (this.toastr) this.toastr.remove();
+        this.toastr = toastr[type](content);
     }
 }
 

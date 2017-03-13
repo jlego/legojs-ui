@@ -1,5 +1,5 @@
 /**
- * inputs.js v0.3.6
+ * inputs.js v0.3.9
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
