@@ -9211,7 +9211,7 @@ pre p {
   transition: background .3s ease;
   text-align: left;
   border-top: 2px #e4eaec solid;
-  border-bottom: 2px #e4eaec solid;
+  border-bottom: 2px #ece4e4 solid;
   border-left: 1px #e4eaec solid; }
 
 .lego-table-thead > tr > th:first-child {

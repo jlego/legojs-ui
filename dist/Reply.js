@@ -1,5 +1,5 @@
 /**
- * reply.js v0.3.9
+ * reply.js v0.3.10
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -2209,6 +2209,7 @@ var Reply = function(_Lego$UI$Baseview) {
             iconsUrl: "",
             submitText: "回复",
             submitType: "primary",
+            contentRequired: true,
             maxTextLength: 500,
             onSubmit: function onSubmit() {},
             onUploadComplete: function onUploadComplete() {},
@@ -2316,7 +2317,7 @@ var Reply = function(_Lego$UI$Baseview) {
             var contentHtml = contentEl.val();
             contentHtml = this.options.filterHtml ? contentHtml.replace(/<[^>]+>/g, "").replace(/\r\n/g, "").replace(/\n/g, "") : contentHtml;
             contentHtml = $.trim(contentHtml);
-            if (!contentHtml.length) {
+            if (!contentHtml.length && this.options.contentRequired) {
                 Lego.UI.message("warning", "提交内容不能为空");
                 return;
             }
