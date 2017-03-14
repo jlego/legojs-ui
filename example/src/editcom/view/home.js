@@ -117,7 +117,7 @@ class HomeView extends Lego.UI.Baseview {
               <button class="btn btn-primary" onclick=${this.onclick}>点我吧</button>
             </div>
             <div class="col-sm-6">
-              
+
             </div>
           </div>
         </div>
