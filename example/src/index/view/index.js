@@ -17,6 +17,7 @@ class Viewport extends Lego.UI.Baseview {
     render() {
         const tmpl = hx`
         <div id="app" class="app-navbar-fixed app-sidebar-fixed">
+            <link rel="stylesheet" type="text/css" href="dist/index/app.css" />
             <menu id="sidebar"></menu>
             <div class="app-content">
                 <header class="navbar navbar-default navbar-static-top">

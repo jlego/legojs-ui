@@ -1,10 +1,9 @@
 import Lego from 'lego-core';
-// import lo from 'lodash';
 import "../ux/util/util";
-// import 'lego-ui';
-// import 'lego-ui/dist/css/legoui.css';
-import '../../dist/legoui';
-import '../../dist/css/legoui.css';
+import 'lego-ui';
+import 'lego-ui/dist/css/legoui.css';
+// import '../../dist/legoui';
+// import '../../dist/css/legoui.css';
 
 import showdown from 'showdown';
 window.markdown = new showdown.Converter();
@@ -14,7 +13,6 @@ import hljs from 'highlight.js/lib/highlight';
 import 'highlight.js/styles/atom-one-light.css';
 hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'));
 window.hljs = hljs;
-// window._ = lo;
 
 // 设置全局参数，初始化应用
 Lego.init({

@@ -6,15 +6,15 @@ class Menu extends Lego.UI.Baseview {
             icon: 'lego-icon-home',
             open: true,
             children: [{
-                key: 'nav_home',
+                key: 'nav_buttons',
                 value: 'Button 按钮',
-                children: [{
-                    key: 'nav_home_1',
-                    value: 'Button 按钮'
-                }, {
-                    key: 'nav1_2_2',
-                    value: 'Icon 图标'
-                }]
+                // children: [{
+                //     key: 'nav_home_1',
+                //     value: 'Button 按钮'
+                // }, {
+                //     key: 'nav1_2_2',
+                //     value: 'Icon 图标'
+                // }]
             }, {
                 key: 'nav1_2',
                 value: 'Icon 图标'

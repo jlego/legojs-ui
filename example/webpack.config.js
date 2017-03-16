@@ -6,6 +6,7 @@ module.exports = {
     entry: {
         'index/app': './src/index/app',
         'home/app': './src/home/app',
+        'buttons/app': './src/buttons/app',
         'alert/app': './src/alert/app',
         'navs/app': './src/navs/app',
         'forms/app': './src/forms/app',
@@ -21,7 +22,7 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, 'dist'), //打包输出的路径
-        publicPath: "./dist/", //发布地址。
+        publicPath: "./", //发布地址。
         filename: '[name].js', //打包多个
         // chunkFilename: "[name].js"
     },
@@ -36,12 +37,12 @@ module.exports = {
             }
         }, {
             test: /\.scss$/,
-            loader: "style!css!sass",
-            // loader: ExtractTextPlugin.extract('style', 'css!sass')
+            // loader: "style!css!sass",
+            loader: ExtractTextPlugin.extract('style', 'css!sass')
         }, {
             test: /\.css$/,
-            loader: "style!css",
-            // loader: ExtractTextPlugin.extract('style', "css")
+            // loader: "style!css",
+            loader: ExtractTextPlugin.extract('style', "css")
         }, {
             test: /\.(png|gif|jpe?g)$/,
             loader: 'url?prefix=img&limit=10240&name=img/[name].[hash].[ext]'
@@ -54,27 +55,19 @@ module.exports = {
         }]
     },
     resolve: {
-        extensions: ["", ".js"],
-        // alias: {
-        //     'jquery': path.join(__dirname, 'node_modules/jquery/src/jquery')
-        // }
+        extensions: ["", ".js"]
     },
     plugins: [
-        // new webpack.ProvidePlugin({
-        //     $: 'jquery',
-        //     jQuery: 'jquery',
-        //     'windows.jQuery': 'jquery'
-        // }),
-        // new webpack.optimize.UglifyJsPlugin({
-        //     mangle: true,
-        //     compress: false,
-        //     output: {
-        //         beautify: false,
-        //         comments: false
-        //     },
-        // }),
-        // new ExtractTextPlugin("[name].css", {
-        //     allChunks: true
-        // }),
+        new webpack.optimize.UglifyJsPlugin({
+            mangle: true,
+            compress: false,
+            output: {
+                beautify: false,
+                comments: false
+            },
+        }),
+        new ExtractTextPlugin("[name].css", {
+            allChunks: true
+        })
     ]
 };
