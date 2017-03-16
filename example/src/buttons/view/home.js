@@ -3,25 +3,36 @@ import Form from './form';
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
         let options = {
-            events: {
+            listener: {
+                'updateView': (data = {})=>{
+                    let view = Lego.getView('#exampleCom');
+                    if(view){
+                        Object.assign(view.options, data);
+                    }
+                }
             },
             components: [{
                 el: '#tabs',
                 type: 'tabs',
                 activeKey: 'tab_1',
+                navClassName: 'nav-fill',
                 animate: 'fade',
                 data: [{
                     key: 'tab_1',
-                    value: '效果',
-                    content: hx`<div>效果</div>`
+                    value: '组件效果',
+                    content: hx`<div><buttons id="exampleCom"></buttons></div>`
                 },{
                     key: 'tab_2',
-                    value: '接口',
+                    value: '生成代码',
                     content: hx`<div>接口</div>`
                 },{
                     key: 'tab_3',
-                    value: '代码',
+                    value: '参数说明',
                     content: hx`<div>代码</div>`
+                }],
+                components: [{
+                    el: '#exampleCom',
+                    text: 'button'
                 }]
             }, {
                 el: '#formcom'

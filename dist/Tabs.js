@@ -1,5 +1,5 @@
 /**
- * tabs.js v0.3.11
+ * tabs.js v0.3.12
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -454,6 +454,7 @@ var Tabs = function(_Lego$UI$Baseview) {
             activeContent: "",
             onClose: function onClose() {},
             tabPosition: "top",
+            navClassName: "",
             onEdit: function onEdit() {},
             hideAdd: false,
             animate: "",
@@ -478,6 +479,7 @@ var Tabs = function(_Lego$UI$Baseview) {
             this.addCom({
                 el: comId,
                 eventName: options.eventName || "click",
+                className: options.navClassName,
                 type: "tabs",
                 activeKey: options.activeKey,
                 onClick: function onClick(self, item) {

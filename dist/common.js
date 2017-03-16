@@ -1,5 +1,5 @@
 /**
- * common.js v0.3.11
+ * common.js v0.3.12
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -296,7 +296,7 @@ var Util = {
     },
     getPeriod: function getPeriod(type) {
         var startDate = void 0, endDate = void 0;
-        if (moment) {
+        if (window.moment) {
             switch (type) {
               case 0:
                 startDate = moment().format("YYYY-MM-DD");

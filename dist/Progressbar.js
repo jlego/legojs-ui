@@ -1,5 +1,5 @@
 /**
- * progressbar.js v0.3.11
+ * progressbar.js v0.3.12
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

@@ -511,7 +511,7 @@ body {
     height: 100%;
     padding: 15px 0;
 }
-
+// 自定义样式
 .page-panel-bg {
     border-radius: 5px;
     background-color: #fff;
@@ -522,8 +522,11 @@ body {
     height: 100%;
 }
 .col-right{
-    border: 1px solid rgb(221, 221, 221);
+    border: 1px solid #ececec;
     border-radius: 4px;
     padding: 15px;
     height: 100%;
+}
+.tab-content>.tab-pane {
+    padding: 15px 0;
 }
