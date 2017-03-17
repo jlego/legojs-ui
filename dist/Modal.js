@@ -1,5 +1,5 @@
 /**
- * modal.js v0.3.12
+ * modal.js v0.3.17
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -763,7 +763,7 @@ var Modal = function(_Lego$UI$Baseview) {
             backdrop: true,
             keyboard: true,
             content: "",
-            footer: null,
+            footer: "",
             confirm: null,
             scrollbar: {},
             scrollAble: true,

@@ -23,7 +23,7 @@ class Datepicker extends Lego.UI.Baseview {
             keepOpen: false,
             showClose: false,
             showClear: false,
-            size: 'default', //设置按钮大小，可选值为 small large 或者不设
+            size: 'default', //设置大小，可选值为 small large 或者不设
             format: opts.type == 'time' ? 'LT' : 'YYYY-MM-DD HH:mm:ss', //
             value: null,
             startInputEl: '',

@@ -1,5 +1,5 @@
 /**
- * collapse.js v0.3.12
+ * collapse.js v0.3.17
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -38,7 +38,6 @@ var Collapse = function() {
     function Collapse(opts, callback) {
         _classCallCheck(this, Collapse);
         var options = {
-            direction: "updown",
             target: "",
             restHeight: 0,
             realHeight: "100%",

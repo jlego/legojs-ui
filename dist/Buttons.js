@@ -1,5 +1,5 @@
 /**
- * buttons.js v0.3.12
+ * buttons.js v0.3.17
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

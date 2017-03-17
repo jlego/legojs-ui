@@ -1,5 +1,5 @@
 /**
- * progressbar.js v0.3.12
+ * progressbar.js v0.3.17
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -68,7 +68,6 @@ var Progressbar = function(_Lego$UI$Baseview) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Progressbar);
         var options = {
-            type: "",
             status: "",
             showInfo: true,
             percent: 0,

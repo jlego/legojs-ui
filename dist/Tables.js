@@ -1,5 +1,5 @@
 /**
- * tables.js v0.3.12
+ * tables.js v0.3.17
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -560,7 +560,7 @@ var Tables = function(_Lego$UI$Baseview) {
             this.columnsObj = this.columnsObj || {};
             if (options.columns) {
                 this.allColumns = typeof options.columns == "function" ? options.columns(this) : options.columns;
-                this.columns = Array.from(this.allColumns || []);
+                this.columns = Array.from(this.allColumns);
             }
             this.tableRealWidth = this.options.rowSelection ? 30 : 0;
             this.columns.forEach(function(col, index) {
@@ -680,7 +680,7 @@ var Tables = function(_Lego$UI$Baseview) {
         value: function _renderSorter() {
             var col = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
             var options = this.options;
-            var vDom = hx(_templateObject21, col.sortOrder === "asc" ? "on" : "off", col.sortOrder === "desc" ? "on" : "off");
+            var vDom = hx(_templateObject21, col.sortOrder == "asc" ? "on" : "off", col.sortOrder == "desc" ? "on" : "off");
             return vDom;
         }
     }, {
@@ -693,7 +693,9 @@ var Tables = function(_Lego$UI$Baseview) {
         key: "clickSorter",
         value: function clickSorter(event) {
             event.stopPropagation();
-            var target = $(event.currentTarget), key = target.closest("th").attr("id"), col = this.columnsObj[key];
+            var target = $(event.currentTarget), key = target.closest("th").attr("id"), col = this.columnsObj[key], oldCol = this.columns.find(function(item) {
+                return item.key == key;
+            });
             if (col) {
                 col.sortOrder = col.sortOrder || "";
                 switch (col.sortOrder) {
@@ -710,7 +712,9 @@ var Tables = function(_Lego$UI$Baseview) {
                     break;
                 }
                 this.refresh();
-                if (typeof col.sorter === "function") col.sorter(this, col, event);
+                if (oldCol) {
+                    if (typeof oldCol.sorter === "function") oldCol.sorter(this, col, event);
+                }
             }
         }
     }, {

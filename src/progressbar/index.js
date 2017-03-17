@@ -8,7 +8,6 @@
 class Progressbar extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
-            type: '',
             status: '',   //success, info, primary, danger, warning
             showInfo: true, //是否显示进度数值或状态图标
             percent: 0,

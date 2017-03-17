@@ -1,12 +1,11 @@
 /**
- * 步骤条
+ * 折叠
  * ronghui Yu
  * 2017/1/17
  */
 class Collapse {
     constructor(opts, callback) {
         const options = {
-            direction: 'updown', //指定步骤条方向。目前支持水平updown/toggle
             target: '',
             restHeight: 0,  //剩余高度
             realHeight: '100%',  //实高

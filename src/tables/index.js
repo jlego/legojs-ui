@@ -82,7 +82,7 @@ class Tables extends Lego.UI.Baseview {
         this.columnsObj = this.columnsObj || {};
         if(options.columns){
             this.allColumns = typeof options.columns == 'function' ? options.columns(this) : options.columns;
-            this.columns = Array.from(this.allColumns || []);
+            this.columns = Array.from(this.allColumns);
         }
         this.tableRealWidth = this.options.rowSelection ? 30 : 0;    //表格实宽
         this.columns.forEach((col, index) => {
@@ -267,10 +267,10 @@ class Tables extends Lego.UI.Baseview {
         const options = this.options;
         const vDom = hx`
         <div class="lego-table-column-sorter">
-            <span class="lego-table-column-sorter-up ${col.sortOrder === 'asc' ? 'on' : 'off'}" title="↑">
+            <span class="lego-table-column-sorter-up ${col.sortOrder == 'asc' ? 'on' : 'off'}" title="↑">
                 <i class="anticon anticon-caret-up"></i>
             </span>
-            <span class="lego-table-column-sorter-down ${col.sortOrder === 'desc' ? 'on' : 'off'}" title="↓">
+            <span class="lego-table-column-sorter-down ${col.sortOrder == 'desc' ? 'on' : 'off'}" title="↓">
                 <i class="anticon anticon-caret-down"></i>
             </span>
         </div>
@@ -284,7 +284,8 @@ class Tables extends Lego.UI.Baseview {
         event.stopPropagation();
         const target = $(event.currentTarget),
             key = target.closest('th').attr('id'),
-            col = this.columnsObj[key];
+            col = this.columnsObj[key],
+            oldCol = this.columns.find(item => item.key == key);
         if(col){
             col.sortOrder = col.sortOrder || '';
             switch(col.sortOrder){
@@ -299,7 +300,9 @@ class Tables extends Lego.UI.Baseview {
                     break;
             }
             this.refresh();
-            if(typeof col.sorter === 'function') col.sorter(this, col, event);
+            if(oldCol){
+                if(typeof oldCol.sorter === 'function') oldCol.sorter(this, col, event);
+            }
         }
     }
     clickItem(event){

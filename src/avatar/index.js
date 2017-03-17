@@ -28,7 +28,7 @@ class Avatar extends Lego.UI.Baseview {
             height: '',
             value: [],
             onAdd(){},
-            // onRemove(){},
+            onRemove(){},
             onChange(){}   //事件回调
         };
         Object.assign(options, opts);
