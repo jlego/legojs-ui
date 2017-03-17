@@ -1,5 +1,5 @@
 /**
- * common.js v0.3.1
+ * common.js v0.3.17
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -73,7 +73,8 @@ function Message() {
     };
     var typeArr = [ "success", "info", "warning", "error" ];
     if (typeArr.indexOf(type) >= 0 || content) {
-        toastr[type](content);
+        if (this.toastr) this.toastr.remove();
+        this.toastr = toastr[type](content);
     }
 }
 
@@ -292,6 +293,38 @@ var Util = {
             selection.addRange(range);
             ob.focus();
         }
+    },
+    getPeriod: function getPeriod(type) {
+        var startDate = void 0, endDate = void 0;
+        if (window.moment) {
+            switch (type) {
+              case 0:
+                startDate = moment().format("YYYY-MM-DD");
+                endDate = moment().format("YYYY-MM-DD");
+                break;
+
+              case 1:
+                startDate = moment().day(0).format("YYYY-MM-DD");
+                endDate = moment().day(6).format("YYYY-MM-DD");
+                break;
+
+              case 2:
+                startDate = moment().format("YYYY-MM-01");
+                endDate = moment(startDate).add(1, "months").subtract(1, "days").format("YYYY-MM-DD");
+                break;
+
+              case 3:
+                startDate = moment().format("YYYY-01-01");
+                endDate = moment().format("YYYY-12-31");
+                break;
+            }
+        } else {
+            console.warn("依赖的moment.js插件还没安装");
+        }
+        return {
+            startDate: startDate,
+            endDate: endDate
+        };
     }
 };
 

@@ -19,17 +19,15 @@ class Inputs extends Lego.UI.Baseview {
             filterReg: '',  //过滤正则
             disabled: false,  //是否禁用状态，默认为 false
             readonly: false,
-            addonBefore: '',    //带标签的 input，设置前置标签
-            addonAfter: '',    //带标签的 input，设置后置标签
-            prefix: '',      //带有前缀图标的 input
-            suffix: '',      // 带有后缀图标的 input
+            preAddon: '',    //带标签的 input，设置前置标签
+            nextAddon: '',    //带标签的 input，设置后置标签
             size: '',    //设置按钮大小，可选值为 sm lg 或者不设
             onChange(){},
             onEnter(){}   //   按下回车的回调
         };
         Object.assign(options, opts);
         super(options);
-        if(options.addonBefore || options.addonAfter){
+        if(options.preAddon || options.nextAddon){
             const onEnterFun = this.onEnter.bind(this);
             const onChangeFun = this.onChange.bind(this);
             this.$('input').keydown(onEnterFun);
@@ -41,13 +39,13 @@ class Inputs extends Lego.UI.Baseview {
         const options = this.options || {};
         let vDom = hx`<div></div>`,
             value = options.value ? Lego.UI.Util.unFilterTag(options.value.toString()) : '';
-        if(options.addonBefore || options.addonAfter){
+        if(options.preAddon || options.nextAddon){
             vDom = hx`
             <div class="input-group ${options.size ? ('input-group-' + options.size) : ''}">
-              ${options.addonBefore ? hx`<span class="input-group-addon">${options.prefix}</span>` : ''}
+              ${options.preAddon ? hx`<span class="input-group-addon">${options.preAddon}</span>` : ''}
               <input type="${options.type}" class="form-control" placeholder="${options.placeholder}"
               value="${val(value)}" name="${options.name}" ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}/>
-              ${options.addonAfter ? hx`<span class="input-group-addon">${options.suffix}</span>` : ''}
+              ${options.nextAddon ? hx`<span class="input-group-addon">${options.nextAddon}</span>` : ''}
             </div>
             `;
         }else{

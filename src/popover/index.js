@@ -22,7 +22,7 @@ let Popover = function(opts = {}) {
         eventName: 'click',
         constraints: [], //'hover focus'
         offset: '0 0', //0, 0
-        onHidden() {} //隐藏回调
+        onClose() {} //隐藏回调
     };
     Object.assign(options, opts);
     let el = options.el instanceof $ ? options.el : $(options.el),
@@ -40,7 +40,7 @@ let Popover = function(opts = {}) {
             animation: options.animation,
             container: options.container,
             delay: options.delay,
-            html: options.html,
+            html: !!options.html,
             placement: options.placement,
             template: options.template,
             constraints: options.constraints,
@@ -48,7 +48,7 @@ let Popover = function(opts = {}) {
             offset: options.offset
         });
         el.on('hidden.bs.popover', function() {
-            if (typeof options.onHidden === 'function') options.onHidden(event);
+            if (typeof options.onClose === 'function') options.onClose(event);
         });
         if(options.showNow){
             bodyEl.trigger('click', el);

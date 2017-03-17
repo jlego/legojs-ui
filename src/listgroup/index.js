@@ -25,7 +25,7 @@ class Listgroup extends Lego.UI.Baseview {
             },
             activeKey: '',   //选中的记录
             template: '', //item模板
-            removeAble: false, //可否删除记录
+            removeAble: false, //可否删除
             data: [],
             onClick(){},   //click 事件的 handler
             onClose(){}

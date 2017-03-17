@@ -1,6 +1,25 @@
 .lego-nav{
-	line-height: 20px;
-	margin: 0;
+		line-height: 20px;
+		margin: 0;
     padding: 0;
     list-style: none;
+}
+.lego-nav.nav-fill{
+		display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+.nav-fill .nav-item {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    text-align: center;
+}
+.lego-nav .nav-link {
+    color: #666;
 }

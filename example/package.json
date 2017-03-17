@@ -36,15 +36,15 @@
     "webpack": "^1.14.0"
   },
   "dependencies": {
-    "bootstrap-datetimepicker-cjs": "0.0.2",
+    "bootstrap-datetimepicker-cjs": "0.0.3",
     "bootstrap-rating": "0.0.1",
     "core-decorators": "^0.14.0",
     "director": "^1.2.8",
     "events": "^1.1.1",
     "highlight.js": "^9.9.0",
     "jquery": "^3.1.1",
-    "lego-core": "^1.6.14",
-    "lego-ui": "^0.1.9",
+    "lego-core": "^1.7.0",
+    "lego-ui": "^0.3.12",
     "lodash": "^4.17.3",
     "moment": "^2.17.1",
     "object.observe": "^0.2.6",

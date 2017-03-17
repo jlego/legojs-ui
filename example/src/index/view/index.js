@@ -6,9 +6,6 @@ Lego.components('menu', Menu);
 class Viewport extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
-            events: {
-                // 'click nav a': 'clickNav'
-            },
             logoUrl: 'asset/img/logo.png',
             components: [{
                 el: '#sidebar'
@@ -20,6 +17,7 @@ class Viewport extends Lego.UI.Baseview {
     render() {
         const tmpl = hx`
         <div id="app" class="app-navbar-fixed app-sidebar-fixed">
+            <link rel="stylesheet" type="text/css" href="dist/index/app.css" />
             <menu id="sidebar"></menu>
             <div class="app-content">
                 <header class="navbar navbar-default navbar-static-top">
@@ -83,11 +81,6 @@ class Viewport extends Lego.UI.Baseview {
         </div>
         `;
         return tmpl;
-    }
-    clickNav(event){
-        const target = Lego.$(event.currentTarget),
-            app = target.data('app');
-        Lego.startApp(app);
     }
 }
 export default Viewport;

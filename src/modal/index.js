@@ -32,7 +32,7 @@ class Modal extends Lego.UI.Baseview {
             backdrop: true,
             keyboard: true,
             content: '',  //内容
-            footer: null,
+            footer: '',
             confirm: null,
             scrollbar: {},
             scrollAble: true,
