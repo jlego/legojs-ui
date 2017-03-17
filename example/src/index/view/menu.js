@@ -6,15 +6,15 @@ class Menu extends Lego.UI.Baseview {
             icon: 'lego-icon-home',
             open: true,
             children: [{
-                key: 'nav_home',
+                key: 'nav_buttons',
                 value: 'Button 按钮',
-                children: [{
-                    key: 'nav_home_1',
-                    value: 'Button 按钮'
-                }, {
-                    key: 'nav1_2_2',
-                    value: 'Icon 图标'
-                }]
+                // children: [{
+                //     key: 'nav_home_1',
+                //     value: 'Button 按钮'
+                // }, {
+                //     key: 'nav1_2_2',
+                //     value: 'Icon 图标'
+                // }]
             }, {
                 key: 'nav1_2',
                 value: 'Icon 图标'
@@ -100,7 +100,7 @@ class Menu extends Lego.UI.Baseview {
                 closeAllAble: false,
                 activeKey: 'nav1',
                 onClick(self, item) {
-                    console.warn('点击了菜单5', item);
+                    // console.warn('点击了菜单5', item);
                     if(item.key){
                         if (item.key.indexOf('_') > 0) {
                             Lego.startApp(item.key.split('_')[1]);

@@ -9210,9 +9210,9 @@ pre p {
   -webkit-transition: background .3s ease;
   transition: background .3s ease;
   text-align: left;
-  border-top: 2px #e4eaec solid;
-  border-bottom: 2px #e4eaec solid;
-  border-left: 1px #e4eaec solid; }
+  border-top: 2px #ece4e4 solid;
+  border-bottom: 2px #ece4e4 solid;
+  border-left: 1px #ece4e4 solid; }
 
 .lego-table-thead > tr > th:first-child {
   border-left: none; }
@@ -9483,7 +9483,7 @@ pre p {
 .lego-table-fixed-header .lego-table-scroll > .btn.noborder {
   position: absolute;
   top: 6px;
-  right: 5px;
+  right: 0;
   width: 40px;
   height: 40px;
   font-size: 20px;
@@ -10143,6 +10143,25 @@ tr.lego-table-expanded-row:hover {
   margin: 0;
   padding: 0;
   list-style: none; }
+
+.lego-nav.nav-fill {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap; }
+
+.nav-fill .nav-item {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  text-align: center; }
+
+.lego-nav .nav-link {
+  color: #666; }
 .lego-tabs .dropdown-menu {
   min-width: 160px; }
 .lego-search input,
@@ -10774,7 +10793,10 @@ form button[type="submit"] {
 .lego-upload .lego-upload-item .media-body .media-heading .right {
   position: absolute;
   top: 8px;
-  right: 8px; }
+  right: 8px;
+  height: 20px;
+  width: 20px;
+  left: inherit; }
 
 .lego-upload .lego-upload-item .media-body .media-heading .right a {
   margin-left: 8px; }

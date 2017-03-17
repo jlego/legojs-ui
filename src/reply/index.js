@@ -29,6 +29,7 @@ class Reply extends Lego.UI.Baseview {
             iconsUrl: '',
             submitText: '回复', //
             submitType: 'primary',
+            contentRequired: true,
             maxTextLength: 500, //回复内容最大长度
             onSubmit() {}, //事件回调
             onUploadComplete() {},
@@ -142,7 +143,7 @@ class Reply extends Lego.UI.Baseview {
         let contentHtml = contentEl.val();
         contentHtml = this.options.filterHtml ? contentHtml.replace(/<[^>]+>/g,"").replace(/\r\n/g,"").replace(/\n/g,"") : contentHtml;
         contentHtml = $.trim(contentHtml);
-        if(!contentHtml.length) {
+        if(!contentHtml.length && this.options.contentRequired) {
             Lego.UI.message('warning', '提交内容不能为空');
             return;
         }

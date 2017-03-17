@@ -1,5 +1,5 @@
 /**
- * reply.js v0.3.1
+ * reply.js v0.3.17
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -1058,7 +1058,7 @@ var Popover = function Popover() {
         eventName: "click",
         constraints: [],
         offset: "0 0",
-        onHidden: function onHidden() {}
+        onClose: function onClose() {}
     };
     Object.assign(options, opts);
     var el = options.el instanceof $ ? options.el : $(options.el), _eventName = "click.popover", isOpen = !!el.attr("data-isopen"), bodyEl = $("body, .modal-body");
@@ -1073,7 +1073,7 @@ var Popover = function Popover() {
             animation: options.animation,
             container: options.container,
             delay: options.delay,
-            html: options.html,
+            html: !!options.html,
             placement: options.placement,
             template: options.template,
             constraints: options.constraints,
@@ -1081,7 +1081,7 @@ var Popover = function Popover() {
             offset: options.offset
         });
         el.on("hidden.bs.popover", function() {
-            if (typeof options.onHidden === "function") options.onHidden(event);
+            if (typeof options.onClose === "function") options.onClose(event);
         });
         if (options.showNow) {
             bodyEl.trigger("click", el);
@@ -1364,7 +1364,6 @@ var Progressbar = function(_Lego$UI$Baseview) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck$7(this, Progressbar);
         var options = {
-            type: "",
             status: "",
             showInfo: true,
             percent: 0,
@@ -2209,6 +2208,7 @@ var Reply = function(_Lego$UI$Baseview) {
             iconsUrl: "",
             submitText: "回复",
             submitType: "primary",
+            contentRequired: true,
             maxTextLength: 500,
             onSubmit: function onSubmit() {},
             onUploadComplete: function onUploadComplete() {},
@@ -2316,7 +2316,7 @@ var Reply = function(_Lego$UI$Baseview) {
             var contentHtml = contentEl.val();
             contentHtml = this.options.filterHtml ? contentHtml.replace(/<[^>]+>/g, "").replace(/\r\n/g, "").replace(/\n/g, "") : contentHtml;
             contentHtml = $.trim(contentHtml);
-            if (!contentHtml.length) {
+            if (!contentHtml.length && this.options.contentRequired) {
                 Lego.UI.message("warning", "提交内容不能为空");
                 return;
             }

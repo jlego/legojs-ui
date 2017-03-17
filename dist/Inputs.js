@@ -1,5 +1,5 @@
 /**
- * inputs.js v0.3.1
+ * inputs.js v0.3.17
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -85,17 +85,15 @@ var Inputs = function(_Lego$UI$Baseview) {
             filterReg: "",
             disabled: false,
             readonly: false,
-            addonBefore: "",
-            addonAfter: "",
-            prefix: "",
-            suffix: "",
+            preAddon: "",
+            nextAddon: "",
             size: "",
             onChange: function onChange() {},
             onEnter: function onEnter() {}
         };
         Object.assign(options, opts);
         var _this = _possibleConstructorReturn(this, (Inputs.__proto__ || Object.getPrototypeOf(Inputs)).call(this, options));
-        if (options.addonBefore || options.addonAfter) {
+        if (options.preAddon || options.nextAddon) {
             var onEnterFun = _this.onEnter.bind(_this);
             var onChangeFun = _this.onChange.bind(_this);
             _this.$("input").keydown(onEnterFun);
@@ -108,8 +106,8 @@ var Inputs = function(_Lego$UI$Baseview) {
         value: function render() {
             var options = this.options || {};
             var vDom = hx(_templateObject), value = options.value ? Lego.UI.Util.unFilterTag(options.value.toString()) : "";
-            if (options.addonBefore || options.addonAfter) {
-                vDom = hx(_templateObject2, options.size ? "input-group-" + options.size : "", options.addonBefore ? hx(_templateObject3, options.prefix) : "", options.type, options.placeholder, val(value), options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", options.addonAfter ? hx(_templateObject3, options.suffix) : "");
+            if (options.preAddon || options.nextAddon) {
+                vDom = hx(_templateObject2, options.size ? "input-group-" + options.size : "", options.preAddon ? hx(_templateObject3, options.preAddon) : "", options.type, options.placeholder, val(value), options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", options.nextAddon ? hx(_templateObject3, options.nextAddon) : "");
             } else {
                 if (options.type == "textarea") {
                     vDom = hx(_templateObject4, options.size ? "form-control-" + options.size : "", options.placeholder, options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", val(value));

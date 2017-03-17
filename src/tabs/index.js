@@ -28,6 +28,7 @@ class Tabs extends Lego.UI.Baseview {
             activeContent: '',
             onClose(){}, //tab 被点击的回调
             tabPosition: 'top',    //页签位置，可选值有 top right bottom left
+            navClassName: '',
             onEdit(){},  //新增和删除页签的回调，在 type="editable-card" 时有效
             hideAdd: false,    //是否隐藏加号图标，在 type="editable-card" 时有效
             animate: '',  //是否使用动画切换 Tabs，在 tabPosition=top|bottom 时有效
@@ -47,6 +48,7 @@ class Tabs extends Lego.UI.Baseview {
         this.addCom({
             el: comId,
             eventName: options.eventName || 'click',
+            className: options.navClassName,
             type: 'tabs', //菜单类型，现在支持垂直、水平、和内嵌模式三种base, inline, tabs, pills, pills-stacked
             activeKey: options.activeKey, //当前激活的key
             onClick(self, item){

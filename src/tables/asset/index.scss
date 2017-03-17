@@ -27,9 +27,9 @@
     -webkit-transition: background .3s ease;
     transition: background .3s ease;
     text-align: left;
-    border-top: 2px #e4eaec solid;
-    border-bottom: 2px #e4eaec solid;
-    border-left: 1px #e4eaec solid;
+    border-top: 2px #ece4e4 solid;
+    border-bottom: 2px #ece4e4 solid;
+    border-left: 1px #ece4e4 solid;
 }
 
 .lego-table-thead > tr > th:first-child {
@@ -354,7 +354,7 @@
 .lego-table-fixed-header .lego-table-scroll > .btn.noborder{
     position: absolute;
     top: 6px;
-    right: 5px;
+    right: 0;
     width: 40px;
     height: 40px;
     font-size: 20px;

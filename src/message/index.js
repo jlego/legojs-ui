@@ -27,7 +27,8 @@ function Message(type='info', content='') {
     };
     const typeArr = ['success', 'info', 'warning', 'error'];
     if (typeArr.indexOf(type) >= 0 || content) {
-        toastr[type](content);
+        if(this.toastr) this.toastr.remove();
+        this.toastr = toastr[type](content);
     }
 }
 Lego.components('message', Message);
