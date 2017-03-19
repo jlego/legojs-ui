@@ -399,7 +399,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-tabs">\n            <navs id="navs-', '"></navs>\n            <div class="tab-content">\n                ', "\n            </div>\n        </div>\n        " ], [ '\n        <div class="lego-tabs">\n            <navs id="navs-', '"></navs>\n            <div class="tab-content">\n                ', "\n            </div>\n        </div>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-tabs">\n            <navs id="navs-', '"></navs>\n            <div class="tab-content ', '">\n                ', "\n            </div>\n        </div>\n        " ], [ '\n        <div class="lego-tabs">\n            <navs id="navs-', '"></navs>\n            <div class="tab-content ', '">\n                ', "\n            </div>\n        </div>\n        " ]);
 
 var _templateObject2 = _taggedTemplateLiteral([ '<div class="tab-pane ', " ", '">\n                            ', "\n                        </div>" ], [ '<div class="tab-pane ', " ", '">\n                            ', "\n                        </div>" ]);
 
@@ -455,7 +455,9 @@ var Tabs = function(_Lego$UI$Baseview) {
             onClose: function onClose() {},
             tabPosition: "top",
             navClassName: "",
+            contentScrollbar: null,
             onEdit: function onEdit() {},
+            onChange: function onChange() {},
             hideAdd: false,
             animate: "",
             data: [],
@@ -484,9 +486,10 @@ var Tabs = function(_Lego$UI$Baseview) {
                 activeKey: options.activeKey,
                 onClick: function onClick(self, item) {
                     if (!item.disabled && item.content) {
-                        var parentView = this.context;
-                        parentView.options.activeKey = item.key;
-                        parentView.options.activeContent = item.content;
+                        var pView = this.context;
+                        pView.options.activeKey = item.key;
+                        pView.options.activeContent = item.content;
+                        if (typeof options.onChange === "function") options.onChange(pView, item);
                     }
                 },
                 data: data
@@ -511,7 +514,7 @@ var Tabs = function(_Lego$UI$Baseview) {
                 }
             }
             getNewData(options.data);
-            var vDom = hx(_templateObject, options.vid, newData.map(function(item) {
+            var vDom = hx(_templateObject, options.vid, options.contentScrollbar ? "scrollbar" : "", newData.map(function(item) {
                 if (!item.disabled) {
                     return hx(_templateObject2, val(options.animate), item.key == options.activeKey ? "active in" : "", item.key == options.activeKey ? options.activeContent : "");
                 }

@@ -6,6 +6,7 @@ class View extends Lego.UI.Baseview {
                 layout: 'inline',
                 labelCols: 3,
                 comCols: 9,
+                showSubmit: false,
                 data: [{
                     label: '文本',
                     // help: '注意事项',

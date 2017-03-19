@@ -520,7 +520,7 @@ body {
 }
 #pageContent{
     height: 100%;
-    margin: 0 15px;
+    // margin: 0 15px;
 }
 .col-right{
     border: 1px solid #ececec;
@@ -528,6 +528,19 @@ body {
     padding: 15px;
     height: 100%;
 }
-.tab-content>.tab-pane {
+.left-col .tab-content>.tab-pane.active {
     padding: 15px 0;
+    height: 100%;
+}
+.left-col .tab-content>.tab-pane:first-child {
+    display: flex!important;
+    justify-content: center;
+    align-items: center;
+}
+.left-col .lego-tabs,
+.left-col .tab-content{
+    height: 100%;
+}
+.left-col .tab-content{
+    padding-bottom: 37px;
 }
