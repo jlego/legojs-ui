@@ -4,8 +4,8 @@ class View extends Lego.UI.Baseview {
             components: [{
                 el: '#form1',
                 layout: 'inline',
-                labelCols: 3,
-                comCols: 9,
+                labelCols: 4,
+                comCols: 8,
                 showSubmit: false,
                 data: [{
                     label: '文本',

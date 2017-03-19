@@ -69,10 +69,10 @@ class HomeView extends Lego.UI.Baseview {
         const vDom = hx `
         <div id="pageContent" class="container">
           <div class="row" style="height:100%">
-            <div class="col-sm-6 left-col" style="height:100%">
+            <div class="col-sm-8 left-col" style="height:100%">
                 <tabs id="tabs"></tabs>
             </div>
-            <div class="col-sm-6" style="height:100%">
+            <div class="col-sm-4" style="height:100%">
               <formcom id="formcom"></formcom>
             </div>
           </div>
