@@ -17,25 +17,21 @@ import Navs from '../navs/index';
 class Tabs extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
-            events: {
-                // 'click .dropdown-item': 'clickItem'
-            },
             eventName: 'click', //['click'] or ['hover']
             type: 'line', //页签的基本样式，可选 line、card editable-card 类型
             size: 'default',   //大小，提供 default 和 small 两种大小，仅当 type="line" 时生效
             closable: false, //默认不显示关闭按钮
             activeKey: '', //当前激活的面板key
             activeContent: '',
-            onClose(){}, //tab 被点击的回调
             tabPosition: 'top',    //页签位置，可选值有 top right bottom left
             navClassName: '',
             contentScrollbar: null,
-            onEdit(){},  //新增和删除页签的回调，在 type="editable-card" 时有效
-            onChange(){},
             hideAdd: false,    //是否隐藏加号图标，在 type="editable-card" 时有效
             animate: '',  //是否使用动画切换 Tabs，在 tabPosition=top|bottom 时有效
             data: [],
-            components: []
+            onClose(){}, //tab 被点击的回调
+            onEdit(){},  //新增和删除页签的回调，在 type="editable-card" 时有效
+            onChange(){}
         };
         Object.assign(options, opts);
         super(options);
@@ -65,8 +61,8 @@ class Tabs extends Lego.UI.Baseview {
         });
     }
     render() {
-        const options = this.options;
-        let newData = [];
+        let options = this.options,
+            newData = [];
         function getNewData(data){
             if(Array.isArray(data)){
                 if(data.length){

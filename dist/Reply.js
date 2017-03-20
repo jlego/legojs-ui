@@ -1,5 +1,5 @@
 /**
- * reply.js v0.3.17
+ * reply.js v0.3.18
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

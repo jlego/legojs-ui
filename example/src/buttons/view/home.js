@@ -17,9 +17,13 @@ class HomeView extends Lego.UI.Baseview {
         let options = {
             listener: {
                 'updateView': (data = {})=>{
-                    let view = Lego.getView('#exampleCom');
+                    let view = Lego.getView('#exampleCom'),
+                        pView = Lego.getView('#pageContent');
                     if(view){
                         Object.assign(view.options, data);
+                    }
+                    if(pView){
+                        pView.oldOpts = $.extend(true, {}, view.options);
                     }
                 }
             }
@@ -49,6 +53,10 @@ class HomeView extends Lego.UI.Baseview {
                 content: hx`<div class="markdown">${hx(markdown.makeHtml(table))}</div>`
             }],
             onChange(self, result){
+                let pView = this.context;
+                if(result.key == 'tab_1'){
+                    self.oldOpts
+                }
                 if(result.key == 'tab_2'){
                     setTimeout(function(){
                         that.$('pre').each(function(i, block) {
