@@ -1,6 +1,6 @@
 {
   "name": "lego-ui",
-  "version": "0.3.18",
+  "version": "0.3.21",
   "description": "legojs ui library",
   "main": "dist/legoui.js",
   "directories": {

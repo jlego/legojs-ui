@@ -14,7 +14,7 @@ class IndexView extends Lego.UI.Baseview {
                 <a href="#/buttons/0" class="${options.currentTab == 0 ? 'active' : ''}">Buttons 按钮</a>
             </h1>
             <div class="page-panel">
-                <div class="page-content page-panel-bg">
+                <div class="page-content">
                     <div id="pageContent"></div>
                 </div>
             </div>

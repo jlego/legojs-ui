@@ -1,5 +1,5 @@
 /**
- * tables.js v0.3.18
+ * tables.js v0.3.21
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -512,15 +512,8 @@ var Tables = function(_Lego$UI$Baseview) {
             columns: [],
             rowKey: "",
             rowClassName: "",
-            expandedRowRender: function expandedRowRender() {},
-            defaultExpandedRowKeys: [],
             expandedRowKeys: [],
-            defaultExpandAllRows: false,
-            onExpandedRowsChange: function onExpandedRowsChange() {},
-            onExpand: function onExpand() {},
-            onChange: function onChange() {},
-            onSelect: function onSelect() {},
-            onSetting: function onSetting() {},
+            expandAllRows: false,
             loading: false,
             locale: {
                 filterConfirm: "确定",
@@ -528,13 +521,17 @@ var Tables = function(_Lego$UI$Baseview) {
                 emptyText: "暂无数据"
             },
             indentSize: 0,
-            onRowClick: function onRowClick() {},
             bordered: false,
             showHeader: false,
             showBodyer: true,
             showFooter: false,
             showSetting: false,
             data: [],
+            onExpandRow: function onExpandRow() {},
+            onChange: function onChange() {},
+            onSelect: function onSelect() {},
+            onSetting: function onSetting() {},
+            onRowClick: function onRowClick() {},
             components: []
         };
         Object.assign(options, opts);
@@ -589,7 +586,7 @@ var Tables = function(_Lego$UI$Baseview) {
         value: function render() {
             this.getColumns();
             var options = this.options;
-            var vDom = hx(_templateObject, options.size, options.bordered ? "lego-table-bordered" : "", options.showHeader ? "lego-table-fixed-header" : "", options.isNowrap ? "lego-nr" : "", options.title ? hx(_templateObject2, typeof options.title == "function" ? options.title() : options.title) : "", options.showHeader ? hx(_templateObject3, options.tableWidth ? "width:" + options.tableWidth + "px" : "", this._renderColgroup(), this._renderHeader()) : "", options.pagination ? "48px" : "0", options.showHeader ? "scrollbar" : "", options.className, options.tableWidth ? "width:" + options.tableWidth + "px" : "", this._renderColgroup(), !options.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), options.pagination && options.data ? hx(_templateObject4, options.vid) : "", options.showSetting ? hx(_templateObject5) : "", options.showSetting ? hx(_templateObject6, options.vid) : "");
+            var vDom = hx(_templateObject, options.size, options.bordered ? "lego-table-bordered" : "", options.showHeader ? "lego-table-fixed-header" : "", options.isNowrap ? "lego-nr" : "", options.title ? hx(_templateObject2, typeof options.title == "function" ? options.title() : options.title) : "", options.showHeader ? hx(_templateObject3, options.tableWidth ? "width:" + options.tableWidth + "px" : "width:1px", this._renderColgroup(), this._renderHeader()) : "", options.pagination ? "48px" : "0", options.showHeader ? "scrollbar" : "", options.className, options.tableWidth ? "width:" + options.tableWidth + "px" : "width:1px", this._renderColgroup(), !options.showHeader ? this._renderHeader() : "", this._renderBodyer(), this._renderFooter(), options.pagination && options.data ? hx(_templateObject4, options.vid) : "", options.showSetting ? hx(_templateObject5) : "", options.showSetting ? hx(_templateObject6, options.vid) : "");
             return vDom;
         }
     }, {

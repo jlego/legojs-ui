@@ -1,5 +1,5 @@
 /**
- * btngroup.js v0.3.18
+ * btngroup.js v0.3.21
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

@@ -1,5 +1,5 @@
 /**
- * transfer.js v0.3.18
+ * transfer.js v0.3.21
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -548,10 +548,22 @@ var Search = function(_Lego$UI$Baseview) {
             keyword: "",
             activeKey: "",
             activeValue: "",
-            hasSelect: false,
+            showSelect: false,
             onSearch: function onSearch() {},
-            onChange: function onChange() {},
-            components: [ {
+            onChange: function onChange() {}
+        };
+        Object.assign(options, opts);
+        return _possibleConstructorReturn$3(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, options));
+    }
+    _createClass$3(Search, [ {
+        key: "components",
+        value: function components() {
+            var opts = this.options;
+            if (typeof opts.value == "string") {
+                opts.keyword = opts.value;
+                opts.value = null;
+            }
+            this.addCom({
                 el: "#dropdown-" + opts.vid,
                 container: "#select-" + opts.vid,
                 data: opts.data,
@@ -559,20 +571,13 @@ var Search = function(_Lego$UI$Baseview) {
                     this.context.options.activeKey = model.key;
                     this.context.options.activeValue = model.value;
                 }
-            } ]
-        };
-        Object.assign(options, opts);
-        if (typeof options.value == "string") {
-            options.keyword = options.value;
-            options.value = null;
+            });
         }
-        return _possibleConstructorReturn$3(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, options));
-    }
-    _createClass$3(Search, [ {
+    }, {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject$3, options.size ? "input-group-" + options.size : "", options.hasSelect ? hx(_templateObject2$2, options.vid, options.activeValue || "请选择", options.vid) : "", options.placeholder, options.name, val(options.keyword));
+            var vDom = hx(_templateObject$3, options.size ? "input-group-" + options.size : "", options.showSelect ? hx(_templateObject2$2, options.vid, options.activeValue || "请选择", options.vid) : "", options.placeholder, options.name, val(options.keyword));
             return vDom;
         }
     }, {

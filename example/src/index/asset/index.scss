@@ -476,8 +476,6 @@ body {
 }
 
 /* ---------------------------------------------------------------------- */
-
-
 /*  page
 /* ---------------------------------------------------------------------- */
 
@@ -509,7 +507,7 @@ body {
 
 .page-content {
     height: 100%;
-    padding: 15px 0;
+    // padding: 15px 0;
 }
 // 自定义样式
 .page-panel-bg {
@@ -520,27 +518,56 @@ body {
 }
 #pageContent{
     height: 100%;
+    padding: 15px;
     // margin: 0 15px;
 }
 .col-right{
-    border: 1px solid #ececec;
     border-radius: 4px;
     padding: 15px;
     height: 100%;
+    overflow: auto;
 }
-.left-col .tab-content>.tab-pane.active {
+.col-left{
+    height: 100%;
+    padding: 15px;
+}
+.col-left .tab-content>.tab-pane.active {
     padding: 15px 0;
     height: 100%;
 }
-.left-col .tab-content>.tab-pane:first-child {
+.col-left .tab-content>.tab-pane:first-child.active {
     display: flex!important;
     justify-content: center;
     align-items: center;
 }
-.left-col .lego-tabs,
-.left-col .tab-content{
+.col-left .lego-tabs,
+.col-left .tab-content{
     height: 100%;
 }
-.left-col .tab-content{
+.col-left .tab-content{
     padding-bottom: 37px;
+}
+#tabs > .nav-tabs > .nav-item > .nav-link.active,
+#tabs > .nav-tabs > .nav-item > .nav-link.active:focus,
+#tabs > .nav-tabs > .nav-item > .nav-link.active:hover{
+    border-color: transparent transparent #01a8fe transparent;
+    // border-bottom-width: 2px;
+}
+#tabs > .nav-tabs > .nav-item > .nav-link{
+    font-size: 16px;
+}
+#tabs > .nav-tabs > .nav-item > .nav-link{
+    font-size: 16px;
+}
+// .example.scrollbar,
+.code.scrollbar,
+.markdown.scrollbar{
+    height: 100%;
+    overflow: auto;
+}
+.markdown>table{
+    margin: 0;
+}
+.col-right > h6{
+    line-height: 30px;
 }

@@ -9,7 +9,6 @@ class View extends Lego.UI.Baseview {
                 showSubmit: false,
                 data: [{
                     label: '文本',
-                    // help: '注意事项',
                     component: {
                         comName: 'inputs',
                         onChange(self, result) {
@@ -35,7 +34,7 @@ class View extends Lego.UI.Baseview {
                         onChange(self, result) {
                             debug.warn('修改了按钮风格为:', result);
                             Lego.Eventer.trigger('updateView', {
-                               type: result.value
+                               type: result.key
                             });
                         },
                         data: [{
@@ -88,6 +87,54 @@ class View extends Lego.UI.Baseview {
                             value: '选项三'
                         }]
                     }
+                }, {
+                    label: '类型',
+                    component: {
+                        comName: 'inputs',
+                        onChange(self, result) {
+                            console.warn('点击了搜索框2', result);
+                        }
+                    }
+                }, {
+                    label: '类型',
+                    component: {
+                        comName: 'inputs',
+                        onChange(self, result) {
+                            console.warn('点击了搜索框2', result);
+                        }
+                    }
+                }, {
+                    label: '类型',
+                    component: {
+                        comName: 'inputs',
+                        onChange(self, result) {
+                            console.warn('点击了搜索框2', result);
+                        }
+                    }
+                }, {
+                    label: '类型',
+                    component: {
+                        comName: 'inputs',
+                        onChange(self, result) {
+                            console.warn('点击了搜索框2', result);
+                        }
+                    }
+                }, {
+                    label: '类型',
+                    component: {
+                        comName: 'inputs',
+                        onChange(self, result) {
+                            console.warn('点击了搜索框2', result);
+                        }
+                    }
+                }, {
+                    label: '类型',
+                    component: {
+                        comName: 'inputs',
+                        onChange(self, result) {
+                            console.warn('点击了搜索框2', result);
+                        }
+                    }
                 }],
                 onSubmit(self, data){
                     console.warn('点击了提交', data);
@@ -100,8 +147,8 @@ class View extends Lego.UI.Baseview {
     }
     render() {
         return hx`
-        <div class="col-right">
-            <h5>配置参数</h5>
+        <div class="col-right page-panel-bg scrollbar">
+            <h6>配置参数</h6>
             <forms id="form1"></forms>
         </div>
         `;

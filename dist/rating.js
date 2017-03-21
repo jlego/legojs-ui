@@ -1,5 +1,5 @@
 /**
- * rating.js v0.3.18
+ * rating.js v0.3.21
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -665,7 +665,7 @@ var Tooltip = function() {
             eventName: "hover focus",
             constraints: [],
             offset: "0 0",
-            onHidden: function onHidden() {}
+            onClose: function onClose() {}
         };
         Object.assign(options, opts);
         this.el = options.el;
@@ -694,7 +694,7 @@ var Tooltip = function() {
             if (el.length) {
                 el.tooltip(this.options);
                 el.on("hidden.bs.tooltip", function() {
-                    if (typeof that.onHidden === "function") that.onHidden(event);
+                    if (typeof that.onClose === "function") that.onClose(event);
                 });
             }
             return el;

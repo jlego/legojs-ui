@@ -22,7 +22,7 @@ class Tooltip{
             eventName: 'hover focus',
             constraints: [], //
             offset: '0 0', //0, 0
-            onHidden() {} //隐藏回调
+            onClose() {} //隐藏回调
         };
         Object.assign(options, opts);
         this.el = options.el;
@@ -49,7 +49,7 @@ class Tooltip{
         if(el.length){
             el.tooltip(this.options);
             el.on('hidden.bs.tooltip', function() {
-                if (typeof that.onHidden === 'function') that.onHidden(event);
+                if (typeof that.onClose === 'function') that.onClose(event);
             });
         }
         return el;

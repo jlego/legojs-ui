@@ -1,5 +1,5 @@
 /**
- * common.js v0.3.18
+ * common.js v0.3.21
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -397,18 +397,22 @@ var Baseview = function(_Lego$View) {
         key: "renderScroll",
         value: function renderScroll() {
             var options = this.options, that = this;
-            if (options.scrollbar) {
-                var scrollbarEl = this.$(".scrollbar").length ? this.$(".scrollbar") : this.$el.hasClass("scrollbar") ? this.$el : [];
-                if (scrollbarEl.length) {
-                    scrollbarEl.each(function(index, el) {
-                        var container = $(this), eventName = "mousemove.ps" + index;
-                        container.css("position", "relative");
-                        Ps.initialize(container[0], options.scrollbar);
-                        that.$el.off(eventName).on(eventName, function() {
-                            Ps.update(container[0]);
-                        });
+            function initScroll($el) {
+                $el.each(function(index, el) {
+                    var container = $(this), eventName = "mousemove.ps" + index;
+                    container.css("position", "relative");
+                    Ps.initialize(container[0], options.scrollbar);
+                    that.$el.off(eventName).on(eventName, function() {
+                        Ps.update(container[0]);
                     });
+                });
+            }
+            if (options.scrollbar) {
+                var scrollbarEl = this.$(".scrollbar").length ? this.$(".scrollbar") : [];
+                if (scrollbarEl.length) {
+                    initScroll(scrollbarEl);
                 }
+                if (this.$el.hasClass("scrollbar")) initScroll(this.$el);
             }
         }
     }, {

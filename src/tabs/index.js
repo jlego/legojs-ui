@@ -23,14 +23,14 @@ class Tabs extends Lego.UI.Baseview {
             closable: false, //默认不显示关闭按钮
             activeKey: '', //当前激活的面板key
             activeContent: '',
-            tabPosition: 'top',    //页签位置，可选值有 top right bottom left
+            direction: 'bottom',    //页签位置，可选值有 top right bottom left
             navClassName: '',
             contentScrollbar: null,
-            hideAdd: false,    //是否隐藏加号图标，在 type="editable-card" 时有效
-            animate: '',  //是否使用动画切换 Tabs，在 tabPosition=top|bottom 时有效
+            showAdd: false,    //是否显示加号图标，在 type="editable-card" 时有效
+            animate: '',  //是否使用动画切换 Tabs，在 direction=top|bottom 时有效
             data: [],
             onClose(){}, //tab 被点击的回调
-            onEdit(){},  //新增和删除页签的回调，在 type="editable-card" 时有效
+            onAdd(){},  //新增页签的回调，在 type="editable-card" 时有效
             onChange(){}
         };
         Object.assign(options, opts);
@@ -84,7 +84,7 @@ class Tabs extends Lego.UI.Baseview {
                 ${newData.map(item => {
                     if(!item.disabled){
                         return hx`<div class="tab-pane ${val(options.animate)} ${item.key == options.activeKey ? 'active in' : ''}">
-                            ${item.key == options.activeKey ? options.activeContent : ''}
+                            ${item.key == options.activeKey ? options.activeContent : item.content}
                         </div>`;
                     }
                 })}

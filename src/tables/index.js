@@ -31,15 +31,8 @@ class Tables extends Lego.UI.Baseview {
             columns: [],    //表格列的配置描述，具体项见下表
             rowKey: '',    //表格行 key 的取值，可以是字符串或一个函数
             rowClassName: '',    //表格行的类名
-            expandedRowRender(){},   //额外的展开行
-            defaultExpandedRowKeys: [], //默认展开的行
             expandedRowKeys: [], //展开的行，控制属性
-            defaultExpandAllRows: false, //初始时，是否展开所有行
-            onExpandedRowsChange(){}, //展开的行变化时触发
-            onExpand(){}, //点击展开图标时触发
-            onChange(){}, //分页、排序、筛选变化时触发
-            onSelect(){},
-            onSetting(){},
+            expandAllRows: false, //初始时，是否展开所有行
             loading: false, //页面是否加载中
             locale: { //默认文案设置，目前包括排序、过滤、空数据文案
                 filterConfirm: '确定',
@@ -47,7 +40,6 @@ class Tables extends Lego.UI.Baseview {
                 emptyText: '暂无数据'
             },
             indentSize: 0, //展示树形数据时，每层缩进的宽度，以 px 为单位
-            onRowClick(){}, //处理行点击事件
             bordered: false, //是否展示外边框和列边框
             showHeader: false, //是否显示表头
             showBodyer: true, //是否显示表体
@@ -57,6 +49,11 @@ class Tables extends Lego.UI.Baseview {
             // title(){}, //表格标题
             // scroll: {}, //横向或纵向支持滚动，也可用于指定滚动区域的宽高度：{{ x: true, y: 300 }}
             data: [],
+            onExpandRow(){}, //点击展开图标时触发
+            onChange(){}, //分页、排序、筛选变化时触发
+            onSelect(){},
+            onSetting(){},
+            onRowClick(){}, //处理行点击事件
             components: []
         };
         Object.assign(options, opts);
@@ -128,7 +125,7 @@ class Tables extends Lego.UI.Baseview {
                 <div class="lego-table-scroll">
                 ${options.showHeader ? hx`
                 <div class="lego-table-header">
-                    <table class="" style="${options.tableWidth ? ('width:' + options.tableWidth + 'px') : ''}">
+                    <table class="" style="${options.tableWidth ? ('width:' + options.tableWidth + 'px') : 'width:1px'}">
                         ${this._renderColgroup()}
                         ${this._renderHeader()}
                     </table>
@@ -136,7 +133,7 @@ class Tables extends Lego.UI.Baseview {
                 ` : ''}
                 <div class="lego-table-body" style="bottom: ${options.pagination ? '48px' : '0'}">
                     <div class="${options.showHeader ? 'scrollbar' : ''}">
-                        <table class="${options.className}" style="${options.tableWidth ? ('width:' + options.tableWidth + 'px') : ''}">
+                        <table class="${options.className}" style="${options.tableWidth ? ('width:' + options.tableWidth + 'px') : 'width:1px'}">
                             ${this._renderColgroup()}
                             ${!options.showHeader ? this._renderHeader() : ''}
                             ${this._renderBodyer()}

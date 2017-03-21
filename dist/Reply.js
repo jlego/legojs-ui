@@ -1,5 +1,5 @@
 /**
- * reply.js v0.3.18
+ * reply.js v0.3.21
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -2205,7 +2205,7 @@ var Reply = function(_Lego$UI$Baseview) {
             showUpload: true,
             filterHtml: true,
             uploadToken: null,
-            iconsUrl: "",
+            facialIconsUrl: "",
             submitText: "回复",
             submitType: "primary",
             contentRequired: true,
@@ -2221,7 +2221,7 @@ var Reply = function(_Lego$UI$Baseview) {
                 el: "#facial-" + options.vid,
                 target: "#content-" + options.vid,
                 targetType: "textarea",
-                iconsUrl: options.iconsUrl
+                iconsUrl: options.facialIconsUrl
             });
         }
         if (options.dropdownbtn) {

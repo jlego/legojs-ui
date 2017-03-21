@@ -20,31 +20,34 @@ class Search extends Lego.UI.Baseview {
             keyword: '',
             activeKey: '',  //选中的key
             activeValue: '',
-            hasSelect: false,   //是否有下拉菜单
+            showSelect: false,   //是否有下拉菜单
             onSearch(){}, //点击的回调
-            onChange(){},
-            components: [{
-                el: '#dropdown-' + opts.vid,
-                container: '#select-' + opts.vid,
-                data: opts.data,
-                onChange(self, model){
-                    this.context.options.activeKey = model.key;
-                    this.context.options.activeValue = model.value;
-                }
-            }]
+            onChange(){}
         };
         Object.assign(options, opts);
-        if(typeof options.value == 'string'){
-            options.keyword = options.value;
-            options.value = null;
-        }
         super(options);
+    }
+    components(){
+        let opts = this.options;
+        if(typeof opts.value == 'string'){
+            opts.keyword = opts.value;
+            opts.value = null;
+        }
+        this.addCom({
+            el: '#dropdown-' + opts.vid,
+            container: '#select-' + opts.vid,
+            data: opts.data,
+            onChange(self, model){
+                this.context.options.activeKey = model.key;
+                this.context.options.activeValue = model.value;
+            }
+        });
     }
     render() {
         const options = this.options || {};
         const vDom = hx`
         <div class="input-group lego-search ${options.size ? ('input-group-' + options.size) : ''}">
-        ${options.hasSelect ? hx`
+        ${options.showSelect ? hx`
           <div class="input-group-btn dropdown" id="select-${options.vid}">
             <button type="button" class="btn btn-secondary dropdown-toggle">
               ${options.activeValue || '请选择'}

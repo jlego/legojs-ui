@@ -1,5 +1,5 @@
 /**
- * selects.js v0.3.18
+ * selects.js v0.3.21
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -264,7 +264,7 @@ var Selects = function(_Lego$UI$Baseview) {
             onDeselect: function onDeselect() {},
             onChange: function onChange() {},
             onSearch: function onSearch() {},
-            placeholder: "",
+            placeholder: "请选择",
             notFoundContent: "",
             dropdownWidth: "100%",
             dropdownHeight: 200,

@@ -1,5 +1,5 @@
 /**
- * tabs.js v0.3.18
+ * tabs.js v0.3.21
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -445,23 +445,21 @@ var Tabs = function(_Lego$UI$Baseview) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Tabs);
         var options = {
-            events: {},
             eventName: "click",
             type: "line",
             size: "default",
             closable: false,
             activeKey: "",
             activeContent: "",
-            onClose: function onClose() {},
-            tabPosition: "top",
+            direction: "bottom",
             navClassName: "",
             contentScrollbar: null,
-            onEdit: function onEdit() {},
-            onChange: function onChange() {},
-            hideAdd: false,
+            showAdd: false,
             animate: "",
             data: [],
-            components: []
+            onClose: function onClose() {},
+            onAdd: function onAdd() {},
+            onChange: function onChange() {}
         };
         Object.assign(options, opts);
         return _possibleConstructorReturn(this, (Tabs.__proto__ || Object.getPrototypeOf(Tabs)).call(this, options));
@@ -498,8 +496,7 @@ var Tabs = function(_Lego$UI$Baseview) {
     }, {
         key: "render",
         value: function render() {
-            var options = this.options;
-            var newData = [];
+            var options = this.options, newData = [];
             function getNewData(data) {
                 if (Array.isArray(data)) {
                     if (data.length) {
@@ -516,7 +513,7 @@ var Tabs = function(_Lego$UI$Baseview) {
             getNewData(options.data);
             var vDom = hx(_templateObject, options.vid, options.contentScrollbar ? "scrollbar" : "", newData.map(function(item) {
                 if (!item.disabled) {
-                    return hx(_templateObject2, val(options.animate), item.key == options.activeKey ? "active in" : "", item.key == options.activeKey ? options.activeContent : "");
+                    return hx(_templateObject2, val(options.animate), item.key == options.activeKey ? "active in" : "", item.key == options.activeKey ? options.activeContent : item.content);
                 }
             }));
             return vDom;

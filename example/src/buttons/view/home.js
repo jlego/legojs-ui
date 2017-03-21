@@ -15,6 +15,7 @@ let table = `
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
         let options = {
+            scrollbar: {},
             listener: {
                 'updateView': (data = {})=>{
                     let view = Lego.getView('#exampleCom'),
@@ -41,16 +42,16 @@ class HomeView extends Lego.UI.Baseview {
             animate: 'fade',
             data: [{
                 key: 'tab_1',
-                value: '组件效果',
-                content: hx`<div><buttons id="exampleCom"></buttons></div>`
+                value: '示例效果',
+                content: hx`<div class="example scrollbar"><buttons id="exampleCom"></buttons></div>`
             },{
                 key: 'tab_2',
                 value: '生成代码',
-                content: hx`<div class="code">${hx(markdown.makeHtml(code))}</div>`
+                content: hx`<div class="code scrollbar">${hx(markdown.makeHtml(code))}</div>`
             },{
                 key: 'tab_3',
                 value: '参数说明',
-                content: hx`<div class="markdown">${hx(markdown.makeHtml(table))}</div>`
+                content: hx`<div class="markdown scrollbar">${hx(markdown.makeHtml(table))}</div>`
             }],
             onChange(self, result){
                 let pView = this.context;
@@ -77,11 +78,13 @@ class HomeView extends Lego.UI.Baseview {
         const vDom = hx `
         <div id="pageContent" class="container">
           <div class="row" style="height:100%">
-            <div class="col-sm-8 left-col" style="height:100%">
-                <tabs id="tabs"></tabs>
+            <div class="col-sm-8" style="height:100%">
+                <div class="page-panel-bg col-left">
+                    <tabs id="tabs"></tabs>
+                </div>
             </div>
             <div class="col-sm-4" style="height:100%">
-              <formcom id="formcom"></formcom>
+                <formcom id="formcom"></formcom>
             </div>
           </div>
         </div>

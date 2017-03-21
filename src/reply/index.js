@@ -26,7 +26,7 @@ class Reply extends Lego.UI.Baseview {
             showUpload: true, //显示上传文件
             filterHtml: true,   //过滤html
             uploadToken: null, //上传文件token数据源
-            iconsUrl: '',
+            facialIconsUrl: '',
             submitText: '回复', //
             submitType: 'primary',
             contentRequired: true,
@@ -42,7 +42,7 @@ class Reply extends Lego.UI.Baseview {
                 el: '#facial-' + options.vid,
                 target: '#content-' + options.vid,
                 targetType: 'textarea',
-                iconsUrl: options.iconsUrl
+                iconsUrl: options.facialIconsUrl
             });
         }
         if (options.dropdownbtn) {

@@ -16,7 +16,7 @@ class Selects extends Lego.UI.Baseview {
             onDeselect(){},  //取消选中时调用，参数为选中项的 option value 值，仅在 multiple 或 tags 模式下生效
             onChange(){},  //选中 option，或 input 的 value 变化（combobox 模式下）时，调用此函数
             onSearch(){},   //文本框值变化时回调
-            placeholder: '',  //选择框默认文字
+            placeholder: '请选择',  //选择框默认文字
             notFoundContent: '',  //当下拉列表为空时显示的内容
             dropdownWidth: '100%', //下拉菜单和选择器同宽
             dropdownHeight: 200, //下拉菜单高度
