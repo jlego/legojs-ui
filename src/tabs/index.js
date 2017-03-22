@@ -42,7 +42,7 @@ class Tabs extends Lego.UI.Baseview {
         let data = options.data.filter(item => !item.isHide);
         options.activeKey = typeof options.activeKey == 'number' ? data[options.activeKey].key : options.activeKey;
         let model = data.find(item => item.key == options.activeKey);
-        if(model) options.activeContent = model.content;
+        if(model) options.activeContent = typeof model.content == 'function' ? model.content() : model.content;
         this.addCom({
             el: comId,
             eventName: options.eventName || 'click',
@@ -53,7 +53,7 @@ class Tabs extends Lego.UI.Baseview {
                 if(!item.disabled && item.content){
                     let pView = this.context;
                     pView.options.activeKey = item.key;
-                    pView.options.activeContent = item.content;
+                    pView.options.activeContent = typeof item.content == 'function' ? item.content() : item.content;
                     if (typeof options.onChange === 'function') options.onChange(pView, item);
                 }
             }, //点击的回调
@@ -84,7 +84,7 @@ class Tabs extends Lego.UI.Baseview {
                 ${newData.map(item => {
                     if(!item.disabled){
                         return hx`<div class="tab-pane ${val(options.animate)} ${item.key == options.activeKey ? 'active in' : ''}">
-                            ${item.key == options.activeKey ? options.activeContent : item.content}
+                            ${item.key == options.activeKey ? options.activeContent : (typeof item.content == 'function' ? item.content() : item.content)}
                         </div>`;
                     }
                 })}

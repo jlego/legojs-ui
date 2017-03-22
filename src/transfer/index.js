@@ -14,8 +14,8 @@ class Transfer extends Lego.UI.Baseview {
             events: {
                 'click h5 > button': 'showSearch'
             },
-            titles: [], //标题
             // type: 'list',   //类型tree
+            titles: [], //标题
             value: [], //设置值
             data: [],
             width: 450, //宽度

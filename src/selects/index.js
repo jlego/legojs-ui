@@ -19,7 +19,7 @@ class Selects extends Lego.UI.Baseview {
             placeholder: '请选择',  //选择框默认文字
             notFoundContent: '',  //当下拉列表为空时显示的内容
             dropdownWidth: '100%', //下拉菜单和选择器同宽
-            dropdownHeight: 200, //下拉菜单高度
+            dropdownHeight: 0, //下拉菜单高度
             optionFilterProp: '',  //搜索时过滤对应的 option 属性，如设置为 children 表示对内嵌内容进行搜索的子元素。比如在子元素需要高亮效果时，此值可以设为 value。
             combobox: false,  //输入框自动提示模式
             size: '',  //支持多选
@@ -47,12 +47,12 @@ class Selects extends Lego.UI.Baseview {
         this.addCom({
             el: '#dropdown-' + options.vid,
             container: '#select-' + options.vid,
-            scrollbar: {},
+            scrollbar: options.dropdownHeight ? {} : null,
             eventName: options.eventName || 'click',
             disabled: options.disabled || false,
             style: Object.assign({
                 width: options.dropdownWidth,
-                maxHeight: options.dropdownHeight,
+                maxHeight: options.dropdownHeight || 'auto',
                 overflow: 'auto'
             }, options.dropdownStyle || {}),
             className: options.dropdownClassName,

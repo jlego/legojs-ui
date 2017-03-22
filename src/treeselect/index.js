@@ -18,30 +18,24 @@ class Treeselect extends Selects {
             disSelect: '', //禁止选择含有该属性节点, 可以是对象
             onlySelect: '', //只选择含有该属性节点, 可以是对象
             treeDataSource: null,   //树型动态数据源
-            // showResultType: 'tag', //text, tag 多选时有效
-            // allowClear: false,  //支持清除, 单选模式有效
-            filterOption: true, //是否根据输入项进行筛选。当其为一个函数时，会接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。
             tags: false, //可以把随意输入的条目作为 tag，输入项不需要与下拉选项匹配
-            onDeselect() {}, //取消选中时调用，参数为选中项的 option value 值，仅在 multiple 或 tags 模式下生效
-            onChange() {}, //选中 option，或 input 的 value 变化（combobox 模式下）时，调用此函数
-            onSearch() {}, //文本框值变化时回调
             placeholder: '', //选择框默认文字
-            inputAble: false,
+            inputAble: false, //可否输入
             notFoundContent: '', //当下拉列表为空时显示的内容
             dropdownWidth: '100%', //下拉菜单和选择器同宽
             dropdownHeight: 'auto', //下拉菜单高度
-            optionFilterProp: '', //搜索时过滤对应的 option 属性，如设置为 children 表示对内嵌内容进行搜索的子元素。比如在子元素需要高亮效果时，此值可以设为 value。
             combobox: false, //输入框自动提示模式
             size: '', //支持多选
             showSearch: false, //在选择框中显示搜索框
             disabled: false, //是否禁用
-            defaultActiveFirstOption: false, //是否默认高亮第一个选项
             dropdownStyle: null, //下拉菜单的 style 属性
-            dropdownClassName: '', //下拉菜单的 className 属性上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。
+            dropdownClass: '', //下拉菜单的 className 属性上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。
             splitString: '', //自动分词分隔符
             keyNames: ['id', 'name', 'type'],
             clickAndClose: opts.multiple ? false : true,
-            components: []
+            onDeselect() {}, //取消选中时调用，参数为选中项的 option value 值，仅在 multiple 或 tags 模式下生效
+            onChange() {}, //选中 option，或 input 的 value 变化（combobox 模式下）时，调用此函数
+            onSearch() {}, //文本框值变化时回调
         };
         Object.assign(options, opts);
         if (options.value) {
@@ -96,7 +90,7 @@ class Treeselect extends Selects {
                 if(pView.options.clickAndClose) pView.close();
             },
             disabled: options.disabled || false,
-            className: options.dropdownClassName
+            className: options.dropdownClass
         });
     }
     render() {

@@ -294,6 +294,9 @@ body {
     border-radius: 0 !important;
     padding: .8em 1.5em !important;
 }
+.sidebar .lego-nav .nav-link{
+    color: $sidebar-text-color;
+}
 .sidebar nav > ul > li.open > a,
 .sidebar nav > ul > li.open a:focus {
     color: $sidebar-text-color !important;
@@ -519,7 +522,6 @@ body {
 #pageContent{
     height: 100%;
     padding: 15px;
-    // margin: 0 15px;
 }
 .col-right{
     border-radius: 4px;
@@ -535,7 +537,7 @@ body {
     padding: 15px 0;
     height: 100%;
 }
-.col-left .tab-content>.tab-pane:first-child.active {
+.col-left .tab-content>.tab-pane:first-child + .active {
     display: flex!important;
     justify-content: center;
     align-items: center;
@@ -570,4 +572,7 @@ body {
 }
 .col-right > h6{
     line-height: 30px;
+}
+.col-left pre {
+    font-size: 16px;
 }

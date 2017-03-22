@@ -1,5 +1,5 @@
 /**
- * tabs.js v0.3.21
+ * tabs.js v0.3.22
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -30,7 +30,7 @@ var _templateObject3 = _taggedTemplateLiteral$2([ '\n            <li class="drop
 
 var _templateObject4 = _taggedTemplateLiteral$2([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5 = _taggedTemplateLiteral$2([ '\n        <ul class="dropdown-menu scrollbar ', '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu scrollbar ', '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject5 = _taggedTemplateLiteral$2([ '\n        <ul class="dropdown-menu ', " ", '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', " ", '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
 
 function _taggedTemplateLiteral$2(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -77,6 +77,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             events: {
                 "click li:not(.dropdown)": "clickItem"
             },
+            scrollbar: null,
             disabled: false,
             eventName: "click",
             container: "",
@@ -110,7 +111,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     return itemNav(item);
                 })) : "");
             }
-            var vDom = hx(_templateObject5, options.direction ? "drop" + options.direction : "", options.open ? "block" : "none", options.data.map(function(item) {
+            var vDom = hx(_templateObject5, options.scrollbar ? "scrollbar" : "", options.direction ? "drop" + options.direction : "", options.open ? "block" : "none", options.data.map(function(item) {
                 return itemNav(item);
             }));
             return vDom;
@@ -475,7 +476,7 @@ var Tabs = function(_Lego$UI$Baseview) {
             var model = data.find(function(item) {
                 return item.key == options.activeKey;
             });
-            if (model) options.activeContent = model.content;
+            if (model) options.activeContent = typeof model.content == "function" ? model.content() : model.content;
             this.addCom({
                 el: comId,
                 eventName: options.eventName || "click",
@@ -486,7 +487,7 @@ var Tabs = function(_Lego$UI$Baseview) {
                     if (!item.disabled && item.content) {
                         var pView = this.context;
                         pView.options.activeKey = item.key;
-                        pView.options.activeContent = item.content;
+                        pView.options.activeContent = typeof item.content == "function" ? item.content() : item.content;
                         if (typeof options.onChange === "function") options.onChange(pView, item);
                     }
                 },
@@ -513,7 +514,7 @@ var Tabs = function(_Lego$UI$Baseview) {
             getNewData(options.data);
             var vDom = hx(_templateObject, options.vid, options.contentScrollbar ? "scrollbar" : "", newData.map(function(item) {
                 if (!item.disabled) {
-                    return hx(_templateObject2, val(options.animate), item.key == options.activeKey ? "active in" : "", item.key == options.activeKey ? options.activeContent : item.content);
+                    return hx(_templateObject2, val(options.animate), item.key == options.activeKey ? "active in" : "", item.key == options.activeKey ? options.activeContent : typeof item.content == "function" ? item.content() : item.content);
                 }
             }));
             return vDom;

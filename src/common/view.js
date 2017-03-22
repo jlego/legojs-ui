@@ -15,11 +15,13 @@ class Baseview extends Lego.View {
             $el.each(function(index, el){
                 const container = $(this),
                     eventName = "mousemove.ps" + index;
-                container.css('position', 'relative');
-                Ps.initialize(container[0], options.scrollbar);
-                that.$el.off(eventName).on(eventName, function() {
-                    Ps.update(container[0]);
-                });
+                if(!container.hasClass('ps-container')){
+                    container.css('position', 'relative');
+                    Ps.initialize(container[0], options.scrollbar);
+                    that.$el.off(eventName).on(eventName, function() {
+                        Ps.update(container[0]);
+                    });
+                }
             });
         }
         // 是否渲染滚动条
