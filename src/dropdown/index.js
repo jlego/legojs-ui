@@ -6,6 +6,7 @@ class Dropdown extends Lego.UI.Baseview {
             events: {
                 'click li:not(.dropdown)': 'clickItem'
             },
+            scrollbar: null,
             disabled: false,
             eventName: 'click', //['click'] or ['hover']
             container: '', //触发容器
@@ -50,7 +51,7 @@ class Dropdown extends Lego.UI.Baseview {
             `;
         }
         const vDom = hx`
-        <ul class="dropdown-menu scrollbar ${options.direction ? ('drop' + options.direction) : ''}" style="display:${options.open ? 'block' : 'none'}">
+        <ul class="dropdown-menu ${options.scrollbar ? 'scrollbar' : ''} ${options.direction ? ('drop' + options.direction) : ''}" style="display:${options.open ? 'block' : 'none'}">
             ${options.data.map(item => {
                 return itemNav(item);
             })}

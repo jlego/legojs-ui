@@ -1,5 +1,5 @@
 /**
- * selects.js v0.3.21
+ * selects.js v0.3.22
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -30,7 +30,7 @@ var _templateObject3$1 = _taggedTemplateLiteral$1([ '\n            <li class="dr
 
 var _templateObject4$1 = _taggedTemplateLiteral$1([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5 = _taggedTemplateLiteral$1([ '\n        <ul class="dropdown-menu scrollbar ', '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu scrollbar ', '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject5 = _taggedTemplateLiteral$1([ '\n        <ul class="dropdown-menu ', " ", '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', " ", '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -77,6 +77,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             events: {
                 "click li:not(.dropdown)": "clickItem"
             },
+            scrollbar: null,
             disabled: false,
             eventName: "click",
             container: "",
@@ -110,7 +111,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     return itemNav(item);
                 })) : "");
             }
-            var vDom = hx(_templateObject5, options.direction ? "drop" + options.direction : "", options.open ? "block" : "none", options.data.map(function(item) {
+            var vDom = hx(_templateObject5, options.scrollbar ? "scrollbar" : "", options.direction ? "drop" + options.direction : "", options.open ? "block" : "none", options.data.map(function(item) {
                 return itemNav(item);
             }));
             return vDom;
@@ -267,7 +268,7 @@ var Selects = function(_Lego$UI$Baseview) {
             placeholder: "请选择",
             notFoundContent: "",
             dropdownWidth: "100%",
-            dropdownHeight: 200,
+            dropdownHeight: 0,
             optionFilterProp: "",
             combobox: false,
             size: "",
@@ -298,12 +299,12 @@ var Selects = function(_Lego$UI$Baseview) {
             this.addCom({
                 el: "#dropdown-" + options.vid,
                 container: "#select-" + options.vid,
-                scrollbar: {},
+                scrollbar: options.dropdownHeight ? {} : null,
                 eventName: options.eventName || "click",
                 disabled: options.disabled || false,
                 style: Object.assign({
                     width: options.dropdownWidth,
-                    maxHeight: options.dropdownHeight,
+                    maxHeight: options.dropdownHeight || "auto",
                     overflow: "auto"
                 }, options.dropdownStyle || {}),
                 className: options.dropdownClassName,

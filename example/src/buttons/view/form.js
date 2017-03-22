@@ -19,14 +19,6 @@ class View extends Lego.UI.Baseview {
                         }
                     }
                 }, {
-                    label: '类型',
-                    component: {
-                        comName: 'inputs',
-                        onChange(self, result) {
-                            console.warn('点击了搜索框2', result);
-                        }
-                    }
-                }, {
                     label: '风格',
                     component: {
                         comName: 'selects',
@@ -64,76 +56,109 @@ class View extends Lego.UI.Baseview {
                     label: '是否禁用',
                     component: {
                         comName: 'selects',
-                        name: 'time',
                         placeholder: '请选择',
                         onChange(self, result) {
-                            console.warn('点击了选项框2', result);
+                            Lego.Eventer.trigger('updateView', {
+                               disabled: !!result.key
+                            });
                         },
                         value: {
-                            key: 'so2',
-                            value: '选项二选项二选项二'
+                            key: 0,
+                            value: '否'
                         },
                         data: [{
-                            key: '0',
-                            value: '不限'
+                            key: 0,
+                            value: '否'
                         }, {
-                            key: 'so1',
-                            value: '选项一'
-                        }, {
-                            key: 'so2',
-                            value: '选项二选项二选项二fffdf'
-                        }, {
-                            key: 'so3',
-                            value: '选项三'
+                            key: 1,
+                            value: '是'
                         }]
                     }
                 }, {
-                    label: '类型',
+                    label: '图标(未发布)',
                     component: {
                         comName: 'inputs',
+                        value: '',
                         onChange(self, result) {
-                            console.warn('点击了搜索框2', result);
+                            Lego.Eventer.trigger('updateView', {
+                               icon: result
+                            });
                         }
                     }
                 }, {
-                    label: '类型',
+                    label: '形状(未发布)',
                     component: {
-                        comName: 'inputs',
+                        comName: 'selects',
+                        placeholder: '请选择',
                         onChange(self, result) {
-                            console.warn('点击了搜索框2', result);
-                        }
+                            Lego.Eventer.trigger('updateView', {
+                               shape: result.key ? 'circle' : ''
+                            });
+                        },
+                        data: [{
+                            key: 0,
+                            value: '默认'
+                        }, {
+                            key: 1,
+                            value: 'circle'
+                        }]
                     }
                 }, {
-                    label: '类型',
+                    label: '尺寸大小',
                     component: {
-                        comName: 'inputs',
+                        comName: 'selects',
+                        placeholder: '请选择',
                         onChange(self, result) {
-                            console.warn('点击了搜索框2', result);
-                        }
+                            Lego.Eventer.trigger('updateView', {
+                               size: result.key ? result.key : ''
+                            });
+                        },
+                        data: [{
+                            key: 0,
+                            value: '默认'
+                        }, {
+                            key: 'sm',
+                            value: '小'
+                        }, {
+                            key: 'lg',
+                            value: '大'
+                        }]
                     }
                 }, {
-                    label: '类型',
+                    label: '加载状态(未发布)',
                     component: {
-                        comName: 'inputs',
+                        comName: 'selects',
+                        placeholder: '请选择',
                         onChange(self, result) {
-                            console.warn('点击了搜索框2', result);
-                        }
+                            Lego.Eventer.trigger('updateView', {
+                               loading: !!result.key
+                            });
+                        },
+                        data: [{
+                            key: 0,
+                            value: '完成'
+                        }, {
+                            key: 1,
+                            value: '加载中'
+                        }]
                     }
                 }, {
-                    label: '类型',
+                    label: '点击回调',
                     component: {
-                        comName: 'inputs',
+                        comName: 'selects',
+                        placeholder: '请选择',
                         onChange(self, result) {
-                            console.warn('点击了搜索框2', result);
-                        }
-                    }
-                }, {
-                    label: '类型',
-                    component: {
-                        comName: 'inputs',
-                        onChange(self, result) {
-                            console.warn('点击了搜索框2', result);
-                        }
+                            Lego.Eventer.trigger('updateView', {
+                                onClick: result.key ? function(){} : undefined
+                            });
+                        },
+                        data: [{
+                            key: 0,
+                            value: '否'
+                        }, {
+                            key: 1,
+                            value: '是'
+                        }]
                     }
                 }],
                 onSubmit(self, data){

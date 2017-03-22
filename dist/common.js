@@ -1,5 +1,5 @@
 /**
- * common.js v0.3.21
+ * common.js v0.3.22
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -400,11 +400,13 @@ var Baseview = function(_Lego$View) {
             function initScroll($el) {
                 $el.each(function(index, el) {
                     var container = $(this), eventName = "mousemove.ps" + index;
-                    container.css("position", "relative");
-                    Ps.initialize(container[0], options.scrollbar);
-                    that.$el.off(eventName).on(eventName, function() {
-                        Ps.update(container[0]);
-                    });
+                    if (!container.hasClass("ps-container")) {
+                        container.css("position", "relative");
+                        Ps.initialize(container[0], options.scrollbar);
+                        that.$el.off(eventName).on(eventName, function() {
+                            Ps.update(container[0]);
+                        });
+                    }
                 });
             }
             if (options.scrollbar) {

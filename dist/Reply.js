@@ -1,5 +1,5 @@
 /**
- * reply.js v0.3.21
+ * reply.js v0.3.22
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -1843,7 +1843,7 @@ var _templateObject3$4 = _taggedTemplateLiteral$6([ '\n            <li class="dr
 
 var _templateObject4$3 = _taggedTemplateLiteral$6([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5$1 = _taggedTemplateLiteral$6([ '\n        <ul class="dropdown-menu scrollbar ', '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu scrollbar ', '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject5$1 = _taggedTemplateLiteral$6([ '\n        <ul class="dropdown-menu ', " ", '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', " ", '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
 
 function _taggedTemplateLiteral$6(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -1890,6 +1890,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             events: {
                 "click li:not(.dropdown)": "clickItem"
             },
+            scrollbar: null,
             disabled: false,
             eventName: "click",
             container: "",
@@ -1923,7 +1924,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     return itemNav(item);
                 })) : "");
             }
-            var vDom = hx(_templateObject5$1, options.direction ? "drop" + options.direction : "", options.open ? "block" : "none", options.data.map(function(item) {
+            var vDom = hx(_templateObject5$1, options.scrollbar ? "scrollbar" : "", options.direction ? "drop" + options.direction : "", options.open ? "block" : "none", options.data.map(function(item) {
                 return itemNav(item);
             }));
             return vDom;
