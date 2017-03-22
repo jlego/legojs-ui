@@ -149,7 +149,7 @@ class View extends Lego.UI.Baseview {
                         placeholder: '请选择',
                         onChange(self, result) {
                             Lego.Eventer.trigger('updateView', {
-                                onClick: result.key ? function(){} : undefined
+                                onClick: result.key ? function(self, event){} : undefined
                             });
                         },
                         data: [{

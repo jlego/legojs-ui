@@ -1,18 +1,5 @@
 import Form from './form';
 
-function getConfig(obj){
-    return `
-    {
-        ${obj.text ? `text: "${obj.text}",` : ''}
-        ${obj.type ? `type: "${obj.type}",` : ''}
-        ${obj.disabled ? `disabled: ${obj.disabled},` : ''}
-        ${obj.icon ? `icon: "${obj.icon}",` : ''}
-        ${obj.shape ? `shape: "${obj.shape}",` : ''}
-        ${obj.size ? `size: "${obj.size}",` : ''}
-        ${obj.loading ? `loading: ${obj.loading},` : ''}
-        ${obj.onClick ? `onClick(self, event){}` : ''}
-    }`;
-}
 let table = `
 | 属性    |    说明   |      类型 |      默认值 |
 |:------|:-------:|--------:|--------:|
@@ -40,9 +27,6 @@ class HomeView extends Lego.UI.Baseview {
                     if(tView){
                         if(tView.options.activeKey == 'tab_3') pView.showTab();
                     }
-                    if(pView){
-                        pView.oldOpts = $.extend(true, {}, view.options);
-                    }
                 }
             }
         };
@@ -52,6 +36,8 @@ class HomeView extends Lego.UI.Baseview {
         setTimeout(function(){
             that.renderScroll();
         }, 0);
+        let view = Lego.getView('#exampleCom');
+        this.oldOpts = view ? $.extend(true, {}, view.options) : {};
     }
     components(){
         let that = this;
@@ -95,7 +81,7 @@ class HomeView extends Lego.UI.Baseview {
     showTab(){
         let theComView = Lego.getView('#exampleCom');
         if(theComView){
-            this.$('#md').html(markdown.makeHtml(getConfig(theComView.options)));
+            this.$('#md').html(markdown.makeHtml(Lego.Ux.Util.getObjStr(theComView.options, this.oldOpts)));
             setTimeout(function(){
                 this.$('pre').each(function(i, block) {
                     hljs.highlightBlock(block);
