@@ -10,7 +10,8 @@ Lego.Ux.Util = {
             }
         });
         optsStr = optsStr.replace('"$$', '').replace('$$"', '').replace('e(', '(');
-        return `<pre>${this.js_beautify(optsStr)}</pre>`;
+        let result = this.js_beautify(optsStr);
+        return `<pre>${result}</pre>`;
     },
     // 格式化js对象
     js_beautify(js_source_text, indent_size, indent_character, indent_level) {
