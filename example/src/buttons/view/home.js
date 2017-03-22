@@ -86,7 +86,7 @@ class HomeView extends Lego.UI.Baseview {
                 this.$('pre').each(function(i, block) {
                     hljs.highlightBlock(block);
                 });
-            }, 200);
+            }, 0);
         }
     }
     render() {
