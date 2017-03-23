@@ -64,6 +64,9 @@ class Menu extends Lego.UI.Baseview {
             icon: 'lego-icon-purchase',
             open: true,
             children: [{
+                key: 'nav_tables',
+                value: 'Tables 表格'
+            }, {
                 key: 'nav_tips',
                 value: 'Tips 提示框'
             }, {

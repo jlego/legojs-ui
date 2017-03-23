@@ -565,7 +565,9 @@ var _templateObject$1 = _taggedTemplateLiteral$1([ '\n        <div class="alert 
 
 var _templateObject2$1 = _taggedTemplateLiteral$1([ '<span class="lego-alert-description">', "</span>" ], [ '<span class="lego-alert-description">', "</span>" ]);
 
-var _templateObject3$1 = _taggedTemplateLiteral$1([ '<a class="lego-alert-close-icon"><i class="anticon anticon-cross"></i></a>' ], [ '<a class="lego-alert-close-icon"><i class="anticon anticon-cross"></i></a>' ]);
+var _templateObject3$1 = _taggedTemplateLiteral$1([ '<a class="lego-alert-close-icon">', "</a>" ], [ '<a class="lego-alert-close-icon">', "</a>" ]);
+
+var _templateObject4$1 = _taggedTemplateLiteral$1([ '<i class="anticon anticon-cross"></i>' ], [ '<i class="anticon anticon-cross"></i>' ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -646,7 +648,7 @@ var Alert = function(_Lego$UI$Baseview) {
                 iconName = "cross";
                 break;
             }
-            var vDom = hx(_templateObject$1, options.type, options.description ? "lego-alert-with-description" : "", options.showIcon ? "" : "lego-alert-no-icon", options.description ? "anticon-" + iconName + "-circle-o" : "anticon-" + iconName + "-circle", options.showIcon ? "" : "-no", options.showIcon ? "" : "none", options.message, options.description ? hx(_templateObject2$1, typeof options.description == "string" ? options.description : "") : "", options.closable ? hx(_templateObject3$1) : "");
+            var vDom = hx(_templateObject$1, options.type, options.description ? "lego-alert-with-description" : "", options.showIcon ? "" : "lego-alert-no-icon", options.description ? "anticon-" + iconName + "-circle-o" : "anticon-" + iconName + "-circle", options.showIcon ? "" : "-no", options.showIcon ? "" : "none", options.message, options.description ? hx(_templateObject2$1, typeof options.description == "string" ? options.description : "") : "", options.closable ? hx(_templateObject3$1, options.closeText || hx(_templateObject4$1)) : "");
             return vDom;
         }
     }, {

@@ -62,10 +62,6 @@ class View extends Lego.UI.Baseview {
                                disabled: !!result.key
                             });
                         },
-                        value: {
-                            key: 0,
-                            value: '否'
-                        },
                         data: [{
                             key: 0,
                             value: '否'

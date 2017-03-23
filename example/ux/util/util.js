@@ -2,20 +2,22 @@ Lego.Ux.Util = {
     // 返回对象字符串
     getObjStr(opts = {}, oldOpts = {}){
         let optsStr = JSON.stringify(opts, function(key, value){
-            if(['context', 'events', 'id', 'vid', 'el', 'components', 'data'].indexOf(key) < 0){
+            if(['context', 'events', 'id', 'vid', 'el', 'components', 'data', 'scrollbar', 'tableWidth'].indexOf(key) < 0){
                 if(value !== oldOpts[key]) {
-                    if(typeof value == 'function') return '$$' + value.toString() + '$$';
+                    if(typeof value == 'function'){
+                        let patt = new RegExp("function " + key, 'gi');
+                        return '$$' + value.toString().replace(patt, 'function') + '$$';
+                    }
                     return value;
                 }
             }
         });
-        optsStr = optsStr.replace('"$$', '').replace('$$"', '').replace('e(', '(');
+        optsStr = optsStr.replace(/"\$\$/gi, '').replace(/\$\$"/gi, '').replace(/\\"/gi, '"');
         let result = this.js_beautify(optsStr);
         return `<pre>${result}</pre>`;
     },
     // 格式化js对象
     js_beautify(js_source_text, indent_size, indent_character, indent_level) {
-
         let input, output, token_text, last_type, last_text, last_word,
             current_mode, modes, indent_string;
         let whitespace, wordchar, punct, parser_pos, line_starters, in_case;
@@ -46,8 +48,6 @@ Lego.Ux.Util = {
             }
         }
 
-
-
         function print_space() {
             let last_output = output.length ? output[output.length - 1] : ' ';
             if (last_output !== ' ' && last_output !== '\n' && last_output !==
@@ -55,7 +55,6 @@ Lego.Ux.Util = {
                 output.push(' ');
             }
         }
-
 
         function print_token() {
             output.push(token_text);
@@ -99,7 +98,6 @@ Lego.Ux.Util = {
         function get_next_token() {
             let n_newlines = 0;
             let c = '';
-
             do {
                 if (parser_pos >= input.length) {
                     return ['', 'TK_EOF'];
@@ -120,7 +118,6 @@ Lego.Ux.Util = {
             }
             let wanted_newline = (n_newlines === 1);
 
-
             if (in_array(c, wordchar)) {
                 if (parser_pos < input.length) {
                     while (in_array(input.charAt(parser_pos), wordchar)) {
@@ -131,7 +128,6 @@ Lego.Ux.Util = {
                         }
                     }
                 }
-
                 // small and surprisingly unugly hack for 1E-10 representation
                 if (parser_pos !== input.length && c.match(/^[0-9]+[Ee]$/) && input
                     .charAt(parser_pos) === '-') {
@@ -141,7 +137,6 @@ Lego.Ux.Util = {
                     c += '-' + t[0];
                     return [c, 'TK_WORD'];
                 }
-
                 if (c === 'in') { // hack for 'in' operator
                     return [c, 'TK_OPERATOR'];
                 }
@@ -204,7 +199,6 @@ Lego.Ux.Util = {
                     }
                     return [comment, 'TK_COMMENT'];
                 }
-
             }
 
             if (c === "'" || // string
@@ -220,7 +214,6 @@ Lego.Ux.Util = {
                 c = '';
 
                 if (parser_pos < input.length) {
-
                     while (esc || input.charAt(parser_pos) !== sep) {
                         c += input.charAt(parser_pos);
                         if (!esc) {
@@ -233,7 +226,6 @@ Lego.Ux.Util = {
                             break;
                         }
                     }
-
                 }
 
                 parser_pos += 1;
@@ -242,7 +234,6 @@ Lego.Ux.Util = {
                 }
                 return [sep + c + sep, 'TK_STRING'];
             }
-
             if (in_array(c, punct)) {
                 while (parser_pos < input.length && in_array(c + input.charAt(
                         parser_pos), punct)) {
@@ -254,23 +245,16 @@ Lego.Ux.Util = {
                 }
                 return [c, 'TK_OPERATOR'];
             }
-
             return [c, 'TK_UNKNOWN'];
         }
-
-
         //----------------------------------
-
         indent_character = indent_character || ' ';
         indent_size = indent_size || 4;
-
         indent_string = '';
         while (indent_size--) {
             indent_string += indent_character;
         }
-
         input = js_source_text;
-
         last_word = ''; // last 'TK_WORD' passed
         last_type = 'TK_START_EXPR'; // last token type
         last_text = ''; // last token text
@@ -287,12 +271,10 @@ Lego.Ux.Util = {
         punct =
             '+ - * / % & ++ -- = += -= *= /= %= == === != !== > < >= <= >> << >>> >>>= >>= <<= && &= | || ! !! , : ? ^ ^= |='
             .split(' ');
-
         // words which should always start on new line.
         line_starters =
             'continue,try,throw,return,var,if,switch,case,default,for,while,break,function'
             .split(',');
-
         // states showing if we are currently in expression (i.e. "if" case) - 'EXPRESSION', or in usual block (like, procedure), 'BLOCK'.
         // some formatting depends on that.
         current_mode = 'BLOCK';
@@ -308,9 +290,7 @@ Lego.Ux.Util = {
             if (token_type === 'TK_EOF') {
                 break;
             }
-
             switch (token_type) {
-
                 case 'TK_START_EXPR':
                     var_line = false;
                     set_mode('EXPRESSION');
@@ -326,14 +306,11 @@ Lego.Ux.Util = {
                     }
                     print_token();
                     break;
-
                 case 'TK_END_EXPR':
                     print_token();
                     restore_mode();
                     break;
-
                 case 'TK_START_BLOCK':
-
                     if (last_word === 'do') {
                         set_mode('DO_BLOCK');
                     } else {
@@ -350,7 +327,6 @@ Lego.Ux.Util = {
                     print_token();
                     indent();
                     break;
-
                 case 'TK_END_BLOCK':
                     if (last_type === 'TK_START_BLOCK') {
                         // nothing
@@ -363,16 +339,13 @@ Lego.Ux.Util = {
                     print_token();
                     restore_mode();
                     break;
-
                 case 'TK_WORD':
-
                     if (do_block_just_closed) {
                         print_space();
                         print_token();
                         print_space();
                         break;
                     }
-
                     if (token_text === 'case' || token_text === 'default') {
                         if (last_text === ':') {
                             // switch cases following one another
@@ -387,8 +360,6 @@ Lego.Ux.Util = {
                         in_case = true;
                         break;
                     }
-
-
                     prefix = 'NONE';
                     if (last_type === 'TK_END_BLOCK') {
                         if (!in_array(token_text.toLowerCase(), ['else', 'catch',
@@ -480,7 +451,6 @@ Lego.Ux.Util = {
                     break;
 
                 case 'TK_OPERATOR':
-
                     let start_delim = true;
                     let end_delim = true;
                     if (var_line && token_text !== ',') {
@@ -489,7 +459,6 @@ Lego.Ux.Util = {
                             var_line = false;
                         }
                     }
-
                     if (token_text === ':' && in_case) {
                         print_token(); // colon really asks for separate treatment
                         print_newline();
@@ -497,7 +466,6 @@ Lego.Ux.Util = {
                     }
 
                     in_case = false;
-
                     if (token_text === ',') {
                         if (var_line) {
                             if (var_line_tainted) {
@@ -559,39 +527,30 @@ Lego.Ux.Util = {
                     if (start_delim) {
                         print_space();
                     }
-
                     print_token();
 
                     if (end_delim) {
                         print_space();
                     }
                     break;
-
                 case 'TK_BLOCK_COMMENT':
-
                     print_newline();
                     print_token();
                     print_newline();
                     break;
-
                 case 'TK_COMMENT':
-
                     // print_newline();
                     print_space();
                     print_token();
                     print_newline();
                     break;
-
                 case 'TK_UNKNOWN':
                     print_token();
                     break;
             }
-
             last_type = token_type;
             last_text = token_text;
         }
-
         return output.join('');
     }
-
 };

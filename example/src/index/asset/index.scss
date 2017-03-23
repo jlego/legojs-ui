@@ -537,11 +537,11 @@ body {
     padding: 15px 0;
     height: 100%;
 }
-.col-left .tab-content>.tab-pane:first-child + .active {
-    display: flex!important;
-    justify-content: center;
-    align-items: center;
-}
+// .col-left .tab-content>.tab-pane:first-child + .active {
+//     display: flex!important;
+//     justify-content: center;
+//     align-items: center;
+// }
 .col-left .lego-tabs,
 .col-left .tab-content{
     height: 100%;
@@ -561,7 +561,7 @@ body {
 #tabs > .nav-tabs > .nav-item > .nav-link{
     font-size: 16px;
 }
-// .example.scrollbar,
+.example.scrollbar,
 .code.scrollbar,
 .markdown.scrollbar{
     height: 100%;

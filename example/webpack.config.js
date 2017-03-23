@@ -4,10 +4,12 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: {
+        'main': './src/main',
         'index/app': './src/index/app',
         'home/app': './src/home/app',
         'buttons/app': './src/buttons/app',
         'alert/app': './src/alert/app',
+        'tables/app': './src/tables/app',
         'navs/app': './src/navs/app',
         'forms/app': './src/forms/app',
         'tips/app': './src/tips/app',
@@ -18,7 +20,6 @@ module.exports = {
         'steps/app': './src/steps/app',
         'editcom/app': './src/editcom/app',
         'rating/app': './src/rating/app',
-        'main': './src/main',
     },
     output: {
         path: path.join(__dirname, 'dist'), //打包输出的路径
@@ -59,7 +60,7 @@ module.exports = {
     },
     plugins: [
         new webpack.optimize.UglifyJsPlugin({
-            mangle: true,
+            mangle: false,
             compress: false,
             output: {
                 beautify: false,

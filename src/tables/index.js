@@ -29,7 +29,6 @@ class Tables extends Lego.UI.Baseview {
             pagination: null,   //分页器，配置项参考 pagination，设为 false 时不展示和进行分页
             size: 'default', //正常或迷你类型，default or small middle
             columns: [],    //表格列的配置描述，具体项见下表
-            rowKey: '',    //表格行 key 的取值，可以是字符串或一个函数
             rowClassName: '',    //表格行的类名
             expandedRowKeys: [], //展开的行，控制属性
             expandAllRows: false, //初始时，是否展开所有行
@@ -39,12 +38,13 @@ class Tables extends Lego.UI.Baseview {
                 filterReset: '重置',
                 emptyText: '暂无数据'
             },
-            indentSize: 0, //展示树形数据时，每层缩进的宽度，以 px 为单位
+            // indentSize: 0, //展示树形数据时，每层缩进的宽度，以 px 为单位
             bordered: false, //是否展示外边框和列边框
             showHeader: false, //是否显示表头
             showBodyer: true, //是否显示表体
             showFooter: false, //是否显示表尾
             showSetting: false, //是否显示设置
+            fixedHeader: true, //是否固定表头
             // footer(){}, //表格尾部
             // title(){}, //表格标题
             // scroll: {}, //横向或纵向支持滚动，也可用于指定滚动区域的宽高度：{{ x: true, y: 300 }}
@@ -119,11 +119,11 @@ class Tables extends Lego.UI.Baseview {
         const options = this.options;
         const vDom = hx`
         <div class="lego-table clearfix lego-table-${options.size} ${options.bordered ? 'lego-table-bordered' : ''}
-        ${options.showHeader ? 'lego-table-fixed-header' : ''} ${options.isNowrap ? 'lego-nr' : ''} lego-table-scroll-position-left">
+        ${options.fixedHeader ? 'lego-table-fixed-header' : ''} ${options.isNowrap ? 'lego-nr' : ''} lego-table-scroll-position-left">
             ${options.title ? hx`<div class="lego-table-title">${typeof options.title == 'function' ? options.title() : options.title}</div>` : ''}
-            <div class="lego-table-content">
+            <div class="lego-table-content" style="${!options.title ? 'padding-bottom:0' : ''}">
                 <div class="lego-table-scroll">
-                ${options.showHeader ? hx`
+                ${options.showHeader && options.fixedHeader ? hx`
                 <div class="lego-table-header">
                     <table class="" style="${options.tableWidth ? ('width:' + options.tableWidth + 'px') : 'width:1px'}">
                         ${this._renderColgroup()}
@@ -135,7 +135,7 @@ class Tables extends Lego.UI.Baseview {
                     <div class="${options.showHeader ? 'scrollbar' : ''}">
                         <table class="${options.className}" style="${options.tableWidth ? ('width:' + options.tableWidth + 'px') : 'width:1px'}">
                             ${this._renderColgroup()}
-                            ${!options.showHeader ? this._renderHeader() : ''}
+                            ${!(options.showHeader && options.fixedHeader) && options.showHeader ? this._renderHeader() : ''}
                             ${this._renderBodyer()}
                             ${this._renderFooter()}
                         </table>
@@ -147,7 +147,6 @@ class Tables extends Lego.UI.Baseview {
                     </div>
                 ` : ''}
                 ${options.showSetting ? hx`<button type="button" class="btn btn-default noborder" title="表格设置"><i class="anticon anticon-ellipsis"></i></button>` : ''}
-                // ${options.showSetting ? hx`<layer id="showSetting-${options.vid}"></layer>` : ''}
                 </div>
             </div>
         </div>
