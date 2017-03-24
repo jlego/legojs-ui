@@ -19,9 +19,9 @@ let table = `
 | showBodyer   | 是否显示表体  | Boolean | true |
 | showFooter   | 是否显示表尾  | Boolean | false |
 | showSetting   | 是否显示设置  | Boolean | false |
-| footer   | 返回表格尾部  | Function |  |
+| footer   | 返回表格尾部  | String/Function |  |
 | title   | 表格标题  | String/Function |  |
-| scroll   | 横向或纵向支持滚动，也可用于指定滚动区域的宽高度：{{ x: true, y: 300 }}  | Function |  |
+| scroll   | 横向或纵向支持滚动，也可用于指定滚动区域的宽高度：{ x: true, y: 300 }  | Object |  |
 | onExpandRow   | 点击展开图标时触发  | Function |  |
 | onChange   | 分页、排序、筛选变化时触发  | Function |  |
 | onSelect   | 点击选中行时回调  | Function |  |

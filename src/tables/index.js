@@ -119,7 +119,7 @@ class Tables extends Lego.UI.Baseview {
         const options = this.options;
         const vDom = hx`
         <div class="lego-table clearfix lego-table-${options.size} ${options.bordered ? 'lego-table-bordered' : ''}
-        ${options.fixedHeader ? 'lego-table-fixed-header' : ''} ${options.isNowrap ? 'lego-nr' : ''} lego-table-scroll-position-left">
+        ${options.showHeader && options.fixedHeader ? 'lego-table-fixed-header' : ''} ${options.isNowrap ? 'lego-nr' : ''} lego-table-scroll-position-left">
             ${options.title ? hx`<div class="lego-table-title">${typeof options.title == 'function' ? options.title() : options.title}</div>` : ''}
             <div class="lego-table-content" style="${!options.title ? 'padding-bottom:0' : ''}">
                 <div class="lego-table-scroll">
@@ -132,12 +132,12 @@ class Tables extends Lego.UI.Baseview {
                 </div>
                 ` : ''}
                 <div class="lego-table-body" style="bottom: ${options.pagination ? '48px' : '0'}">
-                    <div class="${options.showHeader ? 'scrollbar' : ''}">
+                    <div class="${options.showHeader && options.fixedHeader ? 'scrollbar' : ''}">
                         <table class="${options.className}" style="${options.tableWidth ? ('width:' + options.tableWidth + 'px') : 'width:1px'}">
                             ${this._renderColgroup()}
                             ${!(options.showHeader && options.fixedHeader) && options.showHeader ? this._renderHeader() : ''}
-                            ${this._renderBodyer()}
-                            ${this._renderFooter()}
+                            ${options.showBodyer ? this._renderBodyer() : ''}
+                            ${options.showFooter ? this._renderFooter() : ''}
                         </table>
                     </div>
                 </div>
@@ -170,6 +170,9 @@ class Tables extends Lego.UI.Baseview {
             if(pgView){
                 Object.assign(pgView.options, this.options.pagination);
             };
+        }
+        if(this.options.showFooter && this.columns.length){
+            this.$('.lego-table-tfoot > tr > td').attr('colspan', this.columns.length);
         }
     }
     _getRowKey(str = ''){
