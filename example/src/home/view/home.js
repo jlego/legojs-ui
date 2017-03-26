@@ -20,7 +20,7 @@ class HomeView extends Lego.UI.Baseview {
     }
     theClick(event){
         event.stopPropagation();
-        Lego.trigger('data_update', {aa: 1});
+        Lego.Eventer.trigger('data_update', {aa: 1});
     }
 }
 export default HomeView;

@@ -56,6 +56,7 @@ class Baseview extends Lego.View {
      */
     delegateEvents() {
         const events = this.options.events;
+        const delegateEventSplitter = /^(\S+)\s*(.*)$/;
         if (!events) return this;
         for (let key in events) {
             let method = events[key];
