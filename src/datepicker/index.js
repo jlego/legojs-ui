@@ -1,6 +1,7 @@
 import './asset/index.scss';
-import 'moment';
+import moment from 'moment';
 import 'moment/locale/zh-cn';
+moment.locale('zh-cn');
 import 'bootstrap-datetimepicker-cjs';
 import 'bootstrap-datetimepicker-cjs/css/bootstrap-datetimepicker.css';
 
