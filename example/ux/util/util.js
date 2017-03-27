@@ -2,7 +2,7 @@ Lego.Ux.Util = {
     // 返回对象字符串
     getObjStr(opts = {}, oldOpts = {}){
         let optsStr = JSON.stringify(opts, function(key, value){
-            if(['context', 'events', 'id', 'vid', 'el', 'components', 'data', 'scrollbar', 'tableWidth'].indexOf(key) < 0){
+            if(['context', 'events', 'id', 'vid', 'el', 'components', 'data', 'scrollbar', 'tableWidth', '__v'].indexOf(key) < 0){
                 if(value !== oldOpts[key]) {
                     if(typeof value == 'function'){
                         let patt = new RegExp("function " + key, 'gi');
