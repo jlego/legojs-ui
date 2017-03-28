@@ -1,5 +1,5 @@
 /**
- * permis.js v0.3.22
+ * permis.js v0.3.25
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -36,7 +36,6 @@ function _classCallCheck(instance, Constructor) {
 
 var Permis = function() {
     function Permis() {
-        var option = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Permis);
         this.options = {
             userId: 0,
@@ -48,7 +47,8 @@ var Permis = function() {
     }
     _createClass(Permis, [ {
         key: "init",
-        value: function init(option) {
+        value: function init() {
+            var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
             var that = this;
             var ajaxConfig = {
                 url: "",
@@ -57,21 +57,32 @@ var Permis = function() {
                     debug.error("加载权限数据失败");
                 }
             };
-            if (option) Object.assign(this.options, option);
-            if (this.options.operateHash.url) {
-                var operateAjaxConfig = $.extend({}, ajaxConfig, this.options.operateHash);
+            var options = {
+                userId: 0,
+                operate: {},
+                manage: {}
+            };
+            Object.assign(options, opts);
+            this.options.userId = options.userId;
+            if (options.operate.url) {
+                var operateAjaxConfig = $.extend({}, ajaxConfig, options.operate);
                 operateAjaxConfig.success = function(result) {
                     that.options.operateHash = result;
                 };
                 $.ajax(operateAjaxConfig);
             }
-            if (this.options.manageHash.url) {
-                var manageAjaxConfig = $.extend({}, ajaxConfig, this.options.manageHash);
+            if (options.manage.url) {
+                var manageAjaxConfig = $.extend({}, ajaxConfig, options.manage);
                 manageAjaxConfig.success = function(result) {
                     that.options.manageHash = result;
                 };
                 $.ajax(manageAjaxConfig);
             }
+            Lego.setting("permit", function() {
+                var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+                var module = opts.module, operate = opts.operate, userId = opts.userid;
+                return Lego.UI.permis.check(module, operate, userId);
+            });
         }
     }, {
         key: "check",
@@ -82,10 +93,10 @@ var Permis = function() {
                     if (operateHash[module]) {
                         return operateHash[module][operate];
                     } else {
-                        return 0;
+                        return false;
                     }
                 }
-                return 1;
+                return true;
             } else {
                 var theDepartment = void 0, result = void 0;
                 if (Array.isArray(users)) {
@@ -105,14 +116,14 @@ var Permis = function() {
                         }
                     }
                 }
-                return 1;
+                return true;
             }
         }
     } ]);
     return Permis;
 }();
 
-var permisObj = Lego.permis = new Permis();
+var permisObj = new Permis();
 
 function _on(elem, types, selector, data, fn, one) {
     var origFn = void 0, type = void 0;

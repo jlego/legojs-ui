@@ -1,5 +1,5 @@
 /**
- * common.js v0.3.22
+ * common.js v0.3.25
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -440,6 +440,7 @@ var Baseview = function(_Lego$View) {
         key: "delegateEvents",
         value: function delegateEvents() {
             var events = this.options.events;
+            var delegateEventSplitter = /^(\S+)\s*(.*)$/;
             if (!events) return this;
             for (var key in events) {
                 var method = events[key];
