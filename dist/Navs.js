@@ -1,5 +1,5 @@
 /**
- * navs.js v0.3.25
+ * navs.js v0.3.38
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -258,6 +258,7 @@ var Navs = function(_Lego$UI$Baseview) {
             activeValue: "",
             direction: "",
             closeAllAble: true,
+            accordion: true,
             onClick: function onClick() {},
             data: []
         };
@@ -310,6 +311,17 @@ var Navs = function(_Lego$UI$Baseview) {
             this.activeKey = key;
         }
     }, {
+        key: "closeDropdown",
+        value: function closeDropdown(el) {
+            el.slideUp("fast", function() {
+                if ($(this).css("display") == "none") {
+                    $(this).parent().removeClass("open");
+                } else {
+                    $(this).parent().addClass("open");
+                }
+            });
+        }
+    }, {
         key: "clickNav",
         value: function clickNav(event, target) {
             event.stopPropagation();
@@ -317,6 +329,10 @@ var Navs = function(_Lego$UI$Baseview) {
             var dropdownEl = targetEl.next(".dropdown-menu");
             var directionResp = Lego.UI.Util.getDirection(targetEl, dropdownEl);
             this.options.direction = directionResp._y || "bottom";
+            if (this.options.accordion) {
+                this.closeDropdown(this.$(".nav-item.open .dropdown-menu"));
+            }
+            this.closeDropdown(dropdownEl);
             dropdownEl.slideToggle("fast", function() {
                 if ($(this).css("display") == "none") {
                     $(this).parent().removeClass("open");
@@ -334,6 +350,9 @@ var Navs = function(_Lego$UI$Baseview) {
             event.stopPropagation();
             var targetEl = $(event.currentTarget), key = targetEl.attr("id");
             if (!targetEl.hasClass("disabled")) {
+                if (this.options.accordion) {
+                    this.closeDropdown(this.$(".nav-item.open .dropdown-menu"));
+                }
                 this.options.activeKey = key;
                 var model = this.options.data.find(function(item) {
                     return item.key === key;

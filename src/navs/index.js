@@ -28,6 +28,7 @@ class Navs extends Lego.UI.Baseview {
             activeValue: '',
             direction: '',  //显示方向
             closeAllAble: true, //点击body关闭全部
+            accordion: true,    //手风琴效果
             onClick(){}, //点击的回调
             data: []
         };
@@ -80,12 +81,25 @@ class Navs extends Lego.UI.Baseview {
             key = targetEl.children('a').attr('id');
         this.activeKey = key;
     }
+    closeDropdown(el){
+        el.slideUp('fast', function(){
+            if($(this).css('display') == 'none'){
+                $(this).parent().removeClass('open');
+            }else{
+                $(this).parent().addClass('open');
+            }
+        });
+    }
     clickNav(event, target) {
         event.stopPropagation();
         let targetEl = $(event.currentTarget);
         let dropdownEl = targetEl.next('.dropdown-menu');
         let directionResp = Lego.UI.Util.getDirection(targetEl, dropdownEl);
         this.options.direction = directionResp._y || 'bottom';
+        if(this.options.accordion){
+            this.closeDropdown(this.$('.nav-item.open .dropdown-menu'));
+        }
+        this.closeDropdown(dropdownEl);
         dropdownEl.slideToggle('fast', function(){
             if($(this).css('display') == 'none'){
                 $(this).parent().removeClass('open');
@@ -102,6 +116,9 @@ class Navs extends Lego.UI.Baseview {
         const targetEl = $(event.currentTarget),
             key = targetEl.attr('id');
         if(!targetEl.hasClass('disabled')){
+            if(this.options.accordion){
+                this.closeDropdown(this.$('.nav-item.open .dropdown-menu'));
+            }
             this.options.activeKey = key;
             let model = this.options.data.find(item => item.key === key);
             if (typeof this.options.onClick === 'function'){

@@ -62,7 +62,7 @@
 .lego-tree li a.curSelectedNode span.hby_root_close,
 .lego-tree li a.curSelectedNode span.hby_ico_open,
 .lego-tree li a.curSelectedNode span.hby_ico_docu {
-    color: #3399fe;
+    color: #3399fe !important;
 }
 
 .lego-tree li a.tmpTargetNode_inner {
@@ -95,10 +95,11 @@
 }
 
 .lego-tree li span.button {
-    font-family: 'hbyicon';
+    font-family: 'FontAwesome';
     color: #bbb;
     line-height: 25px;
-    margin: 0;
+    font-size: 17px;
+    margin: 0 3px 0 0;
     display: inline-block;
     vertical-align: middle;
     border: 0 none;
@@ -121,14 +122,20 @@
 
 .lego-tree li span.folder_ico_open:before,
 .lego-tree li span.folder_ico_close:before {
-    content: "\e90b";
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     color: #ffb700;
+    font-size: 18px;
 }
-
+.lego-tree li span.folder_ico_open:before {
+    content: "\f07c";
+}
+.lego-tree li span.folder_ico_close:before {
+    content: "\f07b";
+}
 .lego-tree li span.button.chk {
-    width: 13px;
+    font-family: 'anticon';
+    // width: 13px;
     height: 25px;
     margin: 2px 2px 0 3px;
     cursor: auto
@@ -144,9 +151,11 @@
     // content: "\ea53";
     content: "";
     display: inline-block;
-    width: 14px;
-    height: 14px;
-    border: 1px solid #ddd;
+    width: 16px;
+    height: 16px;
+    margin-top: 4px;
+    margin-right: 1px;
+    border: 1px solid #ccc;
     border-radius: 2px;
 }
 
@@ -157,7 +166,7 @@
 /*.lego-tree li span.button.chk.checkbox_true_disable:before */
 
 {
-    content: "\ea52";
+    content: "\E6C4";
     color: #3399fe;
 }
 
@@ -171,9 +180,10 @@
     // content: "\ea56";
     content: "";
     display: inline-block;
-    width: 14px;
-    height: 14px;
-    border: 1px solid #ddd;
+    width: 17px;
+    height: 17px;
+    margin-top: 4px;
+    border: 1px solid #ccc;
     border-radius: 50%;
 }
 
@@ -184,7 +194,7 @@
 /*.lego-tree li span.button.chk.radio_true_disable:before */
 
 {
-    content: "\ea55";
+    content: "\E630";
     color: #3399fe;
 }
 
@@ -203,10 +213,11 @@
 .lego-tree li span.button.switch {
     width: 16px;
     height: 25px;
-    margin-top: 1px;
+    // margin-top: 1px;
     // -webkit-transform: scale(0.55);
     line-height: 25px;
     color: #666;
+    // zoom: 1.2;
 }
 
 .lego-tree li span.button.center_open:before,
@@ -223,11 +234,11 @@
     display: inline-block;
     width: 0;
     height: 0;
-    margin-top: -.3em;
+    margin-top: -.1em;
     margin-left: .4em;
     vertical-align: middle;
     content: "";
-    border-top: 0.3em solid;
+    border-top: 0.5em solid;
     border-right: 0.3em solid transparent;
     border-left: 0.3em solid transparent;
 }
@@ -246,13 +257,13 @@
     display: inline-block;
     width: 0;
     height: 0;
-    margin-top: -.3em;
+    margin-top: -.1em;
     margin-left: .6em;
     vertical-align: middle;
     content: "";
     border-top: 0.3em solid transparent;
     border-bottom: 0.3em solid transparent;
-    border-left: 0.3em solid;
+    border-left: 0.5em solid;
 }
 
 .lego-tree li span.button.root_docu {

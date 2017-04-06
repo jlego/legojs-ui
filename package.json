@@ -1,6 +1,6 @@
 {
   "name": "lego-ui",
-  "version": "0.3.25",
+  "version": "0.3.38",
   "description": "legojs ui library",
   "main": "dist/legoui.js",
   "directories": {
@@ -64,6 +64,7 @@
   "dependencies": {
     "bootstrap-datetimepicker-cjs": "0.0.3",
     "bootstrap-rating": "0.0.1",
+    "font-awesome": "^4.7.0",
     "highlight.js": "^9.9.0",
     "jquery-validation-cjs": "^1.0.0",
     "lego-core": "^1.7.0",

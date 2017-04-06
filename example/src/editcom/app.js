@@ -4,19 +4,21 @@ import homeView from './view/home';
 class Router {
     constructor() {
         return {
-            '/editcom': [this.index, this.tabs],
-            '/editcom/:tabs': [this.index, this.tabs]
+            '/editcom': [this.index.bind(this), this.tabs.bind(this)],
+            '/editcom/:tabs': [this.index.bind(this), this.tabs.bind(this)]
         };
     }
-    index(){
+    index(ctx, next){
         this.viewObj = Lego.create(IndexView, {
             el: Lego.config.pageEl,
             scrollbar: {},
             currentTab: 0
         });
+        next();
     }
-    tabs(tabs = 0){
-        this.viewObj.options.currentTab = tabs || 0;
+    tabs(ctx, next){
+        let tabs = ctx.params.tabs || 0;
+        this.viewObj.options.currentTab = tabs;
         const appArray = [homeView];
         Lego.create(appArray[tabs], { el: '#pageContent' });
     }
