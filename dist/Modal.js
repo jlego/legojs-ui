@@ -1,5 +1,5 @@
 /**
- * modal.js v0.3.38
+ * modal.js v0.3.43
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

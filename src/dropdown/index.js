@@ -62,7 +62,8 @@ class Dropdown extends Lego.UI.Baseview {
     renderAfter(){
         let that = this,
             _eventName = 'click.dropdown-' + this.options.vid;
-        this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
+        this.container = this.options.container instanceof $ ? this.options.container :
+            (this.options.context.$ ? this.options.context.$(this.options.container) : $(this.options.container));
         if(!this.options.disabled){
             function handler(event){
                 that.$el.slideToggle('fast');

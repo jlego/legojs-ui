@@ -1,5 +1,5 @@
 /**
- * reply.js v0.3.38
+ * reply.js v0.3.43
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -1933,7 +1933,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
         key: "renderAfter",
         value: function renderAfter() {
             var that = this, _eventName = "click.dropdown-" + this.options.vid;
-            this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
+            this.container = this.options.container instanceof $ ? this.options.container : this.options.context.$ ? this.options.context.$(this.options.container) : $(this.options.container);
             if (!this.options.disabled) {
                 var handler = function handler(event) {
                     that.$el.slideToggle("fast");

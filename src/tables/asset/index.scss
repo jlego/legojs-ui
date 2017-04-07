@@ -101,7 +101,8 @@
 }
 
 .lego-table-title {
-    padding: 16px 8px;
+    padding: 0 0 15px;
+    // padding: 16px 8px;
     position: relative;
     top: 1px;
     border-radius: 4px 4px 0 0;
@@ -255,14 +256,15 @@
     vertical-align: middle;
     text-align: center;
 }
-
+.lego-table th.lego-table-column-sort > span{
+    cursor: pointer;
+}
 .lego-table-column-sorter-up,
 .lego-table-column-sorter-down {
     line-height: 7px;
     height: 7px;
     display: block;
     width: 12px;
-    cursor: pointer;
 }
 
 .lego-table-column-sorter-up:hover .anticon,

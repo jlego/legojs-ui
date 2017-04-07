@@ -16,7 +16,7 @@ class Tables extends Lego.UI.Baseview {
             events: {
                 'click tbody .lego-checkbox > input,.lego-radio > input': 'selectOne',
                 'click thead .lego-checkbox > input': 'selectAll',
-                'click .lego-table-column-sorter': 'clickSorter',
+                'click th>span': 'clickSorter',
                 'click .anticon-filter': 'clickFilter',
                 'click .lego-table-tbody td': 'clickItem',
                 'click .lego-table-scroll > button': 'clickSetting'
@@ -226,8 +226,8 @@ class Tables extends Lego.UI.Baseview {
             <tr>
             ${options.rowSelection ? this._renderSelection({}, 'th', this.getSelectedStatus() === 2 ? true : false) : ''}
             ${this.columns.map(col => {
-                return !col.isHide ? hx`<th class="${col.sortOrder ? 'lego-table-column-sort' : ''}" id="${col.key}"><span>${col.title}
-                ${col.sorter ? this._renderSorter(col) : ''}${this._renderFilter(col)}</span></th>` : '';
+                return !col.isHide ? hx`<th class="${col.sorter ? 'lego-table-column-sort' : ''}" id="${col.key}"><span title="点击排序">${col.title}
+                ${col.sorter ? this._renderSorter(col) : ''}</span>${this._renderFilter(col)}</th>` : '';
             })}
             </tr>
         </thead>
