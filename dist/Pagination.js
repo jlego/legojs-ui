@@ -1,5 +1,5 @@
 /**
- * pagination.js v0.3.46
+ * pagination.js v0.3.47
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
