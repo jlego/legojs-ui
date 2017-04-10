@@ -34,6 +34,19 @@ class Baseview extends Lego.View {
         }
     }
     /**
+     * 加载业务组件
+     */
+    importWidget(comName, callback){
+        let that = this;
+        if(!Lego.UI[comName]){
+            Lego.loadScript(Lego.config.rootUri + 'widget/' + comName + '/app.js?' + Lego.config.version, function(){
+                if(typeof callback == 'function') callback(that);
+            });
+        }else{
+            if(typeof callback == 'function') callback(this);
+        }
+    }
+    /**
      * [setEvent 设置dom]
      * @param {[type]} element [description]
      */

@@ -1,5 +1,5 @@
 /**
- * common.js v0.3.43
+ * common.js v0.3.46
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -415,6 +415,18 @@ var Baseview = function(_Lego$View) {
                     initScroll(scrollbarEl);
                 }
                 if (this.$el.hasClass("scrollbar")) initScroll(this.$el);
+            }
+        }
+    }, {
+        key: "importWidget",
+        value: function importWidget(comName, callback) {
+            var that = this;
+            if (!Lego.UI[comName]) {
+                Lego.loadScript(Lego.config.rootUri + "widget/" + comName + "/app.js?" + Lego.config.version, function() {
+                    if (typeof callback == "function") callback(that);
+                });
+            } else {
+                if (typeof callback == "function") callback(this);
             }
         }
     }, {
