@@ -1,5 +1,5 @@
 /**
- * badge.js v0.4.1
+ * loading.js v0.4.1
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -22,9 +22,9 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ "<div>\n          ", "\n        </div>" ], [ "<div>\n          ", "\n        </div>" ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-loading">\n            <div class="lego-icon ', "\n            ", " lego-spin-", '">\n            </div>\n            ', "\n        </div>\n        " ], [ '\n        <div class="lego-loading">\n            <div class="lego-icon ', "\n            ", " lego-spin-", '">\n            </div>\n            ', "\n        </div>\n        " ]);
 
-var _templateObject2 = _taggedTemplateLiteral([ '<a id="', '" href="#/home" style="display:block;">', "</a>\n" ], [ '<a id="', '" href="#/home" style="display:block;">', "</a>\\n" ]);
+var _templateObject2 = _taggedTemplateLiteral([ '<div class="lego-spin-text">', "</div>" ], [ '<div class="lego-spin-text">', "</div>" ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -62,38 +62,31 @@ function _inherits(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Badge = function(_Lego$UI$Baseview) {
-    _inherits(Badge, _Lego$UI$Baseview);
-    function Badge() {
+var Loading = function(_Lego$UI$View) {
+    _inherits(Loading, _Lego$UI$View);
+    function Loading() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck(this, Badge);
+        _classCallCheck(this, Loading);
         var options = {
-            events: {
-                "click #400": "theClick"
-            }
+            spinning: true,
+            size: "",
+            tip: "",
+            icon: "anticon anticon-loading-3-quarters"
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn(this, (Badge.__proto__ || Object.getPrototypeOf(Badge)).call(this, options));
+        return _possibleConstructorReturn(this, (Loading.__proto__ || Object.getPrototypeOf(Loading)).call(this, options));
     }
-    _createClass(Badge, [ {
+    _createClass(Loading, [ {
         key: "render",
         value: function render() {
-            var options = this.options || [];
-            var vDom = hx(_templateObject, options.map(function(model, i) {
-                return hx(_templateObject2, model.first, model.first);
-            }));
-            return vDom;
-        }
-    }, {
-        key: "theClick",
-        value: function theClick(event) {
-            event.stopPropagation();
-            Lego.trigger("data_update", {
-                aa: 1
-            });
+            var opts = this.options;
+            this.vDom = hx(_templateObject, Lego.config.spinning && opts.spinning ? "lego-spin" : "", val(opts.icon), val(opts.size), opts.tip ? hx(_templateObject2, opts.tip) : "");
+            return this.vDom;
         }
     } ]);
-    return Badge;
-}(Lego.UI.Baseview);
+    return Loading;
+}(Lego.UI.View);
 
-module.exports = Badge;
+Lego.components("loading", Loading);
+
+module.exports = Loading;

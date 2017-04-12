@@ -1,5 +1,5 @@
 /**
- * tables.js v0.3.47
+ * tables.js v0.4.1
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -504,6 +504,7 @@ var Tables = function(_Lego$UI$Baseview) {
             scrollbar: {},
             className: "",
             tableWidth: 0,
+            loading: true,
             isNowrap: true,
             rowSelection: null,
             pagination: null,
@@ -512,7 +513,6 @@ var Tables = function(_Lego$UI$Baseview) {
             rowClassName: "",
             expandedRowKeys: [],
             expandAllRows: false,
-            loading: false,
             locale: {
                 filterConfirm: "确定",
                 filterReset: "重置",

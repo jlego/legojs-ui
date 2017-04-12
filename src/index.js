@@ -37,9 +37,10 @@ import Reply from "./reply/index";
 import Editcom from "./editcom/index";
 import Permis from "./permis/index";
 import Rating from "./rating/index";
+import Loading from "./loading/index";
 
 Lego.components({
-	baseview: Baseview,
+	Baseview: Baseview,
 	alert: Alert,
 	badge: Badge,
 	buttons: Buttons,
@@ -74,6 +75,7 @@ Lego.components({
 	reply: Reply,
 	editcom: Editcom,
 	permis: Permis,
-	rating: Rating
+	rating: Rating,
+	loading: Loading
 });
 export default Lego.UI;

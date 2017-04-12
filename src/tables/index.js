@@ -24,6 +24,7 @@ class Tables extends Lego.UI.Baseview {
             scrollbar: {},
             className: '',
             tableWidth: 0,
+            loading: true,
             isNowrap: true, //表格内容是否不换行
             rowSelection: null, //列表行是否可选择
             pagination: null,   //分页器，配置项参考 pagination，设为 false 时不展示和进行分页
@@ -32,7 +33,6 @@ class Tables extends Lego.UI.Baseview {
             rowClassName: '',    //表格行的类名
             expandedRowKeys: [], //展开的行，控制属性
             expandAllRows: false, //初始时，是否展开所有行
-            loading: false, //页面是否加载中
             locale: { //默认文案设置，目前包括排序、过滤、空数据文案
                 filterConfirm: '确定',
                 filterReset: '重置',

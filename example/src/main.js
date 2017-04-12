@@ -17,6 +17,7 @@ window.hljs = hljs;
 // 设置全局参数，初始化应用
 Lego.setting({
     alias: 'Lego', //框架实例别名
+    spinning: true,
     version:  (new Date()).getTime(), //版本号'2016' ||
     pageEl: '#page-container', //页面渲染容器
     defaultApp: 'home', //默认应用

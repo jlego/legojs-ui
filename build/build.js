@@ -71,7 +71,8 @@ build([{
 {alias: 'reply'},
 {alias: 'editcom'},
 {alias: 'permis'},
-{alias: 'rating'}
+{alias: 'rating'},
+{alias: 'loading'}
 ].map(genConfig));
 
 function ucfirst(str) {

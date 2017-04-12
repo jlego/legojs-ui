@@ -1,5 +1,5 @@
 /**
- * search.js v0.3.47
+ * search.js v0.4.1
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
