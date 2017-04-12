@@ -110,6 +110,11 @@ class Tables extends Lego.UI.Baseview {
         if(this.tableRealWidth !== oldWidth) this.resizeWidth();
         return this.columns;
     }
+    components(){
+        this.addCom({
+            el: '#pagination-' + this.options.vid
+        });
+    }
     resizeWidth(){
         let tableWidth = $(this.options.el).parent().width();
         this.options.tableWidth = this.tableRealWidth > tableWidth ? this.tableRealWidth : 0;
@@ -154,23 +159,11 @@ class Tables extends Lego.UI.Baseview {
         return vDom;
     }
     renderAfter(){
-        // this.hasClicked = this.hasClicked || false;
-        this.isLoaded = this.isLoaded || false;
-        let el = '#pagination-' + this.options.vid;
-        if(!this.isLoaded && this.options.data.length && this.options.pagination){
-            this.options.pagination = typeof this.options.pagination == 'function' ? this.options.pagination(this) : this.options.pagination;
-            let that = this;
-            Lego.create(Pagination, Object.assign(this.options.pagination, {
-                context: this,
-                el: el
-            }));
-            this.isLoaded = true;
-        }else{
-            let pgView = Lego.getView(el);
-            if(pgView){
-                Object.assign(pgView.options, this.options.pagination);
-            };
-        }
+        let opts = this.options;
+        let pgView = Lego.getView('#pagination-' + opts.vid);
+        if(pgView){
+            Object.assign(pgView.options, opts.pagination);
+        };
         if(this.options.showFooter && this.columns.length){
             this.$('.lego-table-tfoot > tr > td').attr('colspan', this.columns.length);
         }

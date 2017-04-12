@@ -13,8 +13,8 @@ class Baseview extends Lego.UI.View {
     }
     fetch(opts = {}){
         let that = this;
-            if(this.options.loading) this.showLoading();
         if(this.options.dataSource){
+            if(this.options.loading) this._showLoading();
             const dataSource = this.options.dataSource;
             dataSource.api = Array.isArray(dataSource.api) ? dataSource.api : [dataSource.api];
             dataSource.api.forEach(apiName => {
@@ -29,7 +29,7 @@ class Baseview extends Lego.UI.View {
                 }
                 server.fetch(dataSource.api, dataSource.isAjax && window.$ ? dataSource : {}, (resp) => {
                     this.options.data = resp;
-                    this._dataReady();
+                    if(this.options.loading) this._hideLoading();
                     this.dataReady();
                     this.components();
                     this.refresh();
@@ -39,20 +39,17 @@ class Baseview extends Lego.UI.View {
             this._renderComponents();
         }
     }
-    showLoading(){
+    _showLoading(){
         let opts = this.options;
         if(!this.loadingView){
             this.loadingView = Lego.create(Loading, typeof opts.loading == 'object' ? opts.loading : {});
             this.$el.css('position', 'relative');
-            this.$el.append(this.loadingView.el);
+            this.$el.prepend(this.loadingView.el);
         }
     }
-    hideLoading(){
+    _hideLoading(){
         this.loadingView.$el.fadeOut("fast");
         this.loadingView = null;
-    }
-    _dataReady(){
-        if(this.options.loading) this.hideLoading();
     }
     renderScroll(){
         const options = this.options,

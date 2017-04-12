@@ -1,5 +1,5 @@
 /**
- * common.js v0.4.1
+ * common.js v0.4.4
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -585,9 +585,9 @@ var Baseview = function(_Lego$UI$View) {
             var _this2 = this;
             var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
             var that = this;
-            if (this.options.loading) this.showLoading();
             if (this.options.dataSource) {
                 (function() {
+                    if (_this2.options.loading) _this2._showLoading();
                     var dataSource = _this2.options.dataSource;
                     dataSource.api = Array.isArray(dataSource.api) ? dataSource.api : [ dataSource.api ];
                     dataSource.api.forEach(function(apiName) {
@@ -602,7 +602,7 @@ var Baseview = function(_Lego$UI$View) {
                         }
                         server.fetch(dataSource.api, dataSource.isAjax && window.$ ? dataSource : {}, function(resp) {
                             _this2.options.data = resp;
-                            _this2._dataReady();
+                            if (_this2.options.loading) _this2._hideLoading();
                             _this2.dataReady();
                             _this2.components();
                             _this2.refresh();
@@ -614,25 +614,20 @@ var Baseview = function(_Lego$UI$View) {
             }
         }
     }, {
-        key: "showLoading",
-        value: function showLoading() {
+        key: "_showLoading",
+        value: function _showLoading() {
             var opts = this.options;
             if (!this.loadingView) {
                 this.loadingView = Lego.create(Loading, _typeof(opts.loading) == "object" ? opts.loading : {});
                 this.$el.css("position", "relative");
-                this.$el.append(this.loadingView.el);
+                this.$el.prepend(this.loadingView.el);
             }
         }
     }, {
-        key: "hideLoading",
-        value: function hideLoading() {
+        key: "_hideLoading",
+        value: function _hideLoading() {
             this.loadingView.$el.fadeOut("fast");
             this.loadingView = null;
-        }
-    }, {
-        key: "_dataReady",
-        value: function _dataReady() {
-            if (this.options.loading) this.hideLoading();
         }
     }, {
         key: "renderScroll",

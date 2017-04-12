@@ -1,5 +1,5 @@
 /**
- * tables.js v0.4.1
+ * tables.js v0.4.4
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -574,6 +574,13 @@ var Tables = function(_Lego$UI$Baseview) {
             return this.columns;
         }
     }, {
+        key: "components",
+        value: function components() {
+            this.addCom({
+                el: "#pagination-" + this.options.vid
+            });
+        }
+    }, {
         key: "resizeWidth",
         value: function resizeWidth() {
             var tableWidth = $(this.options.el).parent().width();
@@ -590,21 +597,10 @@ var Tables = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            this.isLoaded = this.isLoaded || false;
-            var el = "#pagination-" + this.options.vid;
-            if (!this.isLoaded && this.options.data.length && this.options.pagination) {
-                this.options.pagination = typeof this.options.pagination == "function" ? this.options.pagination(this) : this.options.pagination;
-                var that = this;
-                Lego.create(Pagination, Object.assign(this.options.pagination, {
-                    context: this,
-                    el: el
-                }));
-                this.isLoaded = true;
-            } else {
-                var pgView = Lego.getView(el);
-                if (pgView) {
-                    Object.assign(pgView.options, this.options.pagination);
-                }
+            var opts = this.options;
+            var pgView = Lego.getView("#pagination-" + opts.vid);
+            if (pgView) {
+                Object.assign(pgView.options, opts.pagination);
             }
             if (this.options.showFooter && this.columns.length) {
                 this.$(".lego-table-tfoot > tr > td").attr("colspan", this.columns.length);
