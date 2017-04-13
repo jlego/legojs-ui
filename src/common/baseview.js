@@ -48,7 +48,9 @@ class Baseview extends Lego.UI.View {
         }
     }
     _hideLoading(){
-        this.loadingView.$el.fadeOut("fast");
+        this.loadingView.$el.fadeOut("fast", function(){
+            $(this).remove();
+        });
         this.loadingView = null;
     }
     renderScroll(){

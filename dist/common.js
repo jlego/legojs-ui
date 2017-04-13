@@ -1,5 +1,5 @@
 /**
- * common.js v0.4.6
+ * common.js v0.4.7
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -626,7 +626,9 @@ var Baseview = function(_Lego$UI$View) {
     }, {
         key: "_hideLoading",
         value: function _hideLoading() {
-            this.loadingView.$el.fadeOut("fast");
+            this.loadingView.$el.fadeOut("fast", function() {
+                $(this).remove();
+            });
             this.loadingView = null;
         }
     }, {
