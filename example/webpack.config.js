@@ -20,6 +20,7 @@ module.exports = {
         'steps/app': './src/steps/app',
         'editcom/app': './src/editcom/app',
         'rating/app': './src/rating/app',
+        'tags/app': './src/tags/app',
     },
     output: {
         path: path.join(__dirname, 'dist'), //打包输出的路径

@@ -57,6 +57,9 @@ class Menu extends Lego.UI.Baseview {
             }, {
                 key: 'nav_rating',
                 value: 'Rating 评分'
+            }, {
+                key: 'nav_tags',
+                value: 'Tags 标签'
             }]
         }, {
             key: 'nav4',

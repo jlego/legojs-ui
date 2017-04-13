@@ -72,7 +72,8 @@ build([{
 {alias: 'editcom'},
 {alias: 'permis'},
 {alias: 'rating'},
-{alias: 'loading'}
+{alias: 'loading'},
+{alias: 'tags'}
 ].map(genConfig));
 
 function ucfirst(str) {

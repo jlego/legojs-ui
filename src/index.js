@@ -38,6 +38,7 @@ import Editcom from "./editcom/index";
 import Permis from "./permis/index";
 import Rating from "./rating/index";
 import Loading from "./loading/index";
+import Tags from "./tags/index";
 
 Lego.components({
 	Baseview: Baseview,
@@ -76,6 +77,7 @@ Lego.components({
 	editcom: Editcom,
 	permis: Permis,
 	rating: Rating,
-	loading: Loading
+	loading: Loading,
+	tags: Tags
 });
 export default Lego.UI;

@@ -12,12 +12,13 @@ class Buttons extends Lego.UI.Baseview {
                 'click': 'onClick'
             },
             text: 'button', //text/html
-            type: 'secondary',   //设置按钮类型，可选值为 primary ghost dashed 或者不设
+            type: 'secondary',   //设置按钮类型，可选值为 primary dashed 或者不设
             htmlType: 'button', //设置 button 原生的 type 值
             disabled: false,
             icon: '',  //设置按钮的图标类型
-            shape: '',    //设置按钮形状，可选值为 circle 或者不设
-            size: '',    //设置按钮大小，可选值为 small large 或者不设
+            afterIcon: '',
+            shape: '',    //设置按钮形状，可选值为 circle, capsule 或者不设
+            size: '',    //设置按钮大小，可选值为 sm lg 或者不设
             loading: false,    //设置按钮载入状态
             onClick(){}   //click 事件的 handler
         };
@@ -27,8 +28,11 @@ class Buttons extends Lego.UI.Baseview {
     render() {
         const options = this.options;
         const vDom = hx`
-        <button type="${options.htmlType}" class="btn btn-${options.type} ${options.size ? ('btn-' + options.size) : ''}" ${options.disabled ? 'disabled' : ''}>
-            <span>${options.html || options.text}</span>
+        <button type="${options.htmlType}" class="btn btn-${options.type == 'dashed' ? 'secondary lego-btn-dashed' : options.type}
+        ${options.size ? ('btn-' + options.size) : ''} ${options.shape ? ('lego-btn-' + options.shape) : 'default'}" ${options.disabled ? 'disabled' : ''}>
+            ${options.icon ? hx`<i class="${options.icon}"></i>` : ''}
+            ${options.html || options.text ? hx`<span>${options.html || options.text}</span>` : ''}
+            ${options.afterIcon ? hx`<i class="${options.afterIcon}"></i>` : ''}
         </button>
         `;
         return vDom;
