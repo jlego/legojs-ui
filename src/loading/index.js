@@ -5,7 +5,7 @@
  */
 import './asset/index.scss';
 
-class Loading extends Lego.UI.View {
+class Loading extends Lego.View {
     constructor(opts = {}) {
         const options = {
             spinning: true, //是否旋转

@@ -1,5 +1,5 @@
 /**
- * common.js v0.4.9
+ * common.js v0.4.10
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -351,6 +351,18 @@ var _createClass$1 = function() {
     };
 }();
 
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-loading">\n            <div class="lego-icon ', "\n            ", " lego-spin-", '">\n            </div>\n            ', "\n        </div>\n        " ], [ '\n        <div class="lego-loading">\n            <div class="lego-icon ', "\n            ", " lego-spin-", '">\n            </div>\n            ', "\n        </div>\n        " ]);
+
+var _templateObject2 = _taggedTemplateLiteral([ '<div class="lego-spin-text">', "</div>" ], [ '<div class="lego-spin-text">', "</div>" ]);
+
+function _taggedTemplateLiteral(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+}
+
 function _classCallCheck$1(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
@@ -379,119 +391,11 @@ function _inherits$1(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var View = function(_Lego$View) {
-    _inherits$1(View, _Lego$View);
-    function View() {
-        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$1(this, View);
-        var options = {
-            events: null
-        };
-        Object.assign(options, opts);
-        return _possibleConstructorReturn$1(this, (View.__proto__ || Object.getPrototypeOf(View)).call(this, options));
-    }
-    _createClass$1(View, [ {
-        key: "setEvent",
-        value: function setEvent() {
-            this.unBindEvents();
-            this.delegateEvents();
-            return this;
-        }
-    }, {
-        key: "bindEvents",
-        value: function bindEvents(eventName, selector, listener) {
-            this.$el.on(eventName + ".delegateEvents" + this.options.vid, selector, listener);
-            return this;
-        }
-    }, {
-        key: "unBindEvents",
-        value: function unBindEvents() {
-            if (this.$el) this.$el.off(".delegateEvents" + this.options.vid);
-            return this;
-        }
-    }, {
-        key: "delegateEvents",
-        value: function delegateEvents() {
-            var events = this.options.events;
-            var delegateEventSplitter = /^(\S+)\s*(.*)$/;
-            if (!events) return this;
-            for (var key in events) {
-                var method = events[key];
-                if (typeof method !== "function") method = this[method];
-                if (!method) continue;
-                var match = key.match(delegateEventSplitter);
-                this.bindEvents(match[1], match[2], method.bind(this));
-            }
-            return this;
-        }
-    } ]);
-    return View;
-}(Lego.View);
-
-Lego.components("View", View);
-
-var _createClass$2 = function() {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];
-            descriptor.enumerable = descriptor.enumerable || false;
-            descriptor.configurable = true;
-            if ("value" in descriptor) descriptor.writable = true;
-            Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }
-    return function(Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);
-        if (staticProps) defineProperties(Constructor, staticProps);
-        return Constructor;
-    };
-}();
-
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-loading">\n            <div class="lego-icon ', "\n            ", " lego-spin-", '">\n            </div>\n            ', "\n        </div>\n        " ], [ '\n        <div class="lego-loading">\n            <div class="lego-icon ', "\n            ", " lego-spin-", '">\n            </div>\n            ', "\n        </div>\n        " ]);
-
-var _templateObject2 = _taggedTemplateLiteral([ '<div class="lego-spin-text">', "</div>" ], [ '<div class="lego-spin-text">', "</div>" ]);
-
-function _taggedTemplateLiteral(strings, raw) {
-    return Object.freeze(Object.defineProperties(strings, {
-        raw: {
-            value: Object.freeze(raw)
-        }
-    }));
-}
-
-function _classCallCheck$2(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-    }
-}
-
-function _possibleConstructorReturn$2(self, call) {
-    if (!self) {
-        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-    return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits$2(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-    }
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
-        constructor: {
-            value: subClass,
-            enumerable: false,
-            writable: true,
-            configurable: true
-        }
-    });
-    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-var Loading = function(_Lego$UI$View) {
-    _inherits$2(Loading, _Lego$UI$View);
+var Loading = function(_Lego$View) {
+    _inherits$1(Loading, _Lego$View);
     function Loading() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$2(this, Loading);
+        _classCallCheck$1(this, Loading);
         var options = {
             spinning: true,
             size: "",
@@ -499,9 +403,9 @@ var Loading = function(_Lego$UI$View) {
             icon: "anticon anticon-loading-3-quarters"
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn$2(this, (Loading.__proto__ || Object.getPrototypeOf(Loading)).call(this, options));
+        return _possibleConstructorReturn$1(this, (Loading.__proto__ || Object.getPrototypeOf(Loading)).call(this, options));
     }
-    _createClass$2(Loading, [ {
+    _createClass$1(Loading, [ {
         key: "render",
         value: function render() {
             var opts = this.options;
@@ -510,7 +414,7 @@ var Loading = function(_Lego$UI$View) {
         }
     } ]);
     return Loading;
-}(Lego.UI.View);
+}(Lego.View);
 
 Lego.components("loading", Loading);
 
@@ -559,8 +463,8 @@ function _inherits(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Baseview = function(_Lego$UI$View) {
-    _inherits(Baseview, _Lego$UI$View);
+var Baseview = function(_Lego$View) {
+    _inherits(Baseview, _Lego$View);
     function Baseview() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Baseview);
@@ -574,6 +478,40 @@ var Baseview = function(_Lego$UI$View) {
         return _this;
     }
     _createClass(Baseview, [ {
+        key: "setEvent",
+        value: function setEvent() {
+            this.unBindEvents();
+            this.delegateEvents();
+            return this;
+        }
+    }, {
+        key: "bindEvents",
+        value: function bindEvents(eventName, selector, listener) {
+            this.$el.on(eventName + ".delegateEvents" + this.options.vid, selector, listener);
+            return this;
+        }
+    }, {
+        key: "unBindEvents",
+        value: function unBindEvents() {
+            if (this.$el) this.$el.off(".delegateEvents" + this.options.vid);
+            return this;
+        }
+    }, {
+        key: "delegateEvents",
+        value: function delegateEvents() {
+            var events = this.options.events;
+            var delegateEventSplitter = /^(\S+)\s*(.*)$/;
+            if (!events) return this;
+            for (var key in events) {
+                var method = events[key];
+                if (typeof method !== "function") method = this[method];
+                if (!method) continue;
+                var match = key.match(delegateEventSplitter);
+                this.bindEvents(match[1], match[2], method.bind(this));
+            }
+            return this;
+        }
+    }, {
         key: "fetch",
         value: function fetch() {
             var _this2 = this;
@@ -676,7 +614,7 @@ var Baseview = function(_Lego$UI$View) {
         }
     } ]);
     return Baseview;
-}(Lego.UI.View);
+}(Lego.View);
 
 Lego.components("Baseview", Baseview);
 

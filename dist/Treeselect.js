@@ -1,5 +1,5 @@
 /**
- * treeselect.js v0.4.9
+ * treeselect.js v0.4.10
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

@@ -1,5 +1,5 @@
 /**
- * loading.js v0.4.9
+ * loading.js v0.4.10
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -62,8 +62,8 @@ function _inherits(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Loading = function(_Lego$UI$View) {
-    _inherits(Loading, _Lego$UI$View);
+var Loading = function(_Lego$View) {
+    _inherits(Loading, _Lego$View);
     function Loading() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Loading);
@@ -85,7 +85,7 @@ var Loading = function(_Lego$UI$View) {
         }
     } ]);
     return Loading;
-}(Lego.UI.View);
+}(Lego.View);
 
 Lego.components("loading", Loading);
 

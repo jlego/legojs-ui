@@ -9,7 +9,7 @@
  */
 import './asset/index.scss';
 
-class Tags extends Lego.UI.View {
+class Tags extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             // events: {

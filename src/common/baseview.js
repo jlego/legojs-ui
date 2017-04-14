@@ -1,7 +1,6 @@
-import View from './view';
 import Loading from '../loading/index';
 
-class Baseview extends Lego.UI.View {
+class Baseview extends Lego.View {
     constructor(opts = {}) {
         const options = {
             loading: false
@@ -10,6 +9,40 @@ class Baseview extends Lego.UI.View {
         super(options);
         this.setEvent();
         this.renderScroll();
+    }
+    /**
+     * [setEvent 设置dom]
+     * @param {[type]} element [description]
+     */
+    setEvent() {
+        this.unBindEvents();
+        this.delegateEvents();
+        return this;
+    }
+    bindEvents(eventName, selector, listener){
+        this.$el.on(eventName + '.delegateEvents' + this.options.vid, selector, listener);
+        return this;
+    }
+    unBindEvents() {
+        if (this.$el) this.$el.off('.delegateEvents' + this.options.vid);
+        return this;
+    }
+    /**
+     * [delegateEvents 通过解析配置绑定事件]
+     * @return {[type]} [description]
+     */
+    delegateEvents() {
+        const events = this.options.events;
+        const delegateEventSplitter = /^(\S+)\s*(.*)$/;
+        if (!events) return this;
+        for (let key in events) {
+            let method = events[key];
+            if (typeof method !== 'function') method = this[method];
+            if (!method) continue;
+            let match = key.match(delegateEventSplitter);
+            this.bindEvents(match[1], match[2], method.bind(this));
+        }
+        return this;
     }
     fetch(opts = {}){
         let that = this;
