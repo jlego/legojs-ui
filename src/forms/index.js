@@ -220,7 +220,7 @@ class Forms extends Lego.UI.Baseview {
     submitForm() {
         const format = this.options.format,
             submitEl = this.options.submitEl,
-            $submitEl = submitEl instanceof $ ? submitEl : this.$el.find((typeof submitEl == 'string' ? submitEl : '') || '[type="submit"]'),
+            $submitEl = submitEl instanceof $ ? submitEl : this.$((typeof submitEl == 'string' ? submitEl : '') || '[type="submit"]'),
             that = this;
         let data = this.serializeJson();
         if(typeof format == 'function') data = format(data);

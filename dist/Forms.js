@@ -1,5 +1,5 @@
 /**
- * forms.js v0.4.11
+ * forms.js v0.4.12
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -261,7 +261,7 @@ var Forms = function(_Lego$UI$Baseview) {
     }, {
         key: "submitForm",
         value: function submitForm() {
-            var format = this.options.format, submitEl = this.options.submitEl, $submitEl = submitEl instanceof $ ? submitEl : this.$el.find((typeof submitEl == "string" ? submitEl : "") || '[type="submit"]'), that = this;
+            var format = this.options.format, submitEl = this.options.submitEl, $submitEl = submitEl instanceof $ ? submitEl : this.$((typeof submitEl == "string" ? submitEl : "") || '[type="submit"]'), that = this;
             var data = this.serializeJson();
             if (typeof format == "function") data = format(data);
             if (Lego.isEmptyObject(data)) return false;
