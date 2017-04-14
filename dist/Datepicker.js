@@ -1,11 +1,15 @@
 /**
- * datepicker.js v0.3.21
+ * datepicker.js v0.4.10
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
 "use strict";
 
-var moment$1 = require("moment");
+function _interopDefault(ex) {
+    return ex && typeof ex === "object" && "default" in ex ? ex["default"] : ex;
+}
+
+var moment = _interopDefault(require("moment"));
 
 var moment_locale_zhCn = require("moment/locale/zh-cn");
 
@@ -83,6 +87,8 @@ function _inherits(subClass, superClass) {
     });
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
+
+moment.locale("zh-cn");
 
 function formatDate(dateStr) {
     var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "YYYY-MM-DD HH:mm:ss";

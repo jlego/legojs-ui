@@ -1,4 +1,5 @@
 import '../asset/scss/style.scss';
+// import "font-awesome/scss/font-awesome.scss";
 
 import { Baseview } from "./common/index";
 import Alert from "./alert/index";
@@ -36,9 +37,11 @@ import Reply from "./reply/index";
 import Editcom from "./editcom/index";
 import Permis from "./permis/index";
 import Rating from "./rating/index";
+import Loading from "./loading/index";
+import Tags from "./tags/index";
 
 Lego.components({
-	baseview: Baseview,
+	Baseview: Baseview,
 	alert: Alert,
 	badge: Badge,
 	buttons: Buttons,
@@ -73,6 +76,8 @@ Lego.components({
 	reply: Reply,
 	editcom: Editcom,
 	permis: Permis,
-	rating: Rating
+	rating: Rating,
+	loading: Loading,
+	tags: Tags
 });
 export default Lego.UI;

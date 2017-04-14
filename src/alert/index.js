@@ -40,7 +40,7 @@ class Alert extends Lego.UI.Baseview {
             <i class="anticon ${options.description ? ('anticon-' + iconName + '-circle-o') : ('anticon-' + iconName + '-circle')} lego-alert${options.showIcon ? '' : '-no'}-icon" style="display:${options.showIcon ? '' : 'none'};"></i>
             <span class="lego-alert-message">${options.message}</span>
             ${options.description ? hx`<span class="lego-alert-description">${typeof options.description == 'string' ? options.description : ''}</span>` : ''}
-            ${options.closable ? hx`<a class="lego-alert-close-icon"><i class="anticon anticon-cross"></i></a>` : ''}
+            ${options.closable ? hx`<a class="lego-alert-close-icon">${options.closeText || hx`<i class="anticon anticon-cross"></i>`}</a>` : ''}
         </div>
         `;
         return vDom;

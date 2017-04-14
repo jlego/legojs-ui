@@ -2,7 +2,7 @@
  * 权限控制类
  */
 class Permis {
-    constructor(option = {}) {
+    constructor() {
         this.options = {
             userId: 0, //当前用户ID
             operateHash() {}, //操作权限对象
@@ -16,7 +16,7 @@ class Permis {
      * @param  {[type]} option [description]
      * @return {[type]}        [description]
      */
-    init(option) {
+    init(opts = {}) {
         let that = this;
         let ajaxConfig = {
             url: '',
@@ -25,22 +25,33 @@ class Permis {
                 debug.error('加载权限数据失败');
             }
         };
-        if (option) Object.assign(this.options, option);
-
-        if (this.options.operateHash.url) {
-            let operateAjaxConfig = $.extend({}, ajaxConfig, this.options.operateHash);
+        let options = {
+            userId: 0,
+            operate: {},
+            manage: {}
+        };
+        Object.assign(options, opts);
+        this.options.userId = options.userId;
+        if (options.operate.url) {
+            let operateAjaxConfig = $.extend({}, ajaxConfig, options.operate);
             operateAjaxConfig.success = function(result) {
                 that.options.operateHash = result;
             };
             $.ajax(operateAjaxConfig);
         }
-        if (this.options.manageHash.url) {
-            let manageAjaxConfig = $.extend({}, ajaxConfig, this.options.manageHash);
+        if (options.manage.url) {
+            let manageAjaxConfig = $.extend({}, ajaxConfig, options.manage);
             manageAjaxConfig.success = function(result) {
                 that.options.manageHash = result;
             };
             $.ajax(manageAjaxConfig);
         }
+        Lego.setting('permit', function(opts = {}){
+            let module = opts.module,
+                operate = opts.operate,
+                userId = opts.userid;
+            return Lego.UI.permis.check(module, operate, userId);
+        });
     }
     /**
      * [check 权限判断]
@@ -60,10 +71,10 @@ class Permis {
                 if (operateHash[module]) {
                     return operateHash[module][operate];
                 } else {
-                    return 0;
+                    return false;
                 }
             }
-            return 1;
+            return true;
         } else {
             // 管理操作
             let theDepartment, result;
@@ -85,12 +96,11 @@ class Permis {
                     }
                 }
             }
-            return 1;
+            return true;
         }
     }
 }
-
-const permisObj = Lego.permis = new Permis();
+const permisObj = new Permis();
 
 /**
  * [on 事件类型权限]

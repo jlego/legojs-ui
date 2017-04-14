@@ -1,32 +1,26 @@
 import IndexView from './view/index';
 import homeView from './view/home';
-import listView from './view/list';
-import tableView from './view/table';
 
-import listData from './data/list';
-
-class alertRouter {
+class Router {
     constructor() {
         return {
-            '/alert': [this.index, this.tabs],
-            '/alert/:tabs': [this.index, this.tabs]
+            '/alert': [this.index.bind(this), this.tabs.bind(this)],
+            '/alert/:tabs': [this.index.bind(this), this.tabs.bind(this)]
         };
     }
-    index(){
+    index(ctx, next){
         this.viewObj = Lego.create(IndexView, {
             el: Lego.config.pageEl,
             scrollbar: {},
             currentTab: 0
         });
+        next();
     }
-    tabs(tabs = 0){
-        this.viewObj.options.currentTab = tabs || 0;
-        const appArray = [
-            homeView,
-            listView,
-            tableView
-        ];
+    tabs(ctx, next){
+        let tabs = ctx.params.tabs || 0;
+        this.viewObj.options.currentTab = tabs;
+        const appArray = [homeView];
         Lego.create(appArray[tabs], { el: '#pageContent' });
     }
 }
-Lego.router(new alertRouter());
+Lego.router(new Router());

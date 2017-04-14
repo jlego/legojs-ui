@@ -178,7 +178,7 @@
 
 .lego-pagination .dropdown-menu {
     // width: 50px;
-    min-width: 50px;
+    min-width: 50px !important;
 }
 
 .lego-pagination .dropdown-menu a {
@@ -186,6 +186,9 @@
     color: #666;
 }
 
+.lego-pagination i {
+    font-weight: bold;
+}
 .lego-pagination .icon {
     border: none;
 }

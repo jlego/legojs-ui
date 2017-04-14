@@ -16,7 +16,7 @@ class Tables extends Lego.UI.Baseview {
             events: {
                 'click tbody .lego-checkbox > input,.lego-radio > input': 'selectOne',
                 'click thead .lego-checkbox > input': 'selectAll',
-                'click .lego-table-column-sorter': 'clickSorter',
+                'click th>span': 'clickSorter',
                 'click .anticon-filter': 'clickFilter',
                 'click .lego-table-tbody td': 'clickItem',
                 'click .lego-table-scroll > button': 'clickSetting'
@@ -24,27 +24,27 @@ class Tables extends Lego.UI.Baseview {
             scrollbar: {},
             className: '',
             tableWidth: 0,
+            loading: true,
             isNowrap: true, //表格内容是否不换行
             rowSelection: null, //列表行是否可选择
             pagination: null,   //分页器，配置项参考 pagination，设为 false 时不展示和进行分页
             size: 'default', //正常或迷你类型，default or small middle
             columns: [],    //表格列的配置描述，具体项见下表
-            rowKey: '',    //表格行 key 的取值，可以是字符串或一个函数
             rowClassName: '',    //表格行的类名
             expandedRowKeys: [], //展开的行，控制属性
             expandAllRows: false, //初始时，是否展开所有行
-            loading: false, //页面是否加载中
             locale: { //默认文案设置，目前包括排序、过滤、空数据文案
                 filterConfirm: '确定',
                 filterReset: '重置',
                 emptyText: '暂无数据'
             },
-            indentSize: 0, //展示树形数据时，每层缩进的宽度，以 px 为单位
+            // indentSize: 0, //展示树形数据时，每层缩进的宽度，以 px 为单位
             bordered: false, //是否展示外边框和列边框
             showHeader: false, //是否显示表头
             showBodyer: true, //是否显示表体
             showFooter: false, //是否显示表尾
             showSetting: false, //是否显示设置
+            fixedHeader: true, //是否固定表头
             // footer(){}, //表格尾部
             // title(){}, //表格标题
             // scroll: {}, //横向或纵向支持滚动，也可用于指定滚动区域的宽高度：{{ x: true, y: 300 }}
@@ -110,6 +110,11 @@ class Tables extends Lego.UI.Baseview {
         if(this.tableRealWidth !== oldWidth) this.resizeWidth();
         return this.columns;
     }
+    components(){
+        this.addCom({
+            el: '#pagination-' + this.options.vid
+        });
+    }
     resizeWidth(){
         let tableWidth = $(this.options.el).parent().width();
         this.options.tableWidth = this.tableRealWidth > tableWidth ? this.tableRealWidth : 0;
@@ -119,11 +124,12 @@ class Tables extends Lego.UI.Baseview {
         const options = this.options;
         const vDom = hx`
         <div class="lego-table clearfix lego-table-${options.size} ${options.bordered ? 'lego-table-bordered' : ''}
-        ${options.showHeader ? 'lego-table-fixed-header' : ''} ${options.isNowrap ? 'lego-nr' : ''} lego-table-scroll-position-left">
+        ${options.showHeader && options.fixedHeader ? 'lego-table-fixed-header' : ''} ${options.isNowrap ? 'lego-nr' : ''} lego-table-scroll-position-left">
+            <loading id="lego-loading-${options.vid}"></loading>
             ${options.title ? hx`<div class="lego-table-title">${typeof options.title == 'function' ? options.title() : options.title}</div>` : ''}
-            <div class="lego-table-content">
+            <div class="lego-table-content" style="${!options.title ? 'padding-bottom:0' : ''}">
                 <div class="lego-table-scroll">
-                ${options.showHeader ? hx`
+                ${options.showHeader && options.fixedHeader ? hx`
                 <div class="lego-table-header">
                     <table class="" style="${options.tableWidth ? ('width:' + options.tableWidth + 'px') : 'width:1px'}">
                         ${this._renderColgroup()}
@@ -132,12 +138,12 @@ class Tables extends Lego.UI.Baseview {
                 </div>
                 ` : ''}
                 <div class="lego-table-body" style="bottom: ${options.pagination ? '48px' : '0'}">
-                    <div class="${options.showHeader ? 'scrollbar' : ''}">
+                    <div class="${options.showHeader && options.fixedHeader ? 'scrollbar' : ''}">
                         <table class="${options.className}" style="${options.tableWidth ? ('width:' + options.tableWidth + 'px') : 'width:1px'}">
                             ${this._renderColgroup()}
-                            ${!options.showHeader ? this._renderHeader() : ''}
-                            ${this._renderBodyer()}
-                            ${this._renderFooter()}
+                            ${!(options.showHeader && options.fixedHeader) && options.showHeader ? this._renderHeader() : ''}
+                            ${options.showBodyer ? this._renderBodyer() : ''}
+                            ${options.showFooter ? this._renderFooter() : ''}
                         </table>
                     </div>
                 </div>
@@ -147,7 +153,6 @@ class Tables extends Lego.UI.Baseview {
                     </div>
                 ` : ''}
                 ${options.showSetting ? hx`<button type="button" class="btn btn-default noborder" title="表格设置"><i class="anticon anticon-ellipsis"></i></button>` : ''}
-                // ${options.showSetting ? hx`<layer id="showSetting-${options.vid}"></layer>` : ''}
                 </div>
             </div>
         </div>
@@ -155,22 +160,13 @@ class Tables extends Lego.UI.Baseview {
         return vDom;
     }
     renderAfter(){
-        // this.hasClicked = this.hasClicked || false;
-        this.isLoaded = this.isLoaded || false;
-        let el = '#pagination-' + this.options.vid;
-        if(!this.isLoaded && this.options.data.length && this.options.pagination){
-            this.options.pagination = typeof this.options.pagination == 'function' ? this.options.pagination(this) : this.options.pagination;
-            let that = this;
-            Lego.create(Pagination, Object.assign(this.options.pagination, {
-                context: this,
-                el: el
-            }));
-            this.isLoaded = true;
-        }else{
-            let pgView = Lego.getView(el);
-            if(pgView){
-                Object.assign(pgView.options, this.options.pagination);
-            };
+        let opts = this.options;
+        let pgView = Lego.getView('#pagination-' + opts.vid);
+        if(pgView){
+            Object.assign(pgView.options, opts.pagination);
+        };
+        if(this.options.showFooter && this.columns.length){
+            this.$('.lego-table-tfoot > tr > td').attr('colspan', this.columns.length);
         }
     }
     _getRowKey(str = ''){
@@ -224,8 +220,8 @@ class Tables extends Lego.UI.Baseview {
             <tr>
             ${options.rowSelection ? this._renderSelection({}, 'th', this.getSelectedStatus() === 2 ? true : false) : ''}
             ${this.columns.map(col => {
-                return !col.isHide ? hx`<th class="${col.sortOrder ? 'lego-table-column-sort' : ''}" id="${col.key}"><span>${col.title}
-                ${col.sorter ? this._renderSorter(col) : ''}${this._renderFilter(col)}</span></th>` : '';
+                return !col.isHide ? hx`<th class="${col.sorter ? 'lego-table-column-sort' : ''}" id="${col.key}"><span title="点击排序">${col.title}
+                ${col.sorter ? this._renderSorter(col) : ''}</span>${this._renderFilter(col)}</th>` : '';
             })}
             </tr>
         </thead>

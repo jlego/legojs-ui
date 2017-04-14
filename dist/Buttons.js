@@ -1,5 +1,5 @@
 /**
- * buttons.js v0.3.21
+ * buttons.js v0.4.10
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -22,7 +22,11 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <button type="', '" class="btn btn-', " ", '" ', ">\n            <span>", "</span>\n        </button>\n        " ], [ '\n        <button type="', '" class="btn btn-', " ", '" ', ">\n            <span>", "</span>\n        </button>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <button type="', '" class="btn btn-', "\n        ", " ", '" ', ">\n            ", "\n            ", "\n            ", "\n        </button>\n        " ], [ '\n        <button type="', '" class="btn btn-', "\n        ", " ", '" ', ">\n            ", "\n            ", "\n            ", "\n        </button>\n        " ]);
+
+var _templateObject2 = _taggedTemplateLiteral([ '<i class="', '"></i>' ], [ '<i class="', '"></i>' ]);
+
+var _templateObject3 = _taggedTemplateLiteral([ "<span>", "</span>" ], [ "<span>", "</span>" ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -74,6 +78,7 @@ var Buttons = function(_Lego$UI$Baseview) {
             htmlType: "button",
             disabled: false,
             icon: "",
+            afterIcon: "",
             shape: "",
             size: "",
             loading: false,
@@ -86,7 +91,7 @@ var Buttons = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options;
-            var vDom = hx(_templateObject, options.htmlType, options.type, options.size ? "btn-" + options.size : "", options.disabled ? "disabled" : "", options.html || options.text);
+            var vDom = hx(_templateObject, options.htmlType, options.type == "dashed" ? "secondary lego-btn-dashed" : options.type, options.size ? "btn-" + options.size : "", options.shape ? "lego-btn-" + options.shape : "default", options.disabled ? "disabled" : "", options.icon ? hx(_templateObject2, options.icon) : "", options.html || options.text ? hx(_templateObject3, options.html || options.text) : "", options.afterIcon ? hx(_templateObject2, options.afterIcon) : "");
             return vDom;
         }
     }, {

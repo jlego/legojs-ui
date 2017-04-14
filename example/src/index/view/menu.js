@@ -57,6 +57,9 @@ class Menu extends Lego.UI.Baseview {
             }, {
                 key: 'nav_rating',
                 value: 'Rating 评分'
+            }, {
+                key: 'nav_tags',
+                value: 'Tags 标签'
             }]
         }, {
             key: 'nav4',
@@ -64,6 +67,9 @@ class Menu extends Lego.UI.Baseview {
             icon: 'lego-icon-purchase',
             open: true,
             children: [{
+                key: 'nav_tables',
+                value: 'Tables 表格'
+            }, {
                 key: 'nav_tips',
                 value: 'Tips 提示框'
             }, {

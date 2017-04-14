@@ -6,6 +6,7 @@ class Dropdown extends Lego.UI.Baseview {
             events: {
                 'click li:not(.dropdown)': 'clickItem'
             },
+            scrollbar: null,
             disabled: false,
             eventName: 'click', //['click'] or ['hover']
             container: '', //触发容器
@@ -50,7 +51,7 @@ class Dropdown extends Lego.UI.Baseview {
             `;
         }
         const vDom = hx`
-        <ul class="dropdown-menu scrollbar ${options.direction ? ('drop' + options.direction) : ''}" style="display:${options.open ? 'block' : 'none'}">
+        <ul class="dropdown-menu ${options.scrollbar ? 'scrollbar' : ''} ${options.direction ? ('drop' + options.direction) : ''}" style="display:${options.open ? 'block' : 'none'}">
             ${options.data.map(item => {
                 return itemNav(item);
             })}
@@ -61,7 +62,8 @@ class Dropdown extends Lego.UI.Baseview {
     renderAfter(){
         let that = this,
             _eventName = 'click.dropdown-' + this.options.vid;
-        this.container = this.options.container instanceof $ ? this.options.container : $(this.options.container);
+        this.container = this.options.container instanceof $ ? this.options.container :
+            (this.options.context.$ ? this.options.context.$(this.options.container) : $(this.options.container));
         if(!this.options.disabled){
             function handler(event){
                 that.$el.slideToggle('fast');
