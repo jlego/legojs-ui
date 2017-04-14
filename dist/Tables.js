@@ -1,5 +1,5 @@
 /**
- * tables.js v0.4.7
+ * tables.js v0.4.12
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -273,10 +273,10 @@ var Pagination = function(_Lego$UI$Baseview) {
             pageSize: 10,
             pageRang: 10,
             onChange: function onChange() {},
-            showSizeChanger: false,
+            showSizeChanger: true,
             pageSizeOptions: [ 10, 20, 30, 40, 50 ],
             onPageSizeChange: function onPageSizeChange() {},
-            showQuickJumper: false,
+            showQuickJumper: true,
             size: "",
             simple: null,
             isShowTotal: true,
@@ -409,7 +409,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-table clearfix lego-table-', " ", "\n        ", " ", ' lego-table-scroll-position-left">\n            ', '\n            <div class="lego-table-content" style="', '">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body" style="bottom: ', '">\n                    <div class="', '">\n                        <table class="', '" style="', '">\n                            ', "\n                            ", "\n                            ", "\n                            ", "\n                        </table>\n                    </div>\n                </div>\n                ", "\n                ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="lego-table clearfix lego-table-', " ", "\n        ", " ", ' lego-table-scroll-position-left">\n            ', '\n            <div class="lego-table-content" style="', '">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body" style="bottom: ', '">\n                    <div class="', '">\n                        <table class="', '" style="', '">\n                            ', "\n                            ", "\n                            ", "\n                            ", "\n                        </table>\n                    </div>\n                </div>\n                ", "\n                ", "\n                </div>\n            </div>\n        </div>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-table clearfix lego-table-', " ", "\n        ", " ", ' lego-table-scroll-position-left">\n            <loading id="lego-loading-', '"></loading>\n            ', '\n            <div class="lego-table-content" style="', '">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body" style="bottom: ', '">\n                    <div class="', '">\n                        <table class="', '" style="', '">\n                            ', "\n                            ", "\n                            ", "\n                            ", "\n                        </table>\n                    </div>\n                </div>\n                ", "\n                ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="lego-table clearfix lego-table-', " ", "\n        ", " ", ' lego-table-scroll-position-left">\n            <loading id="lego-loading-', '"></loading>\n            ', '\n            <div class="lego-table-content" style="', '">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body" style="bottom: ', '">\n                    <div class="', '">\n                        <table class="', '" style="', '">\n                            ', "\n                            ", "\n                            ", "\n                            ", "\n                        </table>\n                    </div>\n                </div>\n                ", "\n                ", "\n                </div>\n            </div>\n        </div>\n        " ]);
 
 var _templateObject2 = _taggedTemplateLiteral([ '<div class="lego-table-title">', "</div>" ], [ '<div class="lego-table-title">', "</div>" ]);
 
@@ -576,9 +576,9 @@ var Tables = function(_Lego$UI$Baseview) {
     }, {
         key: "components",
         value: function components() {
-            this.addCom({
+            this.addCom(Object.assign({
                 el: "#pagination-" + this.options.vid
-            });
+            }, this.options.pagination));
         }
     }, {
         key: "resizeWidth",
@@ -591,7 +591,7 @@ var Tables = function(_Lego$UI$Baseview) {
         value: function render() {
             this.getColumns();
             var options = this.options;
-            var vDom = hx(_templateObject, options.size, options.bordered ? "lego-table-bordered" : "", options.showHeader && options.fixedHeader ? "lego-table-fixed-header" : "", options.isNowrap ? "lego-nr" : "", options.title ? hx(_templateObject2, typeof options.title == "function" ? options.title() : options.title) : "", !options.title ? "padding-bottom:0" : "", options.showHeader && options.fixedHeader ? hx(_templateObject3, options.tableWidth ? "width:" + options.tableWidth + "px" : "width:1px", this._renderColgroup(), this._renderHeader()) : "", options.pagination ? "48px" : "0", options.showHeader && options.fixedHeader ? "scrollbar" : "", options.className, options.tableWidth ? "width:" + options.tableWidth + "px" : "width:1px", this._renderColgroup(), !(options.showHeader && options.fixedHeader) && options.showHeader ? this._renderHeader() : "", options.showBodyer ? this._renderBodyer() : "", options.showFooter ? this._renderFooter() : "", options.pagination && options.data ? hx(_templateObject4, options.vid) : "", options.showSetting ? hx(_templateObject5) : "");
+            var vDom = hx(_templateObject, options.size, options.bordered ? "lego-table-bordered" : "", options.showHeader && options.fixedHeader ? "lego-table-fixed-header" : "", options.isNowrap ? "lego-nr" : "", options.vid, options.title ? hx(_templateObject2, typeof options.title == "function" ? options.title() : options.title) : "", !options.title ? "padding-bottom:0" : "", options.showHeader && options.fixedHeader ? hx(_templateObject3, options.tableWidth ? "width:" + options.tableWidth + "px" : "width:1px", this._renderColgroup(), this._renderHeader()) : "", options.pagination ? "48px" : "0", options.showHeader && options.fixedHeader ? "scrollbar" : "", options.className, options.tableWidth ? "width:" + options.tableWidth + "px" : "width:1px", this._renderColgroup(), !(options.showHeader && options.fixedHeader) && options.showHeader ? this._renderHeader() : "", options.showBodyer ? this._renderBodyer() : "", options.showFooter ? this._renderFooter() : "", options.pagination && options.data ? hx(_templateObject4, options.vid) : "", options.showSetting ? hx(_templateObject5) : "");
             return vDom;
         }
     }, {

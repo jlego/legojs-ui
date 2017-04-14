@@ -1,5 +1,5 @@
 /**
- * tags.js v0.4.7
+ * tags.js v0.4.12
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -66,8 +66,8 @@ function _inherits(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Tags = function(_Lego$UI$View) {
-    _inherits(Tags, _Lego$UI$View);
+var Tags = function(_Lego$UI$Baseview) {
+    _inherits(Tags, _Lego$UI$Baseview);
     function Tags() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Tags);
@@ -155,7 +155,7 @@ var Tags = function(_Lego$UI$View) {
         }
     } ]);
     return Tags;
-}(Lego.UI.View);
+}(Lego.UI.Baseview);
 
 Lego.components("tags", Tags);
 

@@ -1,15 +1,49 @@
-import View from './view';
 import Loading from '../loading/index';
 
-class Baseview extends Lego.UI.View {
+class Baseview extends Lego.View {
     constructor(opts = {}) {
         const options = {
+            events: null,
             loading: false
         };
         Object.assign(options, opts);
         super(options);
         this.setEvent();
         this.renderScroll();
+    }
+    /**
+     * [setEvent 设置dom]
+     * @param {[type]} element [description]
+     */
+    setEvent() {
+        this.unBindEvents();
+        this.delegateEvents();
+        return this;
+    }
+    bindEvents(eventName, selector, listener){
+        this.$el.on(eventName + '.delegateEvents' + this.options.vid, selector, listener);
+        return this;
+    }
+    unBindEvents() {
+        if (this.$el) this.$el.off('.delegateEvents' + this.options.vid);
+        return this;
+    }
+    /**
+     * [delegateEvents 通过解析配置绑定事件]
+     * @return {[type]} [description]
+     */
+    delegateEvents() {
+        const events = this.options.events;
+        const delegateEventSplitter = /^(\S+)\s*(.*)$/;
+        if (!events) return this;
+        for (let key in events) {
+            let method = events[key];
+            if (typeof method !== 'function') method = this[method];
+            if (!method) continue;
+            let match = key.match(delegateEventSplitter);
+            this.bindEvents(match[1], match[2], method.bind(this));
+        }
+        return this;
     }
     fetch(opts = {}){
         let that = this;
@@ -41,17 +75,23 @@ class Baseview extends Lego.UI.View {
     }
     _showLoading(){
         let opts = this.options;
+        this.loadingView = Lego.getView('#lego-loading-' + opts.vid);
         if(!this.loadingView){
-            this.loadingView = Lego.create(Loading, typeof opts.loading == 'object' ? opts.loading : {});
+            this.addCom(Object.assign({
+                el: '#lego-loading-' + opts.vid
+            }, opts.loading || {}));
+            this._renderComponents();
             this.$el.css('position', 'relative');
-            this.$el.prepend(this.loadingView.el);
+        }else{
+            this.loadingView.$el.fadeIn("fast");
         }
     }
     _hideLoading(){
-        this.loadingView.$el.fadeOut("fast", function(){
-            $(this).remove();
-        });
-        this.loadingView = null;
+        let opts = this.options;
+        this.loadingView = Lego.getView('#lego-loading-' + opts.vid);
+        if(this.loadingView){
+            this.loadingView.$el.fadeOut("fast");
+        }
     }
     renderScroll(){
         const options = this.options,
