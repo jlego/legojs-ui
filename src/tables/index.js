@@ -111,9 +111,9 @@ class Tables extends Lego.UI.Baseview {
         return this.columns;
     }
     components(){
-        this.addCom({
+        this.addCom(Object.assign({
             el: '#pagination-' + this.options.vid
-        });
+        }, this.options.pagination));
     }
     resizeWidth(){
         let tableWidth = $(this.options.el).parent().width();
