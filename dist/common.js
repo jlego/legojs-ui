@@ -1,5 +1,5 @@
 /**
- * common.js v0.4.7
+ * common.js v0.4.9
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -514,12 +514,6 @@ var Loading = function(_Lego$UI$View) {
 
 Lego.components("loading", Loading);
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
-    return typeof obj;
-} : function(obj) {
-    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-};
-
 var _createClass = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
@@ -617,19 +611,25 @@ var Baseview = function(_Lego$UI$View) {
         key: "_showLoading",
         value: function _showLoading() {
             var opts = this.options;
+            this.loadingView = Lego.getView("#lego-loading-" + opts.vid);
             if (!this.loadingView) {
-                this.loadingView = Lego.create(Loading, _typeof(opts.loading) == "object" ? opts.loading : {});
+                this.addCom(Object.assign({
+                    el: "#lego-loading-" + opts.vid
+                }, opts.loading || {}));
+                this._renderComponents();
                 this.$el.css("position", "relative");
-                this.$el.prepend(this.loadingView.el);
+            } else {
+                this.loadingView.$el.fadeIn("fast");
             }
         }
     }, {
         key: "_hideLoading",
         value: function _hideLoading() {
-            this.loadingView.$el.fadeOut("fast", function() {
-                $(this).remove();
-            });
-            this.loadingView = null;
+            var opts = this.options;
+            this.loadingView = Lego.getView("#lego-loading-" + opts.vid);
+            if (this.loadingView) {
+                this.loadingView.$el.fadeOut("fast");
+            }
         }
     }, {
         key: "renderScroll",

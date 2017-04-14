@@ -41,17 +41,23 @@ class Baseview extends Lego.UI.View {
     }
     _showLoading(){
         let opts = this.options;
+        this.loadingView = Lego.getView('#lego-loading-' + opts.vid);
         if(!this.loadingView){
-            this.loadingView = Lego.create(Loading, typeof opts.loading == 'object' ? opts.loading : {});
+            this.addCom(Object.assign({
+                el: '#lego-loading-' + opts.vid
+            }, opts.loading || {}));
+            this._renderComponents();
             this.$el.css('position', 'relative');
-            this.$el.prepend(this.loadingView.el);
+        }else{
+            this.loadingView.$el.fadeIn("fast");
         }
     }
     _hideLoading(){
-        this.loadingView.$el.fadeOut("fast", function(){
-            $(this).remove();
-        });
-        this.loadingView = null;
+        let opts = this.options;
+        this.loadingView = Lego.getView('#lego-loading-' + opts.vid);
+        if(this.loadingView){
+            this.loadingView.$el.fadeOut("fast");
+        }
     }
     renderScroll(){
         const options = this.options,

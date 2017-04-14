@@ -125,6 +125,7 @@ class Tables extends Lego.UI.Baseview {
         const vDom = hx`
         <div class="lego-table clearfix lego-table-${options.size} ${options.bordered ? 'lego-table-bordered' : ''}
         ${options.showHeader && options.fixedHeader ? 'lego-table-fixed-header' : ''} ${options.isNowrap ? 'lego-nr' : ''} lego-table-scroll-position-left">
+            <loading id="lego-loading-${options.vid}"></loading>
             ${options.title ? hx`<div class="lego-table-title">${typeof options.title == 'function' ? options.title() : options.title}</div>` : ''}
             <div class="lego-table-content" style="${!options.title ? 'padding-bottom:0' : ''}">
                 <div class="lego-table-scroll">
