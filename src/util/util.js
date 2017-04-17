@@ -283,6 +283,7 @@ const Util = {
             ob.focus();
         }
     },
+    // 取时间段
     getPeriod(type) {
         let startDate, endDate;
         if(window.moment){
@@ -305,7 +306,7 @@ const Util = {
                     break;
             }
         }else{
-            console.warn('依赖的moment.js插件还没安装');
+            debug.warn('依赖的moment.js插件还没安装');
         }
         return {startDate: startDate, endDate: endDate};
     }
