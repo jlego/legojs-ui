@@ -3,6 +3,7 @@ import Loading from '../loading/index';
 class Baseview extends Lego.View {
     constructor(opts = {}) {
         const options = {
+            events: null,
             loading: false
         };
         Object.assign(options, opts);

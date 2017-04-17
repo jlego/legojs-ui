@@ -1,5 +1,5 @@
 /**
- * pagination.js v0.4.10
+ * pagination.js v0.4.12
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -273,10 +273,10 @@ var Pagination = function(_Lego$UI$Baseview) {
             pageSize: 10,
             pageRang: 10,
             onChange: function onChange() {},
-            showSizeChanger: false,
+            showSizeChanger: true,
             pageSizeOptions: [ 10, 20, 30, 40, 50 ],
             onPageSizeChange: function onPageSizeChange() {},
-            showQuickJumper: false,
+            showQuickJumper: true,
             size: "",
             simple: null,
             isShowTotal: true,

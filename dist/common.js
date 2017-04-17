@@ -1,5 +1,5 @@
 /**
- * common.js v0.4.10
+ * common.js v0.4.12
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -469,6 +469,7 @@ var Baseview = function(_Lego$View) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Baseview);
         var options = {
+            events: null,
             loading: false
         };
         Object.assign(options, opts);
