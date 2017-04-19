@@ -1,5 +1,5 @@
 /**
- * modal.js v0.4.12
+ * modal.js v0.4.15
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -756,7 +756,8 @@ var Modal = function(_Lego$UI$Baseview) {
             title: "提示",
             size: "",
             type: "modal",
-            animate: "fadeIn",
+            animateIn: Lego.config.animateAble ? "fadeIn" : "",
+            animateOut: Lego.config.animateAble ? "fadeOut" : "",
             width: "",
             isMiddle: false,
             closable: true,
@@ -771,11 +772,7 @@ var Modal = function(_Lego$UI$Baseview) {
             scrollAble: true,
             okText: "确定",
             cancelText: "取消",
-            onClose: function onClose() {},
-            animates: {
-                fadeIn: "fadeOut",
-                slideInRight: "slideOutRight"
-            }
+            onClose: function onClose() {}
         };
         Object.assign(options, opts);
         if (options.msgType) options.type = "dialog";
@@ -793,7 +790,10 @@ var Modal = function(_Lego$UI$Baseview) {
             $("body").append("<" + options.type + ' id="' + modalId + '"></' + options.type + ">");
             options.el = "#" + modalId;
         }
-        if (options.type == "layer") options.animate = "slideInRight";
+        if (options.type == "layer" && Lego.config.animateAble) {
+            options.animateIn = "slideInRight";
+            options.animateOut = "slideOutRight";
+        }
         return _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, options));
     }
     _createClass(Modal, [ {
@@ -818,17 +818,14 @@ var Modal = function(_Lego$UI$Baseview) {
                 that.$el.remove();
                 if (typeof options.onClose === "function") options.onClose(that);
             });
-            if (options.animate) {
-                this.$el.data("animate", options.animate);
-                Lego.UI.Util.animateCss(this.$el, "animated " + options.animate);
-            }
+            if (options.animateIn) Lego.UI.Util.animateCss(this.$el, "animated " + options.animateIn);
         }
     }, {
         key: "close",
         value: function close() {
-            var animateName = this.options.animate, that = this;
-            if (animateName) {
-                Lego.UI.Util.animateCss(that.$el, "animated " + that.options.animates[animateName], function() {
+            var that = this;
+            if (this.options.animateOut) {
+                Lego.UI.Util.animateCss(that.$el, "animated " + that.options.animateOut, function() {
                     that.$el.modal("hide");
                 });
                 if (this.options.backdrop) $(".modal-backdrop").fadeOut();

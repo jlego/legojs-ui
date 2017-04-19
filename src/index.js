@@ -1,5 +1,4 @@
 import '../asset/scss/style.scss';
-// import "font-awesome/scss/font-awesome.scss";
 
 import { Baseview } from "./common/index";
 import Alert from "./alert/index";

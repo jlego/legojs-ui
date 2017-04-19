@@ -23,7 +23,8 @@ class Modal extends Lego.UI.Baseview {
             title: '提示',
             size: '', //lg,md,sm
             type: 'modal', //类型 layer, modal, dialog
-            animate: 'fadeIn',
+            animateIn: Lego.config.animateAble ? 'fadeIn' : '',
+            animateOut: Lego.config.animateAble ? 'fadeOut' : '',
             width: '',
             isMiddle: false,   //垂直居中
             closable: true,
@@ -40,11 +41,7 @@ class Modal extends Lego.UI.Baseview {
             cancelText: '取消',
             // onOk() {},
             // onCancel() {},
-            onClose() {},
-            animates: {
-                'fadeIn': 'fadeOut',
-                'slideInRight': 'slideOutRight'
-            }
+            onClose() {}
         };
         Object.assign(options, opts);
         if(options.msgType) options.type = 'dialog';
@@ -63,7 +60,10 @@ class Modal extends Lego.UI.Baseview {
             $('body').append('<' + options.type + ' id="' + modalId + '"></' + options.type + '>');
             options.el = '#' + modalId;
         }
-        if(options.type == 'layer') options.animate = 'slideInRight';
+        if(options.type == 'layer' && Lego.config.animateAble){
+            options.animateIn = 'slideInRight';
+            options.animateOut = 'slideOutRight';
+        }
         super(options);
     }
     render() {
@@ -107,17 +107,13 @@ class Modal extends Lego.UI.Baseview {
             that.$el.remove();
             if(typeof options.onClose === 'function') options.onClose(that);
         });
-        if (options.animate) {
-            this.$el.data('animate', options.animate);
-            Lego.UI.Util.animateCss(this.$el, 'animated ' + options.animate);
-        }
+        if (options.animateIn) Lego.UI.Util.animateCss(this.$el, 'animated ' + options.animateIn);
     }
     // 关闭窗口
     close() {
-        const animateName = this.options.animate,
-            that = this;
-        if (animateName) {
-            Lego.UI.Util.animateCss(that.$el, 'animated ' + that.options.animates[animateName], () => {
+        const that = this;
+        if (this.options.animateOut) {
+            Lego.UI.Util.animateCss(that.$el, 'animated ' + that.options.animateOut, () => {
                 that.$el.modal('hide');
             });
             if(this.options.backdrop) $('.modal-backdrop').fadeOut();

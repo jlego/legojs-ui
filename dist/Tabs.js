@@ -1,5 +1,5 @@
 /**
- * tabs.js v0.4.12
+ * tabs.js v0.4.15
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -475,9 +475,9 @@ var Tabs = function(_Lego$UI$Baseview) {
             navClassName: "",
             contentScrollbar: null,
             showAdd: false,
-            animate: "",
+            animateIn: Lego.config.animateAble ? "fadeIn" : "",
+            animateOut: Lego.config.animateAble ? "fadeOut" : "",
             data: [],
-            onClose: function onClose() {},
             onAdd: function onAdd() {},
             onChange: function onChange() {}
         };
@@ -533,20 +533,16 @@ var Tabs = function(_Lego$UI$Baseview) {
             getNewData(options.data);
             var vDom = hx(_templateObject, options.vid, options.contentScrollbar ? "scrollbar" : "", newData.map(function(item) {
                 if (!item.disabled) {
-                    return hx(_templateObject2, val(options.animate), item.key == options.activeKey ? "active in" : "", item.key == options.activeKey ? options.activeContent : typeof item.content == "function" ? item.content() : item.content);
+                    return hx(_templateObject2, val(options.animate), item.key == options.activeKey ? "active" : "", item.key == options.activeKey ? options.activeContent : "");
                 }
             }));
             return vDom;
         }
     }, {
-        key: "close",
-        value: function close(event) {
-            var _this2 = this;
-            event.stopPropagation();
-            this.$el.slideUp("normal", function() {
-                _this2.remove();
-            });
-            if (typeof this.options.onClose === "function") this.options.onClose(this, event);
+        key: "renderAfter",
+        value: function renderAfter() {
+            var opts = this.options;
+            if (opts.animateIn) Lego.UI.Util.animateCss(this.$(".tab-pane.active"), "animated " + opts.animateIn);
         }
     } ]);
     return Tabs;

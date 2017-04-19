@@ -71,7 +71,7 @@ class UploadItem extends UploadBase {
             <div class="media-body">
                 <h4 class="media-heading">
                     <div class="right">
-                        <a href="javascript:;" class="lego-cancelbtn" id="${val(options.file._id)}" onclick=${this.onCancel.bind(this)}><i class="anticon anticon-cross float-xs-right close"></i></a>
+                        <a href="javascript:;" class="lego-cancelbtn" id="${val(options.file._id)}" onclick=${this.onCancel.bind(this)}><i class="anticon anticon-cross float-xs-right"></i></a>
                     </div>
                     ${val(options.file.name)}
                 </h4>
@@ -81,7 +81,7 @@ class UploadItem extends UploadBase {
                 <h4 class="media-heading">
                     ${!options.readonly && options.percent == 100 ? hx`
                     <div class="right">
-                        <a href="javascript:;" class="lego-closebtn" id="${val(options.file._id)}" onclick=${this.onRemove.bind(this)}><i class="anticon anticon-cross float-xs-right close"></i></a>
+                        <a href="javascript:;" class="lego-closebtn" id="${val(options.file._id)}" onclick=${this.onRemove.bind(this)}><i class="anticon anticon-cross float-xs-right"></i></a>
                     </div>
                     ` : ''}
                     ${val(options.file.name)}

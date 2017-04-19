@@ -27,9 +27,9 @@ class Tabs extends Lego.UI.Baseview {
             navClassName: '',
             contentScrollbar: null,
             showAdd: false,    //是否显示加号图标，在 type="editable-card" 时有效
-            animate: '',  //是否使用动画切换 Tabs，在 direction=top|bottom 时有效
+            animateIn: Lego.config.animateAble ? 'fadeIn' : '',
+            animateOut: Lego.config.animateAble ? 'fadeOut' : '',
             data: [],
-            onClose(){}, //tab 被点击的回调
             onAdd(){},  //新增页签的回调，在 type="editable-card" 时有效
             onChange(){}
         };
@@ -83,8 +83,8 @@ class Tabs extends Lego.UI.Baseview {
             <div class="tab-content ${options.contentScrollbar ? 'scrollbar' : ''}">
                 ${newData.map(item => {
                     if(!item.disabled){
-                        return hx`<div class="tab-pane ${val(options.animate)} ${item.key == options.activeKey ? 'active in' : ''}">
-                            ${item.key == options.activeKey ? options.activeContent : (typeof item.content == 'function' ? item.content() : item.content)}
+                        return hx`<div class="tab-pane ${val(options.animate)} ${item.key == options.activeKey ? 'active' : ''}">
+                            ${item.key == options.activeKey ? options.activeContent : ''}
                         </div>`;
                     }
                 })}
@@ -93,12 +93,9 @@ class Tabs extends Lego.UI.Baseview {
         `;
         return vDom;
     }
-    close(event) {
-        event.stopPropagation();
-        this.$el.slideUp("normal", () => {
-            this.remove();
-        });
-        if (typeof this.options.onClose === 'function') this.options.onClose(this, event);
+    renderAfter(){
+        let opts = this.options;
+        if (opts.animateIn) Lego.UI.Util.animateCss(this.$('.tab-pane.active'), 'animated ' + opts.animateIn);
     }
 }
 Lego.components('tabs', Tabs);
