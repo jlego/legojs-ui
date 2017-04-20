@@ -1,5 +1,5 @@
 /**
- * rating.js v0.4.15
+ * rating.js v0.4.16
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

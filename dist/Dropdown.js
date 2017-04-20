@@ -1,5 +1,5 @@
 /**
- * dropdown.js v0.4.15
+ * dropdown.js v0.4.16
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

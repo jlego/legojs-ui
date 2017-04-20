@@ -33,6 +33,7 @@ const Util = {
     // 动画
     animateCss(el, animationName, callback) {
         el = el instanceof $ ? el : $(el);
+        animationName = /\s/g.test(animationName) ? animationName : ('animated ' + animationName);
         const animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
         el.addClass(animationName).one(animationEnd, function() {
             el.removeClass(animationName);
