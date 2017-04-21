@@ -96,7 +96,7 @@
 
 .lego-tree li span.button {
     font-family: 'FontAwesome';
-    color: #bbb;
+    color: #999;
     line-height: 25px;
     font-size: 17px;
     margin: 0 3px 0 0;
@@ -292,8 +292,9 @@
 .lego-tree li span.button.add,
 .lego-tree li span.button.edit,
 .lego-tree li span.button.remove {
-    font-family: 'anticon';
-    font-size: 12px;
+    font-family: 'FontAwesome';
+    font-size: 16px;
+    margin-left: 4px;
 }
 
 .lego-tree li span.button.ico_docu {
@@ -322,21 +323,25 @@
 }
 
 .lego-tree li span.button.add:before {
-    content: "\E625";
+    content: "\f055";
 }
 
 .lego-tree li span.button.edit:before {
-    content: "\E692";
+    content: "\f14b";
 }
 
 .lego-tree li span.button.remove:before {
-    content: "\E623";
+    content: "\f00d";
 }
 
-.lego-tree li a span.button.add:hover,
-.lego-tree li a span.button.edit:hover,
-.lego-tree li a span.button.remove:hover {
+.lego-tree li a span.button.add:hover{
     color: #62d35d;
+}
+.lego-tree li a span.button.edit:hover{
+    color: #01a8fe;
+}
+.lego-tree li a span.button.remove:hover {
+    color: #f85774;
 }
 
 .lego-tree li span.button.ico_loading {

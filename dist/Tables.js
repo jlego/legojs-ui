@@ -1,5 +1,5 @@
 /**
- * tables.js v0.4.16
+ * tables.js v0.4.26
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -774,11 +774,15 @@ var Tables = function(_Lego$UI$Baseview) {
     }, {
         key: "getSelectedStatus",
         value: function getSelectedStatus() {
-            var hasSelectedArr = this.options.data.filter(function(value) {
-                return value.selected === true;
-            });
-            this.selectedAll = hasSelectedArr.length ? hasSelectedArr.length == this.options.data.length ? 1 : hasSelectedArr.length ? 2 : 0 : 0;
-            return this.selectedAll;
+            if (Array.isArray(this.options.data)) {
+                var hasSelectedArr = this.options.data.filter(function(value) {
+                    return value.selected === true;
+                });
+                this.selectedAll = hasSelectedArr.length ? hasSelectedArr.length == this.options.data.length ? 1 : hasSelectedArr.length ? 2 : 0 : 0;
+                return this.selectedAll;
+            } else {
+                return [];
+            }
         }
     }, {
         key: "selectAll",

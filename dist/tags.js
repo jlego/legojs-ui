@@ -1,5 +1,5 @@
 /**
- * tags.js v0.4.16
+ * tags.js v0.4.26
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -24,9 +24,9 @@ var _createClass = function() {
 
 var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-tags">\n            ', "\n            ", "\n        </div>\n        " ], [ '\n        <div class="lego-tags">\n            ', "\n            ", "\n        </div>\n        " ]);
 
-var _templateObject2 = _taggedTemplateLiteral([ '\n                <div class="lego-tag ', '" id="', '" title="', '">\n                    <span class="lego-tag-text">', "</span>\n                    ", "\n                </div>\n            " ], [ '\n                <div class="lego-tag ', '" id="', '" title="', '">\n                    <span class="lego-tag-text">', "</span>\n                    ", "\n                </div>\n            " ]);
+var _templateObject2 = _taggedTemplateLiteral([ '\n                <div class="lego-tag ', '" id="', '" title="', '" onclick=', '>\n                    <div class="lego-tag-text">\n                    <span>', "</span>\n                    ", "\n                    </div>\n                </div>\n            " ], [ '\n                <div class="lego-tag ', '" id="', '" title="', '" onclick=', '>\n                    <div class="lego-tag-text">\n                    <span>', "</span>\n                    ", "\n                    </div>\n                </div>\n            " ]);
 
-var _templateObject3 = _taggedTemplateLiteral([ '<i class="anticon anticon-cross lego-tag-close"></i>' ], [ '<i class="anticon anticon-cross lego-tag-close"></i>' ]);
+var _templateObject3 = _taggedTemplateLiteral([ '<i title="移除" class="anticon anticon-close-circle lego-tag-close" onclick=', "></i>" ], [ '<i title="移除" class="anticon anticon-close-circle lego-tag-close" onclick=', "></i>" ]);
 
 var _templateObject4 = _taggedTemplateLiteral([ '<buttons id="buttons_', '"></buttons>' ], [ '<buttons id="buttons_', '"></buttons>' ]);
 
@@ -83,10 +83,8 @@ var Tags = function(_Lego$UI$Baseview) {
             onAdd: function onAdd() {}
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn(this, (Tags.__proto__ || Object.getPrototypeOf(Tags)).call(this, options));
-        _this.$el.on("click", ".lego-tag-close", _this.onClose.bind(_this));
-        _this.$el.on("click", ".lego-tag", _this.onChange.bind(_this));
-        return _this;
+        if (options.value) options.data = Array.from(options.value);
+        return _possibleConstructorReturn(this, (Tags.__proto__ || Object.getPrototypeOf(Tags)).call(this, options));
     }
     _createClass(Tags, [ {
         key: "components",
@@ -108,10 +106,10 @@ var Tags = function(_Lego$UI$Baseview) {
     }, {
         key: "render",
         value: function render() {
+            var _this2 = this;
             var opts = this.options;
-            if (opts.value && !opts.data.length) opts.data = Array.from(opts.value);
             this.vDom = hx(_templateObject, opts.data.map(function(item) {
-                return hx(_templateObject2, item.color ? "lego-tag-" + item.color : "", item.key, item.value, item.value, opts.closable ? hx(_templateObject3) : "");
+                return hx(_templateObject2, item.color ? "lego-tag-" + item.color : "", item.key, item.value, _this2.onChange.bind(_this2), item.value, opts.closable ? hx(_templateObject3, _this2.onClose.bind(_this2)) : "");
             }), !opts.readonly ? hx(_templateObject4, opts.vid) : "");
             return this.vDom;
         }
@@ -137,7 +135,7 @@ var Tags = function(_Lego$UI$Baseview) {
         key: "onClose",
         value: function onClose(event) {
             event.stopPropagation();
-            var target = $(event.currentTarget), opts = this.options, id = target.parent().attr("id");
+            var target = $(event.currentTarget), opts = this.options, id = target.parent().parent().attr("id");
             opts.data = opts.data.filter(function(item) {
                 return item.key !== id;
             });
