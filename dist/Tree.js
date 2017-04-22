@@ -131,7 +131,7 @@ var Tree = function(_Lego$UI$Baseview) {
                     onClick: function onClick(event, treeId, treeNode) {
                         if (!selectOrNo(treeNode)) return false;
                         var treeObj = $.fn.zTree.getZTreeObj(treeId);
-                        treeObj.checkNode(treeNode, null, false);
+                        treeObj.checkNode(treeNode, null, true);
                         selectResult(treeId, treeNode);
                     }
                 });

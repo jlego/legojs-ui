@@ -249,7 +249,7 @@ var Tree = function(_Lego$UI$Baseview) {
                     onClick: function onClick(event, treeId, treeNode) {
                         if (!selectOrNo(treeNode)) return false;
                         var treeObj = $.fn.zTree.getZTreeObj(treeId);
-                        treeObj.checkNode(treeNode, null, false);
+                        treeObj.checkNode(treeNode, null, true);
                         selectResult(treeId, treeNode);
                     }
                 });
@@ -633,11 +633,11 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="row transfer">\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5>\n                        ', "\n                        <span>", "</span>\n                    </h5>\n                    ", '\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <tree id="', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5><span>', '</span></h5>\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <listgroup id="', '"></listgroup>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <i class="anticon anticon-double-right"></i>\n            <i class="anticon anticon-double-left"></i>\n        </div>\n        ' ], [ '\n        <div class="row transfer">\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5>\n                        ', "\n                        <span>", "</span>\n                    </h5>\n                    ", '\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <tree id="', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5><span>', '</span></h5>\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <listgroup id="', '"></listgroup>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <i class="anticon anticon-double-right"></i>\n            <i class="anticon anticon-double-left"></i>\n        </div>\n        ' ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="row transfer">\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5>\n                        ', "\n                        <span>", "</span>\n                    </h5>\n                    ", '\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <tree id="transfer_tree_', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5><span>', '</span></h5>\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <listgroup id="transfer_list_', '"></listgroup>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <i class="anticon anticon-double-right"></i>\n            <i class="anticon anticon-double-left"></i>\n        </div>\n        ' ], [ '\n        <div class="row transfer">\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5>\n                        ', "\n                        <span>", "</span>\n                    </h5>\n                    ", '\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <tree id="transfer_tree_', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5><span>', '</span></h5>\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <listgroup id="transfer_list_', '"></listgroup>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <i class="anticon anticon-double-right"></i>\n            <i class="anticon anticon-double-left"></i>\n        </div>\n        ' ]);
 
 var _templateObject2 = _taggedTemplateLiteral([ '<button class="btn btn-link float-right">搜索</button>' ], [ '<button class="btn btn-link float-right">搜索</button>' ]);
 
-var _templateObject3 = _taggedTemplateLiteral([ '<search id="', '"></search>' ], [ '<search id="', '"></search>' ]);
+var _templateObject3 = _taggedTemplateLiteral([ '<search id="transfer_search_', '"></search>' ], [ '<search id="transfer_search_', '"></search>' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -685,7 +685,6 @@ var Transfer = function(_Lego$UI$Baseview) {
                 "click h5 > button": "showSearch"
             },
             titles: [],
-            value: [],
             data: [],
             width: 450,
             height: 400,
@@ -711,13 +710,27 @@ var Transfer = function(_Lego$UI$Baseview) {
     }, {
         key: "renderComponents",
         value: function renderComponents() {
-            var options = this.options, that = this, listData = options.value.map(function(item) {
-                item.key = item.id || item.key;
-                item.value = item.name || item.value;
-                return item;
-            });
+            var opts = this.options, that = this, listValue = [];
+            function loopItem(data) {
+                data.map(function(item) {
+                    if (item.checked) {
+                        item.key = item.id || item.key;
+                        item.value = item.name || item.name;
+                        listValue.push($.extend(true, {}, item));
+                        if (item.children) {
+                            loopItem(item.children);
+                        }
+                    }
+                });
+                if (opts.filterParentNode) {
+                    listValue = listValue.filter(function(item) {
+                        return !item.isParent;
+                    });
+                }
+            }
+            loopItem(opts.data);
             this.addCom([ {
-                el: "#transfer_" + options.vid + "_tree",
+                el: "#transfer_tree_" + opts.vid,
                 setting: $.extend(true, {
                     check: {
                         enable: true,
@@ -726,49 +739,42 @@ var Transfer = function(_Lego$UI$Baseview) {
                             N: "ps"
                         }
                     }
-                }, options.treeSetting || {}),
+                }, opts.treeSetting || {}),
                 onChecked: function onChecked(self, result) {
-                    var parentView = this.context;
-                    var listView = Lego.getView("#transfer_" + options.vid + "_list");
+                    var listView = Lego.getView("#transfer_list_" + opts.vid);
                     if (listView) {
-                        if (options.filterParentNode) {
+                        if (opts.filterParentNode) {
                             result = result.filter(function(item) {
                                 return !item.isParent;
                             });
                         }
-                        result = result.map(function(item) {
-                            item.key = item.id || item.key;
-                            item.value = item.name || item.value;
-                            return item;
-                        });
-                        listView.options.data = result;
+                        listView.options.data = Array.from(result);
                         listView.refresh();
                     }
-                    if (typeof options.onChange === "function") options.onChange(parentView, result);
+                    if (typeof opts.onChange === "function") opts.onChange(this.context, result);
                 },
-                dataSource: options.dataSource,
-                data: options.data
+                dataSource: opts.dataSource,
+                data: opts.data
             }, {
-                el: "#transfer_" + options.vid + "_list",
+                el: "#transfer_list_" + opts.vid,
                 removeAble: true,
                 onClose: function onClose(self, result) {
-                    var parentView = this.context;
-                    var treeView = $.fn.zTree.getZTreeObj("transfer_" + options.vid + "_tree");
+                    var treeView = $.fn.zTree.getZTreeObj("transfer_tree_" + opts.vid);
                     if (treeView) {
                         var treeNode = treeView.getNodeByParam("id", result, null);
-                        treeView.checkNode(treeNode, !treeNode.checked, null, true);
+                        treeView.checkNode(treeNode, !treeNode.checked, true);
                     }
                 },
-                data: listData
+                data: listValue
             } ]);
-            if (options.showSearch) {
+            if (opts.showSearch) {
                 this.addCom({
-                    el: "#transfer_" + options.vid + "_search",
+                    el: "#transfer_search_" + opts.vid,
                     style: {
                         display: "none"
                     },
                     onSearch: function onSearch(self, result) {
-                        if (typeof options.search == "function") options.search(that, result);
+                        if (typeof opts.search == "function") opts.search(that, result);
                     }
                 });
             }
@@ -777,31 +783,31 @@ var Transfer = function(_Lego$UI$Baseview) {
     }, {
         key: "render",
         value: function render() {
-            var options = this.options || {}, theId = "transfer_" + options.vid;
-            var vDom = hx(_templateObject, options.showSearch ? hx(_templateObject2) : "", val(options.titles[0]), options.showSearch ? hx(_templateObject3, theId + "_search") : "", theId + "_tree", val(options.titles[1]), theId + "_list");
+            var opts = this.options;
+            var vDom = hx(_templateObject, opts.showSearch ? hx(_templateObject2) : "", val(opts.titles[0]), opts.showSearch ? hx(_templateObject3, opts.vid) : "", opts.vid, val(opts.titles[1]), opts.vid);
             return vDom;
         }
     }, {
         key: "showSearch",
         value: function showSearch(event) {
             var target = $(event.currentTarget);
-            this.$el.find(".lego-search").toggle(0, function() {
+            this.$(".lego-search").toggle(0, function() {
                 target.text(target.text() == "取消" ? "搜索" : "取消");
             });
         }
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var options = this.options || {};
+            var opts = this.options;
             this.$el.css({
-                width: options.width,
-                height: options.height
+                width: opts.width,
+                height: opts.height
             });
         }
     }, {
         key: "getValue",
         value: function getValue() {
-            var listView = Lego.getView("#transfer_" + this.options.vid + "_list");
+            var listView = Lego.getView("#transfer_list_" + this.options.vid);
             if (listView) {
                 return listView.options.data;
             }
