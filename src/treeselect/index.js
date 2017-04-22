@@ -120,7 +120,7 @@ class Treeselect extends Selects {
             <div class="select dropdown treeselect">
                 <div id="select-${options.vid}">
                     <input type="text" class="form-control select-input ${options.disabled ? 'disabled' : ''}" placeholder="${options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
-                    <div class="dropdown-menu ${options.direction ? ('drop' + options.direction) : ''}" style="width:100%">
+                    <div class="dropdown-menu ${options.direction ? ('drop' + options.direction) : ''}" style="width:100%;">
                         <div class="scrollbar">
                             <tree id="tree-${options.vid}"></tree>
                         </div>
@@ -137,7 +137,7 @@ class Treeselect extends Selects {
                     <div class="select-tags-div clearfix ${theValueArr.length ? 'select-tags-div-border' : ''}">
                         ${getTags(options.value)}
                     </div>
-                    <div class="dropdown-menu ${options.direction ? ('drop' + options.direction) : ''}" style="width:100%">
+                    <div class="dropdown-menu ${options.direction ? ('drop' + options.direction) : ''}" style="width:100%;">
                         <div class="scrollbar">
                             <tree id="tree-${options.vid}"></tree>
                         </div>
@@ -181,6 +181,12 @@ class Treeselect extends Selects {
             this.$('.dropdown-menu').off(_eventName).on(_eventName, function(event){
                 event.stopPropagation();
             });
+            if(options.dropdownHeight){
+                this.$('.dropdown-menu > .scrollbar').css({
+                    maxHeight: options.dropdownHeight,
+                    overflow: 'auto'
+                });
+            }
         }
     }
     show(event){

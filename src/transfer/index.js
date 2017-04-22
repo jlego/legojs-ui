@@ -2,6 +2,9 @@
  * 穿梭框
  * ronghui Yu
  * 2017/1/10
+ * dataItem: {
+ *  key: '', value: '', type: ''
+ * }
  */
 import './asset/index.scss';
 import Listgroup from '../listgroup/index';
@@ -21,31 +24,31 @@ class Transfer extends Lego.UI.Baseview {
             width: 450, //宽度
             height: 400, //高度
             treeSetting: {},
-            keyNames: ['id', 'name', 'type'],
             scrollbar: {},
+            filterParentNode: false,  //是否过滤父节点
             showSearch: false, //是否显示搜索框
             searchPlaceholder: '请输入搜索内容', //搜索框
             notFoundContent: '列表为空', //列表为空时显示的内容
             onChange() {}, //更改值时触发的事件
-            components: []
+            onSearch(){}
         };
         Object.assign(options, opts);
-        function loopItem(data){
-            data.map(item => {
-                if(item.checked){
-                    options.value.push({
-                        key: item[options.keyNames[0]],
-                        value: item[options.keyNames[1]],
-                        type: item[options.keyNames[2]]
-                    });
-                    if(item.children){
-                        loopItem(item.children);
-                    }
-                }
+        super(options);
+        if(!this.options.dataSource) this.renderComponents();
+
+    }
+    dataReady(){
+        this.renderComponents();
+    }
+    renderComponents(){
+        let options = this.options,
+            that = this,
+            listData = options.value.map(item => {
+                item.key = item.id || item.key;
+                item.value = item.name || item.value;
+                return item;
             });
-        }
-        loopItem(options.data);
-        options.components.push({
+        this.addCom([{
             el: '#transfer_' + options.vid + '_tree',
             setting: $.extend(true, {
                 check: {
@@ -57,6 +60,14 @@ class Transfer extends Lego.UI.Baseview {
                 const parentView = this.context;
                 const listView = Lego.getView('#transfer_' + options.vid + '_list');
                 if(listView){
+                    if(options.filterParentNode){
+                        result = result.filter(item => !item.isParent);
+                    }
+                    result = result.map(item => {
+                        item.key = item.id || item.key;
+                        item.value = item.name || item.value;
+                        return item;
+                    });
                     listView.options.data = result;
                     listView.refresh();
                 }
@@ -75,20 +86,18 @@ class Transfer extends Lego.UI.Baseview {
                     treeView.checkNode(treeNode, !treeNode.checked, null, true);
                 }
             },
-            data: options.value
-        });
+            data: listData
+        }]);
         if(options.showSearch){
-            options.components.push({
+            this.addCom({
                 el: '#transfer_' + options.vid + '_search',
-                style: {
-                    display: 'none'
-                },
+                style: {display: 'none'},
                 onSearch(self, result) {
-                    console.warn('点击了搜索框2', result);
+                    if(typeof options.search == 'function') options.search(that, result);
                 }
             });
         }
-        super(options);
+        this._renderComponents();
     }
     render() {
         const options = this.options || {},

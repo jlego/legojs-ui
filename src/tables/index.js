@@ -357,11 +357,15 @@ class Tables extends Lego.UI.Baseview {
     }
     // 取是否全选
     getSelectedStatus(){
-        let hasSelectedArr = this.options.data.filter((value) => {
-                return value.selected === true;
-            });
-        this.selectedAll = hasSelectedArr.length ? (hasSelectedArr.length == this.options.data.length ? 1 : (hasSelectedArr.length ? 2 : 0)) : 0;
-        return this.selectedAll;
+        if(Array.isArray(this.options.data)){
+            let hasSelectedArr = this.options.data.filter((value) => {
+                    return value.selected === true;
+                });
+            this.selectedAll = hasSelectedArr.length ? (hasSelectedArr.length == this.options.data.length ? 1 : (hasSelectedArr.length ? 2 : 0)) : 0;
+            return this.selectedAll;
+        }else{
+            return [];
+        }
     }
     // 选择全部
     selectAll(event){

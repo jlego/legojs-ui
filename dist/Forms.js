@@ -1,5 +1,5 @@
 /**
- * forms.js v0.4.16
+ * forms.js v0.4.26
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -273,7 +273,7 @@ var Forms = function(_Lego$UI$Baseview) {
     }, {
         key: "reset",
         value: function reset() {
-            this.$el.reset();
+            this.el.reset();
         }
     } ]);
     return Forms;

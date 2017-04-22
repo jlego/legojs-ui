@@ -23,8 +23,8 @@ class HomeView extends Lego.UI.Baseview {
                     console.warn('添加人员', event);
                 },
                 onChange(self, item){
-                    console.warn('999999999', item);
                     item.color = 'red';
+                    console.warn('999999999', item);
                     self.refresh();
                 }
             }]

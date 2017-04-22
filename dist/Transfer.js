@@ -1,5 +1,5 @@
 /**
- * transfer.js v0.4.16
+ * transfer.js v0.4.26
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -690,79 +690,91 @@ var Transfer = function(_Lego$UI$Baseview) {
             width: 450,
             height: 400,
             treeSetting: {},
-            keyNames: [ "id", "name", "type" ],
             scrollbar: {},
+            filterParentNode: false,
             showSearch: false,
             searchPlaceholder: "请输入搜索内容",
             notFoundContent: "列表为空",
             onChange: function onChange() {},
-            components: []
+            onSearch: function onSearch() {}
         };
         Object.assign(options, opts);
-        function loopItem(data) {
-            data.map(function(item) {
-                if (item.checked) {
-                    options.value.push({
-                        key: item[options.keyNames[0]],
-                        value: item[options.keyNames[1]],
-                        type: item[options.keyNames[2]]
-                    });
-                    if (item.children) {
-                        loopItem(item.children);
-                    }
-                }
-            });
-        }
-        loopItem(options.data);
-        options.components.push({
-            el: "#transfer_" + options.vid + "_tree",
-            setting: $.extend(true, {
-                check: {
-                    enable: true,
-                    chkboxType: {
-                        Y: "ps",
-                        N: "ps"
-                    }
-                }
-            }, options.treeSetting || {}),
-            onChecked: function onChecked(self, result) {
-                var parentView = this.context;
-                var listView = Lego.getView("#transfer_" + options.vid + "_list");
-                if (listView) {
-                    listView.options.data = result;
-                    listView.refresh();
-                }
-                if (typeof options.onChange === "function") options.onChange(parentView, result);
-            },
-            dataSource: options.dataSource,
-            data: options.data
-        }, {
-            el: "#transfer_" + options.vid + "_list",
-            removeAble: true,
-            onClose: function onClose(self, result) {
-                var parentView = this.context;
-                var treeView = $.fn.zTree.getZTreeObj("transfer_" + options.vid + "_tree");
-                if (treeView) {
-                    var treeNode = treeView.getNodeByParam("id", result, null);
-                    treeView.checkNode(treeNode, !treeNode.checked, null, true);
-                }
-            },
-            data: options.value
-        });
-        if (options.showSearch) {
-            options.components.push({
-                el: "#transfer_" + options.vid + "_search",
-                style: {
-                    display: "none"
-                },
-                onSearch: function onSearch(self, result) {
-                    console.warn("点击了搜索框2", result);
-                }
-            });
-        }
-        return _possibleConstructorReturn(this, (Transfer.__proto__ || Object.getPrototypeOf(Transfer)).call(this, options));
+        var _this = _possibleConstructorReturn(this, (Transfer.__proto__ || Object.getPrototypeOf(Transfer)).call(this, options));
+        if (!_this.options.dataSource) _this.renderComponents();
+        return _this;
     }
     _createClass(Transfer, [ {
+        key: "dataReady",
+        value: function dataReady() {
+            this.renderComponents();
+        }
+    }, {
+        key: "renderComponents",
+        value: function renderComponents() {
+            var options = this.options, that = this, listData = options.value.map(function(item) {
+                item.key = item.id || item.key;
+                item.value = item.name || item.value;
+                return item;
+            });
+            this.addCom([ {
+                el: "#transfer_" + options.vid + "_tree",
+                setting: $.extend(true, {
+                    check: {
+                        enable: true,
+                        chkboxType: {
+                            Y: "ps",
+                            N: "ps"
+                        }
+                    }
+                }, options.treeSetting || {}),
+                onChecked: function onChecked(self, result) {
+                    var parentView = this.context;
+                    var listView = Lego.getView("#transfer_" + options.vid + "_list");
+                    if (listView) {
+                        if (options.filterParentNode) {
+                            result = result.filter(function(item) {
+                                return !item.isParent;
+                            });
+                        }
+                        result = result.map(function(item) {
+                            item.key = item.id || item.key;
+                            item.value = item.name || item.value;
+                            return item;
+                        });
+                        listView.options.data = result;
+                        listView.refresh();
+                    }
+                    if (typeof options.onChange === "function") options.onChange(parentView, result);
+                },
+                dataSource: options.dataSource,
+                data: options.data
+            }, {
+                el: "#transfer_" + options.vid + "_list",
+                removeAble: true,
+                onClose: function onClose(self, result) {
+                    var parentView = this.context;
+                    var treeView = $.fn.zTree.getZTreeObj("transfer_" + options.vid + "_tree");
+                    if (treeView) {
+                        var treeNode = treeView.getNodeByParam("id", result, null);
+                        treeView.checkNode(treeNode, !treeNode.checked, null, true);
+                    }
+                },
+                data: listData
+            } ]);
+            if (options.showSearch) {
+                this.addCom({
+                    el: "#transfer_" + options.vid + "_search",
+                    style: {
+                        display: "none"
+                    },
+                    onSearch: function onSearch(self, result) {
+                        if (typeof options.search == "function") options.search(that, result);
+                    }
+                });
+            }
+            this._renderComponents();
+        }
+    }, {
         key: "render",
         value: function render() {
             var options = this.options || {}, theId = "transfer_" + options.vid;
