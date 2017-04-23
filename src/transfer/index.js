@@ -97,6 +97,7 @@ class Transfer extends Lego.UI.Baseview {
             this.addCom({
                 el: '#transfer_search_' + opts.vid,
                 style: {display: 'none'},
+                size: 'sm',
                 onSearch(self, result) {
                     if(typeof opts.search == 'function') opts.search(that, result);
                 }
@@ -141,7 +142,13 @@ class Transfer extends Lego.UI.Baseview {
     showSearch(event){
         const target = $(event.currentTarget);
         this.$('.lego-search').toggle(0, function(){
-            target.text(target.text() == '取消' ? '搜索' : '取消');
+            if(target.text() == '取消'){
+                target.text('搜索');
+                $(this).next().css({paddingBottom: 40});
+            }else{
+                target.text('取消');
+                $(this).next().css({paddingBottom: 74});
+            }
         });
     }
     renderAfter() {

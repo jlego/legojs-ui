@@ -1,0 +1,7 @@
+{
+	"plugins": [
+  		"transform-decorators",
+  		"syntax-async-generators"
+  	],
+	"presets": [["es2015", { "modules": false }], "stage-0", "stage-3"]
+}

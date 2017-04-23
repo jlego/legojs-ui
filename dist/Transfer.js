@@ -1,5 +1,5 @@
 /**
- * transfer.js v0.4.26
+ * transfer.js v0.4.27
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -28,7 +28,7 @@ var _templateObject$1 = _taggedTemplateLiteral$1([ '\n        <ul class="list-gr
 
 var _templateObject2$1 = _taggedTemplateLiteral$1([ '<li class="list-group-item ', " ", " ", '"\n                id="', '">\n                ', "\n                ", "\n                </li>" ], [ '<li class="list-group-item ', " ", " ", '"\n                id="', '">\n                ', "\n                ", "\n                </li>" ]);
 
-var _templateObject3$1 = _taggedTemplateLiteral$1([ '<i class="anticon anticon-cross float-xs-right close"></i>' ], [ '<i class="anticon anticon-cross float-xs-right close"></i>' ]);
+var _templateObject3$1 = _taggedTemplateLiteral$1([ '<i title="移除" class="anticon anticon-close-circle lego-close"></i>' ], [ '<i title="移除" class="anticon anticon-close-circle lego-close"></i>' ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -74,7 +74,7 @@ var Listgroup = function(_Lego$UI$Baseview) {
         var options = {
             events: {
                 "click li.list-group-item": "onClick",
-                "click i.close": "onClose"
+                "click i.lego-close": "onClose"
             },
             activeKey: "",
             template: "",
@@ -773,6 +773,7 @@ var Transfer = function(_Lego$UI$Baseview) {
                     style: {
                         display: "none"
                     },
+                    size: "sm",
                     onSearch: function onSearch(self, result) {
                         if (typeof opts.search == "function") opts.search(that, result);
                     }
@@ -792,7 +793,17 @@ var Transfer = function(_Lego$UI$Baseview) {
         value: function showSearch(event) {
             var target = $(event.currentTarget);
             this.$(".lego-search").toggle(0, function() {
-                target.text(target.text() == "取消" ? "搜索" : "取消");
+                if (target.text() == "取消") {
+                    target.text("搜索");
+                    $(this).next().css({
+                        paddingBottom: 40
+                    });
+                } else {
+                    target.text("取消");
+                    $(this).next().css({
+                        paddingBottom: 74
+                    });
+                }
             });
         }
     }, {
