@@ -1,5 +1,5 @@
 /**
- * treeselect.js v0.4.27
+ * treeselect.js v0.4.28
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -501,13 +501,11 @@ var Tree = function(_Lego$UI$Baseview) {
             onClick: function onClick() {}
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn$3(this, (Tree.__proto__ || Object.getPrototypeOf(Tree)).call(this, options));
-        _this.isLoaded = false;
-        return _this;
+        return _possibleConstructorReturn$3(this, (Tree.__proto__ || Object.getPrototypeOf(Tree)).call(this, options));
     }
     _createClass$3(Tree, [ {
-        key: "renderBefore",
-        value: function renderBefore() {
+        key: "components",
+        value: function components() {
             var options = this.options, that = this;
             function selectOrNo(treeNode) {
                 if (options.disSelect) {
@@ -563,22 +561,16 @@ var Tree = function(_Lego$UI$Baseview) {
                     }
                 });
             }
+            if (options.data.length) {
+                $.fn.zTree.destroy(this.options.id);
+                var _ztree = $.fn.zTree.getZTreeObj(this.options.id);
+                $.fn.zTree.init(this.$el, options.setting, options.data);
+            }
         }
     }, {
         key: "render",
         value: function render() {
             return hx(_templateObject$3);
-        }
-    }, {
-        key: "renderAfter",
-        value: function renderAfter() {
-            var options = this.options;
-            if (options.data.length && !this.isLoaded) {
-                var _ztree = $.fn.zTree.getZTreeObj(this.options.id);
-                if (_ztree) $.fn.zTree.destroy(this.options.id);
-                $.fn.zTree.init(this.$el, options.setting, options.data);
-                this.isLoaded = true;
-            }
         }
     }, {
         key: "clearChecked",

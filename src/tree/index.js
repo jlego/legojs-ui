@@ -30,9 +30,8 @@ class Tree extends Lego.UI.Baseview {
         };
         Object.assign(options, opts);
         super(options);
-        this.isLoaded = false;
     }
-    renderBefore() {
+    components() {
         const options = this.options,
             that = this;
         function selectOrNo(treeNode) {
@@ -89,18 +88,14 @@ class Tree extends Lego.UI.Baseview {
                 }
             });
         }
+        if(options.data.length){
+            $.fn.zTree.destroy(this.options.id);
+            let ztree = $.fn.zTree.getZTreeObj(this.options.id);
+            $.fn.zTree.init(this.$el, options.setting, options.data);
+        }
     }
     render() {
         return hx `<ul class="lego-tree"></ul>`;
-    }
-    renderAfter() {
-        let options = this.options;
-        if(options.data.length && !this.isLoaded){
-            let ztree = $.fn.zTree.getZTreeObj(this.options.id);
-            if(ztree) $.fn.zTree.destroy(this.options.id);
-            $.fn.zTree.init(this.$el, options.setting, options.data);
-            this.isLoaded = true;
-        }
     }
     // 取消选择
     clearChecked(key, value) {
