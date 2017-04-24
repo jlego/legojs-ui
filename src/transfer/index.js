@@ -2,6 +2,7 @@
  * 穿梭框
  * ronghui Yu
  * 2017/1/10
+ * update: 2017/4/22
  * dataItem: {
  *  key: '', value: '', type: ''
  * }
@@ -19,7 +20,6 @@ class Transfer extends Lego.UI.Baseview {
             },
             // type: 'list',   //类型tree
             titles: [], //标题
-            value: [], //设置值
             data: [],
             width: 450, //宽度
             height: 400, //高度
@@ -41,89 +41,94 @@ class Transfer extends Lego.UI.Baseview {
         this.renderComponents();
     }
     renderComponents(){
-        let options = this.options,
+        let opts = this.options,
             that = this,
-            listData = options.value.map(item => {
-                item.key = item.id || item.key;
-                item.value = item.name || item.value;
-                return item;
+            listValue = [];
+        function loopItem(data){
+            data.map(item => {
+                if(item.checked){
+                    item.key = item.id || item.key;
+                    item.value = item.name || item.name;
+                    listValue.push($.extend(true, {}, item));
+                    if(item.children){
+                        loopItem(item.children);
+                    }
+                }
             });
+            if(opts.filterParentNode){
+                listValue = listValue.filter(item => !item.isParent);
+            }
+        }
+        loopItem(opts.data);
         this.addCom([{
-            el: '#transfer_' + options.vid + '_tree',
+            el: '#transfer_tree_' + opts.vid,
             setting: $.extend(true, {
                 check: {
                     enable: true,
                     chkboxType: { "Y": "ps", "N": "ps" }
                 }
-            }, options.treeSetting || {}),
+            }, opts.treeSetting || {}),
             onChecked(self, result) {
-                const parentView = this.context;
-                const listView = Lego.getView('#transfer_' + options.vid + '_list');
+                let listView = Lego.getView('#transfer_list_' + opts.vid);
                 if(listView){
-                    if(options.filterParentNode){
+                    if(opts.filterParentNode){
                         result = result.filter(item => !item.isParent);
                     }
-                    result = result.map(item => {
-                        item.key = item.id || item.key;
-                        item.value = item.name || item.value;
-                        return item;
-                    });
-                    listView.options.data = result;
+                    listView.options.data = Array.from(result);
                     listView.refresh();
                 }
-                if (typeof options.onChange === 'function') options.onChange(parentView, result);
+                if (typeof opts.onChange === 'function') opts.onChange(this.context, result);
             },
-            dataSource: options.dataSource,
-            data: options.data
+            dataSource: opts.dataSource,
+            data: opts.data
         }, {
-            el: '#transfer_' + options.vid + '_list',
+            el: '#transfer_list_' + opts.vid,
             removeAble: true,
             onClose(self, result) {
-                const parentView = this.context;
-                const treeView = $.fn.zTree.getZTreeObj('transfer_' + options.vid + '_tree');
+                let treeView = $.fn.zTree.getZTreeObj('transfer_tree_' + opts.vid);
                 if(treeView){
                     const treeNode = treeView.getNodeByParam('id', result, null);
-                    treeView.checkNode(treeNode, !treeNode.checked, null, true);
+                    treeView.checkNode(treeNode, !treeNode.checked, true);
                 }
             },
-            data: listData
+            data: listValue
         }]);
-        if(options.showSearch){
+        if(opts.showSearch){
             this.addCom({
-                el: '#transfer_' + options.vid + '_search',
+                el: '#transfer_search_' + opts.vid,
                 style: {display: 'none'},
+                size: 'sm',
                 onSearch(self, result) {
-                    if(typeof options.search == 'function') options.search(that, result);
+                    if(typeof opts.search == 'function') opts.search(that, result);
                 }
             });
         }
         this._renderComponents();
     }
     render() {
-        const options = this.options || {},
-            theId = 'transfer_' + options.vid;
+        const opts = this.options;
         const vDom = hx `
         <div class="row transfer">
             <div class="col-sm-6">
                 <div class="transfer-col">
                     <h5>
-                        ${options.showSearch ? hx`<button class="btn btn-link float-right">搜索</button>` : ''}
-                        <span>${val(options.titles[0])}</span>
+                        ${opts.showSearch ? hx`<button class="btn btn-link float-right">搜索</button>` : ''}
+                        <span>${val(opts.titles[0])}</span>
                     </h5>
-                    ${options.showSearch ? hx`<search id="${theId + '_search'}"></search>` : ''}
+                    ${opts.showSearch ? hx`<search id="transfer_search_${opts.vid}"></search>` : ''}
                     <div class="transfer-col-content">
                         <div class="scrollbar">
-                            <tree id="${theId + '_tree'}"></tree>
+                            <tree id="transfer_tree_${opts.vid}"></tree>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="transfer-col">
-                    <h5><span>${val(options.titles[1])}</span></h5>
+                    <h5><span>${val(opts.titles[1])}</span></h5>
                     <div class="transfer-col-content">
                         <div class="scrollbar">
-                            <listgroup id="${theId + '_list'}"></listgroup>
+                            <listgroup id="transfer_list_${opts.vid}"></listgroup>
                         </div>
                     </div>
                 </div>
@@ -136,19 +141,25 @@ class Transfer extends Lego.UI.Baseview {
     }
     showSearch(event){
         const target = $(event.currentTarget);
-        this.$el.find('.lego-search').toggle(0, function(){
-            target.text(target.text() == '取消' ? '搜索' : '取消');
+        this.$('.lego-search').toggle(0, function(){
+            if(target.text() == '取消'){
+                target.text('搜索');
+                $(this).next().css({paddingBottom: 40});
+            }else{
+                target.text('取消');
+                $(this).next().css({paddingBottom: 74});
+            }
         });
     }
     renderAfter() {
-        const options = this.options || {};
+        const opts = this.options;
         this.$el.css({
-            width: options.width,
-            height: options.height
+            width: opts.width,
+            height: opts.height
         });
     }
     getValue(){
-        const listView = Lego.getView('#transfer_' + this.options.vid + '_list');
+        const listView = Lego.getView('#transfer_list_' + this.options.vid);
         if(listView){
             return listView.options.data;
         }

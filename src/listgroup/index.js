@@ -21,7 +21,7 @@ class Listgroup extends Lego.UI.Baseview {
         const options = {
             events: {
                 'click li.list-group-item': 'onClick',
-                'click i.close': 'onClose',
+                'click i.lego-close': 'onClose',
             },
             activeKey: '',   //选中的记录
             template: '', //item模板
@@ -43,7 +43,7 @@ class Listgroup extends Lego.UI.Baseview {
             }else{
                 return hx`<li class="list-group-item ${item.disabled ? 'disabled' : ''} ${options.activeKey == item.key ? 'active' : ''} ${val(item.className)}"
                 id="${val(item.key)}">
-                ${options.removeAble ? hx`<i class="anticon anticon-cross float-xs-right close"></i>` : ''}
+                ${options.removeAble ? hx`<i title="移除" class="anticon anticon-close-circle lego-close"></i>` : ''}
                 ${val(item.value)}
                 </li>`;
             }

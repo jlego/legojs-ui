@@ -1,89 +1,87 @@
+@import "../../../asset/scss/bootstrap/variables";
 .transfer {
     position: relative;
     overflow: hidden;
-}
+    > div {
+        height: 100%;
+    }
+    .lego-tree{
+        padding: 5px 5px 5px 0;
+    }
+    i.anticon-double-right,
+    i.anticon-double-left {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 40px;
+        margin-left: -20px;
+        color: #999;
+    }
 
-.transfer > div,
-.transfer > div > .transfer-col,
-.transfer .transfer-col .transfer-col-content > div {
-    height: 100%;
-}
+    i.anticon-double-right {
+        margin-top: -10px;
+    }
 
-.transfer i.anticon-double-right,
-.transfer i.anticon-double-left {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 40px;
-    margin-left: -20px;
-    color: #999;
-}
+    i.anticon-double-left {
+        margin-top: 10px;
+    }
 
-.transfer i.anticon-double-right {
-    margin-top: -10px;
-}
-
-.transfer i.anticon-double-left {
-    margin-top: 10px;
-}
-
-.transfer .transfer-col {
-    height: 100%;
-    border: 1px #ddd solid;
-    border-radius: 0.25rem;
-    position: relative;
-}
-
-.transfer .transfer-col h5 {
-    font-size: 16px;
-    line-height: 30px;
-    margin: 0;
-    padding: 5px 10px;
-    border-bottom: 1px solid #ececec;
-    height: 40px;
-}
-.transfer .transfer-col h5 button{
-    padding: 4px 0;
-}
-.transfer .transfer-col .input-group.lego-search {
-    padding: 3px;
-    border-bottom: 1px #ececec solid;
-    position: absolute;
-    background-color: #fff;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-}
-
-.transfer .transfer-col .transfer-col-content {
-    height: 100%;
-    padding-bottom: 40px;
-}
-.transfer .transfer-col .transfer-col-content > div {
-    width: 100%;
-}
-// .transfer .transfer-col .input-group.lego-search + .transfer-col-content {
-//     padding-bottom: 83px !important;
-// }
-
-.transfer .list-group .list-group-item {
-    padding: 0.5rem 0.2rem 0.5rem 1rem;
-    border: none;
-}
-
-.transfer .list-group .list-group-item:hover,
-.transfer .list-group .list-group-item:active,
-.transfer .list-group .list-group-item.active {
-    background-color: #f4f9fc;
-    color: #666;
-}
-
-.transfer .list-group .list-group-item i.close {
-    zoom: 0.8;
-    display: none;
-}
-.transfer .list-group .list-group-item:hover i.close,
-.transfer .list-group .list-group-item:active i.close,
-.transfer .list-group .list-group-item.active i.close {
-    display: inline-block;
+    .transfer-col {
+        height: 100%;
+        border: 1px #ddd solid;
+        border-radius: 0.25rem;
+        position: relative;
+        h5 {
+            font-size: 16px;
+            line-height: 30px;
+            margin: 0;
+            padding: 5px 10px;
+            border-bottom: 1px solid #ececec;
+            height: 40px;
+            button{
+                padding: 4px 0;
+            }
+        }
+        .transfer-col-content {
+            height: 100%;
+            padding-bottom: 40px;
+            > div{
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .lego-search {
+            padding: 3px;
+            border-bottom: 1px #ececec solid;
+            // position: absolute;
+            background-color: #fff;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        .list-group-item {
+            padding: .4rem .5rem .4rem .5rem;
+            border: none;
+            i.lego-close {
+                display: none;
+                color: #999;
+                float: right;
+                zoom: .5;
+                line-height: 35px;
+                cursor: pointer;
+            }
+            &:hover,
+            &:active,
+            &.active {
+                background-color: #f4f9fc;
+                color: #666;
+                i.lego-close {
+                    display: inline-block;
+                    &:hover{
+                        color: $red;
+                    }
+                }
+            }
+        }
+    }
 }
