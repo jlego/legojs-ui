@@ -1,5 +1,5 @@
 /**
- * treeselect.js v0.4.32
+ * treeselect.js v0.4.41
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -486,21 +486,14 @@ var Tree = function(_Lego$UI$Baseview) {
         var options = {
             disSelect: "",
             onlySelect: "",
-            setting: {
-                data: {
-                    simpleData: {
-                        enable: true
-                    }
-                },
-                callback: {}
-            },
+            setting: {},
             keyNames: [ "id", "name", "type" ],
             value: [],
             data: [],
             onChecked: function onChecked() {},
             onClick: function onClick() {}
         };
-        Object.assign(options, opts);
+        $.extend(true, options, opts);
         return _possibleConstructorReturn$3(this, (Tree.__proto__ || Object.getPrototypeOf(Tree)).call(this, options));
     }
     _createClass$3(Tree, [ {
@@ -563,7 +556,8 @@ var Tree = function(_Lego$UI$Baseview) {
             }
             if (options.data.length) {
                 var _ztree = $.fn.zTree.getZTreeObj(this.options.id);
-                if (!_ztree) $.fn.zTree.init(this.$el, options.setting, options.data);
+                if (_ztree) _ztree.destroy();
+                $.fn.zTree.init(this.$el, options.setting, options.data);
             }
         }
     }, {

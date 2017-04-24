@@ -20,11 +20,13 @@ class Transfer extends Lego.UI.Baseview {
             },
             // type: 'list',   //类型tree
             titles: [], //标题
+            value: [],
             data: [],
             width: 450, //宽度
             height: 400, //高度
             treeSetting: {},
             scrollbar: {},
+            simpleData: true,
             filterParentNode: false,  //是否过滤父节点
             showSearch: false, //是否显示搜索框
             searchPlaceholder: '请输入搜索内容', //搜索框
@@ -34,13 +36,25 @@ class Transfer extends Lego.UI.Baseview {
         };
         Object.assign(options, opts);
         super(options);
-
+    }
+    _mergeValue(){
+        let opts = this.options;
+        if(opts.value.length){
+            opts.data.forEach((item, index) => {
+                let hasOne = opts.value.find(val => val.key == (item.key || item.id));
+                if(hasOne) item.checked = true;
+            });
+        }
+    }
+    dataReady(){
+        this._mergeValue();
     }
     components(){
         let opts = this.options,
             that = this,
             listValue = [];
         function loopItem(data){
+            that._mergeValue();
             data.map(item => {
                 if(item.checked){
                     item.key = item.id || item.key;
@@ -57,7 +71,7 @@ class Transfer extends Lego.UI.Baseview {
         }
         if(opts.data.length){
             loopItem(opts.data);
-            let treeOpts = {
+            this.addCom([{
                 el: '#transfer_tree_' + opts.vid,
                 setting: $.extend(true, {
                     check: {
@@ -75,14 +89,9 @@ class Transfer extends Lego.UI.Baseview {
                         listView.refresh();
                     }
                     if (typeof opts.onChange === 'function') opts.onChange(this.context, result);
-                }
-            };
-            if(opts.dataSource){
-                treeOpts.dataSource = opts.dataSource;
-            }else{
-                if(opts.data) treeOpts.data = opts.data;
-            }
-            this.addCom([treeOpts, {
+                },
+                data: opts.data
+            }, {
                 el: '#transfer_list_' + opts.vid,
                 removeAble: true,
                 onClose(self, result) {
@@ -90,6 +99,7 @@ class Transfer extends Lego.UI.Baseview {
                     if(treeView){
                         const treeNode = treeView.getNodeByParam('id', result, null);
                         treeView.checkNode(treeNode, !treeNode.checked, true);
+                        if (typeof opts.onChange === 'function') opts.onChange(this.context, this.data);
                     }
                 },
                 data: listValue

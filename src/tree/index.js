@@ -11,24 +11,14 @@ class Tree extends Lego.UI.Baseview {
         const options = {
             disSelect: '', //禁止选择含有该属性节点, 可以是对象
             onlySelect: '', //只选择含有该属性节点, 可以是对象
-            setting: {
-                data: {
-                    simpleData: {
-                        enable: true
-                    }
-                },
-                callback: {
-                    // beforeClick: beforeClick,
-                    // onCheck: onCheck
-                }
-            },
+            setting: {},
             keyNames: ['id', 'name', 'type'],
             value: [],
             data: [],
             onChecked() {},
             onClick() {}
         };
-        Object.assign(options, opts);
+        $.extend(true, options, opts);
         super(options);
     }
     components() {
@@ -90,7 +80,8 @@ class Tree extends Lego.UI.Baseview {
         }
         if(options.data.length){
             let ztree = $.fn.zTree.getZTreeObj(this.options.id);
-            if(!ztree) $.fn.zTree.init(this.$el, options.setting, options.data);
+            if(ztree) ztree.destroy();
+            $.fn.zTree.init(this.$el, options.setting, options.data);
         }
     }
     render() {

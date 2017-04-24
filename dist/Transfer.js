@@ -1,5 +1,5 @@
 /**
- * transfer.js v0.4.32
+ * transfer.js v0.4.41
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -104,20 +104,20 @@ var Listgroup = function(_Lego$UI$Baseview) {
         value: function onClick(event) {
             event.stopPropagation();
             var target = $(event.currentTarget), key = target.attr("id");
-            if (typeof this.options.onClick === "function") this.options.onClick(this, key, event);
             this.options.activeKey = this.options.activeKey != key ? key : "";
             this.refresh();
+            if (typeof this.options.onClick === "function") this.options.onClick(this, key, event);
         }
     }, {
         key: "onClose",
         value: function onClose(event) {
             event.stopPropagation();
             var target = $(event.currentTarget), key = target.parent().attr("id");
-            if (typeof this.options.onClose === "function") this.options.onClose(this, key, event);
             this.options.data = this.options.data.filter(function(item) {
-                return item.key !== key;
+                return item.key.toString() !== key.toString();
             });
             this.refresh();
+            if (typeof this.options.onClose === "function") this.options.onClose(this, key, event);
         }
     } ]);
     return Listgroup;
@@ -188,21 +188,14 @@ var Tree = function(_Lego$UI$Baseview) {
         var options = {
             disSelect: "",
             onlySelect: "",
-            setting: {
-                data: {
-                    simpleData: {
-                        enable: true
-                    }
-                },
-                callback: {}
-            },
+            setting: {},
             keyNames: [ "id", "name", "type" ],
             value: [],
             data: [],
             onChecked: function onChecked() {},
             onClick: function onClick() {}
         };
-        Object.assign(options, opts);
+        $.extend(true, options, opts);
         return _possibleConstructorReturn$2(this, (Tree.__proto__ || Object.getPrototypeOf(Tree)).call(this, options));
     }
     _createClass$2(Tree, [ {
@@ -265,7 +258,8 @@ var Tree = function(_Lego$UI$Baseview) {
             }
             if (options.data.length) {
                 var _ztree = $.fn.zTree.getZTreeObj(this.options.id);
-                if (!_ztree) $.fn.zTree.init(this.$el, options.setting, options.data);
+                if (_ztree) _ztree.destroy();
+                $.fn.zTree.init(this.$el, options.setting, options.data);
             }
         }
     }, {
@@ -676,11 +670,13 @@ var Transfer = function(_Lego$UI$Baseview) {
                 "click h5 > button": "showSearch"
             },
             titles: [],
+            value: [],
             data: [],
             width: 450,
             height: 400,
             treeSetting: {},
             scrollbar: {},
+            simpleData: true,
             filterParentNode: false,
             showSearch: false,
             searchPlaceholder: "请输入搜索内容",
@@ -692,10 +688,29 @@ var Transfer = function(_Lego$UI$Baseview) {
         return _possibleConstructorReturn(this, (Transfer.__proto__ || Object.getPrototypeOf(Transfer)).call(this, options));
     }
     _createClass(Transfer, [ {
+        key: "_mergeValue",
+        value: function _mergeValue() {
+            var opts = this.options;
+            if (opts.value.length) {
+                opts.data.forEach(function(item, index) {
+                    var hasOne = opts.value.find(function(val) {
+                        return val.key == (item.key || item.id);
+                    });
+                    if (hasOne) item.checked = true;
+                });
+            }
+        }
+    }, {
+        key: "dataReady",
+        value: function dataReady() {
+            this._mergeValue();
+        }
+    }, {
         key: "components",
         value: function components() {
             var opts = this.options, that = this, listValue = [];
             function loopItem(data) {
+                that._mergeValue();
                 data.map(function(item) {
                     if (item.checked) {
                         item.key = item.id || item.key;
@@ -714,7 +729,7 @@ var Transfer = function(_Lego$UI$Baseview) {
             }
             if (opts.data.length) {
                 loopItem(opts.data);
-                var treeOpts = {
+                this.addCom([ {
                     el: "#transfer_tree_" + opts.vid,
                     setting: $.extend(true, {
                         check: {
@@ -737,14 +752,9 @@ var Transfer = function(_Lego$UI$Baseview) {
                             listView.refresh();
                         }
                         if (typeof opts.onChange === "function") opts.onChange(this.context, result);
-                    }
-                };
-                if (opts.dataSource) {
-                    treeOpts.dataSource = opts.dataSource;
-                } else {
-                    if (opts.data) treeOpts.data = opts.data;
-                }
-                this.addCom([ treeOpts, {
+                    },
+                    data: opts.data
+                }, {
                     el: "#transfer_list_" + opts.vid,
                     removeAble: true,
                     onClose: function onClose(self, result) {
@@ -752,6 +762,7 @@ var Transfer = function(_Lego$UI$Baseview) {
                         if (treeView) {
                             var treeNode = treeView.getNodeByParam("id", result, null);
                             treeView.checkNode(treeNode, !treeNode.checked, true);
+                            if (typeof opts.onChange === "function") opts.onChange(this.context, this.data);
                         }
                     },
                     data: listValue
