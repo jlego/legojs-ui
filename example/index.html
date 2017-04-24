@@ -6,7 +6,7 @@
 <html lang="en">
 <!--<![endif]-->
 <head>
-    <title>试验</title>
+    <title>lego-ui示例</title>
     <!-- start: META -->
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
     <meta charset="utf-8" />
@@ -16,13 +16,14 @@
     <meta content="" name="description" />
     <meta content="" name="author" />
     <!-- end: META -->
+    <script type="text/javascript" src="dist/jquery.js"></script>
     <!-- start: MAIN CSS -->
-    <link rel="stylesheet" type="text/css" href="asset/css/style.css" />
-    <link rel="stylesheet" type="text/css" href="asset/css/frame/frame-1.css" />
-    <link rel="stylesheet" type="text/css" href="asset/css/themes/theme-1.css" />
+    <link rel="stylesheet" type="text/css" href="dist/main.css" />
 </head>
 <body>
     <div id="order_index_list_datatable_loading" style="width: 100%; height: 100%; background-color: transparent;"><div class="icon-spin hby-spinner icon-"></div></div>
 </body>
 </html>
-<script src="dist/main.js"></script>
+<script type="text/javascript">
+    document.write('<script src="dist/main.js?v=' + new Date().getTime() + '"><\/script>');
+</script>

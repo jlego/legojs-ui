@@ -1,5 +1,5 @@
 /**
- * tree.js v0.4.28
+ * tree.js v0.4.32
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -146,9 +146,8 @@ var Tree = function(_Lego$UI$Baseview) {
                 });
             }
             if (options.data.length) {
-                $.fn.zTree.destroy(this.options.id);
                 var _ztree = $.fn.zTree.getZTreeObj(this.options.id);
-                $.fn.zTree.init(this.$el, options.setting, options.data);
+                if (!_ztree) $.fn.zTree.init(this.$el, options.setting, options.data);
             }
         }
     }, {

@@ -1,5 +1,5 @@
 /**
- * transfer.js v0.4.28
+ * transfer.js v0.4.32
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -264,9 +264,8 @@ var Tree = function(_Lego$UI$Baseview) {
                 });
             }
             if (options.data.length) {
-                $.fn.zTree.destroy(this.options.id);
                 var _ztree = $.fn.zTree.getZTreeObj(this.options.id);
-                $.fn.zTree.init(this.$el, options.setting, options.data);
+                if (!_ztree) $.fn.zTree.init(this.$el, options.setting, options.data);
             }
         }
     }, {
@@ -690,18 +689,11 @@ var Transfer = function(_Lego$UI$Baseview) {
             onSearch: function onSearch() {}
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn(this, (Transfer.__proto__ || Object.getPrototypeOf(Transfer)).call(this, options));
-        if (!_this.options.dataSource) _this.renderComponents();
-        return _this;
+        return _possibleConstructorReturn(this, (Transfer.__proto__ || Object.getPrototypeOf(Transfer)).call(this, options));
     }
     _createClass(Transfer, [ {
-        key: "dataReady",
-        value: function dataReady() {
-            this.renderComponents();
-        }
-    }, {
-        key: "renderComponents",
-        value: function renderComponents() {
+        key: "components",
+        value: function components() {
             var opts = this.options, that = this, listValue = [];
             function loopItem(data) {
                 data.map(function(item) {
@@ -720,58 +712,63 @@ var Transfer = function(_Lego$UI$Baseview) {
                     });
                 }
             }
-            loopItem(opts.data);
-            this.addCom([ {
-                el: "#transfer_tree_" + opts.vid,
-                setting: $.extend(true, {
-                    check: {
-                        enable: true,
-                        chkboxType: {
-                            Y: "ps",
-                            N: "ps"
+            if (opts.data.length) {
+                loopItem(opts.data);
+                var treeOpts = {
+                    el: "#transfer_tree_" + opts.vid,
+                    setting: $.extend(true, {
+                        check: {
+                            enable: true,
+                            chkboxType: {
+                                Y: "ps",
+                                N: "ps"
+                            }
                         }
-                    }
-                }, opts.treeSetting || {}),
-                onChecked: function onChecked(self, result) {
-                    var listView = Lego.getView("#transfer_list_" + opts.vid);
-                    if (listView) {
-                        if (opts.filterParentNode) {
-                            result = result.filter(function(item) {
-                                return !item.isParent;
-                            });
+                    }, opts.treeSetting || {}),
+                    onChecked: function onChecked(self, result) {
+                        var listView = Lego.getView("#transfer_list_" + opts.vid);
+                        if (listView) {
+                            if (opts.filterParentNode) {
+                                result = result.filter(function(item) {
+                                    return !item.isParent;
+                                });
+                            }
+                            listView.options.data = Array.from(result);
+                            listView.refresh();
                         }
-                        listView.options.data = Array.from(result);
-                        listView.refresh();
+                        if (typeof opts.onChange === "function") opts.onChange(this.context, result);
                     }
-                    if (typeof opts.onChange === "function") opts.onChange(this.context, result);
-                },
-                dataSource: opts.dataSource,
-                data: opts.data
-            }, {
-                el: "#transfer_list_" + opts.vid,
-                removeAble: true,
-                onClose: function onClose(self, result) {
-                    var treeView = $.fn.zTree.getZTreeObj("transfer_tree_" + opts.vid);
-                    if (treeView) {
-                        var treeNode = treeView.getNodeByParam("id", result, null);
-                        treeView.checkNode(treeNode, !treeNode.checked, true);
-                    }
-                },
-                data: listValue
-            } ]);
-            if (opts.showSearch) {
-                this.addCom({
-                    el: "#transfer_search_" + opts.vid,
-                    style: {
-                        display: "none"
+                };
+                if (opts.dataSource) {
+                    treeOpts.dataSource = opts.dataSource;
+                } else {
+                    if (opts.data) treeOpts.data = opts.data;
+                }
+                this.addCom([ treeOpts, {
+                    el: "#transfer_list_" + opts.vid,
+                    removeAble: true,
+                    onClose: function onClose(self, result) {
+                        var treeView = $.fn.zTree.getZTreeObj("transfer_tree_" + opts.vid);
+                        if (treeView) {
+                            var treeNode = treeView.getNodeByParam("id", result, null);
+                            treeView.checkNode(treeNode, !treeNode.checked, true);
+                        }
                     },
-                    size: "sm",
-                    onSearch: function onSearch(self, result) {
-                        if (typeof opts.search == "function") opts.search(that, result);
-                    }
-                });
+                    data: listValue
+                } ]);
+                if (opts.showSearch) {
+                    this.addCom({
+                        el: "#transfer_search_" + opts.vid,
+                        style: {
+                            display: "none"
+                        },
+                        size: "sm",
+                        onSearch: function onSearch(self, result) {
+                            if (typeof opts.search == "function") opts.search(that, result);
+                        }
+                    });
+                }
             }
-            this._renderComponents();
         }
     }, {
         key: "render",

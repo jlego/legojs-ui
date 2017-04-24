@@ -34,13 +34,9 @@ class Transfer extends Lego.UI.Baseview {
         };
         Object.assign(options, opts);
         super(options);
-        if(!this.options.dataSource) this.renderComponents();
 
     }
-    dataReady(){
-        this.renderComponents();
-    }
-    renderComponents(){
+    components(){
         let opts = this.options,
             that = this,
             listValue = [];
@@ -59,51 +55,56 @@ class Transfer extends Lego.UI.Baseview {
                 listValue = listValue.filter(item => !item.isParent);
             }
         }
-        loopItem(opts.data);
-        this.addCom([{
-            el: '#transfer_tree_' + opts.vid,
-            setting: $.extend(true, {
-                check: {
-                    enable: true,
-                    chkboxType: { "Y": "ps", "N": "ps" }
-                }
-            }, opts.treeSetting || {}),
-            onChecked(self, result) {
-                let listView = Lego.getView('#transfer_list_' + opts.vid);
-                if(listView){
-                    if(opts.filterParentNode){
-                        result = result.filter(item => !item.isParent);
+        if(opts.data.length){
+            loopItem(opts.data);
+            let treeOpts = {
+                el: '#transfer_tree_' + opts.vid,
+                setting: $.extend(true, {
+                    check: {
+                        enable: true,
+                        chkboxType: { "Y": "ps", "N": "ps" }
                     }
-                    listView.options.data = Array.from(result);
-                    listView.refresh();
+                }, opts.treeSetting || {}),
+                onChecked(self, result) {
+                    let listView = Lego.getView('#transfer_list_' + opts.vid);
+                    if(listView){
+                        if(opts.filterParentNode){
+                            result = result.filter(item => !item.isParent);
+                        }
+                        listView.options.data = Array.from(result);
+                        listView.refresh();
+                    }
+                    if (typeof opts.onChange === 'function') opts.onChange(this.context, result);
                 }
-                if (typeof opts.onChange === 'function') opts.onChange(this.context, result);
-            },
-            dataSource: opts.dataSource,
-            data: opts.data
-        }, {
-            el: '#transfer_list_' + opts.vid,
-            removeAble: true,
-            onClose(self, result) {
-                let treeView = $.fn.zTree.getZTreeObj('transfer_tree_' + opts.vid);
-                if(treeView){
-                    const treeNode = treeView.getNodeByParam('id', result, null);
-                    treeView.checkNode(treeNode, !treeNode.checked, true);
-                }
-            },
-            data: listValue
-        }]);
-        if(opts.showSearch){
-            this.addCom({
-                el: '#transfer_search_' + opts.vid,
-                style: {display: 'none'},
-                size: 'sm',
-                onSearch(self, result) {
-                    if(typeof opts.search == 'function') opts.search(that, result);
-                }
-            });
+            };
+            if(opts.dataSource){
+                treeOpts.dataSource = opts.dataSource;
+            }else{
+                if(opts.data) treeOpts.data = opts.data;
+            }
+            this.addCom([treeOpts, {
+                el: '#transfer_list_' + opts.vid,
+                removeAble: true,
+                onClose(self, result) {
+                    let treeView = $.fn.zTree.getZTreeObj('transfer_tree_' + opts.vid);
+                    if(treeView){
+                        const treeNode = treeView.getNodeByParam('id', result, null);
+                        treeView.checkNode(treeNode, !treeNode.checked, true);
+                    }
+                },
+                data: listValue
+            }]);
+            if(opts.showSearch){
+                this.addCom({
+                    el: '#transfer_search_' + opts.vid,
+                    style: {display: 'none'},
+                    size: 'sm',
+                    onSearch(self, result) {
+                        if(typeof opts.search == 'function') opts.search(that, result);
+                    }
+                });
+            }
         }
-        this._renderComponents();
     }
     render() {
         const opts = this.options;

@@ -89,9 +89,8 @@ class Tree extends Lego.UI.Baseview {
             });
         }
         if(options.data.length){
-            $.fn.zTree.destroy(this.options.id);
             let ztree = $.fn.zTree.getZTreeObj(this.options.id);
-            $.fn.zTree.init(this.$el, options.setting, options.data);
+            if(!ztree) $.fn.zTree.init(this.$el, options.setting, options.data);
         }
     }
     render() {
