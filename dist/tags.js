@@ -1,5 +1,5 @@
 /**
- * tags.js v0.4.41
+ * tags.js v0.5.3
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -127,6 +127,15 @@ var Tags = function(_Lego$UI$Baseview) {
             }
         }
     }, {
+        key: "removeItem",
+        value: function removeItem(id) {
+            var opts = this.options;
+            opts.data = opts.data.filter(function(item) {
+                return item.key.toString() !== id;
+            });
+            this.refresh();
+        }
+    }, {
         key: "getValue",
         value: function getValue() {
             return this.options.data;
@@ -136,18 +145,14 @@ var Tags = function(_Lego$UI$Baseview) {
         value: function onClose(event) {
             event.stopPropagation();
             var target = $(event.currentTarget), opts = this.options, id = target.parent().parent().attr("id");
-            opts.data = opts.data.filter(function(item) {
-                return item.key !== id;
-            });
             if (typeof opts.onClose == "function") opts.onClose(this, id);
-            this.refresh();
         }
     }, {
         key: "onChange",
         value: function onChange(event) {
             event.stopPropagation();
             var target = $(event.currentTarget), opts = this.options, id = target.attr("id"), item = opts.data.find(function(item) {
-                return item.key == id;
+                return item.key.toString() == id;
             });
             if (typeof opts.onChange == "function") opts.onChange(this, item);
         }

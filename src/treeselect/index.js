@@ -31,7 +31,7 @@ class Treeselect extends Selects {
             dropdownStyle: null, //下拉菜单的 style 属性
             dropdownClass: '', //下拉菜单的 className 属性上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。
             splitString: '', //自动分词分隔符
-            keyNames: ['id', 'name', 'type'],
+            // keyNames: ['id', 'name', 'type'],
             clickAndClose: opts.multiple ? false : true,
             onDeselect() {}, //取消选中时调用，参数为选中项的 option value 值，仅在 multiple 或 tags 模式下生效
             onChange() {}, //选中 option，或 input 的 value 变化（combobox 模式下）时，调用此函数
@@ -47,54 +47,55 @@ class Treeselect extends Selects {
         super(options);
     }
     components(){
-        let options = this.options;
-        this.addCom({
-            el: '#tree-' + options.vid,
-            disSelect: options.disSelect, //禁止选择含有该属性节点, 可以是对象
-            onlySelect: options.onlySelect, //只选择含有该属性节点, 可以是对象
-            setting: Object.assign({}, options.setting),
-            keyNames: options.keyNames || ['id', 'name', 'type'],
-            value: options.value || [],
-            data: options.data || [],
-            dataSource: options.treeDataSource,
-            onChecked(self, result) {
-                const pView = this.context;
-                if (result.key !== '0' && options.setting.check) {
-                    pView.getValue();
-                    if (result.length) {
-                        pView.options.value = [];
-                        result.forEach((val) => {
-                            pView.options.value.push({
-                                key: val.key,
-                                value: val.value,
-                                type: val.type,
-                                selected: true
+        let opts = this.options,
+            that = this;
+        if(opts.data.length){
+            this.addCom({
+                el: '#tree-' + opts.vid,
+                disSelect: opts.disSelect, //禁止选择含有该属性节点, 可以是对象
+                onlySelect: opts.onlySelect, //只选择含有该属性节点, 可以是对象
+                setting: $.extend(true, {}, opts.treeSetting || {}),
+                value: opts.value || [],
+                data: opts.data || [],
+                onChecked(self, result) {
+                    const that = this.context;
+                    if (result.key !== '0' && opts.setting.check) {
+                        that.getValue();
+                        if (result.length) {
+                            that.options.value = [];
+                            result.forEach((val) => {
+                                that.options.value.push({
+                                    key: val.key,
+                                    value: val.value,
+                                    type: val.type,
+                                    selected: true
+                                });
                             });
-                        });
-                    }else{
-                        pView.options.value = [];
+                        }else{
+                            that.options.value = [];
+                        }
                     }
-                }
-                pView.options.onChange(pView, result);
-            },
-            onClick(self, result) {
-                const pView = this.context;
-                pView.options.value.forEach(item => item.selected = false);
-                pView.options.value = [{
-                    key: result.key,
-                    value: result.value,
-                    type: result.type,
-                    selected: true
-                }];
-                pView.options.onChange(pView, result);
-                if(pView.options.clickAndClose) pView.close();
-            },
-            disabled: options.disabled || false,
-            className: options.dropdownClass
-        });
+                    that.options.onChange(that, result);
+                },
+                onClick(self, result) {
+                    const that = this.context;
+                    that.options.value.forEach(item => item.selected = false);
+                    that.options.value = [{
+                        key: result.key,
+                        value: result.value,
+                        type: result.type,
+                        selected: true
+                    }];
+                    that.options.onChange(that, result);
+                    if(that.options.clickAndClose) that.close();
+                },
+                disabled: opts.disabled || false,
+                className: opts.dropdownClass
+            });
+        }
     }
     render() {
-        const options = this.options;
+        const opts = this.options;
         let vDom = '';
         function getTags(data) {
             if (data.length) {
@@ -114,15 +115,15 @@ class Treeselect extends Selects {
                 return '';
             }
         }
-        const theValueArr = Array.isArray(options.value) ? (options.value.length ? options.value.map(item => item.value) : []) : [options.value.value];
-        if(!options.multiple){
+        const theValueArr = Array.isArray(opts.value) ? (opts.value.length ? opts.value.map(item => item.value) : []) : [opts.value.value];
+        if(!opts.multiple){
             vDom = hx`
             <div class="select dropdown treeselect">
-                <div id="select-${options.vid}">
-                    <input type="text" class="form-control select-input ${options.disabled ? 'disabled' : ''}" placeholder="${options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
-                    <div class="dropdown-menu ${options.direction ? ('drop' + options.direction) : ''}" style="width:100%;">
+                <div id="select-${opts.vid}">
+                    <input type="text" class="form-control select-input ${opts.disabled ? 'disabled' : ''}" placeholder="${opts.placeholder}" value="${theValueArr.join(',')}" name="${opts.name}">
+                    <div class="dropdown-menu ${opts.direction ? ('drop' + opts.direction) : ''}" style="width:100%;">
                         <div class="scrollbar">
-                            <tree id="tree-${options.vid}"></tree>
+                            <tree id="tree-${opts.vid}"></tree>
                         </div>
                     </div>
                 </div>
@@ -132,14 +133,14 @@ class Treeselect extends Selects {
         }else{
             vDom = hx`
             <div class="select dropdown treeselect multiple">
-                <div id="select-${options.vid}">
-                    <input type="text" class="form-control select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${theValueArr.length ? '' : options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
+                <div id="select-${opts.vid}">
+                    <input type="text" class="form-control select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${theValueArr.length ? '' : opts.placeholder}" value="${theValueArr.join(',')}" name="${opts.name}">
                     <div class="select-tags-div clearfix ${theValueArr.length ? 'select-tags-div-border' : ''}">
-                        ${getTags(options.value)}
+                        ${getTags(opts.value)}
                     </div>
-                    <div class="dropdown-menu ${options.direction ? ('drop' + options.direction) : ''}" style="width:100%;">
+                    <div class="dropdown-menu ${opts.direction ? ('drop' + opts.direction) : ''}" style="width:100%;">
                         <div class="scrollbar">
-                            <tree id="tree-${options.vid}"></tree>
+                            <tree id="tree-${opts.vid}"></tree>
                         </div>
                     </div>
                 </div>
@@ -149,18 +150,18 @@ class Treeselect extends Selects {
         return vDom;
     }
     renderAfter(){
-        let options = this.options,
-            trigger = this.$('#select-' + options.vid),
+        let opts = this.options,
+            trigger = this.$('#select-' + opts.vid),
             tagsDivEl = this.$('.select-tags-div'),
-            treeEl = this.$('#tree-' + options.vid),
-            _eventName = 'click.dropdown_' + options.vid,
+            treeEl = this.$('#tree-' + opts.vid),
+            _eventName = 'click.dropdown_' + opts.vid,
             that = this;
-        if(!options.inputAble) this.$('.select-input').attr('readonly', 'readonly');
-        if(!options.disabled){
+        if(!opts.inputAble) this.$('.select-input').attr('readonly', 'readonly');
+        if(!opts.disabled){
             function handler(event){
                 that.$('.dropdown-menu').slideToggle('fast');
             }
-            if(options.eventName == 'click'){
+            if(opts.eventName == 'click'){
                 $('body, .modal-body').off(_eventName).on(_eventName, function(event){
                     if(event.originalEvent){
                         let index_a = event.originalEvent.path.indexOf(event.target),
@@ -181,9 +182,9 @@ class Treeselect extends Selects {
             this.$('.dropdown-menu').off(_eventName).on(_eventName, function(event){
                 event.stopPropagation();
             });
-            if(options.dropdownHeight){
+            if(opts.dropdownHeight){
                 this.$('.dropdown-menu > .scrollbar').css({
-                    maxHeight: options.dropdownHeight,
+                    maxHeight: opts.dropdownHeight,
                     overflow: 'auto'
                 });
             }

@@ -193,7 +193,7 @@ class Tables extends Lego.UI.Baseview {
             theType = options.rowSelection.type || 'checkbox',
             isCheckbox = theType == 'checkbox',
             that = this;
-        const isChecked = row.selected || (tagName === 'th' && this.getSelectedStatus() === 1);
+        const isChecked = row._selected || (tagName === 'th' && this.getSelectedStatus() === 1);
         function getHx(){
             return hx`
             <span>
@@ -340,16 +340,16 @@ class Tables extends Lego.UI.Baseview {
         if (options.rowSelection) {
             if(options.rowSelection.type == 'radio'){
                 options.data.forEach(item => {
-                    item.selected = item.key == id ? true : false;
+                    item._selected = item.key == id ? true : false;
                 });
             }else{
                 const row = options.data.find(function(value, index, arr) {
                     return value.key == id;
                 });
-                if(row) row.selected = !row.selected;
+                if(row) row._selected = !row._selected;
             }
             let hasSelectedArr = this.options.data.filter((value) => {
-                    return value.selected === true;
+                    return value._selected === true;
                 });
             if(typeof options.onSelect == 'function') options.onSelect(this, this.getSelectedStatus() ? Array.from(hasSelectedArr) : []);
             this.refresh();
@@ -359,7 +359,7 @@ class Tables extends Lego.UI.Baseview {
     getSelectedStatus(){
         if(Array.isArray(this.options.data)){
             let hasSelectedArr = this.options.data.filter((value) => {
-                    return value.selected === true;
+                    return value._selected === true;
                 });
             this.selectedAll = hasSelectedArr.length ? (hasSelectedArr.length == this.options.data.length ? 1 : (hasSelectedArr.length ? 2 : 0)) : 0;
             return this.selectedAll;
@@ -377,7 +377,7 @@ class Tables extends Lego.UI.Baseview {
             const isSelected = isChecked ? 1 : 0;
             this.selectedAll = isSelected;
             this.options.data.map((row, index) => {
-                row.selected = !!isSelected;
+                row._selected = !!isSelected;
             });
             if(typeof this.options.onSelect == 'function') this.options.onSelect(this, isSelected ? Array.from(this.options.data) : []);
             this.refresh();
@@ -386,7 +386,7 @@ class Tables extends Lego.UI.Baseview {
     // 获取选中行
     getSelected() {
         if (Array.isArray(this.options.data)) {
-            return this.options.data.filter((row) => row.selected == true);
+            return this.options.data.filter((row) => row._selected == true);
         }
         return [];
     }

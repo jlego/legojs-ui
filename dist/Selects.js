@@ -1,5 +1,5 @@
 /**
- * selects.js v0.4.41
+ * selects.js v0.5.3
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -279,7 +279,6 @@ var Selects = function(_Lego$UI$Baseview) {
             dropdownStyle: null,
             dropdownClassName: "",
             splitString: "",
-            dataSource: null,
             components: []
         };
         Object.assign(options, opts);
@@ -295,49 +294,50 @@ var Selects = function(_Lego$UI$Baseview) {
     _createClass(Selects, [ {
         key: "components",
         value: function components() {
-            var options = this.options;
-            this.addCom({
-                el: "#dropdown-" + options.vid,
-                container: "#select-" + options.vid,
-                scrollbar: options.dropdownHeight ? {} : null,
-                eventName: options.eventName || "click",
-                disabled: options.disabled || false,
-                style: Object.assign({
-                    width: options.dropdownWidth,
-                    maxHeight: options.dropdownHeight || "auto",
-                    overflow: "auto"
-                }, options.dropdownStyle || {}),
-                className: options.dropdownClassName,
-                clickAndClose: options.multiple ? false : true,
-                data: options.data || [],
-                dataSource: options.dataSource,
-                onChange: function onChange(self, model) {
-                    var pView = this.context;
-                    pView.$(".select-input").focus();
-                    if (model.key !== "0" && options.multiple) {
-                        pView.options.data.forEach(function(item) {
-                            if (item.key == "0") item.selected = false;
-                        });
-                        pView.getValue();
-                        if (!pView.options.value.includes(model)) {
-                            model.selected = true;
-                            pView.options.value.push(model);
+            var opts = this.options;
+            if (opts.data.length) {
+                this.addCom({
+                    el: "#dropdown-" + opts.vid,
+                    container: "#select-" + opts.vid,
+                    scrollbar: opts.dropdownHeight ? {} : null,
+                    eventName: opts.eventName || "click",
+                    disabled: opts.disabled || false,
+                    style: Object.assign({
+                        width: opts.dropdownWidth,
+                        maxHeight: opts.dropdownHeight || "auto",
+                        overflow: "auto"
+                    }, opts.dropdownStyle || {}),
+                    className: opts.dropdownClassName,
+                    clickAndClose: opts.multiple ? false : true,
+                    data: opts.data || [],
+                    onChange: function onChange(self, model) {
+                        var that = this.context;
+                        that.$(".select-input").focus();
+                        if (model.key !== "0" && opts.multiple) {
+                            that.options.data.forEach(function(item) {
+                                if (item.key == "0") item.selected = false;
+                            });
+                            that.getValue();
+                            if (!that.options.value.includes(model)) {
+                                model.selected = true;
+                                that.options.value.push(model);
+                            }
+                        } else {
+                            that.options.data.forEach(function(item) {
+                                return item.selected = false;
+                            });
+                            that.options.value = [ model ];
+                            that.refresh();
                         }
-                    } else {
-                        pView.options.data.forEach(function(item) {
-                            return item.selected = false;
-                        });
-                        pView.options.value = [ model ];
-                        pView.refresh();
+                        that.options.onChange(that, model);
                     }
-                    pView.options.onChange(pView, model);
-                }
-            });
+                });
+            }
         }
     }, {
         key: "render",
         value: function render() {
-            var options = this.options || {};
+            var opts = this.options;
             var vDom = "";
             function getTags(data) {
                 if (data.length) {
@@ -348,13 +348,13 @@ var Selects = function(_Lego$UI$Baseview) {
                     return "";
                 }
             }
-            var theValueArr = Array.isArray(options.value) ? options.value.length ? options.value.map(function(item) {
+            var theValueArr = Array.isArray(opts.value) ? opts.value.length ? opts.value.map(function(item) {
                 return item.value;
-            }) : [] : [ _typeof(options.value) == "object" ? options.value.value : options.value ];
-            if (!options.multiple) {
-                vDom = hx(_templateObject3, options.size, options.vid, options.size ? "form-control-" + options.size : "", options.disabled ? "disabled" : "", options.placeholder, theValueArr.join(","), options.name, options.vid);
+            }) : [] : [ _typeof(opts.value) == "object" ? opts.value.value : opts.value ];
+            if (!opts.multiple) {
+                vDom = hx(_templateObject3, opts.size, opts.vid, opts.size ? "form-control-" + opts.size : "", opts.disabled ? "disabled" : "", opts.placeholder, theValueArr.join(","), opts.name, opts.vid);
             } else {
-                vDom = hx(_templateObject4, options.size, options.vid, options.size ? "form-control-" + options.size : "", theValueArr.length ? "select-hasValue" : "", theValueArr.length ? "" : options.placeholder, theValueArr.join(","), options.name, theValueArr.length ? "select-tags-div-border" : "", getTags(options.value), options.vid);
+                vDom = hx(_templateObject4, opts.size, opts.vid, opts.size ? "form-control-" + opts.size : "", theValueArr.length ? "select-hasValue" : "", theValueArr.length ? "" : opts.placeholder, theValueArr.join(","), opts.name, theValueArr.length ? "select-tags-div-border" : "", getTags(opts.value), opts.vid);
             }
             return vDom;
         }
