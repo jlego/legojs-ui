@@ -1,5 +1,5 @@
 /**
- * common.js v0.4.12
+ * common.js v0.5.5
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -113,6 +113,7 @@ var Util = {
     },
     animateCss: function animateCss(el, animationName, callback) {
         el = el instanceof $ ? el : $(el);
+        animationName = /\s/g.test(animationName) ? animationName : "animated " + animationName;
         var animationEnd = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
         el.addClass(animationName).one(animationEnd, function() {
             el.removeClass(animationName);
@@ -319,7 +320,7 @@ var Util = {
                 break;
             }
         } else {
-            console.warn("依赖的moment.js插件还没安装");
+            debug.warn("依赖的moment.js插件还没安装");
         }
         return {
             startDate: startDate,

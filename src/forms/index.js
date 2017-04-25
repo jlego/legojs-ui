@@ -231,7 +231,7 @@ class Forms extends Lego.UI.Baseview {
         return this.options.onSubmit(this, data);
     }
     reset(){
-        this.$el.reset();
+        this.el.reset();
     }
 }
 Lego.components('forms', Forms);

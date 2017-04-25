@@ -236,6 +236,7 @@ class HomeView extends Lego.UI.Baseview {
                 onChange(self, result) {
                     console.warn('点击了树型选项框3', result);
                 },
+                dropdownHeight: 100,
                 data: [{
                     id: 'tree1',
                     name: "test1",

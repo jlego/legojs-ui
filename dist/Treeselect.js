@@ -1,5 +1,5 @@
 /**
- * treeselect.js v0.4.12
+ * treeselect.js v0.5.5
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -281,7 +281,6 @@ var Selects = function(_Lego$UI$Baseview) {
             dropdownStyle: null,
             dropdownClassName: "",
             splitString: "",
-            dataSource: null,
             components: []
         };
         Object.assign(options, opts);
@@ -297,49 +296,50 @@ var Selects = function(_Lego$UI$Baseview) {
     _createClass$1(Selects, [ {
         key: "components",
         value: function components() {
-            var options = this.options;
-            this.addCom({
-                el: "#dropdown-" + options.vid,
-                container: "#select-" + options.vid,
-                scrollbar: options.dropdownHeight ? {} : null,
-                eventName: options.eventName || "click",
-                disabled: options.disabled || false,
-                style: Object.assign({
-                    width: options.dropdownWidth,
-                    maxHeight: options.dropdownHeight || "auto",
-                    overflow: "auto"
-                }, options.dropdownStyle || {}),
-                className: options.dropdownClassName,
-                clickAndClose: options.multiple ? false : true,
-                data: options.data || [],
-                dataSource: options.dataSource,
-                onChange: function onChange(self, model) {
-                    var pView = this.context;
-                    pView.$(".select-input").focus();
-                    if (model.key !== "0" && options.multiple) {
-                        pView.options.data.forEach(function(item) {
-                            if (item.key == "0") item.selected = false;
-                        });
-                        pView.getValue();
-                        if (!pView.options.value.includes(model)) {
-                            model.selected = true;
-                            pView.options.value.push(model);
+            var opts = this.options;
+            if (opts.data.length) {
+                this.addCom({
+                    el: "#dropdown-" + opts.vid,
+                    container: "#select-" + opts.vid,
+                    scrollbar: opts.dropdownHeight ? {} : null,
+                    eventName: opts.eventName || "click",
+                    disabled: opts.disabled || false,
+                    style: Object.assign({
+                        width: opts.dropdownWidth,
+                        maxHeight: opts.dropdownHeight || "auto",
+                        overflow: "auto"
+                    }, opts.dropdownStyle || {}),
+                    className: opts.dropdownClassName,
+                    clickAndClose: opts.multiple ? false : true,
+                    data: opts.data || [],
+                    onChange: function onChange(self, model) {
+                        var that = this.context;
+                        that.$(".select-input").focus();
+                        if (model.key !== "0" && opts.multiple) {
+                            that.options.data.forEach(function(item) {
+                                if (item.key == "0") item.selected = false;
+                            });
+                            that.getValue();
+                            if (!that.options.value.includes(model)) {
+                                model.selected = true;
+                                that.options.value.push(model);
+                            }
+                        } else {
+                            that.options.data.forEach(function(item) {
+                                return item.selected = false;
+                            });
+                            that.options.value = [ model ];
+                            that.refresh();
                         }
-                    } else {
-                        pView.options.data.forEach(function(item) {
-                            return item.selected = false;
-                        });
-                        pView.options.value = [ model ];
-                        pView.refresh();
+                        that.options.onChange(that, model);
                     }
-                    pView.options.onChange(pView, model);
-                }
-            });
+                });
+            }
         }
     }, {
         key: "render",
         value: function render() {
-            var options = this.options || {};
+            var opts = this.options;
             var vDom = "";
             function getTags(data) {
                 if (data.length) {
@@ -350,13 +350,13 @@ var Selects = function(_Lego$UI$Baseview) {
                     return "";
                 }
             }
-            var theValueArr = Array.isArray(options.value) ? options.value.length ? options.value.map(function(item) {
+            var theValueArr = Array.isArray(opts.value) ? opts.value.length ? opts.value.map(function(item) {
                 return item.value;
-            }) : [] : [ _typeof(options.value) == "object" ? options.value.value : options.value ];
-            if (!options.multiple) {
-                vDom = hx(_templateObject3$1, options.size, options.vid, options.size ? "form-control-" + options.size : "", options.disabled ? "disabled" : "", options.placeholder, theValueArr.join(","), options.name, options.vid);
+            }) : [] : [ _typeof(opts.value) == "object" ? opts.value.value : opts.value ];
+            if (!opts.multiple) {
+                vDom = hx(_templateObject3$1, opts.size, opts.vid, opts.size ? "form-control-" + opts.size : "", opts.disabled ? "disabled" : "", opts.placeholder, theValueArr.join(","), opts.name, opts.vid);
             } else {
-                vDom = hx(_templateObject4$1, options.size, options.vid, options.size ? "form-control-" + options.size : "", theValueArr.length ? "select-hasValue" : "", theValueArr.length ? "" : options.placeholder, theValueArr.join(","), options.name, theValueArr.length ? "select-tags-div-border" : "", getTags(options.value), options.vid);
+                vDom = hx(_templateObject4$1, opts.size, opts.vid, opts.size ? "form-control-" + opts.size : "", theValueArr.length ? "select-hasValue" : "", theValueArr.length ? "" : opts.placeholder, theValueArr.join(","), opts.name, theValueArr.length ? "select-tags-div-border" : "", getTags(opts.value), opts.vid);
             }
             return vDom;
         }
@@ -486,28 +486,19 @@ var Tree = function(_Lego$UI$Baseview) {
         var options = {
             disSelect: "",
             onlySelect: "",
-            setting: {
-                data: {
-                    simpleData: {
-                        enable: true
-                    }
-                },
-                callback: {}
-            },
+            setting: {},
             keyNames: [ "id", "name", "type" ],
             value: [],
             data: [],
             onChecked: function onChecked() {},
             onClick: function onClick() {}
         };
-        Object.assign(options, opts);
-        var _this = _possibleConstructorReturn$3(this, (Tree.__proto__ || Object.getPrototypeOf(Tree)).call(this, options));
-        _this.isLoaded = false;
-        return _this;
+        $.extend(true, options, opts);
+        return _possibleConstructorReturn$3(this, (Tree.__proto__ || Object.getPrototypeOf(Tree)).call(this, options));
     }
     _createClass$3(Tree, [ {
-        key: "renderBefore",
-        value: function renderBefore() {
+        key: "components",
+        value: function components() {
             var options = this.options, that = this;
             function selectOrNo(treeNode) {
                 if (options.disSelect) {
@@ -547,7 +538,7 @@ var Tree = function(_Lego$UI$Baseview) {
                     onClick: function onClick(event, treeId, treeNode) {
                         if (!selectOrNo(treeNode)) return false;
                         var treeObj = $.fn.zTree.getZTreeObj(treeId);
-                        treeObj.checkNode(treeNode, null, false);
+                        treeObj.checkNode(treeNode, null, true);
                         selectResult(treeId, treeNode);
                     }
                 });
@@ -563,22 +554,16 @@ var Tree = function(_Lego$UI$Baseview) {
                     }
                 });
             }
+            if (options.data.length) {
+                var _ztree = $.fn.zTree.getZTreeObj(this.options.id);
+                if (_ztree) _ztree.destroy();
+                $.fn.zTree.init(this.$el, options.setting, options.data);
+            }
         }
     }, {
         key: "render",
         value: function render() {
             return hx(_templateObject$3);
-        }
-    }, {
-        key: "renderAfter",
-        value: function renderAfter() {
-            var options = this.options;
-            if (options.data.length && !this.isLoaded) {
-                var _ztree = $.fn.zTree.getZTreeObj(this.options.id);
-                if (_ztree) $.fn.zTree.destroy(this.options.id);
-                $.fn.zTree.init(this.$el, options.setting, options.data);
-                this.isLoaded = true;
-            }
         }
     }, {
         key: "clearChecked",
@@ -616,9 +601,9 @@ var _templateObject = _taggedTemplateLiteral([ "\n                <ul>", '\n    
 
 var _templateObject2 = _taggedTemplateLiteral([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
 
-var _templateObject3 = _taggedTemplateLiteral([ '\n            <div class="select dropdown treeselect">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '" style="width:100%">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '" style="width:100%">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ]);
+var _templateObject3 = _taggedTemplateLiteral([ '\n            <div class="select dropdown treeselect">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '" style="width:100%;">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '" style="width:100%;">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ]);
 
-var _templateObject4 = _taggedTemplateLiteral([ '\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '" style="width:100%">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '" style="width:100%">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ]);
+var _templateObject4 = _taggedTemplateLiteral([ '\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '" style="width:100%;">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '" style="width:100%;">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -683,7 +668,6 @@ var Treeselect = function(_Selects) {
             dropdownStyle: null,
             dropdownClass: "",
             splitString: "",
-            keyNames: [ "id", "name", "type" ],
             clickAndClose: opts.multiple ? false : true,
             onDeselect: function onDeselect() {},
             onChange: function onChange() {},
@@ -701,58 +685,58 @@ var Treeselect = function(_Selects) {
     _createClass(Treeselect, [ {
         key: "components",
         value: function components() {
-            var options = this.options;
-            this.addCom({
-                el: "#tree-" + options.vid,
-                disSelect: options.disSelect,
-                onlySelect: options.onlySelect,
-                setting: Object.assign({}, options.setting),
-                keyNames: options.keyNames || [ "id", "name", "type" ],
-                value: options.value || [],
-                data: options.data || [],
-                dataSource: options.treeDataSource,
-                onChecked: function onChecked(self, result) {
-                    var pView = this.context;
-                    if (result.key !== "0" && options.setting.check) {
-                        pView.getValue();
-                        if (result.length) {
-                            pView.options.value = [];
-                            result.forEach(function(val) {
-                                pView.options.value.push({
-                                    key: val.key,
-                                    value: val.value,
-                                    type: val.type,
-                                    selected: true
+            var opts = this.options, that = this;
+            if (opts.data.length) {
+                this.addCom({
+                    el: "#tree-" + opts.vid,
+                    disSelect: opts.disSelect,
+                    onlySelect: opts.onlySelect,
+                    setting: $.extend(true, {}, opts.treeSetting || {}),
+                    value: opts.value || [],
+                    data: opts.data || [],
+                    onChecked: function onChecked(self, result) {
+                        var that = this.context;
+                        if (result.key !== "0" && opts.setting.check) {
+                            that.getValue();
+                            if (result.length) {
+                                that.options.value = [];
+                                result.forEach(function(val) {
+                                    that.options.value.push({
+                                        key: val.key,
+                                        value: val.value,
+                                        type: val.type,
+                                        selected: true
+                                    });
                                 });
-                            });
-                        } else {
-                            pView.options.value = [];
+                            } else {
+                                that.options.value = [];
+                            }
                         }
-                    }
-                    pView.options.onChange(pView, result);
-                },
-                onClick: function onClick(self, result) {
-                    var pView = this.context;
-                    pView.options.value.forEach(function(item) {
-                        return item.selected = false;
-                    });
-                    pView.options.value = [ {
-                        key: result.key,
-                        value: result.value,
-                        type: result.type,
-                        selected: true
-                    } ];
-                    pView.options.onChange(pView, result);
-                    if (pView.options.clickAndClose) pView.close();
-                },
-                disabled: options.disabled || false,
-                className: options.dropdownClass
-            });
+                        that.options.onChange(that, result);
+                    },
+                    onClick: function onClick(self, result) {
+                        var that = this.context;
+                        that.options.value.forEach(function(item) {
+                            return item.selected = false;
+                        });
+                        that.options.value = [ {
+                            key: result.key,
+                            value: result.value,
+                            type: result.type,
+                            selected: true
+                        } ];
+                        that.options.onChange(that, result);
+                        if (that.options.clickAndClose) that.close();
+                    },
+                    disabled: opts.disabled || false,
+                    className: opts.dropdownClass
+                });
+            }
         }
     }, {
         key: "render",
         value: function render() {
-            var options = this.options;
+            var opts = this.options;
             var vDom = "";
             function getTags(data) {
                 if (data.length) {
@@ -763,26 +747,26 @@ var Treeselect = function(_Selects) {
                     return "";
                 }
             }
-            var theValueArr = Array.isArray(options.value) ? options.value.length ? options.value.map(function(item) {
+            var theValueArr = Array.isArray(opts.value) ? opts.value.length ? opts.value.map(function(item) {
                 return item.value;
-            }) : [] : [ options.value.value ];
-            if (!options.multiple) {
-                vDom = hx(_templateObject3, options.vid, options.disabled ? "disabled" : "", options.placeholder, theValueArr.join(","), options.name, options.direction ? "drop" + options.direction : "", options.vid);
+            }) : [] : [ opts.value.value ];
+            if (!opts.multiple) {
+                vDom = hx(_templateObject3, opts.vid, opts.disabled ? "disabled" : "", opts.placeholder, theValueArr.join(","), opts.name, opts.direction ? "drop" + opts.direction : "", opts.vid);
             } else {
-                vDom = hx(_templateObject4, options.vid, theValueArr.length ? "select-hasValue" : "", theValueArr.length ? "" : options.placeholder, theValueArr.join(","), options.name, theValueArr.length ? "select-tags-div-border" : "", getTags(options.value), options.direction ? "drop" + options.direction : "", options.vid);
+                vDom = hx(_templateObject4, opts.vid, theValueArr.length ? "select-hasValue" : "", theValueArr.length ? "" : opts.placeholder, theValueArr.join(","), opts.name, theValueArr.length ? "select-tags-div-border" : "", getTags(opts.value), opts.direction ? "drop" + opts.direction : "", opts.vid);
             }
             return vDom;
         }
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var options = this.options, trigger = this.$("#select-" + options.vid), tagsDivEl = this.$(".select-tags-div"), treeEl = this.$("#tree-" + options.vid), _eventName = "click.dropdown_" + options.vid, that = this;
-            if (!options.inputAble) this.$(".select-input").attr("readonly", "readonly");
-            if (!options.disabled) {
+            var opts = this.options, trigger = this.$("#select-" + opts.vid), tagsDivEl = this.$(".select-tags-div"), treeEl = this.$("#tree-" + opts.vid), _eventName = "click.dropdown_" + opts.vid, that = this;
+            if (!opts.inputAble) this.$(".select-input").attr("readonly", "readonly");
+            if (!opts.disabled) {
                 var handler = function handler(event) {
                     that.$(".dropdown-menu").slideToggle("fast");
                 };
-                if (options.eventName == "click") {
+                if (opts.eventName == "click") {
                     $("body, .modal-body").off(_eventName).on(_eventName, function(event) {
                         if (event.originalEvent) {
                             var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(trigger[0]);
@@ -801,6 +785,12 @@ var Treeselect = function(_Selects) {
                 this.$(".dropdown-menu").off(_eventName).on(_eventName, function(event) {
                     event.stopPropagation();
                 });
+                if (opts.dropdownHeight) {
+                    this.$(".dropdown-menu > .scrollbar").css({
+                        maxHeight: opts.dropdownHeight,
+                        overflow: "auto"
+                    });
+                }
             }
         }
     }, {

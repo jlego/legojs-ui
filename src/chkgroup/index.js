@@ -23,15 +23,14 @@ class Chkgroup extends Lego.UI.Baseview {
         super(options);
     }
     render() {
-        const options = this.options || {};
-        let vDom = hx`<div></div>`;
-        vDom = hx`<div>
-        ${options.data.map((item) => {
-            if(options.layout == 'vertical'){
+        const opts = this.options;
+        let vDom = vDom = hx`<div>
+        ${opts.data.map((item) => {
+            if(opts.layout == 'vertical'){
                 return hx`
                 <div class="form-check">
                   <label class="form-check-label">
-                    <input class="form-check-input" type="${options.type}" name="${options.name}" value="${item.value}" ${val(item.checked)} ${val(item.disabled)}>
+                    <input class="form-check-input" type="${opts.type}" name="${opts.name}" value="${item.value}" ${val(item.checked)} ${val(item.disabled)}>
                     ${val(item.label)}
                   </label>
                 </div>
@@ -39,7 +38,7 @@ class Chkgroup extends Lego.UI.Baseview {
             }else{
                 return hx`
                 <label class="form-check-inline">
-                  <input class="form-check-input" type="${options.type}" name="${options.name}" value="${item.value}" ${val(item.checked)} ${val(item.disabled)}>
+                  <input class="form-check-input" type="${opts.type}" name="${opts.name}" value="${item.value}" ${val(item.checked)} ${val(item.disabled)}>
                   ${val(item.label)}
                 </label>
                 `;

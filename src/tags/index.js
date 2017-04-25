@@ -12,10 +12,6 @@ import './asset/index.scss';
 class Tags extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
-            // events: {
-            //     'click .lego-tag-close': 'onClose',
-            //     'click .lego-tag': 'onChange'
-            // },
             color: '', //标签色
             closable: true,    //标签是否可以关闭
             readonly: false,    //是否只读
@@ -27,10 +23,8 @@ class Tags extends Lego.UI.Baseview {
             onAdd(){} //添加时回调
         };
         Object.assign(options, opts);
+        if(options.value) options.data = Array.from(options.value);
         super(options);
-
-        this.$el.on('click', '.lego-tag-close', this.onClose.bind(this));
-        this.$el.on('click', '.lego-tag', this.onChange.bind(this));
     }
     components(){
         let opts = this.options,
@@ -50,13 +44,14 @@ class Tags extends Lego.UI.Baseview {
     }
     render() {
         let opts = this.options;
-        if(opts.value && !opts.data.length) opts.data = Array.from(opts.value);
         this.vDom = hx`
         <div class="lego-tags">
             ${opts.data.map(item => hx`
-                <div class="lego-tag ${item.color ? ('lego-tag-' + item.color) : ''}" id="${item.key}" title="${item.value}">
-                    <span class="lego-tag-text">${item.value}</span>
-                    ${opts.closable ? hx`<i class="anticon anticon-cross lego-tag-close"></i>` : ''}
+                <div class="lego-tag ${item.color ? ('lego-tag-' + item.color) : ''}" id="${item.key}" title="${item.value}" onclick=${this.onChange.bind(this)}>
+                    <div class="lego-tag-text">
+                    <span>${item.value}</span>
+                    ${opts.closable ? hx`<i title="移除" class="anticon anticon-close-circle lego-tag-close" onclick=${this.onClose.bind(this)}></i>` : ''}
+                    </div>
                 </div>
             `)}
             ${!opts.readonly ? hx`<buttons id="buttons_${opts.vid}"></buttons>` : ''}
@@ -72,6 +67,11 @@ class Tags extends Lego.UI.Baseview {
             if(typeof opts.onAdd == 'function') opts.onAdd(this, obj);
         }
     }
+    removeItem(id){
+        let opts = this.options;
+        opts.data = opts.data.filter(item => item.key.toString() !== id);
+        this.refresh();
+    }
     getValue(){
         return this.options.data;
     }
@@ -79,17 +79,15 @@ class Tags extends Lego.UI.Baseview {
         event.stopPropagation();
         let target = $(event.currentTarget),
             opts = this.options,
-            id = target.parent().attr('id');
-        opts.data = opts.data.filter(item => item.key !== id);
+            id = target.parent().parent().attr('id');
         if(typeof opts.onClose == 'function') opts.onClose(this, id);
-        this.refresh();
     }
     onChange(event){
         event.stopPropagation();
         let target = $(event.currentTarget),
             opts = this.options,
             id = target.attr('id'),
-            item = opts.data.find(item => item.key == id);
+            item = opts.data.find(item => item.key.toString() == id);
         if(typeof opts.onChange == 'function') opts.onChange(this, item);
     }
 }

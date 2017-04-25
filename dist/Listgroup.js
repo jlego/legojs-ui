@@ -1,5 +1,5 @@
 /**
- * listgroup.js v0.4.12
+ * listgroup.js v0.5.5
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -26,7 +26,7 @@ var _templateObject = _taggedTemplateLiteral([ '\n        <ul class="list-group"
 
 var _templateObject2 = _taggedTemplateLiteral([ '<li class="list-group-item ', " ", " ", '"\n                id="', '">\n                ', "\n                ", "\n                </li>" ], [ '<li class="list-group-item ', " ", " ", '"\n                id="', '">\n                ', "\n                ", "\n                </li>" ]);
 
-var _templateObject3 = _taggedTemplateLiteral([ '<i class="anticon anticon-cross float-xs-right close"></i>' ], [ '<i class="anticon anticon-cross float-xs-right close"></i>' ]);
+var _templateObject3 = _taggedTemplateLiteral([ '<i title="移除" class="anticon anticon-close-circle lego-close"></i>' ], [ '<i title="移除" class="anticon anticon-close-circle lego-close"></i>' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -72,7 +72,7 @@ var Listgroup = function(_Lego$UI$Baseview) {
         var options = {
             events: {
                 "click li.list-group-item": "onClick",
-                "click i.close": "onClose"
+                "click i.lego-close": "onClose"
             },
             activeKey: "",
             template: "",
@@ -102,20 +102,20 @@ var Listgroup = function(_Lego$UI$Baseview) {
         value: function onClick(event) {
             event.stopPropagation();
             var target = $(event.currentTarget), key = target.attr("id");
-            if (typeof this.options.onClick === "function") this.options.onClick(this, key, event);
             this.options.activeKey = this.options.activeKey != key ? key : "";
             this.refresh();
+            if (typeof this.options.onClick === "function") this.options.onClick(this, key, event);
         }
     }, {
         key: "onClose",
         value: function onClose(event) {
             event.stopPropagation();
             var target = $(event.currentTarget), key = target.parent().attr("id");
-            if (typeof this.options.onClose === "function") this.options.onClose(this, key, event);
             this.options.data = this.options.data.filter(function(item) {
-                return item.key !== key;
+                return item.key.toString() !== key.toString();
             });
             this.refresh();
+            if (typeof this.options.onClose === "function") this.options.onClose(this, key, event);
         }
     } ]);
     return Listgroup;

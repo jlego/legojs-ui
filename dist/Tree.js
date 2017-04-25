@@ -1,5 +1,5 @@
 /**
- * tree.js v0.4.12
+ * tree.js v0.5.5
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -70,28 +70,19 @@ var Tree = function(_Lego$UI$Baseview) {
         var options = {
             disSelect: "",
             onlySelect: "",
-            setting: {
-                data: {
-                    simpleData: {
-                        enable: true
-                    }
-                },
-                callback: {}
-            },
+            setting: {},
             keyNames: [ "id", "name", "type" ],
             value: [],
             data: [],
             onChecked: function onChecked() {},
             onClick: function onClick() {}
         };
-        Object.assign(options, opts);
-        var _this = _possibleConstructorReturn(this, (Tree.__proto__ || Object.getPrototypeOf(Tree)).call(this, options));
-        _this.isLoaded = false;
-        return _this;
+        $.extend(true, options, opts);
+        return _possibleConstructorReturn(this, (Tree.__proto__ || Object.getPrototypeOf(Tree)).call(this, options));
     }
     _createClass(Tree, [ {
-        key: "renderBefore",
-        value: function renderBefore() {
+        key: "components",
+        value: function components() {
             var options = this.options, that = this;
             function selectOrNo(treeNode) {
                 if (options.disSelect) {
@@ -131,7 +122,7 @@ var Tree = function(_Lego$UI$Baseview) {
                     onClick: function onClick(event, treeId, treeNode) {
                         if (!selectOrNo(treeNode)) return false;
                         var treeObj = $.fn.zTree.getZTreeObj(treeId);
-                        treeObj.checkNode(treeNode, null, false);
+                        treeObj.checkNode(treeNode, null, true);
                         selectResult(treeId, treeNode);
                     }
                 });
@@ -147,22 +138,16 @@ var Tree = function(_Lego$UI$Baseview) {
                     }
                 });
             }
+            if (options.data.length) {
+                var _ztree = $.fn.zTree.getZTreeObj(this.options.id);
+                if (_ztree) _ztree.destroy();
+                $.fn.zTree.init(this.$el, options.setting, options.data);
+            }
         }
     }, {
         key: "render",
         value: function render() {
             return hx(_templateObject);
-        }
-    }, {
-        key: "renderAfter",
-        value: function renderAfter() {
-            var options = this.options;
-            if (options.data.length && !this.isLoaded) {
-                var _ztree = $.fn.zTree.getZTreeObj(this.options.id);
-                if (_ztree) $.fn.zTree.destroy(this.options.id);
-                $.fn.zTree.init(this.$el, options.setting, options.data);
-                this.isLoaded = true;
-            }
         }
     }, {
         key: "clearChecked",

@@ -21,7 +21,7 @@ class Listgroup extends Lego.UI.Baseview {
         const options = {
             events: {
                 'click li.list-group-item': 'onClick',
-                'click i.close': 'onClose',
+                'click i.lego-close': 'onClose',
             },
             activeKey: '',   //选中的记录
             template: '', //item模板
@@ -43,7 +43,7 @@ class Listgroup extends Lego.UI.Baseview {
             }else{
                 return hx`<li class="list-group-item ${item.disabled ? 'disabled' : ''} ${options.activeKey == item.key ? 'active' : ''} ${val(item.className)}"
                 id="${val(item.key)}">
-                ${options.removeAble ? hx`<i class="anticon anticon-cross float-xs-right close"></i>` : ''}
+                ${options.removeAble ? hx`<i title="移除" class="anticon anticon-close-circle lego-close"></i>` : ''}
                 ${val(item.value)}
                 </li>`;
             }
@@ -56,17 +56,17 @@ class Listgroup extends Lego.UI.Baseview {
         event.stopPropagation();
         const target = $(event.currentTarget),
             key = target.attr('id');
-        if(typeof this.options.onClick === 'function') this.options.onClick(this, key, event);
         this.options.activeKey = this.options.activeKey != key ? key : '';
         this.refresh();
+        if(typeof this.options.onClick === 'function') this.options.onClick(this, key, event);
     }
     onClose(event){
         event.stopPropagation();
         const target = $(event.currentTarget),
             key = target.parent().attr('id');
-        if(typeof this.options.onClose === 'function') this.options.onClose(this, key, event);
-        this.options.data = this.options.data.filter(item => item.key !== key);
+        this.options.data = this.options.data.filter(item => item.key.toString() !== key.toString());
         this.refresh();
+        if(typeof this.options.onClose === 'function') this.options.onClose(this, key, event);
     }
 }
 Lego.components('listgroup', Listgroup);

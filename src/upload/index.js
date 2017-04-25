@@ -16,6 +16,7 @@ class Upload extends Lego.UI.Baseview {
             keyRoot: '',
             type: 'file',   //file, photo
             buttonText: '添加附件',
+            buttonIcon: '',
             name: '', //文件域
             token: '',  //token
             params: {}, //其他参数
@@ -74,7 +75,7 @@ class Upload extends Lego.UI.Baseview {
         <div class="lego-upload lego-upload-${val(options.type)}">
             ${!options.readonly ? hx`
             <button class="btn btn-secondary lego-addbtn" type="button" ${options.disabled ? 'disabled' : ''}>
-                <i class="anticon anticon-upload"></i>
+                ${options.buttonIcon ? options.buttonIcon : hx`<i class="anticon anticon-upload"></i>`}
                 ${val(options.buttonText)}
             </button>
             ` : ''}

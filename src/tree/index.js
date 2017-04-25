@@ -11,28 +11,17 @@ class Tree extends Lego.UI.Baseview {
         const options = {
             disSelect: '', //禁止选择含有该属性节点, 可以是对象
             onlySelect: '', //只选择含有该属性节点, 可以是对象
-            setting: {
-                data: {
-                    simpleData: {
-                        enable: true
-                    }
-                },
-                callback: {
-                    // beforeClick: beforeClick,
-                    // onCheck: onCheck
-                }
-            },
+            setting: {},
             keyNames: ['id', 'name', 'type'],
             value: [],
             data: [],
             onChecked() {},
             onClick() {}
         };
-        Object.assign(options, opts);
+        $.extend(true, options, opts);
         super(options);
-        this.isLoaded = false;
     }
-    renderBefore() {
+    components() {
         const options = this.options,
             that = this;
         function selectOrNo(treeNode) {
@@ -73,7 +62,7 @@ class Tree extends Lego.UI.Baseview {
                 onClick: function(event, treeId, treeNode) {
                     if (!selectOrNo(treeNode)) return false;
                     let treeObj = $.fn.zTree.getZTreeObj(treeId);
-                    treeObj.checkNode(treeNode, null, false);
+                    treeObj.checkNode(treeNode, null, true);
                     selectResult(treeId, treeNode);
                 }
             });
@@ -89,18 +78,14 @@ class Tree extends Lego.UI.Baseview {
                 }
             });
         }
+        if(options.data.length){
+            let ztree = $.fn.zTree.getZTreeObj(this.options.id);
+            if(ztree) ztree.destroy();
+            $.fn.zTree.init(this.$el, options.setting, options.data);
+        }
     }
     render() {
         return hx `<ul class="lego-tree"></ul>`;
-    }
-    renderAfter() {
-        let options = this.options;
-        if(options.data.length && !this.isLoaded){
-            let ztree = $.fn.zTree.getZTreeObj(this.options.id);
-            if(ztree) $.fn.zTree.destroy(this.options.id);
-            $.fn.zTree.init(this.$el, options.setting, options.data);
-            this.isLoaded = true;
-        }
     }
     // 取消选择
     clearChecked(key, value) {

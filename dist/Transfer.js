@@ -1,5 +1,5 @@
 /**
- * transfer.js v0.4.12
+ * transfer.js v0.5.5
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -28,7 +28,7 @@ var _templateObject$1 = _taggedTemplateLiteral$1([ '\n        <ul class="list-gr
 
 var _templateObject2$1 = _taggedTemplateLiteral$1([ '<li class="list-group-item ', " ", " ", '"\n                id="', '">\n                ', "\n                ", "\n                </li>" ], [ '<li class="list-group-item ', " ", " ", '"\n                id="', '">\n                ', "\n                ", "\n                </li>" ]);
 
-var _templateObject3$1 = _taggedTemplateLiteral$1([ '<i class="anticon anticon-cross float-xs-right close"></i>' ], [ '<i class="anticon anticon-cross float-xs-right close"></i>' ]);
+var _templateObject3$1 = _taggedTemplateLiteral$1([ '<i title="移除" class="anticon anticon-close-circle lego-close"></i>' ], [ '<i title="移除" class="anticon anticon-close-circle lego-close"></i>' ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -74,7 +74,7 @@ var Listgroup = function(_Lego$UI$Baseview) {
         var options = {
             events: {
                 "click li.list-group-item": "onClick",
-                "click i.close": "onClose"
+                "click i.lego-close": "onClose"
             },
             activeKey: "",
             template: "",
@@ -104,20 +104,20 @@ var Listgroup = function(_Lego$UI$Baseview) {
         value: function onClick(event) {
             event.stopPropagation();
             var target = $(event.currentTarget), key = target.attr("id");
-            if (typeof this.options.onClick === "function") this.options.onClick(this, key, event);
             this.options.activeKey = this.options.activeKey != key ? key : "";
             this.refresh();
+            if (typeof this.options.onClick === "function") this.options.onClick(this, key, event);
         }
     }, {
         key: "onClose",
         value: function onClose(event) {
             event.stopPropagation();
             var target = $(event.currentTarget), key = target.parent().attr("id");
-            if (typeof this.options.onClose === "function") this.options.onClose(this, key, event);
             this.options.data = this.options.data.filter(function(item) {
-                return item.key !== key;
+                return item.key.toString() !== key.toString();
             });
             this.refresh();
+            if (typeof this.options.onClose === "function") this.options.onClose(this, key, event);
         }
     } ]);
     return Listgroup;
@@ -188,28 +188,19 @@ var Tree = function(_Lego$UI$Baseview) {
         var options = {
             disSelect: "",
             onlySelect: "",
-            setting: {
-                data: {
-                    simpleData: {
-                        enable: true
-                    }
-                },
-                callback: {}
-            },
+            setting: {},
             keyNames: [ "id", "name", "type" ],
             value: [],
             data: [],
             onChecked: function onChecked() {},
             onClick: function onClick() {}
         };
-        Object.assign(options, opts);
-        var _this = _possibleConstructorReturn$2(this, (Tree.__proto__ || Object.getPrototypeOf(Tree)).call(this, options));
-        _this.isLoaded = false;
-        return _this;
+        $.extend(true, options, opts);
+        return _possibleConstructorReturn$2(this, (Tree.__proto__ || Object.getPrototypeOf(Tree)).call(this, options));
     }
     _createClass$2(Tree, [ {
-        key: "renderBefore",
-        value: function renderBefore() {
+        key: "components",
+        value: function components() {
             var options = this.options, that = this;
             function selectOrNo(treeNode) {
                 if (options.disSelect) {
@@ -249,7 +240,7 @@ var Tree = function(_Lego$UI$Baseview) {
                     onClick: function onClick(event, treeId, treeNode) {
                         if (!selectOrNo(treeNode)) return false;
                         var treeObj = $.fn.zTree.getZTreeObj(treeId);
-                        treeObj.checkNode(treeNode, null, false);
+                        treeObj.checkNode(treeNode, null, true);
                         selectResult(treeId, treeNode);
                     }
                 });
@@ -265,22 +256,16 @@ var Tree = function(_Lego$UI$Baseview) {
                     }
                 });
             }
+            if (options.data.length) {
+                var _ztree = $.fn.zTree.getZTreeObj(this.options.id);
+                if (_ztree) _ztree.destroy();
+                $.fn.zTree.init(this.$el, options.setting, options.data);
+            }
         }
     }, {
         key: "render",
         value: function render() {
             return hx(_templateObject$2);
-        }
-    }, {
-        key: "renderAfter",
-        value: function renderAfter() {
-            var options = this.options;
-            if (options.data.length && !this.isLoaded) {
-                var _ztree = $.fn.zTree.getZTreeObj(this.options.id);
-                if (_ztree) $.fn.zTree.destroy(this.options.id);
-                $.fn.zTree.init(this.$el, options.setting, options.data);
-                this.isLoaded = true;
-            }
         }
     }, {
         key: "clearChecked",
@@ -633,11 +618,11 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="row transfer">\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5>\n                        ', "\n                        <span>", "</span>\n                    </h5>\n                    ", '\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <tree id="', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5><span>', '</span></h5>\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <listgroup id="', '"></listgroup>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <i class="anticon anticon-double-right"></i>\n            <i class="anticon anticon-double-left"></i>\n        </div>\n        ' ], [ '\n        <div class="row transfer">\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5>\n                        ', "\n                        <span>", "</span>\n                    </h5>\n                    ", '\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <tree id="', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5><span>', '</span></h5>\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <listgroup id="', '"></listgroup>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <i class="anticon anticon-double-right"></i>\n            <i class="anticon anticon-double-left"></i>\n        </div>\n        ' ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="row transfer">\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5>\n                        ', "\n                        <span>", "</span>\n                    </h5>\n                    ", '\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <tree id="transfer_tree_', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5><span>', '</span></h5>\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <listgroup id="transfer_list_', '"></listgroup>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <i class="anticon anticon-double-right"></i>\n            <i class="anticon anticon-double-left"></i>\n        </div>\n        ' ], [ '\n        <div class="row transfer">\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5>\n                        ', "\n                        <span>", "</span>\n                    </h5>\n                    ", '\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <tree id="transfer_tree_', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5><span>', '</span></h5>\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <listgroup id="transfer_list_', '"></listgroup>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <i class="anticon anticon-double-right"></i>\n            <i class="anticon anticon-double-left"></i>\n        </div>\n        ' ]);
 
 var _templateObject2 = _taggedTemplateLiteral([ '<button class="btn btn-link float-right">搜索</button>' ], [ '<button class="btn btn-link float-right">搜索</button>' ]);
 
-var _templateObject3 = _taggedTemplateLiteral([ '<search id="', '"></search>' ], [ '<search id="', '"></search>' ]);
+var _templateObject3 = _taggedTemplateLiteral([ '<search id="transfer_search_', '"></search>' ], [ '<search id="transfer_search_', '"></search>' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -690,106 +675,150 @@ var Transfer = function(_Lego$UI$Baseview) {
             width: 450,
             height: 400,
             treeSetting: {},
-            keyNames: [ "id", "name", "type" ],
             scrollbar: {},
+            simpleData: true,
+            filterParentNode: false,
             showSearch: false,
             searchPlaceholder: "请输入搜索内容",
             notFoundContent: "列表为空",
             onChange: function onChange() {},
-            components: []
+            onSearch: function onSearch() {}
         };
         Object.assign(options, opts);
-        function loopItem(data) {
-            data.map(function(item) {
-                if (item.checked) {
-                    options.value.push({
-                        key: item[options.keyNames[0]],
-                        value: item[options.keyNames[1]],
-                        type: item[options.keyNames[2]]
-                    });
-                    if (item.children) {
-                        loopItem(item.children);
-                    }
-                }
-            });
-        }
-        loopItem(options.data);
-        options.components.push({
-            el: "#transfer_" + options.vid + "_tree",
-            setting: $.extend(true, {
-                check: {
-                    enable: true,
-                    chkboxType: {
-                        Y: "ps",
-                        N: "ps"
-                    }
-                }
-            }, options.treeSetting || {}),
-            onChecked: function onChecked(self, result) {
-                var parentView = this.context;
-                var listView = Lego.getView("#transfer_" + options.vid + "_list");
-                if (listView) {
-                    listView.options.data = result;
-                    listView.refresh();
-                }
-                if (typeof options.onChange === "function") options.onChange(parentView, result);
-            },
-            dataSource: options.dataSource,
-            data: options.data
-        }, {
-            el: "#transfer_" + options.vid + "_list",
-            removeAble: true,
-            onClose: function onClose(self, result) {
-                var parentView = this.context;
-                var treeView = $.fn.zTree.getZTreeObj("transfer_" + options.vid + "_tree");
-                if (treeView) {
-                    var treeNode = treeView.getNodeByParam("id", result, null);
-                    treeView.checkNode(treeNode, !treeNode.checked, null, true);
-                }
-            },
-            data: options.value
-        });
-        if (options.showSearch) {
-            options.components.push({
-                el: "#transfer_" + options.vid + "_search",
-                style: {
-                    display: "none"
-                },
-                onSearch: function onSearch(self, result) {
-                    console.warn("点击了搜索框2", result);
-                }
-            });
-        }
         return _possibleConstructorReturn(this, (Transfer.__proto__ || Object.getPrototypeOf(Transfer)).call(this, options));
     }
     _createClass(Transfer, [ {
+        key: "_mergeValue",
+        value: function _mergeValue() {
+            var opts = this.options;
+            if (opts.value.length) {
+                opts.data.forEach(function(item, index) {
+                    var hasOne = opts.value.find(function(val) {
+                        return val.key == (item.key || item.id);
+                    });
+                    if (hasOne) item.checked = true;
+                });
+            }
+        }
+    }, {
+        key: "dataReady",
+        value: function dataReady() {
+            this._mergeValue();
+        }
+    }, {
+        key: "components",
+        value: function components() {
+            var opts = this.options, that = this, listValue = [];
+            function loopItem(data) {
+                that._mergeValue();
+                data.map(function(item) {
+                    if (item.checked) {
+                        item.key = item.id || item.key;
+                        item.value = item.name || item.name;
+                        listValue.push($.extend(true, {}, item));
+                        if (item.children) {
+                            loopItem(item.children);
+                        }
+                    }
+                });
+                if (opts.filterParentNode) {
+                    listValue = listValue.filter(function(item) {
+                        return !item.isParent;
+                    });
+                }
+            }
+            if (opts.data.length) {
+                loopItem(opts.data);
+                this.addCom([ {
+                    el: "#transfer_tree_" + opts.vid,
+                    setting: $.extend(true, {
+                        check: {
+                            enable: true,
+                            chkboxType: {
+                                Y: "ps",
+                                N: "ps"
+                            }
+                        }
+                    }, opts.treeSetting || {}),
+                    onChecked: function onChecked(self, result) {
+                        var listView = Lego.getView("#transfer_list_" + opts.vid);
+                        if (listView) {
+                            if (opts.filterParentNode) {
+                                result = result.filter(function(item) {
+                                    return !item.isParent;
+                                });
+                            }
+                            listView.options.data = Array.from(result);
+                            listView.refresh();
+                        }
+                        if (typeof opts.onChange === "function") opts.onChange(this.context, result);
+                    },
+                    data: opts.data
+                }, {
+                    el: "#transfer_list_" + opts.vid,
+                    removeAble: true,
+                    onClose: function onClose(self, result) {
+                        var treeView = $.fn.zTree.getZTreeObj("transfer_tree_" + opts.vid);
+                        if (treeView) {
+                            var treeNode = treeView.getNodeByParam("id", result, null);
+                            treeView.checkNode(treeNode, !treeNode.checked, true);
+                            if (typeof opts.onChange === "function") opts.onChange(this.context, this.data);
+                        }
+                    },
+                    data: listValue
+                } ]);
+                if (opts.showSearch) {
+                    this.addCom({
+                        el: "#transfer_search_" + opts.vid,
+                        style: {
+                            display: "none"
+                        },
+                        size: "sm",
+                        onSearch: function onSearch(self, result) {
+                            if (typeof opts.search == "function") opts.search(that, result);
+                        }
+                    });
+                }
+            }
+        }
+    }, {
         key: "render",
         value: function render() {
-            var options = this.options || {}, theId = "transfer_" + options.vid;
-            var vDom = hx(_templateObject, options.showSearch ? hx(_templateObject2) : "", val(options.titles[0]), options.showSearch ? hx(_templateObject3, theId + "_search") : "", theId + "_tree", val(options.titles[1]), theId + "_list");
+            var opts = this.options;
+            var vDom = hx(_templateObject, opts.showSearch ? hx(_templateObject2) : "", val(opts.titles[0]), opts.showSearch ? hx(_templateObject3, opts.vid) : "", opts.vid, val(opts.titles[1]), opts.vid);
             return vDom;
         }
     }, {
         key: "showSearch",
         value: function showSearch(event) {
             var target = $(event.currentTarget);
-            this.$el.find(".lego-search").toggle(0, function() {
-                target.text(target.text() == "取消" ? "搜索" : "取消");
+            this.$(".lego-search").toggle(0, function() {
+                if (target.text() == "取消") {
+                    target.text("搜索");
+                    $(this).next().css({
+                        paddingBottom: 40
+                    });
+                } else {
+                    target.text("取消");
+                    $(this).next().css({
+                        paddingBottom: 74
+                    });
+                }
             });
         }
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var options = this.options || {};
+            var opts = this.options;
             this.$el.css({
-                width: options.width,
-                height: options.height
+                width: opts.width,
+                height: opts.height
             });
         }
     }, {
         key: "getValue",
         value: function getValue() {
-            var listView = Lego.getView("#transfer_" + this.options.vid + "_list");
+            var listView = Lego.getView("#transfer_list_" + this.options.vid);
             if (listView) {
                 return listView.options.data;
             }

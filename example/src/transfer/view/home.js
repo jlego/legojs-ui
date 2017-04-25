@@ -10,11 +10,13 @@ class HomeView extends Lego.UI.Baseview {
                 onChange(self, result) {
                     console.warn('穿梭框的值', result);
                 },
+                filterParentNode: true,
                 data: [{
                     id: 't1',
                     name: "test1",
                     checked: true,
                     open: true,
+                    isParent: true,
                     children: [{
                         id: 't1_1',
                         name: "test1_1",

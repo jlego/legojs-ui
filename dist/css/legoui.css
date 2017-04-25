@@ -12473,7 +12473,7 @@ tr.lego-table-expanded-row:hover {
 
 .lego-tree li span.button {
   font-family: 'FontAwesome';
-  color: #bbb;
+  color: #999;
   line-height: 25px;
   font-size: 17px;
   margin: 0 3px 0 0;
@@ -12616,8 +12616,9 @@ tr.lego-table-expanded-row:hover {
 .lego-tree li span.button.add,
 .lego-tree li span.button.edit,
 .lego-tree li span.button.remove {
-  font-family: 'anticon';
-  font-size: 12px; }
+  font-family: 'FontAwesome';
+  font-size: 16px;
+  margin-left: 4px; }
 
 .lego-tree li span.button.ico_docu {
   margin-left: 2px;
@@ -12641,18 +12642,22 @@ tr.lego-table-expanded-row:hover {
   content: ""; }
 
 .lego-tree li span.button.add:before {
-  content: "\E625"; }
+  content: "\f055"; }
 
 .lego-tree li span.button.edit:before {
-  content: "\E692"; }
+  content: "\f14b"; }
 
 .lego-tree li span.button.remove:before {
-  content: "\E623"; }
+  content: "\f00d"; }
 
-.lego-tree li a span.button.add:hover,
-.lego-tree li a span.button.edit:hover,
-.lego-tree li a span.button.remove:hover {
+.lego-tree li a span.button.add:hover {
   color: #62d35d; }
+
+.lego-tree li a span.button.edit:hover {
+  color: #01a8fe; }
+
+.lego-tree li a span.button.remove:hover {
+  color: #f85774; }
 
 .lego-tree li span.button.ico_loading {
   margin-right: 2px;
@@ -12709,78 +12714,66 @@ form button[type="submit"] {
 .transfer {
   position: relative;
   overflow: hidden; }
-
-.transfer > div,
-.transfer > div > .transfer-col,
-.transfer .transfer-col .transfer-col-content > div {
-  height: 100%; }
-
-.transfer i.anticon-double-right,
-.transfer i.anticon-double-left {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 40px;
-  margin-left: -20px;
-  color: #999; }
-
-.transfer i.anticon-double-right {
-  margin-top: -10px; }
-
-.transfer i.anticon-double-left {
-  margin-top: 10px; }
-
-.transfer .transfer-col {
-  height: 100%;
-  border: 1px #ddd solid;
-  border-radius: 0.25rem;
-  position: relative; }
-
-.transfer .transfer-col h5 {
-  font-size: 16px;
-  line-height: 30px;
-  margin: 0;
-  padding: 5px 10px;
-  border-bottom: 1px solid #ececec;
-  height: 40px; }
-
-.transfer .transfer-col h5 button {
-  padding: 4px 0; }
-
-.transfer .transfer-col .input-group.lego-search {
-  padding: 3px;
-  border-bottom: 1px #ececec solid;
-  position: absolute;
-  background-color: #fff;
-  left: 0;
-  right: 0;
-  z-index: 1000; }
-
-.transfer .transfer-col .transfer-col-content {
-  height: 100%;
-  padding-bottom: 40px; }
-
-.transfer .transfer-col .transfer-col-content > div {
-  width: 100%; }
-
-.transfer .list-group .list-group-item {
-  padding: 0.5rem 0.2rem 0.5rem 1rem;
-  border: none; }
-
-.transfer .list-group .list-group-item:hover,
-.transfer .list-group .list-group-item:active,
-.transfer .list-group .list-group-item.active {
-  background-color: #f4f9fc;
-  color: #666; }
-
-.transfer .list-group .list-group-item i.close {
-  zoom: 0.8;
-  display: none; }
-
-.transfer .list-group .list-group-item:hover i.close,
-.transfer .list-group .list-group-item:active i.close,
-.transfer .list-group .list-group-item.active i.close {
-  display: inline-block; }
+  .transfer > div {
+    height: 100%; }
+  .transfer .lego-tree {
+    padding: 5px 5px 5px 0; }
+  .transfer i.anticon-double-right,
+  .transfer i.anticon-double-left {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    margin-left: -20px;
+    color: #999; }
+  .transfer i.anticon-double-right {
+    margin-top: -10px; }
+  .transfer i.anticon-double-left {
+    margin-top: 10px; }
+  .transfer .transfer-col {
+    height: 100%;
+    border: 1px #ddd solid;
+    border-radius: 0.25rem;
+    position: relative; }
+    .transfer .transfer-col h5 {
+      font-size: 16px;
+      line-height: 30px;
+      margin: 0;
+      padding: 5px 10px;
+      border-bottom: 1px solid #ececec;
+      height: 40px; }
+      .transfer .transfer-col h5 button {
+        padding: 4px 0; }
+    .transfer .transfer-col .transfer-col-content {
+      height: 100%;
+      padding-bottom: 40px; }
+      .transfer .transfer-col .transfer-col-content > div {
+        width: 100%;
+        height: 100%; }
+    .transfer .transfer-col .lego-search {
+      padding: 3px;
+      border-bottom: 1px #ececec solid;
+      background-color: #fff;
+      left: 0;
+      right: 0;
+      z-index: 1000; }
+    .transfer .transfer-col .list-group-item {
+      padding: .4rem .5rem .4rem .5rem;
+      border: none; }
+      .transfer .transfer-col .list-group-item i.lego-close {
+        display: none;
+        color: #999;
+        float: right;
+        zoom: .5;
+        line-height: 35px;
+        cursor: pointer; }
+      .transfer .transfer-col .list-group-item:hover, .transfer .transfer-col .list-group-item:active, .transfer .transfer-col .list-group-item.active {
+        background-color: #f4f9fc;
+        color: #666; }
+        .transfer .transfer-col .list-group-item:hover i.lego-close, .transfer .transfer-col .list-group-item:active i.lego-close, .transfer .transfer-col .list-group-item.active i.lego-close {
+          display: inline-block; }
+          .transfer .transfer-col .list-group-item:hover i.lego-close:hover, .transfer .transfer-col .list-group-item:active i.lego-close:hover, .transfer .transfer-col .list-group-item.active i.lego-close:hover {
+            color: #f85774; }
 .lego-upload .lego-upload-container {
   margin-top: 8px; }
 
@@ -13352,11 +13345,11 @@ form button[type="submit"] {
 
 .lego-rating .rating-symbol-foreground span {
   color: #f5a623; }
-.lego-tag {
+.lego-tags .lego-tag {
   display: inline-block;
   line-height: 20px;
   height: 22px;
-  padding: 0 8px;
+  padding: 0 10px;
   border-radius: 4px;
   border: 1px solid #e9e9e9;
   background: #f7f7f7;
@@ -13365,9 +13358,40 @@ form button[type="submit"] {
   transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
   opacity: 1;
   margin-right: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   cursor: pointer;
   white-space: nowrap; }
 
-.lego-tag-hascolor {
+.lego-tags button {
+  margin-bottom: 4px; }
+
+.lego-tags .lego-tag-hascolor {
   color: #fff; }
+
+.lego-tags .lego-tag-text {
+  -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1); }
+  .lego-tags .lego-tag-text .lego-tag-close {
+    overflow: hidden;
+    zoom: 1;
+    width: 0;
+    line-height: 20px;
+    vertical-align: bottom;
+    color: #999;
+    -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -webkit-transform: scale(0.75) rotate(0deg);
+    -ms-transform: scale(0.75) rotate(0deg);
+    transform: scale(0.75) rotate(0deg);
+    -webkit-transform-origin: 100% 50%;
+    -ms-transform-origin: 100% 50%;
+    transform-origin: 100% 50%; }
+    .lego-tags .lego-tag-text .lego-tag-close:hover {
+      color: #f85774; }
+  .lego-tags .lego-tag-text:hover {
+    margin-left: -8px;
+    margin-right: -8px; }
+    .lego-tags .lego-tag-text:hover .lego-tag-close {
+      width: 16px;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0); }

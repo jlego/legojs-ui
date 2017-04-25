@@ -46,7 +46,6 @@ class HomeView extends Lego.UI.Baseview {
             type: 'tabs',
             activeKey: 'tab_1',
             navClassName: 'nav-fill',
-            animate: 'fade',
             data: [{
                 key: 'tab_1',
                 value: '参数说明',
