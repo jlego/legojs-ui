@@ -1,5 +1,5 @@
 /**
- * tables.js v0.4.41
+ * tables.js v0.5.5
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -631,7 +631,7 @@ var Tables = function(_Lego$UI$Baseview) {
             var tagName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "td";
             var isHarf = arguments[2];
             var options = this.options, theType = options.rowSelection.type || "checkbox", isCheckbox = theType == "checkbox", that = this;
-            var isChecked = row.selected || tagName === "th" && this.getSelectedStatus() === 1;
+            var isChecked = row._selected || tagName === "th" && this.getSelectedStatus() === 1;
             function getHx() {
                 return hx(_templateObject9, theType, tagName !== "th" || isCheckbox ? hx(_templateObject10, theType, row.disabled ? "lego-" + theType + "-disabled" : "", isChecked ? "lego-" + theType + "-checked lego-" + theType + "-checked-1" : isHarf ? "lego-" + theType + "-indeterminate" : "", theType, theType, row.disabled ? "disabled" : "", theType, isChecked ? "on" : "") : "");
             }
@@ -756,16 +756,16 @@ var Tables = function(_Lego$UI$Baseview) {
             if (options.rowSelection) {
                 if (options.rowSelection.type == "radio") {
                     options.data.forEach(function(item) {
-                        item.selected = item.key == id ? true : false;
+                        item._selected = item.key == id ? true : false;
                     });
                 } else {
                     var row = options.data.find(function(value, index, arr) {
                         return value.key == id;
                     });
-                    if (row) row.selected = !row.selected;
+                    if (row) row._selected = !row._selected;
                 }
                 var hasSelectedArr = this.options.data.filter(function(value) {
-                    return value.selected === true;
+                    return value._selected === true;
                 });
                 if (typeof options.onSelect == "function") options.onSelect(this, this.getSelectedStatus() ? Array.from(hasSelectedArr) : []);
                 this.refresh();
@@ -776,7 +776,7 @@ var Tables = function(_Lego$UI$Baseview) {
         value: function getSelectedStatus() {
             if (Array.isArray(this.options.data)) {
                 var hasSelectedArr = this.options.data.filter(function(value) {
-                    return value.selected === true;
+                    return value._selected === true;
                 });
                 this.selectedAll = hasSelectedArr.length ? hasSelectedArr.length == this.options.data.length ? 1 : hasSelectedArr.length ? 2 : 0 : 0;
                 return this.selectedAll;
@@ -796,7 +796,7 @@ var Tables = function(_Lego$UI$Baseview) {
                     var isSelected = isChecked ? 1 : 0;
                     _this6.selectedAll = isSelected;
                     _this6.options.data.map(function(row, index) {
-                        row.selected = !!isSelected;
+                        row._selected = !!isSelected;
                     });
                     if (typeof _this6.options.onSelect == "function") _this6.options.onSelect(_this6, isSelected ? Array.from(_this6.options.data) : []);
                     _this6.refresh();
@@ -808,7 +808,7 @@ var Tables = function(_Lego$UI$Baseview) {
         value: function getSelected() {
             if (Array.isArray(this.options.data)) {
                 return this.options.data.filter(function(row) {
-                    return row.selected == true;
+                    return row._selected == true;
                 });
             }
             return [];

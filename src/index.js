@@ -6,6 +6,7 @@ import Badge from "./badge/index";
 import Buttons from "./buttons/index";
 import Btngroup from "./btngroup/index";
 import Btntoolbar from "./btntoolbar/index";
+import Chkgroup from "./chkgroup/index";
 import Tables from "./tables/index";
 import Pagination from "./pagination/index";
 import Dropdown from "./dropdown/index";
@@ -46,6 +47,7 @@ Lego.components({
 	buttons: Buttons,
 	btngroup: Btngroup,
 	btntoolbar: Btntoolbar,
+	chkgroup: Chkgroup,
 	tables: Tables,
 	pagination: Pagination,
 	dropdown: Dropdown,

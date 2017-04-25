@@ -42,6 +42,7 @@ build([{
 {alias: 'badge'},
 {alias: 'buttons'},
 {alias: 'btngroup'},
+{alias: 'chkgroup'},
 {alias: 'tables'},
 {alias: 'pagination'},
 {alias: 'dropdown'},

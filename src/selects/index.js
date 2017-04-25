@@ -30,7 +30,6 @@ class Selects extends Lego.UI.Baseview {
             dropdownStyle: null,  //下拉菜单的 style 属性
             dropdownClassName: '',  //下拉菜单的 className 属性上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。
             splitString: '',    //自动分词分隔符
-            dataSource: null,
             components: []
         };
         Object.assign(options, opts);
@@ -43,45 +42,46 @@ class Selects extends Lego.UI.Baseview {
         this.$('.select-tags-div').on('click', '.select-tag-close', this.clickItemClose.bind(this));
     }
     components(){
-        let options = this.options;
-        this.addCom({
-            el: '#dropdown-' + options.vid,
-            container: '#select-' + options.vid,
-            scrollbar: options.dropdownHeight ? {} : null,
-            eventName: options.eventName || 'click',
-            disabled: options.disabled || false,
-            style: Object.assign({
-                width: options.dropdownWidth,
-                maxHeight: options.dropdownHeight || 'auto',
-                overflow: 'auto'
-            }, options.dropdownStyle || {}),
-            className: options.dropdownClassName,
-            clickAndClose: options.multiple ? false : true,
-            data: options.data || [],
-            dataSource: options.dataSource,
-            onChange(self, model){
-                const pView = this.context;
-                pView.$('.select-input').focus();
-                if(model.key !== '0' && options.multiple){
-                    pView.options.data.forEach(item => {
-                        if(item.key == '0') item.selected = false;
-                    });
-                    pView.getValue();
-                    if(!pView.options.value.includes(model)){
-                        model.selected = true;
-                        pView.options.value.push(model);
+        let opts = this.options;
+        if(opts.data.length){
+            this.addCom({
+                el: '#dropdown-' + opts.vid,
+                container: '#select-' + opts.vid,
+                scrollbar: opts.dropdownHeight ? {} : null,
+                eventName: opts.eventName || 'click',
+                disabled: opts.disabled || false,
+                style: Object.assign({
+                    width: opts.dropdownWidth,
+                    maxHeight: opts.dropdownHeight || 'auto',
+                    overflow: 'auto'
+                }, opts.dropdownStyle || {}),
+                className: opts.dropdownClassName,
+                clickAndClose: opts.multiple ? false : true,
+                data: opts.data || [],
+                onChange(self, model){
+                    const that = this.context;
+                    that.$('.select-input').focus();
+                    if(model.key !== '0' && opts.multiple){
+                        that.options.data.forEach(item => {
+                            if(item.key == '0') item.selected = false;
+                        });
+                        that.getValue();
+                        if(!that.options.value.includes(model)){
+                            model.selected = true;
+                            that.options.value.push(model);
+                        }
+                    }else{
+                        that.options.data.forEach(item => item.selected = false);
+                        that.options.value = [model];
+                        that.refresh();
                     }
-                }else{
-                    pView.options.data.forEach(item => item.selected = false);
-                    pView.options.value = [model];
-                    pView.refresh();
+                    that.options.onChange(that, model);
                 }
-                pView.options.onChange(pView, model);
-            }
-        });
+            });
+        }
     }
     render() {
-        const options = this.options || {};
+        const opts = this.options;
         let vDom = '';
         function getTags(data){
             if(data.length){
@@ -98,26 +98,26 @@ class Selects extends Lego.UI.Baseview {
                 return '';
             }
         }
-        const theValueArr = Array.isArray(options.value) ? (options.value.length ? options.value.map(item => item.value) : []) :
-            [typeof options.value == 'object' ? options.value.value : options.value];
-        if(!options.multiple){
+        const theValueArr = Array.isArray(opts.value) ? (opts.value.length ? opts.value.map(item => item.value) : []) :
+            [typeof opts.value == 'object' ? opts.value.value : opts.value];
+        if(!opts.multiple){
             vDom = hx`
-            <div class="select dropdown ${options.size}">
-                <div id="select-${options.vid}">
-                    <input type="text" class="form-control ${options.size ? ('form-control-' + options.size) : ''} select-input ${options.disabled ? 'disabled' : ''}" placeholder="${options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
-                    <dropdown id="dropdown-${options.vid}"></dropdown>
+            <div class="select dropdown ${opts.size}">
+                <div id="select-${opts.vid}">
+                    <input type="text" class="form-control ${opts.size ? ('form-control-' + opts.size) : ''} select-input ${opts.disabled ? 'disabled' : ''}" placeholder="${opts.placeholder}" value="${theValueArr.join(',')}" name="${opts.name}">
+                    <dropdown id="dropdown-${opts.vid}"></dropdown>
                 </div>
             </div>
             `;
         }else{
             vDom = hx`
-            <div class="select dropdown multiple ${options.size}">
-                <div id="select-${options.vid}">
-                    <input type="text" class="form-control ${options.size ? ('form-control-' + options.size) : ''} select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${theValueArr.length ? '' : options.placeholder}" value="${theValueArr.join(',')}" name="${options.name}">
+            <div class="select dropdown multiple ${opts.size}">
+                <div id="select-${opts.vid}">
+                    <input type="text" class="form-control ${opts.size ? ('form-control-' + opts.size) : ''} select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${theValueArr.length ? '' : opts.placeholder}" value="${theValueArr.join(',')}" name="${opts.name}">
                     <div class="select-tags-div clearfix ${theValueArr.length ? 'select-tags-div-border' : ''}">
-                        ${getTags(options.value)}
+                        ${getTags(opts.value)}
                     </div>
-                    <dropdown id="dropdown-${options.vid}"></dropdown>
+                    <dropdown id="dropdown-${opts.vid}"></dropdown>
                 </div>
             </div>
             `;

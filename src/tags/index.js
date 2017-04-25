@@ -67,6 +67,11 @@ class Tags extends Lego.UI.Baseview {
             if(typeof opts.onAdd == 'function') opts.onAdd(this, obj);
         }
     }
+    removeItem(id){
+        let opts = this.options;
+        opts.data = opts.data.filter(item => item.key.toString() !== id);
+        this.refresh();
+    }
     getValue(){
         return this.options.data;
     }
@@ -75,16 +80,14 @@ class Tags extends Lego.UI.Baseview {
         let target = $(event.currentTarget),
             opts = this.options,
             id = target.parent().parent().attr('id');
-        opts.data = opts.data.filter(item => item.key !== id);
         if(typeof opts.onClose == 'function') opts.onClose(this, id);
-        this.refresh();
     }
     onChange(event){
         event.stopPropagation();
         let target = $(event.currentTarget),
             opts = this.options,
             id = target.attr('id'),
-            item = opts.data.find(item => item.key == id);
+            item = opts.data.find(item => item.key.toString() == id);
         if(typeof opts.onChange == 'function') opts.onChange(this, item);
     }
 }
