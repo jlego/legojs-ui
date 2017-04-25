@@ -1,5 +1,5 @@
 /**
- * chkgroup.js v0.5.4
+ * chkgroup.js v0.5.5
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -83,7 +83,7 @@ var Chkgroup = function(_Lego$UI$Baseview) {
         value: function render() {
             var opts = this.options;
             var vDom = vDom = hx(_templateObject, opts.data.map(function(item) {
-                if (options.layout == "vertical") {
+                if (opts.layout == "vertical") {
                     return hx(_templateObject2, opts.type, opts.name, item.value, val(item.checked), val(item.disabled), val(item.label));
                 } else {
                     return hx(_templateObject3, opts.type, opts.name, item.value, val(item.checked), val(item.disabled), val(item.label));

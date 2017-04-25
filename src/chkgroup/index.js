@@ -26,7 +26,7 @@ class Chkgroup extends Lego.UI.Baseview {
         const opts = this.options;
         let vDom = vDom = hx`<div>
         ${opts.data.map((item) => {
-            if(options.layout == 'vertical'){
+            if(opts.layout == 'vertical'){
                 return hx`
                 <div class="form-check">
                   <label class="form-check-label">
