@@ -33,7 +33,7 @@ class Modal extends Lego.UI.Baseview {
             backdrop: true,
             keyboard: true,
             content: '',  //内容
-            footer: '',
+            footer: '',  //string 或function
             confirm: null,
             scrollbar: {},
             scrollAble: true,
@@ -84,7 +84,7 @@ class Modal extends Lego.UI.Baseview {
                 ${options.content}
               </div>
               ${options.showFooter ? hx`<div class="modal-footer">
-              ${options.footer ? options.footer : hx`<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">${options.cancelText}</button>
+              ${options.footer ? val(options.footer) : hx`<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">${options.cancelText}</button>
                 <button type="button" class="btn btn-primary ok">${options.okText}</button></div>`}
               </div>` : ''}
             </div>

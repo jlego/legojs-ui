@@ -1,5 +1,5 @@
 /**
- * modal.js v0.5.3
+ * modal.js v0.5.4
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -800,7 +800,7 @@ var Modal = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject, options.type == "layer" ? "right-modal" : "", options.msgType ? "dialog-modal" : "", options.size ? "modal-size-" + options.size : "", options.isMiddle ? "middle" : "", options.el.replace(/#/, ""), options.showHeader ? hx(_templateObject2, options.closable ? hx(_templateObject3) : "", options.title) : "", !options.msgType && options.scrollAble ? "scrollbar" : "", !options.showHeader && options.type == "layer" ? "top:0;" : "", !options.showFooter && options.type == "layer" ? "bottom:0;" : "", options.content, options.showFooter ? hx(_templateObject4, options.footer ? options.footer : hx(_templateObject5, options.cancelText, options.okText)) : "");
+            var vDom = hx(_templateObject, options.type == "layer" ? "right-modal" : "", options.msgType ? "dialog-modal" : "", options.size ? "modal-size-" + options.size : "", options.isMiddle ? "middle" : "", options.el.replace(/#/, ""), options.showHeader ? hx(_templateObject2, options.closable ? hx(_templateObject3) : "", options.title) : "", !options.msgType && options.scrollAble ? "scrollbar" : "", !options.showHeader && options.type == "layer" ? "top:0;" : "", !options.showFooter && options.type == "layer" ? "bottom:0;" : "", options.content, options.showFooter ? hx(_templateObject4, options.footer ? val(options.footer) : hx(_templateObject5, options.cancelText, options.okText)) : "");
             return vDom;
         }
     }, {
