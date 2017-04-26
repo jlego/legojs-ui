@@ -1,5 +1,5 @@
 /**
- * editcom.js v0.5.5
+ * editcom.js v0.5.6
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -92,29 +92,29 @@ var Editcom = function(_Lego$UI$Baseview) {
         return _possibleConstructorReturn(this, (Editcom.__proto__ || Object.getPrototypeOf(Editcom)).call(this, options));
     }
     _createClass(Editcom, [ {
-        key: "renderBefore",
-        value: function renderBefore() {
-            var options = this.options;
-            if (options.components.length) {
-                options.components.forEach(function(item) {
-                    item.key = item.key + options.vid;
+        key: "components",
+        value: function components() {
+            var opts = this.options;
+            if (opts.components.length) {
+                opts.components.forEach(function(item) {
+                    item.key = (item.key || "editcom_") + opts.vid;
                     item.el = "#" + item.key;
-                    item.size = options.size;
-                    if (options.width) {
+                    item.size = opts.size;
+                    if (opts.width) {
                         item.style = item.style || {};
-                        item.style.width = options.width;
+                        item.style.width = opts.width;
                     }
-                    item.value = options.value || options.text;
+                    item.value = opts.value || opts.text;
                 });
             }
         }
     }, {
         key: "render",
         value: function render() {
-            var options = this.options;
-            var vDom = hx(_templateObject, options.size, options.clicked ? options.template ? val(options.template) : options.components.map(function(item) {
+            var opts = this.options;
+            var vDom = hx(_templateObject, opts.size, opts.clicked ? opts.template ? val(opts.template) : opts.components.map(function(item) {
                 return hx("<" + item.comName + " id=" + item.key + "></" + item.comName + ">");
-            }) : val(options.html || options.text), !options.readonly && !options.clicked ? hx(_templateObject2, val(options.icon)) : "", !options.readonly && options.clicked ? hx(_templateObject3) : "");
+            }) : val(opts.html || opts.text), !opts.readonly && !opts.clicked ? hx(_templateObject2, val(opts.icon)) : "", !opts.readonly && opts.clicked ? hx(_templateObject3) : "");
             return vDom;
         }
     }, {

@@ -145,8 +145,6 @@
 .lego-tree li span.button.chk.checkbox_false_full_focus:before,
 .lego-tree li span.button.chk.checkbox_false_part:before,
 .lego-tree li span.button.chk.checkbox_false_part_focus:before
-/*.lego-tree li span.button.chk.checkbox_false_disable:before*/
-
 {
     content: "\f096";
     font-size: 18px;
@@ -164,19 +162,23 @@
 .lego-tree li span.button.chk.checkbox_true_full_focus:before,
 .lego-tree li span.button.chk.checkbox_true_part:before,
 .lego-tree li span.button.chk.checkbox_true_part_focus:before
-/*.lego-tree li span.button.chk.checkbox_true_disable:before */
-
 {
     content: "\f14a";
     color: #3399fe;
+}
+.lego-tree li span.button.chk.checkbox_true_disable,
+.lego-tree li span.button.chk.checkbox_true_disable:before,
+.lego-tree li span.button.chk.checkbox_false_disable,
+.lego-tree li span.button.chk.checkbox_false_disable:before
+{
+    content: "\f14a";
+    color: #ccc;
 }
 
 .lego-tree li span.button.chk.radio_false_full:before,
 .lego-tree li span.button.chk.radio_false_full_focus:before,
 .lego-tree li span.button.chk.radio_false_part:before,
 .lego-tree li span.button.chk.radio_false_part_focus:before
-/*.lego-tree li span.button.chk.radio_false_disable:before*/
-
 {
     content: "\f1db";
     // content: "";
@@ -192,24 +194,23 @@
 .lego-tree li span.button.chk.radio_true_full_focus:before,
 .lego-tree li span.button.chk.radio_true_part:before,
 .lego-tree li span.button.chk.radio_true_part_focus:before
-/*.lego-tree li span.button.chk.radio_true_disable:before */
-
 {
     content: "\f192";
     color: #3399fe;
 }
-
-.lego-tree li span.button.chk.checkbox_false_disable,
-.lego-tree li span.button.chk.checkbox_true_disable,
-.lego-tree li span.button.chk.checkbox_false_disable:before,
-.lego-tree li span.button.chk.checkbox_true_disable:before,
-.lego-tree li span.button.chk.radio_false_disable,
 .lego-tree li span.button.chk.radio_true_disable,
-.lego-tree li span.button.chk.radio_false_disable:before,
-.lego-tree li span.button.chk.radio_true_disable:before {
-    width: 0;
-    content: "";
+.lego-tree li span.button.chk.radio_true_disable:before,
+.lego-tree li span.button.chk.radio_false_disable,
+.lego-tree li span.button.chk.radio_false_disable:before{
+    content: "\f192";
+    color: #ccc;
 }
+
+// .lego-tree li span.button.chk.radio_false_disable,
+// .lego-tree li span.button.chk.radio_false_disable:before {
+//     width: 0;
+//     content: "";
+// }
 
 .lego-tree li span.button.switch {
     // width: 16px;
@@ -304,11 +305,11 @@
     width: 0;
 }
 
-.lego-tree li span.button.hby_ico_docu,
 .lego-tree li span.button.ico_open,
 .lego-tree li span.button.ico_close,
 .lego-tree li span.button.hby_ico_open,
 .lego-tree li span.button.hby_ico_close,
+.lego-tree li span.button.hby_ico_docu,
 .lego-tree li span.button.add,
 .lego-tree li span.button.edit,
 .lego-tree li span.button.remove {

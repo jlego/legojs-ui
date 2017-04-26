@@ -1,5 +1,5 @@
 /**
- * alert.js v0.5.5
+ * alert.js v0.5.6
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

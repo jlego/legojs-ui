@@ -54,7 +54,7 @@ class HomeView extends Lego.UI.Baseview {
                     open: true,
                     checked: true,
                     children: [
-                        { name: "test2_1" }, { name: "test2_2" }
+                        { name: "test2_1", chkDisabled: true }, { name: "test2_2", chkDisabled: true }
                     ]
                 }]
             }, {

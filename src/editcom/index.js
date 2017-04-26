@@ -33,34 +33,34 @@ class Editcom extends Lego.UI.Baseview {
         Object.assign(options, opts);
         super(options);
     }
-    renderBefore(){
-        let options = this.options;
-        if(options.components.length){
-            options.components.forEach(item => {
-                item.key = item.key + options.vid;
+    components(){
+        let opts = this.options;
+        if(opts.components.length){
+            opts.components.forEach(item => {
+                item.key = (item.key || 'editcom_') + opts.vid;
                 item.el = '#' + item.key;
-                item.size = options.size;
-                if(options.width){
+                item.size = opts.size;
+                if(opts.width){
                     item.style = item.style || {};
-                    item.style.width = options.width;
+                    item.style.width = opts.width;
                 }
-                item.value = options.value || options.text;
+                item.value = opts.value || opts.text;
             });
         }
     }
     render() {
-        let options = this.options;
+        let opts = this.options;
         let vDom = hx`
-        <div class="lego-editcom clearfix ${options.size}">
-            <span>${options.clicked ?
-                (options.template ? val(options.template) : options.components.map(item => {
+        <div class="lego-editcom clearfix ${opts.size}">
+            <span>${opts.clicked ?
+                (opts.template ? val(opts.template) : opts.components.map(item => {
                         return hx(`<${item.comName} id=${item.key}></${item.comName}>`);
                     }
-                )) : val(options.html || options.text)}
+                )) : val(opts.html || opts.text)}
             </span>
-            ${!options.readonly && !options.clicked ?
-                hx`<i class="anticon anticon-${val(options.icon)} edit" title="编辑"></i>` : ''}
-            ${!options.readonly && options.clicked ?
+            ${!opts.readonly && !opts.clicked ?
+                hx`<i class="anticon anticon-${val(opts.icon)} edit" title="编辑"></i>` : ''}
+            ${!opts.readonly && opts.clicked ?
                 hx`<i class="anticon anticon-close-circle cancel" title="取消编辑"></i>` : ''}
         </div>
         `;
