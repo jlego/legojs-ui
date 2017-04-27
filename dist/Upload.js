@@ -500,6 +500,7 @@ var Upload = function(_Lego$UI$Baseview) {
     function Upload() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Upload);
+        var uploadUri = window.location.protocol === "https:" ? "https://up.qbox.me" : "http://upload.qiniu.com";
         var options = {
             events: {
                 "click .lego-addbtn": "onClickAdd"
@@ -511,7 +512,7 @@ var Upload = function(_Lego$UI$Baseview) {
             name: "",
             token: "",
             params: {},
-            uploadUri: window.location.protocol === "https:" ? "https://up.qbox.me" : "http://upload.qiniu.com",
+            uploadUri: Lego.config.uploadUri || uploadUri,
             saveUri: "",
             accept: "",
             previewOption: null,

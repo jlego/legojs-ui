@@ -9,6 +9,7 @@ import UploadItem from './item';
 
 class Upload extends Lego.UI.Baseview {
     constructor(opts = {}) {
+        let uploadUri = window.location.protocol === 'https:' ? 'https://up.qbox.me' : 'http://upload.qiniu.com';
         const options = {
             events: {
                 'click .lego-addbtn': 'onClickAdd'
@@ -20,7 +21,7 @@ class Upload extends Lego.UI.Baseview {
             name: '', //文件域
             token: '',  //token
             params: {}, //其他参数
-            uploadUri: window.location.protocol === 'https:' ? 'https://up.qbox.me' : 'http://upload.qiniu.com',  //文件存储云服务
+            uploadUri: Lego.config.uploadUri || uploadUri,  //文件存储云服务
             saveUri: '',    //保存到后台地址
             accept: '',     //接受上传的文件类型
             previewOption: null, //缩略图参数
