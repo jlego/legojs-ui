@@ -1,5 +1,5 @@
 /**
- * progressbar.js v0.5.8
+ * nodata.js v0.5.8
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -22,9 +22,9 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="progress">\n            ', '\n            <progress class="progress progress-', '" value="', '" max="100"></progress>\n        </div>\n        ' ], [ '\n        <div class="progress">\n            ', '\n            <progress class="progress progress-', '" value="', '" max="100"></progress>\n        </div>\n        ' ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-nodata">\n            <div class="lego-icon ', " ", '"></div>\n            ', "\n        </div>\n        " ], [ '\n        <div class="lego-nodata">\n            <div class="lego-icon ', " ", '"></div>\n            ', "\n        </div>\n        " ]);
 
-var _templateObject2 = _taggedTemplateLiteral([ '<div class="text-xs-center">', "</div>" ], [ '<div class="text-xs-center">', "</div>" ]);
+var _templateObject2 = _taggedTemplateLiteral([ '<div class="lego-tip-text" style="', '">', "</div>" ], [ '<div class="lego-tip-text" style="', '">', "</div>" ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -62,44 +62,30 @@ function _inherits(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Progressbar = function(_Lego$UI$Baseview) {
-    _inherits(Progressbar, _Lego$UI$Baseview);
-    function Progressbar() {
+var Nodata = function(_Lego$View) {
+    _inherits(Nodata, _Lego$View);
+    function Nodata() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck(this, Progressbar);
+        _classCallCheck(this, Nodata);
         var options = {
-            status: "",
-            showInfo: true,
-            percent: 0,
-            strokeWidth: 6,
-            onComplete: function onComplete() {}
+            size: "",
+            tip: "暂无数据",
+            icon: ""
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn(this, (Progressbar.__proto__ || Object.getPrototypeOf(Progressbar)).call(this, options));
+        return _possibleConstructorReturn(this, (Nodata.__proto__ || Object.getPrototypeOf(Nodata)).call(this, options));
     }
-    _createClass(Progressbar, [ {
+    _createClass(Nodata, [ {
         key: "render",
         value: function render() {
-            var options = this.options || {};
-            if (options.percent == 100) {
-                if (typeof options.onComplete == "function") options.onComplete(this);
-            }
-            var vDom = hx(_templateObject, options.showInfo ? hx(_templateObject2, this.format(options.percent)) : "", options.status ? options.status : "primary", options.percent);
-            return vDom;
-        }
-    }, {
-        key: "format",
-        value: function format(percent) {
-            if (typeof this.options.format == "function") {
-                return this.options.format(percent);
-            } else {
-                return percent + "%";
-            }
+            var opts = this.options;
+            this.vDom = hx(_templateObject, val(opts.icon), opts.size ? "lego-icon-" + opts.size : "", opts.tip ? hx(_templateObject2, opts.icon ? "margin-top:40px;" : "", opts.tip) : "");
+            return this.vDom;
         }
     } ]);
-    return Progressbar;
-}(Lego.UI.Baseview);
+    return Nodata;
+}(Lego.View);
 
-Lego.components("progressbar", Progressbar);
+Lego.components("nodata", Nodata);
 
-module.exports = Progressbar;
+module.exports = Nodata;

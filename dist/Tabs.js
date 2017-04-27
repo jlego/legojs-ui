@@ -1,5 +1,5 @@
 /**
- * tabs.js v0.5.6
+ * tabs.js v0.5.8
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -542,7 +542,7 @@ var Tabs = function(_Lego$UI$Baseview) {
         key: "renderAfter",
         value: function renderAfter() {
             var opts = this.options;
-            if (opts.animateIn) Lego.UI.Util.animateCss(this.$(".tab-pane.active"), "animated " + opts.animateIn);
+            if (opts.animateIn) Lego.UI.Util.animateCss(this.$(".tab-pane.active"), opts.animateIn);
         }
     } ]);
     return Tabs;

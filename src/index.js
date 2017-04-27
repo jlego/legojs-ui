@@ -22,6 +22,7 @@ import Tooltip from "./tooltip/index";
 import Popover from "./popover/index";
 import Notification from "./notification/index";
 import Message from "./message/index";
+import Nodata from "./nodata/index";
 import Tree from "./tree/index";
 import Treeselect from "./treeselect/index";
 import Forms from "./forms/index";

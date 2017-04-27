@@ -1,5 +1,5 @@
 /**
- * pagination.js v0.5.6
+ * pagination.js v0.5.8
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -322,7 +322,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             var totalCount = options.data.totalCount || (typeof options.totalCount === "function" ? options.totalCount() : options.totalCount);
             options.totalPages = options.data.totalPages || Math.ceil(totalCount / options.pageSize);
             pageRang = pageRang >= options.totalPages ? options.totalPages : pageRang;
-            var baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0, startPage = baseTimes * pageRang + 1, endPage = startPage + pageRang - 1, showEllipsis = Math.ceil(current / pageRang) !== Math.ceil(options.totalPages / pageRang) ? true : false, pagesArr = [];
+            var baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0, startPage = baseTimes * pageRang + 1, endPage = startPage + pageRang - 1, showEllipsis = Math.ceil(current / pageRang) !== Math.ceil(options.totalPages / pageRang) && totalCount ? true : false, pagesArr = [];
             endPage = endPage >= options.totalPages ? options.totalPages : endPage;
             for (var i = startPage; i <= endPage; i++) {
                 pagesArr.push(i);

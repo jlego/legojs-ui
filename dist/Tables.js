@@ -1,5 +1,5 @@
 /**
- * tables.js v0.5.6
+ * tables.js v0.5.8
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -322,7 +322,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             var totalCount = options.data.totalCount || (typeof options.totalCount === "function" ? options.totalCount() : options.totalCount);
             options.totalPages = options.data.totalPages || Math.ceil(totalCount / options.pageSize);
             pageRang = pageRang >= options.totalPages ? options.totalPages : pageRang;
-            var baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0, startPage = baseTimes * pageRang + 1, endPage = startPage + pageRang - 1, showEllipsis = Math.ceil(current / pageRang) !== Math.ceil(options.totalPages / pageRang) ? true : false, pagesArr = [];
+            var baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0, startPage = baseTimes * pageRang + 1, endPage = startPage + pageRang - 1, showEllipsis = Math.ceil(current / pageRang) !== Math.ceil(options.totalPages / pageRang) && totalCount ? true : false, pagesArr = [];
             endPage = endPage >= options.totalPages ? options.totalPages : endPage;
             for (var i = startPage; i <= endPage; i++) {
                 pagesArr.push(i);
@@ -392,6 +392,89 @@ var Pagination = function(_Lego$UI$Baseview) {
 
 Lego.components("pagination", Pagination);
 
+var _createClass$3 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+var _templateObject$3 = _taggedTemplateLiteral$3([ '\n        <div class="lego-nodata">\n            <div class="lego-icon ', " ", '"></div>\n            ', "\n        </div>\n        " ], [ '\n        <div class="lego-nodata">\n            <div class="lego-icon ', " ", '"></div>\n            ', "\n        </div>\n        " ]);
+
+var _templateObject2$3 = _taggedTemplateLiteral$3([ '<div class="lego-tip-text" style="', '">', "</div>" ], [ '<div class="lego-tip-text" style="', '">', "</div>" ]);
+
+function _taggedTemplateLiteral$3(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+}
+
+function _classCallCheck$3(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$3(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$3(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var Nodata = function(_Lego$View) {
+    _inherits$3(Nodata, _Lego$View);
+    function Nodata() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$3(this, Nodata);
+        var options = {
+            size: "",
+            tip: "暂无数据",
+            icon: ""
+        };
+        Object.assign(options, opts);
+        return _possibleConstructorReturn$3(this, (Nodata.__proto__ || Object.getPrototypeOf(Nodata)).call(this, options));
+    }
+    _createClass$3(Nodata, [ {
+        key: "render",
+        value: function render() {
+            var opts = this.options;
+            this.vDom = hx(_templateObject$3, val(opts.icon), opts.size ? "lego-icon-" + opts.size : "", opts.tip ? hx(_templateObject2$3, opts.icon ? "margin-top:40px;" : "", opts.tip) : "");
+            return this.vDom;
+        }
+    } ]);
+    return Nodata;
+}(Lego.View);
+
+Lego.components("nodata", Nodata);
+
 var _createClass = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
@@ -409,7 +492,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-table clearfix lego-table-', " ", "\n        ", " ", ' lego-table-scroll-position-left">\n            <loading id="lego-loading-', '"></loading>\n            ', '\n            <div class="lego-table-content" style="', '">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body" style="bottom: ', '">\n                    <div class="', '">\n                        <table class="', '" style="', '">\n                            ', "\n                            ", "\n                            ", "\n                            ", "\n                        </table>\n                    </div>\n                </div>\n                ", "\n                ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="lego-table clearfix lego-table-', " ", "\n        ", " ", ' lego-table-scroll-position-left">\n            <loading id="lego-loading-', '"></loading>\n            ', '\n            <div class="lego-table-content" style="', '">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body" style="bottom: ', '">\n                    <div class="', '">\n                        <table class="', '" style="', '">\n                            ', "\n                            ", "\n                            ", "\n                            ", "\n                        </table>\n                    </div>\n                </div>\n                ", "\n                ", "\n                </div>\n            </div>\n        </div>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-table clearfix lego-table-', " ", "\n        ", " ", ' lego-table-scroll-position-left">\n            <loading id="lego-loading-', '"></loading>\n            ', '\n            <div class="lego-table-content" style="', '">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body" style="bottom: ', '">\n                    <nodata id="nodata-', '"></nodata>\n                    <div class="', '">\n                        <table class="', '" style="', '">\n                            ', "\n                            ", "\n                            ", "\n                            ", "\n                        </table>\n                    </div>\n                </div>\n                ", "\n                ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="lego-table clearfix lego-table-', " ", "\n        ", " ", ' lego-table-scroll-position-left">\n            <loading id="lego-loading-', '"></loading>\n            ', '\n            <div class="lego-table-content" style="', '">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body" style="bottom: ', '">\n                    <nodata id="nodata-', '"></nodata>\n                    <div class="', '">\n                        <table class="', '" style="', '">\n                            ', "\n                            ", "\n                            ", "\n                            ", "\n                        </table>\n                    </div>\n                </div>\n                ", "\n                ", "\n                </div>\n            </div>\n        </div>\n        " ]);
 
 var _templateObject2 = _taggedTemplateLiteral([ '<div class="lego-table-title">', "</div>" ], [ '<div class="lego-table-title">', "</div>" ]);
 
@@ -525,6 +608,7 @@ var Tables = function(_Lego$UI$Baseview) {
             showSetting: false,
             fixedHeader: true,
             data: [],
+            nodata: {},
             onExpandRow: function onExpandRow() {},
             onChange: function onChange() {},
             onSelect: function onSelect() {},
@@ -576,9 +660,15 @@ var Tables = function(_Lego$UI$Baseview) {
     }, {
         key: "components",
         value: function components() {
+            var opts = this.options;
             this.addCom(Object.assign({
-                el: "#pagination-" + this.options.vid
-            }, this.options.pagination));
+                el: "#pagination-" + opts.vid
+            }, opts.pagination));
+            if (!opts.data.length) {
+                this.addCom(Object.assign({
+                    el: "#nodata-" + opts.vid
+                }), Lego.config.nodata || {}, opts.nodata);
+            }
         }
     }, {
         key: "resizeWidth",
@@ -590,8 +680,8 @@ var Tables = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             this.getColumns();
-            var options = this.options;
-            var vDom = hx(_templateObject, options.size, options.bordered ? "lego-table-bordered" : "", options.showHeader && options.fixedHeader ? "lego-table-fixed-header" : "", options.isNowrap ? "lego-nr" : "", options.vid, options.title ? hx(_templateObject2, typeof options.title == "function" ? options.title() : options.title) : "", !options.title ? "padding-bottom:0" : "", options.showHeader && options.fixedHeader ? hx(_templateObject3, options.tableWidth ? "width:" + options.tableWidth + "px" : "width:1px", this._renderColgroup(), this._renderHeader()) : "", options.pagination ? "48px" : "0", options.showHeader && options.fixedHeader ? "scrollbar" : "", options.className, options.tableWidth ? "width:" + options.tableWidth + "px" : "width:1px", this._renderColgroup(), !(options.showHeader && options.fixedHeader) && options.showHeader ? this._renderHeader() : "", options.showBodyer ? this._renderBodyer() : "", options.showFooter ? this._renderFooter() : "", options.pagination && options.data ? hx(_templateObject4, options.vid) : "", options.showSetting ? hx(_templateObject5) : "");
+            var opts = this.options;
+            var vDom = hx(_templateObject, opts.size, opts.bordered ? "lego-table-bordered" : "", opts.showHeader && opts.fixedHeader ? "lego-table-fixed-header" : "", opts.isNowrap ? "lego-nr" : "", opts.vid, opts.title ? hx(_templateObject2, typeof opts.title == "function" ? opts.title() : opts.title) : "", !opts.title ? "padding-bottom:0" : "", opts.showHeader && opts.fixedHeader ? hx(_templateObject3, opts.tableWidth ? "width:" + opts.tableWidth + "px" : "width:1px", this._renderColgroup(), this._renderHeader()) : "", opts.pagination ? "48px" : "0", opts.vid, opts.showHeader && opts.fixedHeader ? "scrollbar" : "", opts.className, opts.tableWidth ? "width:" + opts.tableWidth + "px" : "width:1px", this._renderColgroup(), !(opts.showHeader && opts.fixedHeader) && opts.showHeader ? this._renderHeader() : "", opts.showBodyer ? this._renderBodyer() : "", opts.showFooter ? this._renderFooter() : "", opts.pagination && opts.data ? hx(_templateObject4, opts.vid) : "", opts.showSetting ? hx(_templateObject5) : "");
             return vDom;
         }
     }, {
@@ -630,7 +720,7 @@ var Tables = function(_Lego$UI$Baseview) {
             var row = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
             var tagName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "td";
             var isHarf = arguments[2];
-            var options = this.options, theType = options.rowSelection.type || "checkbox", isCheckbox = theType == "checkbox", that = this;
+            var opts = this.options, theType = opts.rowSelection.type || "checkbox", isCheckbox = theType == "checkbox", that = this;
             var isChecked = row._selected || tagName === "th" && this.getSelectedStatus() === 1;
             function getHx() {
                 return hx(_templateObject9, theType, tagName !== "th" || isCheckbox ? hx(_templateObject10, theType, row.disabled ? "lego-" + theType + "-disabled" : "", isChecked ? "lego-" + theType + "-checked lego-" + theType + "-checked-1" : isHarf ? "lego-" + theType + "-indeterminate" : "", theType, theType, row.disabled ? "disabled" : "", theType, isChecked ? "on" : "") : "");
@@ -642,8 +732,8 @@ var Tables = function(_Lego$UI$Baseview) {
         key: "_renderHeader",
         value: function _renderHeader() {
             var _this4 = this;
-            var options = this.options;
-            var vDom = hx(_templateObject14, options.rowSelection ? this._renderSelection({}, "th", this.getSelectedStatus() === 2 ? true : false) : "", this.columns.map(function(col) {
+            var opts = this.options;
+            var vDom = hx(_templateObject14, opts.rowSelection ? this._renderSelection({}, "th", this.getSelectedStatus() === 2 ? true : false) : "", this.columns.map(function(col) {
                 return !col.isHide ? hx(_templateObject15, col.sorter ? "lego-table-column-sort" : "", col.key, col.title, col.sorter ? _this4._renderSorter(col) : "", _this4._renderFilter(col)) : "";
             }));
             return vDom;
@@ -652,11 +742,11 @@ var Tables = function(_Lego$UI$Baseview) {
         key: "_renderBodyer",
         value: function _renderBodyer() {
             var _this5 = this;
-            var options = this.options;
-            if (!options.data) return;
-            var vDom = hx(_templateObject16, options.data.map(function(row, i) {
+            var opts = this.options;
+            if (!opts.data) return;
+            var vDom = hx(_templateObject16, opts.data.map(function(row, i) {
                 row.key = row.id || _this5._getRowKey("row_");
-                return hx(_templateObject17, options.rowClassName, row.key, options.rowSelection ? _this5._renderSelection(row, "td") : "", _this5.columns.map(function(col) {
+                return hx(_templateObject17, opts.rowClassName, row.key, opts.rowSelection ? _this5._renderSelection(row, "td") : "", _this5.columns.map(function(col) {
                     return !col.isHide ? hx(_templateObject18, typeof col.format === "function" ? col.format(row[col.dataIndex], row, col) : row[col.dataIndex]) : "";
                 }));
             }));
@@ -665,15 +755,15 @@ var Tables = function(_Lego$UI$Baseview) {
     }, {
         key: "_renderFooter",
         value: function _renderFooter() {
-            var options = this.options;
-            var vDom = hx(_templateObject19, options.footer ? options.footer() : "");
+            var opts = this.options;
+            var vDom = hx(_templateObject19, opts.footer ? options.footer() : "");
             return vDom;
         }
     }, {
         key: "_renderSorter",
         value: function _renderSorter() {
             var col = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-            var options = this.options;
+            var opts = this.options;
             var vDom = hx(_templateObject20, col.sortOrder == "asc" ? "on" : "off", col.sortOrder == "desc" ? "on" : "off");
             return vDom;
         }

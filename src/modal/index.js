@@ -95,25 +95,25 @@ class Modal extends Lego.UI.Baseview {
     }
     renderAfter(){
         const that = this,
-            options = this.options;
+            opts = this.options;
         this.$el.modal({
-            backdrop: options.type !== 'layer' ? options.backdrop : false,
-            keyboard: options.keyboard,
+            backdrop: opts.type !== 'layer' ? opts.backdrop : false,
+            keyboard: opts.keyboard,
             show: true
         });
-        if(options.width) this.$('.modal-dialog').width(options.width);
-        if(options.height) this.$('.modal-body').height(options.height);
+        if(opts.width) this.$('.modal-dialog').width(opts.width);
+        if(opts.height) this.$('.modal-body').height(opts.height);
         this.$el.on('hidden.bs.modal', function (e) {
             that.$el.remove();
-            if(typeof options.onClose === 'function') options.onClose(that);
+            if(typeof opts.onClose === 'function') opts.onClose(that);
         });
-        if (options.animateIn) Lego.UI.Util.animateCss(this.$el, 'animated ' + options.animateIn);
+        if (opts.animateIn) Lego.UI.Util.animateCss(this.$el, opts.animateIn);
     }
     // 关闭窗口
     close() {
         const that = this;
         if (this.options.animateOut) {
-            Lego.UI.Util.animateCss(that.$el, 'animated ' + that.options.animateOut, () => {
+            Lego.UI.Util.animateCss(that.$el, that.options.animateOut, () => {
                 that.$el.modal('hide');
             });
             if(this.options.backdrop) $('.modal-backdrop').fadeOut();

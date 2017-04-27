@@ -58,6 +58,7 @@ build([{
 {alias: 'popover'},
 {alias: 'notification'},
 {alias: 'message'},
+{alias: 'nodata'},
 {alias: 'tree'},
 {alias: 'treeselect'},
 {alias: 'forms'},

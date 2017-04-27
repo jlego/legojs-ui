@@ -19,17 +19,10 @@
     white-space: nowrap;
     outline: 0
 }
-// .lego-tree li li:hover {
-//     background-color: #f4f9fc;
-// }
 
 .lego-tree li ul {
     margin: 0;
     padding: 0 0 0 18px
-}
-
-.lego-tree li ul.line {
-    // background: url(./img/line_conn.gif) 0 0 repeat-y;
 }
 
 .lego-tree li a {
@@ -49,19 +42,11 @@
 .lego-tree li a:hover span.ico_open,
 .lego-tree li a:hover span.ico_close,
 .lego-tree li a:hover span.root_close,
-.lego-tree li a:hover span.hby_ico_docu,
-.lego-tree li a:hover span.hby_ico_open,
-.lego-tree li a:hover span.hby_ico_close,
-.lego-tree li a:hover span.hby_root_close,
 .lego-tree li a.curSelectedNode,
 .lego-tree li a.curSelectedNode span.ico_close,
 .lego-tree li a.curSelectedNode span.root_close,
 .lego-tree li a.curSelectedNode span.ico_open,
-.lego-tree li a.curSelectedNode span.ico_docu,
-.lego-tree li a.curSelectedNode span.hby_ico_close,
-.lego-tree li a.curSelectedNode span.hby_root_close,
-.lego-tree li a.curSelectedNode span.hby_ico_open,
-.lego-tree li a.curSelectedNode span.hby_ico_docu {
+.lego-tree li a.curSelectedNode span.ico_docu {
     color: #3399fe !important;
 }
 
@@ -108,12 +93,8 @@
     background-color: transparent;
     background-repeat: no-repeat;
     background-attachment: scroll;
-    /*    background-image: url("./img/zTreeStandard.png");
-    *background-image: url("./img/zTreeStandard.gif")*/
 }
 
-// .lego-tree li span.button:not(.switch):before {
-// }
 .lego-tree li span.folder_ico_open,
 .lego-tree li span.folder_ico_close {
     width: 20px;
@@ -134,13 +115,13 @@
     content: "\f07b";
 }
 .lego-tree li span.button.chk {
-    // font-family: 'anticon';
-    // width: 13px;
     height: 25px;
     margin: 2px 2px 0 3px;
     cursor: auto
 }
 
+.lego-tree li span.button.chk.checkbox_false_disable,
+.lego-tree li span.button.chk.checkbox_false_disable:before,
 .lego-tree li span.button.chk.checkbox_false_full:before,
 .lego-tree li span.button.chk.checkbox_false_full_focus:before,
 .lego-tree li span.button.chk.checkbox_false_part:before,
@@ -148,16 +129,9 @@
 {
     content: "\f096";
     font-size: 18px;
-    // content: "";
-    // display: inline-block;
-    // width: 16px;
-    // height: 16px;
-    // margin-top: 4px;
-    // margin-right: 1px;
-    // border: 1px solid #ccc;
-    // border-radius: 2px;
 }
-
+.lego-tree li span.button.chk.checkbox_true_disable,
+.lego-tree li span.button.chk.checkbox_true_disable:before,
 .lego-tree li span.button.chk.checkbox_true_full:before,
 .lego-tree li span.button.chk.checkbox_true_full_focus:before,
 .lego-tree li span.button.chk.checkbox_true_part:before,
@@ -171,25 +145,20 @@
 .lego-tree li span.button.chk.checkbox_false_disable,
 .lego-tree li span.button.chk.checkbox_false_disable:before
 {
-    content: "\f14a";
     color: #ccc;
 }
-
+.lego-tree li span.button.chk.radio_false_disable,
+.lego-tree li span.button.chk.radio_false_disable:before,
 .lego-tree li span.button.chk.radio_false_full:before,
 .lego-tree li span.button.chk.radio_false_full_focus:before,
 .lego-tree li span.button.chk.radio_false_part:before,
 .lego-tree li span.button.chk.radio_false_part_focus:before
 {
     content: "\f1db";
-    // content: "";
-    // display: inline-block;
-    // width: 17px;
-    // height: 17px;
-    // margin-top: 4px;
-    // border: 1px solid #ccc;
-    // border-radius: 50%;
 }
 
+.lego-tree li span.button.chk.radio_true_disable,
+.lego-tree li span.button.chk.radio_true_disable:before,
 .lego-tree li span.button.chk.radio_true_full:before,
 .lego-tree li span.button.chk.radio_true_full_focus:before,
 .lego-tree li span.button.chk.radio_true_part:before,
@@ -201,38 +170,23 @@
 .lego-tree li span.button.chk.radio_true_disable,
 .lego-tree li span.button.chk.radio_true_disable:before,
 .lego-tree li span.button.chk.radio_false_disable,
-.lego-tree li span.button.chk.radio_false_disable:before{
-    content: "\f192";
+.lego-tree li span.button.chk.radio_false_disable:before
+{
     color: #ccc;
 }
 
-// .lego-tree li span.button.chk.radio_false_disable,
-// .lego-tree li span.button.chk.radio_false_disable:before {
-//     width: 0;
-//     content: "";
-// }
-
 .lego-tree li span.button.switch {
-    // width: 16px;
     min-width: 13px;
     height: 25px;
-    // margin-top: 1px;
-    // -webkit-transform: scale(0.55);
     line-height: 25px;
     color: #666;
-    // zoom: 1.2;
 }
 
 .lego-tree li span.button.center_open:before,
 .lego-tree li span.button.bottom_open:before,
 .lego-tree li span.button.root_open:before,
 .lego-tree li span.button.roots_open:before,
-.lego-tree li span.button.noline_open:before,
-.lego-tree li span.button.hby_center_open:before,
-.lego-tree li span.button.hby_bottom_open:before,
-.lego-tree li span.button.hby_root_open:before,
-.lego-tree li span.button.hby_roots_open:before,
-.lego-tree li span.button.hby_noline_open:before {
+.lego-tree li span.button.noline_open:before {
     // content: "\e90a";
     display: inline-block;
     width: 0;
@@ -251,12 +205,7 @@
 .lego-tree li span.button.bottom_close:before,
 .lego-tree li span.button.root_close:before,
 .lego-tree li span.button.roots_close:before,
-.lego-tree li span.button.noline_close:before,
-.lego-tree li span.button.hby_center_close:before,
-.lego-tree li span.button.hby_bottom_close:before,
-.lego-tree li span.button.hby_root_close:before,
-.lego-tree li span.button.hby_roots_close:before,
-.lego-tree li span.button.hby_noline_close:before {
+.lego-tree li span.button.noline_close:before {
     // content: "\e90c";
     display: inline-block;
     width: 0;
@@ -307,9 +256,6 @@
 
 .lego-tree li span.button.ico_open,
 .lego-tree li span.button.ico_close,
-.lego-tree li span.button.hby_ico_open,
-.lego-tree li span.button.hby_ico_close,
-.lego-tree li span.button.hby_ico_docu,
 .lego-tree li span.button.add,
 .lego-tree li span.button.edit,
 .lego-tree li span.button.remove {
@@ -347,7 +293,7 @@
 
 .lego-tree li span.button.ico_loading {
     margin-right: 2px;
-    background: url(./img/loading.gif) no-repeat scroll 0 0 transparent;
+    // background: url(./img/loading.gif) no-repeat scroll 0 0 transparent;
     vertical-align: top;
     *vertical-align: middle
 }
@@ -370,8 +316,6 @@ span.tmpzTreeMove_arrow {
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: -110px -80px;
-    // background-image: url("./img/zTreeStandard.png");
-    // *background-image: url("./img/zTreeStandard.gif")
 }
 
 ul.lego-tree.zTreeDragUL {
