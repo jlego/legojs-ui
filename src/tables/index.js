@@ -146,7 +146,7 @@ class Tables extends Lego.UI.Baseview {
                 </div>
                 ` : ''}
                 <div class="lego-table-body" style="bottom: ${opts.pagination ? '48px' : '0'}">
-                    <nodata id="nodata-${opts.vid}"></nodata>
+                    ${!opts.data.length ? hx`<nodata id="nodata-${opts.vid}"></nodata>` : hx`<div style="display:none;"></div>`}
                     <div class="${opts.showHeader && opts.fixedHeader ? 'scrollbar' : ''}">
                         <table class="${opts.className}" style="${opts.tableWidth ? ('width:' + opts.tableWidth + 'px') : 'width:1px'}">
                             ${this._renderColgroup()}
