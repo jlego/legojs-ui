@@ -45,34 +45,6 @@ class Baseview extends Lego.View {
         }
         return this;
     }
-    fetch(opts = {}){
-        let that = this;
-        if(this.options.dataSource){
-            if(this.options.loading) this._showLoading();
-            const dataSource = this.options.dataSource;
-            dataSource.api = Array.isArray(dataSource.api) ? dataSource.api : [dataSource.api];
-            dataSource.api.forEach(apiName => {
-                dataSource[apiName] = Lego.extend({}, dataSource.server.options[apiName], dataSource[apiName] || {}, opts);
-            });
-            if(dataSource.server){
-                let server = null;
-                if(typeof dataSource.server == 'function'){
-                    server = new dataSource.server();
-                }else{
-                    server = dataSource.server;
-                }
-                server.fetch(dataSource.api, dataSource.isAjax && window.$ ? dataSource : {}, (resp) => {
-                    this.options.data = resp;
-                    if(this.options.loading) this._hideLoading();
-                    this.dataReady();
-                    this.components();
-                    this.refresh();
-                }, this);
-            }
-        }else{
-            this._renderComponents();
-        }
-    }
     _showLoading(){
         let opts = this.options;
         this.loadingView = Lego.getView('#lego-loading-' + opts.vid);

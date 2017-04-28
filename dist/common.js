@@ -1,5 +1,5 @@
 /**
- * common.js v0.5.13
+ * common.js v0.5.16
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -512,40 +512,6 @@ var Baseview = function(_Lego$View) {
                 this.bindEvents(match[1], match[2], method.bind(this));
             }
             return this;
-        }
-    }, {
-        key: "fetch",
-        value: function fetch() {
-            var _this2 = this;
-            var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-            var that = this;
-            if (this.options.dataSource) {
-                (function() {
-                    if (_this2.options.loading) _this2._showLoading();
-                    var dataSource = _this2.options.dataSource;
-                    dataSource.api = Array.isArray(dataSource.api) ? dataSource.api : [ dataSource.api ];
-                    dataSource.api.forEach(function(apiName) {
-                        dataSource[apiName] = Lego.extend({}, dataSource.server.options[apiName], dataSource[apiName] || {}, opts);
-                    });
-                    if (dataSource.server) {
-                        var server = null;
-                        if (typeof dataSource.server == "function") {
-                            server = new dataSource.server();
-                        } else {
-                            server = dataSource.server;
-                        }
-                        server.fetch(dataSource.api, dataSource.isAjax && window.$ ? dataSource : {}, function(resp) {
-                            _this2.options.data = resp;
-                            if (_this2.options.loading) _this2._hideLoading();
-                            _this2.dataReady();
-                            _this2.components();
-                            _this2.refresh();
-                        }, _this2);
-                    }
-                })();
-            } else {
-                this._renderComponents();
-            }
         }
     }, {
         key: "_showLoading",

@@ -13324,7 +13324,8 @@ form button[type="submit"] {
   padding-top: .3rem; }
 
 .lego-editcom.sm > i {
-  line-height: 25px; }
+  line-height: 25px;
+  padding-top: .3rem; }
 
 .lego-editcom:hover > i {
   display: inline-block; }
