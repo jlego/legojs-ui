@@ -7,39 +7,40 @@ import Buttons from "./buttons/index";
 import Btngroup from "./btngroup/index";
 import Btntoolbar from "./btntoolbar/index";
 import Chkgroup from "./chkgroup/index";
-import Tables from "./tables/index";
-import Pagination from "./pagination/index";
+import Collapse from "./collapse/index";
 import Dropdown from "./dropdown/index";
 import Dropdownbtn from "./dropdownbtn/index";
+import Datepicker from "./datepicker/index";
+import Editcom from "./editcom/index";
+import Forms from "./forms/index";
+import Inputs from "./inputs/index";
+import Listgroup from "./listgroup/index";
+import Loading from "./loading/index";
 import Modal from "./modal/index";
+import Message from "./message/index";
 import Navs from "./navs/index";
-import Tabs from "./tabs/index";
+import Notification from "./notification/index";
+import Nodata from "./nodata/index";
+import Popover from "./popover/index";
+import Progressbar from "./progressbar/index";
+import Pagination from "./pagination/index";
+import Permis from "./permis/index";
 import Search from "./search/index";
 import Selects from "./selects/index";
-import Datepicker from "./datepicker/index";
-import Inputs from "./inputs/index";
+import Tabs from "./tabs/index";
+import Tables from "./tables/index";
 import Tooltip from "./tooltip/index";
-import Popover from "./popover/index";
-import Notification from "./notification/index";
-import Message from "./message/index";
-import Nodata from "./nodata/index";
-import Tree from "./tree/index";
-import Treeselect from "./treeselect/index";
-import Forms from "./forms/index";
-import Listgroup from "./listgroup/index";
-import Transfer from "./transfer/index";
-import Progressbar from "./progressbar/index";
 import Upload from "./upload/index";
-import Avatar from "./avatar/index";
-import Steps from "./steps/index";
-import Facial from "./facial/index";
-import Collapse from "./collapse/index";
-import Reply from "./reply/index";
-import Editcom from "./editcom/index";
-import Permis from "./permis/index";
-import Rating from "./rating/index";
-import Loading from "./loading/index";
-import Tags from "./tags/index";
+
+// import Tree from "./tree/index";
+// import Treeselect from "./treeselect/index";
+// import Transfer from "./transfer/index";
+// import Avatar from "./avatar/index";
+// import Steps from "./steps/index";
+// import Facial from "./facial/index";
+// import Reply from "./reply/index";
+// import Rating from "./rating/index";
+// import Tags from "./tags/index";
 
 Lego.components({
 	Baseview: Baseview,
@@ -49,37 +50,38 @@ Lego.components({
 	btngroup: Btngroup,
 	btntoolbar: Btntoolbar,
 	chkgroup: Chkgroup,
-	tables: Tables,
-	pagination: Pagination,
+	collapse: Collapse,
 	dropdown: Dropdown,
 	dropdownbtn: Dropdownbtn,
+	datepicker: Datepicker,
+	editcom: Editcom,
+	forms: Forms,
+	inputs: Inputs,
+	listgroup: Listgroup,
+	loading: Loading,
 	modal: Modal,
+	message: Message,
 	navs: Navs,
-	tabs: Tabs,
+	notification: Notification,
+	popover: Popover,
+	progressbar: Progressbar,
+	permis: Permis,
+	pagination: Pagination,
 	search: Search,
 	selects: Selects,
-	datepicker: Datepicker,
-	inputs: Inputs,
 	tooltip: Tooltip,
-	popover: Popover,
-	notification: Notification,
-	message: Message,
-	tree: Tree,
-	treeselect: Treeselect,
-	forms: Forms,
-	listgroup: Listgroup,
-	transfer: Transfer,
-	progressbar: Progressbar,
+	tables: Tables,
+	tabs: Tabs,
 	upload: Upload,
-	avatar: Avatar,
-	steps: Steps,
-	facial: Facial,
-	collapse: Collapse,
-	reply: Reply,
-	editcom: Editcom,
-	permis: Permis,
-	rating: Rating,
-	loading: Loading,
-	tags: Tags
+
+	// tree: Tree,
+	// treeselect: Treeselect,
+	// transfer: Transfer,
+	// avatar: Avatar,
+	// steps: Steps,
+	// facial: Facial,
+	// reply: Reply,
+	// rating: Rating,
+	// tags: Tags
 });
 export default Lego.UI;
