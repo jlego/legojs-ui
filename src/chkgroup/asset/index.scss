@@ -1,0 +1,11 @@
+.lego-chkgroup {
+    .form-check {
+        &+.form-check{
+            margin-top: inherit;
+        }
+        &.form-check-inline {
+            padding-left: 0;
+            line-height: 35px;
+        }
+    }
+}

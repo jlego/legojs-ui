@@ -1,5 +1,5 @@
 /**
- * upload.js v0.5.17
+ * upload.js v0.5.19
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -321,6 +321,8 @@ var _templateObject3$1 = _taggedTemplateLiteral$1([ '\n            <div class="m
 
 var _templateObject4$1 = _taggedTemplateLiteral$1([ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn" id="', '" onclick=', '><i class="anticon anticon-cross float-xs-right"></i></a>\n                    </div>\n                    ' ], [ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn" id="', '" onclick=', '><i class="anticon anticon-cross float-xs-right"></i></a>\n                    </div>\n                    ' ]);
 
+var _templateObject5$1 = _taggedTemplateLiteral$1([ "<div></div>" ], [ "<div></div>" ]);
+
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
         raw: {
@@ -395,11 +397,39 @@ var UploadItem = function(_UploadBase) {
             });
         }
     }, {
+        key: "renderFile",
+        value: function renderFile() {
+            var opts = this.options;
+            var vDom = hx(_templateObject$1, Lego.UI.Util.getFileIcon(opts.file.name), opts.percent < 100 ? hx(_templateObject2$1, val(opts.file._id), this.onCancel.bind(this), val(opts.file.name), "progressbar_" + opts.vid) : hx(_templateObject3$1, !opts.readonly && opts.percent == 100 ? hx(_templateObject4$1, val(opts.file._id), this.onRemove.bind(this)) : "", val(opts.file.name), Lego.UI.Util.convertByteUnit(opts.file.size), val(opts.file.url), val(opts.file.name)));
+            return vDom;
+        }
+    }, {
+        key: "renderPhoto",
+        value: function renderPhoto() {
+            return hx(_templateObject5$1);
+        }
+    }, {
+        key: "renderAvatar",
+        value: function renderAvatar() {
+            return hx(_templateObject5$1);
+        }
+    }, {
         key: "render",
         value: function render() {
-            var options = this.options || {};
-            var vDom = hx(_templateObject$1, Lego.UI.Util.getFileIcon(options.file.name), options.percent < 100 ? hx(_templateObject2$1, val(options.file._id), this.onCancel.bind(this), val(options.file.name), "progressbar_" + options.vid) : hx(_templateObject3$1, !options.readonly && options.percent == 100 ? hx(_templateObject4$1, val(options.file._id), this.onRemove.bind(this)) : "", val(options.file.name), Lego.UI.Util.convertByteUnit(options.file.size), val(options.file.url), val(options.file.name)));
-            return vDom;
+            var opts = this.options;
+            switch (opts.type) {
+              case "file":
+                this.renderFile();
+                break;
+
+              case "photo":
+                this.renderPhoto();
+                break;
+
+              case "avatar":
+                this.renderAvatar();
+                break;
+            }
         }
     }, {
         key: "onCancel",
@@ -451,13 +481,15 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-upload lego-upload-', '">\n            ', '\n            <input type="hidden" value="', '" name="', '" class="lego-upload-value">\n            <input multiple="multiple" type="file" class="form-control lego-fileInput hide" accept="', '" style="display:none">\n            ', "\n        </div>\n        " ], [ '\n        <div class="lego-upload lego-upload-', '">\n            ', '\n            <input type="hidden" value="', '" name="', '" class="lego-upload-value">\n            <input multiple="multiple" type="file" class="form-control lego-fileInput hide" accept="', '" style="display:none">\n            ', "\n        </div>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-upload lego-upload-', '">\n            ', '\n            <input type="hidden" value="', '" name="', '" class="lego-upload-value">\n            <input multiple="multiple" type="file" class="form-control lego-fileInput hide" accept="', '" style="display:none">\n            ', "\n            ", "\n        </div>\n        " ], [ '\n        <div class="lego-upload lego-upload-', '">\n            ', '\n            <input type="hidden" value="', '" name="', '" class="lego-upload-value">\n            <input multiple="multiple" type="file" class="form-control lego-fileInput hide" accept="', '" style="display:none">\n            ', "\n            ", "\n        </div>\n        " ]);
 
 var _templateObject2 = _taggedTemplateLiteral([ '\n            <button class="btn btn-secondary lego-addbtn" type="button" ', ">\n                ", "\n                ", "\n            </button>\n            " ], [ '\n            <button class="btn btn-secondary lego-addbtn" type="button" ', ">\n                ", "\n                ", "\n            </button>\n            " ]);
 
 var _templateObject3 = _taggedTemplateLiteral([ '<i class="anticon anticon-upload"></i>' ], [ '<i class="anticon anticon-upload"></i>' ]);
 
 var _templateObject4 = _taggedTemplateLiteral([ '<div class="lego-upload-container"></div>' ], [ '<div class="lego-upload-container"></div>' ]);
+
+var _templateObject5 = _taggedTemplateLiteral([ '\n                <div class="lego-upload-add">\n                    <i class="anticon anticon-plus avatar-uploader-trigger"></i>\n                </div>\n            ' ], [ '\n                <div class="lego-upload-add">\n                    <i class="anticon anticon-plus avatar-uploader-trigger"></i>\n                </div>\n            ' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -503,7 +535,7 @@ var Upload = function(_Lego$UI$Baseview) {
         var uploadUri = window.location.protocol === "https:" ? "https://up.qbox.me" : "http://upload.qiniu.com";
         var options = {
             events: {
-                "click .lego-addbtn": "onClickAdd"
+                "click .lego-addbtn, .lego-upload-add": "onClickAdd"
             },
             keyRoot: "",
             type: "file",
@@ -562,10 +594,20 @@ var Upload = function(_Lego$UI$Baseview) {
     _createClass(Upload, [ {
         key: "render",
         value: function render() {
-            var options = this.options;
-            var vDom = "";
-            vDom = hx(_templateObject, val(options.type), !options.readonly ? hx(_templateObject2, options.disabled ? "disabled" : "", options.buttonIcon ? options.buttonIcon : hx(_templateObject3), val(options.buttonText)) : "", this.getValue().join(","), val(options.name), val(options.accept), options.showUploadList ? hx(_templateObject4) : "");
-            return options.template ? options.template : vDom;
+            var opts = this.options;
+            var vDom = hx(_templateObject, val(opts.type), !opts.readonly && opts.type == "file" ? hx(_templateObject2, opts.disabled ? "disabled" : "", opts.buttonIcon ? opts.buttonIcon : hx(_templateObject3), val(opts.buttonText)) : "", this.getValue().join(","), val(opts.name), val(opts.accept), opts.showUploadList && opts.type !== "avatar" ? hx(_templateObject4) : "", opts.type == "avatar" ? hx(_templateObject5) : "");
+            return opts.template ? opts.template : vDom;
+        }
+    }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            var opts = this.options;
+            if (opts.previewOption) {
+                this.$(".lego-upload-add, .avatar-uploader-trigger").css({
+                    width: opts.previewOption.width || 150,
+                    height: opts.previewOption.height || 150
+                });
+            }
         }
     }, {
         key: "uploadInit",
@@ -643,7 +685,7 @@ var Upload = function(_Lego$UI$Baseview) {
                     };
                     if (options.previewOption) {
                         uploadOption.previewOption = options.previewOption;
-                        uploadOption.isAuto = false;
+                        uploadOption.isAuto = options.isAuto;
                         localresizeimg(file, Object.assign(options.previewOption, {
                             success: function success(results) {
                                 uploadOption.previewImgSrc = results.blob;

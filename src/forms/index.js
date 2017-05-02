@@ -26,7 +26,7 @@ class Forms extends Lego.UI.Baseview {
                 errorClass: 'form-control-feedback',
                 errorElement: 'div',
                 errorPlacement(error, element) {
-                    element.after(error);
+                    element.closest('.form-group').children('div').append(error);
                 },
                 highlight(element, errorClass) {
                     $(element).closest('.form-group').addClass('has-danger');

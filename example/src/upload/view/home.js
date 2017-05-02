@@ -49,6 +49,19 @@ class HomeView extends Lego.UI.Baseview {
                 onComplete(result) {
                     console.warn('上传成功了3', result);
                 }
+            }, {
+                el: '#upload4',
+                name: 'uploadname4',
+                multiple: false,
+                type: 'avatar',
+                previewOption:{
+                    width: 150,
+                    height: 150
+                },
+                // hideAddBtn: true,
+                onComplete(self, result) {
+                    console.warn('上传成功了2', result);
+                }
             }]
         };
         Object.assign(options, opts);
@@ -71,6 +84,14 @@ class HomeView extends Lego.UI.Baseview {
             </div>
             <div class="col-sm-6">
               <upload id="upload4"></upload>
+            </div>
+            <div class="row" style="margin-bottom: 40px;">
+              <div class="col-sm-6">
+                <upload id="upload5"></upload>
+              </div>
+              <div class="col-sm-6">
+                <upload id="upload6"></upload>
+              </div>
             </div>
           </div>
         </div>

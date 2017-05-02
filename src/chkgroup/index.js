@@ -3,7 +3,7 @@
  * ronghui Yu
  * 2017/1/9
  */
-// import './asset/index.scss';
+import './asset/index.scss';
 // item: {
 // label: '',
 // disabled: false,
@@ -24,27 +24,31 @@ class Chkgroup extends Lego.UI.Baseview {
     }
     render() {
         const opts = this.options;
-        let vDom = vDom = hx`<div>
+        let vDom = hx`
+        <div class="lego-chkgroup">
         ${opts.data.map((item) => {
             if(opts.layout == 'vertical'){
                 return hx`
-                <div class="form-check">
+                <div class="form-check ${item.disabled ? 'disabled' : ''}">
                   <label class="form-check-label">
-                    <input class="form-check-input" type="${opts.type}" name="${opts.name}" value="${item.value}" ${val(item.checked)} ${val(item.disabled)}>
+                    <input class="form-check-input" type="${opts.type}" name="${opts.name}" value="${item.value}" ${item.checked ? 'checked' : ''} >
                     ${val(item.label)}
                   </label>
                 </div>
                 `;
             }else{
                 return hx`
-                <label class="form-check-inline">
-                  <input class="form-check-input" type="${opts.type}" name="${opts.name}" value="${item.value}" ${val(item.checked)} ${val(item.disabled)}>
-                  ${val(item.label)}
-                </label>
+                <div class="form-check form-check-inline ${item.disabled ? 'disabled' : ''}">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="${opts.type}" name="${opts.name}" value="${item.value}" ${item.checked ? 'checked' : ''} >
+                      ${val(item.label)}
+                    </label>
+                </div>
                 `;
             }
         })}
-        </div>`;
+        </div>
+        `;
         return vDom;
     }
 }

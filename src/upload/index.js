@@ -12,10 +12,10 @@ class Upload extends Lego.UI.Baseview {
         let uploadUri = window.location.protocol === 'https:' ? 'https://up.qbox.me' : 'http://upload.qiniu.com';
         const options = {
             events: {
-                'click .lego-addbtn': 'onClickAdd'
+                'click .lego-addbtn, .lego-upload-add': 'onClickAdd'
             },
             keyRoot: '',
-            type: 'file',   //file, photo
+            type: 'file',   //file, photo, avatar
             buttonText: '添加附件',
             buttonIcon: '',
             name: '', //文件域
@@ -24,7 +24,16 @@ class Upload extends Lego.UI.Baseview {
             uploadUri: Lego.config.uploadUri || uploadUri,  //文件存储云服务
             saveUri: '',    //保存到后台地址
             accept: '',     //接受上传的文件类型
-            previewOption: null, //缩略图参数
+            previewOption: null,
+            //缩略图参数
+            // previewOption: {
+            // width: 400,//宽度
+            // height: 400,//高度
+            // quality: 1,//质量
+            // success: function (result) {
+            //      result.base64/result.clearBase64
+            // }
+            // }
             multiple: true, //是否多文件
             context: null, //上下文
             template: '',   //模板
@@ -70,22 +79,35 @@ class Upload extends Lego.UI.Baseview {
         }
     }
     render() {
-        const options = this.options;
-        let vDom = '';
-        vDom = hx`
-        <div class="lego-upload lego-upload-${val(options.type)}">
-            ${!options.readonly ? hx`
-            <button class="btn btn-secondary lego-addbtn" type="button" ${options.disabled ? 'disabled' : ''}>
-                ${options.buttonIcon ? options.buttonIcon : hx`<i class="anticon anticon-upload"></i>`}
-                ${val(options.buttonText)}
+        const opts = this.options;
+        let vDom = hx`
+        <div class="lego-upload lego-upload-${val(opts.type)}">
+            ${!opts.readonly && opts.type == 'file' ? hx`
+            <button class="btn btn-secondary lego-addbtn" type="button" ${opts.disabled ? 'disabled' : ''}>
+                ${opts.buttonIcon ? opts.buttonIcon : hx`<i class="anticon anticon-upload"></i>`}
+                ${val(opts.buttonText)}
             </button>
             ` : ''}
-            <input type="hidden" value="${this.getValue().join(',')}" name="${val(options.name)}" class="lego-upload-value">
-            <input multiple="multiple" type="file" class="form-control lego-fileInput hide" accept="${val(options.accept)}" style="display:none">
-            ${options.showUploadList ? hx`<div class="lego-upload-container"></div>` : ''}
+            <input type="hidden" value="${this.getValue().join(',')}" name="${val(opts.name)}" class="lego-upload-value">
+            <input multiple="multiple" type="file" class="form-control lego-fileInput hide" accept="${val(opts.accept)}" style="display:none">
+            ${opts.showUploadList && opts.type !== 'avatar' ? hx`<div class="lego-upload-container"></div>` : ''}
+            ${opts.type == 'avatar' ? hx`
+                <div class="lego-upload-add">
+                    <i class="anticon anticon-plus avatar-uploader-trigger"></i>
+                </div>
+            ` : ''}
         </div>
         `;
-        return options.template ? options.template : vDom;
+        return opts.template ? opts.template : vDom;
+    }
+    renderAfter(){
+        let opts = this.options;
+        if(opts.previewOption){
+            this.$('.lego-upload-add, .avatar-uploader-trigger').css({
+                width: opts.previewOption.width || 150,
+                height: opts.previewOption.height || 150
+            });
+        }
     }
     uploadInit(files, fileInput) {
         let uploadFiles = [];
@@ -161,7 +183,7 @@ class Upload extends Lego.UI.Baseview {
                 };
                 if (options.previewOption) {
                     uploadOption.previewOption = options.previewOption;
-                    uploadOption.isAuto = false;
+                    uploadOption.isAuto = options.isAuto;
                     localresizeimg(file, Object.assign(options.previewOption, {
                         success: function(results) {
                             uploadOption.previewImgSrc = results.blob;

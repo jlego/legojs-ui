@@ -8564,8 +8564,8 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
     -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);
     transform: skewX(-0.78125deg) skewY(-0.78125deg); }
   77.7% {
-    -webkit-transform: skewX(0.39062deg) skewY(0.39062deg);
-    transform: skewX(0.39062deg) skewY(0.39062deg); }
+    -webkit-transform: skewX(0.39063deg) skewY(0.39063deg);
+    transform: skewX(0.39063deg) skewY(0.39063deg); }
   88.8% {
     -webkit-transform: skewX(-0.19531deg) skewY(-0.19531deg);
     transform: skewX(-0.19531deg) skewY(-0.19531deg); }
@@ -8593,8 +8593,8 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
     -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);
     transform: skewX(-0.78125deg) skewY(-0.78125deg); }
   77.7% {
-    -webkit-transform: skewX(0.39062deg) skewY(0.39062deg);
-    transform: skewX(0.39062deg) skewY(0.39062deg); }
+    -webkit-transform: skewX(0.39063deg) skewY(0.39063deg);
+    transform: skewX(0.39063deg) skewY(0.39063deg); }
   88.8% {
     -webkit-transform: skewX(-0.19531deg) skewY(-0.19531deg);
     transform: skewX(-0.19531deg) skewY(-0.19531deg); }
@@ -11182,6 +11182,58 @@ pre p {
   right: 16px;
   cursor: pointer;
   font-size: 12px; }
+.lego-avatar-item {
+  display: inline-block;
+  text-align: center;
+  margin: 3px;
+  width: 50px; }
+
+.lego-avatar-item label {
+  display: block;
+  font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden; }
+
+.lego-avatar-img {
+  width: 40px;
+  height: 40px;
+  background-color: #ececec;
+  background-image: url(./img/media-user.png);
+  background-size: cover;
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto 5px auto; }
+
+.lego-avatar-img i {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: none;
+  color: #ccc;
+  font-size: 24px;
+  cursor: pointer;
+  border: 1px #ccc solid;
+  justify-content: center;
+  align-items: center; }
+
+.lego-avatar-item.addbtn {
+  vertical-align: top; }
+
+.lego-avatar-item.addbtn .lego-avatar-img {
+  background-color: transparent;
+  background-image: none; }
+
+.lego-avatar-item.addbtn .lego-avatar-img i {
+  display: flex !important;
+  border: 1px #ccc dashed; }
+
+.lego-avatar-item.addbtn .lego-avatar-img:hover i,
+.lego-avatar-img:hover i {
+  display: flex !important;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #f3f3f3;
+  border: none; }
 .btn-sm, .btn-group-sm > .btn {
   padding: 0.1rem 0.3rem;
   font-size: 0.75rem;
@@ -11205,6 +11257,12 @@ pre p {
 
 .lego-btn-dashed {
   border-style: dashed; }
+.lego-chkgroup .form-check + .form-check {
+  margin-top: inherit; }
+
+.lego-chkgroup .form-check.form-check-inline {
+  padding-left: 0;
+  line-height: 35px; }
 .dropup,
 .dropdown {
   position: relative; }
@@ -11388,6 +11446,37 @@ form legend {
 
 form button[type="submit"] {
   margin-right: 10px; }
+.lego-facial > i {
+  font-size: 20px;
+  cursor: pointer; }
+
+.lego-facial .dropdown-menu {
+  width: 376px;
+  height: 160px;
+  padding: 7px;
+  overflow: hidden; }
+
+.lego-facial ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: url(./face_icons/facebackground.png);
+  background-size: cover; }
+
+.lego-facial ul li {
+  float: left;
+  margin: 0; }
+
+.lego-facial ul li img {
+  width: 24px;
+  height: 24px;
+  opacity: 0; }
+
+.lego-facial ul li:hover img {
+  opacity: 1; }
 .modal-backdrop {
   background-color: #000;
   bottom: 0;
@@ -11727,6 +11816,158 @@ form button[type="submit"] {
   display: inline-block;
   padding: 0;
   text-align: center; }
+.lego-reply .lego-reply-submit {
+  float: right; }
+
+.lego-reply .lego-reply-content {
+  border: 1px solid #ddd;
+  padding: 5px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+  overflow: auto; }
+
+.lego-reply .lego-reply-ph {
+  color: #ddd; }
+
+.lego-reply .lego-reply-toolbar > div {
+  display: inline-block;
+  cursor: pointer; }
+
+.lego-reply .lego-reply-toolbar > div > i {
+  font-size: 20px;
+  padding: 6px 8px; }
+
+.lego-reply .lego-reply-toolbar > div:first-child > i {
+  padding-left: 0; }
+
+.lego-reply .lego-reply-toolbar > div > i:hover {
+  color: #03a9f4; }
+
+.lego-reply .popover {
+  top: 100%;
+  left: 14px;
+  max-width: 360px;
+  margin-top: 0px;
+  width: 100%;
+  z-index: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); }
+
+.lego-reply .popover.show {
+  display: block !important; }
+
+.lego-reply .popover-title i {
+  cursor: pointer; }
+
+.lego-reply .popover.bs-tether-element-attached-top:after,
+.lego-reply .popover.bs-tether-element-attached-top:before,
+.lego-reply .popover.popover-bottom:after,
+.lego-reply .popover.popover-bottom:before {
+  left: 50px; }
+.lego-upload .lego-upload-container {
+  margin-top: 8px; }
+
+.lego-upload .lego-addbtn i {
+  font-size: 16px;
+  display: inline-block; }
+
+.lego-upload .lego-cancelbtn {
+  zoom: 0.8; }
+
+.lego-upload .lego-closebtn {
+  zoom: 0.8;
+  display: none; }
+
+.lego-upload .lego-upload-item {
+  position: relative;
+  padding: 8px;
+  border-radius: 3px;
+  margin-top: 8px;
+  border: 1px #ddd solid; }
+  .lego-upload .lego-upload-item:hover {
+    border-color: #c5c5c5; }
+  .lego-upload .lego-upload-item .media-left i {
+    font-size: 40px;
+    color: #f90; }
+  .lego-upload .lego-upload-item .media-body .media-heading {
+    margin-right: 40px;
+    font-size: 14px;
+    font-weight: normal;
+    margin-bottom: 8px;
+    word-wrap: break-word;
+    word-break: break-all; }
+    .lego-upload .lego-upload-item .media-body .media-heading .right {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      height: 20px;
+      width: 20px;
+      left: inherit; }
+      .lego-upload .lego-upload-item .media-body .media-heading .right a {
+        margin-left: 8px; }
+  .lego-upload .lego-upload-item .media-body small {
+    margin-top: 8px;
+    color: #999; }
+    .lego-upload .lego-upload-item .media-body small cite {
+      font-style: inherit; }
+    .lego-upload .lego-upload-item .media-body small time {
+      display: none;
+      margin-left: 15px; }
+      .lego-upload .lego-upload-item .media-body small time a {
+        margin-left: 5px; }
+  .lego-upload .lego-upload-item .media-body .progress {
+    margin-bottom: 0;
+    margin-top: 15px;
+    height: 3px;
+    background-color: #ececec;
+    -webkit-box-shadow: none;
+    box-shadow: none; }
+  .lego-upload .lego-upload-item .media-body .progress-bar {
+    -webkit-box-shadow: none;
+    box-shadow: none; }
+  .lego-upload .lego-upload-item:hover .lego-closebtn,
+  .lego-upload .lego-upload-item:hover small time {
+    display: inline-block; }
+
+.lego-upload.lego-upload-avatar .lego-upload-add {
+  display: inline-block;
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center; }
+  .lego-upload.lego-upload-avatar .lego-upload-add .avatar-uploader-trigger {
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 28px;
+    color: #999; }
+.lego-rating .rating-symbol {
+  cursor: pointer; }
+
+.lego-rating.lego-rating-sm .rating-symbol > * {
+  font-size: 12px;
+  line-height: 12px; }
+
+.lego-rating.lego-rating-sm .badge {
+  font-size: 10px; }
+
+.lego-rating .rating-symbol > * {
+  font-size: 18px;
+  line-height: 18px; }
+
+.lego-rating .badge {
+  font-size: 14px; }
+
+.lego-rating.lego-rating-lg .rating-symbol > * {
+  font-size: 30px;
+  line-height: 30px; }
+
+.lego-rating.lego-rating-lg .badge {
+  font-size: 22px; }
+
+.lego-rating .rating-symbol-background {
+  color: #ccc; }
+
+.lego-rating .rating-symbol-foreground span {
+  color: #f5a623; }
 .lego-search input,
 .lego-search input:focus {
   height: 36px;
@@ -11907,6 +12148,309 @@ form button[type="submit"] {
 
 .select .select-input.form-control[readonly] {
   background-color: transparent; }
+.lego-steps {
+  font-size: 0;
+  width: 100%;
+  line-height: 1.5; }
+
+.lego-steps .lego-steps-item {
+  position: relative;
+  display: inline-block;
+  vertical-align: top; }
+
+.lego-steps .lego-steps-item.lego-steps-status-wait .lego-steps-head-inner {
+  border-color: #ccc;
+  background-color: #fff; }
+
+.lego-steps .lego-steps-item.lego-steps-status-wait .lego-steps-head-inner > .lego-steps-icon {
+  color: #ccc; }
+
+.lego-steps .lego-steps-item.lego-steps-status-wait .lego-steps-title {
+  color: #999; }
+
+.lego-steps .lego-steps-item.lego-steps-status-wait .lego-steps-description {
+  color: #999; }
+
+.lego-steps .lego-steps-item.lego-steps-status-wait .lego-steps-tail > i {
+  background-color: #e9e9e9; }
+
+.lego-steps .lego-steps-item.lego-steps-status-process .lego-steps-head-inner {
+  border-color: #03a9f4;
+  background-color: #03a9f4; }
+
+.lego-steps .lego-steps-item.lego-steps-status-process .lego-steps-head-inner > .lego-steps-icon {
+  color: #fff; }
+
+.lego-steps .lego-steps-item.lego-steps-status-process .lego-steps-title {
+  color: #666; }
+
+.lego-steps .lego-steps-item.lego-steps-status-process .lego-steps-description {
+  color: #666; }
+
+.lego-steps .lego-steps-item.lego-steps-status-process .lego-steps-tail > i {
+  background-color: #e9e9e9; }
+
+.lego-steps .lego-steps-item.lego-steps-status-finish .lego-steps-head-inner {
+  border-color: #03a9f4;
+  background-color: #fff; }
+
+.lego-steps .lego-steps-item.lego-steps-status-finish .lego-steps-head-inner > .lego-steps-icon {
+  color: #03a9f4; }
+
+.lego-steps .lego-steps-item.lego-steps-status-finish .lego-steps-tail > i:after {
+  width: 100%;
+  background: #03a9f4;
+  -webkit-transition: all 0.6s;
+  transition: all 0.6s;
+  opacity: 1; }
+
+.lego-steps .lego-steps-item.lego-steps-status-finish .lego-steps-title {
+  color: #999; }
+
+.lego-steps .lego-steps-item.lego-steps-status-finish .lego-steps-description {
+  color: #999; }
+
+.lego-steps .lego-steps-item.lego-steps-status-error .lego-steps-head-inner {
+  border-color: #f50;
+  background-color: #fff; }
+
+.lego-steps .lego-steps-item.lego-steps-status-error .lego-steps-head-inner > .lego-steps-icon {
+  color: #f50; }
+
+.lego-steps .lego-steps-item.lego-steps-status-error .lego-steps-title {
+  color: #f50; }
+
+.lego-steps .lego-steps-item.lego-steps-status-error .lego-steps-description {
+  color: #f50; }
+
+.lego-steps .lego-steps-item.lego-steps-status-error .lego-steps-tail > i {
+  background-color: #e9e9e9; }
+
+.lego-steps .lego-steps-item.lego-steps-next-error .lego-steps-tail > i,
+.lego-steps .lego-steps-item.lego-steps-next-error .lego-steps-tail > i:after {
+  background-color: #f50; }
+
+.lego-steps .lego-steps-item.lego-steps-custom .lego-steps-head-inner {
+  background: none;
+  border: 0;
+  width: auto;
+  height: auto; }
+
+.lego-steps .lego-steps-item.lego-steps-custom .lego-steps-head-inner > .lego-steps-icon {
+  font-size: 26px;
+  width: 26px;
+  height: 26px; }
+
+.lego-steps .lego-steps-item.lego-steps-custom.lego-steps-status-process .lego-steps-head-inner > .lego-steps-icon {
+  color: #03a9f4; }
+
+.lego-steps .lego-steps-head,
+.lego-steps .lego-steps-main {
+  position: relative;
+  vertical-align: top; }
+
+.lego-steps .lego-steps-head {
+  background: #fff;
+  display: inline-block; }
+
+.lego-steps .lego-steps-head-inner {
+  display: block;
+  border: 1px solid #ccc;
+  width: 26px;
+  height: 26px;
+  line-height: 23px;
+  text-align: center;
+  border-radius: 26px;
+  font-size: 14px;
+  -webkit-transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition: background-color 0.3s ease, border-color 0.3s ease; }
+
+.lego-steps .lego-steps-head-inner > .lego-steps-icon {
+  line-height: 1;
+  color: #03a9f4;
+  position: relative; }
+
+.lego-steps .lego-steps-head-inner > .lego-steps-icon.anticon {
+  font-size: 12px; }
+
+.lego-steps .lego-steps-head-inner > .lego-steps-icon.anticon-cross,
+.lego-steps .lego-steps-head-inner > .lego-steps-icon.anticon-check {
+  font-weight: bold; }
+
+.lego-steps .lego-steps-main {
+  margin-top: 2.5px; }
+
+.lego-steps .lego-steps-title {
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: #666;
+  background: #fff;
+  display: inline-block;
+  padding-right: 10px; }
+
+.lego-steps .lego-steps-title > a:first-child:last-child {
+  color: #666; }
+
+.lego-steps .lego-steps-item-last .lego-steps-title {
+  padding-right: 0;
+  width: 100%; }
+
+.lego-steps .lego-steps-description {
+  font-size: 12px;
+  color: #999; }
+
+.lego-steps .lego-steps-tail {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: 11px;
+  padding: 0; }
+
+.lego-steps .lego-steps-tail > i {
+  display: inline-block;
+  vertical-align: top;
+  background: #e9e9e9;
+  height: 4px;
+  border-radius: 1px;
+  width: 100%;
+  position: relative; }
+
+.lego-steps .lego-steps-tail > i:after {
+  position: absolute;
+  content: '';
+  top: 0;
+  width: 0;
+  background: #e9e9e9;
+  height: 100%;
+  opacity: 0; }
+
+.lego-steps.lego-steps-small .lego-steps-head-inner {
+  border: 1px solid #ccc;
+  width: 18px;
+  height: 18px;
+  line-height: 15px;
+  text-align: center;
+  border-radius: 18px;
+  font-size: 12px;
+  margin-right: 10px; }
+
+.lego-steps.lego-steps-small .lego-steps-head-inner > .lego-steps-icon.anticon {
+  display: inline-block;
+  font-size: 12px;
+  font-size: 9px \9;
+  -webkit-transform: scale(0.75) rotate(0deg);
+  -ms-transform: scale(0.75) rotate(0deg);
+  transform: scale(0.75) rotate(0deg);
+  /* IE6-IE8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=1, M12=0, M21=0, M22=1)";
+  zoom: 1;
+  top: 0; }
+
+:root .lego-steps.lego-steps-small .lego-steps-head-inner > .lego-steps-icon.anticon {
+  -webkit-filter: none;
+  filter: none; }
+
+:root .lego-steps.lego-steps-small .lego-steps-head-inner > .lego-steps-icon.anticon {
+  font-size: 12px; }
+
+.lego-steps.lego-steps-small .lego-steps-main {
+  margin-top: 0; }
+
+.lego-steps.lego-steps-small .lego-steps-title {
+  font-size: 12px;
+  margin-bottom: 4px;
+  color: #666; }
+
+.lego-steps.lego-steps-small .lego-steps-description {
+  font-size: 12px;
+  color: #999; }
+
+.lego-steps.lego-steps-small .lego-steps-tail {
+  top: 8px;
+  padding: 0 8px; }
+
+.lego-steps.lego-steps-small .lego-steps-tail > i {
+  height: 1px;
+  border-radius: 1px;
+  width: 100%; }
+
+.lego-steps.lego-steps-small .lego-steps-custom .lego-steps-head-inner > .lego-steps-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px; }
+
+.lego-steps-vertical .lego-steps-item {
+  display: block; }
+
+.lego-steps-vertical .lego-steps-tail {
+  position: absolute;
+  left: 13px;
+  top: 0;
+  height: 100%;
+  width: 1px;
+  padding: 30px 0 4px 0; }
+
+.lego-steps-vertical .lego-steps-tail > i {
+  height: 100%;
+  width: 1px; }
+
+.lego-steps-vertical .lego-steps-tail > i:after {
+  height: 0;
+  width: 100%; }
+
+.lego-steps-vertical .lego-steps-status-finish .lego-steps-tail > i:after {
+  height: 100%; }
+
+.lego-steps-vertical .lego-steps-head {
+  float: left; }
+
+.lego-steps-vertical .lego-steps-head-inner {
+  margin-right: 16px; }
+
+.lego-steps-vertical .lego-steps-main {
+  min-height: 47px;
+  overflow: hidden;
+  display: block; }
+
+.lego-steps-vertical .lego-steps-main .lego-steps-title {
+  line-height: 26px; }
+
+.lego-steps-vertical .lego-steps-main .lego-steps-description {
+  padding-bottom: 12px; }
+
+.lego-steps-vertical.lego-steps-small .lego-steps-tail {
+  position: absolute;
+  left: 9px;
+  top: 0;
+  padding: 22px 0 4px 0; }
+
+.lego-steps-vertical.lego-steps-small .lego-steps-tail > i {
+  height: 100%; }
+
+.lego-steps-vertical.lego-steps-small .lego-steps-title {
+  line-height: 18px; }
+
+.lego-steps-horizontal.lego-steps-hidden {
+  visibility: hidden; }
+
+.lego-steps-horizontal .lego-steps-description {
+  max-width: 120px; }
+
+.lego-steps-sm .lego-steps-head {
+  top: 5px;
+  margin-bottom: 8px; }
+
+.lego-steps-sm .lego-steps-head-inner {
+  width: 15px;
+  height: 15px; }
+
+.lego-steps-sm .lego-steps-status-finish .lego-steps-head-inner,
+.lego-steps-sm .lego-steps-status-process .lego-steps-head-inner {
+  background-color: #03a9f4 !important; }
+
+.lego-steps-sm .lego-steps-status-wait .lego-steps-head-inner {
+  background-color: #e9e9e9 !important;
+  border-color: #e9e9e9 !important; }
 .lego-tabs .dropdown-menu {
   min-width: 160px; }
 .lego-table {
@@ -12476,79 +13020,409 @@ tr.lego-table-expanded-row:hover {
 
 .lego-table .modal .modal-body {
   top: 50px; }
-.lego-upload .lego-upload-container {
-  margin-top: 8px; }
+.lego-tree * {
+  padding: 0;
+  margin: 0;
+  font-size: 14px; }
 
-.lego-upload .lego-addbtn i {
-  font-size: 16px;
+.lego-tree {
+  margin: 0;
+  padding: 5px;
+  color: #333; }
+
+.lego-tree li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  line-height: 14px;
+  text-align: left;
+  white-space: nowrap;
+  outline: 0; }
+
+.lego-tree li ul {
+  margin: 0;
+  padding: 0 0 0 18px; }
+
+.lego-tree li a {
+  padding: 1px 3px 0 0;
+  margin: 0;
+  cursor: pointer;
+  line-height: 25px;
+  color: #666;
+  background-color: transparent;
+  text-decoration: none;
+  vertical-align: top;
   display: inline-block; }
 
-.lego-upload .lego-cancelbtn {
-  zoom: 0.8; }
+.lego-tree li a:hover,
+.lego-tree li a:hover span.ico_docu,
+.lego-tree li a:hover span.ico_open,
+.lego-tree li a:hover span.ico_close,
+.lego-tree li a:hover span.root_close,
+.lego-tree li a.curSelectedNode,
+.lego-tree li a.curSelectedNode span.ico_close,
+.lego-tree li a.curSelectedNode span.root_close,
+.lego-tree li a.curSelectedNode span.ico_open,
+.lego-tree li a.curSelectedNode span.ico_docu {
+  color: #3399fe !important; }
 
-.lego-upload .lego-closebtn {
-  zoom: 0.8;
-  display: none; }
-
-.lego-upload .lego-upload-item {
-  position: relative;
-  padding: 8px;
-  border-radius: 3px;
-  margin-top: 8px;
-  border: 1px #ddd solid; }
-
-.lego-upload .lego-upload-item:hover {
-  border-color: #c5c5c5; }
-
-.lego-upload .lego-upload-item .media-left i {
-  font-size: 40px;
-  color: #f90; }
-
-.lego-upload .lego-upload-item .media-body .media-heading {
-  margin-right: 40px;
-  font-size: 14px;
-  font-weight: normal;
-  margin-bottom: 8px;
-  word-wrap: break-word;
-  word-break: break-all; }
-
-.lego-upload .lego-upload-item .media-body .media-heading .right {
-  position: absolute;
-  top: 8px;
-  right: 8px;
+.lego-tree li a.tmpTargetNode_inner {
+  padding-top: 0px;
+  background-color: #316AC5;
+  color: white;
   height: 20px;
+  border: 1px #316AC5 solid;
+  opacity: 0.8;
+  filter: alpha(opacity=80); }
+
+.lego-tree li a input.rename {
+  height: 14px;
+  width: 80px;
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  border: 1px #7EC4CC solid;
+  *border: 0px; }
+
+.lego-tree li span {
+  line-height: 16px;
+  margin-right: 2px; }
+
+.lego-tree li span.button {
+  font-family: 'FontAwesome';
+  color: #999;
+  line-height: 25px;
+  font-size: 17px;
+  margin: 0 3px 0 0;
+  display: inline-block;
+  vertical-align: middle;
+  border: 0 none;
+  cursor: pointer;
+  outline: none;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-attachment: scroll; }
+
+.lego-tree li span.folder_ico_open,
+.lego-tree li span.folder_ico_close {
   width: 20px;
-  left: inherit; }
+  margin-left: 3px; }
 
-.lego-upload .lego-upload-item .media-body .media-heading .right a {
-  margin-left: 8px; }
+.lego-tree li span.folder_ico_open:before,
+.lego-tree li span.folder_ico_close:before {
+  width: 18px;
+  height: 18px;
+  color: #ffb700;
+  font-size: 18px; }
 
-.lego-upload .lego-upload-item .media-body small {
-  margin-top: 8px;
-  color: #999; }
+.lego-tree li span.folder_ico_open:before {
+  content: "\f07c"; }
 
-.lego-upload .lego-upload-item .media-body small cite {
-  font-style: inherit; }
+.lego-tree li span.folder_ico_close:before {
+  content: "\f07b"; }
 
-.lego-upload .lego-upload-item .media-body small time {
-  display: none;
-  margin-left: 15px; }
+.lego-tree li span.button.chk {
+  height: 25px;
+  margin: 2px 2px 0 3px;
+  cursor: auto; }
 
-.lego-upload .lego-upload-item .media-body small time a {
-  margin-left: 5px; }
+.lego-tree li span.button.chk.checkbox_false_disable,
+.lego-tree li span.button.chk.checkbox_false_disable:before,
+.lego-tree li span.button.chk.checkbox_false_full:before,
+.lego-tree li span.button.chk.checkbox_false_full_focus:before,
+.lego-tree li span.button.chk.checkbox_false_part:before,
+.lego-tree li span.button.chk.checkbox_false_part_focus:before {
+  content: "\f096";
+  font-size: 18px; }
 
-.lego-upload .lego-upload-item .media-body .progress {
-  margin-bottom: 0;
-  margin-top: 15px;
-  height: 3px;
-  background-color: #ececec;
-  -webkit-box-shadow: none;
-  box-shadow: none; }
+.lego-tree li span.button.chk.checkbox_true_disable,
+.lego-tree li span.button.chk.checkbox_true_disable:before,
+.lego-tree li span.button.chk.checkbox_true_full:before,
+.lego-tree li span.button.chk.checkbox_true_full_focus:before,
+.lego-tree li span.button.chk.checkbox_true_part:before,
+.lego-tree li span.button.chk.checkbox_true_part_focus:before {
+  content: "\f14a";
+  color: #3399fe; }
 
-.lego-upload .lego-upload-item .media-body .progress-bar {
-  -webkit-box-shadow: none;
-  box-shadow: none; }
+.lego-tree li span.button.chk.checkbox_true_disable,
+.lego-tree li span.button.chk.checkbox_true_disable:before,
+.lego-tree li span.button.chk.checkbox_false_disable,
+.lego-tree li span.button.chk.checkbox_false_disable:before {
+  color: #ccc; }
 
-.lego-upload .lego-upload-item:hover .lego-closebtn,
-.lego-upload .lego-upload-item:hover small time {
-  display: inline-block; }
+.lego-tree li span.button.chk.radio_false_disable,
+.lego-tree li span.button.chk.radio_false_disable:before,
+.lego-tree li span.button.chk.radio_false_full:before,
+.lego-tree li span.button.chk.radio_false_full_focus:before,
+.lego-tree li span.button.chk.radio_false_part:before,
+.lego-tree li span.button.chk.radio_false_part_focus:before {
+  content: "\f1db"; }
+
+.lego-tree li span.button.chk.radio_true_disable,
+.lego-tree li span.button.chk.radio_true_disable:before,
+.lego-tree li span.button.chk.radio_true_full:before,
+.lego-tree li span.button.chk.radio_true_full_focus:before,
+.lego-tree li span.button.chk.radio_true_part:before,
+.lego-tree li span.button.chk.radio_true_part_focus:before {
+  content: "\f192";
+  color: #3399fe; }
+
+.lego-tree li span.button.chk.radio_true_disable,
+.lego-tree li span.button.chk.radio_true_disable:before,
+.lego-tree li span.button.chk.radio_false_disable,
+.lego-tree li span.button.chk.radio_false_disable:before {
+  color: #ccc; }
+
+.lego-tree li span.button.switch {
+  min-width: 13px;
+  height: 25px;
+  line-height: 25px;
+  color: #666; }
+
+.lego-tree li span.button.center_open:before,
+.lego-tree li span.button.bottom_open:before,
+.lego-tree li span.button.root_open:before,
+.lego-tree li span.button.roots_open:before,
+.lego-tree li span.button.noline_open:before {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-top: -.2em;
+  margin-left: .4em;
+  vertical-align: middle;
+  content: "";
+  border-top: 0.5em solid;
+  border-right: 0.3em solid transparent;
+  border-left: 0.3em solid transparent;
+  margin-right: .1em; }
+
+.lego-tree li span.button.center_close:before,
+.lego-tree li span.button.bottom_close:before,
+.lego-tree li span.button.root_close:before,
+.lego-tree li span.button.roots_close:before,
+.lego-tree li span.button.noline_close:before {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-top: -.2em;
+  margin-left: .6em;
+  vertical-align: middle;
+  content: "";
+  border-top: 0.3em solid transparent;
+  border-bottom: 0.3em solid transparent;
+  border-left: 0.5em solid; }
+
+.lego-tree li span.button.root_docu {
+  background: none; }
+
+.lego-tree li span.button.roots_docu {
+  background-position: -56px 0; }
+
+.lego-tree li span.button.center_docu {
+  background-position: -56px -18px; }
+
+.lego-tree li span.button.bottom_docu {
+  background-position: -56px -36px; }
+
+.lego-tree li span.button.noline_docu {
+  background: none; }
+
+.lego-tree li span.button.add,
+.lego-tree li span.button.edit,
+.lego-tree li span.button.remove {
+  font-family: 'FontAwesome';
+  font-size: 16px;
+  margin-left: 4px; }
+
+.lego-tree li span.button.ico_docu {
+  margin-left: 2px;
+  vertical-align: top;
+  *vertical-align: middle;
+  width: 0; }
+
+.lego-tree li span.button.ico_open,
+.lego-tree li span.button.ico_close,
+.lego-tree li span.button.add,
+.lego-tree li span.button.edit,
+.lego-tree li span.button.remove {
+  margin-right: 4px;
+  vertical-align: top;
+  *vertical-align: middle; }
+
+.lego-tree li span.button.ico_docu:before {
+  content: ""; }
+
+.lego-tree li span.button.add:before {
+  content: "\f055"; }
+
+.lego-tree li span.button.edit:before {
+  content: "\f14b"; }
+
+.lego-tree li span.button.remove:before {
+  content: "\f00d"; }
+
+.lego-tree li a span.button.add:hover {
+  color: #62d35d; }
+
+.lego-tree li a span.button.edit:hover {
+  color: #01a8fe; }
+
+.lego-tree li a span.button.remove:hover {
+  color: #f85774; }
+
+.lego-tree li span.button.ico_loading {
+  margin-right: 2px;
+  vertical-align: top;
+  *vertical-align: middle; }
+
+ul.tmpTargetzTree {
+  background-color: #FFE6B0;
+  opacity: 0.8;
+  filter: alpha(opacity=80); }
+
+span.tmpzTreeMove_arrow {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  padding: 0;
+  margin: 2px 0 0 1px;
+  border: 0 none;
+  position: absolute;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: -110px -80px; }
+
+ul.lego-tree.zTreeDragUL {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  width: auto;
+  height: auto;
+  overflow: hidden;
+  background-color: #cfcfcf;
+  border: 1px #00B83F dotted;
+  opacity: 0.8;
+  filter: alpha(opacity=80); }
+
+.zTreeMask {
+  z-index: 10000;
+  background-color: #cfcfcf;
+  opacity: 0.0;
+  filter: alpha(opacity=0);
+  position: absolute; }
+.treeselect .dropdown-menu {
+  overflow: auto; }
+.transfer {
+  position: relative;
+  overflow: hidden; }
+  .transfer > div {
+    height: 100%; }
+  .transfer .lego-tree {
+    padding: 5px 5px 5px 0; }
+  .transfer i.anticon-double-right,
+  .transfer i.anticon-double-left {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    margin-left: -20px;
+    color: #999; }
+  .transfer i.anticon-double-right {
+    margin-top: -10px; }
+  .transfer i.anticon-double-left {
+    margin-top: 10px; }
+  .transfer .transfer-col {
+    height: 100%;
+    border: 1px #ddd solid;
+    border-radius: 0.25rem;
+    position: relative; }
+    .transfer .transfer-col h5 {
+      font-size: 16px;
+      line-height: 30px;
+      margin: 0;
+      padding: 5px 10px;
+      border-bottom: 1px solid #ececec;
+      height: 40px; }
+      .transfer .transfer-col h5 button {
+        padding: 4px 0; }
+    .transfer .transfer-col .transfer-col-content {
+      height: 100%;
+      padding-bottom: 40px; }
+      .transfer .transfer-col .transfer-col-content > div {
+        width: 100%;
+        height: 100%; }
+    .transfer .transfer-col .lego-search {
+      padding: 3px;
+      border-bottom: 1px #ececec solid;
+      background-color: #fff;
+      left: 0;
+      right: 0;
+      z-index: 1000; }
+    .transfer .transfer-col .list-group-item {
+      padding: .4rem .5rem .4rem .5rem;
+      border: none; }
+      .transfer .transfer-col .list-group-item i.lego-close {
+        display: none;
+        color: #999;
+        float: right;
+        zoom: .5;
+        line-height: 35px;
+        cursor: pointer; }
+      .transfer .transfer-col .list-group-item:hover, .transfer .transfer-col .list-group-item:active, .transfer .transfer-col .list-group-item.active {
+        background-color: #f4f9fc;
+        color: #666; }
+        .transfer .transfer-col .list-group-item:hover i.lego-close, .transfer .transfer-col .list-group-item:active i.lego-close, .transfer .transfer-col .list-group-item.active i.lego-close {
+          display: inline-block; }
+          .transfer .transfer-col .list-group-item:hover i.lego-close:hover, .transfer .transfer-col .list-group-item:active i.lego-close:hover, .transfer .transfer-col .list-group-item.active i.lego-close:hover {
+            color: #f85774; }
+.lego-tags .lego-tag {
+  display: inline-block;
+  line-height: 20px;
+  height: 22px;
+  padding: 0 10px;
+  border-radius: 4px;
+  border: 1px solid #e9e9e9;
+  background: #f7f7f7;
+  font-size: 12px;
+  -webkit-transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  opacity: 1;
+  margin-right: 8px;
+  margin-bottom: 4px;
+  cursor: pointer;
+  white-space: nowrap; }
+
+.lego-tags button {
+  margin-bottom: 4px; }
+
+.lego-tags .lego-tag-hascolor {
+  color: #fff; }
+
+.lego-tags .lego-tag-text {
+  -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1); }
+  .lego-tags .lego-tag-text .lego-tag-close {
+    overflow: hidden;
+    zoom: 1;
+    width: 0;
+    line-height: 20px;
+    vertical-align: bottom;
+    color: #999;
+    -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -webkit-transform: scale(0.75) rotate(0deg);
+    -ms-transform: scale(0.75) rotate(0deg);
+    transform: scale(0.75) rotate(0deg);
+    -webkit-transform-origin: 100% 50%;
+    -ms-transform-origin: 100% 50%;
+    transform-origin: 100% 50%; }
+    .lego-tags .lego-tag-text .lego-tag-close:hover {
+      color: #f85774; }
+  .lego-tags .lego-tag-text:hover {
+    margin-left: -8px;
+    margin-right: -8px; }
+    .lego-tags .lego-tag-text:hover .lego-tag-close {
+      width: 16px;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0); }
