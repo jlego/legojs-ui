@@ -36,6 +36,7 @@ class UploadItem extends UploadBase {
             isAuto: true,
             readonly: false,
             file: {},
+            type: 'file',
             headers: {},
             params: {},
             onBegin() {},
@@ -65,13 +66,15 @@ class UploadItem extends UploadBase {
         const vDom = hx`
         <div class="media lego-upload-item">
             <div class="media-left">
-                <i class="anticon anticon-${Lego.UI.Util.getFileIcon(opts.file.name)}"></i>
+                <i class="${Lego.UI.Util.getFileIcon(opts.file.name)}"></i>
             </div>
             ${opts.percent < 100 ? hx`
             <div class="media-body">
                 <h4 class="media-heading">
                     <div class="right">
-                        <a href="javascript:;" class="lego-cancelbtn" id="${val(opts.file._id)}" onclick=${this.onCancel.bind(this)}><i class="anticon anticon-cross float-xs-right"></i></a>
+                        <a href="javascript:;" class="lego-cancelbtn" id="${val(opts.file._id)}" onclick=${this.onCancel.bind(this)}>
+                            <i class="anticon anticon-close-circle float-xs-right"></i>
+                        </a>
                     </div>
                     ${val(opts.file.name)}
                 </h4>
@@ -81,7 +84,9 @@ class UploadItem extends UploadBase {
                 <h4 class="media-heading">
                     ${!opts.readonly && opts.percent == 100 ? hx`
                     <div class="right">
-                        <a href="javascript:;" class="lego-closebtn" id="${val(opts.file._id)}" onclick=${this.onRemove.bind(this)}><i class="anticon anticon-cross float-xs-right"></i></a>
+                        <a href="javascript:;" class="lego-closebtn" id="${val(opts.file._id)}" onclick=${this.onRemove.bind(this)}>
+                            <i class="anticon anticon-close-circle float-xs-right"></i>
+                        </a>
                     </div>
                     ` : ''}
                     ${val(opts.file.name)}
@@ -100,23 +105,63 @@ class UploadItem extends UploadBase {
         return vDom;
     }
     renderPhoto(){
-        return hx`<div></div>`;
-    }
-    renderAvatar(){
-        return hx`<div></div>`;
+        let opts = this.options,
+            width = opts.previewImg.width,
+            height = opts.previewImg.height;
+        if(width) width = 'width:' + (typeof width == 'string' ? width : (width + 'px')) + ';';
+        if(height) height = 'height:' + (typeof height == 'string' ? height : (height + 'px')) + ';';
+        let vDom = opts.percent < 100 ? hx`
+            <div class="lego-upload-photo-item" style="background-image:url(${val(opts.previewImgSrc)});
+            ${width ? width : ''}${height ? height : ''}">
+                <div class="lego-upload-operate">
+                    <progressbar id="${'progressbar_' + opts.vid}"></progressbar>
+                    <a href="javascript:;" class="lego-cancelbtn" id="${val(opts.file._id)}" onclick=${this.onCancel.bind(this)} title="取消">
+                        <i class="anticon anticon-close-circle"></i>
+                    </a>
+                </div>
+            </div>
+            ` : (!opts.readonly && opts.percent == 100 ? hx`
+            <div class="lego-upload-photo-item" style="background-image:url(${val(opts.file.url)});
+            ${width ? width : ''}${height ? height : ''}">
+                <div class="lego-upload-operate">
+                    <div class="lego-upload-btns">
+                        <a href="javascript:;" class="lego-previewbtn" id="p_${val(opts.file._id)}" title="预览">
+                            <i class="anticon anticon-eye-o"></i>
+                        </a>
+                        <a href="javascript:;" class="lego-closebtn" id="${val(opts.file._id)}" onclick=${this.onRemove.bind(this)} title="删除">
+                            <i class="anticon anticon-delete"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            ` : '');
+        return vDom;
     }
     render() {
         let opts = this.options;
         switch(opts.type){
             case 'file':
-                this.renderFile();
+                return this.renderFile();
                 break;
-            case 'photo':
-                this.renderPhoto();
+            case 'photos':
+                return this.renderPhoto();
                 break;
             case 'avatar':
-                this.renderAvatar();
+                return this.renderPhoto();
                 break;
+            default:
+                return this.renderFile();
+        }
+    }
+    removeFun(){
+        if(this.options.type !== 'avatar'){
+            if(this.options.type == 'photos'){
+                this.$el.remove();
+            }else{
+                this.$el.slideUp("normal", () => {
+                    this.$el.remove();
+                });
+            }
         }
     }
     // 取消上传
@@ -126,18 +171,14 @@ class UploadItem extends UploadBase {
             _id = target.parent().attr('id');
         this.cancel();
         if(typeof this.options.onCancel == 'function') this.options.onCancel('cancel', _id);
-        this.$el.slideUp("normal", () => {
-            this.$el.remove();
-        });
+        this.removeFun();
     }
     onRemove(event){
         event.stopPropagation();
         const target = $(event.target),
             _id = target.parent().attr('id');
         if(typeof this.options.onRemove == 'function') this.options.onRemove('remove', _id);
-        this.$el.slideUp("normal", () => {
-            this.$el.remove();
-        });
+        this.removeFun();
     }
 }
 export default UploadItem;

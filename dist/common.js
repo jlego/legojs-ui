@@ -1,5 +1,5 @@
 /**
- * common.js v0.5.19
+ * common.js v0.5.22
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -172,36 +172,37 @@ var Util = {
     getFileIcon: function getFileIcon(name, isExt) {
         var _extMap;
         var extMap = (_extMap = {
-            bmp: "file",
-            gif: "file",
-            png: "file",
-            jpg: "file-jpg",
-            jpeg: "file-jpg",
-            tif: "file",
-            psd: "file",
-            pdg: "file",
-            ai: "file",
-            ico: "file",
-            css: "file",
-            doc: "file-text",
-            docx: "file-text",
-            ppt: "file-ppt",
-            pptx: "file-ppt",
-            rar: "book",
-            "7z": "book",
-            gz: "book",
-            bz: "book",
-            ace: "book",
-            uha: "book",
-            zpaq: "book"
-        }, _defineProperty(_extMap, "rar", "book"), _defineProperty(_extMap, "txt", "file"), 
-        _defineProperty(_extMap, "yml", "file"), _defineProperty(_extMap, "ini", "file"), 
-        _defineProperty(_extMap, "js", "file"), _defineProperty(_extMap, "url", "file"), 
-        _defineProperty(_extMap, "xls", "file-excel"), _defineProperty(_extMap, "xlsx", "file-excel"), 
-        _defineProperty(_extMap, "et", "file-excel"), _defineProperty(_extMap, "zip", "book"), 
-        _defineProperty(_extMap, "pdf", "file-pdf"), _defineProperty(_extMap, "none", "file-unknown"), 
+            bmp: "fa fa-file-o",
+            gif: "fa fa-file-image-o",
+            png: "fa fa-file-image-o",
+            jpg: "fa fa-file-image-o",
+            jpeg: "fa fa-file-image-o",
+            tif: "fa fa-file-text-o",
+            psd: "fa fa-file-image-o",
+            pdg: "fa fa-file-o",
+            ai: "fa fa-file-image-o",
+            ico: "fa fa-file-image-o",
+            css: "fa fa-file-text-o",
+            doc: "fa fa-file-word-o",
+            docx: "fa fa-file-word-o",
+            ppt: "fa fa-file-powerpoint-o",
+            pptx: "fa fa-file-powerpoint-o",
+            rar: "fa fa-file-zip-o",
+            "7z": "fa fa-file-zip-o",
+            gz: "fa fa-file-zip-o",
+            bz: "fa fa-file-zip-o",
+            ace: "fa fa-file-zip-o",
+            uha: "fa fa-file-zip-o",
+            zpaq: "fa fa-file-zip-o"
+        }, _defineProperty(_extMap, "rar", "fa fa-file-zip-o"), _defineProperty(_extMap, "txt", "fa fa-file-text-o"), 
+        _defineProperty(_extMap, "yml", "fa fa-file-code-o"), _defineProperty(_extMap, "ini", "fa fa-file-code-o"), 
+        _defineProperty(_extMap, "js", "fa fa-file-code-o"), _defineProperty(_extMap, "url", "fa fa-file-code-o"), 
+        _defineProperty(_extMap, "xls", "fa fa-file-excel-o"), _defineProperty(_extMap, "xlsx", "fa fa-file-excel-o"), 
+        _defineProperty(_extMap, "et", "fa fa-file-excel-o"), _defineProperty(_extMap, "mp3", "fa fa-file-audio-o"), 
+        _defineProperty(_extMap, "mp4", "fa fa-file-video-o"), _defineProperty(_extMap, "zip", "fa fa-file-zip-o"), 
+        _defineProperty(_extMap, "pdf", "fa fa-file-pdf-o"), _defineProperty(_extMap, "none", "fa fa-file-o"), 
         _extMap), ext = isExt ? name : this.getExtName(name);
-        return ext !== false && extMap[ext] ? extMap[ext] : "";
+        return ext !== false && extMap[ext] ? extMap[ext] : "file";
     },
     previewAble: function previewAble(nameOrExt) {
         var fileExt = this.getExtName(nameOrExt) || nameOrExt, extMap = [ "bmp", "gif", "png", "jpg", "jpeg", "txt", "pdf", "doc", "docx", "ppt", "pptx", "xls", "xlsx" ];

@@ -11871,11 +11871,17 @@ form button[type="submit"] {
   display: inline-block; }
 
 .lego-upload .lego-cancelbtn {
-  zoom: 0.8; }
+  zoom: 0.8;
+  color: #ccc; }
+  .lego-upload .lego-cancelbtn:hover {
+    color: #f85774 !important; }
 
 .lego-upload .lego-closebtn {
   zoom: 0.8;
-  display: none; }
+  display: none;
+  color: #ccc; }
+  .lego-upload .lego-closebtn:hover {
+    color: #f85774 !important; }
 
 .lego-upload .lego-upload-item {
   position: relative;
@@ -11914,31 +11920,90 @@ form button[type="submit"] {
       margin-left: 15px; }
       .lego-upload .lego-upload-item .media-body small time a {
         margin-left: 5px; }
-  .lego-upload .lego-upload-item .media-body .progress {
-    margin-bottom: 0;
-    margin-top: 15px;
-    height: 3px;
-    background-color: #ececec;
-    -webkit-box-shadow: none;
-    box-shadow: none; }
-  .lego-upload .lego-upload-item .media-body .progress-bar {
-    -webkit-box-shadow: none;
-    box-shadow: none; }
   .lego-upload .lego-upload-item:hover .lego-closebtn,
   .lego-upload .lego-upload-item:hover small time {
     display: inline-block; }
 
-.lego-upload.lego-upload-avatar .lego-upload-add {
+.lego-upload .lego-upload-photo-item {
   display: inline-block;
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
+  margin: 0 8px 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  position: relative;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  background-size: cover;
+  background-position: center center; }
+  .lego-upload .lego-upload-photo-item .lego-upload-operate {
+    overflow: hidden;
+    height: 100%; }
+    .lego-upload .lego-upload-photo-item .lego-upload-operate:before {
+      content: " ";
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.7);
+      -webkit-transition: all .3s;
+      transition: all .3s;
+      width: 100%;
+      height: 100%;
+      border-radius: 4px;
+      opacity: 0; }
+    .lego-upload .lego-upload-photo-item .lego-upload-operate .progress {
+      margin-top: 0; }
+    .lego-upload .lego-upload-photo-item .lego-upload-operate .lego-upload-btns {
+      width: 100%;
+      text-align: center;
+      position: absolute;
+      top: 50%;
+      margin-top: -15px;
+      display: none; }
+      .lego-upload .lego-upload-photo-item .lego-upload-operate .lego-upload-btns a {
+        display: inline-block;
+        color: #ccc; }
+        .lego-upload .lego-upload-photo-item .lego-upload-operate .lego-upload-btns a i {
+          font-size: 20px;
+          width: 16px;
+          margin: 0 4px; }
+        .lego-upload .lego-upload-photo-item .lego-upload-operate .lego-upload-btns a:hover {
+          color: #01a8fe; }
+    .lego-upload .lego-upload-photo-item .lego-upload-operate .lego-cancelbtn {
+      top: 8px;
+      right: 3px; }
+  .lego-upload .lego-upload-photo-item:hover .lego-upload-operate:before {
+    opacity: 1; }
+  .lego-upload .lego-upload-photo-item:hover .lego-upload-operate .lego-upload-btns {
+    display: block; }
+
+.lego-upload .lego-upload-add {
+  margin-top: 0;
+  display: inline-block;
+  border: 1px dashed #ccc;
+  border-radius: 4px;
   cursor: pointer;
-  text-align: center; }
-  .lego-upload.lego-upload-avatar .lego-upload-add .avatar-uploader-trigger {
+  text-align: center;
+  -webkit-transition: border-color .3s ease;
+  transition: border-color .3s ease;
+  background-color: #fbfbfb;
+  margin: 0 8px 8px 0;
+  vertical-align: bottom; }
+  .lego-upload .lego-upload-add .avatar-uploader-trigger {
     display: table-cell;
     vertical-align: middle;
     font-size: 28px;
-    color: #999; }
+    color: #ccc; }
+  .lego-upload .lego-upload-add:hover {
+    border-color: #01a8fe; }
+
+.lego-upload .progress {
+  margin-bottom: 0;
+  margin-top: 15px;
+  height: 3px;
+  background-color: #ececec;
+  -webkit-box-shadow: none;
+  box-shadow: none; }
+
+.lego-upload .progress-bar {
+  -webkit-box-shadow: none;
+  box-shadow: none; }
 .lego-rating .rating-symbol {
   cursor: pointer; }
 

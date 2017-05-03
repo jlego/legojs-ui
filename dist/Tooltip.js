@@ -1,5 +1,5 @@
 /**
- * tooltip.js v0.5.19
+ * tooltip.js v0.5.22
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

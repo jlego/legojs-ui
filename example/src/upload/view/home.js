@@ -7,6 +7,7 @@ class HomeView extends Lego.UI.Baseview {
                 el: '#upload1',
                 name: 'uploadname',
                 multiple: true,
+                token: '6qcgjJjvWVKAJNg3bR_8Wzr1IjEahFQha4Ksph8_:KdvqZCn-qVgSU2BqgRR1NSkG_4o=:eyJzY29wZSI6InJvYm90YWkiLCJyZXR1cm5Cb2R5Ijoie1wia2V5XCI6XCIkKGtleSlcIiwgXCJoYXNoXCI6XCIkKGV0YWcpXCIsXCJtaW1lVHlwZVwiOlwiJChtaW1lVHlwZSlcIixcIm5hbWVcIjpcIiQoZm5hbWUpXCIsXCJzaXplXCI6JChmc2l6ZSksXCJ3aWR0aFwiOiQoaW1hZ2VJbmZvLndpZHRoKSxcImhlaWdodFwiOiQoaW1hZ2VJbmZvLmhlaWdodCl9IiwiZGVhZGxpbmUiOjE0OTM4MDgwOTJ9',
                 // dataSource: {
                 //     api: '',
                 //     server: null
@@ -19,6 +20,7 @@ class HomeView extends Lego.UI.Baseview {
                 name: 'uploadname2',
                 buttonText: '单文件',
                 multiple: false,
+                token: '6qcgjJjvWVKAJNg3bR_8Wzr1IjEahFQha4Ksph8_:KdvqZCn-qVgSU2BqgRR1NSkG_4o=:eyJzY29wZSI6InJvYm90YWkiLCJyZXR1cm5Cb2R5Ijoie1wia2V5XCI6XCIkKGtleSlcIiwgXCJoYXNoXCI6XCIkKGV0YWcpXCIsXCJtaW1lVHlwZVwiOlwiJChtaW1lVHlwZSlcIixcIm5hbWVcIjpcIiQoZm5hbWUpXCIsXCJzaXplXCI6JChmc2l6ZSksXCJ3aWR0aFwiOiQoaW1hZ2VJbmZvLndpZHRoKSxcImhlaWdodFwiOiQoaW1hZ2VJbmZvLmhlaWdodCl9IiwiZGVhZGxpbmUiOjE0OTM4MDgwOTJ9',
                 // hideAddBtn: true,
                 onComplete(self, result) {
                     console.warn('上传成功了2', result);
@@ -52,15 +54,23 @@ class HomeView extends Lego.UI.Baseview {
             }, {
                 el: '#upload4',
                 name: 'uploadname4',
-                multiple: false,
                 type: 'avatar',
-                previewOption:{
-                    width: 150,
+                token: '6qcgjJjvWVKAJNg3bR_8Wzr1IjEahFQha4Ksph8_:KdvqZCn-qVgSU2BqgRR1NSkG_4o=:eyJzY29wZSI6InJvYm90YWkiLCJyZXR1cm5Cb2R5Ijoie1wia2V5XCI6XCIkKGtleSlcIiwgXCJoYXNoXCI6XCIkKGV0YWcpXCIsXCJtaW1lVHlwZVwiOlwiJChtaW1lVHlwZSlcIixcIm5hbWVcIjpcIiQoZm5hbWUpXCIsXCJzaXplXCI6JChmc2l6ZSksXCJ3aWR0aFwiOiQoaW1hZ2VJbmZvLndpZHRoKSxcImhlaWdodFwiOiQoaW1hZ2VJbmZvLmhlaWdodCl9IiwiZGVhZGxpbmUiOjE0OTM4MDgwOTJ9',
+                previewImg:{
+                    width: 200,
                     height: 150
                 },
                 // hideAddBtn: true,
                 onComplete(self, result) {
-                    console.warn('上传成功了2', result);
+                    console.warn('上传成功了4', result);
+                }
+            }, {
+                el: '#upload6',
+                name: 'uploadname5',
+                type: 'photos',
+                token: '6qcgjJjvWVKAJNg3bR_8Wzr1IjEahFQha4Ksph8_:KdvqZCn-qVgSU2BqgRR1NSkG_4o=:eyJzY29wZSI6InJvYm90YWkiLCJyZXR1cm5Cb2R5Ijoie1wia2V5XCI6XCIkKGtleSlcIiwgXCJoYXNoXCI6XCIkKGV0YWcpXCIsXCJtaW1lVHlwZVwiOlwiJChtaW1lVHlwZSlcIixcIm5hbWVcIjpcIiQoZm5hbWUpXCIsXCJzaXplXCI6JChmc2l6ZSksXCJ3aWR0aFwiOiQoaW1hZ2VJbmZvLndpZHRoKSxcImhlaWdodFwiOiQoaW1hZ2VJbmZvLmhlaWdodCl9IiwiZGVhZGxpbmUiOjE0OTM4MDgwOTJ9',
+                onComplete(self, result) {
+                    console.warn('上传成功了5', result);
                 }
             }]
         };

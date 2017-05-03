@@ -17,7 +17,8 @@ class Chkgroup extends Lego.UI.Baseview {
             layout: 'vertical', //Inline
             type: 'checkbox',   //radio
             name: '',
-            data: []
+            data: [],
+            onChange(){}
         };
         Object.assign(options, opts);
         super(options);
@@ -50,6 +51,15 @@ class Chkgroup extends Lego.UI.Baseview {
         </div>
         `;
         return vDom;
+    }
+    renderAfter(){
+        let opts = this.options,
+            that = this;
+        this.$(".form-check-input").change(function(){
+            let val = that.$("input.form-check-input:checked").val(),
+                findOne = opts.data.find(item => item.value == val);
+            if(typeof opts.onChange == 'function') opts.onChange(that, findOne);
+        });
     }
 }
 Lego.components('chkgroup', Chkgroup);
