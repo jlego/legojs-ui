@@ -122,7 +122,7 @@ class Upload extends Lego.UI.Baseview {
     uploadInit(files, fileInput) {
         let uploadFiles = [];
         if (typeof files == 'object' && files[0]) {
-            uploadFiles = Array.prototype.slice.call(files, 0);
+            uploadFiles = Array.from(files);
         } else {
             uploadFiles = [files];
         }
@@ -179,9 +179,9 @@ class Upload extends Lego.UI.Baseview {
                         const hasFile = opts.value.find(item => item.file.hash == resp.hash);
                         if (!hasFile && opts.value.length <= maxFilesCount) {
                             resp.url = Lego.config.downloadUri + resp.key;
-                            self.options.file = resp;
+                            self.options.file = $.extend(true, {}, resp);
                             opts.value.push({
-                                file: resp,
+                                file: $.extend(true, {}, resp),
                                 type: opts.type, //图片或文件
                                 percent: 100
                             });
