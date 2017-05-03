@@ -81,7 +81,12 @@ class Upload extends Lego.UI.Baseview {
     }
     components(){
         const opts = this.options;
-        if(opts.type == 'avatar') opts.multiple = false;
+        if(opts.type == 'avatar'){
+            opts.multiple = false;
+        }
+        if(opts.type !== 'file'){
+            opts.accept = 'image/gif,image/jpeg,image/x-png';
+        }
     }
     render() {
         this.fileList = this.fileList || [];
