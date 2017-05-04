@@ -1,5 +1,5 @@
 /**
- * chkgroup.js v0.5.22
+ * chkgroup.js v0.5.25
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -73,7 +73,8 @@ var Chkgroup = function(_Lego$UI$Baseview) {
             layout: "vertical",
             type: "checkbox",
             name: "",
-            data: []
+            data: [],
+            onChange: function onChange() {}
         };
         Object.assign(options, opts);
         return _possibleConstructorReturn(this, (Chkgroup.__proto__ || Object.getPrototypeOf(Chkgroup)).call(this, options));
@@ -90,6 +91,17 @@ var Chkgroup = function(_Lego$UI$Baseview) {
                 }
             }));
             return vDom;
+        }
+    }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            var opts = this.options, that = this;
+            this.$(".form-check-input").change(function() {
+                var val = that.$("input.form-check-input:checked").val(), findOne = opts.data.find(function(item) {
+                    return item.value == val;
+                });
+                if (typeof opts.onChange == "function") opts.onChange(that, findOne);
+            });
         }
     } ]);
     return Chkgroup;

@@ -1,5 +1,5 @@
 /**
- * message.js v0.5.22
+ * message.js v0.5.25
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

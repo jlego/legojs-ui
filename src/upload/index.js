@@ -80,16 +80,16 @@ class Upload extends Lego.UI.Baseview {
         }
     }
     components(){
+        this.fileList = this.fileList || [];
         const opts = this.options;
         if(opts.type == 'avatar'){
             opts.multiple = false;
         }
         if(opts.type !== 'file'){
-            opts.accept = 'image/gif,image/jpeg,image/x-png';
+            opts.accept = opts.accept || 'image/gif,image/jpeg,image/png';
         }
     }
     render() {
-        this.fileList = this.fileList || [];
         const opts = this.options;
         let vDom = hx`
         <div class="lego-upload lego-upload-${val(opts.type)}">
@@ -127,7 +127,7 @@ class Upload extends Lego.UI.Baseview {
     uploadInit(files, fileInput) {
         let uploadFiles = [];
         if (typeof files == 'object' && files[0]) {
-            uploadFiles = Array.from(files);
+            uploadFiles = Array.prototype.slice.call(files, 0);
         } else {
             uploadFiles = [files];
         }
@@ -165,7 +165,7 @@ class Upload extends Lego.UI.Baseview {
                     return;
                 }
                 if(i > maxFilesCount - 1) return;
-                const uploadOption = {
+                let uploadOption = {
                     el: '.lego-upload-container',
                     uploadUri: opts.uploadUri,
                     readonly: opts.readonly,
@@ -184,14 +184,14 @@ class Upload extends Lego.UI.Baseview {
                         const hasFile = opts.value.find(item => item.file.hash == resp.hash);
                         if (!hasFile && opts.value.length <= maxFilesCount) {
                             resp.url = Lego.config.downloadUri + resp.key;
-                            self.options.file = $.extend(true, {}, resp);
+                            self.options.file = resp;
                             opts.value.push({
-                                file: $.extend(true, {}, resp),
+                                file: resp,
                                 type: opts.type, //图片或文件
                                 percent: 100
                             });
                         }
-                        if(typeof opts.onComplete == 'function') opts.onComplete(that, resp);
+                        if(typeof opts.onComplete == 'function') opts.onComplete(that, self, resp);
                     },
                     onFail: opts.onFail,
                     onCancel: opts.onCancel
@@ -199,12 +199,11 @@ class Upload extends Lego.UI.Baseview {
                 if (opts.type !== 'file') {
                     uploadOption.previewImg = opts.previewImg || {};
                     uploadOption.isAuto = opts.isAuto;
-                    localresizeimg(file, Object.assign(opts.previewImg, {
-                        success: function(results) {
-                            uploadOption.previewImgSrc = results.blob;
-                            that.showItem(uploadOption);
-                        }
-                    }));
+                    opts.previewImg.success = function(results, option){
+                        option.previewImgSrc = results.blob;
+                        that.showItem(option);
+                    };
+                    localresizeimg(file, opts.previewImg, uploadOption);
                 } else {
                     that.showItem(uploadOption);
                 }

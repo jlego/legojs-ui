@@ -1,5 +1,5 @@
 /**
- * upload.js v0.5.22
+ * upload.js v0.5.25
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -323,7 +323,7 @@ var _templateObject4$1 = _taggedTemplateLiteral$1([ '\n                    <div 
 
 var _templateObject5$1 = _taggedTemplateLiteral$1([ '\n            <div class="lego-upload-photo-item" style="background-image:url(', ");\n            ", "", '">\n                <div class="lego-upload-operate">\n                    <progressbar id="', '"></progressbar>\n                    <a href="javascript:;" class="lego-cancelbtn" id="', '" onclick=', ' title="取消">\n                        <i class="anticon anticon-close-circle"></i>\n                    </a>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="lego-upload-photo-item" style="background-image:url(', ");\n            ", "", '">\n                <div class="lego-upload-operate">\n                    <progressbar id="', '"></progressbar>\n                    <a href="javascript:;" class="lego-cancelbtn" id="', '" onclick=', ' title="取消">\n                        <i class="anticon anticon-close-circle"></i>\n                    </a>\n                </div>\n            </div>\n            ' ]);
 
-var _templateObject6 = _taggedTemplateLiteral$1([ '\n            <div class="lego-upload-photo-item" style="background-image:url(', ");\n            ", "", '">\n                <div class="lego-upload-operate">\n                    <div class="lego-upload-btns">\n                        <a href="javascript:;" class="lego-previewbtn" id="', '" title="预览">\n                            <i class="anticon anticon-eye-o"></i>\n                        </a>\n                        <a href="javascript:;" class="lego-closebtn" id="', '" onclick=', ' title="删除">\n                            <i class="anticon anticon-delete"></i>\n                        </a>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="lego-upload-photo-item" style="background-image:url(', ");\n            ", "", '">\n                <div class="lego-upload-operate">\n                    <div class="lego-upload-btns">\n                        <a href="javascript:;" class="lego-previewbtn" id="', '" title="预览">\n                            <i class="anticon anticon-eye-o"></i>\n                        </a>\n                        <a href="javascript:;" class="lego-closebtn" id="', '" onclick=', ' title="删除">\n                            <i class="anticon anticon-delete"></i>\n                        </a>\n                    </div>\n                </div>\n            </div>\n            ' ]);
+var _templateObject6 = _taggedTemplateLiteral$1([ '\n            <div class="lego-upload-photo-item" style="background-image:url(', ");\n            ", "", '">\n                <div class="lego-upload-operate">\n                    <div class="lego-upload-btns">\n                        <a href="javascript:;" class="lego-previewbtn" id="p_', '" title="预览">\n                            <i class="anticon anticon-eye-o"></i>\n                        </a>\n                        <a href="javascript:;" class="lego-closebtn" id="', '" onclick=', ' title="删除">\n                            <i class="anticon anticon-delete"></i>\n                        </a>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="lego-upload-photo-item" style="background-image:url(', ");\n            ", "", '">\n                <div class="lego-upload-operate">\n                    <div class="lego-upload-btns">\n                        <a href="javascript:;" class="lego-previewbtn" id="p_', '" title="预览">\n                            <i class="anticon anticon-eye-o"></i>\n                        </a>\n                        <a href="javascript:;" class="lego-closebtn" id="', '" onclick=', ' title="删除">\n                            <i class="anticon anticon-delete"></i>\n                        </a>\n                    </div>\n                </div>\n            </div>\n            ' ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -595,7 +595,6 @@ var Upload = function(_Lego$UI$Baseview) {
             });
         }
         var _this = _possibleConstructorReturn(this, (Upload.__proto__ || Object.getPrototypeOf(Upload)).call(this, options));
-        _this.reset();
         _this.$(".lego-fileInput").on("change", function(event) {
             var target = $(event.currentTarget)[0];
             _this.uploadInit(target.files, target);
@@ -610,13 +609,18 @@ var Upload = function(_Lego$UI$Baseview) {
     _createClass(Upload, [ {
         key: "components",
         value: function components() {
+            this.fileList = this.fileList || [];
             var opts = this.options;
-            if (opts.type == "avatar") opts.multiple = false;
+            if (opts.type == "avatar") {
+                opts.multiple = false;
+            }
+            if (opts.type !== "file") {
+                opts.accept = opts.accept || "image/gif,image/jpeg,image/png";
+            }
         }
     }, {
         key: "render",
         value: function render() {
-            this.fileList = this.fileList || [];
             var opts = this.options;
             var vDom = hx(_templateObject, val(opts.type), !opts.readonly && opts.type == "file" ? hx(_templateObject2, opts.disabled ? "disabled" : "", opts.buttonIcon ? opts.buttonIcon : hx(_templateObject3), val(opts.buttonText)) : "", this.getValue().join(","), val(opts.name), val(opts.accept), opts.showUploadList && opts.type == "file" ? hx(_templateObject4) : "", opts.type !== "file" ? hx(_templateObject5) : "");
             return opts.template ? opts.template : vDom;
@@ -703,7 +707,7 @@ var Upload = function(_Lego$UI$Baseview) {
                                     percent: 100
                                 });
                             }
-                            if (typeof opts.onComplete == "function") opts.onComplete(that, resp);
+                            if (typeof opts.onComplete == "function") opts.onComplete(that, self, resp);
                         },
                         onFail: opts.onFail,
                         onCancel: opts.onCancel
@@ -711,12 +715,11 @@ var Upload = function(_Lego$UI$Baseview) {
                     if (opts.type !== "file") {
                         uploadOption.previewImg = opts.previewImg || {};
                         uploadOption.isAuto = opts.isAuto;
-                        localresizeimg(file, Object.assign(opts.previewImg, {
-                            success: function success(results) {
-                                uploadOption.previewImgSrc = results.blob;
-                                that.showItem(uploadOption);
-                            }
-                        }));
+                        opts.previewImg.success = function(results, option) {
+                            option.previewImgSrc = results.blob;
+                            that.showItem(option);
+                        };
+                        localresizeimg(file, opts.previewImg, uploadOption);
                     } else {
                         that.showItem(uploadOption);
                     }
