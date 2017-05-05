@@ -36,6 +36,7 @@ class UploadItem extends UploadBase {
             isAuto: true,
             readonly: false,
             file: {},
+            type: 'file',
             headers: {},
             params: {},
             onBegin() {},
@@ -60,36 +61,40 @@ class UploadItem extends UploadBase {
             }
         });
     }
-    render() {
-        const options = this.options || {};
+    renderFile(){
+        const opts = this.options;
         const vDom = hx`
         <div class="media lego-upload-item">
             <div class="media-left">
-                <i class="anticon anticon-${Lego.UI.Util.getFileIcon(options.file.name)}"></i>
+                <i class="${Lego.UI.Util.getFileIcon(opts.file.name)}"></i>
             </div>
-            ${options.percent < 100 ? hx`
+            ${opts.percent < 100 ? hx`
             <div class="media-body">
                 <h4 class="media-heading">
                     <div class="right">
-                        <a href="javascript:;" class="lego-cancelbtn" id="${val(options.file._id)}" onclick=${this.onCancel.bind(this)}><i class="anticon anticon-cross float-xs-right"></i></a>
+                        <a href="javascript:;" class="lego-cancelbtn" id="${val(opts.file._id)}" onclick=${this.onCancel.bind(this)}>
+                            <i class="anticon anticon-close-circle float-xs-right"></i>
+                        </a>
                     </div>
-                    ${val(options.file.name)}
+                    ${val(opts.file.name)}
                 </h4>
-                <progressbar id="${'progressbar_' + options.vid}"></progressbar>
+                <progressbar id="${'progressbar_' + opts.vid}"></progressbar>
             </div>` : hx`
             <div class="media-body">
                 <h4 class="media-heading">
-                    ${!options.readonly && options.percent == 100 ? hx`
+                    ${!opts.readonly && opts.percent == 100 ? hx`
                     <div class="right">
-                        <a href="javascript:;" class="lego-closebtn" id="${val(options.file._id)}" onclick=${this.onRemove.bind(this)}><i class="anticon anticon-cross float-xs-right"></i></a>
+                        <a href="javascript:;" class="lego-closebtn" id="${val(opts.file._id)}" onclick=${this.onRemove.bind(this)}>
+                            <i class="anticon anticon-close-circle float-xs-right"></i>
+                        </a>
                     </div>
                     ` : ''}
-                    ${val(options.file.name)}
+                    ${val(opts.file.name)}
                 </h4>
                 <small>
-                    <cite>${Lego.UI.Util.convertByteUnit(options.file.size)}</cite>
+                    <cite>${Lego.UI.Util.convertByteUnit(opts.file.size)}</cite>
                     <time>
-                        <a href="${val(options.file.url)}?attname=${val(options.file.name)}" target="_blank">下载</a>
+                        <a href="${val(opts.file.url)}?attname=${val(opts.file.name)}" target="_blank">下载</a>
                         <a href="#" style="display:none">预览</a>
                     </time>
                 </small>
@@ -99,6 +104,61 @@ class UploadItem extends UploadBase {
         `;
         return vDom;
     }
+    renderPhoto(){
+        let opts = this.options;
+        let vDom = opts.percent < 100 ? hx`
+            <div class="lego-upload-photo-item preview-${val(opts.type)}" style="background-image:url(${val(opts.previewImgSrc)});">
+                <div class="lego-upload-operate">
+                    <progressbar id="${'progressbar_' + opts.vid}"></progressbar>
+                    <a href="javascript:;" class="lego-cancelbtn" id="${val(opts.file._id)}" onclick=${this.onCancel.bind(this)} title="取消">
+                        <i class="anticon anticon-close-circle"></i>
+                    </a>
+                </div>
+            </div>
+            ` : hx`
+            <div class="lego-upload-photo-item preview-${val(opts.type)}" style="background-image:url(${val(opts.file.url)});">
+                <div class="lego-upload-operate">
+                    <div class="lego-upload-btns">
+                        <a href="javascript:;" class="lego-previewbtn" id="p_${val(opts.file._id)}" title="预览">
+                            <i class="anticon anticon-eye-o"></i>
+                        </a>
+                        ${!opts.readonly && opts.percent == 100 ? hx`
+                        <a href="javascript:;" class="lego-closebtn" id="${val(opts.file._id)}" onclick=${this.onRemove.bind(this)} title="删除">
+                            <i class="anticon anticon-delete"></i>
+                        </a>` : ''}
+                    </div>
+                </div>
+            </div>
+            `;
+        return vDom;
+    }
+    render() {
+        let opts = this.options;
+        switch(opts.type){
+            case 'file':
+                return this.renderFile();
+                break;
+            case 'photos':
+                return this.renderPhoto();
+                break;
+            case 'avatar':
+                return this.renderPhoto();
+                break;
+            default:
+                return this.renderFile();
+        }
+    }
+    removeFun(){
+        if(this.options.type !== 'avatar'){
+            if(this.options.type == 'photos'){
+                this.$el.remove();
+            }else{
+                this.$el.slideUp("normal", () => {
+                    this.$el.remove();
+                });
+            }
+        }
+    }
     // 取消上传
     onCancel(event) {
         event.stopPropagation();
@@ -106,18 +166,14 @@ class UploadItem extends UploadBase {
             _id = target.parent().attr('id');
         this.cancel();
         if(typeof this.options.onCancel == 'function') this.options.onCancel('cancel', _id);
-        this.$el.slideUp("normal", () => {
-            this.$el.remove();
-        });
+        this.removeFun();
     }
     onRemove(event){
         event.stopPropagation();
         const target = $(event.target),
             _id = target.parent().attr('id');
         if(typeof this.options.onRemove == 'function') this.options.onRemove('remove', _id);
-        this.$el.slideUp("normal", () => {
-            this.$el.remove();
-        });
+        this.removeFun();
     }
 }
 export default UploadItem;

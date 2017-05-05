@@ -1,9 +1,15 @@
 /**
- * editcom.js v0.5.5
+ * editcom.js v0.5.29
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
 "use strict";
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
+    return typeof obj;
+} : function(obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
 
 var _createClass = function() {
     function defineProperties(target, props) {
@@ -94,27 +100,27 @@ var Editcom = function(_Lego$UI$Baseview) {
     _createClass(Editcom, [ {
         key: "renderBefore",
         value: function renderBefore() {
-            var options = this.options;
-            if (options.components.length) {
-                options.components.forEach(function(item) {
-                    item.key = item.key + options.vid;
+            var opts = this.options;
+            if (opts.components.length) {
+                opts.components.forEach(function(item) {
+                    item.key = (item.key || "editcom_") + opts.vid;
                     item.el = "#" + item.key;
-                    item.size = options.size;
-                    if (options.width) {
+                    item.size = opts.size;
+                    if (opts.width) {
                         item.style = item.style || {};
-                        item.style.width = options.width;
+                        item.style.width = opts.width;
                     }
-                    item.value = options.value || options.text;
+                    item.value = opts.value || opts.text;
                 });
             }
         }
     }, {
         key: "render",
         value: function render() {
-            var options = this.options;
-            var vDom = hx(_templateObject, options.size, options.clicked ? options.template ? val(options.template) : options.components.map(function(item) {
+            var opts = this.options;
+            var vDom = hx(_templateObject, opts.size, opts.clicked ? opts.template ? val(opts.template) : opts.components.map(function(item) {
                 return hx("<" + item.comName + " id=" + item.key + "></" + item.comName + ">");
-            }) : val(options.html || options.text), !options.readonly && !options.clicked ? hx(_templateObject2, val(options.icon)) : "", !options.readonly && options.clicked ? hx(_templateObject3) : "");
+            }) : val(opts.html || opts.text), !opts.readonly && !opts.clicked ? hx(_templateObject2, val(opts.icon)) : "", !opts.readonly && opts.clicked ? hx(_templateObject3) : "");
             return vDom;
         }
     }, {
@@ -133,8 +139,19 @@ var Editcom = function(_Lego$UI$Baseview) {
         }
     }, {
         key: "close",
-        value: function close() {
-            this.options.clicked = false;
+        value: function close(value, htmlStr) {
+            var opts = {};
+            opts.clicked = false;
+            if (value) {
+                if ((typeof value === "undefined" ? "undefined" : _typeof(value)) == "object") {
+                    if (value.value) opts.value = opts.text = value.value;
+                } else {
+                    opts.value = opts.text = value;
+                }
+                if (htmlStr) opts.html = htmlStr;
+            }
+            Object.assign(this.options, opts);
+            this.refresh();
             if (typeof this.options.onFinish == "function") this.options.onFinish(this);
         }
     } ]);

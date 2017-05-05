@@ -10,10 +10,8 @@ class HomeView extends Lego.UI.Baseview {
                     key: 'inputs1',
                     comName: 'inputs',
                     onChange(self, value){
-                        console.warn(self, value);
-                        this.context.options.value = value;
-                        this.context.options.text = value;
-                        this.context.close();
+                        console.warn(value);
+                        this.context.close(value);
                     }
                 }],
                 onEdit(self){
@@ -27,15 +25,13 @@ class HomeView extends Lego.UI.Baseview {
                 name: 'editcomname2',
                 size: 'sm',
                 html: hx`<a href="#">点击了编辑组件2</a>`,
-                value: '点击了编辑组件2',
+                text: '点击了编辑组件2',
                 components: [{
                     key: 'inputs1',
                     comName: 'inputs',
                     onChange(self, value){
-                        console.warn(self, value);
-                        this.context.options.value = value;
-                        this.context.options.html = hx`<a href="#">${value}</a>`;
-                        this.context.close();
+                        console.warn(value);
+                        this.context.close(value, hx`<a href="#">${value}</a>`);
                     }
                 }],
                 onEdit(self){
@@ -55,8 +51,7 @@ class HomeView extends Lego.UI.Baseview {
                     comName: 'search',
                     onChange(self, value){
                         console.warn(self, value);
-                        this.context.options.keyword = value;
-                        this.context.close();
+                        this.context.close(value);
                     }
                 }]
             }, {
@@ -84,8 +79,7 @@ class HomeView extends Lego.UI.Baseview {
                     }],
                     onChange(self, value){
                         console.warn(self, value);
-                        this.context.options.value = value;
-                        this.context.close();
+                        this.context.close(value);
                     }
                 }]
             }]

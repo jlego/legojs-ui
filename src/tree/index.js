@@ -48,7 +48,7 @@ class Tree extends Lego.UI.Baseview {
                     type: val[keyNames[2]]
                 }, val));
             });
-            if (typeof options.onChecked == 'function') options.onChecked(that, newValue);
+            if (typeof options.onChecked == 'function') options.onChecked(that, newValue, treeNode);
         }
         if (options.setting.check) {
             options.setting.check = $.extend(true, {

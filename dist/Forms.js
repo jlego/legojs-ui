@@ -1,5 +1,5 @@
 /**
- * forms.js v0.5.5
+ * forms.js v0.5.29
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -95,7 +95,7 @@ var Forms = function(_Lego$UI$Baseview) {
                 errorClass: "form-control-feedback",
                 errorElement: "div",
                 errorPlacement: function errorPlacement(error, element) {
-                    element.after(error);
+                    element.closest(".form-group").children("div").append(error);
                 },
                 highlight: function highlight(element, errorClass) {
                     $(element).closest(".form-group").addClass("has-danger");

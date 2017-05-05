@@ -95,7 +95,7 @@ class Tabs extends Lego.UI.Baseview {
     }
     renderAfter(){
         let opts = this.options;
-        if (opts.animateIn) Lego.UI.Util.animateCss(this.$('.tab-pane.active'), 'animated ' + opts.animateIn);
+        if (opts.animateIn) Lego.UI.Util.animateCss(this.$('.tab-pane.active'), opts.animateIn);
     }
 }
 Lego.components('tabs', Tabs);

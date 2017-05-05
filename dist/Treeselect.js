@@ -1,5 +1,5 @@
 /**
- * treeselect.js v0.5.5
+ * treeselect.js v0.5.29
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -521,7 +521,7 @@ var Tree = function(_Lego$UI$Baseview) {
                         type: val[keyNames[2]]
                     }, val));
                 });
-                if (typeof options.onChecked == "function") options.onChecked(that, newValue);
+                if (typeof options.onChecked == "function") options.onChecked(that, newValue, treeNode);
             }
             if (options.setting.check) {
                 options.setting.check = $.extend(true, {

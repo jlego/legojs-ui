@@ -100,6 +100,28 @@ class HomeView extends Lego.UI.Baseview {
                         },
                         data: $.extend(true, [], data)
                     }
+                }, {
+                    label: '名称5',
+                    rule: {
+                        required: true
+                    },
+                    message: {
+                        required: '请先选择'
+                    },
+                    component: {
+                        comName: 'chkgroup',
+                        type: 'radio',
+                        layout: 'inline',
+                        name: 'dddd',
+                        data: [{
+                            label: 'sadfa',
+                            value: '1',
+                            // checked: true
+                        }, {
+                            label: 'sadfa2',
+                            value: '2'
+                        }]
+                    }
                 }],
                 onSubmit(self, data){
                     console.warn('点击了提交', data);
@@ -156,6 +178,21 @@ class HomeView extends Lego.UI.Baseview {
                             value: '选项二选项二选项二'
                         },
                         data: $.extend(true, [], data)
+                    }
+                }, {
+                    label: '名称4',
+                    component: {
+                        comName: 'chkgroup',
+                        type: 'radio',
+                        name: 'dddd',
+                        data: [{
+                            label: 'sadfa',
+                            value: '1',
+                            checked: true
+                        }, {
+                            label: 'sadfa2',
+                            value: '2'
+                        }]
                     }
                 }],
                 onSubmit(self, data){

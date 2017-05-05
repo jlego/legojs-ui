@@ -1,5 +1,5 @@
 /**
- * chkgroup.js v0.5.5
+ * chkgroup.js v0.5.29
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -22,11 +22,11 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ "<div>\n        ", "\n        </div>" ], [ "<div>\n        ", "\n        </div>" ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-chkgroup">\n        ', "\n        </div>\n        " ], [ '\n        <div class="lego-chkgroup">\n        ', "\n        </div>\n        " ]);
 
-var _templateObject2 = _taggedTemplateLiteral([ '\n                <div class="form-check">\n                  <label class="form-check-label">\n                    <input class="form-check-input" type="', '" name="', '" value="', '" ', " ", ">\n                    ", "\n                  </label>\n                </div>\n                " ], [ '\n                <div class="form-check">\n                  <label class="form-check-label">\n                    <input class="form-check-input" type="', '" name="', '" value="', '" ', " ", ">\n                    ", "\n                  </label>\n                </div>\n                " ]);
+var _templateObject2 = _taggedTemplateLiteral([ '\n                <div class="form-check ', '">\n                  <label class="form-check-label">\n                    <input class="form-check-input" type="', '" name="', '" value="', '" ', " >\n                    ", "\n                  </label>\n                </div>\n                " ], [ '\n                <div class="form-check ', '">\n                  <label class="form-check-label">\n                    <input class="form-check-input" type="', '" name="', '" value="', '" ', " >\n                    ", "\n                  </label>\n                </div>\n                " ]);
 
-var _templateObject3 = _taggedTemplateLiteral([ '\n                <label class="form-check-inline">\n                  <input class="form-check-input" type="', '" name="', '" value="', '" ', " ", ">\n                  ", "\n                </label>\n                " ], [ '\n                <label class="form-check-inline">\n                  <input class="form-check-input" type="', '" name="', '" value="', '" ', " ", ">\n                  ", "\n                </label>\n                " ]);
+var _templateObject3 = _taggedTemplateLiteral([ '\n                <div class="form-check form-check-inline ', '">\n                    <label class="form-check-label">\n                      <input class="form-check-input" type="', '" name="', '" value="', '" ', " >\n                      ", "\n                    </label>\n                </div>\n                " ], [ '\n                <div class="form-check form-check-inline ', '">\n                    <label class="form-check-label">\n                      <input class="form-check-input" type="', '" name="', '" value="', '" ', " >\n                      ", "\n                    </label>\n                </div>\n                " ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -73,7 +73,8 @@ var Chkgroup = function(_Lego$UI$Baseview) {
             layout: "vertical",
             type: "checkbox",
             name: "",
-            data: []
+            data: [],
+            onChange: function onChange() {}
         };
         Object.assign(options, opts);
         return _possibleConstructorReturn(this, (Chkgroup.__proto__ || Object.getPrototypeOf(Chkgroup)).call(this, options));
@@ -82,14 +83,25 @@ var Chkgroup = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var opts = this.options;
-            var vDom = vDom = hx(_templateObject, opts.data.map(function(item) {
+            var vDom = hx(_templateObject, opts.data.map(function(item) {
                 if (opts.layout == "vertical") {
-                    return hx(_templateObject2, opts.type, opts.name, item.value, val(item.checked), val(item.disabled), val(item.label));
+                    return hx(_templateObject2, item.disabled ? "disabled" : "", opts.type, opts.name, item.value, item.checked ? "checked" : "", val(item.label));
                 } else {
-                    return hx(_templateObject3, opts.type, opts.name, item.value, val(item.checked), val(item.disabled), val(item.label));
+                    return hx(_templateObject3, item.disabled ? "disabled" : "", opts.type, opts.name, item.value, item.checked ? "checked" : "", val(item.label));
                 }
             }));
             return vDom;
+        }
+    }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            var opts = this.options, that = this;
+            this.$(".form-check-input").change(function() {
+                var val = that.$("input.form-check-input:checked").val(), findOne = opts.data.find(function(item) {
+                    return item.value == val;
+                });
+                if (typeof opts.onChange == "function") opts.onChange(that, findOne);
+            });
         }
     } ]);
     return Chkgroup;

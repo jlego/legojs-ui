@@ -65,7 +65,7 @@ class Pagination extends Lego.UI.Baseview {
         let baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0,
             startPage = baseTimes * pageRang + 1,
             endPage = startPage + pageRang - 1,
-            showEllipsis = Math.ceil(current / pageRang) !== Math.ceil(options.totalPages / pageRang) ? true : false,
+            showEllipsis = Math.ceil(current / pageRang) !== Math.ceil(options.totalPages / pageRang) && totalCount ? true : false,
             pagesArr = [];
         endPage = endPage >= options.totalPages ? options.totalPages : endPage;
         for(let i = startPage; i <= endPage; i++) {

@@ -1,6 +1,6 @@
 import './asset/index.scss';
 import Pagination from '../pagination/index';
-// import Modal from '../modal/index';
+import Nodata from '../nodata/index';
 /**
  * rowSelection
  * type = '' 多选/单选，checkbox or radio
@@ -49,6 +49,7 @@ class Tables extends Lego.UI.Baseview {
             // title(){}, //表格标题
             // scroll: {}, //横向或纵向支持滚动，也可用于指定滚动区域的宽高度：{{ x: true, y: 300 }}
             data: [],
+            nodata: {}, //暂无数据配置
             onExpandRow(){}, //点击展开图标时触发
             onChange(){}, //分页、排序、筛选变化时触发
             onSelect(){},
@@ -111,9 +112,16 @@ class Tables extends Lego.UI.Baseview {
         return this.columns;
     }
     components(){
+        let opts = this.options;
         this.addCom(Object.assign({
-            el: '#pagination-' + this.options.vid
-        }, this.options.pagination));
+            el: '#pagination-' + opts.vid
+        }, opts.pagination));
+        // 暂无数据
+        if(!opts.data.length){
+            this.addCom(Object.assign({
+                el: '#nodata-' + opts.vid
+            }), Lego.config.nodata || {}, opts.nodata);
+        }
     }
     resizeWidth(){
         let tableWidth = $(this.options.el).parent().width();
@@ -121,38 +129,39 @@ class Tables extends Lego.UI.Baseview {
     }
     render() {
         this.getColumns();
-        const options = this.options;
+        const opts = this.options;
         const vDom = hx`
-        <div class="lego-table clearfix lego-table-${options.size} ${options.bordered ? 'lego-table-bordered' : ''}
-        ${options.showHeader && options.fixedHeader ? 'lego-table-fixed-header' : ''} ${options.isNowrap ? 'lego-nr' : ''} lego-table-scroll-position-left">
-            <loading id="lego-loading-${options.vid}"></loading>
-            ${options.title ? hx`<div class="lego-table-title">${typeof options.title == 'function' ? options.title() : options.title}</div>` : ''}
-            <div class="lego-table-content" style="${!options.title ? 'padding-bottom:0' : ''}">
+        <div class="lego-table clearfix lego-table-${opts.size} ${opts.bordered ? 'lego-table-bordered' : ''}
+        ${opts.showHeader && opts.fixedHeader ? 'lego-table-fixed-header' : ''} ${opts.isNowrap ? 'lego-nr' : ''} lego-table-scroll-position-left">
+            <loading id="lego-loading-${opts.vid}"></loading>
+            ${opts.title ? hx`<div class="lego-table-title">${typeof opts.title == 'function' ? opts.title() : opts.title}</div>` : ''}
+            <div class="lego-table-content" style="${!opts.title ? 'padding-bottom:0' : ''}">
                 <div class="lego-table-scroll">
-                ${options.showHeader && options.fixedHeader ? hx`
+                ${opts.showHeader && opts.fixedHeader ? hx`
                 <div class="lego-table-header">
-                    <table class="" style="${options.tableWidth ? ('width:' + options.tableWidth + 'px') : 'width:1px'}">
+                    <table class="" style="${opts.tableWidth ? ('width:' + opts.tableWidth + 'px') : 'width:1px'}">
                         ${this._renderColgroup()}
                         ${this._renderHeader()}
                     </table>
                 </div>
                 ` : ''}
-                <div class="lego-table-body" style="bottom: ${options.pagination ? '48px' : '0'}">
-                    <div class="${options.showHeader && options.fixedHeader ? 'scrollbar' : ''}">
-                        <table class="${options.className}" style="${options.tableWidth ? ('width:' + options.tableWidth + 'px') : 'width:1px'}">
+                <div class="lego-table-body" style="bottom: ${opts.pagination ? '48px' : '0'}">
+                    ${!opts.data.length && !opts.loading ? hx`<nodata id="nodata-${opts.vid}"></nodata>` : hx`<div style="display:none;"></div>`}
+                    <div class="${opts.showHeader && opts.fixedHeader ? 'scrollbar' : ''}">
+                        <table class="${opts.className}" style="${opts.tableWidth ? ('width:' + opts.tableWidth + 'px') : 'width:1px'}">
                             ${this._renderColgroup()}
-                            ${!(options.showHeader && options.fixedHeader) && options.showHeader ? this._renderHeader() : ''}
-                            ${options.showBodyer ? this._renderBodyer() : ''}
-                            ${options.showFooter ? this._renderFooter() : ''}
+                            ${!(opts.showHeader && opts.fixedHeader) && opts.showHeader ? this._renderHeader() : ''}
+                            ${opts.showBodyer ? this._renderBodyer() : ''}
+                            ${opts.showFooter ? this._renderFooter() : ''}
                         </table>
                     </div>
                 </div>
-                ${options.pagination && options.data ? hx`
+                ${opts.pagination && opts.data ? hx`
                     <div class="lego-table-footer">
-                    <pagination id="pagination-${options.vid}"></pagination>
+                    <pagination id="pagination-${opts.vid}"></pagination>
                     </div>
                 ` : ''}
-                ${options.showSetting ? hx`<button type="button" class="btn btn-default noborder" title="表格设置"><i class="anticon anticon-ellipsis"></i></button>` : ''}
+                ${opts.showSetting ? hx`<button type="button" class="btn btn-default noborder" title="表格设置"><i class="anticon anticon-ellipsis"></i></button>` : ''}
                 </div>
             </div>
         </div>
@@ -189,8 +198,8 @@ class Tables extends Lego.UI.Baseview {
     }
     // 渲染选择框
     _renderSelection(row = {}, tagName = 'td', isHarf){
-        const options = this.options,
-            theType = options.rowSelection.type || 'checkbox',
+        const opts = this.options,
+            theType = opts.rowSelection.type || 'checkbox',
             isCheckbox = theType == 'checkbox',
             that = this;
         const isChecked = row._selected || (tagName === 'th' && this.getSelectedStatus() === 1);
@@ -214,11 +223,11 @@ class Tables extends Lego.UI.Baseview {
     }
     // 渲染表头
     _renderHeader(){
-        const options = this.options;
+        const opts = this.options;
         const vDom = hx`
         <thead class="lego-table-thead">
             <tr>
-            ${options.rowSelection ? this._renderSelection({}, 'th', this.getSelectedStatus() === 2 ? true : false) : ''}
+            ${opts.rowSelection ? this._renderSelection({}, 'th', this.getSelectedStatus() === 2 ? true : false) : ''}
             ${this.columns.map(col => {
                 return !col.isHide ? hx`<th class="${col.sorter ? 'lego-table-column-sort' : ''}" id="${col.key}"><span title="点击排序">${col.title}
                 ${col.sorter ? this._renderSorter(col) : ''}</span>${this._renderFilter(col)}</th>` : '';
@@ -230,14 +239,14 @@ class Tables extends Lego.UI.Baseview {
     }
     // 渲染表主体
     _renderBodyer(){
-        const options = this.options;
-        if(!options.data) return;
+        const opts = this.options;
+        if(!opts.data) return;
         const vDom = hx`
         <tbody class="lego-table-tbody">
-            ${options.data.map((row, i) => {
+            ${opts.data.map((row, i) => {
                 row.key = row.id || this._getRowKey('row_');
-                return hx`<tr class="${options.rowClassName}" id="${row.key}">
-                ${options.rowSelection ? this._renderSelection(row, 'td') : ''}
+                return hx`<tr class="${opts.rowClassName}" id="${row.key}">
+                ${opts.rowSelection ? this._renderSelection(row, 'td') : ''}
                 ${this.columns.map(col => {
                     return !col.isHide ? hx`<td>${typeof col.format === 'function' ? col.format(row[col.dataIndex], row, col) : row[col.dataIndex]}</td>` : '';
                 })}
@@ -249,15 +258,15 @@ class Tables extends Lego.UI.Baseview {
     }
     // 渲染表尾
     _renderFooter(){
-        const options = this.options;
+        const opts = this.options;
         const vDom = hx`
-        <tfoot class="lego-table-tfoot"><tr><td>${options.footer ? options.footer() : ''}</td></tr></tfoot>
+        <tfoot class="lego-table-tfoot"><tr><td>${opts.footer ? options.footer() : ''}</td></tr></tfoot>
         `;
         return vDom;
     }
     // 渲染排序
     _renderSorter(col = {}){
-        const options = this.options;
+        const opts = this.options;
         const vDom = hx`
         <div class="lego-table-column-sorter">
             <span class="lego-table-column-sorter-up ${col.sortOrder == 'asc' ? 'on' : 'off'}" title="↑">
@@ -331,7 +340,6 @@ class Tables extends Lego.UI.Baseview {
     }
     // 选中一条
     selectOne(event) {
-        // this.hasClicked = true;
         const target = $(event.currentTarget),
             trEl = target.closest('tr'),
             id = trEl.attr('id'),
@@ -369,7 +377,6 @@ class Tables extends Lego.UI.Baseview {
     }
     // 选择全部
     selectAll(event){
-        // this.hasClicked = true;
         event.stopPropagation();
         const target = $(event.currentTarget);
         if (this.options.rowSelection) {

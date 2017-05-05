@@ -1,5 +1,5 @@
 /**
- * btngroup.js v0.5.29
+ * nodata.js v0.5.29
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -22,9 +22,9 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="btn-group ', '">\n        ', "\n        </div>\n        " ], [ '\n        <div class="btn-group ', '">\n        ', "\n        </div>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-nodata">\n            <div class="lego-icon ', " ", '"></div>\n            ', "\n        </div>\n        " ], [ '\n        <div class="lego-nodata">\n            <div class="lego-icon ', " ", '"></div>\n            ', "\n        </div>\n        " ]);
 
-var _templateObject2 = _taggedTemplateLiteral([ '\n        <button type="button" class="btn btn-', '">\n            ', "\n        </button>\n        " ], [ '\n        <button type="button" class="btn btn-', '">\n            ', "\n        </button>\n        " ]);
+var _templateObject2 = _taggedTemplateLiteral([ '<div class="lego-tip-text" style="', '">', "</div>" ], [ '<div class="lego-tip-text" style="', '">', "</div>" ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -62,48 +62,30 @@ function _inherits(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Btngroup = function(_Lego$UI$Baseview) {
-    _inherits(Btngroup, _Lego$UI$Baseview);
-    function Btngroup() {
+var Nodata = function(_Lego$View) {
+    _inherits(Nodata, _Lego$View);
+    function Nodata() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck(this, Btngroup);
+        _classCallCheck(this, Nodata);
         var options = {
-            events: {
-                "click button": "onClick"
-            },
-            size: "default",
-            onClick: function onClick() {}
+            size: "",
+            tip: "暂无数据",
+            icon: ""
         };
         Object.assign(options, opts);
-        return _possibleConstructorReturn(this, (Btngroup.__proto__ || Object.getPrototypeOf(Btngroup)).call(this, options));
+        return _possibleConstructorReturn(this, (Nodata.__proto__ || Object.getPrototypeOf(Nodata)).call(this, options));
     }
-    _createClass(Btngroup, [ {
+    _createClass(Nodata, [ {
         key: "render",
         value: function render() {
-            var options = this.options;
-            var vDom = hx(_templateObject, options.size == "large" ? "btn-group-lg" : options.size == "small" ? "btn-group-sm" : "", options.data.map(function(item) {
-                return hx(_templateObject2, item.type || "secondary", val(item.html || item.text));
-            }));
-            return vDom;
-        }
-    }, {
-        key: "renderAfter",
-        value: function renderAfter() {
-            this.$("button").each(function(index, item) {
-                $(item).data("index", index);
-            });
-        }
-    }, {
-        key: "onClick",
-        value: function onClick(event) {
-            event.stopPropagation();
-            var target = $(event.currentTarget), index = target.data("index"), model = this.options.data[index];
-            if (typeof this.options.onClick === "function") this.options.onClick(this, model, event);
+            var opts = this.options;
+            this.vDom = hx(_templateObject, val(opts.icon), opts.size ? "lego-icon-" + opts.size : "", opts.tip ? hx(_templateObject2, opts.icon ? "margin-top:40px;" : "", opts.tip) : "");
+            return this.vDom;
         }
     } ]);
-    return Btngroup;
-}(Lego.UI.Baseview);
+    return Nodata;
+}(Lego.View);
 
-Lego.components("btngroup", Btngroup);
+Lego.components("nodata", Nodata);
 
-module.exports = Btngroup;
+module.exports = Nodata;

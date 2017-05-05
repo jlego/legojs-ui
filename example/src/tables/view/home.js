@@ -28,6 +28,20 @@ let table = `
 | onSetting   | 点击表格设置按钮时回调  | Function |  |
 | onRowClick   | 处理行点击事件  | Function |  |
 `;
+
+function getData(currentPage = 1){
+    const theData = [];
+    for(let i = (currentPage - 1) * 20; i < currentPage * 20; i++){
+        theData.push({
+            key: i,
+            name: '胡彦斌' + i,
+            age: 32 + i,
+            address: '西湖区湖底公园1号'
+        });
+    }
+    return theData;
+}
+
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
         let options = {
@@ -54,30 +68,47 @@ class HomeView extends Lego.UI.Baseview {
         }, 0);
         let view = Lego.getView('#exampleCom');
         this.oldOpts = view ? $.extend(true, {}, view.options) : {};
-        function getData(currentPage = 1){
-            const theData = [];
-            for(let i = (currentPage - 1) * 20; i < currentPage * 20; i++){
-                theData.push({
-                    key: i,
-                    name: '胡彦斌' + i,
-                    age: 32 + i,
-                    address: '西湖区湖底公园1号'
-                });
-            }
-            return theData;
-        }
-        if(view){
-            Object.assign(view.options, {
+    }
+    components(){
+        let that = this;
+        this.addCom([{
+            el: '#tabs',
+            type: 'tabs',
+            activeKey: 'tab_1',
+            navClassName: 'nav-fill',
+            data: [{
+                key: 'tab_1',
+                value: '参数说明',
+                content: hx`<div class="markdown scrollbar">
+                    <h6>效果图:</h6>
+                    <img src="${Lego.config.rootUri}img/example/tables.png" style="margin-bottom:30px;">
+                    <h6>参数:</h6>
+                    ${hx(markdown.makeHtml(table))}
+                    </div>`
+            }, {
+                key: 'tab_2',
+                value: '实例效果',
+                content: hx`<div class="example scrollbar"><tables id="exampleCom"></tables></div>`
+            }, {
+                key: 'tab_3',
+                value: '生成代码',
+                content: hx`<div class="code scrollbar" id="md"></div>`
+            }],
+            onChange(self, result){
+                if(result.key == 'tab_3'){
+                    that.showTab();
+                }
+            },
+            components: [{
+                el: '#exampleCom',
+                style: {
+                    height: '100%'
+                },
                 className: 'table-striped',
-                // rowSelection: {
-                //     type: 'checkbox'
-                // },
                 pagination: {
                     totalCount: 300,
                     pageRang: 5,
                     pageSize: 20,
-                    showSizeChanger: true,
-                    showQuickJumper: true,
                     onChange(self, num){
                         let view = Lego.getView('#exampleCom');
                         view.options.data = getData(num);
@@ -85,15 +116,6 @@ class HomeView extends Lego.UI.Baseview {
                     }
                 },
                 showHeader: true,
-                // colSetting(){
-                //     console.warn('点击了列设置');
-                // },
-                // title(){
-                //     return '表格标题';
-                // },
-                // onSetting(self, event){
-                //     console.warn('dddddddddddddd');
-                // },
                 data: getData(),
                 columns: [{
                     title: '姓名',
@@ -123,45 +145,6 @@ class HomeView extends Lego.UI.Baseview {
                     key: 'address',
                     width: '300px',
                 }],
-            });
-        }
-    }
-    components(){
-        let that = this;
-        this.addCom([{
-            el: '#tabs',
-            type: 'tabs',
-            activeKey: 'tab_1',
-            navClassName: 'nav-fill',
-            animate: 'fade',
-            data: [{
-                key: 'tab_1',
-                value: '参数说明',
-                content: hx`<div class="markdown scrollbar">
-                    <h6>效果图:</h6>
-                    <img src="${Lego.config.rootUri}img/example/tables.png" style="margin-bottom:30px;">
-                    <h6>参数:</h6>
-                    ${hx(markdown.makeHtml(table))}
-                    </div>`
-            }, {
-                key: 'tab_2',
-                value: '实例效果',
-                content: hx`<div class="example scrollbar"><tables id="exampleCom"></tables></div>`
-            }, {
-                key: 'tab_3',
-                value: '生成代码',
-                content: hx`<div class="code scrollbar" id="md"></div>`
-            }],
-            onChange(self, result){
-                if(result.key == 'tab_3'){
-                    that.showTab();
-                }
-            },
-            components: [{
-                el: '#exampleCom',
-                style: {
-                    height: '100%'
-                }
             }]
         }, {
             el: '#formcom'

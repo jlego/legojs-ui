@@ -1,3 +1,13 @@
+/**
+ *$('input:file').localResizeIMG({
+      width: 400,//宽度
+      quality: 1,//质量
+      success: function (result) {
+           result.base64/result.clearBase64
+      }
+});
+ *
+ */
 var localResizeIMG = function(file, obj) {
     var URL = URL || webkitURL;
     var blob = URL.createObjectURL(file);

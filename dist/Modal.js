@@ -1,5 +1,5 @@
 /**
- * modal.js v0.5.5
+ * modal.js v0.5.29
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -806,26 +806,26 @@ var Modal = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var that = this, options = this.options;
+            var that = this, opts = this.options;
             this.$el.modal({
-                backdrop: options.type !== "layer" ? options.backdrop : false,
-                keyboard: options.keyboard,
+                backdrop: opts.type !== "layer" ? opts.backdrop : false,
+                keyboard: opts.keyboard,
                 show: true
             });
-            if (options.width) this.$(".modal-dialog").width(options.width);
-            if (options.height) this.$(".modal-body").height(options.height);
+            if (opts.width) this.$(".modal-dialog").width(opts.width);
+            if (opts.height) this.$(".modal-body").height(opts.height);
             this.$el.on("hidden.bs.modal", function(e) {
                 that.$el.remove();
-                if (typeof options.onClose === "function") options.onClose(that);
+                if (typeof opts.onClose === "function") opts.onClose(that);
             });
-            if (options.animateIn) Lego.UI.Util.animateCss(this.$el, "animated " + options.animateIn);
+            if (opts.animateIn) Lego.UI.Util.animateCss(this.$el, opts.animateIn);
         }
     }, {
         key: "close",
         value: function close() {
             var that = this;
             if (this.options.animateOut) {
-                Lego.UI.Util.animateCss(that.$el, "animated " + that.options.animateOut, function() {
+                Lego.UI.Util.animateCss(that.$el, that.options.animateOut, function() {
                     that.$el.modal("hide");
                 });
                 if (this.options.backdrop) $(".modal-backdrop").fadeOut();
