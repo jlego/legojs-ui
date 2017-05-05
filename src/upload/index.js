@@ -59,15 +59,6 @@ class Upload extends Lego.UI.Baseview {
             onCancel() {}
         };
         Object.assign(options, opts);
-        if(options.value.length){
-            options.value = options.value.map(file => {
-                return {
-                    readonly: options.readonly,
-                    percent: 100,
-                    file: file
-                };
-            });
-        }
         super(options);
         this.$('.lego-fileInput').on('change', (event) => {
             var target = $(event.currentTarget)[0];
@@ -87,12 +78,36 @@ class Upload extends Lego.UI.Baseview {
         }
         if(opts.type !== 'file'){
             opts.accept = opts.accept || 'image/gif,image/jpeg,image/png';
+            let cssOpts = {
+                width: opts.previewImg.width || (opts.type == 'avatar' ? 150 : 95),
+                height: opts.previewImg.height || (opts.type == 'avatar' ? 150 : 95),
+            };
+            Object.assign(opts.previewImg, cssOpts);
+        }
+        if(opts.value.length){
+            opts.value = opts.value.map(file => {
+                let options = {
+                    el: '.lego-upload-container',
+                    readonly: opts.readonly,
+                    percent: 100,
+                    type: opts.type,
+                    file: file
+                };
+                return options;
+            });
         }
     }
     render() {
-        const opts = this.options;
+        let opts = this.options,
+            width = opts.previewImg.width,
+            height = opts.previewImg.height;
+        if(width) width = 'width:' + (typeof width == 'string' ? width : (width + 'px')) + ';';
+        if(height) height = 'height:' + (typeof height == 'string' ? height : (height + 'px')) + ';';
         let vDom = hx`
         <div class="lego-upload lego-upload-${val(opts.type)}">
+            <style>
+                .lego-upload .preview-${val(opts.type)}{${width ? width : ''}${height ? height : ''}}
+            </style>
             ${!opts.readonly && opts.type == 'file' ? hx`
             <button class="btn btn-secondary lego-addbtn" type="button" ${opts.disabled ? 'disabled' : ''}>
                 ${opts.buttonIcon ? opts.buttonIcon : hx`<i class="anticon anticon-upload"></i>`}
@@ -104,25 +119,14 @@ class Upload extends Lego.UI.Baseview {
             ${opts.showUploadList && opts.type == 'file' ? hx`<div class="lego-upload-container"></div>` : ''}
             ${opts.type !== 'file' ? hx`
                 <div class="lego-upload-container" title="选择上传照片">
-                    <div class="lego-upload-add">
-                        <i class="anticon anticon-plus avatar-uploader-trigger"></i>
+                    <div class="lego-upload-add preview-${val(opts.type)}">
+                        <i class="anticon anticon-plus avatar-uploader-trigger preview-${val(opts.type)}"></i>
                     </div>
                 </div>
             ` : ''}
         </div>
         `;
         return opts.template ? opts.template : vDom;
-    }
-    renderAfter(){
-        let opts = this.options;
-        if(opts.type !== 'file') {
-            let cssOpts = {
-                width: opts.previewImg.width || (opts.type == 'avatar' ? 150 : 95),
-                height: opts.previewImg.height || (opts.type == 'avatar' ? 150 : 95),
-            };
-            Object.assign(opts.previewImg, cssOpts);
-            this.$('.lego-upload-add, .avatar-uploader-trigger').css(cssOpts);
-        }
     }
     uploadInit(files, fileInput) {
         let uploadFiles = [];
@@ -197,7 +201,6 @@ class Upload extends Lego.UI.Baseview {
                     onCancel: opts.onCancel
                 };
                 if (opts.type !== 'file') {
-                    uploadOption.previewImg = opts.previewImg || {};
                     uploadOption.isAuto = opts.isAuto;
                     opts.previewImg.success = function(results, option){
                         option.previewImgSrc = results.blob;
@@ -231,7 +234,9 @@ class Upload extends Lego.UI.Baseview {
                 if(typeof opts.onRemove == 'function') opts.onRemove(this, _id);
             }
             if(opts.type == 'avatar'){
-                this.$('.lego-upload-container').html('<div class="lego-upload-add"><i class="anticon anticon-plus avatar-uploader-trigger"></i></div>');
+                let html = ['<div class="lego-upload-add preview-' + val(opts.type) + '">',
+                    '<i class="anticon anticon-plus avatar-uploader-trigger preview-' + val(opts.type) + '"></i></div>'].join('');
+                this.$('.lego-upload-container').html(html);
             }
             this.refresh();
         };

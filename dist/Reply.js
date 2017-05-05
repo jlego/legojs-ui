@@ -1,5 +1,5 @@
 /**
- * reply.js v0.5.25
+ * reply.js v0.5.29
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -1423,9 +1423,11 @@ var _templateObject3$3 = _taggedTemplateLiteral$3([ '\n            <div class="m
 
 var _templateObject4$3 = _taggedTemplateLiteral$3([ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn" id="', '" onclick=', '>\n                            <i class="anticon anticon-close-circle float-xs-right"></i>\n                        </a>\n                    </div>\n                    ' ], [ '\n                    <div class="right">\n                        <a href="javascript:;" class="lego-closebtn" id="', '" onclick=', '>\n                            <i class="anticon anticon-close-circle float-xs-right"></i>\n                        </a>\n                    </div>\n                    ' ]);
 
-var _templateObject5$2 = _taggedTemplateLiteral$3([ '\n            <div class="lego-upload-photo-item" style="background-image:url(', ");\n            ", "", '">\n                <div class="lego-upload-operate">\n                    <progressbar id="', '"></progressbar>\n                    <a href="javascript:;" class="lego-cancelbtn" id="', '" onclick=', ' title="取消">\n                        <i class="anticon anticon-close-circle"></i>\n                    </a>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="lego-upload-photo-item" style="background-image:url(', ");\n            ", "", '">\n                <div class="lego-upload-operate">\n                    <progressbar id="', '"></progressbar>\n                    <a href="javascript:;" class="lego-cancelbtn" id="', '" onclick=', ' title="取消">\n                        <i class="anticon anticon-close-circle"></i>\n                    </a>\n                </div>\n            </div>\n            ' ]);
+var _templateObject5$2 = _taggedTemplateLiteral$3([ '\n            <div class="lego-upload-photo-item preview-', '" style="background-image:url(', ');">\n                <div class="lego-upload-operate">\n                    <progressbar id="', '"></progressbar>\n                    <a href="javascript:;" class="lego-cancelbtn" id="', '" onclick=', ' title="取消">\n                        <i class="anticon anticon-close-circle"></i>\n                    </a>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="lego-upload-photo-item preview-', '" style="background-image:url(', ');">\n                <div class="lego-upload-operate">\n                    <progressbar id="', '"></progressbar>\n                    <a href="javascript:;" class="lego-cancelbtn" id="', '" onclick=', ' title="取消">\n                        <i class="anticon anticon-close-circle"></i>\n                    </a>\n                </div>\n            </div>\n            ' ]);
 
-var _templateObject6 = _taggedTemplateLiteral$3([ '\n            <div class="lego-upload-photo-item" style="background-image:url(', ");\n            ", "", '">\n                <div class="lego-upload-operate">\n                    <div class="lego-upload-btns">\n                        <a href="javascript:;" class="lego-previewbtn" id="p_', '" title="预览">\n                            <i class="anticon anticon-eye-o"></i>\n                        </a>\n                        <a href="javascript:;" class="lego-closebtn" id="', '" onclick=', ' title="删除">\n                            <i class="anticon anticon-delete"></i>\n                        </a>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="lego-upload-photo-item" style="background-image:url(', ");\n            ", "", '">\n                <div class="lego-upload-operate">\n                    <div class="lego-upload-btns">\n                        <a href="javascript:;" class="lego-previewbtn" id="p_', '" title="预览">\n                            <i class="anticon anticon-eye-o"></i>\n                        </a>\n                        <a href="javascript:;" class="lego-closebtn" id="', '" onclick=', ' title="删除">\n                            <i class="anticon anticon-delete"></i>\n                        </a>\n                    </div>\n                </div>\n            </div>\n            ' ]);
+var _templateObject6 = _taggedTemplateLiteral$3([ '\n            <div class="lego-upload-photo-item preview-', '" style="background-image:url(', ');">\n                <div class="lego-upload-operate">\n                    <div class="lego-upload-btns">\n                        <a href="javascript:;" class="lego-previewbtn" id="p_', '" title="预览">\n                            <i class="anticon anticon-eye-o"></i>\n                        </a>\n                        ', "\n                    </div>\n                </div>\n            </div>\n            " ], [ '\n            <div class="lego-upload-photo-item preview-', '" style="background-image:url(', ');">\n                <div class="lego-upload-operate">\n                    <div class="lego-upload-btns">\n                        <a href="javascript:;" class="lego-previewbtn" id="p_', '" title="预览">\n                            <i class="anticon anticon-eye-o"></i>\n                        </a>\n                        ', "\n                    </div>\n                </div>\n            </div>\n            " ]);
+
+var _templateObject7 = _taggedTemplateLiteral$3([ '\n                        <a href="javascript:;" class="lego-closebtn" id="', '" onclick=', ' title="删除">\n                            <i class="anticon anticon-delete"></i>\n                        </a>' ], [ '\n                        <a href="javascript:;" class="lego-closebtn" id="', '" onclick=', ' title="删除">\n                            <i class="anticon anticon-delete"></i>\n                        </a>' ]);
 
 function _taggedTemplateLiteral$3(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -1511,10 +1513,8 @@ var UploadItem = function(_UploadBase) {
     }, {
         key: "renderPhoto",
         value: function renderPhoto() {
-            var opts = this.options, width = opts.previewImg.width, height = opts.previewImg.height;
-            if (width) width = "width:" + (typeof width == "string" ? width : width + "px") + ";";
-            if (height) height = "height:" + (typeof height == "string" ? height : height + "px") + ";";
-            var vDom = opts.percent < 100 ? hx(_templateObject5$2, val(opts.previewImgSrc), width ? width : "", height ? height : "", "progressbar_" + opts.vid, val(opts.file._id), this.onCancel.bind(this)) : !opts.readonly && opts.percent == 100 ? hx(_templateObject6, val(opts.file.url), width ? width : "", height ? height : "", val(opts.file._id), val(opts.file._id), this.onRemove.bind(this)) : "";
+            var opts = this.options;
+            var vDom = opts.percent < 100 ? hx(_templateObject5$2, val(opts.type), val(opts.previewImgSrc), "progressbar_" + opts.vid, val(opts.file._id), this.onCancel.bind(this)) : hx(_templateObject6, val(opts.type), val(opts.file.url), val(opts.file._id), !opts.readonly && opts.percent == 100 ? hx(_templateObject7, val(opts.file._id), this.onRemove.bind(this)) : "");
             return vDom;
         }
     }, {
@@ -1596,7 +1596,7 @@ var _createClass$4 = function() {
     };
 }();
 
-var _templateObject$2 = _taggedTemplateLiteral$2([ '\n        <div class="lego-upload lego-upload-', '">\n            ', '\n            <input type="hidden" value="', '" name="', '" class="lego-upload-value">\n            <input multiple="multiple" type="file" class="form-control lego-fileInput hide" accept="', '" style="display:none">\n            ', "\n            ", "\n        </div>\n        " ], [ '\n        <div class="lego-upload lego-upload-', '">\n            ', '\n            <input type="hidden" value="', '" name="', '" class="lego-upload-value">\n            <input multiple="multiple" type="file" class="form-control lego-fileInput hide" accept="', '" style="display:none">\n            ', "\n            ", "\n        </div>\n        " ]);
+var _templateObject$2 = _taggedTemplateLiteral$2([ '\n        <div class="lego-upload lego-upload-', '">\n            <style>\n                .lego-upload .preview-', "{", "", "}\n            </style>\n            ", '\n            <input type="hidden" value="', '" name="', '" class="lego-upload-value">\n            <input multiple="multiple" type="file" class="form-control lego-fileInput hide" accept="', '" style="display:none">\n            ', "\n            ", "\n        </div>\n        " ], [ '\n        <div class="lego-upload lego-upload-', '">\n            <style>\n                .lego-upload .preview-', "{", "", "}\n            </style>\n            ", '\n            <input type="hidden" value="', '" name="', '" class="lego-upload-value">\n            <input multiple="multiple" type="file" class="form-control lego-fileInput hide" accept="', '" style="display:none">\n            ', "\n            ", "\n        </div>\n        " ]);
 
 var _templateObject2$2 = _taggedTemplateLiteral$2([ '\n            <button class="btn btn-secondary lego-addbtn" type="button" ', ">\n                ", "\n                ", "\n            </button>\n            " ], [ '\n            <button class="btn btn-secondary lego-addbtn" type="button" ', ">\n                ", "\n                ", "\n            </button>\n            " ]);
 
@@ -1604,7 +1604,7 @@ var _templateObject3$2 = _taggedTemplateLiteral$2([ '<i class="anticon anticon-u
 
 var _templateObject4$2 = _taggedTemplateLiteral$2([ '<div class="lego-upload-container"></div>' ], [ '<div class="lego-upload-container"></div>' ]);
 
-var _templateObject5$1 = _taggedTemplateLiteral$2([ '\n                <div class="lego-upload-container" title="选择上传照片">\n                    <div class="lego-upload-add">\n                        <i class="anticon anticon-plus avatar-uploader-trigger"></i>\n                    </div>\n                </div>\n            ' ], [ '\n                <div class="lego-upload-container" title="选择上传照片">\n                    <div class="lego-upload-add">\n                        <i class="anticon anticon-plus avatar-uploader-trigger"></i>\n                    </div>\n                </div>\n            ' ]);
+var _templateObject5$1 = _taggedTemplateLiteral$2([ '\n                <div class="lego-upload-container" title="选择上传照片">\n                    <div class="lego-upload-add preview-', '">\n                        <i class="anticon anticon-plus avatar-uploader-trigger preview-', '"></i>\n                    </div>\n                </div>\n            ' ], [ '\n                <div class="lego-upload-container" title="选择上传照片">\n                    <div class="lego-upload-add preview-', '">\n                        <i class="anticon anticon-plus avatar-uploader-trigger preview-', '"></i>\n                    </div>\n                </div>\n            ' ]);
 
 function _taggedTemplateLiteral$2(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -1687,15 +1687,6 @@ var Upload = function(_Lego$UI$Baseview) {
             onCancel: function onCancel() {}
         };
         Object.assign(options, opts);
-        if (options.value.length) {
-            options.value = options.value.map(function(file) {
-                return {
-                    readonly: options.readonly,
-                    percent: 100,
-                    file: file
-                };
-            });
-        }
         var _this = _possibleConstructorReturn$3(this, (Upload.__proto__ || Object.getPrototypeOf(Upload)).call(this, options));
         _this.$(".lego-fileInput").on("change", function(event) {
             var target = $(event.currentTarget)[0];
@@ -1718,27 +1709,33 @@ var Upload = function(_Lego$UI$Baseview) {
             }
             if (opts.type !== "file") {
                 opts.accept = opts.accept || "image/gif,image/jpeg,image/png";
-            }
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var opts = this.options;
-            var vDom = hx(_templateObject$2, val(opts.type), !opts.readonly && opts.type == "file" ? hx(_templateObject2$2, opts.disabled ? "disabled" : "", opts.buttonIcon ? opts.buttonIcon : hx(_templateObject3$2), val(opts.buttonText)) : "", this.getValue().join(","), val(opts.name), val(opts.accept), opts.showUploadList && opts.type == "file" ? hx(_templateObject4$2) : "", opts.type !== "file" ? hx(_templateObject5$1) : "");
-            return opts.template ? opts.template : vDom;
-        }
-    }, {
-        key: "renderAfter",
-        value: function renderAfter() {
-            var opts = this.options;
-            if (opts.type !== "file") {
                 var cssOpts = {
                     width: opts.previewImg.width || (opts.type == "avatar" ? 150 : 95),
                     height: opts.previewImg.height || (opts.type == "avatar" ? 150 : 95)
                 };
                 Object.assign(opts.previewImg, cssOpts);
-                this.$(".lego-upload-add, .avatar-uploader-trigger").css(cssOpts);
             }
+            if (opts.value.length) {
+                opts.value = opts.value.map(function(file) {
+                    var options = {
+                        el: ".lego-upload-container",
+                        readonly: opts.readonly,
+                        percent: 100,
+                        type: opts.type,
+                        file: file
+                    };
+                    return options;
+                });
+            }
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            var opts = this.options, width = opts.previewImg.width, height = opts.previewImg.height;
+            if (width) width = "width:" + (typeof width == "string" ? width : width + "px") + ";";
+            if (height) height = "height:" + (typeof height == "string" ? height : height + "px") + ";";
+            var vDom = hx(_templateObject$2, val(opts.type), val(opts.type), width ? width : "", height ? height : "", !opts.readonly && opts.type == "file" ? hx(_templateObject2$2, opts.disabled ? "disabled" : "", opts.buttonIcon ? opts.buttonIcon : hx(_templateObject3$2), val(opts.buttonText)) : "", this.getValue().join(","), val(opts.name), val(opts.accept), opts.showUploadList && opts.type == "file" ? hx(_templateObject4$2) : "", opts.type !== "file" ? hx(_templateObject5$1, val(opts.type), val(opts.type)) : "");
+            return opts.template ? opts.template : vDom;
         }
     }, {
         key: "uploadInit",
@@ -1815,7 +1812,6 @@ var Upload = function(_Lego$UI$Baseview) {
                         onCancel: opts.onCancel
                     };
                     if (opts.type !== "file") {
-                        uploadOption.previewImg = opts.previewImg || {};
                         uploadOption.isAuto = opts.isAuto;
                         opts.previewImg.success = function(results, option) {
                             option.previewImgSrc = results.blob;
@@ -1858,7 +1854,8 @@ var Upload = function(_Lego$UI$Baseview) {
                     if (typeof opts.onRemove == "function") opts.onRemove(_this3, _id);
                 }
                 if (opts.type == "avatar") {
-                    _this3.$(".lego-upload-container").html('<div class="lego-upload-add"><i class="anticon anticon-plus avatar-uploader-trigger"></i></div>');
+                    var html = [ '<div class="lego-upload-add preview-' + val(opts.type) + '">', '<i class="anticon anticon-plus avatar-uploader-trigger preview-' + val(opts.type) + '"></i></div>' ].join("");
+                    _this3.$(".lego-upload-container").html(html);
                 }
                 _this3.refresh();
             };

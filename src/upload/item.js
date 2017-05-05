@@ -105,14 +105,9 @@ class UploadItem extends UploadBase {
         return vDom;
     }
     renderPhoto(){
-        let opts = this.options,
-            width = opts.previewImg.width,
-            height = opts.previewImg.height;
-        if(width) width = 'width:' + (typeof width == 'string' ? width : (width + 'px')) + ';';
-        if(height) height = 'height:' + (typeof height == 'string' ? height : (height + 'px')) + ';';
+        let opts = this.options;
         let vDom = opts.percent < 100 ? hx`
-            <div class="lego-upload-photo-item" style="background-image:url(${val(opts.previewImgSrc)});
-            ${width ? width : ''}${height ? height : ''}">
+            <div class="lego-upload-photo-item preview-${val(opts.type)}" style="background-image:url(${val(opts.previewImgSrc)});">
                 <div class="lego-upload-operate">
                     <progressbar id="${'progressbar_' + opts.vid}"></progressbar>
                     <a href="javascript:;" class="lego-cancelbtn" id="${val(opts.file._id)}" onclick=${this.onCancel.bind(this)} title="取消">
@@ -120,21 +115,21 @@ class UploadItem extends UploadBase {
                     </a>
                 </div>
             </div>
-            ` : (!opts.readonly && opts.percent == 100 ? hx`
-            <div class="lego-upload-photo-item" style="background-image:url(${val(opts.file.url)});
-            ${width ? width : ''}${height ? height : ''}">
+            ` : hx`
+            <div class="lego-upload-photo-item preview-${val(opts.type)}" style="background-image:url(${val(opts.file.url)});">
                 <div class="lego-upload-operate">
                     <div class="lego-upload-btns">
                         <a href="javascript:;" class="lego-previewbtn" id="p_${val(opts.file._id)}" title="预览">
                             <i class="anticon anticon-eye-o"></i>
                         </a>
+                        ${!opts.readonly && opts.percent == 100 ? hx`
                         <a href="javascript:;" class="lego-closebtn" id="${val(opts.file._id)}" onclick=${this.onRemove.bind(this)} title="删除">
                             <i class="anticon anticon-delete"></i>
-                        </a>
+                        </a>` : ''}
                     </div>
                 </div>
             </div>
-            ` : '');
+            `;
         return vDom;
     }
     render() {

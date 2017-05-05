@@ -2,12 +2,13 @@
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
+        let token = '6qcgjJjvWVKAJNg3bR_8Wzr1IjEahFQha4Ksph8_:KdvqZCn-qVgSU2BqgRR1NSkG_4o=:eyJzY29wZSI6InJvYm90YWkiLCJyZXR1cm5Cb2R5Ijoie1wia2V5XCI6XCIkKGtleSlcIiwgXCJoYXNoXCI6XCIkKGV0YWcpXCIsXCJtaW1lVHlwZVwiOlwiJChtaW1lVHlwZSlcIixcIm5hbWVcIjpcIiQoZm5hbWUpXCIsXCJzaXplXCI6JChmc2l6ZSksXCJ3aWR0aFwiOiQoaW1hZ2VJbmZvLndpZHRoKSxcImhlaWdodFwiOiQoaW1hZ2VJbmZvLmhlaWdodCl9IiwiZGVhZGxpbmUiOjE0OTM4MDgwOTJ9';
         const options = {
             components: [{
                 el: '#upload1',
                 name: 'uploadname',
                 multiple: true,
-                token: '6qcgjJjvWVKAJNg3bR_8Wzr1IjEahFQha4Ksph8_:KdvqZCn-qVgSU2BqgRR1NSkG_4o=:eyJzY29wZSI6InJvYm90YWkiLCJyZXR1cm5Cb2R5Ijoie1wia2V5XCI6XCIkKGtleSlcIiwgXCJoYXNoXCI6XCIkKGV0YWcpXCIsXCJtaW1lVHlwZVwiOlwiJChtaW1lVHlwZSlcIixcIm5hbWVcIjpcIiQoZm5hbWUpXCIsXCJzaXplXCI6JChmc2l6ZSksXCJ3aWR0aFwiOiQoaW1hZ2VJbmZvLndpZHRoKSxcImhlaWdodFwiOiQoaW1hZ2VJbmZvLmhlaWdodCl9IiwiZGVhZGxpbmUiOjE0OTM4MDgwOTJ9',
+                token: token,
                 // dataSource: {
                 //     api: '',
                 //     server: null
@@ -20,7 +21,7 @@ class HomeView extends Lego.UI.Baseview {
                 name: 'uploadname2',
                 buttonText: '单文件',
                 multiple: false,
-                token: '6qcgjJjvWVKAJNg3bR_8Wzr1IjEahFQha4Ksph8_:KdvqZCn-qVgSU2BqgRR1NSkG_4o=:eyJzY29wZSI6InJvYm90YWkiLCJyZXR1cm5Cb2R5Ijoie1wia2V5XCI6XCIkKGtleSlcIiwgXCJoYXNoXCI6XCIkKGV0YWcpXCIsXCJtaW1lVHlwZVwiOlwiJChtaW1lVHlwZSlcIixcIm5hbWVcIjpcIiQoZm5hbWUpXCIsXCJzaXplXCI6JChmc2l6ZSksXCJ3aWR0aFwiOiQoaW1hZ2VJbmZvLndpZHRoKSxcImhlaWdodFwiOiQoaW1hZ2VJbmZvLmhlaWdodCl9IiwiZGVhZGxpbmUiOjE0OTM4MDgwOTJ9',
+                token:token,
                 // hideAddBtn: true,
                 onComplete(self, result) {
                     console.warn('上传成功了2', result);
@@ -55,11 +56,22 @@ class HomeView extends Lego.UI.Baseview {
                 el: '#upload4',
                 name: 'uploadname4',
                 type: 'avatar',
-                token: '6qcgjJjvWVKAJNg3bR_8Wzr1IjEahFQha4Ksph8_:KdvqZCn-qVgSU2BqgRR1NSkG_4o=:eyJzY29wZSI6InJvYm90YWkiLCJyZXR1cm5Cb2R5Ijoie1wia2V5XCI6XCIkKGtleSlcIiwgXCJoYXNoXCI6XCIkKGV0YWcpXCIsXCJtaW1lVHlwZVwiOlwiJChtaW1lVHlwZSlcIixcIm5hbWVcIjpcIiQoZm5hbWUpXCIsXCJzaXplXCI6JChmc2l6ZSksXCJ3aWR0aFwiOiQoaW1hZ2VJbmZvLndpZHRoKSxcImhlaWdodFwiOiQoaW1hZ2VJbmZvLmhlaWdodCl9IiwiZGVhZGxpbmUiOjE0OTM4MDgwOTJ9',
-                previewImg:{
+                token: token,
+                previewImg: {
                     width: 200,
                     height: 150
                 },
+                // readonly: true,
+                value: [{
+                    "id": 100124028001,
+                    "extension": "png",
+                    "height": 474,
+                    "mime_type": "image/png",
+                    "name": "2017-01-10_183019.png",
+                    "size": 124290,
+                    "url": "https://dn-openwinbons.qbox.me/1/oss/05b49736-44ad-2daa-af59-1d6781681067.png" ,
+                    "width": 473
+                }],
                 // hideAddBtn: true,
                 onComplete(self, result) {
                     console.warn('上传成功了4', result);
@@ -68,7 +80,7 @@ class HomeView extends Lego.UI.Baseview {
                 el: '#upload6',
                 name: 'uploadname5',
                 type: 'photos',
-                token: '6qcgjJjvWVKAJNg3bR_8Wzr1IjEahFQha4Ksph8_:KdvqZCn-qVgSU2BqgRR1NSkG_4o=:eyJzY29wZSI6InJvYm90YWkiLCJyZXR1cm5Cb2R5Ijoie1wia2V5XCI6XCIkKGtleSlcIiwgXCJoYXNoXCI6XCIkKGV0YWcpXCIsXCJtaW1lVHlwZVwiOlwiJChtaW1lVHlwZSlcIixcIm5hbWVcIjpcIiQoZm5hbWUpXCIsXCJzaXplXCI6JChmc2l6ZSksXCJ3aWR0aFwiOiQoaW1hZ2VJbmZvLndpZHRoKSxcImhlaWdodFwiOiQoaW1hZ2VJbmZvLmhlaWdodCl9IiwiZGVhZGxpbmUiOjE0OTM4MDgwOTJ9',
+                token:token,
                 onComplete(self, result) {
                     console.warn('上传成功了5', result);
                 }
