@@ -144,7 +144,8 @@ class Forms extends Lego.UI.Baseview {
         const that = this;
         this.rules = null;
         this.messages = null;
-        let components = this.options.data;
+        let components = this.options.data,
+            comArr = ['selects', 'treeselect'];
         components = typeof components == 'function' ? components(this.options) : (Array.isArray(components) ? components : [components]);
         components.map((item, index) => {
             if(!item.text){
@@ -156,8 +157,9 @@ class Forms extends Lego.UI.Baseview {
                                 that.rules = that.options.rules || {};
                                 that.messages = that.options.messages || {};
                                 if(subItem.required) subItem.rule.required = true;
-                                that.options.setDefaults.rules[subItem.component.name] = subItem.rule;
-                                that.options.setDefaults.messages[subItem.component.name] = subItem.message;
+                                let theName = comArr.includes(subItem.component.comName) ? ('hidden_' + subItem.component.name) : subItem.component.name;
+                                that.options.setDefaults.rules[theName] = subItem.rule;
+                                that.options.setDefaults.messages[theName] = subItem.message;
                             }
                             comId.push(i);
                             subItem.component.el = '#' + comId.join('_');
@@ -171,8 +173,9 @@ class Forms extends Lego.UI.Baseview {
                             this.rules = this.options.rules || {};
                             this.messages = this.options.messages || {};
                             if(item.required) item.rule.required = true;
-                            this.options.setDefaults.rules[item.component.name] = item.rule;
-                            this.options.setDefaults.messages[item.component.name] = item.message;
+                            let theName = comArr.includes(item.component.comName) ? ('hidden_' + item.component.name) : item.component.name;
+                            this.options.setDefaults.rules[theName] = item.rule;
+                            this.options.setDefaults.messages[theName] = item.message;
                         }
                         item.component.el = '#' + comId.join('_');
                         item.component.context = this;
@@ -203,7 +206,7 @@ class Forms extends Lego.UI.Baseview {
         const data = {};
         const formData = this.$el.serializeArray();
         formData.forEach((item, index) => {
-            if (item.value) {
+            if (item.value && item.name.indexOf('hidden_') < 0) {
                 if (data[item.name]) {
                     if (!Array.isArray(data[item.name])) {
                         data[item.name] = [data[item.name]];

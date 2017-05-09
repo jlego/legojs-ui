@@ -157,9 +157,7 @@ class Tables extends Lego.UI.Baseview {
                     </div>
                 </div>
                 ${opts.pagination && opts.data ? hx`
-                    <div class="lego-table-footer">
-                    <pagination id="pagination-${opts.vid}"></pagination>
-                    </div>
+                    <div class="lego-table-footer">${val(opts.pagination)}</div>
                 ` : ''}
                 ${opts.showSetting ? hx`<button type="button" class="btn btn-default noborder" title="表格设置"><i class="anticon anticon-ellipsis"></i></button>` : ''}
                 </div>
@@ -169,11 +167,11 @@ class Tables extends Lego.UI.Baseview {
         return vDom;
     }
     renderAfter(){
-        let opts = this.options;
-        let pgView = Lego.getView('#pagination-' + opts.vid);
-        if(pgView){
-            Object.assign(pgView.options, opts.pagination);
-        };
+        // let opts = this.options;
+        // let pgView = Lego.getView('#pagination-' + opts.vid);
+        // if(pgView){
+        //     Object.assign(pgView.options, opts.pagination);
+        // };
         if(this.options.showFooter && this.columns.length){
             this.$('.lego-table-tfoot > tr > td').attr('colspan', this.columns.length);
         }

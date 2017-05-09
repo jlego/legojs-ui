@@ -1,5 +1,5 @@
 /**
- * tables.js v0.5.29
+ * tables.js v0.5.47
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -291,7 +291,7 @@ var Pagination = function(_Lego$UI$Baseview) {
     _createClass$1(Pagination, [ {
         key: "components",
         value: function components() {
-            var options = this.options;
+            var options = this.options, that = this;
             if (!options.simple && options.showSizeChanger) {
                 var theData = options.pageSizeOptions.map(function(val) {
                     return {
@@ -308,7 +308,7 @@ var Pagination = function(_Lego$UI$Baseview) {
                         var num = parseInt(result.key);
                         this.context.options.current = 1;
                         this.context.options.pageSize = num;
-                        this.context.options.onPageSizeChange(self, num);
+                        this.context.options.onPageSizeChange(that, num);
                     }
                 });
             }
@@ -348,7 +348,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             event.stopPropagation();
             var target = $(event.currentTarget), num = target.attr("title");
             var options = this.options;
-            debug.warn("点击了" + num + "页");
+            debug.warn("点击了第" + num + "页");
             options.current = num;
             options.onChange(this, num, options.pageSize);
         }
@@ -502,7 +502,7 @@ var _templateObject4 = _taggedTemplateLiteral([ '<nodata id="nodata-', '"></noda
 
 var _templateObject5 = _taggedTemplateLiteral([ '<div style="display:none;"></div>' ], [ '<div style="display:none;"></div>' ]);
 
-var _templateObject6 = _taggedTemplateLiteral([ '\n                    <div class="lego-table-footer">\n                    <pagination id="pagination-', '"></pagination>\n                    </div>\n                ' ], [ '\n                    <div class="lego-table-footer">\n                    <pagination id="pagination-', '"></pagination>\n                    </div>\n                ' ]);
+var _templateObject6 = _taggedTemplateLiteral([ '\n                    <div class="lego-table-footer">', "</div>\n                " ], [ '\n                    <div class="lego-table-footer">', "</div>\n                " ]);
 
 var _templateObject7 = _taggedTemplateLiteral([ '<button type="button" class="btn btn-default noborder" title="表格设置"><i class="anticon anticon-ellipsis"></i></button>' ], [ '<button type="button" class="btn btn-default noborder" title="表格设置"><i class="anticon anticon-ellipsis"></i></button>' ]);
 
@@ -685,17 +685,12 @@ var Tables = function(_Lego$UI$Baseview) {
         value: function render() {
             this.getColumns();
             var opts = this.options;
-            var vDom = hx(_templateObject, opts.size, opts.bordered ? "lego-table-bordered" : "", opts.showHeader && opts.fixedHeader ? "lego-table-fixed-header" : "", opts.isNowrap ? "lego-nr" : "", opts.vid, opts.title ? hx(_templateObject2, typeof opts.title == "function" ? opts.title() : opts.title) : "", !opts.title ? "padding-bottom:0" : "", opts.showHeader && opts.fixedHeader ? hx(_templateObject3, opts.tableWidth ? "width:" + opts.tableWidth + "px" : "width:1px", this._renderColgroup(), this._renderHeader()) : "", opts.pagination ? "48px" : "0", !opts.data.length && !opts.loading ? hx(_templateObject4, opts.vid) : hx(_templateObject5), opts.showHeader && opts.fixedHeader ? "scrollbar" : "", opts.className, opts.tableWidth ? "width:" + opts.tableWidth + "px" : "width:1px", this._renderColgroup(), !(opts.showHeader && opts.fixedHeader) && opts.showHeader ? this._renderHeader() : "", opts.showBodyer ? this._renderBodyer() : "", opts.showFooter ? this._renderFooter() : "", opts.pagination && opts.data ? hx(_templateObject6, opts.vid) : "", opts.showSetting ? hx(_templateObject7) : "");
+            var vDom = hx(_templateObject, opts.size, opts.bordered ? "lego-table-bordered" : "", opts.showHeader && opts.fixedHeader ? "lego-table-fixed-header" : "", opts.isNowrap ? "lego-nr" : "", opts.vid, opts.title ? hx(_templateObject2, typeof opts.title == "function" ? opts.title() : opts.title) : "", !opts.title ? "padding-bottom:0" : "", opts.showHeader && opts.fixedHeader ? hx(_templateObject3, opts.tableWidth ? "width:" + opts.tableWidth + "px" : "width:1px", this._renderColgroup(), this._renderHeader()) : "", opts.pagination ? "48px" : "0", !opts.data.length && !opts.loading ? hx(_templateObject4, opts.vid) : hx(_templateObject5), opts.showHeader && opts.fixedHeader ? "scrollbar" : "", opts.className, opts.tableWidth ? "width:" + opts.tableWidth + "px" : "width:1px", this._renderColgroup(), !(opts.showHeader && opts.fixedHeader) && opts.showHeader ? this._renderHeader() : "", opts.showBodyer ? this._renderBodyer() : "", opts.showFooter ? this._renderFooter() : "", opts.pagination && opts.data ? hx(_templateObject6, val(opts.pagination)) : "", opts.showSetting ? hx(_templateObject7) : "");
             return vDom;
         }
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var opts = this.options;
-            var pgView = Lego.getView("#pagination-" + opts.vid);
-            if (pgView) {
-                Object.assign(pgView.options, opts.pagination);
-            }
             if (this.options.showFooter && this.columns.length) {
                 this.$(".lego-table-tfoot > tr > td").attr("colspan", this.columns.length);
             }

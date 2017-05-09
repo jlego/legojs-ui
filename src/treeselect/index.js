@@ -15,6 +15,7 @@ class Treeselect extends Selects {
             multiple: false, //支持多选
             eventName: 'click',
             scrollbar: {},
+            fieldName: 'key',  //表单域名称
             disSelect: '', //禁止选择含有该属性节点, 可以是对象
             onlySelect: '', //只选择含有该属性节点, 可以是对象
             treeDataSource: null,   //树型动态数据源
@@ -64,12 +65,12 @@ class Treeselect extends Selects {
                         if (result.length) {
                             that.options.value = [];
                             result.forEach((val) => {
-                                that.options.value.push({
+                                that.options.value.push(Object.assign({
                                     key: val.key,
                                     value: val.value,
                                     type: val.type,
                                     selected: true
-                                });
+                                }, val));
                             });
                         }else{
                             that.options.value = [];
@@ -80,12 +81,12 @@ class Treeselect extends Selects {
                 onClick(self, result) {
                     const that = this.context;
                     that.options.value.forEach(item => item.selected = false);
-                    that.options.value = [{
+                    that.options.value = [Object.assign({
                         key: result.key,
                         value: result.value,
                         type: result.type,
                         selected: true
-                    }];
+                    }, result)];
                     that.options.onChange(that, result);
                     if(that.options.clickAndClose) that.close();
                 },
@@ -115,12 +116,19 @@ class Treeselect extends Selects {
                 return '';
             }
         }
-        const theValueArr = Array.isArray(opts.value) ? (opts.value.length ? opts.value.map(item => item.value) : []) : [opts.value.value];
+        let theValueArr, realValueArr;
+        if(Array.isArray(opts.value)){
+            theValueArr = opts.value.length ? opts.value.map(item => item.value) : [];
+            realValueArr = opts.value.length ? opts.value.map(item => item[opts.fieldName]) : [];
+        }else{
+            theValueArr = realValueArr = [typeof opts.value == 'object' ? opts.value.value : opts.value];
+        }
         if(!opts.multiple){
             vDom = hx`
             <div class="select dropdown treeselect">
                 <div id="select-${opts.vid}">
-                    <input type="text" class="form-control select-input ${opts.disabled ? 'disabled' : ''}" placeholder="${opts.placeholder}" value="${theValueArr.join(',')}" name="${opts.name}">
+                    <input type="text" class="form-control select-input ${opts.disabled ? 'disabled' : ''}" placeholder="${opts.placeholder}" value="${theValueArr.join(',')}" name="hidden_${opts.name}">
+                    <input type="hidden" name="${opts.name}" value="${realValueArr.join(',')}">
                     <div class="dropdown-menu ${opts.direction ? ('drop' + opts.direction) : ''}" style="width:100%;">
                         <div class="scrollbar">
                             <tree id="tree-${opts.vid}"></tree>
@@ -134,7 +142,8 @@ class Treeselect extends Selects {
             vDom = hx`
             <div class="select dropdown treeselect multiple">
                 <div id="select-${opts.vid}">
-                    <input type="text" class="form-control select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${theValueArr.length ? '' : opts.placeholder}" value="${theValueArr.join(',')}" name="${opts.name}">
+                    <input type="text" class="form-control select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${theValueArr.length ? '' : opts.placeholder}" value="${theValueArr.join(',')}" name="hidden_${opts.name}">
+                    <input type="hidden" name="${opts.name}" value="${realValueArr.join(',')}">
                     <div class="select-tags-div clearfix ${theValueArr.length ? 'select-tags-div-border' : ''}">
                         ${getTags(opts.value)}
                     </div>

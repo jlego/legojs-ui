@@ -1,5 +1,5 @@
 /**
- * treeselect.js v0.5.29
+ * treeselect.js v0.5.47
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -185,7 +185,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
 
 Lego.components("dropdown", Dropdown);
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
+var _typeof$1 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
     return typeof obj;
 } : function(obj) {
     return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
@@ -212,9 +212,9 @@ var _templateObject$1 = _taggedTemplateLiteral$1([ "\n                <ul>", "\n
 
 var _templateObject2$1 = _taggedTemplateLiteral$1([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
 
-var _templateObject3$1 = _taggedTemplateLiteral$1([ '\n            <div class="select dropdown ', '">\n                <div id="select-', '">\n                    <input type="text" class="form-control ', " select-input ", '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown ', '">\n                <div id="select-', '">\n                    <input type="text" class="form-control ', " select-input ", '" placeholder="', '" value="', '" name="', '">\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ]);
+var _templateObject3$1 = _taggedTemplateLiteral$1([ '\n            <div class="select dropdown ', '">\n                <div id="select-', '">\n                    <input type="text" class="form-control ', " select-input ", '" placeholder="', '" value="', '" name="hidden_', '">\n                    <input type="hidden" name="', '" value="', '">\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown ', '">\n                <div id="select-', '">\n                    <input type="text" class="form-control ', " select-input ", '" placeholder="', '" value="', '" name="hidden_', '">\n                    <input type="hidden" name="', '" value="', '">\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ]);
 
-var _templateObject4$1 = _taggedTemplateLiteral$1([ '\n            <div class="select dropdown multiple ', '">\n                <div id="select-', '">\n                    <input type="text" class="form-control ', " select-input ", '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown multiple ', '">\n                <div id="select-', '">\n                    <input type="text" class="form-control ', " select-input ", '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ]);
+var _templateObject4$1 = _taggedTemplateLiteral$1([ '\n            <div class="select dropdown multiple ', '">\n                <div id="select-', '">\n                    <input type="text" class="form-control ', " select-input ", '" placeholder="', '" value="', '" name="hidden_', '">\n                    <input type="hidden" name="', '" value="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown multiple ', '">\n                <div id="select-', '">\n                    <input type="text" class="form-control ', " select-input ", '" placeholder="', '" value="', '" name="hidden_', '">\n                    <input type="hidden" name="', '" value="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </div>\n            </div>\n            ' ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -262,6 +262,7 @@ var Selects = function(_Lego$UI$Baseview) {
             value: [],
             multiple: false,
             eventName: "click",
+            fieldName: "key",
             filterOption: true,
             tags: false,
             onDeselect: function onDeselect() {},
@@ -350,13 +351,21 @@ var Selects = function(_Lego$UI$Baseview) {
                     return "";
                 }
             }
-            var theValueArr = Array.isArray(opts.value) ? opts.value.length ? opts.value.map(function(item) {
-                return item.value;
-            }) : [] : [ _typeof(opts.value) == "object" ? opts.value.value : opts.value ];
-            if (!opts.multiple) {
-                vDom = hx(_templateObject3$1, opts.size, opts.vid, opts.size ? "form-control-" + opts.size : "", opts.disabled ? "disabled" : "", opts.placeholder, theValueArr.join(","), opts.name, opts.vid);
+            var theValueArr = void 0, realValueArr = void 0;
+            if (Array.isArray(opts.value)) {
+                theValueArr = opts.value.length ? opts.value.map(function(item) {
+                    return item.value;
+                }) : [];
+                realValueArr = opts.value.length ? opts.value.map(function(item) {
+                    return item[opts.fieldName];
+                }) : [];
             } else {
-                vDom = hx(_templateObject4$1, opts.size, opts.vid, opts.size ? "form-control-" + opts.size : "", theValueArr.length ? "select-hasValue" : "", theValueArr.length ? "" : opts.placeholder, theValueArr.join(","), opts.name, theValueArr.length ? "select-tags-div-border" : "", getTags(opts.value), opts.vid);
+                theValueArr = realValueArr = [ _typeof$1(opts.value) == "object" ? opts.value.value : opts.value ];
+            }
+            if (!opts.multiple) {
+                vDom = hx(_templateObject3$1, opts.size, opts.vid, opts.size ? "form-control-" + opts.size : "", opts.disabled ? "disabled" : "", opts.placeholder, theValueArr.join(","), opts.name, opts.name, realValueArr.join(","), opts.vid);
+            } else {
+                vDom = hx(_templateObject4$1, opts.size, opts.vid, opts.size ? "form-control-" + opts.size : "", theValueArr.length ? "select-hasValue" : "", theValueArr.length ? "" : opts.placeholder, theValueArr.join(","), opts.name, opts.name, realValueArr.join(","), theValueArr.length ? "select-tags-div-border" : "", getTags(opts.value), opts.vid);
             }
             return vDom;
         }
@@ -487,7 +496,6 @@ var Tree = function(_Lego$UI$Baseview) {
             disSelect: "",
             onlySelect: "",
             setting: {},
-            keyNames: [ "id", "name", "type" ],
             value: [],
             data: [],
             onChecked: function onChecked() {},
@@ -499,39 +507,38 @@ var Tree = function(_Lego$UI$Baseview) {
     _createClass$3(Tree, [ {
         key: "components",
         value: function components() {
-            var options = this.options, that = this;
+            var opts = this.options, that = this;
             function selectOrNo(treeNode) {
-                if (options.disSelect) {
-                    if (Object.keys(treeNode).includes(options.disSelect)) return false;
+                if (opts.disSelect) {
+                    if (Object.keys(treeNode).includes(opts.disSelect)) return false;
                 }
-                if (options.onlySelect) {
-                    if (!Object.keys(treeNode).includes(options.onlySelect)) return false;
+                if (opts.onlySelect) {
+                    if (!Object.keys(treeNode).includes(opts.onlySelect)) return false;
                 }
                 return true;
             }
             function selectResult(treeId, treeNode) {
-                var treeObj = $.fn.zTree.getZTreeObj(treeId), nodes = treeObj.getCheckedNodes(true), keyNames = options.keyNames, result = nodes.filter(function(node) {
+                var treeObj = $.fn.zTree.getZTreeObj(treeId), nodes = treeObj.getCheckedNodes(true), result = nodes.filter(function(node) {
                     return selectOrNo(node);
                 });
                 var newValue = [];
                 result.forEach(function(val, index) {
                     newValue.push(Object.assign({
-                        key: val[keyNames[0]],
-                        value: val[keyNames[1]],
-                        type: val[keyNames[2]]
+                        key: val.id,
+                        value: val.name
                     }, val));
                 });
-                if (typeof options.onChecked == "function") options.onChecked(that, newValue, treeNode);
+                if (typeof opts.onChecked == "function") opts.onChecked(that, newValue, treeNode);
             }
-            if (options.setting.check) {
-                options.setting.check = $.extend(true, {
+            if (opts.setting.check) {
+                opts.setting.check = $.extend(true, {
                     enable: true,
                     chkboxType: {
                         Y: "",
                         N: ""
                     }
-                }, options.setting.check || {});
-                options.setting.callback = Object.assign(options.setting.callback || {}, {
+                }, opts.setting.check || {});
+                opts.setting.callback = Object.assign(opts.setting.callback || {}, {
                     onCheck: function onCheck(event, treeId, treeNode) {
                         selectResult(treeId, treeNode);
                     },
@@ -543,21 +550,18 @@ var Tree = function(_Lego$UI$Baseview) {
                     }
                 });
             } else {
-                options.setting.callback = Object.assign(options.setting.callback || {}, {
+                opts.setting.callback = Object.assign(opts.setting.callback || {}, {
                     onClick: function onClick(event, treeId, treeNode) {
                         if (!selectOrNo(treeNode)) return false;
-                        if (typeof options.onClick == "function") options.onClick(that, Object.assign({
-                            key: treeNode[options.keyNames[0]],
-                            value: treeNode[options.keyNames[1]],
-                            type: treeNode[options.keyNames[2]]
+                        if (typeof opts.onClick == "function") opts.onClick(that, Object.assign({
+                            key: treeNode.id,
+                            value: treeNode.name
                         }, treeNode));
                     }
                 });
             }
-            if (options.data.length) {
-                var _ztree = $.fn.zTree.getZTreeObj(this.options.id);
-                if (_ztree) _ztree.destroy();
-                $.fn.zTree.init(this.$el, options.setting, options.data);
+            if (opts.data.length) {
+                this.renderTree();
             }
         }
     }, {
@@ -566,10 +570,31 @@ var Tree = function(_Lego$UI$Baseview) {
             return hx(_templateObject$3);
         }
     }, {
+        key: "renderTree",
+        value: function renderTree() {
+            var opts = this.options, treeObj = $.fn.zTree.getZTreeObj(opts.id);
+            if (treeObj) treeObj.destroy();
+            $.fn.zTree.init(this.$el, opts.setting, opts.data);
+        }
+    }, {
+        key: "search",
+        value: function search() {
+            var keyword = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+            this.$("li").hide();
+            if (keyword == "") {
+                this.$("li").show();
+            } else {
+                this.$("span.node_name").each(function(index, el) {
+                    if ($(el).text().indexOf(keyword) > -1) {
+                        $(el).parents("li").show();
+                    }
+                });
+            }
+        }
+    }, {
         key: "clearChecked",
         value: function clearChecked(key, value) {
-            var ztree$$1 = $.fn.zTree.getZTreeObj(this.options.id);
-            var node = ztree$$1.getNodeByParam(key, value, null);
+            var opts = this.options, ztree$$1 = $.fn.zTree.getZTreeObj(opts.id), node = ztree$$1.getNodeByParam(key, value, null);
             if (node) {
                 ztree$$1.checkNode(node, false, false);
             }
@@ -579,6 +604,12 @@ var Tree = function(_Lego$UI$Baseview) {
 }(Lego.UI.Baseview);
 
 Lego.components("tree", Tree);
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
+    return typeof obj;
+} : function(obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
 
 var _createClass = function() {
     function defineProperties(target, props) {
@@ -601,9 +632,9 @@ var _templateObject = _taggedTemplateLiteral([ "\n                <ul>", '\n    
 
 var _templateObject2 = _taggedTemplateLiteral([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
 
-var _templateObject3 = _taggedTemplateLiteral([ '\n            <div class="select dropdown treeselect">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '" style="width:100%;">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="dropdown-menu ', '" style="width:100%;">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ]);
+var _templateObject3 = _taggedTemplateLiteral([ '\n            <div class="select dropdown treeselect">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="hidden_', '">\n                    <input type="hidden" name="', '" value="', '">\n                    <div class="dropdown-menu ', '" style="width:100%;">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="hidden_', '">\n                    <input type="hidden" name="', '" value="', '">\n                    <div class="dropdown-menu ', '" style="width:100%;">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n            ' ]);
 
-var _templateObject4 = _taggedTemplateLiteral([ '\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '" style="width:100%;">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '" style="width:100%;">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ]);
+var _templateObject4 = _taggedTemplateLiteral([ '\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="hidden_', '">\n                    <input type="hidden" name="', '" value="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '" style="width:100%;">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="select dropdown treeselect multiple">\n                <div id="select-', '">\n                    <input type="text" class="form-control select-input ', '" placeholder="', '" value="', '" name="hidden_', '">\n                    <input type="hidden" name="', '" value="', '">\n                    <div class="select-tags-div clearfix ', '">\n                        ', '\n                    </div>\n                    <div class="dropdown-menu ', '" style="width:100%;">\n                        <div class="scrollbar">\n                            <tree id="tree-', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            ' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -652,6 +683,7 @@ var Treeselect = function(_Selects) {
             multiple: false,
             eventName: "click",
             scrollbar: {},
+            fieldName: "key",
             disSelect: "",
             onlySelect: "",
             treeDataSource: null,
@@ -701,12 +733,12 @@ var Treeselect = function(_Selects) {
                             if (result.length) {
                                 that.options.value = [];
                                 result.forEach(function(val) {
-                                    that.options.value.push({
+                                    that.options.value.push(Object.assign({
                                         key: val.key,
                                         value: val.value,
                                         type: val.type,
                                         selected: true
-                                    });
+                                    }, val));
                                 });
                             } else {
                                 that.options.value = [];
@@ -719,12 +751,12 @@ var Treeselect = function(_Selects) {
                         that.options.value.forEach(function(item) {
                             return item.selected = false;
                         });
-                        that.options.value = [ {
+                        that.options.value = [ Object.assign({
                             key: result.key,
                             value: result.value,
                             type: result.type,
                             selected: true
-                        } ];
+                        }, result) ];
                         that.options.onChange(that, result);
                         if (that.options.clickAndClose) that.close();
                     },
@@ -747,13 +779,21 @@ var Treeselect = function(_Selects) {
                     return "";
                 }
             }
-            var theValueArr = Array.isArray(opts.value) ? opts.value.length ? opts.value.map(function(item) {
-                return item.value;
-            }) : [] : [ opts.value.value ];
-            if (!opts.multiple) {
-                vDom = hx(_templateObject3, opts.vid, opts.disabled ? "disabled" : "", opts.placeholder, theValueArr.join(","), opts.name, opts.direction ? "drop" + opts.direction : "", opts.vid);
+            var theValueArr = void 0, realValueArr = void 0;
+            if (Array.isArray(opts.value)) {
+                theValueArr = opts.value.length ? opts.value.map(function(item) {
+                    return item.value;
+                }) : [];
+                realValueArr = opts.value.length ? opts.value.map(function(item) {
+                    return item[opts.fieldName];
+                }) : [];
             } else {
-                vDom = hx(_templateObject4, opts.vid, theValueArr.length ? "select-hasValue" : "", theValueArr.length ? "" : opts.placeholder, theValueArr.join(","), opts.name, theValueArr.length ? "select-tags-div-border" : "", getTags(opts.value), opts.direction ? "drop" + opts.direction : "", opts.vid);
+                theValueArr = realValueArr = [ _typeof(opts.value) == "object" ? opts.value.value : opts.value ];
+            }
+            if (!opts.multiple) {
+                vDom = hx(_templateObject3, opts.vid, opts.disabled ? "disabled" : "", opts.placeholder, theValueArr.join(","), opts.name, opts.name, realValueArr.join(","), opts.direction ? "drop" + opts.direction : "", opts.vid);
+            } else {
+                vDom = hx(_templateObject4, opts.vid, theValueArr.length ? "select-hasValue" : "", theValueArr.length ? "" : opts.placeholder, theValueArr.join(","), opts.name, opts.name, realValueArr.join(","), theValueArr.length ? "select-tags-div-border" : "", getTags(opts.value), opts.direction ? "drop" + opts.direction : "", opts.vid);
             }
             return vDom;
         }

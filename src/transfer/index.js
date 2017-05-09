@@ -32,7 +32,7 @@ class Transfer extends Lego.UI.Baseview {
             searchPlaceholder: '请输入搜索内容', //搜索框
             notFoundContent: '列表为空', //列表为空时显示的内容
             onChange() {}, //更改值时触发的事件
-            onSearch(){}
+            onSearch: null  //function
         };
         Object.assign(options, opts);
         super(options);
@@ -110,7 +110,12 @@ class Transfer extends Lego.UI.Baseview {
                     style: {display: 'none'},
                     size: 'sm',
                     onSearch(self, result) {
-                        if(typeof opts.search == 'function') opts.search(that, result);
+                        if(typeof opts.onSearch == 'function'){
+                            opts.onSearch(that, result);
+                        }else{
+                            let treeView = Lego.getView('#transfer_tree_' + opts.vid);
+                            if(treeView) treeView.search(result.keyword);
+                        }
                     }
                 });
             }

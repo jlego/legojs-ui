@@ -5,10 +5,13 @@ class Permis {
     constructor() {
         this.options = {
             userId: 0, //当前用户ID
-            operateHash() {}, //操作权限对象
-            manageHash() {}, //管理权限对象
-            users() {}, //所有用户列表 (array 或 function)
-            message() {} //提示信息回调
+            operateHash: {}, //操作权限对象
+            manageHash: {}, //管理权限对象
+            users: {}, //所有用户列表 (array 或 function)
+            isSuper: null,  //超级管理员
+            message(msg) { //提示信息回调
+                Lego.UI.Util.message('error', msg);
+            }
         };
     }
     /**
@@ -17,41 +20,17 @@ class Permis {
      * @return {[type]}        [description]
      */
     init(opts = {}) {
-        let that = this;
-        let ajaxConfig = {
-            url: '',
-            data: {},
-            error(error) {
-                debug.error('加载权限数据失败');
-            }
-        };
-        let options = {
-            userId: 0,
-            operate: {},
-            manage: {}
-        };
-        Object.assign(options, opts);
-        this.options.userId = options.userId;
-        if (options.operate.url) {
-            let operateAjaxConfig = $.extend({}, ajaxConfig, options.operate);
-            operateAjaxConfig.success = function(result) {
-                that.options.operateHash = result;
-            };
-            $.ajax(operateAjaxConfig);
+        if(opts.operateHash) opts.operateHash = typeof opts.operateHash == 'function' ? opts.operateHash() : opts.operateHash;
+        if(opts.manageHash) opts.manageHash = typeof opts.manageHash == 'function' ? opts.manageHash() : opts.manageHash;
+        if(opts.users) opts.users = typeof opts.users == 'function' ? opts.users() : opts.users;
+        Object.assign(this.options, opts);
+        if(Array.isArray(this.options.users)){
+            let usersObj = {};
+            this.options.users.forEach((user, index) => {
+                usersObj[user.id] = user;
+            });
+            this.options.users = usersObj;
         }
-        if (options.manage.url) {
-            let manageAjaxConfig = $.extend({}, ajaxConfig, options.manage);
-            manageAjaxConfig.success = function(result) {
-                that.options.manageHash = result;
-            };
-            $.ajax(manageAjaxConfig);
-        }
-        Lego.setting('permit', function(opts = {}){
-            let module = opts.module,
-                operate = opts.operate,
-                userId = opts.userid;
-            return Lego.UI.permis.check(module, operate, userId);
-        });
     }
     /**
      * [check 权限判断]
@@ -62,40 +41,39 @@ class Permis {
      */
     check(module, operate, userId) {
         let user_id = this.options.userId,
-            operateHash = typeof this.options.operateHash == 'function' ? this.options.operateHash() : this.options.operateHash,
-            manageHash = typeof this.options.manageHash == 'function' ? this.options.manageHash() : this.options.manageHash,
-            users = typeof this.options.users == 'function' ? this.options.users() : this.options.users;
-        if (!userId || userId === user_id) {
-            // 当前用户操作
-            if (module) {
-                if (operateHash[module]) {
-                    return operateHash[module][operate];
-                } else {
-                    return false;
-                }
-            }
-            return true;
-        } else {
-            // 管理操作
-            let theDepartment, result;
-            if (Array.isArray(users)) {
-                // 纯json
-                result = users.find(user => user.id == userId);
-                if (result) {
-                    theDepartment = result.deptId;
-                }
-            }
-            if (theDepartment) {
-                if (manageHash[theDepartment]) {
-                    if (manageHash[theDepartment][module]) {
-                        // 使用新数据格式
-                        return manageHash[theDepartment][module][operate];
+            operateHash = this.options.operateHash,
+            manageHash = this.options.manageHash,
+            users = this.options.users;
+        if(!this.options.isSuper){
+            if (!userId || userId === user_id) {
+                // 当前用户操作
+                if (module) {
+                    if (operateHash[module]) {
+                        return operateHash[module][operate];
                     } else {
-                        // 兼容旧数据格式
-                        return manageHash[theDepartment][module + ':' + operate];
+                        return false;
                     }
                 }
+                return true;
+            } else {
+                // 管理操作
+                let theDepartment,
+                    result = users[userId];
+                if (result) theDepartment = result.deptId;
+                if (theDepartment) {
+                    if (manageHash[theDepartment]) {
+                        if (manageHash[theDepartment][module]) {
+                            // 使用新数据格式
+                            return manageHash[theDepartment][module][operate];
+                        } else {
+                            // 兼容旧数据格式
+                            return manageHash[theDepartment][module + ':' + operate];
+                        }
+                    }
+                }
+                return true;
             }
+        }else{
             return true;
         }
     }
@@ -160,8 +138,8 @@ function on(elem, types, selector, data, fn, one) {
                     operate = thePermis.operate,
                     msg = thePermis.message,
                     userId = thePermis.userid;
-                if (!Lego.permis.check(module, operate, userId)) {
-                    if (msg) Lego.permis.options.message(msg);
+                if (!Lego.UI.permis.check(module, operate, userId)) {
+                    if (msg) Lego.UI.permis.options.message(msg);
                     event.stopPropagation();
                     return;
                 }

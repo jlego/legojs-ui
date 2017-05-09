@@ -1,5 +1,5 @@
 /**
- * transfer.js v0.5.29
+ * transfer.js v0.5.47
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -189,7 +189,6 @@ var Tree = function(_Lego$UI$Baseview) {
             disSelect: "",
             onlySelect: "",
             setting: {},
-            keyNames: [ "id", "name", "type" ],
             value: [],
             data: [],
             onChecked: function onChecked() {},
@@ -201,39 +200,38 @@ var Tree = function(_Lego$UI$Baseview) {
     _createClass$2(Tree, [ {
         key: "components",
         value: function components() {
-            var options = this.options, that = this;
+            var opts = this.options, that = this;
             function selectOrNo(treeNode) {
-                if (options.disSelect) {
-                    if (Object.keys(treeNode).includes(options.disSelect)) return false;
+                if (opts.disSelect) {
+                    if (Object.keys(treeNode).includes(opts.disSelect)) return false;
                 }
-                if (options.onlySelect) {
-                    if (!Object.keys(treeNode).includes(options.onlySelect)) return false;
+                if (opts.onlySelect) {
+                    if (!Object.keys(treeNode).includes(opts.onlySelect)) return false;
                 }
                 return true;
             }
             function selectResult(treeId, treeNode) {
-                var treeObj = $.fn.zTree.getZTreeObj(treeId), nodes = treeObj.getCheckedNodes(true), keyNames = options.keyNames, result = nodes.filter(function(node) {
+                var treeObj = $.fn.zTree.getZTreeObj(treeId), nodes = treeObj.getCheckedNodes(true), result = nodes.filter(function(node) {
                     return selectOrNo(node);
                 });
                 var newValue = [];
                 result.forEach(function(val, index) {
                     newValue.push(Object.assign({
-                        key: val[keyNames[0]],
-                        value: val[keyNames[1]],
-                        type: val[keyNames[2]]
+                        key: val.id,
+                        value: val.name
                     }, val));
                 });
-                if (typeof options.onChecked == "function") options.onChecked(that, newValue, treeNode);
+                if (typeof opts.onChecked == "function") opts.onChecked(that, newValue, treeNode);
             }
-            if (options.setting.check) {
-                options.setting.check = $.extend(true, {
+            if (opts.setting.check) {
+                opts.setting.check = $.extend(true, {
                     enable: true,
                     chkboxType: {
                         Y: "",
                         N: ""
                     }
-                }, options.setting.check || {});
-                options.setting.callback = Object.assign(options.setting.callback || {}, {
+                }, opts.setting.check || {});
+                opts.setting.callback = Object.assign(opts.setting.callback || {}, {
                     onCheck: function onCheck(event, treeId, treeNode) {
                         selectResult(treeId, treeNode);
                     },
@@ -245,21 +243,18 @@ var Tree = function(_Lego$UI$Baseview) {
                     }
                 });
             } else {
-                options.setting.callback = Object.assign(options.setting.callback || {}, {
+                opts.setting.callback = Object.assign(opts.setting.callback || {}, {
                     onClick: function onClick(event, treeId, treeNode) {
                         if (!selectOrNo(treeNode)) return false;
-                        if (typeof options.onClick == "function") options.onClick(that, Object.assign({
-                            key: treeNode[options.keyNames[0]],
-                            value: treeNode[options.keyNames[1]],
-                            type: treeNode[options.keyNames[2]]
+                        if (typeof opts.onClick == "function") opts.onClick(that, Object.assign({
+                            key: treeNode.id,
+                            value: treeNode.name
                         }, treeNode));
                     }
                 });
             }
-            if (options.data.length) {
-                var _ztree = $.fn.zTree.getZTreeObj(this.options.id);
-                if (_ztree) _ztree.destroy();
-                $.fn.zTree.init(this.$el, options.setting, options.data);
+            if (opts.data.length) {
+                this.renderTree();
             }
         }
     }, {
@@ -268,10 +263,31 @@ var Tree = function(_Lego$UI$Baseview) {
             return hx(_templateObject$2);
         }
     }, {
+        key: "renderTree",
+        value: function renderTree() {
+            var opts = this.options, treeObj = $.fn.zTree.getZTreeObj(opts.id);
+            if (treeObj) treeObj.destroy();
+            $.fn.zTree.init(this.$el, opts.setting, opts.data);
+        }
+    }, {
+        key: "search",
+        value: function search() {
+            var keyword = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+            this.$("li").hide();
+            if (keyword == "") {
+                this.$("li").show();
+            } else {
+                this.$("span.node_name").each(function(index, el) {
+                    if ($(el).text().indexOf(keyword) > -1) {
+                        $(el).parents("li").show();
+                    }
+                });
+            }
+        }
+    }, {
         key: "clearChecked",
         value: function clearChecked(key, value) {
-            var ztree$$1 = $.fn.zTree.getZTreeObj(this.options.id);
-            var node = ztree$$1.getNodeByParam(key, value, null);
+            var opts = this.options, ztree$$1 = $.fn.zTree.getZTreeObj(opts.id), node = ztree$$1.getNodeByParam(key, value, null);
             if (node) {
                 ztree$$1.checkNode(node, false, false);
             }
@@ -682,7 +698,7 @@ var Transfer = function(_Lego$UI$Baseview) {
             searchPlaceholder: "请输入搜索内容",
             notFoundContent: "列表为空",
             onChange: function onChange() {},
-            onSearch: function onSearch() {}
+            onSearch: null
         };
         Object.assign(options, opts);
         return _possibleConstructorReturn(this, (Transfer.__proto__ || Object.getPrototypeOf(Transfer)).call(this, options));
@@ -775,7 +791,12 @@ var Transfer = function(_Lego$UI$Baseview) {
                         },
                         size: "sm",
                         onSearch: function onSearch(self, result) {
-                            if (typeof opts.search == "function") opts.search(that, result);
+                            if (typeof opts.onSearch == "function") {
+                                opts.onSearch(that, result);
+                            } else {
+                                var treeView = Lego.getView("#transfer_tree_" + opts.vid);
+                                if (treeView) treeView.search(result.keyword);
+                            }
                         }
                     });
                 }

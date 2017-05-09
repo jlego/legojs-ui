@@ -1,5 +1,5 @@
 /**
- * forms.js v0.5.29
+ * forms.js v0.5.47
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -185,7 +185,7 @@ var Forms = function(_Lego$UI$Baseview) {
             var that = this;
             this.rules = null;
             this.messages = null;
-            var components = this.options.data;
+            var components = this.options.data, comArr = [ "selects", "treeselect" ];
             components = typeof components == "function" ? components(this.options) : Array.isArray(components) ? components : [ components ];
             components.map(function(item, index) {
                 if (!item.text) {
@@ -198,8 +198,9 @@ var Forms = function(_Lego$UI$Baseview) {
                                         that.rules = that.options.rules || {};
                                         that.messages = that.options.messages || {};
                                         if (subItem.required) subItem.rule.required = true;
-                                        that.options.setDefaults.rules[subItem.component.name] = subItem.rule;
-                                        that.options.setDefaults.messages[subItem.component.name] = subItem.message;
+                                        var theName = comArr.includes(subItem.component.comName) ? "hidden_" + subItem.component.name : subItem.component.name;
+                                        that.options.setDefaults.rules[theName] = subItem.rule;
+                                        that.options.setDefaults.messages[theName] = subItem.message;
                                     }
                                     comId.push(i);
                                     subItem.component.el = "#" + comId.join("_");
@@ -213,8 +214,9 @@ var Forms = function(_Lego$UI$Baseview) {
                                     _this2.rules = _this2.options.rules || {};
                                     _this2.messages = _this2.options.messages || {};
                                     if (item.required) item.rule.required = true;
-                                    _this2.options.setDefaults.rules[item.component.name] = item.rule;
-                                    _this2.options.setDefaults.messages[item.component.name] = item.message;
+                                    var theName = comArr.includes(item.component.comName) ? "hidden_" + item.component.name : item.component.name;
+                                    _this2.options.setDefaults.rules[theName] = item.rule;
+                                    _this2.options.setDefaults.messages[theName] = item.message;
                                 }
                                 item.component.el = "#" + comId.join("_");
                                 item.component.context = _this2;
@@ -245,7 +247,7 @@ var Forms = function(_Lego$UI$Baseview) {
             var data = {};
             var formData = this.$el.serializeArray();
             formData.forEach(function(item, index) {
-                if (item.value) {
+                if (item.value && item.name.indexOf("hidden_") < 0) {
                     if (data[item.name]) {
                         if (!Array.isArray(data[item.name])) {
                             data[item.name] = [ data[item.name] ];

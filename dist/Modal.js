@@ -1,5 +1,5 @@
 /**
- * modal.js v0.5.29
+ * modal.js v0.5.47
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -837,7 +837,7 @@ var Modal = function(_Lego$UI$Baseview) {
         key: "clickBackdrop",
         value: function clickBackdrop(event) {
             event.stopPropagation();
-            this._onConfirm("onCancel");
+            this._onConfirm("onCancel", true);
         }
     }, {
         key: "_showDialog",
@@ -855,11 +855,17 @@ var Modal = function(_Lego$UI$Baseview) {
         }
     }, {
         key: "_onConfirm",
-        value: function _onConfirm(funName) {
+        value: function _onConfirm(funName, isBackdrop) {
             if (this.options.confirm && this.options[funName]) {
                 this._showDialog();
             } else {
-                if (funName !== "onOk") this.close();
+                if (isBackdrop) {
+                    var closeAble = true;
+                    if (this.options.backdrop == "static") closeAble = false;
+                    if (funName !== "onOk" && closeAble) this.close();
+                } else {
+                    if (funName !== "onOk") this.close();
+                }
             }
             if (typeof this.options[funName] === "function") this.options[funName](this);
         }

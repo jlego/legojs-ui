@@ -32,7 +32,8 @@ class Pagination extends Lego.UI.Baseview {
         this.jumped = false;
     }
     components(){
-        let options = this.options;
+        let options = this.options,
+            that = this;
         if(!options.simple && options.showSizeChanger){
             let theData = options.pageSizeOptions.map(val => {
                 return {
@@ -49,7 +50,7 @@ class Pagination extends Lego.UI.Baseview {
                     const num = parseInt(result.key);
                     this.context.options.current = 1;
                     this.context.options.pageSize = num;
-                    this.context.options.onPageSizeChange(self, num);
+                    this.context.options.onPageSizeChange(that, num);
                 }
             });
         }
@@ -130,7 +131,7 @@ class Pagination extends Lego.UI.Baseview {
         const target = $(event.currentTarget),
             num = target.attr('title');
         const options = this.options;
-        debug.warn('点击了' + num + '页');
+        debug.warn('点击了第' + num + '页');
         options.current = num;
         options.onChange(this, num, options.pageSize);
     }

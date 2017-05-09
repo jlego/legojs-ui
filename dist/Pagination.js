@@ -1,5 +1,5 @@
 /**
- * pagination.js v0.5.29
+ * pagination.js v0.5.47
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -291,7 +291,7 @@ var Pagination = function(_Lego$UI$Baseview) {
     _createClass(Pagination, [ {
         key: "components",
         value: function components() {
-            var options = this.options;
+            var options = this.options, that = this;
             if (!options.simple && options.showSizeChanger) {
                 var theData = options.pageSizeOptions.map(function(val) {
                     return {
@@ -308,7 +308,7 @@ var Pagination = function(_Lego$UI$Baseview) {
                         var num = parseInt(result.key);
                         this.context.options.current = 1;
                         this.context.options.pageSize = num;
-                        this.context.options.onPageSizeChange(self, num);
+                        this.context.options.onPageSizeChange(that, num);
                     }
                 });
             }
@@ -348,7 +348,7 @@ var Pagination = function(_Lego$UI$Baseview) {
             event.stopPropagation();
             var target = $(event.currentTarget), num = target.attr("title");
             var options = this.options;
-            debug.warn("点击了" + num + "页");
+            debug.warn("点击了第" + num + "页");
             options.current = num;
             options.onChange(this, num, options.pageSize);
         }

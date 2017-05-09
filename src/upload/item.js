@@ -35,6 +35,7 @@ class UploadItem extends UploadBase {
             percent: 0,     //上传进度百分比
             isAuto: true,
             readonly: false,
+            showZoom: true,
             file: {},
             type: 'file',
             headers: {},
@@ -119,9 +120,10 @@ class UploadItem extends UploadBase {
             <div class="lego-upload-photo-item preview-${val(opts.type)}" style="background-image:url(${val(opts.file.url)});">
                 <div class="lego-upload-operate">
                     <div class="lego-upload-btns">
+                        ${opts.showZoom ? hx`
                         <a href="javascript:;" class="lego-previewbtn" id="p_${val(opts.file._id)}" title="预览">
                             <i class="anticon anticon-eye-o"></i>
-                        </a>
+                        </a>` : ''}
                         ${!opts.readonly && opts.percent == 100 ? hx`
                         <a href="javascript:;" class="lego-closebtn" id="${val(opts.file._id)}" onclick=${this.onRemove.bind(this)} title="删除">
                             <i class="anticon anticon-delete"></i>

@@ -29,9 +29,8 @@ class HomeView extends Lego.UI.Baseview {
                 }, {
                     label: '名称1',
                     help: '注意事项',
-                    required: true,
                     rule: {
-                        // required: true
+                        required: true
                     },
                     message: {
                         required: '请先填写名称'
@@ -62,9 +61,8 @@ class HomeView extends Lego.UI.Baseview {
                     }
                 }, {
                     label: '名称3',
-                    required: true,
                     rule: {
-                        // required: true
+                        required: true
                     },
                     message: {
                         required: '请先填写名称3'
@@ -80,9 +78,8 @@ class HomeView extends Lego.UI.Baseview {
                     }
                 }, {
                     label: '名称4',
-                    required: true,
                     rule: {
-                        // required: true
+                        required: true
                     },
                     message: {
                         required: '请先填写名称4'
