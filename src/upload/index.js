@@ -154,14 +154,14 @@ class Upload extends Lego.UI.Baseview {
                 if(opts.accept.length){
                     if(!opts.accept.includes(file.type)){
                         Lego.UI.message('error', '上传文件格式不正确');
-                        this.fileList = this.fileList.filter(item => item._id !== file._id);
+                        this.fileList = this.fileList.filter(value => value !== file._id);
                         return;
                     }
                 }
                 if(opts.acceptSuffix.length){
                     if(!opts.acceptSuffix.includes(Lego.UI.Util.getExtName(file.name))){
                         Lego.UI.message('error', '上传文件格式不正确');
-                        this.fileList = this.fileList.filter(item => item._id !== file._id);
+                        this.fileList = this.fileList.filter(value => value !== file._id);
                         return;
                     }
                 }
@@ -172,7 +172,7 @@ class Upload extends Lego.UI.Baseview {
                     } else {
                         debug.warn(msg);
                     }
-                    this.fileList = this.fileList.filter(item => item._id !== file._id);
+                    this.fileList = this.fileList.filter(value => value !== file._id);
                     return;
                 }
                 if(i > maxFilesCount - 1) return;

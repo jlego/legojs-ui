@@ -24,6 +24,7 @@ class Tables extends Lego.UI.Baseview {
             scrollbar: {},
             className: '',
             tableWidth: 0,
+            loading: true,
             isNodata: false,
             isNowrap: true, //表格内容是否不换行
             rowSelection: null, //列表行是否可选择
@@ -49,7 +50,7 @@ class Tables extends Lego.UI.Baseview {
             // title(){}, //表格标题
             // scroll: {}, //横向或纵向支持滚动，也可用于指定滚动区域的宽高度：{{ x: true, y: 300 }}
             data: [],
-            nodata: {}, //暂无数据配置
+            nodataOption: {}, //暂无数据配置
             onExpandRow(){}, //点击展开图标时触发
             onChange(){}, //分页、排序、筛选变化时触发
             onSelect(){},
@@ -113,14 +114,11 @@ class Tables extends Lego.UI.Baseview {
     }
     components(){
         let opts = this.options;
-        this.addCom(Object.assign({
-            el: '#pagination-' + opts.vid
-        }, opts.pagination));
         // 暂无数据
         if(!opts.data.length){
             this.addCom(Object.assign({
-                el: '#nodata-' + opts.vid
-            }), Lego.config.nodata || {}, opts.nodata);
+                el: '#nodata_' + opts.vid
+            }), Lego.config.nodataOption || {}, opts.nodataOption);
         }
     }
     resizeWidth(){
@@ -146,7 +144,7 @@ class Tables extends Lego.UI.Baseview {
                 </div>
                 ` : ''}
                 <div class="lego-table-body" style="bottom: ${opts.pagination ? '48px' : '0'}">
-                    ${opts.isNodata ? hx`<nodata id="nodata-${opts.vid}"></nodata>` : hx`<div style="display:none;"></div>`}
+                    ${opts.isNodata ? hx`<nodata id="nodata_${opts.vid}"></nodata>` : hx`<div style="display:none;"></div>`}
                     <div class="${opts.showHeader && opts.fixedHeader ? 'scrollbar' : ''}">
                         <table class="${opts.className}" style="${opts.tableWidth ? ('width:' + opts.tableWidth + 'px') : 'width:1px'}">
                             ${this._renderColgroup()}
@@ -156,9 +154,7 @@ class Tables extends Lego.UI.Baseview {
                         </table>
                     </div>
                 </div>
-                ${opts.pagination && opts.data ? hx`
-                    <div class="lego-table-footer">${val(opts.pagination)}</div>
-                ` : ''}
+                ${opts.pagination && opts.data.length ? hx`<div class="lego-table-footer">${val(opts.pagination)}</div>` : ''}
                 ${opts.showSetting ? hx`<button type="button" class="btn btn-default noborder" title="表格设置"><i class="anticon anticon-ellipsis"></i></button>` : ''}
                 </div>
             </div>
@@ -167,11 +163,6 @@ class Tables extends Lego.UI.Baseview {
         return vDom;
     }
     renderAfter(){
-        // let opts = this.options;
-        // let pgView = Lego.getView('#pagination-' + opts.vid);
-        // if(pgView){
-        //     Object.assign(pgView.options, opts.pagination);
-        // };
         if(this.options.showFooter && this.columns.length){
             this.$('.lego-table-tfoot > tr > td').attr('colspan', this.columns.length);
         }

@@ -1,5 +1,5 @@
 /**
- * upload.js v0.5.53
+ * upload.js v0.5.54
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -673,8 +673,8 @@ var Upload = function(_Lego$UI$Baseview) {
                     if (opts.accept.length) {
                         if (!opts.accept.includes(file.type)) {
                             Lego.UI.message("error", "上传文件格式不正确");
-                            _this2.fileList = _this2.fileList.filter(function(item) {
-                                return item._id !== file._id;
+                            _this2.fileList = _this2.fileList.filter(function(value) {
+                                return value !== file._id;
                             });
                             return;
                         }
@@ -682,8 +682,8 @@ var Upload = function(_Lego$UI$Baseview) {
                     if (opts.acceptSuffix.length) {
                         if (!opts.acceptSuffix.includes(Lego.UI.Util.getExtName(file.name))) {
                             Lego.UI.message("error", "上传文件格式不正确");
-                            _this2.fileList = _this2.fileList.filter(function(item) {
-                                return item._id !== file._id;
+                            _this2.fileList = _this2.fileList.filter(function(value) {
+                                return value !== file._id;
                             });
                             return;
                         }
@@ -695,8 +695,8 @@ var Upload = function(_Lego$UI$Baseview) {
                         } else {
                             debug.warn(msg);
                         }
-                        _this2.fileList = _this2.fileList.filter(function(item) {
-                            return item._id !== file._id;
+                        _this2.fileList = _this2.fileList.filter(function(value) {
+                            return value !== file._id;
                         });
                         return;
                     }

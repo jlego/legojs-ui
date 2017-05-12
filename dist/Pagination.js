@@ -1,5 +1,5 @@
 /**
- * pagination.js v0.5.53
+ * pagination.js v0.5.54
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -291,17 +291,17 @@ var Pagination = function(_Lego$UI$Baseview) {
     _createClass(Pagination, [ {
         key: "components",
         value: function components() {
-            var options = this.options, that = this;
-            if (!options.simple && options.showSizeChanger) {
-                var theData = options.pageSizeOptions.map(function(val) {
+            var opts = this.options, that = this;
+            if (!opts.simple && opts.showSizeChanger) {
+                var theData = opts.pageSizeOptions.map(function(val) {
                     return {
                         key: val,
                         value: val + " / 页"
                     };
                 });
                 this.addCom({
-                    el: "#dropdown-" + options.vid,
-                    container: "#select-" + options.vid,
+                    el: "#dropdown-" + opts.vid,
+                    container: "#select-" + opts.vid,
                     direction: "top",
                     data: theData,
                     onChange: function onChange(self, result) {
@@ -316,20 +316,20 @@ var Pagination = function(_Lego$UI$Baseview) {
     }, {
         key: "render",
         value: function render() {
-            var options = this.options, current = parseInt(options.current);
-            options.pageSize = options.pageSize;
-            var pageRang = parseInt(options.pageRang);
-            var totalCount = options.data.totalCount || (typeof options.totalCount === "function" ? options.totalCount() : options.totalCount);
-            options.totalPages = options.data.totalPages || Math.ceil(totalCount / options.pageSize);
-            pageRang = pageRang >= options.totalPages ? options.totalPages : pageRang;
-            var baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0, startPage = baseTimes * pageRang + 1, endPage = startPage + pageRang - 1, showEllipsis = Math.ceil(current / pageRang) !== Math.ceil(options.totalPages / pageRang) && totalCount ? true : false, pagesArr = [];
-            endPage = endPage >= options.totalPages ? options.totalPages : endPage;
+            var opts = this.options, current = parseInt(opts.current);
+            opts.pageSize = opts.pageSize;
+            var pageRang = parseInt(opts.pageRang);
+            var totalCount = opts.context.totalCount || val(opts.totalCount);
+            opts.totalPages = Math.ceil(totalCount / opts.pageSize);
+            pageRang = pageRang >= opts.totalPages ? opts.totalPages : pageRang;
+            var baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0, startPage = baseTimes * pageRang + 1, endPage = startPage + pageRang - 1, showEllipsis = Math.ceil(current / pageRang) !== Math.ceil(opts.totalPages / pageRang) && totalCount ? true : false, pagesArr = [];
+            endPage = endPage >= opts.totalPages ? opts.totalPages : endPage;
             for (var i = startPage; i <= endPage; i++) {
                 pagesArr.push(i);
             }
-            var vDom = hx(_templateObject, options.simple ? "pagination-simple" : "", options.size == "small" ? "mini" : "", current <= 1 ? "disabled" : "", options.simple ? hx(_templateObject2, current, options.endPage, current) : "", !options.simple ? pagesArr.map(function(x) {
+            var vDom = hx(_templateObject, opts.simple ? "pagination-simple" : "", opts.size == "small" ? "mini" : "", current <= 1 ? "disabled" : "", opts.simple ? hx(_templateObject2, current, opts.endPage, current) : "", !opts.simple ? pagesArr.map(function(x) {
                 return hx(_templateObject3, x, x == current ? "active" : "", x);
-            }) : "", showEllipsis ? hx(_templateObject4, options.pageSize) : "", !options.simple && showEllipsis ? hx(_templateObject5, options.totalPages, options.totalPages) : "", !options.simple ? hx(_templateObject6, current >= options.totalPages ? "disabled" : "") : "", !options.simple && options.showSizeChanger ? hx(_templateObject7, options.vid, options.pageSize, options.vid) : "", !options.simple && options.showQuickJumper ? hx(_templateObject8, this.jumped ? current : "1", options.isShowTotal ? hx(_templateObject9, typeof options.showTotal === "function" ? options.showTotal(totalCount) : "总数 " + totalCount) : "") : "");
+            }) : "", showEllipsis ? hx(_templateObject4, opts.pageSize) : "", !opts.simple && showEllipsis ? hx(_templateObject5, opts.totalPages, opts.totalPages) : "", !opts.simple ? hx(_templateObject6, current >= opts.totalPages ? "disabled" : "") : "", !opts.simple && opts.showSizeChanger ? hx(_templateObject7, opts.vid, opts.pageSize, opts.vid) : "", !opts.simple && opts.showQuickJumper ? hx(_templateObject8, this.jumped ? current : "1", opts.isShowTotal ? hx(_templateObject9, typeof opts.showTotal === "function" ? opts.showTotal(totalCount) : "总数 " + totalCount) : "") : "");
             this.jumped = false;
             return vDom;
         }
@@ -337,53 +337,53 @@ var Pagination = function(_Lego$UI$Baseview) {
         key: "clickPrevPage",
         value: function clickPrevPage(event) {
             event.stopPropagation();
-            var options = this.options;
+            var opts = this.options;
             debug.warn("点击了上一页");
-            options.current--;
-            options.onChange(this, options.current, options.pageSize);
+            opts.current--;
+            opts.onChange(this, opts.current, opts.pageSize);
         }
     }, {
         key: "clickItemPage",
         value: function clickItemPage(event) {
             event.stopPropagation();
             var target = $(event.currentTarget), num = target.attr("title");
-            var options = this.options;
+            var opts = this.options;
             debug.warn("点击了第" + num + "页");
-            options.current = num;
-            options.onChange(this, num, options.pageSize);
+            opts.current = num;
+            opts.onChange(this, num, opts.pageSize);
         }
     }, {
         key: "clickNextPage",
         value: function clickNextPage(event) {
             event.stopPropagation();
-            var options = this.options;
+            var opts = this.options;
             debug.warn("点击了下一页");
-            options.current++;
-            options.onChange(this, options.current, options.pageSize);
+            opts.current++;
+            opts.onChange(this, opts.current, opts.pageSize);
         }
     }, {
         key: "clickMorePage",
         value: function clickMorePage(event) {
             event.stopPropagation();
-            var options = this.options;
-            var current = parseInt(options.current), pageRang = parseInt(options.pageRang), currentMod = current % pageRang ? current % pageRang : pageRang;
+            var opts = this.options;
+            var current = parseInt(opts.current), pageRang = parseInt(opts.pageRang), currentMod = current % pageRang ? current % pageRang : pageRang;
             debug.warn("点击了更多页");
-            options.current = current + (pageRang - currentMod + 1);
-            if (options.current > options.totalPages) options.current = options.totalPages;
-            options.onChange(this, options.current, options.pageSize);
+            opts.current = current + (pageRang - currentMod + 1);
+            if (opts.current > opts.totalPages) opts.current = opts.totalPages;
+            opts.onChange(this, opts.current, opts.pageSize);
         }
     }, {
         key: "_enterSearch",
         value: function _enterSearch(event) {
             var target = $(event.currentTarget);
-            var options = this.options;
+            var opts = this.options;
             var num = target.val();
             if (event.keyCode == 13) {
-                if (num > options.totalPages) num = options.totalPages;
+                if (num > opts.totalPages) num = opts.totalPages;
                 if (!Number(num)) num = 1;
                 this.jumped = true;
-                options.current = num;
-                options.onChange(this, num, options.pageSize);
+                opts.current = num;
+                opts.onChange(this, num, opts.pageSize);
             }
         }
     } ]);

@@ -32,18 +32,18 @@ class Pagination extends Lego.UI.Baseview {
         this.jumped = false;
     }
     components(){
-        let options = this.options,
+        let opts = this.options,
             that = this;
-        if(!options.simple && options.showSizeChanger){
-            let theData = options.pageSizeOptions.map(val => {
+        if(!opts.simple && opts.showSizeChanger){
+            let theData = opts.pageSizeOptions.map(val => {
                 return {
                     key: val,
                     value: val + ' / 页'
                 };
             });
             this.addCom({
-                el: '#dropdown-' + options.vid,
-                container: '#select-' + options.vid,
+                el: '#dropdown-' + opts.vid,
+                container: '#select-' + opts.vid,
                 direction: 'top',
                 data: theData,
                 onChange(self, result){
@@ -56,60 +56,60 @@ class Pagination extends Lego.UI.Baseview {
         }
     }
     render() {
-        let options = this.options,
-            current = parseInt(options.current);
-        options.pageSize = options.pageSize;
-        let pageRang = parseInt(options.pageRang);
-        let totalCount = options.data.totalCount || (typeof options.totalCount === 'function' ? options.totalCount() : options.totalCount);
-        options.totalPages = options.data.totalPages || Math.ceil(totalCount / options.pageSize);
-        pageRang = pageRang >= options.totalPages ? options.totalPages : pageRang;
+        let opts = this.options,
+            current = parseInt(opts.current);
+        opts.pageSize = opts.pageSize;
+        let pageRang = parseInt(opts.pageRang);
+        let totalCount = opts.context.totalCount || val(opts.totalCount);
+        opts.totalPages = Math.ceil(totalCount / opts.pageSize);
+        pageRang = pageRang >= opts.totalPages ? opts.totalPages : pageRang;
         let baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0,
             startPage = baseTimes * pageRang + 1,
             endPage = startPage + pageRang - 1,
-            showEllipsis = Math.ceil(current / pageRang) !== Math.ceil(options.totalPages / pageRang) && totalCount ? true : false,
+            showEllipsis = Math.ceil(current / pageRang) !== Math.ceil(opts.totalPages / pageRang) && totalCount ? true : false,
             pagesArr = [];
-        endPage = endPage >= options.totalPages ? options.totalPages : endPage;
+        endPage = endPage >= opts.totalPages ? opts.totalPages : endPage;
         for(let i = startPage; i <= endPage; i++) {
             pagesArr.push(i);
         }
         const vDom = hx`
-        <ul class="lego-pagination ${options.simple ? 'pagination-simple' : ''} ${options.size == 'small' ? 'mini' : ''}">
+        <ul class="lego-pagination ${opts.simple ? 'pagination-simple' : ''} ${opts.size == 'small' ? 'mini' : ''}">
             <li class="prev ${ current <= 1 ? 'disabled' : ''}">
                 <a href="javascript:void(0)" title="上一页"><i class="anticon anticon-left"></i></a>
             </li>
-            ${options.simple ? hx`
-            <div title="${current}/${options.endPage}" class="lego-pagination-simple-pager">
+            ${opts.simple ? hx`
+            <div title="${current}/${opts.endPage}" class="lego-pagination-simple-pager">
                 <input type="text" value="${current}"><span class="lego-pagination-slash">／</span>
             </div>
             ` : ''}
-            ${!options.simple ? pagesArr.map(x => hx`
+            ${!opts.simple ? pagesArr.map(x => hx`
             <li title="${x}" class="page page-item ${ x == current ? 'active' : ''}"><a href="javascript:void(0)">${x}</a></li>
             `) : ''}
             ${showEllipsis ? hx`
-            <li title="下 ${options.pageSize} 页" class="page morepage"><a href="javascript:void(0)"><i class="anticon anticon-ellipsis"></a></i></li>
+            <li title="下 ${opts.pageSize} 页" class="page morepage"><a href="javascript:void(0)"><i class="anticon anticon-ellipsis"></a></i></li>
             ` : ''}
-            ${!options.simple && showEllipsis ? hx`<li title="${options.totalPages}" class="page page-item"><a href="javascript:void(0)">${options.totalPages}</a></li>` : ''}
-            ${!options.simple ? hx`
-            <li class="next ${ current >= options.totalPages ? 'disabled' : ''}">
+            ${!opts.simple && showEllipsis ? hx`<li title="${opts.totalPages}" class="page page-item"><a href="javascript:void(0)">${opts.totalPages}</a></li>` : ''}
+            ${!opts.simple ? hx`
+            <li class="next ${ current >= opts.totalPages ? 'disabled' : ''}">
                 <a href="javascript:void(0)" title="下一页"><i class="anticon anticon-right"></i></a>
             </li>
             ` : ''}
-            ${!options.simple && options.showSizeChanger ? hx`
+            ${!opts.simple && opts.showSizeChanger ? hx`
             <li class="pageSize">
-                <span class="info" id="select-${options.vid}">
-                    <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">${options.pageSize} / 页 </button>
-                    <dropdown id="dropdown-${options.vid}"></dropdown>
+                <span class="info" id="select-${opts.vid}">
+                    <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">${opts.pageSize} / 页 </button>
+                    <dropdown id="dropdown-${opts.vid}"></dropdown>
                 </span>
             </li>
             ` : ''}
-            ${!options.simple && options.showQuickJumper ? hx`
+            ${!opts.simple && opts.showQuickJumper ? hx`
             <li><span class="info">
                     跳转至
                     <input type="text" class="form-control pageJump" value="${this.jumped ? current : '1'}">
                 </span>
-                ${options.isShowTotal ? hx`
+                ${opts.isShowTotal ? hx`
                 <span class="info">
-                ${typeof options.showTotal === 'function' ? options.showTotal(totalCount) : ('总数 ' + totalCount)}
+                ${typeof opts.showTotal === 'function' ? opts.showTotal(totalCount) : ('总数 ' + totalCount)}
                 </span>
                 ` : ''}
             </li>
@@ -121,48 +121,48 @@ class Pagination extends Lego.UI.Baseview {
     }
     clickPrevPage(event){
         event.stopPropagation();
-        const options = this.options;
-        debug.warn('点击了上一页');
-        options.current--;
-        options.onChange(this, options.current, options.pageSize);
+        const opts = this.options;
+        // debug.warn('点击了上一页');
+        opts.current--;
+        opts.onChange(this, opts.current, opts.pageSize);
     }
     clickItemPage(event){
         event.stopPropagation();
         const target = $(event.currentTarget),
             num = target.attr('title');
-        const options = this.options;
-        debug.warn('点击了第' + num + '页');
-        options.current = num;
-        options.onChange(this, num, options.pageSize);
+        const opts = this.options;
+        // debug.warn('点击了第' + num + '页');
+        opts.current = num;
+        opts.onChange(this, num, opts.pageSize);
     }
     clickNextPage(event){
         event.stopPropagation();
-        const options = this.options;
-        debug.warn('点击了下一页');
-        options.current++;
-        options.onChange(this, options.current, options.pageSize);
+        const opts = this.options;
+        // debug.warn('点击了下一页');
+        opts.current++;
+        opts.onChange(this, opts.current, opts.pageSize);
     }
     clickMorePage(event){
         event.stopPropagation();
-        const options = this.options;
-        let current = parseInt(options.current),
-            pageRang = parseInt(options.pageRang),
+        const opts = this.options;
+        let current = parseInt(opts.current),
+            pageRang = parseInt(opts.pageRang),
             currentMod = current % pageRang ? current % pageRang : pageRang;
-        debug.warn('点击了更多页');
-        options.current = current + (pageRang - currentMod + 1);
-        if(options.current > options.totalPages) options.current = options.totalPages;
-        options.onChange(this, options.current, options.pageSize);
+        // debug.warn('点击了更多页');
+        opts.current = current + (pageRang - currentMod + 1);
+        if(opts.current > opts.totalPages) opts.current = opts.totalPages;
+        opts.onChange(this, opts.current, opts.pageSize);
     }
     _enterSearch(event) {
         const target = $(event.currentTarget);
-        const options = this.options;
+        const opts = this.options;
         let num = target.val();
         if (event.keyCode == 13) {
-            if(num > options.totalPages) num = options.totalPages;
+            if(num > opts.totalPages) num = opts.totalPages;
             if(!Number(num)) num = 1;
             this.jumped = true;
-            options.current = num;
-            options.onChange(this, num, options.pageSize);
+            opts.current = num;
+            opts.onChange(this, num, opts.pageSize);
         }
     }
 }
