@@ -28,7 +28,7 @@ class Transfer extends Lego.UI.Baseview {
             scrollbar: {},
             simpleData: true,
             filterParentNode: false,  //是否过滤父节点
-            showSearch: false, //是否显示搜索框
+            showSearch: false, //是否显示搜索框  'fixed'
             searchPlaceholder: '请输入搜索内容', //搜索框
             notFoundContent: '列表为空', //列表为空时显示的内容
             onChange() {}, //更改值时触发的事件
@@ -107,7 +107,7 @@ class Transfer extends Lego.UI.Baseview {
             if(opts.showSearch){
                 this.addCom({
                     el: '#transfer_search_' + opts.vid,
-                    style: {display: 'none'},
+                    style: {display: opts.showSearch == 'fixed' ? 'table' : 'none'},
                     size: 'sm',
                     onSearch(self, result) {
                         if(typeof opts.onSearch == 'function'){
@@ -128,7 +128,7 @@ class Transfer extends Lego.UI.Baseview {
             <div class="col-sm-6">
                 <div class="transfer-col">
                     <h5>
-                        ${opts.showSearch ? hx`<button class="btn btn-link float-right">搜索</button>` : ''}
+                        ${opts.showSearch && opts.showSearch !== 'fixed' ? hx`<button class="btn btn-link float-right">搜索</button>` : ''}
                         <span>${val(opts.titles[0])}</span>
                     </h5>
                     ${opts.showSearch ? hx`<search id="transfer_search_${opts.vid}"></search>` : ''}
@@ -173,6 +173,7 @@ class Transfer extends Lego.UI.Baseview {
             width: opts.width,
             height: opts.height
         });
+        this.$('#transfer_search_' + opts.vid).next().css({paddingBottom: 74});
     }
     getValue(){
         const listView = Lego.getView('#transfer_list_' + this.options.vid);

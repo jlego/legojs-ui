@@ -24,7 +24,7 @@ class Tables extends Lego.UI.Baseview {
             scrollbar: {},
             className: '',
             tableWidth: 0,
-            loading: true,
+            isNodata: false,
             isNowrap: true, //表格内容是否不换行
             rowSelection: null, //列表行是否可选择
             pagination: null,   //分页器，配置项参考 pagination，设为 false 时不展示和进行分页
@@ -146,7 +146,7 @@ class Tables extends Lego.UI.Baseview {
                 </div>
                 ` : ''}
                 <div class="lego-table-body" style="bottom: ${opts.pagination ? '48px' : '0'}">
-                    ${!opts.data.length && !opts.loading ? hx`<nodata id="nodata-${opts.vid}"></nodata>` : hx`<div style="display:none;"></div>`}
+                    ${opts.isNodata ? hx`<nodata id="nodata-${opts.vid}"></nodata>` : hx`<div style="display:none;"></div>`}
                     <div class="${opts.showHeader && opts.fixedHeader ? 'scrollbar' : ''}">
                         <table class="${opts.className}" style="${opts.tableWidth ? ('width:' + opts.tableWidth + 'px') : 'width:1px'}">
                             ${this._renderColgroup()}

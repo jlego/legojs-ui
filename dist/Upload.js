@@ -1,5 +1,5 @@
 /**
- * upload.js v0.5.47
+ * upload.js v0.5.53
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -653,7 +653,7 @@ var Upload = function(_Lego$UI$Baseview) {
             var that = this, opts = this.options, filesCount = uploadFiles.length, maxFilesCount = opts.maxFilesCount;
             if (filesCount) {
                 if (filesCount > maxFilesCount) {
-                    Lego.UI.message("warning", "只能上传" + maxFilesCount + "张图片");
+                    Lego.UI.message("warning", "只能上传" + maxFilesCount + "个文件");
                     return;
                 }
                 uploadFiles = uploadFiles.filter(function(file) {
@@ -663,7 +663,7 @@ var Upload = function(_Lego$UI$Baseview) {
                     return !hasFile;
                 });
                 if (this.fileList.length > maxFilesCount) {
-                    Lego.UI.message("warning", "只能上传" + maxFilesCount + "张图片");
+                    Lego.UI.message("warning", "只能上传" + maxFilesCount + "个文件");
                     this.fileList.length = maxFilesCount;
                     if (uploadFiles.length > maxFilesCount) uploadFiles.length = maxFilesCount;
                     return;
@@ -673,12 +673,18 @@ var Upload = function(_Lego$UI$Baseview) {
                     if (opts.accept.length) {
                         if (!opts.accept.includes(file.type)) {
                             Lego.UI.message("error", "上传文件格式不正确");
+                            _this2.fileList = _this2.fileList.filter(function(item) {
+                                return item._id !== file._id;
+                            });
                             return;
                         }
                     }
                     if (opts.acceptSuffix.length) {
                         if (!opts.acceptSuffix.includes(Lego.UI.Util.getExtName(file.name))) {
                             Lego.UI.message("error", "上传文件格式不正确");
+                            _this2.fileList = _this2.fileList.filter(function(item) {
+                                return item._id !== file._id;
+                            });
                             return;
                         }
                     }
@@ -689,6 +695,9 @@ var Upload = function(_Lego$UI$Baseview) {
                         } else {
                             debug.warn(msg);
                         }
+                        _this2.fileList = _this2.fileList.filter(function(item) {
+                            return item._id !== file._id;
+                        });
                         return;
                     }
                     if (i > maxFilesCount - 1) return;

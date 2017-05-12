@@ -64,6 +64,9 @@ class Baseview extends Lego.View {
         if(this.loadingView){
             this.loadingView.$el.fadeOut("fast");
         }
+        if(Array.isArray(opts.data)){
+            opts.isNodata = !opts.data.length ? true : false;
+        }
     }
     renderScroll(){
         const options = this.options,

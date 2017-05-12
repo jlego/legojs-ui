@@ -16,9 +16,17 @@
 .modal-dialog {
     z-index: 9999 !important;
 }
-.modal-header .close{
-    margin-top:3px;
+.modal-header {
+    padding: 10px 10px 10px 15px;
+    .close{
+        margin-top:3px;
+    }
+    h5{
+        color: #666;
+        font-size: 16px;
+    }
 }
+
 .right-modal {
     z-index: 10 !important;
     top: 60px;
@@ -33,52 +41,49 @@
 
 .modal-footer {
     border-top: none;
-}
-.modal-header h5{
-    color: #666;
-}
-
-.modal-footer button{
-    margin-right:10px;
-}
-
-.modal-footer button:last-child{
-    margin-right: 0px;
+    button{
+        margin-right:10px;
+        &:last-child{
+            margin-right: 0px;
+        }
+    }
 }
 
-.right-modal .modal-dialog {
-    width: 700px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    height: '100%';
-    margin: 0;
-}
-
-.right-modal .modal-content {
-    height: 100%;
-    border-radius: 0;
-    border: none;
-    background-color: #fff;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, .3);
-}
-
-.right-modal .modal-body {
-    position: absolute !important;
-    top: 60px;
-    bottom: 65px;
-    width: 100%;
-    overflow-y: auto;
-}
-
-.right-modal .modal-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
-.right-modal .modal-footer > div{
-    text-align: center;
+.right-modal{
+    .modal-header{
+        padding: 16px;
+    }
+    .modal-dialog {
+        width: 700px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        height: '100%';
+        margin: 0;
+    }
+    .modal-content {
+        height: 100%;
+        border-radius: 0;
+        border: none;
+        background-color: #fff;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, .3);
+    }
+    .modal-body {
+        position: absolute !important;
+        top: 60px;
+        bottom: 65px;
+        width: 100%;
+        overflow-y: auto;
+    }
+    .modal-footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        > div{
+            text-align: center;
+        }
+    }
 }
 
 .right-modalBg .modal-backdrop {
@@ -91,8 +96,10 @@
     align-items: center;
 }
 
-.dialog-modal .modal-dialog {
-    width: 500px;
+.dialog-modal {
+    .modal-dialog {
+        width: 500px;
+    }
 }
 
 .modal-size-md .modal-dialog {

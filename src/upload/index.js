@@ -26,20 +26,11 @@ class Upload extends Lego.UI.Baseview {
             saveUri: '',    //保存到后台地址
             accept: [],     //接受上传的文件类型
             acceptSuffix: [],   //接受的文件后缀
-            previewImg: {
+            previewImg: {//缩略图参数
                 width: 0,
                 height: 0,
                 quality: 1
             },
-            //缩略图参数
-            // previewImg: {
-            // width: 400,//宽度
-            // height: 400,//高度
-            // quality: 1,//质量
-            // success: function (result) {
-            //      result.base64/result.clearBase64
-            // }
-            // }
             multiple: true, //是否多文件
             context: null, //上下文
             template: '',   //模板
@@ -143,7 +134,7 @@ class Upload extends Lego.UI.Baseview {
             maxFilesCount = opts.maxFilesCount;
         if (filesCount) {
             if (filesCount > maxFilesCount) {
-                Lego.UI.message('warning', '只能上传' + maxFilesCount + '张图片');
+                Lego.UI.message('warning', '只能上传' + maxFilesCount + '个文件');
                 return;
             }
             uploadFiles = uploadFiles.filter(file => {
@@ -153,7 +144,7 @@ class Upload extends Lego.UI.Baseview {
                 return !hasFile;
             });
             if (this.fileList.length > maxFilesCount) {
-                Lego.UI.message('warning', '只能上传' + maxFilesCount + '张图片');
+                Lego.UI.message('warning', '只能上传' + maxFilesCount + '个文件');
                 this.fileList.length = maxFilesCount;
                 if(uploadFiles.length > maxFilesCount) uploadFiles.length = maxFilesCount;
                 return;
@@ -163,12 +154,14 @@ class Upload extends Lego.UI.Baseview {
                 if(opts.accept.length){
                     if(!opts.accept.includes(file.type)){
                         Lego.UI.message('error', '上传文件格式不正确');
+                        this.fileList = this.fileList.filter(item => item._id !== file._id);
                         return;
                     }
                 }
                 if(opts.acceptSuffix.length){
                     if(!opts.acceptSuffix.includes(Lego.UI.Util.getExtName(file.name))){
                         Lego.UI.message('error', '上传文件格式不正确');
+                        this.fileList = this.fileList.filter(item => item._id !== file._id);
                         return;
                     }
                 }
@@ -179,6 +172,7 @@ class Upload extends Lego.UI.Baseview {
                     } else {
                         debug.warn(msg);
                     }
+                    this.fileList = this.fileList.filter(item => item._id !== file._id);
                     return;
                 }
                 if(i > maxFilesCount - 1) return;

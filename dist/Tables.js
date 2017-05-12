@@ -1,5 +1,5 @@
 /**
- * tables.js v0.5.47
+ * tables.js v0.5.53
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -591,7 +591,7 @@ var Tables = function(_Lego$UI$Baseview) {
             scrollbar: {},
             className: "",
             tableWidth: 0,
-            loading: true,
+            isNodata: false,
             isNowrap: true,
             rowSelection: null,
             pagination: null,
@@ -685,7 +685,7 @@ var Tables = function(_Lego$UI$Baseview) {
         value: function render() {
             this.getColumns();
             var opts = this.options;
-            var vDom = hx(_templateObject, opts.size, opts.bordered ? "lego-table-bordered" : "", opts.showHeader && opts.fixedHeader ? "lego-table-fixed-header" : "", opts.isNowrap ? "lego-nr" : "", opts.vid, opts.title ? hx(_templateObject2, typeof opts.title == "function" ? opts.title() : opts.title) : "", !opts.title ? "padding-bottom:0" : "", opts.showHeader && opts.fixedHeader ? hx(_templateObject3, opts.tableWidth ? "width:" + opts.tableWidth + "px" : "width:1px", this._renderColgroup(), this._renderHeader()) : "", opts.pagination ? "48px" : "0", !opts.data.length && !opts.loading ? hx(_templateObject4, opts.vid) : hx(_templateObject5), opts.showHeader && opts.fixedHeader ? "scrollbar" : "", opts.className, opts.tableWidth ? "width:" + opts.tableWidth + "px" : "width:1px", this._renderColgroup(), !(opts.showHeader && opts.fixedHeader) && opts.showHeader ? this._renderHeader() : "", opts.showBodyer ? this._renderBodyer() : "", opts.showFooter ? this._renderFooter() : "", opts.pagination && opts.data ? hx(_templateObject6, val(opts.pagination)) : "", opts.showSetting ? hx(_templateObject7) : "");
+            var vDom = hx(_templateObject, opts.size, opts.bordered ? "lego-table-bordered" : "", opts.showHeader && opts.fixedHeader ? "lego-table-fixed-header" : "", opts.isNowrap ? "lego-nr" : "", opts.vid, opts.title ? hx(_templateObject2, typeof opts.title == "function" ? opts.title() : opts.title) : "", !opts.title ? "padding-bottom:0" : "", opts.showHeader && opts.fixedHeader ? hx(_templateObject3, opts.tableWidth ? "width:" + opts.tableWidth + "px" : "width:1px", this._renderColgroup(), this._renderHeader()) : "", opts.pagination ? "48px" : "0", opts.isNodata ? hx(_templateObject4, opts.vid) : hx(_templateObject5), opts.showHeader && opts.fixedHeader ? "scrollbar" : "", opts.className, opts.tableWidth ? "width:" + opts.tableWidth + "px" : "width:1px", this._renderColgroup(), !(opts.showHeader && opts.fixedHeader) && opts.showHeader ? this._renderHeader() : "", opts.showBodyer ? this._renderBodyer() : "", opts.showFooter ? this._renderFooter() : "", opts.pagination && opts.data ? hx(_templateObject6, val(opts.pagination)) : "", opts.showSetting ? hx(_templateObject7) : "");
             return vDom;
         }
     }, {

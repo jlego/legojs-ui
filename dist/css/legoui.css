@@ -11492,8 +11492,13 @@ form button[type="submit"] {
 .modal-dialog {
   z-index: 9999 !important; }
 
-.modal-header .close {
-  margin-top: 3px; }
+.modal-header {
+  padding: 10px 10px 10px 15px; }
+  .modal-header .close {
+    margin-top: 3px; }
+  .modal-header h5 {
+    color: #666;
+    font-size: 16px; }
 
 .right-modal {
   z-index: 10 !important;
@@ -11508,15 +11513,13 @@ form button[type="submit"] {
 
 .modal-footer {
   border-top: none; }
+  .modal-footer button {
+    margin-right: 10px; }
+    .modal-footer button:last-child {
+      margin-right: 0px; }
 
-.modal-header h5 {
-  color: #666; }
-
-.modal-footer button {
-  margin-right: 10px; }
-
-.modal-footer button:last-child {
-  margin-right: 0px; }
+.right-modal .modal-header {
+  padding: 16px; }
 
 .right-modal .modal-dialog {
   width: 700px;
@@ -11545,9 +11548,8 @@ form button[type="submit"] {
   position: absolute;
   bottom: 0;
   width: 100%; }
-
-.right-modal .modal-footer > div {
-  text-align: center; }
+  .right-modal .modal-footer > div {
+    text-align: center; }
 
 .right-modalBg .modal-backdrop {
   opacity: 0.01; }

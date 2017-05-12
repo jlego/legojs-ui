@@ -1,5 +1,5 @@
 /**
- * tabs.js v0.5.47
+ * tabs.js v0.5.53
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -340,9 +340,8 @@ var Navs = function(_Lego$UI$Baseview) {
                     $(this).parent().addClass("open");
                 }
             });
-            if (!targetEl.hasClass("dropdown-toggle")) {
-                this.clickItem(event);
-            }
+            this.clickItem(event);
+            this.$(".dropdown-menu a").removeClass("active");
         }
     }, {
         key: "clickItem",

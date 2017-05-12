@@ -1,5 +1,5 @@
 /**
- * transfer.js v0.5.47
+ * transfer.js v0.5.53
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -787,7 +787,7 @@ var Transfer = function(_Lego$UI$Baseview) {
                     this.addCom({
                         el: "#transfer_search_" + opts.vid,
                         style: {
-                            display: "none"
+                            display: opts.showSearch == "fixed" ? "table" : "none"
                         },
                         size: "sm",
                         onSearch: function onSearch(self, result) {
@@ -806,7 +806,7 @@ var Transfer = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var opts = this.options;
-            var vDom = hx(_templateObject, opts.showSearch ? hx(_templateObject2) : "", val(opts.titles[0]), opts.showSearch ? hx(_templateObject3, opts.vid) : "", opts.vid, val(opts.titles[1]), opts.vid);
+            var vDom = hx(_templateObject, opts.showSearch && opts.showSearch !== "fixed" ? hx(_templateObject2) : "", val(opts.titles[0]), opts.showSearch ? hx(_templateObject3, opts.vid) : "", opts.vid, val(opts.titles[1]), opts.vid);
             return vDom;
         }
     }, {
@@ -834,6 +834,9 @@ var Transfer = function(_Lego$UI$Baseview) {
             this.$el.css({
                 width: opts.width,
                 height: opts.height
+            });
+            this.$("#transfer_search_" + opts.vid).next().css({
+                paddingBottom: 74
             });
         }
     }, {
