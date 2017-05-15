@@ -1,5 +1,5 @@
 /**
- * tables.js v0.5.54
+ * tables.js v0.5.55
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -338,7 +338,6 @@ var Pagination = function(_Lego$UI$Baseview) {
         value: function clickPrevPage(event) {
             event.stopPropagation();
             var opts = this.options;
-            debug.warn("点击了上一页");
             opts.current--;
             opts.onChange(this, opts.current, opts.pageSize);
         }
@@ -348,7 +347,6 @@ var Pagination = function(_Lego$UI$Baseview) {
             event.stopPropagation();
             var target = $(event.currentTarget), num = target.attr("title");
             var opts = this.options;
-            debug.warn("点击了第" + num + "页");
             opts.current = num;
             opts.onChange(this, num, opts.pageSize);
         }
@@ -357,7 +355,6 @@ var Pagination = function(_Lego$UI$Baseview) {
         value: function clickNextPage(event) {
             event.stopPropagation();
             var opts = this.options;
-            debug.warn("点击了下一页");
             opts.current++;
             opts.onChange(this, opts.current, opts.pageSize);
         }
@@ -367,7 +364,6 @@ var Pagination = function(_Lego$UI$Baseview) {
             event.stopPropagation();
             var opts = this.options;
             var current = parseInt(opts.current), pageRang = parseInt(opts.pageRang), currentMod = current % pageRang ? current % pageRang : pageRang;
-            debug.warn("点击了更多页");
             opts.current = current + (pageRang - currentMod + 1);
             if (opts.current > opts.totalPages) opts.current = opts.totalPages;
             opts.onChange(this, opts.current, opts.pageSize);
