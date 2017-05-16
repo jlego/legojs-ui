@@ -1,5 +1,5 @@
 /**
- * tables.js v0.5.55
+ * tables.js v0.6.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -200,23 +200,25 @@ var _createClass$1 = function() {
     };
 }();
 
-var _templateObject$1 = _taggedTemplateLiteral$1([ '\n        <ul class="lego-pagination ', " ", '">\n            <li class="prev ', '">\n                <a href="javascript:void(0)" title="上一页"><i class="anticon anticon-left"></i></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ], [ '\n        <ul class="lego-pagination ', " ", '">\n            <li class="prev ', '">\n                <a href="javascript:void(0)" title="上一页"><i class="anticon anticon-left"></i></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ]);
+var _templateObject$1 = _taggedTemplateLiteral$1([ "<div></div>" ], [ "<div></div>" ]);
 
-var _templateObject2$1 = _taggedTemplateLiteral$1([ '\n            <div title="', "/", '" class="lego-pagination-simple-pager">\n                <input type="text" value="', '"><span class="lego-pagination-slash">／</span>\n            </div>\n            ' ], [ '\n            <div title="', "/", '" class="lego-pagination-simple-pager">\n                <input type="text" value="', '"><span class="lego-pagination-slash">／</span>\n            </div>\n            ' ]);
+var _templateObject2$1 = _taggedTemplateLiteral$1([ '\n        <ul class="lego-pagination ', " ", '">\n            <li class="prev ', '">\n                <a href="javascript:void(0)" title="上一页"><i class="anticon anticon-left"></i></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ], [ '\n        <ul class="lego-pagination ', " ", '">\n            <li class="prev ', '">\n                <a href="javascript:void(0)" title="上一页"><i class="anticon anticon-left"></i></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ]);
 
-var _templateObject3$1 = _taggedTemplateLiteral$1([ '\n            <li title="', '" class="page page-item ', '"><a href="javascript:void(0)">', "</a></li>\n            " ], [ '\n            <li title="', '" class="page page-item ', '"><a href="javascript:void(0)">', "</a></li>\n            " ]);
+var _templateObject3$1 = _taggedTemplateLiteral$1([ '\n            <div title="', "/", '" class="lego-pagination-simple-pager">\n                <input type="text" value="', '"><span class="lego-pagination-slash">／</span>\n            </div>\n            ' ], [ '\n            <div title="', "/", '" class="lego-pagination-simple-pager">\n                <input type="text" value="', '"><span class="lego-pagination-slash">／</span>\n            </div>\n            ' ]);
 
-var _templateObject4$1 = _taggedTemplateLiteral$1([ '\n            <li title="下 ', ' 页" class="page morepage"><a href="javascript:void(0)"><i class="anticon anticon-ellipsis"></a></i></li>\n            ' ], [ '\n            <li title="下 ', ' 页" class="page morepage"><a href="javascript:void(0)"><i class="anticon anticon-ellipsis"></a></i></li>\n            ' ]);
+var _templateObject4$1 = _taggedTemplateLiteral$1([ '\n            <li title="', '" class="page page-item ', '"><a href="javascript:void(0)">', "</a></li>\n            " ], [ '\n            <li title="', '" class="page page-item ', '"><a href="javascript:void(0)">', "</a></li>\n            " ]);
 
-var _templateObject5$1 = _taggedTemplateLiteral$1([ '<li title="', '" class="page page-item"><a href="javascript:void(0)">', "</a></li>" ], [ '<li title="', '" class="page page-item"><a href="javascript:void(0)">', "</a></li>" ]);
+var _templateObject5$1 = _taggedTemplateLiteral$1([ '\n            <li title="下 ', ' 页" class="page morepage"><a href="javascript:void(0)"><i class="anticon anticon-ellipsis"></a></i></li>\n            ' ], [ '\n            <li title="下 ', ' 页" class="page morepage"><a href="javascript:void(0)"><i class="anticon anticon-ellipsis"></a></i></li>\n            ' ]);
 
-var _templateObject6$1 = _taggedTemplateLiteral$1([ '\n            <li class="next ', '">\n                <a href="javascript:void(0)" title="下一页"><i class="anticon anticon-right"></i></a>\n            </li>\n            ' ], [ '\n            <li class="next ', '">\n                <a href="javascript:void(0)" title="下一页"><i class="anticon anticon-right"></i></a>\n            </li>\n            ' ]);
+var _templateObject6$1 = _taggedTemplateLiteral$1([ '<li title="', '" class="page page-item"><a href="javascript:void(0)">', "</a></li>" ], [ '<li title="', '" class="page page-item"><a href="javascript:void(0)">', "</a></li>" ]);
 
-var _templateObject7$1 = _taggedTemplateLiteral$1([ '\n            <li class="pageSize">\n                <span class="info" id="select-', '">\n                    <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </span>\n            </li>\n            ' ], [ '\n            <li class="pageSize">\n                <span class="info" id="select-', '">\n                    <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </span>\n            </li>\n            ' ]);
+var _templateObject7$1 = _taggedTemplateLiteral$1([ '\n            <li class="next ', '">\n                <a href="javascript:void(0)" title="下一页"><i class="anticon anticon-right"></i></a>\n            </li>\n            ' ], [ '\n            <li class="next ', '">\n                <a href="javascript:void(0)" title="下一页"><i class="anticon anticon-right"></i></a>\n            </li>\n            ' ]);
 
-var _templateObject8$1 = _taggedTemplateLiteral$1([ '\n            <li><span class="info">\n                    跳转至\n                    <input type="text" class="form-control pageJump" value="', '">\n                </span>\n                ', "\n            </li>\n            " ], [ '\n            <li><span class="info">\n                    跳转至\n                    <input type="text" class="form-control pageJump" value="', '">\n                </span>\n                ', "\n            </li>\n            " ]);
+var _templateObject8$1 = _taggedTemplateLiteral$1([ '\n            <li class="pageSize">\n                <span class="info" id="select-', '">\n                    <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </span>\n            </li>\n            ' ], [ '\n            <li class="pageSize">\n                <span class="info" id="select-', '">\n                    <button class="btn dropdown-toggle" type="button" style="padding: 3px 10px;">', ' / 页 </button>\n                    <dropdown id="dropdown-', '"></dropdown>\n                </span>\n            </li>\n            ' ]);
 
-var _templateObject9$1 = _taggedTemplateLiteral$1([ '\n                <span class="info">\n                ', "\n                </span>\n                " ], [ '\n                <span class="info">\n                ', "\n                </span>\n                " ]);
+var _templateObject9$1 = _taggedTemplateLiteral$1([ '\n            <li><span class="info">\n                    跳转至\n                    <input type="text" class="form-control pageJump" value="', '">\n                </span>\n                ', "\n            </li>\n            " ], [ '\n            <li><span class="info">\n                    跳转至\n                    <input type="text" class="form-control pageJump" value="', '">\n                </span>\n                ', "\n            </li>\n            " ]);
+
+var _templateObject10$1 = _taggedTemplateLiteral$1([ '\n                <span class="info">\n                ', "\n                </span>\n                " ], [ '\n                <span class="info">\n                ', "\n                </span>\n                " ]);
 
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -259,39 +261,35 @@ var Pagination = function(_Lego$UI$Baseview) {
     function Pagination() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck$1(this, Pagination);
-        var options = {
-            events: {
-                "click .prev:not(.disabled)": "clickPrevPage",
-                "click .page-item": "clickItemPage",
-                "click .next:not(.disabled)": "clickNextPage",
-                "click .morepage": "clickMorePage",
-                'keydown .info>input[type="text"]': "_enterSearch"
-            },
-            current: 1,
-            totalCount: 0,
-            totalPages: 0,
-            pageSize: 10,
-            pageRang: 10,
-            onChange: function onChange() {},
-            showSizeChanger: true,
-            pageSizeOptions: [ 10, 20, 30, 40, 50 ],
-            onPageSizeChange: function onPageSizeChange() {},
-            showQuickJumper: true,
-            size: "",
-            simple: null,
-            isShowTotal: true,
-            data: {},
-            components: []
+        opts.events = {
+            "click .prev:not(.disabled)": "clickPrevPage",
+            "click .page-item:not(.active)": "clickItemPage",
+            "click .next:not(.disabled)": "clickNextPage",
+            "click .morepage": "clickMorePage",
+            'keydown .info>input[type="text"]': "_enterSearch"
         };
-        Object.assign(options, opts);
-        var _this = _possibleConstructorReturn$1(this, (Pagination.__proto__ || Object.getPrototypeOf(Pagination)).call(this, options));
+        opts.data = opts.data || {};
+        opts.data.current = opts.data.current || 1;
+        opts.data.totalCount = opts.data.totalCount || 0;
+        opts.data.totalPages = opts.data.totalPages || 0;
+        opts.data.pageSize = opts.data.pageSize || 10;
+        opts.data.pageRang = opts.data.pageRang || 10;
+        opts.data.onChange = opts.data.onChange || function() {};
+        opts.data.showSizeChanger = opts.data.showSizeChanger || true;
+        opts.data.pageSizeOptions = opts.data.pageSizeOptions || [ 10, 20, 30, 40, 50 ];
+        opts.data.onPageSizeChange = opts.data.onPageSizeChange || function() {};
+        opts.data.showQuickJumper = opts.data.showQuickJumper || true;
+        opts.data.size = opts.data.size || "";
+        opts.data.simple = opts.data.simple || null;
+        opts.data.isShowTotal = opts.data.isShowTotal || true;
+        var _this = _possibleConstructorReturn$1(this, (Pagination.__proto__ || Object.getPrototypeOf(Pagination)).call(this, opts));
         _this.jumped = false;
         return _this;
     }
     _createClass$1(Pagination, [ {
         key: "components",
         value: function components() {
-            var opts = this.options, that = this;
+            var opts = this.options.data, that = this;
             if (!opts.simple && opts.showSizeChanger) {
                 var theData = opts.pageSizeOptions.map(function(val) {
                     return {
@@ -316,10 +314,7 @@ var Pagination = function(_Lego$UI$Baseview) {
     }, {
         key: "render",
         value: function render() {
-            var opts = this.options, current = parseInt(opts.current);
-            opts.pageSize = opts.pageSize;
-            var pageRang = parseInt(opts.pageRang);
-            var totalCount = opts.context.totalCount || val(opts.totalCount);
+            var opts = this.options.data, vDom = hx(_templateObject$1), current = parseInt(opts.current), pageRang = parseInt(opts.pageRang), totalCount = val(opts.totalCount);
             opts.totalPages = Math.ceil(totalCount / opts.pageSize);
             pageRang = pageRang >= opts.totalPages ? opts.totalPages : pageRang;
             var baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0, startPage = baseTimes * pageRang + 1, endPage = startPage + pageRang - 1, showEllipsis = Math.ceil(current / pageRang) !== Math.ceil(opts.totalPages / pageRang) && totalCount ? true : false, pagesArr = [];
@@ -327,9 +322,9 @@ var Pagination = function(_Lego$UI$Baseview) {
             for (var i = startPage; i <= endPage; i++) {
                 pagesArr.push(i);
             }
-            var vDom = hx(_templateObject$1, opts.simple ? "pagination-simple" : "", opts.size == "small" ? "mini" : "", current <= 1 ? "disabled" : "", opts.simple ? hx(_templateObject2$1, current, opts.endPage, current) : "", !opts.simple ? pagesArr.map(function(x) {
-                return hx(_templateObject3$1, x, x == current ? "active" : "", x);
-            }) : "", showEllipsis ? hx(_templateObject4$1, opts.pageSize) : "", !opts.simple && showEllipsis ? hx(_templateObject5$1, opts.totalPages, opts.totalPages) : "", !opts.simple ? hx(_templateObject6$1, current >= opts.totalPages ? "disabled" : "") : "", !opts.simple && opts.showSizeChanger ? hx(_templateObject7$1, opts.vid, opts.pageSize, opts.vid) : "", !opts.simple && opts.showQuickJumper ? hx(_templateObject8$1, this.jumped ? current : "1", opts.isShowTotal ? hx(_templateObject9$1, typeof opts.showTotal === "function" ? opts.showTotal(totalCount) : "总数 " + totalCount) : "") : "");
+            vDom = hx(_templateObject2$1, opts.simple ? "pagination-simple" : "", opts.size == "small" ? "mini" : "", current <= 1 ? "disabled" : "", opts.simple ? hx(_templateObject3$1, current, opts.endPage, current) : "", !opts.simple ? pagesArr.map(function(x) {
+                return hx(_templateObject4$1, x, x == current ? "active" : "", x);
+            }) : "", showEllipsis ? hx(_templateObject5$1, opts.pageSize) : "", !opts.simple && showEllipsis ? hx(_templateObject6$1, opts.totalPages, opts.totalPages) : "", !opts.simple ? hx(_templateObject7$1, current >= opts.totalPages ? "disabled" : "") : "", !opts.simple && opts.showSizeChanger ? hx(_templateObject8$1, opts.vid, opts.pageSize, opts.vid) : "", !opts.simple && opts.showQuickJumper ? hx(_templateObject9$1, this.jumped ? current : "1", opts.isShowTotal ? hx(_templateObject10$1, typeof opts.showTotal === "function" ? opts.showTotal(totalCount) : "总数 " + totalCount) : "") : "");
             this.jumped = false;
             return vDom;
         }
@@ -337,42 +332,46 @@ var Pagination = function(_Lego$UI$Baseview) {
         key: "clickPrevPage",
         value: function clickPrevPage(event) {
             event.stopPropagation();
-            var opts = this.options;
+            var opts = this.options.data;
             opts.current--;
             opts.onChange(this, opts.current, opts.pageSize);
+            this.refresh();
         }
     }, {
         key: "clickItemPage",
         value: function clickItemPage(event) {
             event.stopPropagation();
             var target = $(event.currentTarget), num = target.attr("title");
-            var opts = this.options;
+            var opts = this.options.data;
             opts.current = num;
             opts.onChange(this, num, opts.pageSize);
+            this.refresh();
         }
     }, {
         key: "clickNextPage",
         value: function clickNextPage(event) {
             event.stopPropagation();
-            var opts = this.options;
+            var opts = this.options.data;
             opts.current++;
             opts.onChange(this, opts.current, opts.pageSize);
+            this.refresh();
         }
     }, {
         key: "clickMorePage",
         value: function clickMorePage(event) {
             event.stopPropagation();
-            var opts = this.options;
+            var opts = this.options.data;
             var current = parseInt(opts.current), pageRang = parseInt(opts.pageRang), currentMod = current % pageRang ? current % pageRang : pageRang;
             opts.current = current + (pageRang - currentMod + 1);
             if (opts.current > opts.totalPages) opts.current = opts.totalPages;
             opts.onChange(this, opts.current, opts.pageSize);
+            this.refresh();
         }
     }, {
         key: "_enterSearch",
         value: function _enterSearch(event) {
             var target = $(event.currentTarget);
-            var opts = this.options;
+            var opts = this.options.data;
             var num = target.val();
             if (event.keyCode == 13) {
                 if (num > opts.totalPages) num = opts.totalPages;
@@ -381,6 +380,7 @@ var Pagination = function(_Lego$UI$Baseview) {
                 opts.current = num;
                 opts.onChange(this, num, opts.pageSize);
             }
+            this.refresh();
         }
     } ]);
     return Pagination;
@@ -498,7 +498,7 @@ var _templateObject4 = _taggedTemplateLiteral([ '<nodata id="nodata_', '"></noda
 
 var _templateObject5 = _taggedTemplateLiteral([ '<div style="display:none;"></div>' ], [ '<div style="display:none;"></div>' ]);
 
-var _templateObject6 = _taggedTemplateLiteral([ '<div class="lego-table-footer">', "</div>" ], [ '<div class="lego-table-footer">', "</div>" ]);
+var _templateObject6 = _taggedTemplateLiteral([ '<div class="lego-table-footer"><pagination id="pagination_', '"></pagination></div>' ], [ '<div class="lego-table-footer"><pagination id="pagination_', '"></pagination></div>' ]);
 
 var _templateObject7 = _taggedTemplateLiteral([ '<button type="button" class="btn btn-default noborder" title="表格设置"><i class="anticon anticon-ellipsis"></i></button>' ], [ '<button type="button" class="btn btn-default noborder" title="表格设置"><i class="anticon anticon-ellipsis"></i></button>' ]);
 
@@ -624,7 +624,9 @@ var Tables = function(_Lego$UI$Baseview) {
         _this.$(".lego-table-body > .scrollbar").scroll(function() {
             header.scrollLeft($(this).scrollLeft());
         });
-        _this.$(".lego-table-tfoot>tr>td").attr("colspan", _this.columns.length);
+        if (_this.options.showFooter && _this.columns.length) {
+            _this.$(".lego-table-tfoot > tr > td").attr("colspan", _this.columns.length);
+        }
         $(window).resize(function() {
             that.resizeWidth();
         });
@@ -667,6 +669,12 @@ var Tables = function(_Lego$UI$Baseview) {
                     el: "#nodata_" + opts.vid
                 }), Lego.config.nodataOption || {}, opts.nodataOption);
             }
+            if (opts.pagination) {
+                this.addCom({
+                    el: "#pagination_" + opts.vid,
+                    data: opts.pagination
+                });
+            }
         }
     }, {
         key: "resizeWidth",
@@ -679,15 +687,8 @@ var Tables = function(_Lego$UI$Baseview) {
         value: function render() {
             this.getColumns();
             var opts = this.options;
-            var vDom = hx(_templateObject, opts.size, opts.bordered ? "lego-table-bordered" : "", opts.showHeader && opts.fixedHeader ? "lego-table-fixed-header" : "", opts.isNowrap ? "lego-nr" : "", opts.vid, opts.title ? hx(_templateObject2, typeof opts.title == "function" ? opts.title() : opts.title) : "", !opts.title ? "padding-bottom:0" : "", opts.showHeader && opts.fixedHeader ? hx(_templateObject3, opts.tableWidth ? "width:" + opts.tableWidth + "px" : "width:1px", this._renderColgroup(), this._renderHeader()) : "", opts.pagination ? "48px" : "0", opts.isNodata ? hx(_templateObject4, opts.vid) : hx(_templateObject5), opts.showHeader && opts.fixedHeader ? "scrollbar" : "", opts.className, opts.tableWidth ? "width:" + opts.tableWidth + "px" : "width:1px", this._renderColgroup(), !(opts.showHeader && opts.fixedHeader) && opts.showHeader ? this._renderHeader() : "", opts.showBodyer ? this._renderBodyer() : "", opts.showFooter ? this._renderFooter() : "", opts.pagination && opts.data.length ? hx(_templateObject6, val(opts.pagination)) : "", opts.showSetting ? hx(_templateObject7) : "");
+            var vDom = hx(_templateObject, opts.size, opts.bordered ? "lego-table-bordered" : "", opts.showHeader && opts.fixedHeader ? "lego-table-fixed-header" : "", opts.isNowrap ? "lego-nr" : "", opts.vid, opts.title ? hx(_templateObject2, typeof opts.title == "function" ? opts.title() : opts.title) : "", !opts.title ? "padding-bottom:0" : "", opts.showHeader && opts.fixedHeader ? hx(_templateObject3, opts.tableWidth ? "width:" + opts.tableWidth + "px" : "width:1px", this._renderColgroup(), this._renderHeader()) : "", opts.pagination ? "48px" : "0", opts.isNodata ? hx(_templateObject4, opts.vid) : hx(_templateObject5), opts.showHeader && opts.fixedHeader ? "scrollbar" : "", opts.className, opts.tableWidth ? "width:" + opts.tableWidth + "px" : "width:1px", this._renderColgroup(), !(opts.showHeader && opts.fixedHeader) && opts.showHeader ? this._renderHeader() : "", opts.showBodyer ? this._renderBodyer() : "", opts.showFooter ? this._renderFooter() : "", opts.pagination ? hx(_templateObject6, opts.vid) : "", opts.showSetting ? hx(_templateObject7) : "");
             return vDom;
-        }
-    }, {
-        key: "renderAfter",
-        value: function renderAfter() {
-            if (this.options.showFooter && this.columns.length) {
-                this.$(".lego-table-tfoot > tr > td").attr("colspan", this.columns.length);
-            }
         }
     }, {
         key: "_getRowKey",

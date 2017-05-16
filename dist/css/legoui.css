@@ -11480,78 +11480,68 @@ form button[type="submit"] {
 .lego-facial ul li:hover img {
   opacity: 1; }
 .modal-backdrop {
+  z-index: 9998 !important;
   background-color: #000;
   bottom: 0;
   position: fixed; }
+  .modal-backdrop.in {
+    opacity: 0.4; }
 
-.modal-backdrop.in {
-  opacity: 0.4; }
-
-.modal-backdrop {
-  z-index: 9998 !important; }
-
-.modal,
-.modal-dialog {
+.modal {
   z-index: 9999 !important; }
-
-.modal-header {
-  padding: 10px 10px 10px 15px; }
-  .modal-header .close {
-    margin-top: 3px; }
-  .modal-header h5 {
-    color: #666;
-    font-size: 16px; }
-
-.right-modal {
-  z-index: 10 !important;
-  top: 60px; }
-
-#lego-modal .modal-dialog {
-  max-width: 600px; }
-
-.modal-content {
-  border: none;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); }
-
-.modal-footer {
-  border-top: none; }
-  .modal-footer button {
-    margin-right: 10px; }
-    .modal-footer button:last-child {
-      margin-right: 0px; }
-
-.right-modal .modal-header {
-  padding: 16px; }
-
-.right-modal .modal-dialog {
-  width: 700px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  height: '100%';
-  margin: 0; }
-
-.right-modal .modal-content {
-  height: 100%;
-  border-radius: 0;
-  border: none;
-  background-color: #fff;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
-
-.right-modal .modal-body {
-  position: absolute !important;
-  top: 60px;
-  bottom: 65px;
-  width: 100%;
-  overflow-y: auto; }
-
-.right-modal .modal-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%; }
-  .right-modal .modal-footer > div {
-    text-align: center; }
+  .modal .modal-dialog {
+    z-index: 9999 !important; }
+    .modal .modal-dialog .modal-content {
+      border: none;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); }
+      .modal .modal-dialog .modal-content .modal-header {
+        padding: 10px 10px 10px 15px; }
+        .modal .modal-dialog .modal-content .modal-header .close {
+          margin-top: 3px; }
+        .modal .modal-dialog .modal-content .modal-header h5 {
+          color: #666;
+          font-size: 16px; }
+      .modal .modal-dialog .modal-content .modal-body {
+        padding: 15px 15px 0 15px; }
+      .modal .modal-dialog .modal-content .modal-footer {
+        border-top: none; }
+        .modal .modal-dialog .modal-content .modal-footer button {
+          margin-right: 10px; }
+          .modal .modal-dialog .modal-content .modal-footer button:last-child {
+            margin-right: 0px; }
+  .modal#lego-modal .modal-dialog {
+    max-width: 600px; }
+  .modal.right-modal {
+    z-index: 10 !important;
+    top: 60px; }
+    .modal.right-modal .modal-header {
+      padding: 16px; }
+    .modal.right-modal .modal-dialog {
+      width: 700px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      height: '100%';
+      margin: 0; }
+    .modal.right-modal .modal-content {
+      height: 100%;
+      border-radius: 0;
+      border: none;
+      background-color: #fff;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
+    .modal.right-modal .modal-body {
+      position: absolute !important;
+      top: 60px;
+      bottom: 65px;
+      width: 100%;
+      overflow-y: auto; }
+    .modal.right-modal .modal-footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%; }
+      .modal.right-modal .modal-footer > div {
+        text-align: center; }
 
 .right-modalBg .modal-backdrop {
   opacity: 0.01; }

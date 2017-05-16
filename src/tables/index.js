@@ -66,7 +66,10 @@ class Tables extends Lego.UI.Baseview {
         this.$('.lego-table-body > .scrollbar').scroll(function() {
             header.scrollLeft($(this).scrollLeft());
         });
-        this.$('.lego-table-tfoot>tr>td').attr('colspan', this.columns.length);
+
+        if(this.options.showFooter && this.columns.length){
+            this.$('.lego-table-tfoot > tr > td').attr('colspan', this.columns.length);
+        }
         $(window).resize(function(){
             that.resizeWidth();
         });
@@ -120,6 +123,23 @@ class Tables extends Lego.UI.Baseview {
                 el: '#nodata_' + opts.vid
             }), Lego.config.nodataOption || {}, opts.nodataOption);
         }
+        if(opts.pagination){
+            // this.addCom({
+            //     el: '#pagination_' + opts.vid,
+            //     data: opts.pagination
+            // });
+            opts.pagination.el = '#pagination_' + opts.vid;
+            if(this.oldTotalCount !== undefined && this.oldCurrent !== undefined){
+                if(this.oldTotalCount !== opts.pagination.totalCount || this.oldCurrent !== opts.pagination.current){
+                    opts.pagination.context = this;
+                    Lego.create(Pagination, opts.pagination);
+                }
+            }else{
+                this.addCom(opts.pagination);
+            }
+            this.oldTotalCount = opts.pagination.totalCount || 0;
+            this.oldCurrent = opts.pagination.current || 1;
+        }
     }
     resizeWidth(){
         let tableWidth = $(this.options.el).parent().width();
@@ -127,7 +147,7 @@ class Tables extends Lego.UI.Baseview {
     }
     render() {
         this.getColumns();
-        const opts = this.options;
+        let opts = this.options;
         const vDom = hx`
         <div class="lego-table clearfix lego-table-${opts.size} ${opts.bordered ? 'lego-table-bordered' : ''}
         ${opts.showHeader && opts.fixedHeader ? 'lego-table-fixed-header' : ''} ${opts.isNowrap ? 'lego-nr' : ''} lego-table-scroll-position-left">
@@ -154,18 +174,13 @@ class Tables extends Lego.UI.Baseview {
                         </table>
                     </div>
                 </div>
-                ${opts.pagination && opts.data.length ? hx`<div class="lego-table-footer">${val(opts.pagination)}</div>` : ''}
+                ${opts.pagination ? hx`<div class="lego-table-footer"><pagination id="pagination_${opts.vid}"></pagination></div>` : ''}
                 ${opts.showSetting ? hx`<button type="button" class="btn btn-default noborder" title="表格设置"><i class="anticon anticon-ellipsis"></i></button>` : ''}
                 </div>
             </div>
         </div>
         `;
         return vDom;
-    }
-    renderAfter(){
-        if(this.options.showFooter && this.columns.length){
-            this.$('.lego-table-tfoot > tr > td').attr('colspan', this.columns.length);
-        }
     }
     _getRowKey(str = ''){
         this.rowKey = this.rowKey || 0;

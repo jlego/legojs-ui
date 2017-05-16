@@ -3,32 +3,43 @@ import Dropdown from '../dropdown/index';
 
 class Pagination extends Lego.UI.Baseview {
     constructor(opts = {}) {
-        const options = {
-            events: {
-                'click .prev:not(.disabled)': 'clickPrevPage',
-                'click .page-item': 'clickItemPage',
-                'click .next:not(.disabled)': 'clickNextPage',
-                'click .morepage': 'clickMorePage',
-                'keydown .info>input[type="text"]': '_enterSearch',
-            },
-            current: 1, //当前页数
-            totalCount: 0, //数据总数
-            totalPages: 0,  //总页数
-            pageSize: 10,    //每页条数
-            pageRang: 10,   //每页分页范围
-            onChange(){},    //页码改变的回调，参数是改变后的页码
-            showSizeChanger: true,    //是否可以改变 pageSize
-            pageSizeOptions: [10, 20, 30, 40, 50],   //指定每页可以显示多少条
-            onPageSizeChange(){},    //pageSize 变化的回调
-            showQuickJumper: true,    //是否可以快速跳转至某页
-            size: '',    //当为「small」时，是小尺寸分页
-            simple: null,    //当添加该属性时，显示为简单分页
-            isShowTotal: true,  //用于显示数据总量和当前数据顺序
-            data: {},
-            components: []
+        opts.events = {
+            'click .prev:not(.disabled)': 'clickPrevPage',
+            'click .page-item:not(.active)': 'clickItemPage',
+            'click .next:not(.disabled)': 'clickNextPage',
+            'click .morepage': 'clickMorePage',
+            'keydown .info>input[type="text"]': '_enterSearch',
         };
-        Object.assign(options, opts);
-        super(options);
+        opts.data = opts.data || {};
+        opts.current = opts.current || 1;
+        opts.totalCount = opts.totalCount || 0;
+        opts.totalPages = opts.totalPages || 0;
+        opts.pageSize = opts.pageSize || 10;
+        opts.pageRang = opts.pageRang || 10;
+        opts.onChange = opts.onChange || function(){};
+        opts.showSizeChanger = opts.showSizeChanger || true;
+        opts.pageSizeOptions = opts.pageSizeOptions || [10, 20, 30, 40, 50];
+        opts.onPageSizeChange = opts.onPageSizeChange || function(){};
+        opts.showQuickJumper = opts.showQuickJumper || true;
+        opts.size = opts.size || '';
+        opts.simple = opts.simple || null;
+        opts.isShowTotal = opts.isShowTotal || true;
+        super(opts);
+        // let defaults = {
+        //     current: 1, //当前页数
+        //     totalCount: 0, //数据总数
+        //     totalPages: 0,  //总页数
+        //     pageSize: 10,    //每页条数
+        //     pageRang: 10,   //每页分页范围
+        //     onChange(){},    //页码改变的回调，参数是改变后的页码
+        //     showSizeChanger: true,    //是否可以改变 pageSize
+        //     pageSizeOptions: [10, 20, 30, 40, 50],   //指定每页可以显示多少条
+        //     onPageSizeChange(){},    //pageSize 变化的回调
+        //     showQuickJumper: true,    //是否可以快速跳转至某页
+        //     size: '',    //当为「small」时，是小尺寸分页
+        //     simple: null,    //当添加该属性时，显示为简单分页
+        //     isShowTotal: true  //用于显示数据总量和当前数据顺序
+        // };
         this.jumped = false;
     }
     components(){
@@ -57,10 +68,10 @@ class Pagination extends Lego.UI.Baseview {
     }
     render() {
         let opts = this.options,
-            current = parseInt(opts.current);
-        opts.pageSize = opts.pageSize;
-        let pageRang = parseInt(opts.pageRang);
-        let totalCount = opts.context.totalCount || val(opts.totalCount);
+            vDom = hx`<div></div>`,
+            current = parseInt(opts.current),
+            pageRang = parseInt(opts.pageRang),
+            totalCount = val(opts.totalCount);
         opts.totalPages = Math.ceil(totalCount / opts.pageSize);
         pageRang = pageRang >= opts.totalPages ? opts.totalPages : pageRang;
         let baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0,
@@ -72,7 +83,7 @@ class Pagination extends Lego.UI.Baseview {
         for(let i = startPage; i <= endPage; i++) {
             pagesArr.push(i);
         }
-        const vDom = hx`
+        vDom = hx`
         <ul class="lego-pagination ${opts.simple ? 'pagination-simple' : ''} ${opts.size == 'small' ? 'mini' : ''}">
             <li class="prev ${ current <= 1 ? 'disabled' : ''}">
                 <a href="javascript:void(0)" title="上一页"><i class="anticon anticon-left"></i></a>

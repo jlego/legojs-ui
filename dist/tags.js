@@ -1,5 +1,5 @@
 /**
- * tags.js v0.5.55
+ * tags.js v0.6.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
