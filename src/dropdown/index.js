@@ -1,10 +1,12 @@
 import './asset/index.scss';
+import Search from '../search/index';
 
 class Dropdown extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
-                'click li:not(.dropdown)': 'clickItem'
+                'click li:not(.dropdown, .lego-search-container)': 'clickItem',
+                'click li.lego-search-container': function(event){event.stopPropagation();}
             },
             scrollbar: null,
             disabled: false,
@@ -13,6 +15,7 @@ class Dropdown extends Lego.UI.Baseview {
             direction: '',  //显示方向
             activeKey: '',
             clickAndClose: true,  //点击后关闭
+            showSearch: false,  //是否显示搜索框
             open: false,    //展开
             onChange(){},  //改变值时调用
             data: []
@@ -20,8 +23,25 @@ class Dropdown extends Lego.UI.Baseview {
         Object.assign(options, opts);
         super(options);
     }
+    components(){
+        let opts = this.options;
+        if(opts.showSearch){
+            this.addCom({
+                el: '#search_' + opts.vid,
+                size: 'sm',
+                onSearch(self, result) {
+                    // if(typeof opts.onSearch == 'function'){
+                    //     opts.onSearch(that, result);
+                    // }else{
+                    //     let treeView = Lego.getView('#transfer_tree_' + opts.vid);
+                    //     if(treeView) treeView.search(result.keyword);
+                    // }
+                }
+            });
+        }
+    }
     render() {
-        const options = this.options || {};
+        const opts = this.options || {};
         function itemNav(item){
             if(item.divider){
                 return hx`<li class="divider"></li>`;
@@ -51,8 +71,10 @@ class Dropdown extends Lego.UI.Baseview {
             `;
         }
         const vDom = hx`
-        <ul class="dropdown-menu ${options.scrollbar ? 'scrollbar' : ''} ${options.direction ? ('drop' + options.direction) : ''}" style="display:${options.open ? 'block' : 'none'}">
-            ${options.data.map(item => {
+        <ul class="dropdown-menu ${opts.scrollbar ? 'scrollbar' : ''} ${opts.direction ? ('drop' + opts.direction) : ''}"
+        style="display:${opts.open ? 'block' : 'none'}">
+            ${opts.showSearch ? hx`<li class="lego-search-container"><search id="search_${opts.vid}"></search></li>` : ''}
+            ${opts.data.map(item => {
                 return itemNav(item);
             })}
         </ul>

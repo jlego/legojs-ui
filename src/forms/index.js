@@ -230,6 +230,9 @@ class Forms extends Lego.UI.Baseview {
         if (Lego.isEmptyObject(data)) return false;
         if (!$submitEl.hasClass('disabled')) {
             $submitEl.text('提交中...').addClass('disabled');
+            setTimeout(function(){
+                $submitEl.text(that.options.submitText).remvoeClass('disabled');
+            }, 3000);
         }
         return this.options.onSubmit(this, data);
     }

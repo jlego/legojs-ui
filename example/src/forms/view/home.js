@@ -21,7 +21,7 @@ class HomeView extends Lego.UI.Baseview {
         const options = {
             components: [{
                 el: '#search1',
-                hasSelect: true,
+                showSelect: true,
                 onSearch(self, result) {
                     console.warn('点击了搜索框', result, this);
                 },
@@ -35,6 +35,7 @@ class HomeView extends Lego.UI.Baseview {
             }, {
                 el: '#select3',
                 placeholder: '请选择',
+                showSearch: true,
                 onChange(self, result) {
                     console.warn('点击了选项框1', result);
                 },

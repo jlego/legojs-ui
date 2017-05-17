@@ -57,6 +57,7 @@ class Selects extends Lego.UI.Baseview {
                     maxHeight: opts.dropdownHeight || 'auto',
                     overflow: 'auto'
                 }, opts.dropdownStyle || {}),
+                showSearch: opts.showSearch,
                 className: opts.dropdownClassName,
                 clickAndClose: opts.multiple ? false : true,
                 data: opts.data || [],

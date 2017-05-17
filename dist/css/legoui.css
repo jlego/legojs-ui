@@ -11383,6 +11383,62 @@ pre p {
 .dropdown-menu.droptop {
   top: inherit;
   bottom: 100%; }
+.lego-search input,
+.lego-search input:focus {
+  height: 36px;
+  padding: 7px 12px;
+  -webkit-box-shadow: none;
+  box-shadow: none; }
+
+.lego-search.input-group-sm input,
+.lego-search.input-group-sm input:focus {
+  height: auto;
+  padding: .25rem .5rem;
+  font-size: .875rem;
+  border-radius: .2rem; }
+
+.lego-search .lego-search-button {
+  padding: 7px 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-left: none;
+  border-radius: 4px; }
+
+.lego-search .lego-search-button i {
+  color: #999; }
+
+.lego-search .lego-search-button:hover i {
+  color: #0275d8; }
+
+.lego-search .dropdown-toggle {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 120px;
+  padding: 7px 10px;
+  border: 1px solid #ddd; }
+
+.lego-search.input-group .lego-search-input {
+  border-right: none; }
+
+.lego-search .input-group-btn {
+  width: 1% !important; }
+
+.lego-search.input-group .lego-search-input:active,
+.input-group .lego-search-input:focus,
+.input-group .lego-search-input:hover {
+  border-right: none; }
+
+.input-group.lego-search .lego-search-input:focus,
+.input-group.lego-search .lego-search-input:focus ~ .input-group-btn .btn {
+  border-color: #66afe9 !important; }
+
+.input-group.lego-search .input-group-btn:not(:first-child) > .btn,
+.input-group.lego-search .input-group-btn:not(:first-child) > .btn-group {
+  margin-left: -2px; }
+
+.lego-search.input-group-sm .input-group-btn > .btn {
+  padding: 3px 6px; }
 .input-group.date .input-group-addon {
   background-color: transparent !important;
   color: #999; }
@@ -11808,8 +11864,9 @@ form button[type="submit"] {
 
 .lego-pagination .pageJump {
   width: 50px;
-  height: 26px;
+  height: 30px;
   display: inline-block;
+  vertical-align: middle;
   padding: 0;
   text-align: center; }
 .lego-reply .lego-reply-submit {
@@ -12030,62 +12087,6 @@ form button[type="submit"] {
 
 .lego-rating .rating-symbol-foreground span {
   color: #f5a623; }
-.lego-search input,
-.lego-search input:focus {
-  height: 36px;
-  padding: 7px 12px;
-  -webkit-box-shadow: none;
-  box-shadow: none; }
-
-.lego-search.input-group-sm input,
-.lego-search.input-group-sm input:focus {
-  height: auto;
-  padding: .25rem .5rem;
-  font-size: .875rem;
-  border-radius: .2rem; }
-
-.lego-search .lego-search-button {
-  padding: 7px 12px;
-  border: 1px solid #ddd;
-  background: #fff;
-  border-left: none;
-  border-radius: 4px; }
-
-.lego-search .lego-search-button i {
-  color: #999; }
-
-.lego-search .lego-search-button:hover i {
-  color: #0275d8; }
-
-.lego-search .dropdown-toggle {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  max-width: 120px;
-  padding: 7px 10px;
-  border: 1px solid #ddd; }
-
-.lego-search.input-group .lego-search-input {
-  border-right: none; }
-
-.lego-search .input-group-btn {
-  width: 1% !important; }
-
-.lego-search.input-group .lego-search-input:active,
-.input-group .lego-search-input:focus,
-.input-group .lego-search-input:hover {
-  border-right: none; }
-
-.input-group.lego-search .lego-search-input:focus,
-.input-group.lego-search .lego-search-input:focus ~ .input-group-btn .btn {
-  border-color: #66afe9 !important; }
-
-.input-group.lego-search .input-group-btn:not(:first-child) > .btn,
-.input-group.lego-search .input-group-btn:not(:first-child) > .btn-group {
-  margin-left: -2px; }
-
-.lego-search.input-group-sm .input-group-btn > .btn {
-  padding: 3px 6px; }
 .select {
   margin: 0; }
 

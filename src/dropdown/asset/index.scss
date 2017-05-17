@@ -78,14 +78,6 @@
     cursor: not-allowed;
 }
 
-// .open > .dropdown-menu {
-//     display: block;
-// }
-
-// .open > a {
-//     outline: 0;
-// }
-
 .dropdown-menu-right {
     left: auto;
     right: 0;
@@ -140,4 +132,7 @@
 .dropdown-menu.droptop{
     top: inherit;
     bottom: 100%;
+}
+.lego-search-container{
+    padding: 0 5px 5px 5px;
 }

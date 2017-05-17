@@ -1918,6 +1918,147 @@ var Upload = function(_Lego$UI$Baseview) {
 
 Lego.components("upload", Upload);
 
+var _createClass$10 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+var _templateObject$7 = _taggedTemplateLiteral$7([ '\n        <div class="input-group lego-search ', '">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '" name="', '" value="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group lego-search ', '">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '" name="', '" value="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
+
+var _templateObject2$6 = _taggedTemplateLiteral$7([ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ]);
+
+function _taggedTemplateLiteral$7(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+}
+
+function _classCallCheck$10(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$9(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$9(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var Search = function(_Lego$UI$Baseview) {
+    _inherits$9(Search, _Lego$UI$Baseview);
+    function Search() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$10(this, Search);
+        var options = {
+            events: {
+                "click .lego-search-button": "onSearch",
+                "change .lego-search-input": "onChange",
+                "keydown .lego-search-input": "_enterSearch"
+            },
+            placeholder: "请输入关键字",
+            name: "",
+            size: "",
+            keyword: "",
+            activeKey: "",
+            activeValue: "",
+            showSelect: false,
+            onSearch: function onSearch() {},
+            onChange: function onChange() {}
+        };
+        Object.assign(options, opts);
+        return _possibleConstructorReturn$9(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, options));
+    }
+    _createClass$10(Search, [ {
+        key: "components",
+        value: function components() {
+            var opts = this.options;
+            if (typeof opts.value == "string") {
+                opts.keyword = opts.value;
+                opts.value = null;
+            }
+            this.addCom({
+                el: "#dropdown-" + opts.vid,
+                container: "#select-" + opts.vid,
+                data: opts.data,
+                onChange: function onChange(self, model) {
+                    this.context.options.activeKey = model.key;
+                    this.context.options.activeValue = model.value;
+                }
+            });
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            var options = this.options || {};
+            var vDom = hx(_templateObject$7, options.size ? "input-group-" + options.size : "", options.showSelect ? hx(_templateObject2$6, options.vid, options.activeValue || "请选择", options.vid) : "", options.placeholder, options.name, val(options.keyword));
+            return vDom;
+        }
+    }, {
+        key: "_enterSearch",
+        value: function _enterSearch(event) {
+            if (event.keyCode == 13) {
+                this.onSearch(event);
+            }
+        }
+    }, {
+        key: "getValue",
+        value: function getValue(event) {
+            var keyword = event ? this.$(".lego-search-input").val() : this.options.keyword;
+            return {
+                key: this.options.activeKey,
+                value: this.options.activeValue,
+                keyword: keyword
+            };
+        }
+    }, {
+        key: "onChange",
+        value: function onChange(event) {
+            if (event) event.stopPropagation();
+            if (typeof this.options.onChange === "function") this.options.onChange(this, this.getValue(event));
+        }
+    }, {
+        key: "onSearch",
+        value: function onSearch(event) {
+            if (event) event.stopPropagation();
+            if (typeof this.options.onSearch === "function") this.options.onSearch(this, this.getValue(event));
+        }
+    } ]);
+    return Search;
+}(Lego.UI.Baseview);
+
+Lego.components("search", Search);
+
 var _createClass$9 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
@@ -1943,7 +2084,9 @@ var _templateObject3$4 = _taggedTemplateLiteral$6([ '\n            <li class="dr
 
 var _templateObject4$4 = _taggedTemplateLiteral$6([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5$3 = _taggedTemplateLiteral$6([ '\n        <ul class="dropdown-menu ', " ", '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', " ", '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject5$3 = _taggedTemplateLiteral$6([ '\n        <ul class="dropdown-menu ', " ", '"\n        style="display:', '">\n            ', "\n            ", "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', " ", '"\n        style="display:', '">\n            ', "\n            ", "\n        </ul>\n        " ]);
+
+var _templateObject6$1 = _taggedTemplateLiteral$6([ '<li class="lego-search-container"><search id="search_', '"></search></li>' ], [ '<li class="lego-search-container"><search id="search_', '"></search></li>' ]);
 
 function _taggedTemplateLiteral$6(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -1988,7 +2131,10 @@ var Dropdown = function(_Lego$UI$Baseview) {
         _classCallCheck$9(this, Dropdown);
         var options = {
             events: {
-                "click li:not(.dropdown)": "clickItem"
+                "click li:not(.dropdown, .lego-search-container)": "clickItem",
+                "click li.lego-search-container": function clickLiLegoSearchContainer(event) {
+                    event.stopPropagation();
+                }
             },
             scrollbar: null,
             disabled: false,
@@ -1997,6 +2143,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             direction: "",
             activeKey: "",
             clickAndClose: true,
+            showSearch: false,
             open: false,
             onChange: function onChange() {},
             data: []
@@ -2005,9 +2152,21 @@ var Dropdown = function(_Lego$UI$Baseview) {
         return _possibleConstructorReturn$8(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
     }
     _createClass$9(Dropdown, [ {
+        key: "components",
+        value: function components() {
+            var opts = this.options;
+            if (opts.showSearch) {
+                this.addCom({
+                    el: "#search_" + opts.vid,
+                    size: "sm",
+                    onSearch: function onSearch(self, result) {}
+                });
+            }
+        }
+    }, {
         key: "render",
         value: function render() {
-            var options = this.options || {};
+            var opts = this.options || {};
             function itemNav(item) {
                 if (item.divider) {
                     return hx(_templateObject$6);
@@ -2024,7 +2183,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     return itemNav(item);
                 })) : "");
             }
-            var vDom = hx(_templateObject5$3, options.scrollbar ? "scrollbar" : "", options.direction ? "drop" + options.direction : "", options.open ? "block" : "none", options.data.map(function(item) {
+            var vDom = hx(_templateObject5$3, opts.scrollbar ? "scrollbar" : "", opts.direction ? "drop" + opts.direction : "", opts.open ? "block" : "none", opts.showSearch ? hx(_templateObject6$1, opts.vid) : "", opts.data.map(function(item) {
                 return itemNav(item);
             }));
             return vDom;

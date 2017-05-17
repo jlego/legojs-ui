@@ -7,6 +7,147 @@
 
 var ztree = require("ztree");
 
+var _createClass$3 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+var _templateObject$3 = _taggedTemplateLiteral$3([ '\n        <div class="input-group lego-search ', '">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '" name="', '" value="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group lego-search ', '">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '" name="', '" value="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
+
+var _templateObject2$3 = _taggedTemplateLiteral$3([ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ]);
+
+function _taggedTemplateLiteral$3(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+}
+
+function _classCallCheck$3(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$3(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$3(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var Search = function(_Lego$UI$Baseview) {
+    _inherits$3(Search, _Lego$UI$Baseview);
+    function Search() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$3(this, Search);
+        var options = {
+            events: {
+                "click .lego-search-button": "onSearch",
+                "change .lego-search-input": "onChange",
+                "keydown .lego-search-input": "_enterSearch"
+            },
+            placeholder: "请输入关键字",
+            name: "",
+            size: "",
+            keyword: "",
+            activeKey: "",
+            activeValue: "",
+            showSelect: false,
+            onSearch: function onSearch() {},
+            onChange: function onChange() {}
+        };
+        Object.assign(options, opts);
+        return _possibleConstructorReturn$3(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, options));
+    }
+    _createClass$3(Search, [ {
+        key: "components",
+        value: function components() {
+            var opts = this.options;
+            if (typeof opts.value == "string") {
+                opts.keyword = opts.value;
+                opts.value = null;
+            }
+            this.addCom({
+                el: "#dropdown-" + opts.vid,
+                container: "#select-" + opts.vid,
+                data: opts.data,
+                onChange: function onChange(self, model) {
+                    this.context.options.activeKey = model.key;
+                    this.context.options.activeValue = model.value;
+                }
+            });
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            var options = this.options || {};
+            var vDom = hx(_templateObject$3, options.size ? "input-group-" + options.size : "", options.showSelect ? hx(_templateObject2$3, options.vid, options.activeValue || "请选择", options.vid) : "", options.placeholder, options.name, val(options.keyword));
+            return vDom;
+        }
+    }, {
+        key: "_enterSearch",
+        value: function _enterSearch(event) {
+            if (event.keyCode == 13) {
+                this.onSearch(event);
+            }
+        }
+    }, {
+        key: "getValue",
+        value: function getValue(event) {
+            var keyword = event ? this.$(".lego-search-input").val() : this.options.keyword;
+            return {
+                key: this.options.activeKey,
+                value: this.options.activeValue,
+                keyword: keyword
+            };
+        }
+    }, {
+        key: "onChange",
+        value: function onChange(event) {
+            if (event) event.stopPropagation();
+            if (typeof this.options.onChange === "function") this.options.onChange(this, this.getValue(event));
+        }
+    }, {
+        key: "onSearch",
+        value: function onSearch(event) {
+            if (event) event.stopPropagation();
+            if (typeof this.options.onSearch === "function") this.options.onSearch(this, this.getValue(event));
+        }
+    } ]);
+    return Search;
+}(Lego.UI.Baseview);
+
+Lego.components("search", Search);
+
 var _createClass$2 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
@@ -32,7 +173,9 @@ var _templateObject3$2 = _taggedTemplateLiteral$2([ '\n            <li class="dr
 
 var _templateObject4$2 = _taggedTemplateLiteral$2([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5 = _taggedTemplateLiteral$2([ '\n        <ul class="dropdown-menu ', " ", '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', " ", '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject5 = _taggedTemplateLiteral$2([ '\n        <ul class="dropdown-menu ', " ", '"\n        style="display:', '">\n            ', "\n            ", "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', " ", '"\n        style="display:', '">\n            ', "\n            ", "\n        </ul>\n        " ]);
+
+var _templateObject6 = _taggedTemplateLiteral$2([ '<li class="lego-search-container"><search id="search_', '"></search></li>' ], [ '<li class="lego-search-container"><search id="search_', '"></search></li>' ]);
 
 function _taggedTemplateLiteral$2(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -77,7 +220,10 @@ var Dropdown = function(_Lego$UI$Baseview) {
         _classCallCheck$2(this, Dropdown);
         var options = {
             events: {
-                "click li:not(.dropdown)": "clickItem"
+                "click li:not(.dropdown, .lego-search-container)": "clickItem",
+                "click li.lego-search-container": function clickLiLegoSearchContainer(event) {
+                    event.stopPropagation();
+                }
             },
             scrollbar: null,
             disabled: false,
@@ -86,6 +232,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             direction: "",
             activeKey: "",
             clickAndClose: true,
+            showSearch: false,
             open: false,
             onChange: function onChange() {},
             data: []
@@ -94,9 +241,21 @@ var Dropdown = function(_Lego$UI$Baseview) {
         return _possibleConstructorReturn$2(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
     }
     _createClass$2(Dropdown, [ {
+        key: "components",
+        value: function components() {
+            var opts = this.options;
+            if (opts.showSearch) {
+                this.addCom({
+                    el: "#search_" + opts.vid,
+                    size: "sm",
+                    onSearch: function onSearch(self, result) {}
+                });
+            }
+        }
+    }, {
         key: "render",
         value: function render() {
-            var options = this.options || {};
+            var opts = this.options || {};
             function itemNav(item) {
                 if (item.divider) {
                     return hx(_templateObject$2);
@@ -113,7 +272,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     return itemNav(item);
                 })) : "");
             }
-            var vDom = hx(_templateObject5, options.scrollbar ? "scrollbar" : "", options.direction ? "drop" + options.direction : "", options.open ? "block" : "none", options.data.map(function(item) {
+            var vDom = hx(_templateObject5, opts.scrollbar ? "scrollbar" : "", opts.direction ? "drop" + opts.direction : "", opts.open ? "block" : "none", opts.showSearch ? hx(_templateObject6, opts.vid) : "", opts.data.map(function(item) {
                 return itemNav(item);
             }));
             return vDom;
@@ -311,6 +470,7 @@ var Selects = function(_Lego$UI$Baseview) {
                         maxHeight: opts.dropdownHeight || "auto",
                         overflow: "auto"
                     }, opts.dropdownStyle || {}),
+                    showSearch: opts.showSearch,
                     className: opts.dropdownClassName,
                     clickAndClose: opts.multiple ? false : true,
                     data: opts.data || [],
@@ -433,7 +593,7 @@ var Selects = function(_Lego$UI$Baseview) {
 
 Lego.components("selects", Selects);
 
-var _createClass$3 = function() {
+var _createClass$4 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -450,9 +610,9 @@ var _createClass$3 = function() {
     };
 }();
 
-var _templateObject$3 = _taggedTemplateLiteral$3([ '<ul class="lego-tree"></ul>' ], [ '<ul class="lego-tree"></ul>' ]);
+var _templateObject$4 = _taggedTemplateLiteral$4([ '<ul class="lego-tree"></ul>' ], [ '<ul class="lego-tree"></ul>' ]);
 
-function _taggedTemplateLiteral$3(strings, raw) {
+function _taggedTemplateLiteral$4(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
         raw: {
             value: Object.freeze(raw)
@@ -460,20 +620,20 @@ function _taggedTemplateLiteral$3(strings, raw) {
     }));
 }
 
-function _classCallCheck$3(instance, Constructor) {
+function _classCallCheck$4(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
 }
 
-function _possibleConstructorReturn$3(self, call) {
+function _possibleConstructorReturn$4(self, call) {
     if (!self) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
 
-function _inherits$3(subClass, superClass) {
+function _inherits$4(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -489,10 +649,10 @@ function _inherits$3(subClass, superClass) {
 }
 
 var Tree = function(_Lego$UI$Baseview) {
-    _inherits$3(Tree, _Lego$UI$Baseview);
+    _inherits$4(Tree, _Lego$UI$Baseview);
     function Tree() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$3(this, Tree);
+        _classCallCheck$4(this, Tree);
         var options = {
             disSelect: "",
             onlySelect: "",
@@ -503,9 +663,9 @@ var Tree = function(_Lego$UI$Baseview) {
             onClick: function onClick() {}
         };
         $.extend(true, options, opts);
-        return _possibleConstructorReturn$3(this, (Tree.__proto__ || Object.getPrototypeOf(Tree)).call(this, options));
+        return _possibleConstructorReturn$4(this, (Tree.__proto__ || Object.getPrototypeOf(Tree)).call(this, options));
     }
-    _createClass$3(Tree, [ {
+    _createClass$4(Tree, [ {
         key: "components",
         value: function components() {
             var opts = this.options, that = this;
@@ -568,7 +728,7 @@ var Tree = function(_Lego$UI$Baseview) {
     }, {
         key: "render",
         value: function render() {
-            return hx(_templateObject$3);
+            return hx(_templateObject$4);
         }
     }, {
         key: "renderTree",
