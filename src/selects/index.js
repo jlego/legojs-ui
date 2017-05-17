@@ -31,6 +31,7 @@ class Selects extends Lego.UI.Baseview {
             dropdownStyle: null,  //下拉菜单的 style 属性
             dropdownClassName: '',  //下拉菜单的 className 属性上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。
             splitString: '',    //自动分词分隔符
+            data: [],
             components: []
         };
         Object.assign(options, opts);

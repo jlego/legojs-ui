@@ -12,6 +12,7 @@ class Btngroup extends Lego.UI.Baseview {
                 'click button': 'onClick'
             },
             size: 'default',    //设置按钮大小，可选值为 small large 或者不设
+            data: [],
             onClick(){}   //click 事件的 handler
         };
         Object.assign(options, opts);

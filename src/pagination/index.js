@@ -10,21 +10,6 @@ class Pagination extends Lego.UI.Baseview {
             'click .morepage': 'clickMorePage',
             'keydown .info>input[type="text"]': '_enterSearch',
         };
-        opts.data = opts.data || {};
-        opts.current = opts.current || 1;
-        opts.totalCount = opts.totalCount || 0;
-        opts.totalPages = opts.totalPages || 0;
-        opts.pageSize = opts.pageSize || 10;
-        opts.pageRang = opts.pageRang || 10;
-        opts.onChange = opts.onChange || function(){};
-        opts.showSizeChanger = opts.showSizeChanger || true;
-        opts.pageSizeOptions = opts.pageSizeOptions || [10, 20, 30, 40, 50];
-        opts.onPageSizeChange = opts.onPageSizeChange || function(){};
-        opts.showQuickJumper = opts.showQuickJumper || true;
-        opts.size = opts.size || '';
-        opts.simple = opts.simple || null;
-        opts.isShowTotal = opts.isShowTotal || true;
-        super(opts);
         // let defaults = {
         //     current: 1, //当前页数
         //     totalCount: 0, //数据总数
@@ -40,6 +25,21 @@ class Pagination extends Lego.UI.Baseview {
         //     simple: null,    //当添加该属性时，显示为简单分页
         //     isShowTotal: true  //用于显示数据总量和当前数据顺序
         // };
+        opts.data = opts.data || {};
+        opts.current = opts.current || 1;
+        opts.totalCount = opts.totalCount || 0;
+        opts.totalPages = opts.totalPages || 0;
+        opts.pageSize = opts.pageSize || 10;
+        opts.pageRang = opts.pageRang || 10;
+        opts.onChange = opts.onChange || function(){};
+        opts.showSizeChanger = opts.showSizeChanger || true;
+        opts.pageSizeOptions = opts.pageSizeOptions || [10, 20, 30, 40, 50];
+        opts.onPageSizeChange = opts.onPageSizeChange || function(){};
+        opts.showQuickJumper = opts.showQuickJumper || true;
+        opts.size = opts.size || '';
+        opts.simple = opts.simple || null;
+        opts.isShowTotal = opts.isShowTotal || true;
+        super(opts);
         this.jumped = false;
     }
     components(){
@@ -59,9 +59,10 @@ class Pagination extends Lego.UI.Baseview {
                 data: theData,
                 onChange(self, result){
                     const num = parseInt(result.key);
-                    this.context.options.current = 1;
-                    this.context.options.pageSize = num;
-                    this.context.options.onPageSizeChange(that, num);
+                    let pagination = opts.context.options.pagination;
+                    opts.current = pagination.current = 1;
+                    opts.pageSize = pagination.pageSize = num;
+                    opts.onPageSizeChange(that, num);
                 }
             });
         }

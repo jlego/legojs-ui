@@ -1,5 +1,5 @@
 /**
- * tables.js v0.6.0
+ * tables.js v0.6.4
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -269,19 +269,19 @@ var Pagination = function(_Lego$UI$Baseview) {
             'keydown .info>input[type="text"]': "_enterSearch"
         };
         opts.data = opts.data || {};
-        opts.data.current = opts.data.current || 1;
-        opts.data.totalCount = opts.data.totalCount || 0;
-        opts.data.totalPages = opts.data.totalPages || 0;
-        opts.data.pageSize = opts.data.pageSize || 10;
-        opts.data.pageRang = opts.data.pageRang || 10;
-        opts.data.onChange = opts.data.onChange || function() {};
-        opts.data.showSizeChanger = opts.data.showSizeChanger || true;
-        opts.data.pageSizeOptions = opts.data.pageSizeOptions || [ 10, 20, 30, 40, 50 ];
-        opts.data.onPageSizeChange = opts.data.onPageSizeChange || function() {};
-        opts.data.showQuickJumper = opts.data.showQuickJumper || true;
-        opts.data.size = opts.data.size || "";
-        opts.data.simple = opts.data.simple || null;
-        opts.data.isShowTotal = opts.data.isShowTotal || true;
+        opts.current = opts.current || 1;
+        opts.totalCount = opts.totalCount || 0;
+        opts.totalPages = opts.totalPages || 0;
+        opts.pageSize = opts.pageSize || 10;
+        opts.pageRang = opts.pageRang || 10;
+        opts.onChange = opts.onChange || function() {};
+        opts.showSizeChanger = opts.showSizeChanger || true;
+        opts.pageSizeOptions = opts.pageSizeOptions || [ 10, 20, 30, 40, 50 ];
+        opts.onPageSizeChange = opts.onPageSizeChange || function() {};
+        opts.showQuickJumper = opts.showQuickJumper || true;
+        opts.size = opts.size || "";
+        opts.simple = opts.simple || null;
+        opts.isShowTotal = opts.isShowTotal || true;
         var _this = _possibleConstructorReturn$1(this, (Pagination.__proto__ || Object.getPrototypeOf(Pagination)).call(this, opts));
         _this.jumped = false;
         return _this;
@@ -289,7 +289,7 @@ var Pagination = function(_Lego$UI$Baseview) {
     _createClass$1(Pagination, [ {
         key: "components",
         value: function components() {
-            var opts = this.options.data, that = this;
+            var opts = this.options, that = this;
             if (!opts.simple && opts.showSizeChanger) {
                 var theData = opts.pageSizeOptions.map(function(val) {
                     return {
@@ -304,9 +304,10 @@ var Pagination = function(_Lego$UI$Baseview) {
                     data: theData,
                     onChange: function onChange(self, result) {
                         var num = parseInt(result.key);
-                        this.context.options.current = 1;
-                        this.context.options.pageSize = num;
-                        this.context.options.onPageSizeChange(that, num);
+                        var pagination = opts.context.options.pagination;
+                        opts.current = pagination.current = 1;
+                        opts.pageSize = pagination.pageSize = num;
+                        opts.onPageSizeChange(that, num);
                     }
                 });
             }
@@ -314,7 +315,7 @@ var Pagination = function(_Lego$UI$Baseview) {
     }, {
         key: "render",
         value: function render() {
-            var opts = this.options.data, vDom = hx(_templateObject$1), current = parseInt(opts.current), pageRang = parseInt(opts.pageRang), totalCount = val(opts.totalCount);
+            var opts = this.options, vDom = hx(_templateObject$1), current = parseInt(opts.current), pageRang = parseInt(opts.pageRang), totalCount = val(opts.totalCount);
             opts.totalPages = Math.ceil(totalCount / opts.pageSize);
             pageRang = pageRang >= opts.totalPages ? opts.totalPages : pageRang;
             var baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0, startPage = baseTimes * pageRang + 1, endPage = startPage + pageRang - 1, showEllipsis = Math.ceil(current / pageRang) !== Math.ceil(opts.totalPages / pageRang) && totalCount ? true : false, pagesArr = [];
@@ -332,46 +333,42 @@ var Pagination = function(_Lego$UI$Baseview) {
         key: "clickPrevPage",
         value: function clickPrevPage(event) {
             event.stopPropagation();
-            var opts = this.options.data;
+            var opts = this.options;
             opts.current--;
             opts.onChange(this, opts.current, opts.pageSize);
-            this.refresh();
         }
     }, {
         key: "clickItemPage",
         value: function clickItemPage(event) {
             event.stopPropagation();
             var target = $(event.currentTarget), num = target.attr("title");
-            var opts = this.options.data;
+            var opts = this.options;
             opts.current = num;
             opts.onChange(this, num, opts.pageSize);
-            this.refresh();
         }
     }, {
         key: "clickNextPage",
         value: function clickNextPage(event) {
             event.stopPropagation();
-            var opts = this.options.data;
+            var opts = this.options;
             opts.current++;
             opts.onChange(this, opts.current, opts.pageSize);
-            this.refresh();
         }
     }, {
         key: "clickMorePage",
         value: function clickMorePage(event) {
             event.stopPropagation();
-            var opts = this.options.data;
+            var opts = this.options;
             var current = parseInt(opts.current), pageRang = parseInt(opts.pageRang), currentMod = current % pageRang ? current % pageRang : pageRang;
             opts.current = current + (pageRang - currentMod + 1);
             if (opts.current > opts.totalPages) opts.current = opts.totalPages;
             opts.onChange(this, opts.current, opts.pageSize);
-            this.refresh();
         }
     }, {
         key: "_enterSearch",
         value: function _enterSearch(event) {
             var target = $(event.currentTarget);
-            var opts = this.options.data;
+            var opts = this.options;
             var num = target.val();
             if (event.keyCode == 13) {
                 if (num > opts.totalPages) num = opts.totalPages;
@@ -380,7 +377,6 @@ var Pagination = function(_Lego$UI$Baseview) {
                 opts.current = num;
                 opts.onChange(this, num, opts.pageSize);
             }
-            this.refresh();
         }
     } ]);
     return Pagination;
@@ -488,7 +484,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-table clearfix lego-table-', " ", "\n        ", " ", ' lego-table-scroll-position-left">\n            <loading id="lego-loading-', '"></loading>\n            ', '\n            <div class="lego-table-content" style="', '">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body" style="bottom: ', '">\n                    ', '\n                    <div class="', '">\n                        <table class="', '" style="', '">\n                            ', "\n                            ", "\n                            ", "\n                            ", "\n                        </table>\n                    </div>\n                </div>\n                ", "\n                ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="lego-table clearfix lego-table-', " ", "\n        ", " ", ' lego-table-scroll-position-left">\n            <loading id="lego-loading-', '"></loading>\n            ', '\n            <div class="lego-table-content" style="', '">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body" style="bottom: ', '">\n                    ', '\n                    <div class="', '">\n                        <table class="', '" style="', '">\n                            ', "\n                            ", "\n                            ", "\n                            ", "\n                        </table>\n                    </div>\n                </div>\n                ", "\n                ", "\n                </div>\n            </div>\n        </div>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-table clearfix lego-table-', " ", "\n        ", " ", ' lego-table-scroll-position-left">\n            <loading id="lego-loading-', '"></loading>\n            ', '\n            <div class="lego-table-content" style="', '">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body" style="bottom: ', '">\n                    ', '\n                    <div class="', '">\n                        <table class="', '" style="', '">\n                            ', "\n                            ", "\n                            ", "\n                            ", '\n                        </table>\n                    </div>\n                </div>\n                <div class="lego-table-footer">', "</div>\n                ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="lego-table clearfix lego-table-', " ", "\n        ", " ", ' lego-table-scroll-position-left">\n            <loading id="lego-loading-', '"></loading>\n            ', '\n            <div class="lego-table-content" style="', '">\n                <div class="lego-table-scroll">\n                ', '\n                <div class="lego-table-body" style="bottom: ', '">\n                    ', '\n                    <div class="', '">\n                        <table class="', '" style="', '">\n                            ', "\n                            ", "\n                            ", "\n                            ", '\n                        </table>\n                    </div>\n                </div>\n                <div class="lego-table-footer">', "</div>\n                ", "\n                </div>\n            </div>\n        </div>\n        " ]);
 
 var _templateObject2 = _taggedTemplateLiteral([ '<div class="lego-table-title">', "</div>" ], [ '<div class="lego-table-title">', "</div>" ]);
 
@@ -498,7 +494,7 @@ var _templateObject4 = _taggedTemplateLiteral([ '<nodata id="nodata_', '"></noda
 
 var _templateObject5 = _taggedTemplateLiteral([ '<div style="display:none;"></div>' ], [ '<div style="display:none;"></div>' ]);
 
-var _templateObject6 = _taggedTemplateLiteral([ '<div class="lego-table-footer"><pagination id="pagination_', '"></pagination></div>' ], [ '<div class="lego-table-footer"><pagination id="pagination_', '"></pagination></div>' ]);
+var _templateObject6 = _taggedTemplateLiteral([ '<pagination id="pagination_', '"></pagination>' ], [ '<pagination id="pagination_', '"></pagination>' ]);
 
 var _templateObject7 = _taggedTemplateLiteral([ '<button type="button" class="btn btn-default noborder" title="表格设置"><i class="anticon anticon-ellipsis"></i></button>' ], [ '<button type="button" class="btn btn-default noborder" title="表格设置"><i class="anticon anticon-ellipsis"></i></button>' ]);
 
@@ -670,10 +666,17 @@ var Tables = function(_Lego$UI$Baseview) {
                 }), Lego.config.nodataOption || {}, opts.nodataOption);
             }
             if (opts.pagination) {
-                this.addCom({
-                    el: "#pagination_" + opts.vid,
-                    data: opts.pagination
-                });
+                opts.pagination.el = "#pagination_" + opts.vid;
+                if (this.oldTotalCount !== undefined && this.oldCurrent !== undefined && Lego.getView(opts.pagination.el)) {
+                    if (this.oldTotalCount !== opts.pagination.totalCount || this.oldCurrent !== opts.pagination.current) {
+                        opts.pagination.context = this;
+                        Lego.create(Pagination, opts.pagination);
+                    }
+                } else {
+                    this.addCom(opts.pagination);
+                }
+                this.oldTotalCount = opts.pagination.totalCount || 0;
+                this.oldCurrent = opts.pagination.current || 1;
             }
         }
     }, {
@@ -687,7 +690,7 @@ var Tables = function(_Lego$UI$Baseview) {
         value: function render() {
             this.getColumns();
             var opts = this.options;
-            var vDom = hx(_templateObject, opts.size, opts.bordered ? "lego-table-bordered" : "", opts.showHeader && opts.fixedHeader ? "lego-table-fixed-header" : "", opts.isNowrap ? "lego-nr" : "", opts.vid, opts.title ? hx(_templateObject2, typeof opts.title == "function" ? opts.title() : opts.title) : "", !opts.title ? "padding-bottom:0" : "", opts.showHeader && opts.fixedHeader ? hx(_templateObject3, opts.tableWidth ? "width:" + opts.tableWidth + "px" : "width:1px", this._renderColgroup(), this._renderHeader()) : "", opts.pagination ? "48px" : "0", opts.isNodata ? hx(_templateObject4, opts.vid) : hx(_templateObject5), opts.showHeader && opts.fixedHeader ? "scrollbar" : "", opts.className, opts.tableWidth ? "width:" + opts.tableWidth + "px" : "width:1px", this._renderColgroup(), !(opts.showHeader && opts.fixedHeader) && opts.showHeader ? this._renderHeader() : "", opts.showBodyer ? this._renderBodyer() : "", opts.showFooter ? this._renderFooter() : "", opts.pagination ? hx(_templateObject6, opts.vid) : "", opts.showSetting ? hx(_templateObject7) : "");
+            var vDom = hx(_templateObject, opts.size, opts.bordered ? "lego-table-bordered" : "", opts.showHeader && opts.fixedHeader ? "lego-table-fixed-header" : "", opts.isNowrap ? "lego-nr" : "", opts.vid, opts.title ? hx(_templateObject2, typeof opts.title == "function" ? opts.title() : opts.title) : "", !opts.title ? "padding-bottom:0" : "", opts.showHeader && opts.fixedHeader ? hx(_templateObject3, opts.tableWidth ? "width:" + opts.tableWidth + "px" : "width:1px", this._renderColgroup(), this._renderHeader()) : "", opts.pagination ? "48px" : "0", opts.isNodata ? hx(_templateObject4, opts.vid) : hx(_templateObject5), opts.showHeader && opts.fixedHeader ? "scrollbar" : "", opts.className, opts.tableWidth ? "width:" + opts.tableWidth + "px" : "width:1px", this._renderColgroup(), !(opts.showHeader && opts.fixedHeader) && opts.showHeader ? this._renderHeader() : "", opts.showBodyer ? this._renderBodyer() : "", opts.showFooter ? this._renderFooter() : "", opts.pagination && !opts.isNodata ? hx(_templateObject6, opts.vid) : "", opts.showSetting ? hx(_templateObject7) : "");
             return vDom;
         }
     }, {

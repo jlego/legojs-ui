@@ -12,7 +12,9 @@ import Inputs from '../inputs/index';
 
 class Btntoolbar extends Lego.UI.Baseview {
     constructor(opts = {}) {
-        const options = {};
+        const options = {
+            data: []
+        };
         Object.assign(options, opts);
         super(options);
         this.renderCom();

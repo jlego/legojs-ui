@@ -1,5 +1,5 @@
 /**
- * btngroup.js v0.6.0
+ * btngroup.js v0.6.4
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -72,6 +72,7 @@ var Btngroup = function(_Lego$UI$Baseview) {
                 "click button": "onClick"
             },
             size: "default",
+            data: [],
             onClick: function onClick() {}
         };
         Object.assign(options, opts);

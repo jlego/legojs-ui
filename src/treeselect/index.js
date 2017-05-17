@@ -12,6 +12,7 @@ class Treeselect extends Selects {
         const options = {
             name: '',
             value: [], //指定当前选中的条目object/Array
+            data: [],
             multiple: false, //支持多选
             eventName: 'click',
             scrollbar: {},

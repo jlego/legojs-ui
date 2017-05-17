@@ -1,5 +1,5 @@
 /**
- * treeselect.js v0.6.0
+ * treeselect.js v0.6.4
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -282,6 +282,7 @@ var Selects = function(_Lego$UI$Baseview) {
             dropdownStyle: null,
             dropdownClassName: "",
             splitString: "",
+            data: [],
             components: []
         };
         Object.assign(options, opts);
@@ -680,6 +681,7 @@ var Treeselect = function(_Selects) {
         var options = {
             name: "",
             value: [],
+            data: [],
             multiple: false,
             eventName: "click",
             scrollbar: {},

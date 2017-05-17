@@ -124,12 +124,8 @@ class Tables extends Lego.UI.Baseview {
             }), Lego.config.nodataOption || {}, opts.nodataOption);
         }
         if(opts.pagination){
-            // this.addCom({
-            //     el: '#pagination_' + opts.vid,
-            //     data: opts.pagination
-            // });
             opts.pagination.el = '#pagination_' + opts.vid;
-            if(this.oldTotalCount !== undefined && this.oldCurrent !== undefined){
+            if(this.oldTotalCount !== undefined && this.oldCurrent !== undefined && Lego.getView(opts.pagination.el)){
                 if(this.oldTotalCount !== opts.pagination.totalCount || this.oldCurrent !== opts.pagination.current){
                     opts.pagination.context = this;
                     Lego.create(Pagination, opts.pagination);
@@ -174,7 +170,7 @@ class Tables extends Lego.UI.Baseview {
                         </table>
                     </div>
                 </div>
-                ${opts.pagination ? hx`<div class="lego-table-footer"><pagination id="pagination_${opts.vid}"></pagination></div>` : ''}
+                <div class="lego-table-footer">${opts.pagination && !opts.isNodata ? hx`<pagination id="pagination_${opts.vid}"></pagination>` : ''}</div>
                 ${opts.showSetting ? hx`<button type="button" class="btn btn-default noborder" title="表格设置"><i class="anticon anticon-ellipsis"></i></button>` : ''}
                 </div>
             </div>

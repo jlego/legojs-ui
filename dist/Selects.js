@@ -1,5 +1,5 @@
 /**
- * selects.js v0.6.0
+ * selects.js v0.6.4
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -280,6 +280,7 @@ var Selects = function(_Lego$UI$Baseview) {
             dropdownStyle: null,
             dropdownClassName: "",
             splitString: "",
+            data: [],
             components: []
         };
         Object.assign(options, opts);

@@ -1,5 +1,5 @@
 /**
- * avatar.js v0.6.0
+ * avatar.js v0.6.4
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -94,6 +94,7 @@ var Avatar = function(_Lego$UI$Baseview) {
             width: "",
             height: "",
             value: [],
+            data: [],
             onAdd: function onAdd() {},
             onRemove: function onRemove() {},
             onChange: function onChange() {}

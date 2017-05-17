@@ -1,5 +1,5 @@
 /**
- * tags.js v0.6.0
+ * tags.js v0.6.4
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -80,7 +80,8 @@ var Tags = function(_Lego$UI$Baseview) {
             onChange: function onChange() {},
             onClickBtn: function onClickBtn() {},
             onClose: function onClose() {},
-            onAdd: function onAdd() {}
+            onAdd: function onAdd() {},
+            data: []
         };
         Object.assign(options, opts);
         if (options.value) options.data = Array.from(options.value);

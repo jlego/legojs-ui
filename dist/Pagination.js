@@ -1,5 +1,5 @@
 /**
- * pagination.js v0.6.0
+ * pagination.js v0.6.4
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -269,19 +269,19 @@ var Pagination = function(_Lego$UI$Baseview) {
             'keydown .info>input[type="text"]': "_enterSearch"
         };
         opts.data = opts.data || {};
-        opts.data.current = opts.data.current || 1;
-        opts.data.totalCount = opts.data.totalCount || 0;
-        opts.data.totalPages = opts.data.totalPages || 0;
-        opts.data.pageSize = opts.data.pageSize || 10;
-        opts.data.pageRang = opts.data.pageRang || 10;
-        opts.data.onChange = opts.data.onChange || function() {};
-        opts.data.showSizeChanger = opts.data.showSizeChanger || true;
-        opts.data.pageSizeOptions = opts.data.pageSizeOptions || [ 10, 20, 30, 40, 50 ];
-        opts.data.onPageSizeChange = opts.data.onPageSizeChange || function() {};
-        opts.data.showQuickJumper = opts.data.showQuickJumper || true;
-        opts.data.size = opts.data.size || "";
-        opts.data.simple = opts.data.simple || null;
-        opts.data.isShowTotal = opts.data.isShowTotal || true;
+        opts.current = opts.current || 1;
+        opts.totalCount = opts.totalCount || 0;
+        opts.totalPages = opts.totalPages || 0;
+        opts.pageSize = opts.pageSize || 10;
+        opts.pageRang = opts.pageRang || 10;
+        opts.onChange = opts.onChange || function() {};
+        opts.showSizeChanger = opts.showSizeChanger || true;
+        opts.pageSizeOptions = opts.pageSizeOptions || [ 10, 20, 30, 40, 50 ];
+        opts.onPageSizeChange = opts.onPageSizeChange || function() {};
+        opts.showQuickJumper = opts.showQuickJumper || true;
+        opts.size = opts.size || "";
+        opts.simple = opts.simple || null;
+        opts.isShowTotal = opts.isShowTotal || true;
         var _this = _possibleConstructorReturn(this, (Pagination.__proto__ || Object.getPrototypeOf(Pagination)).call(this, opts));
         _this.jumped = false;
         return _this;
@@ -289,7 +289,7 @@ var Pagination = function(_Lego$UI$Baseview) {
     _createClass(Pagination, [ {
         key: "components",
         value: function components() {
-            var opts = this.options.data, that = this;
+            var opts = this.options, that = this;
             if (!opts.simple && opts.showSizeChanger) {
                 var theData = opts.pageSizeOptions.map(function(val) {
                     return {
@@ -304,9 +304,10 @@ var Pagination = function(_Lego$UI$Baseview) {
                     data: theData,
                     onChange: function onChange(self, result) {
                         var num = parseInt(result.key);
-                        this.context.options.current = 1;
-                        this.context.options.pageSize = num;
-                        this.context.options.onPageSizeChange(that, num);
+                        var pagination = opts.context.options.pagination;
+                        opts.current = pagination.current = 1;
+                        opts.pageSize = pagination.pageSize = num;
+                        opts.onPageSizeChange(that, num);
                     }
                 });
             }
@@ -314,7 +315,7 @@ var Pagination = function(_Lego$UI$Baseview) {
     }, {
         key: "render",
         value: function render() {
-            var opts = this.options.data, vDom = hx(_templateObject), current = parseInt(opts.current), pageRang = parseInt(opts.pageRang), totalCount = val(opts.totalCount);
+            var opts = this.options, vDom = hx(_templateObject), current = parseInt(opts.current), pageRang = parseInt(opts.pageRang), totalCount = val(opts.totalCount);
             opts.totalPages = Math.ceil(totalCount / opts.pageSize);
             pageRang = pageRang >= opts.totalPages ? opts.totalPages : pageRang;
             var baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0, startPage = baseTimes * pageRang + 1, endPage = startPage + pageRang - 1, showEllipsis = Math.ceil(current / pageRang) !== Math.ceil(opts.totalPages / pageRang) && totalCount ? true : false, pagesArr = [];
@@ -332,46 +333,42 @@ var Pagination = function(_Lego$UI$Baseview) {
         key: "clickPrevPage",
         value: function clickPrevPage(event) {
             event.stopPropagation();
-            var opts = this.options.data;
+            var opts = this.options;
             opts.current--;
             opts.onChange(this, opts.current, opts.pageSize);
-            this.refresh();
         }
     }, {
         key: "clickItemPage",
         value: function clickItemPage(event) {
             event.stopPropagation();
             var target = $(event.currentTarget), num = target.attr("title");
-            var opts = this.options.data;
+            var opts = this.options;
             opts.current = num;
             opts.onChange(this, num, opts.pageSize);
-            this.refresh();
         }
     }, {
         key: "clickNextPage",
         value: function clickNextPage(event) {
             event.stopPropagation();
-            var opts = this.options.data;
+            var opts = this.options;
             opts.current++;
             opts.onChange(this, opts.current, opts.pageSize);
-            this.refresh();
         }
     }, {
         key: "clickMorePage",
         value: function clickMorePage(event) {
             event.stopPropagation();
-            var opts = this.options.data;
+            var opts = this.options;
             var current = parseInt(opts.current), pageRang = parseInt(opts.pageRang), currentMod = current % pageRang ? current % pageRang : pageRang;
             opts.current = current + (pageRang - currentMod + 1);
             if (opts.current > opts.totalPages) opts.current = opts.totalPages;
             opts.onChange(this, opts.current, opts.pageSize);
-            this.refresh();
         }
     }, {
         key: "_enterSearch",
         value: function _enterSearch(event) {
             var target = $(event.currentTarget);
-            var opts = this.options.data;
+            var opts = this.options;
             var num = target.val();
             if (event.keyCode == 13) {
                 if (num > opts.totalPages) num = opts.totalPages;
@@ -380,7 +377,6 @@ var Pagination = function(_Lego$UI$Baseview) {
                 opts.current = num;
                 opts.onChange(this, num, opts.pageSize);
             }
-            this.refresh();
         }
     } ]);
     return Pagination;
