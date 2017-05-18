@@ -378,6 +378,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             scrollbar: null,
             disabled: false,
             eventName: "click",
+            searchPlaceholder: "搜索",
             container: "",
             direction: "",
             activeKey: "",
@@ -409,6 +410,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     _this2.addCom({
                         el: "#search_" + opts.vid,
                         size: "sm",
+                        placeholder: opts.searchPlaceholder,
                         onKeyup: function onKeyup(self, result) {
                             searchFun(self, result);
                         },

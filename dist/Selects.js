@@ -229,6 +229,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             scrollbar: null,
             disabled: false,
             eventName: "click",
+            searchPlaceholder: "搜索",
             container: "",
             direction: "",
             activeKey: "",
@@ -260,6 +261,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     _this2.addCom({
                         el: "#search_" + opts.vid,
                         size: "sm",
+                        placeholder: opts.searchPlaceholder,
                         onKeyup: function onKeyup(self, result) {
                             searchFun(self, result);
                         },
@@ -453,6 +455,7 @@ var Selects = function(_Lego$UI$Baseview) {
             onChange: function onChange() {},
             onSearch: function onSearch() {},
             placeholder: "请选择",
+            searchPlaceholder: "搜索",
             notFoundContent: "",
             dropdownWidth: 0,
             dropdownHeight: 0,
@@ -494,6 +497,7 @@ var Selects = function(_Lego$UI$Baseview) {
                     maxHeight: opts.dropdownHeight || 0,
                     showSearch: opts.showSearch,
                     className: opts.dropdownClassName,
+                    searchPlaceholder: opts.searchPlaceholder,
                     clickAndClose: opts.multiple ? false : true,
                     direction: opts.direction,
                     data: opts.data || [],

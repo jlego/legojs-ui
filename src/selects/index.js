@@ -18,6 +18,7 @@ class Selects extends Lego.UI.Baseview {
             onChange(){},  //选中 option，或 input 的 value 变化（combobox 模式下）时，调用此函数
             onSearch(){},   //文本框值变化时回调
             placeholder: '请选择',  //选择框默认文字
+            searchPlaceholder: '搜索',
             notFoundContent: '',  //当下拉列表为空时显示的内容
             dropdownWidth: 0, //下拉菜单和选择器同宽
             dropdownHeight: 0, //下拉菜单高度
@@ -56,6 +57,7 @@ class Selects extends Lego.UI.Baseview {
                 maxHeight: opts.dropdownHeight || 0,
                 showSearch: opts.showSearch,
                 className: opts.dropdownClassName,
+                searchPlaceholder: opts.searchPlaceholder,
                 clickAndClose: opts.multiple ? false : true,
                 direction: opts.direction,
                 data: opts.data || [],

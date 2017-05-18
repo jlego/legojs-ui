@@ -11,6 +11,7 @@ class Dropdown extends Lego.UI.Baseview {
             scrollbar: null,
             disabled: false,
             eventName: 'click', //['click'] or ['hover']
+            searchPlaceholder: '搜索',
             container: '', //触发容器
             direction: '',  //显示方向
             activeKey: '',
@@ -39,6 +40,7 @@ class Dropdown extends Lego.UI.Baseview {
             this.addCom({
                 el: '#search_' + opts.vid,
                 size: 'sm',
+                placeholder: opts.searchPlaceholder,
                 onKeyup(self, result){
                     searchFun(self, result);
                 },

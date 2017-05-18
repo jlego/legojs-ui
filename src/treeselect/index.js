@@ -22,6 +22,7 @@ class Treeselect extends Selects {
             treeDataSource: null,   //树型动态数据源
             tags: false, //可以把随意输入的条目作为 tag，输入项不需要与下拉选项匹配
             placeholder: '', //选择框默认文字
+            searchPlaceholder: '搜索',
             inputAble: false, //可否输入
             notFoundContent: '', //当下拉列表为空时显示的内容
             dropdownWidth: '100%', //下拉菜单和选择器同宽
@@ -112,6 +113,7 @@ class Treeselect extends Selects {
                 }
                 this.addCom({
                     el: '#search_' + opts.vid,
+                    placeholder: opts.searchPlaceholder,
                     size: 'sm',
                     onKeyup(self, result){
                         searchFun(self, result);
