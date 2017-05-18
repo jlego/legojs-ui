@@ -18,6 +18,21 @@ class HomeView extends Lego.UI.Baseview {
         }, {
             key: 'so3',
             value: '选项三'
+        }, {
+            key: 'so4',
+            value: '选项四'
+        }, {
+            key: 'so5',
+            value: '选项二选项二选项二fffdf五'
+        }, {
+            key: 'so6',
+            value: '选项三六'
+        }, {
+            key: 'so7',
+            value: '选项一'
+        }, {
+            key: 'so8',
+            value: '选项二选项二选项二fffdf'
         }];
         const options = {
             components: [{

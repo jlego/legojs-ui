@@ -42,7 +42,8 @@ var Permis = function() {
             operateHash: {},
             manageHash: {},
             users: {},
-            isSuper: null,
+            isSuper: false,
+            isAdmin: false,
             message: function message(msg) {
                 Lego.UI.Util.message("error", msg);
             }
@@ -75,7 +76,7 @@ var Permis = function() {
                 if (!userId || userId === user_id) {
                     if (module) {
                         if (operateHash[module]) {
-                            return operateHash[module][operate];
+                            return this.options.isAdmin || operateHash[module][operate];
                         } else {
                             return false;
                         }
@@ -83,13 +84,15 @@ var Permis = function() {
                     return true;
                 } else {
                     var theDepartment = void 0, result = users[userId];
-                    if (result) theDepartment = result.deptId;
-                    if (theDepartment) {
-                        if (manageHash[theDepartment]) {
-                            if (manageHash[theDepartment][module]) {
-                                return manageHash[theDepartment][module][operate];
-                            } else {
-                                return manageHash[theDepartment][module + ":" + operate];
+                    if (result) theDepartment = result.departmentId;
+                    if (!this.options.isAdmin) {
+                        if (theDepartment) {
+                            if (manageHash[theDepartment]) {
+                                if (manageHash[theDepartment][module]) {
+                                    return manageHash[theDepartment][module][operate];
+                                } else {
+                                    return manageHash[theDepartment][module + ":" + operate];
+                                }
                             }
                         }
                     }

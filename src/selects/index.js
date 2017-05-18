@@ -19,8 +19,9 @@ class Selects extends Lego.UI.Baseview {
             onSearch(){},   //文本框值变化时回调
             placeholder: '请选择',  //选择框默认文字
             notFoundContent: '',  //当下拉列表为空时显示的内容
-            dropdownWidth: '100%', //下拉菜单和选择器同宽
+            dropdownWidth: 0, //下拉菜单和选择器同宽
             dropdownHeight: 0, //下拉菜单高度
+            direction: '',  //漂浮方向
             optionFilterProp: '',  //搜索时过滤对应的 option 属性，如设置为 children 表示对内嵌内容进行搜索的子元素。比如在子元素需要高亮效果时，此值可以设为 value。
             combobox: false,  //输入框自动提示模式
             size: '',  //支持多选
@@ -28,7 +29,6 @@ class Selects extends Lego.UI.Baseview {
             inputAble: false,   //是否可以输入
             disabled: false,  //是否禁用
             defaultActiveFirstOption: false,  //是否默认高亮第一个选项
-            dropdownStyle: null,  //下拉菜单的 style 属性
             dropdownClassName: '',  //下拉菜单的 className 属性上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。
             splitString: '',    //自动分词分隔符
             data: [],
@@ -52,14 +52,12 @@ class Selects extends Lego.UI.Baseview {
                 scrollbar: opts.dropdownHeight ? {} : null,
                 eventName: opts.eventName || 'click',
                 disabled: opts.disabled || false,
-                style: Object.assign({
-                    width: opts.dropdownWidth,
-                    maxHeight: opts.dropdownHeight || 'auto',
-                    overflow: 'auto'
-                }, opts.dropdownStyle || {}),
+                width: opts.dropdownWidth || this.$el.width(),
+                maxHeight: opts.dropdownHeight || 0,
                 showSearch: opts.showSearch,
                 className: opts.dropdownClassName,
                 clickAndClose: opts.multiple ? false : true,
+                direction: opts.direction,
                 data: opts.data || [],
                 onChange(self, model){
                     const that = this.context;

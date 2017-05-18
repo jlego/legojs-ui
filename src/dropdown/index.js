@@ -6,7 +6,7 @@ class Dropdown extends Lego.UI.Baseview {
         const options = {
             events: {
                 'click li:not(.dropdown, .lego-search-container)': 'clickItem',
-                'click li.lego-search-container': function(event){event.stopPropagation();}
+                'click .lego-search-container': function(event){event.stopPropagation();}
             },
             scrollbar: null,
             disabled: false,
@@ -24,31 +24,40 @@ class Dropdown extends Lego.UI.Baseview {
         super(options);
     }
     components(){
-        let opts = this.options;
+        let opts = this.options,
+            that = this;
         if(opts.showSearch){
+            function searchFun(self, result){
+                that.$('li').each((index, el) => {
+                    if($(el).text().indexOf(result.keyword) < 0){
+                        $(el).hide();
+                    }else{
+                        $(el).show();
+                    }
+                });
+            }
             this.addCom({
                 el: '#search_' + opts.vid,
                 size: 'sm',
+                onKeyup(self, result){
+                    searchFun(self, result);
+                },
                 onSearch(self, result) {
-                    // if(typeof opts.onSearch == 'function'){
-                    //     opts.onSearch(that, result);
-                    // }else{
-                    //     let treeView = Lego.getView('#transfer_tree_' + opts.vid);
-                    //     if(treeView) treeView.search(result.keyword);
-                    // }
+                    searchFun(self, result);
                 }
             });
         }
     }
     render() {
-        const opts = this.options || {};
+        let opts = this.options,
+            vDom = '';
         function itemNav(item){
             if(item.divider){
                 return hx`<li class="divider"></li>`;
             }else{
                 if(!item.children){
                     return hx`
-                    <li>
+                    <li ${item.isHidden ? 'style="display:none;"' : ''}>
                     <a id="${val(item.key)}" class="${item.disabled || item.selected ? 'disabled' : ''} ${item.active ? 'active' : ''}" href="${item.href ? item.href : 'javascript:;'}">${val(item.value)}</a>
                     </li>`;
                 }else{
@@ -58,7 +67,7 @@ class Dropdown extends Lego.UI.Baseview {
         }
         function loopNav(item){
             return hx`
-            <li class="dropdown">
+            <li class="dropdown" ${item.isHidden ? 'style="display:none;"' : ''}>
                 <a id="${val(item.key)}" class="${item.key === options.activeKey ? 'active' : ''} ${item.disabled ? 'disabled' : ''} dropdown-toggle" href="${item.href ? item.href : 'javascript:;'}">${val(item.value)}</a>
                 ${item.children ? hx`
                 <ul class="dropdown-menu">
@@ -70,27 +79,46 @@ class Dropdown extends Lego.UI.Baseview {
             </li>
             `;
         }
-        const vDom = hx`
-        <ul class="dropdown-menu ${opts.scrollbar ? 'scrollbar' : ''} ${opts.direction ? ('drop' + opts.direction) : ''}"
-        style="display:${opts.open ? 'block' : 'none'}">
-            ${opts.showSearch ? hx`<li class="lego-search-container"><search id="search_${opts.vid}"></search></li>` : ''}
+        vDom = hx`
+        <ul class="${!opts.showSearch ? 'dropdown-menu ' : ''} ${opts.scrollbar ? 'scrollbar' : ''}"
+        ${!opts.showSearch ? ('style="display:' + (opts.open ? 'block' : 'none') + '"') : ''}>
             ${opts.data.map(item => {
                 return itemNav(item);
             })}
         </ul>
         `;
+        if(opts.showSearch){
+            vDom = hx`
+            <div class="dropdown-menu">
+                <div class="lego-search-container"><search id="search_${opts.vid}"></search></div>
+                ${vDom}
+            </div>
+            `;
+        }
         return vDom;
     }
     renderAfter(){
         let that = this,
+            opts = this.options,
             _eventName = 'click.dropdown-' + this.options.vid;
-        this.container = this.options.container instanceof $ ? this.options.container :
-            (this.options.context.$ ? this.options.context.$(this.options.container) : $(this.options.container));
-        if(!this.options.disabled){
+        this.container =opts.container instanceof $ ? opts.container : (opts.context.$ ? opts.context.$(opts.container) : $(opts.container));
+        if(!opts.disabled){
+            let cssObj = {zIndex: 10000};
+            if(opts.width) cssObj.width = opts.width;
+            if(opts.maxHeight){
+                cssObj.maxHeight = opts.maxHeight;
+                cssObj.overflow = 'auto';
+            }
+            if(opts.showSearch){
+                this.$('.lego-search-container').next('ul').css(cssObj);
+            }else{
+                this.$el.css(cssObj);
+            }
             function handler(event){
+                Lego.UI.Util.getDirection(that.container, that.$el);
                 that.$el.slideToggle('fast');
             }
-            if(this.options.eventName == 'click'){
+            if(opts.eventName == 'click'){
                 $('body, .modal-body').off(_eventName).on(_eventName, function(event){
                     if(event.originalEvent){
                         let index_a = event.originalEvent.path.indexOf(event.target),
@@ -109,17 +137,6 @@ class Dropdown extends Lego.UI.Baseview {
             }
         }
     }
-    _getAlign(parent, el) {
-        let _X = parent.offset().left,
-            _Y = parent.offset().top - el.height(),
-            windowWidth = $(window).width() - 20,
-            elWidth = el.width();
-        if (windowWidth > (_X + elWidth)) {
-            return 'left';
-        } else {
-            return 'right';
-        }
-    }
     show(){
         this.$el.slideDown('fast');
     }
@@ -128,8 +145,8 @@ class Dropdown extends Lego.UI.Baseview {
     }
     clickItem(event){
         event.stopPropagation();
-        const target = $(event.currentTarget);
-        const model = this.options.data.find(Item => Item.key == target.children('a').attr('id'));
+        let target = $(event.currentTarget);
+        let model = this.options.data.find(Item => Item.key == target.children('a').attr('id'));
         if(model) this.options.onChange(this, model, event);
         if(this.options.clickAndClose){
             this.close();

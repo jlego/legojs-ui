@@ -71,7 +71,7 @@ var Search = function(_Lego$UI$Baseview) {
             events: {
                 "click .lego-search-button": "onSearch",
                 "change .lego-search-input": "onChange",
-                "keydown .lego-search-input": "_enterSearch"
+                "keyup .lego-search-input": "_enterSearch"
             },
             placeholder: "请输入关键字",
             name: "",
@@ -80,6 +80,7 @@ var Search = function(_Lego$UI$Baseview) {
             activeKey: "",
             activeValue: "",
             showSelect: false,
+            onKeyup: function onKeyup() {},
             onSearch: function onSearch() {},
             onChange: function onChange() {}
         };
@@ -116,6 +117,8 @@ var Search = function(_Lego$UI$Baseview) {
         value: function _enterSearch(event) {
             if (event.keyCode == 13) {
                 this.onSearch(event);
+            } else {
+                if (typeof this.options.onKeyup === "function") this.options.onKeyup(this, this.getValue(event));
             }
         }
     }, {
@@ -165,15 +168,15 @@ var _createClass = function() {
 
 var _templateObject = _taggedTemplateLiteral([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
 
-var _templateObject2 = _taggedTemplateLiteral([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">', "</a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">', "</a>\n                    </li>" ]);
+var _templateObject2 = _taggedTemplateLiteral([ "\n                    <li ", '>\n                    <a id="', '" class="', " ", '" href="', '">', "</a>\n                    </li>" ], [ "\n                    <li ", '>\n                    <a id="', '" class="', " ", '" href="', '">', "</a>\n                    </li>" ]);
 
-var _templateObject3 = _taggedTemplateLiteral([ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ]);
+var _templateObject3 = _taggedTemplateLiteral([ '\n            <li class="dropdown" ', '>\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown" ', '>\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ]);
 
 var _templateObject4 = _taggedTemplateLiteral([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5 = _taggedTemplateLiteral([ '\n        <ul class="dropdown-menu ', " ", '"\n        style="display:', '">\n            ', "\n            ", "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', " ", '"\n        style="display:', '">\n            ', "\n            ", "\n        </ul>\n        " ]);
+var _templateObject5 = _taggedTemplateLiteral([ '\n        <ul class="', " ", '"\n        ', ">\n            ", "\n        </ul>\n        " ], [ '\n        <ul class="', " ", '"\n        ', ">\n            ", "\n        </ul>\n        " ]);
 
-var _templateObject6 = _taggedTemplateLiteral([ '<li class="lego-search-container"><search id="search_', '"></search></li>' ], [ '<li class="lego-search-container"><search id="search_', '"></search></li>' ]);
+var _templateObject6 = _taggedTemplateLiteral([ '\n            <div class="dropdown-menu">\n                <div class="lego-search-container"><search id="search_', '"></search></div>\n                ', "\n            </div>\n            " ], [ '\n            <div class="dropdown-menu">\n                <div class="lego-search-container"><search id="search_', '"></search></div>\n                ', "\n            </div>\n            " ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -219,7 +222,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
         var options = {
             events: {
                 "click li:not(.dropdown, .lego-search-container)": "clickItem",
-                "click li.lego-search-container": function clickLiLegoSearchContainer(event) {
+                "click .lego-search-container": function clickLegoSearchContainer(event) {
                     event.stopPropagation();
                 }
             },
@@ -241,50 +244,84 @@ var Dropdown = function(_Lego$UI$Baseview) {
     _createClass(Dropdown, [ {
         key: "components",
         value: function components() {
-            var opts = this.options;
+            var _this2 = this;
+            var opts = this.options, that = this;
             if (opts.showSearch) {
-                this.addCom({
-                    el: "#search_" + opts.vid,
-                    size: "sm",
-                    onSearch: function onSearch(self, result) {}
-                });
+                (function() {
+                    var searchFun = function searchFun(self, result) {
+                        that.$("li").each(function(index, el) {
+                            if ($(el).text().indexOf(result.keyword) < 0) {
+                                $(el).hide();
+                            } else {
+                                $(el).show();
+                            }
+                        });
+                    };
+                    _this2.addCom({
+                        el: "#search_" + opts.vid,
+                        size: "sm",
+                        onKeyup: function onKeyup(self, result) {
+                            searchFun(self, result);
+                        },
+                        onSearch: function onSearch(self, result) {
+                            searchFun(self, result);
+                        }
+                    });
+                })();
             }
         }
     }, {
         key: "render",
         value: function render() {
-            var opts = this.options || {};
+            var opts = this.options, vDom = "";
             function itemNav(item) {
                 if (item.divider) {
                     return hx(_templateObject);
                 } else {
                     if (!item.children) {
-                        return hx(_templateObject2, val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
+                        return hx(_templateObject2, item.isHidden ? 'style="display:none;"' : "", val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
                     } else {
                         return loopNav(item);
                     }
                 }
             }
             function loopNav(item) {
-                return hx(_templateObject3, val(item.key), item.key === options.activeKey ? "active" : "", item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", val(item.value), item.children ? hx(_templateObject4, item.children.map(function(item) {
+                return hx(_templateObject3, item.isHidden ? 'style="display:none;"' : "", val(item.key), item.key === options.activeKey ? "active" : "", item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", val(item.value), item.children ? hx(_templateObject4, item.children.map(function(item) {
                     return itemNav(item);
                 })) : "");
             }
-            var vDom = hx(_templateObject5, opts.scrollbar ? "scrollbar" : "", opts.direction ? "drop" + opts.direction : "", opts.open ? "block" : "none", opts.showSearch ? hx(_templateObject6, opts.vid) : "", opts.data.map(function(item) {
+            vDom = hx(_templateObject5, !opts.showSearch ? "dropdown-menu " : "", opts.scrollbar ? "scrollbar" : "", !opts.showSearch ? 'style="display:' + (opts.open ? "block" : "none") + '"' : "", opts.data.map(function(item) {
                 return itemNav(item);
             }));
+            if (opts.showSearch) {
+                vDom = hx(_templateObject6, opts.vid, vDom);
+            }
             return vDom;
         }
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var that = this, _eventName = "click.dropdown-" + this.options.vid;
-            this.container = this.options.container instanceof $ ? this.options.container : this.options.context.$ ? this.options.context.$(this.options.container) : $(this.options.container);
-            if (!this.options.disabled) {
+            var that = this, opts = this.options, _eventName = "click.dropdown-" + this.options.vid;
+            this.container = opts.container instanceof $ ? opts.container : opts.context.$ ? opts.context.$(opts.container) : $(opts.container);
+            if (!opts.disabled) {
                 var handler = function handler(event) {
+                    Lego.UI.Util.getDirection(that.container, that.$el);
                     that.$el.slideToggle("fast");
                 };
-                if (this.options.eventName == "click") {
+                var cssObj = {
+                    zIndex: 1e4
+                };
+                if (opts.width) cssObj.width = opts.width;
+                if (opts.maxHeight) {
+                    cssObj.maxHeight = opts.maxHeight;
+                    cssObj.overflow = "auto";
+                }
+                if (opts.showSearch) {
+                    this.$(".lego-search-container").next("ul").css(cssObj);
+                } else {
+                    this.$el.css(cssObj);
+                }
+                if (opts.eventName == "click") {
                     $("body, .modal-body").off(_eventName).on(_eventName, function(event) {
                         if (event.originalEvent) {
                             var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.container[0]);
@@ -299,16 +336,6 @@ var Dropdown = function(_Lego$UI$Baseview) {
                         that.close();
                     });
                 }
-            }
-        }
-    }, {
-        key: "_getAlign",
-        value: function _getAlign(parent, el) {
-            var _X = parent.offset().left, _Y = parent.offset().top - el.height(), windowWidth = $(window).width() - 20, elWidth = el.width();
-            if (windowWidth > _X + elWidth) {
-                return "left";
-            } else {
-                return "right";
             }
         }
     }, {

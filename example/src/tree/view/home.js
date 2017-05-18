@@ -128,45 +128,36 @@ class HomeView extends Lego.UI.Baseview {
                 placeholder: '请选择',
                 multiple: true,
                 // dropdownHeight: 80,
-                setting: {
-                    check: {
-                        enable: true,
-                        // chkStyle: "radio"
-                    }
-                },
+                showSearch: true,
                 onChange(self, result) {
                     console.warn('点击了树型选项框1', result, self);
                 },
-                // value: {
-                //     key: 'so2',
-                //     value: '选项二选项二选项二'
-                // },
                 data: [{
-                    id: 'tree1',
+                    id: 'a1',
                     name: "test1",
                     open: true,
                     children: [{
-                        id: 'tree1_1',
+                        id: 'a1_1',
                         name: "test1_1",
                         checked: true
                     }, {
-                        id: 'tree1_2',
+                        id: 'a1_2',
                         name: "test1_2"
                     }]
                 }, {
-                    id: 'tree2',
+                    id: 'a2',
                     name: "test2",
                     open: true,
                     checked: true,
                     children: [
-                        { id: 'tree2_1',name: "test2_1" }, { id: 'tree3_1',name: "test3_2" }
+                        { id: 'a2_1',name: "test2_1" }, { id: 'a3_1',name: "test3_2" }
                     ]
                 }]
             }, {
                 el: '#treeselect2',
                 placeholder: '请选择',
                 multiple: true,
-                setting: {
+                treeSetting: {
                     check: {
                         enable: true,
                         chkStyle: "radio"
@@ -203,11 +194,7 @@ class HomeView extends Lego.UI.Baseview {
             }, {
                 el: '#treeselect3',
                 placeholder: '请选择',
-                setting: {
-                    check: {
-                        enable: true
-                    }
-                },
+                multiple: true,
                 onChange(self, result) {
                     console.warn('点击了树型选项框3', result);
                 },
@@ -236,6 +223,7 @@ class HomeView extends Lego.UI.Baseview {
                 onChange(self, result) {
                     console.warn('点击了树型选项框3', result);
                 },
+                showSearch: true,
                 dropdownHeight: 100,
                 data: [{
                     id: 'tree1',

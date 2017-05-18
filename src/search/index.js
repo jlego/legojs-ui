@@ -12,7 +12,7 @@ class Search extends Lego.UI.Baseview {
             events: {
                 'click .lego-search-button': 'onSearch',
                 'change .lego-search-input': 'onChange',
-                'keydown .lego-search-input': '_enterSearch'
+                'keyup .lego-search-input': '_enterSearch'
             },
             placeholder: '请输入关键字',
             name: '',
@@ -21,6 +21,7 @@ class Search extends Lego.UI.Baseview {
             activeKey: '',  //选中的key
             activeValue: '',
             showSelect: false,   //是否有下拉菜单
+            onKeyup(){},
             onSearch(){}, //点击的回调
             onChange(){}
         };
@@ -68,6 +69,8 @@ class Search extends Lego.UI.Baseview {
     _enterSearch(event) {
         if (event.keyCode == 13) {
             this.onSearch(event);
+        }else{
+            if (typeof this.options.onKeyup === 'function') this.options.onKeyup(this, this.getValue(event));
         }
     }
     getValue(event){

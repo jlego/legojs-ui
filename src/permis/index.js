@@ -8,7 +8,8 @@ class Permis {
             operateHash: {}, //操作权限对象
             manageHash: {}, //管理权限对象
             users: {}, //所有用户列表 (array 或 function)
-            isSuper: null,  //超级管理员
+            isSuper: false,  //超级管理员
+            isAdmin: false,  //管理员
             message(msg) { //提示信息回调
                 Lego.UI.Util.message('error', msg);
             }
@@ -49,7 +50,7 @@ class Permis {
                 // 当前用户操作
                 if (module) {
                     if (operateHash[module]) {
-                        return operateHash[module][operate];
+                        return this.options.isAdmin || operateHash[module][operate];
                     } else {
                         return false;
                     }
@@ -59,15 +60,17 @@ class Permis {
                 // 管理操作
                 let theDepartment,
                     result = users[userId];
-                if (result) theDepartment = result.deptId;
-                if (theDepartment) {
-                    if (manageHash[theDepartment]) {
-                        if (manageHash[theDepartment][module]) {
-                            // 使用新数据格式
-                            return manageHash[theDepartment][module][operate];
-                        } else {
-                            // 兼容旧数据格式
-                            return manageHash[theDepartment][module + ':' + operate];
+                if (result) theDepartment = result.departmentId;
+                if(!this.options.isAdmin){
+                    if (theDepartment) {
+                        if (manageHash[theDepartment]) {
+                            if (manageHash[theDepartment][module]) {
+                                // 使用新数据格式
+                                return manageHash[theDepartment][module][operate];
+                            } else {
+                                // 兼容旧数据格式
+                                return manageHash[theDepartment][module + ':' + operate];
+                            }
                         }
                     }
                 }
