@@ -14,10 +14,11 @@ class Dropdownbtn extends Lego.UI.Baseview {
             },
             text: 'button name',
             btnType: 'secondary',   //按钮类型
-            size: 'default',    //设置按钮大小，可选值为 small large 或者不设
+            size: '',    //设置按钮大小，可选值为 sm lg 或者不设
             direction: '',      //下拉方向 up/down
             activeKey: '',
             dropdownOption: {},
+            data: [],
             onClick(){},   //click 事件的 handler
             onChange(){},
             components: []
@@ -27,29 +28,31 @@ class Dropdownbtn extends Lego.UI.Baseview {
         this.activeItem = {};
     }
     components(){
-        let options = this.options;
-        this.addCom($.extend(options.dropdownOption, {
-            el: '#dropdown-' + options.vid,
-            container: '[view-id=' + options.vid + ']',
-            direction: options.direction,
-            activeKey: options.activeKey,
-            data: options.data,
-            onChange(self, item, event){
-                let theView = self.options.context;
-                theView.activeItem = item;
-                if(typeof theView.options.onChange == 'function') theView.options.onChange(theView, item);
-            }
-        }));
+        let opts = this.options;
+        if(opts.data.length){
+            this.addCom($.extend(opts.dropdownOption, {
+                el: '#dropdown-' + opts.vid,
+                container: this.$('.dropdown-toggle-split'),
+                direction: opts.direction,
+                activeKey: opts.activeKey,
+                data: opts.data,
+                onChange(self, item, event){
+                    let theView = self.options.context;
+                    theView.activeItem = item;
+                    if(typeof theView.options.onChange == 'function') theView.options.onChange(theView, item);
+                }
+            }));
+        }
     }
     render() {
-        const options = this.options;
+        const opts = this.options;
         const vDom = hx`
-        <div class="btn-group ${options.size == 'large' ? 'btn-group-lg' : (options.size == 'small' ? 'btn-group-sm' : '')} ${options.direction == 'up' ? 'dropup' : ''}">
-            <button type="button" class="btn btn-${options.btnType} dropdownbtn">${val(options.html || options.text)}</button>
-            <button type="button" class="btn btn-${options.btnType} dropdown-toggle dropdown-toggle-split">
+        <div class="btn-group ${opts.size == 'lg' ? 'btn-group-lg' : (opts.size == 'sm' ? 'btn-group-sm' : '')} ${opts.direction == 'up' ? 'dropup' : ''}">
+            <button type="button" class="btn btn-${opts.btnType} dropdownbtn">${val(opts.html || opts.text)}</button>
+            <button type="button" class="btn btn-${opts.btnType} dropdown-toggle dropdown-toggle-split">
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
-            <dropdown id="dropdown-${options.vid}"></dropdown>
+            <dropdown id="dropdown-${opts.vid}"></dropdown>
         </div>
         `;
         return vDom;

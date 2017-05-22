@@ -303,10 +303,11 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var that = this, opts = this.options, _eventName = "click.dropdown-" + this.options.vid;
+            var that = this, opts = this.options, _eventName = "click.dropdown-" + opts.vid;
             this.container = opts.container instanceof $ ? opts.container : opts.context.$ ? opts.context.$(opts.container) : $(opts.container);
             if (!opts.disabled) {
                 var handler = function handler(event) {
+                    console.warn("ddddddddddddd");
                     Lego.UI.Util.getDirection(that.container, that.$el);
                     that.$el.slideToggle("fast");
                 };
@@ -515,8 +516,7 @@ var Navs = function(_Lego$UI$Baseview) {
             event.stopPropagation();
             var targetEl = $(event.currentTarget);
             var dropdownEl = targetEl.next(".dropdown-menu");
-            var directionResp = Lego.UI.Util.getDirection(targetEl, dropdownEl);
-            this.options.direction = directionResp._y || "bottom";
+            Lego.UI.Util.getDirection(targetEl, dropdownEl);
             if (this.options.accordion) {
                 this.closeDropdown(this.$(".nav-item.open .dropdown-menu"));
             }

@@ -102,8 +102,8 @@ class Dropdown extends Lego.UI.Baseview {
     renderAfter(){
         let that = this,
             opts = this.options,
-            _eventName = 'click.dropdown-' + this.options.vid;
-        this.container =opts.container instanceof $ ? opts.container : (opts.context.$ ? opts.context.$(opts.container) : $(opts.container));
+            _eventName = 'click.dropdown-' + opts.vid;
+        this.container = opts.container instanceof $ ? opts.container : (opts.context.$ ? opts.context.$(opts.container) : $(opts.container));
         if(!opts.disabled){
             let cssObj = {zIndex: 10000};
             if(opts.width) cssObj.width = opts.width;

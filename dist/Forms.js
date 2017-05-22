@@ -270,7 +270,7 @@ var Forms = function(_Lego$UI$Baseview) {
             if (!$submitEl.hasClass("disabled")) {
                 $submitEl.text("提交中...").addClass("disabled");
                 setTimeout(function() {
-                    $submitEl.text(that.options.submitText).remvoeClass("disabled");
+                    $submitEl.text(that.options.submitText).removeClass("disabled");
                 }, 3e3);
             }
             return this.options.onSubmit(this, data);

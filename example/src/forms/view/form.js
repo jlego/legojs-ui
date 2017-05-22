@@ -134,6 +134,22 @@ class HomeView extends Lego.UI.Baseview {
                             value: '2'
                         }]
                     }
+                }, {
+                    label: '名称6',
+                    rule: {
+                        required: true
+                    },
+                    message: {
+                        required: '请先选择'
+                    },
+                    component: {
+                        comName: 'switchs',
+                        name: 'ssss',
+                        checked: true,
+                        onChange(self, result){
+                            console.warn(self, result);
+                        }
+                    }
                 }],
                 onSubmit(self, data){
                     console.warn('点击了提交', data);

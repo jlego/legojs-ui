@@ -94,8 +94,7 @@ class Navs extends Lego.UI.Baseview {
         event.stopPropagation();
         let targetEl = $(event.currentTarget);
         let dropdownEl = targetEl.next('.dropdown-menu');
-        let directionResp = Lego.UI.Util.getDirection(targetEl, dropdownEl);
-        this.options.direction = directionResp._y || 'bottom';
+        Lego.UI.Util.getDirection(targetEl, dropdownEl);
         if(this.options.accordion){
             this.closeDropdown(this.$('.nav-item.open .dropdown-menu'));
         }
@@ -107,7 +106,6 @@ class Navs extends Lego.UI.Baseview {
                 $(this).parent().addClass('open');
             }
         });
-        // if(!targetEl.hasClass('dropdown-toggle')){
         this.clickItem(event);
         this.$('.dropdown-menu a').removeClass('active');
         // }

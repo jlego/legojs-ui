@@ -68,6 +68,8 @@ build([{
 {alias: 'search'},
 {alias: 'selects'},
 {alias: 'steps'},
+{alias: 'switchs'},
+{alias: 'slider'},
 {alias: 'tables'},
 {alias: 'tabs'},
 {alias: 'tooltip'},

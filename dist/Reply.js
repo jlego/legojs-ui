@@ -2216,10 +2216,11 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var that = this, opts = this.options, _eventName = "click.dropdown-" + this.options.vid;
+            var that = this, opts = this.options, _eventName = "click.dropdown-" + opts.vid;
             this.container = opts.container instanceof $ ? opts.container : opts.context.$ ? opts.context.$(opts.container) : $(opts.container);
             if (!opts.disabled) {
                 var handler = function handler(event) {
+                    console.warn("ddddddddddddd");
                     Lego.UI.Util.getDirection(that.container, that.$el);
                     that.$el.slideToggle("fast");
                 };
@@ -2350,10 +2351,11 @@ var Dropdownbtn = function(_Lego$UI$Baseview) {
             },
             text: "button name",
             btnType: "secondary",
-            size: "default",
+            size: "",
             direction: "",
             activeKey: "",
             dropdownOption: {},
+            data: [],
             onClick: function onClick() {},
             onChange: function onChange() {},
             components: []
@@ -2366,25 +2368,27 @@ var Dropdownbtn = function(_Lego$UI$Baseview) {
     _createClass$8(Dropdownbtn, [ {
         key: "components",
         value: function components() {
-            var options = this.options;
-            this.addCom($.extend(options.dropdownOption, {
-                el: "#dropdown-" + options.vid,
-                container: "[view-id=" + options.vid + "]",
-                direction: options.direction,
-                activeKey: options.activeKey,
-                data: options.data,
-                onChange: function onChange(self, item, event) {
-                    var theView = self.options.context;
-                    theView.activeItem = item;
-                    if (typeof theView.options.onChange == "function") theView.options.onChange(theView, item);
-                }
-            }));
+            var opts = this.options;
+            if (opts.data.length) {
+                this.addCom($.extend(opts.dropdownOption, {
+                    el: "#dropdown-" + opts.vid,
+                    container: this.$(".dropdown-toggle-split"),
+                    direction: opts.direction,
+                    activeKey: opts.activeKey,
+                    data: opts.data,
+                    onChange: function onChange(self, item, event) {
+                        var theView = self.options.context;
+                        theView.activeItem = item;
+                        if (typeof theView.options.onChange == "function") theView.options.onChange(theView, item);
+                    }
+                }));
+            }
         }
     }, {
         key: "render",
         value: function render() {
-            var options = this.options;
-            var vDom = hx(_templateObject$5, options.size == "large" ? "btn-group-lg" : options.size == "small" ? "btn-group-sm" : "", options.direction == "up" ? "dropup" : "", options.btnType, val(options.html || options.text), options.btnType, options.vid);
+            var opts = this.options;
+            var vDom = hx(_templateObject$5, opts.size == "lg" ? "btn-group-lg" : opts.size == "sm" ? "btn-group-sm" : "", opts.direction == "up" ? "dropup" : "", opts.btnType, val(opts.html || opts.text), opts.btnType, opts.vid);
             return vDom;
         }
     }, {

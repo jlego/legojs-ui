@@ -32,8 +32,8 @@ class Chkgroup extends Lego.UI.Baseview {
                 return hx`
                 <div class="form-check ${item.disabled ? 'disabled' : ''}">
                   <label class="form-check-label">
-                    <input class="form-check-input" type="${opts.type}" name="${opts.name}" value="${item.value}" ${item.checked ? 'checked' : ''} >
-                    ${val(item.label)}
+                    <input class="form-check-input lego-${opts.type}" type="${opts.type}" name="${opts.name}" value="${item.value}" ${item.checked ? 'checked' : ''} >
+                    <span>${val(item.label)}</span>
                   </label>
                 </div>
                 `;
@@ -41,8 +41,8 @@ class Chkgroup extends Lego.UI.Baseview {
                 return hx`
                 <div class="form-check form-check-inline ${item.disabled ? 'disabled' : ''}">
                     <label class="form-check-label">
-                      <input class="form-check-input" type="${opts.type}" name="${opts.name}" value="${item.value}" ${item.checked ? 'checked' : ''} >
-                      ${val(item.label)}
+                      <input class="form-check-input lego-${opts.type}" type="${opts.type}" name="${opts.name}" value="${item.value}" ${item.checked ? 'checked' : ''} >
+                      <span>${val(item.label)}</span>
                     </label>
                 </div>
                 `;
