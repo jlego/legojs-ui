@@ -150,6 +150,15 @@ class HomeView extends Lego.UI.Baseview {
                             console.warn(self, result);
                         }
                     }
+                }, {
+                    label: '名称7',
+                    component: {
+                        comName: 'slider',
+                        name: 'sss2',
+                        onChange(self, result){
+                            console.warn(self, result);
+                        }
+                    }
                 }],
                 onSubmit(self, data){
                     console.warn('点击了提交', data);

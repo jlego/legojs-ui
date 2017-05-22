@@ -67,7 +67,7 @@ var Switchs = function(_Lego$UI$Baseview) {
         _classCallCheck(this, Switchs);
         var options = {
             checked: false,
-            themeColor: "#3399fe",
+            themeColor: "#01a8fe",
             disabled: false,
             size: "sm",
             onChange: function onChange() {}

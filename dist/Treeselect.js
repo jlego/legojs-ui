@@ -309,7 +309,6 @@ var Dropdown = function(_Lego$UI$Baseview) {
             this.container = opts.container instanceof $ ? opts.container : opts.context.$ ? opts.context.$(opts.container) : $(opts.container);
             if (!opts.disabled) {
                 var handler = function handler(event) {
-                    console.warn("ddddddddddddd");
                     Lego.UI.Util.getDirection(that.container, that.$el);
                     that.$el.slideToggle("fast");
                 };

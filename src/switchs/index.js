@@ -9,7 +9,7 @@ class Switchs extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             checked: false,
-            themeColor: '#3399fe',
+            themeColor: '#01a8fe',
             disabled: false,
             size: 'sm',  //sm, lg
             onChange(){}

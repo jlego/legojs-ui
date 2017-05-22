@@ -4,10 +4,11 @@
  * 2017/5/22
  */
 import Slider from 'bootstrap-slider';
+import 'bootstrap-slider/dist/css/bootstrap-slider.css';
 import './asset/index.scss';
 
 class SliderView extends Lego.UI.Baseview {
-    constructor(opts = {}) {
+    constructor(option = {}) {
         const options = {
             value: 5,
             min: 0,
@@ -23,7 +24,7 @@ class SliderView extends Lego.UI.Baseview {
             handle: 'round',
             reversed: false,
             rtl: 'auto',
-            enabled: true
+            enabled: true,
             formatter: null,
             natural_arrow_keys: false,
             ticks: [],
@@ -36,10 +37,51 @@ class SliderView extends Lego.UI.Baseview {
             labelledby: null,
             rangeHighlights: [],
             size: '',  //sm, lg
-            onChange(){}
+            onChange(){},
+            onStart(){},
+            onStop(){}
         };
-        Object.assign(options, opts);
+        Object.assign(options, option);
         super(options);
+        let opts = this.options,
+            that = this;
+        this.slider = new Slider('#input_' + opts.vid, {
+            value: opts.value,
+            min: opts.min,
+            max: opts.max,
+            step: opts.step,
+            precision: opts.precision,
+            orientation: opts.orientation,
+            range: opts.range,
+            selection: opts.selection,
+            tooltip: opts.tooltip,
+            tooltip_split: opts.tooltip_split,
+            tooltip_position: opts.tooltip_position,
+            handle: opts.handle,
+            reversed: opts.reversed,
+            rtl: opts.rtl,
+            enabled: opts.enabled,
+            formatter: opts.formatter,
+            natural_arrow_keys: opts.natural_arrow_keys,
+            ticks: opts.ticks,
+            ticks_positions: opts.ticks_positions,
+            ticks_labels: opts.ticks_labels,
+            ticks_snap_bounds: opts.ticks_snap_bounds,
+            ticks_tooltip: opts.ticks_tooltip,
+            scale: opts.scale,
+            focus: opts.focus,
+            labelledby: opts.labelledby,
+            rangeHighlights: opts.rangeHighlights
+        });
+        this.slider.on('change', function(){
+            if(typeof opts.onChange == 'function') opts.onChange(that, that.slider.getValue());
+        });
+        this.slider.on('slideStart', function(){
+            if(typeof opts.onStart == 'function') opts.onStart(that, that.slider.getValue());
+        });
+        this.slider.on('slideStop', function(){
+            if(typeof opts.onStop == 'function') opts.onStop(that, that.slider.getValue());
+        });
     }
     render() {
         let opts = this.options;
@@ -49,22 +91,6 @@ class SliderView extends Lego.UI.Baseview {
         </div>
         `;
         return vDom;
-    }
-    renderAfter(){
-        let opts = this.options,
-            that = this;
-        this.slider = new Slider('#input_' + opts.vid, {
-
-        });
-    }
-    getValue(){
-        this.slider.getValue();
-    }
-    setValue(newValue){
-        this.slider.getValue();
-    }
-    getValue(){
-        this.slider.getValue();
     }
 }
 Lego.components('slider', SliderView);
