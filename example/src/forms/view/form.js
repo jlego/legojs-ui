@@ -128,7 +128,7 @@ class HomeView extends Lego.UI.Baseview {
                         data: [{
                             label: 'sadfa',
                             value: '1',
-                            // checked: true
+                            checked: true
                         }, {
                             label: 'sadfa2',
                             value: '2'
@@ -155,6 +155,13 @@ class HomeView extends Lego.UI.Baseview {
                     component: {
                         comName: 'slider',
                         name: 'sss2',
+                        range: true,
+                        value: [2, 6],
+                        // enabled: false,
+                        // orientation: 'vertical',
+                        // ticks: '[1,2,3]',
+                        // ticks_positions: '["short", "medium", "long"]',
+                        // ticks_labels: '["short", "medium", "long"]',
                         onChange(self, result){
                             console.warn(self, result);
                         }

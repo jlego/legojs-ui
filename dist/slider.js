@@ -1,5 +1,5 @@
 /**
- * slider.js v0.6.4
+ * slider.js v0.7.0
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -30,7 +30,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-slider">\n            <input id="input_', '" type="text" />\n        </div>\n        ' ], [ '\n        <div class="lego-slider">\n            <input id="input_', '" type="text" />\n        </div>\n        ' ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-slider">\n            <input id="input_', '" name="', '" type="text" />\n        </div>\n        ' ], [ '\n        <div class="lego-slider">\n            <input id="input_', '" name="', '" type="text" />\n        </div>\n        ' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -107,52 +107,57 @@ var SliderView = function(_Lego$UI$Baseview) {
         };
         Object.assign(options, option);
         var _this = _possibleConstructorReturn(this, (SliderView.__proto__ || Object.getPrototypeOf(SliderView)).call(this, options));
-        var opts = _this.options, that = _this;
-        _this.slider = new Slider("#input_" + opts.vid, {
-            value: opts.value,
-            min: opts.min,
-            max: opts.max,
-            step: opts.step,
-            precision: opts.precision,
-            orientation: opts.orientation,
-            range: opts.range,
-            selection: opts.selection,
-            tooltip: opts.tooltip,
-            tooltip_split: opts.tooltip_split,
-            tooltip_position: opts.tooltip_position,
-            handle: opts.handle,
-            reversed: opts.reversed,
-            rtl: opts.rtl,
-            enabled: opts.enabled,
-            formatter: opts.formatter,
-            natural_arrow_keys: opts.natural_arrow_keys,
-            ticks: opts.ticks,
-            ticks_positions: opts.ticks_positions,
-            ticks_labels: opts.ticks_labels,
-            ticks_snap_bounds: opts.ticks_snap_bounds,
-            ticks_tooltip: opts.ticks_tooltip,
-            scale: opts.scale,
-            focus: opts.focus,
-            labelledby: opts.labelledby,
-            rangeHighlights: opts.rangeHighlights
-        });
-        _this.slider.on("change", function() {
-            if (typeof opts.onChange == "function") opts.onChange(that, that.slider.getValue());
-        });
-        _this.slider.on("slideStart", function() {
-            if (typeof opts.onStart == "function") opts.onStart(that, that.slider.getValue());
-        });
-        _this.slider.on("slideStop", function() {
-            if (typeof opts.onStop == "function") opts.onStop(that, that.slider.getValue());
-        });
+        _this.initSlider();
         return _this;
     }
     _createClass(SliderView, [ {
         key: "render",
         value: function render() {
             var opts = this.options;
-            var vDom = hx(_templateObject, opts.vid);
+            var vDom = hx(_templateObject, opts.vid, opts.name);
             return vDom;
+        }
+    }, {
+        key: "initSlider",
+        value: function initSlider() {
+            var opts = this.options, that = this;
+            this.slider = new Slider("#input_" + opts.vid, {
+                value: opts.value,
+                min: opts.min,
+                max: opts.max,
+                step: opts.step,
+                precision: opts.precision,
+                orientation: opts.orientation,
+                range: opts.range,
+                selection: opts.selection,
+                tooltip: opts.tooltip,
+                tooltip_split: opts.tooltip_split,
+                tooltip_position: opts.tooltip_position,
+                handle: opts.handle,
+                reversed: opts.reversed,
+                rtl: opts.rtl,
+                enabled: opts.enabled,
+                formatter: opts.formatter,
+                natural_arrow_keys: opts.natural_arrow_keys,
+                ticks: opts.ticks,
+                ticks_positions: opts.ticks_positions,
+                ticks_labels: opts.ticks_labels,
+                ticks_snap_bounds: opts.ticks_snap_bounds,
+                ticks_tooltip: opts.ticks_tooltip,
+                scale: opts.scale,
+                focus: opts.focus,
+                labelledby: opts.labelledby,
+                rangeHighlights: opts.rangeHighlights
+            });
+            this.slider.on("change", function() {
+                if (typeof opts.onChange == "function") opts.onChange(that, that.slider.getValue());
+            });
+            this.slider.on("slideStart", function() {
+                if (typeof opts.onStart == "function") opts.onStart(that, that.slider.getValue());
+            });
+            this.slider.on("slideStop", function() {
+                if (typeof opts.onStop == "function") opts.onStop(that, that.slider.getValue());
+            });
         }
     } ]);
     return SliderView;

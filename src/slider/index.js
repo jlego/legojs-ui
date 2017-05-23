@@ -2,6 +2,8 @@
  * 滑动条
  * ronghui Yu
  * 2017/5/22
+ * https://github.com/seiyria/bootstrap-slider
+ * http://seiyria.com/bootstrap-slider/
  */
 import Slider from 'bootstrap-slider';
 import 'bootstrap-slider/dist/css/bootstrap-slider.css';
@@ -43,6 +45,18 @@ class SliderView extends Lego.UI.Baseview {
         };
         Object.assign(options, option);
         super(options);
+        this.initSlider();
+    }
+    render() {
+        let opts = this.options;
+        let vDom = hx`
+        <div class="lego-slider">
+            <input id="input_${opts.vid}" name="${opts.name}" type="text" />
+        </div>
+        `;
+        return vDom;
+    }
+    initSlider(){
         let opts = this.options,
             that = this;
         this.slider = new Slider('#input_' + opts.vid, {
@@ -82,15 +96,6 @@ class SliderView extends Lego.UI.Baseview {
         this.slider.on('slideStop', function(){
             if(typeof opts.onStop == 'function') opts.onStop(that, that.slider.getValue());
         });
-    }
-    render() {
-        let opts = this.options;
-        let vDom = hx`
-        <div class="lego-slider">
-            <input id="input_${opts.vid}" type="text" />
-        </div>
-        `;
-        return vDom;
     }
 }
 Lego.components('slider', SliderView);
