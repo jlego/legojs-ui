@@ -11,7 +11,7 @@ class Btngroup extends Lego.UI.Baseview {
             events: {
                 'click button': 'onClick'
             },
-            size: 'default',    //设置按钮大小，可选值为 small large 或者不设
+            size: '',    //设置按钮大小，可选值为 small large 或者不设
             data: [],
             onClick(){}   //click 事件的 handler
         };
@@ -21,7 +21,7 @@ class Btngroup extends Lego.UI.Baseview {
     render() {
         const options = this.options;
         const vDom = hx`
-        <div class="btn-group ${options.size == 'large' ? 'btn-group-lg' : (options.size == 'small' ? 'btn-group-sm' : '')}">
+        <div class="btn-group btn-group-${options.size}">
         ${options.data.map(item => hx`
         <button type="button" class="btn btn-${item.type || 'secondary'}">
             ${val(item.html || item.text)}
