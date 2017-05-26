@@ -1,5 +1,5 @@
 /**
- * btngroup.js v0.7.0
+ * btngroup.js v0.7.3
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -22,7 +22,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="btn-group ', '">\n        ', "\n        </div>\n        " ], [ '\n        <div class="btn-group ', '">\n        ', "\n        </div>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="btn-group btn-group-', '">\n        ', "\n        </div>\n        " ], [ '\n        <div class="btn-group btn-group-', '">\n        ', "\n        </div>\n        " ]);
 
 var _templateObject2 = _taggedTemplateLiteral([ '\n        <button type="button" class="btn btn-', '">\n            ', "\n        </button>\n        " ], [ '\n        <button type="button" class="btn btn-', '">\n            ', "\n        </button>\n        " ]);
 
@@ -71,7 +71,7 @@ var Btngroup = function(_Lego$UI$Baseview) {
             events: {
                 "click button": "onClick"
             },
-            size: "default",
+            size: "",
             data: [],
             onClick: function onClick() {}
         };
@@ -82,7 +82,7 @@ var Btngroup = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options;
-            var vDom = hx(_templateObject, options.size == "large" ? "btn-group-lg" : options.size == "small" ? "btn-group-sm" : "", options.data.map(function(item) {
+            var vDom = hx(_templateObject, options.size, options.data.map(function(item) {
                 return hx(_templateObject2, item.type || "secondary", val(item.html || item.text));
             }));
             return vDom;
