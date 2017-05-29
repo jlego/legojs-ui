@@ -1,2 +1,2 @@
 # legojs-ui
-legojs ui library
+legojs框架基础组件库
