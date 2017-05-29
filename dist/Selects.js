@@ -1,5 +1,5 @@
 /**
- * selects.js v0.7.3
+ * selects.js v0.7.5
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -560,18 +560,23 @@ var Selects = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var _this2 = this;
-            if (this.options.value && this.options.multiple) {
-                this.options.value.forEach(function(item) {
+            var opts = this.options;
+            if (opts.value && opts.multiple) {
+                opts.value.forEach(function(item) {
                     if (item) {
-                        var model = _this2.options.data.find(function(model) {
+                        var model = opts.data.find(function(model) {
                             return model.key === item.key;
                         });
                         if (model) model.selected = true;
                     }
                 });
             }
-            if (!this.options.inputAble) this.$(".select-input").attr("readonly", "readonly");
+            if (!opts.inputAble) this.$(".select-input").attr("readonly", "readonly");
+            var dropdownView = Lego.getView("#dropdown-" + opts.vid);
+            if (dropdownView) {
+                dropdownView.options.data = opts.data;
+                dropdownView.refresh();
+            }
         }
     }, {
         key: "clickItemClose",

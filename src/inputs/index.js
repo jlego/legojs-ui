@@ -3,7 +3,7 @@
  * ronghui Yu
  * 2017/1/6
  */
-// import './asset/index.scss';
+import './asset/index.scss';
 
 class Inputs extends Lego.UI.Baseview {
     constructor(opts = {}) {

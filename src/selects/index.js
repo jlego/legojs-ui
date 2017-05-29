@@ -135,15 +135,22 @@ class Selects extends Lego.UI.Baseview {
         return vDom;
     }
     renderAfter(){
-        if(this.options.value && this.options.multiple){
-            this.options.value.forEach(item => {
+        let opts = this.options;
+        if(opts.value && opts.multiple){
+            opts.value.forEach(item => {
                 if(item){
-                    const model = this.options.data.find(model => model.key === item.key);
+                    const model = opts.data.find(model => model.key === item.key);
                     if(model) model.selected = true;
                 }
             });
         }
-        if(!this.options.inputAble) this.$('.select-input').attr('readonly', 'readonly');
+        if(!opts.inputAble) this.$('.select-input').attr('readonly', 'readonly');
+        // 刷新下拉列表
+        let dropdownView = Lego.getView('#dropdown-' + opts.vid);
+        if(dropdownView){
+            dropdownView.options.data = opts.data;
+            dropdownView.refresh();
+        }
     }
     clickItemClose(event){
         event.stopPropagation();

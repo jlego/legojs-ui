@@ -1,5 +1,5 @@
 /**
- * forms.js v0.7.3
+ * forms.js v0.7.5
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

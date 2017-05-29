@@ -2,7 +2,9 @@
 // import Search from '../../../../dist/search';
 // import Selects from '../../../../dist/selects';
 // import Datepicker from '../../../../dist/datepicker';
-// import Inputs from '../../../../dist/inputs';
+import Areapicker from '../../../ux/areapicker/index';
+import '../../../ux/areapicker/index.css';
+import Data from '../../../ux/areapicker/data_static';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -164,6 +166,17 @@ class HomeView extends Lego.UI.Baseview {
                         // ticks_labels: '["short", "medium", "long"]',
                         onChange(self, result){
                             console.warn(self, result);
+                        }
+                    }
+                }, {
+                    label: '名称8',
+                    component: {
+                        comName: 'areapicker',
+                        rootId: '86',
+                        data: Data,
+                        // name: 'sss2',
+                        onChange(self, result){
+                            // console.warn(self, result);
                         }
                     }
                 }],

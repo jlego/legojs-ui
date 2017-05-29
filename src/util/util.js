@@ -33,7 +33,11 @@ const Util = {
             tb = dropH > (windowH - _Y - elH) ? (dropH > _Y - 120 ? 'fixed' : 'top') : 'bottom',
             lr = dropW > (windowW - _X - elW) ? 'right' : 'left';
         if(tb == 'fixed'){
-            Object.assign(cssObj, {position: 'fixed', top: 0, left: _X});
+            if(dropH > windowH){
+                Object.assign(cssObj, {position: 'fixed', bottom: 0, left: _X, overflow: 'auto', top: 0, height: windowH});
+            }else{
+                Object.assign(cssObj, {position: 'fixed', top: 'inherit', bottom: 0, left: _X});
+            }
         }else{
             if(tb == 'top'){
                 Object.assign(cssObj, {top: 'inherit', bottom: '100%'});
