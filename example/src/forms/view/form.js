@@ -5,6 +5,8 @@
 import Areapicker from '../../../ux/areapicker/index';
 import '../../../ux/areapicker/index.css';
 import Data from '../../../ux/areapicker/data_static';
+import Geolocation from '../../../ux/geolocation/index';
+import '../../../ux/geolocation/index.css';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -174,9 +176,19 @@ class HomeView extends Lego.UI.Baseview {
                         comName: 'areapicker',
                         rootId: '86',
                         data: Data,
-                        // name: 'sss2',
                         onChange(self, result){
                             // console.warn(self, result);
+                        }
+                    }
+                }, {
+                    label: '名称9',
+                    component: {
+                        comName: 'geolocation',
+                        name: 'sdfasd',
+                        mapApi: 'https://webapi.amap.com/maps?v=1.3&key=acc8b6f1622ec84e5eb7ad4765b14998',
+                        // data: {},
+                        onChange(self, result){
+                            console.warn(self, result);
                         }
                     }
                 }],

@@ -27,13 +27,6 @@ class Inputs extends Lego.UI.Baseview {
         };
         Object.assign(options, opts);
         super(options);
-        if(options.preAddon || options.nextAddon){
-            const onEnterFun = this.onEnter.bind(this);
-            const onChangeFun = this.onChange.bind(this);
-            this.$('input').keydown(onEnterFun);
-            this.$('input').change(onChangeFun);
-        }
-
     }
     render() {
         const options = this.options || {};
@@ -63,9 +56,20 @@ class Inputs extends Lego.UI.Baseview {
         }
         return vDom;
     }
+    renderAfter(){
+        let opts = this.options;
+        if(opts.preAddon || opts.nextAddon){
+            const onEnterFun = this.onEnter.bind(this);
+            const onChangeFun = this.onChange.bind(this);
+            this.$('input').keyup(onEnterFun);
+            this.$('input').change(onChangeFun);
+        }
+    }
     // 过滤特殊字符
     filterStr(str){
-        return str;
+        let opts = this.options,
+            reg = new RegExp(opts.filterReg);
+        return opts.filterReg ? str.replace(reg, '') : str;
     }
     onEnter(event) {
         const target = $(event.currentTarget),

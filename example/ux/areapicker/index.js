@@ -72,6 +72,7 @@ var ComView = function(_Lego$UI$Baseview) {
         var options = {
             rootId: 0,
             fieldName: "key",
+            width: 120,
             name: [ "province", "city", "area" ],
             placeholder: [ "请选择省份", "请选择城市", "请选择区域" ],
             value: [],
@@ -85,6 +86,7 @@ var ComView = function(_Lego$UI$Baseview) {
         key: "components",
         value: function components() {
             var opts = this.options, that = this;
+            if (!Array.isArray(opts.name)) opts.name = [ opts.name ];
             if (opts.data) {
                 var filterData = function filterData(pId) {
                     var newData = [], data = opts.data[pId];
@@ -104,11 +106,6 @@ var ComView = function(_Lego$UI$Baseview) {
                             selectsView.options.value = [];
                             selectsView.options.data = theData;
                             selectsView.refresh();
-                            if (!theData.length) {
-                                selectsView.$el.hide();
-                            } else {
-                                selectsView.$el.show();
-                            }
                             _updateSelect(opts.name[index + 1], 0);
                         }
                     }
@@ -138,6 +135,11 @@ var ComView = function(_Lego$UI$Baseview) {
                 }));
             }
             return vDom;
+        }
+    }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            this.$(".select").width(this.options.width);
         }
     } ]);
     return ComView;
