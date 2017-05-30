@@ -83,8 +83,8 @@ var View = function(_Lego$UI$Baseview) {
                 placeholder: opts.placeholder,
                 style: {
                     position: "absolute",
-                    top: 20,
-                    left: 20,
+                    top: 10,
+                    left: 10,
                     width: 350
                 },
                 value: opts.data.address || "",
@@ -292,6 +292,7 @@ var ComView = function(_Lego$UI$Baseview) {
                     isMiddle: true,
                     width: 700,
                     height: 400,
+                    className: "map-modal",
                     components: [ {
                         el: "#maps_" + opts.vid,
                         mapApi: opts.mapApi,

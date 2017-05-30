@@ -8,3 +8,6 @@
   width: 100%; }
   .map-div #map_container {
     height: 100%; }
+
+.map-modal .modal-body {
+  padding: 0 !important; }
