@@ -12227,8 +12227,8 @@ form button[type="submit"] {
   color: #f5a623; }
 .select {
   margin: 0; }
-  .select input[type=text],
-  .select input[type=text]:focus {
+  .select > div > input[type=text],
+  .select > div > input[type=text]:focus {
     padding: .5rem 1rem .5rem .5rem; }
   .select:after {
     position: absolute;

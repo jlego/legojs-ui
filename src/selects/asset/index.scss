@@ -1,8 +1,8 @@
 @import "../../../asset/scss/bootstrap/variables";
 .select {
     margin: 0;
-    input[type=text],
-    input[type=text]:focus{
+    > div > input[type=text],
+    > div > input[type=text]:focus{
         padding: .5rem 1rem .5rem .5rem;
     }
     &:after {
