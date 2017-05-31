@@ -1,5 +1,5 @@
 /**
- * common.js v0.7.5
+ * common.js v0.7.8
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -154,7 +154,12 @@ var Util = {
                 });
             }
         }
+        dropEl.removeClass("scrollbar");
         dropEl.css(cssObj);
+        if (tb == "fixed" && dropH > windowH) {
+            dropEl.addClass("scrollbar");
+            if (!dropEl.hasClass("ps-container")) Ps.initialize(dropEl[0]);
+        }
     },
     animateCss: function animateCss(el, animationName, callback) {
         el = el instanceof $ ? el : $(el);
@@ -589,20 +594,20 @@ var Baseview = function(_Lego$View) {
     }, {
         key: "renderScroll",
         value: function renderScroll() {
-            var options = this.options, that = this;
+            var opts = this.options, that = this;
             function initScroll($el) {
                 $el.each(function(index, el) {
                     var container = $(this), eventName = "mousemove.ps" + index;
                     if (!container.hasClass("ps-container")) {
                         container.css("position", "relative");
-                        Ps.initialize(container[0], options.scrollbar);
+                        Ps.initialize(container[0], opts.scrollbar);
                         that.$el.off(eventName).on(eventName, function() {
                             Ps.update(container[0]);
                         });
                     }
                 });
             }
-            if (options.scrollbar) {
+            if (opts.scrollbar) {
                 var scrollbarEl = this.$(".scrollbar").length ? this.$(".scrollbar") : [];
                 if (scrollbarEl.length) {
                     initScroll(scrollbarEl);

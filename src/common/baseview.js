@@ -69,15 +69,15 @@ class Baseview extends Lego.View {
         }
     }
     renderScroll(){
-        const options = this.options,
+        let opts = this.options,
             that = this;
         function initScroll($el){
             $el.each(function(index, el){
-                const container = $(this),
+                let container = $(this),
                     eventName = "mousemove.ps" + index;
                 if(!container.hasClass('ps-container')){
                     container.css('position', 'relative');
-                    Ps.initialize(container[0], options.scrollbar);
+                    Ps.initialize(container[0], opts.scrollbar);
                     that.$el.off(eventName).on(eventName, function() {
                         Ps.update(container[0]);
                     });
@@ -85,8 +85,8 @@ class Baseview extends Lego.View {
             });
         }
         // 是否渲染滚动条
-        if (options.scrollbar) {
-            const scrollbarEl = this.$('.scrollbar').length ? this.$('.scrollbar') : [];
+        if (opts.scrollbar) {
+            let scrollbarEl = this.$('.scrollbar').length ? this.$('.scrollbar') : [];
             if(scrollbarEl.length){
                 initScroll(scrollbarEl);
             }

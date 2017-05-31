@@ -50,7 +50,12 @@ const Util = {
                 Object.assign(cssObj, {right: 'inherit', left: 0});
             }
         }
+        dropEl.removeClass('scrollbar');
         dropEl.css(cssObj);
+        if(tb == 'fixed' && dropH > windowH){
+            dropEl.addClass('scrollbar');
+            if(!dropEl.hasClass('ps-container')) Ps.initialize(dropEl[0]);
+        }
     },
     // 动画
     animateCss(el, animationName, callback) {
