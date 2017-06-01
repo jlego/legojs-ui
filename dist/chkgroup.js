@@ -1,5 +1,5 @@
 /**
- * chkgroup.js v0.7.8
+ * chkgroup.js v0.7.9
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

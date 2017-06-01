@@ -23,7 +23,6 @@ class Upload extends Lego.UI.Baseview {
             token: '',  //token
             params: {}, //其他参数
             uploadUri: Lego.config.uploadUri || uploadUri,  //文件存储云服务
-            saveUri: '',    //保存到后台地址
             accept: [],     //接受上传的文件类型
             acceptSuffix: [],   //接受的文件后缀
             previewImg: {//缩略图参数

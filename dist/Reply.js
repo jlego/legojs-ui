@@ -1,5 +1,5 @@
 /**
- * reply.js v0.7.8
+ * reply.js v0.7.9
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -1239,14 +1239,14 @@ var UploadView = function(_Lego$View) {
                     if (progressbar) {
                         progressbar.options.percent = percent;
                     }
-                }
-                if (typeof _this2.options.onProgress == "function") {
-                    _this2.options.onProgress(_this2);
+                    if (typeof _this2.options.onProgress == "function") {
+                        _this2.options.onProgress(_this2, file, percent);
+                    }
                 }
             }, false);
             this.xhr.addEventListener("loadstart", function(event) {
                 if (typeof _this2.options.onBegin == "function") {
-                    _this2.options.onBegin(file, _this2);
+                    _this2.options.onBegin(_this2, file);
                 }
             }, false);
             this.xhr.addEventListener("load", function(event) {
@@ -1664,7 +1664,6 @@ var Upload = function(_Lego$UI$Baseview) {
             token: "",
             params: {},
             uploadUri: Lego.config.uploadUri || uploadUri,
-            saveUri: "",
             accept: [],
             acceptSuffix: [],
             previewImg: {
