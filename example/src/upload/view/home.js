@@ -9,6 +9,8 @@ class HomeView extends Lego.UI.Baseview {
                 name: 'uploadname',
                 multiple: true,
                 token: token,
+                acceptSuffix: ['apk'],
+                maxFileSize: '50mb',
                 // dataSource: {
                 //     api: '',
                 //     server: null
@@ -61,6 +63,7 @@ class HomeView extends Lego.UI.Baseview {
                     width: 200,
                     height: 150
                 },
+                showZoom: false,
                 // readonly: true,
                 value: [{
                     "id": 100124028001,

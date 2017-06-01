@@ -32,6 +32,8 @@ import Rating from "./rating/index";
 import Search from "./search/index";
 import Selects from "./selects/index";
 import Steps from "./steps/index";
+import Switchs from "./switchs/index";
+import Slider from "./slider/index";
 import Tabs from "./tabs/index";
 import Tables from "./tables/index";
 import Tooltip from "./tooltip/index";
@@ -73,6 +75,8 @@ Lego.components({
 	search: Search,
 	selects: Selects,
 	steps: Steps,
+	switchs: Switchs,
+	slider: Slider,
 	tooltip: Tooltip,
 	tables: Tables,
 	tabs: Tabs,

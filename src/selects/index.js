@@ -11,15 +11,18 @@ class Selects extends Lego.UI.Baseview {
             value: [],   //指定当前选中的条目object/Array
             multiple: false,  //支持多选
             eventName: 'click',
+            fieldName: 'key',  //表单域名称
             filterOption: true,  //是否根据输入项进行筛选。当其为一个函数时，会接收 inputValue option 两个参数，当 option 符合筛选条件时，应返回 true，反之则返回 false。
             tags: false,  //可以把随意输入的条目作为 tag，输入项不需要与下拉选项匹配
             onDeselect(){},  //取消选中时调用，参数为选中项的 option value 值，仅在 multiple 或 tags 模式下生效
             onChange(){},  //选中 option，或 input 的 value 变化（combobox 模式下）时，调用此函数
             onSearch(){},   //文本框值变化时回调
             placeholder: '请选择',  //选择框默认文字
+            searchPlaceholder: '搜索',
             notFoundContent: '',  //当下拉列表为空时显示的内容
-            dropdownWidth: '100%', //下拉菜单和选择器同宽
+            dropdownWidth: 0, //下拉菜单和选择器同宽
             dropdownHeight: 0, //下拉菜单高度
+            direction: '',  //漂浮方向
             optionFilterProp: '',  //搜索时过滤对应的 option 属性，如设置为 children 表示对内嵌内容进行搜索的子元素。比如在子元素需要高亮效果时，此值可以设为 value。
             combobox: false,  //输入框自动提示模式
             size: '',  //支持多选
@@ -27,9 +30,9 @@ class Selects extends Lego.UI.Baseview {
             inputAble: false,   //是否可以输入
             disabled: false,  //是否禁用
             defaultActiveFirstOption: false,  //是否默认高亮第一个选项
-            dropdownStyle: null,  //下拉菜单的 style 属性
             dropdownClassName: '',  //下拉菜单的 className 属性上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。
             splitString: '',    //自动分词分隔符
+            data: [],
             components: []
         };
         Object.assign(options, opts);
@@ -50,13 +53,13 @@ class Selects extends Lego.UI.Baseview {
                 scrollbar: opts.dropdownHeight ? {} : null,
                 eventName: opts.eventName || 'click',
                 disabled: opts.disabled || false,
-                style: Object.assign({
-                    width: opts.dropdownWidth,
-                    maxHeight: opts.dropdownHeight || 'auto',
-                    overflow: 'auto'
-                }, opts.dropdownStyle || {}),
+                width: opts.dropdownWidth || this.$el.width(),
+                maxHeight: opts.dropdownHeight || 0,
+                showSearch: opts.showSearch,
                 className: opts.dropdownClassName,
+                searchPlaceholder: opts.searchPlaceholder,
                 clickAndClose: opts.multiple ? false : true,
+                direction: opts.direction,
                 data: opts.data || [],
                 onChange(self, model){
                     const that = this.context;
@@ -98,13 +101,19 @@ class Selects extends Lego.UI.Baseview {
                 return '';
             }
         }
-        const theValueArr = Array.isArray(opts.value) ? (opts.value.length ? opts.value.map(item => item.value) : []) :
-            [typeof opts.value == 'object' ? opts.value.value : opts.value];
+        let theValueArr, realValueArr;
+        if(Array.isArray(opts.value)){
+            theValueArr = opts.value.length ? opts.value.map(item => item.value) : [];
+            realValueArr = opts.value.length ? opts.value.map(item => item[opts.fieldName]) : [];
+        }else{
+            theValueArr = realValueArr = [typeof opts.value == 'object' ? opts.value.value : opts.value];
+        }
         if(!opts.multiple){
             vDom = hx`
             <div class="select dropdown ${opts.size}">
                 <div id="select-${opts.vid}">
-                    <input type="text" class="form-control ${opts.size ? ('form-control-' + opts.size) : ''} select-input ${opts.disabled ? 'disabled' : ''}" placeholder="${opts.placeholder}" value="${theValueArr.join(',')}" name="${opts.name}">
+                    <input type="text" class="form-control ${opts.size ? ('form-control-' + opts.size) : ''} select-input ${opts.disabled ? 'disabled' : ''}" placeholder="${opts.placeholder}" value="${theValueArr.join(',')}" name="hidden_${opts.name}">
+                    <input type="hidden" name="${opts.name}" value="${realValueArr.join(',')}">
                     <dropdown id="dropdown-${opts.vid}"></dropdown>
                 </div>
             </div>
@@ -113,7 +122,8 @@ class Selects extends Lego.UI.Baseview {
             vDom = hx`
             <div class="select dropdown multiple ${opts.size}">
                 <div id="select-${opts.vid}">
-                    <input type="text" class="form-control ${opts.size ? ('form-control-' + opts.size) : ''} select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${theValueArr.length ? '' : opts.placeholder}" value="${theValueArr.join(',')}" name="${opts.name}">
+                    <input type="text" class="form-control ${opts.size ? ('form-control-' + opts.size) : ''} select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${theValueArr.length ? '' : opts.placeholder}" value="${theValueArr.join(',')}" name="hidden_${opts.name}">
+                    <input type="hidden" name="${opts.name}" value="${realValueArr.join(',')}">
                     <div class="select-tags-div clearfix ${theValueArr.length ? 'select-tags-div-border' : ''}">
                         ${getTags(opts.value)}
                     </div>
@@ -125,15 +135,22 @@ class Selects extends Lego.UI.Baseview {
         return vDom;
     }
     renderAfter(){
-        if(this.options.value && this.options.multiple){
-            this.options.value.forEach(item => {
+        let opts = this.options;
+        if(opts.value && opts.multiple){
+            opts.value.forEach(item => {
                 if(item){
-                    const model = this.options.data.find(model => model.key === item.key);
+                    const model = opts.data.find(model => model.key === item.key);
                     if(model) model.selected = true;
                 }
             });
         }
-        if(!this.options.inputAble) this.$('.select-input').attr('readonly', 'readonly');
+        if(!opts.inputAble) this.$('.select-input').attr('readonly', 'readonly');
+        // 刷新下拉列表
+        let dropdownView = Lego.getView('#dropdown-' + opts.vid);
+        if(dropdownView){
+            dropdownView.options.data = opts.data;
+            dropdownView.refresh();
+        }
     }
     clickItemClose(event){
         event.stopPropagation();

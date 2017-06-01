@@ -12,24 +12,27 @@ class Treeselect extends Selects {
         const options = {
             name: '',
             value: [], //指定当前选中的条目object/Array
+            data: [],
             multiple: false, //支持多选
             eventName: 'click',
             scrollbar: {},
+            fieldName: 'key',  //表单域名称
             disSelect: '', //禁止选择含有该属性节点, 可以是对象
             onlySelect: '', //只选择含有该属性节点, 可以是对象
             treeDataSource: null,   //树型动态数据源
             tags: false, //可以把随意输入的条目作为 tag，输入项不需要与下拉选项匹配
             placeholder: '', //选择框默认文字
+            searchPlaceholder: '搜索',
             inputAble: false, //可否输入
             notFoundContent: '', //当下拉列表为空时显示的内容
             dropdownWidth: '100%', //下拉菜单和选择器同宽
             dropdownHeight: 'auto', //下拉菜单高度
             combobox: false, //输入框自动提示模式
+            treeSetting: {},
+            treeChkStyle: '',  //checkbox或radio
             size: '', //支持多选
             showSearch: false, //在选择框中显示搜索框
             disabled: false, //是否禁用
-            dropdownStyle: null, //下拉菜单的 style 属性
-            dropdownClass: '', //下拉菜单的 className 属性上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。
             splitString: '', //自动分词分隔符
             // keyNames: ['id', 'name', 'type'],
             clickAndClose: opts.multiple ? false : true,
@@ -48,50 +51,78 @@ class Treeselect extends Selects {
     }
     components(){
         let opts = this.options,
-            that = this;
+            that = this,
+            treeSetting = {
+                simpleData: {
+                    enable: true
+                }
+            };
+        if(opts.multiple){
+            treeSetting = $.extend(true, {
+                check: {
+                    enable: true,
+                    chkboxType: { "Y": "ps", "N": "ps" }
+                }
+            }, opts.treeSetting);
+            if(opts.treeChkStyle) treeSetting.check.chkStyle = opts.treeChkStyle;
+        }
         if(opts.data.length){
             this.addCom({
-                el: '#tree-' + opts.vid,
+                el: '#tree_' + opts.vid,
                 disSelect: opts.disSelect, //禁止选择含有该属性节点, 可以是对象
                 onlySelect: opts.onlySelect, //只选择含有该属性节点, 可以是对象
-                setting: $.extend(true, {}, opts.treeSetting || {}),
+                setting: treeSetting,
                 value: opts.value || [],
                 data: opts.data || [],
-                onChecked(self, result) {
-                    const that = this.context;
-                    if (result.key !== '0' && opts.setting.check) {
-                        that.getValue();
+                onChecked(self, result, treeNode) {
+                    const _that = this.context;
+                    if (treeSetting.check) {
                         if (result.length) {
                             that.options.value = [];
-                            result.forEach((val) => {
-                                that.options.value.push({
-                                    key: val.key,
-                                    value: val.value,
-                                    type: val.type,
-                                    selected: true
-                                });
+                            result.forEach((val, index) => {
+                                if(val.key !== '0'){
+                                    val.selected = true;
+                                    that.options.value.push(Object.assign({}, val));
+                                }
                             });
                         }else{
                             that.options.value = [];
                         }
                     }
                     that.options.onChange(that, result);
+                    that.refresh();
                 },
                 onClick(self, result) {
                     const that = this.context;
                     that.options.value.forEach(item => item.selected = false);
-                    that.options.value = [{
+                    that.options.value = [Object.assign({
                         key: result.key,
                         value: result.value,
                         type: result.type,
                         selected: true
-                    }];
+                    }, result)];
                     that.options.onChange(that, result);
                     if(that.options.clickAndClose) that.close();
                 },
-                disabled: opts.disabled || false,
-                className: opts.dropdownClass
+                disabled: opts.disabled || false
             });
+            if(opts.showSearch){
+                function searchFun(self, result){
+                    let treeView = Lego.getView("#tree_" + opts.vid);
+                    if(treeView) treeView.search(result.keyword);
+                }
+                this.addCom({
+                    el: '#search_' + opts.vid,
+                    placeholder: opts.searchPlaceholder,
+                    size: 'sm',
+                    onKeyup(self, result){
+                        searchFun(self, result);
+                    },
+                    onSearch(self, result) {
+                        searchFun(self, result);
+                    }
+                });
+            }
         }
     }
     render() {
@@ -115,15 +146,23 @@ class Treeselect extends Selects {
                 return '';
             }
         }
-        const theValueArr = Array.isArray(opts.value) ? (opts.value.length ? opts.value.map(item => item.value) : []) : [opts.value.value];
+        let theValueArr, realValueArr;
+        if(Array.isArray(opts.value)){
+            theValueArr = opts.value.length ? opts.value.map(item => item.value) : [];
+            realValueArr = opts.value.length ? opts.value.map(item => item[opts.fieldName]) : [];
+        }else{
+            theValueArr = realValueArr = [typeof opts.value == 'object' ? opts.value.value : opts.value];
+        }
         if(!opts.multiple){
             vDom = hx`
             <div class="select dropdown treeselect">
                 <div id="select-${opts.vid}">
-                    <input type="text" class="form-control select-input ${opts.disabled ? 'disabled' : ''}" placeholder="${opts.placeholder}" value="${theValueArr.join(',')}" name="${opts.name}">
-                    <div class="dropdown-menu ${opts.direction ? ('drop' + opts.direction) : ''}" style="width:100%;">
+                    <input type="text" class="form-control select-input ${opts.disabled ? 'disabled' : ''}" placeholder="${opts.placeholder}" value="${theValueArr.join(',')}" name="hidden_${opts.name}">
+                    <input type="hidden" name="${opts.name}" value="${realValueArr.join(',')}">
+                    <div class="dropdown-menu" style="width:100%;">
+                        ${opts.showSearch ? hx`<div class="lego-search-container"><search id="search_${opts.vid}"></search></div>` : ''}
                         <div class="scrollbar">
-                            <tree id="tree-${opts.vid}"></tree>
+                            <tree id="tree_${opts.vid}"></tree>
                         </div>
                     </div>
                 </div>
@@ -134,13 +173,15 @@ class Treeselect extends Selects {
             vDom = hx`
             <div class="select dropdown treeselect multiple">
                 <div id="select-${opts.vid}">
-                    <input type="text" class="form-control select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${theValueArr.length ? '' : opts.placeholder}" value="${theValueArr.join(',')}" name="${opts.name}">
+                    <input type="text" class="form-control select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${theValueArr.length ? '' : opts.placeholder}" value="${theValueArr.join(',')}" name="hidden_${opts.name}">
+                    <input type="hidden" name="${opts.name}" value="${realValueArr.join(',')}">
                     <div class="select-tags-div clearfix ${theValueArr.length ? 'select-tags-div-border' : ''}">
                         ${getTags(opts.value)}
                     </div>
-                    <div class="dropdown-menu ${opts.direction ? ('drop' + opts.direction) : ''}" style="width:100%;">
+                    <div class="dropdown-menu" style="width:100%;">
+                        ${opts.showSearch ? hx`<div class="lego-search-container"><search id="search_${opts.vid}"></search></div>` : ''}
                         <div class="scrollbar">
-                            <tree id="tree-${opts.vid}"></tree>
+                            <tree id="tree_${opts.vid}"></tree>
                         </div>
                     </div>
                 </div>
@@ -153,7 +194,7 @@ class Treeselect extends Selects {
         let opts = this.options,
             trigger = this.$('#select-' + opts.vid),
             tagsDivEl = this.$('.select-tags-div'),
-            treeEl = this.$('#tree-' + opts.vid),
+            treeEl = this.$('#tree_' + opts.vid),
             _eventName = 'click.dropdown_' + opts.vid,
             that = this;
         if(!opts.inputAble) this.$('.select-input').attr('readonly', 'readonly');
@@ -198,18 +239,18 @@ class Treeselect extends Selects {
     }
     clickItemClose(event){
         event.stopPropagation();
-        const target = $(event.currentTarget).parent(),
+        let target = $(event.currentTarget).parent(),
             key = target.attr('id'),
             value = target.attr('title'),
-            treeView = $.fn.zTree.getZTreeObj('tree-' + this.options.vid);
+            treeView = $.fn.zTree.getZTreeObj('tree_' + this.options.vid);
         this.options.value.forEach(item => {
             if(item.key === key) item.selected = false;
         });
         this.getValue();
         this.refresh();
         if(treeView){
-            const treeNode = treeView.getNodeByParam(this.options.keyNames[0], key, null);
-            treeView.checkNode(treeNode, !treeNode.checked, null, true);
+            let treeNode = treeView.getNodeByParam('id', key, null);
+            if(treeNode) treeView.checkNode(treeNode, false, null, true);
         }
         if(typeof this.options.onDeselect === 'function') this.options.onDeselect(this, {
             key: key,

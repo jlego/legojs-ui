@@ -16,7 +16,7 @@
     float: left;
     min-width: 160px;
     padding: 5px 0;
-    margin: 0px 0 0;
+    margin: 0;
     list-style: none;
     font-size: 14px;
     text-align: left;
@@ -26,7 +26,12 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     background-clip: padding-box;
 }
-
+div.dropdown-menu > ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
 .dropdown-menu.pull-right {
     right: 0;
     left: auto;
@@ -39,6 +44,7 @@
     background-color: #e5e5e5;
 }
 
+.dropdown-menu > ul > li > a,
 .dropdown-menu > li > a {
     display: block;
     padding: 3px 15px;
@@ -48,14 +54,17 @@
     color: #333333;
     // white-space: nowrap;
 }
-
+.dropdown-menu > ul > li > a:hover,
+.dropdown-menu > ul > li > a:focus,
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
     text-decoration: none;
     color: #262626;
     background-color: #f5f5f5;
 }
-
+.dropdown-menu > ul > .active > a,
+.dropdown-menu > ul > .active > a:hover,
+.dropdown-menu > ul > .active > a:focus,
 .dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,
 .dropdown-menu > .active > a:focus {
@@ -77,14 +86,6 @@
     background-image: none;
     cursor: not-allowed;
 }
-
-// .open > .dropdown-menu {
-//     display: block;
-// }
-
-// .open > a {
-//     outline: 0;
-// }
 
 .dropdown-menu-right {
     left: auto;
@@ -140,4 +141,7 @@
 .dropdown-menu.droptop{
     top: inherit;
     bottom: 100%;
+}
+.lego-search-container{
+    padding: 0 5px 5px 5px;
 }

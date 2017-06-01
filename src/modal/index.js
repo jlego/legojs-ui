@@ -123,7 +123,7 @@ class Modal extends Lego.UI.Baseview {
     }
     clickBackdrop(event){
         event.stopPropagation();
-        this._onConfirm('onCancel');
+        this._onConfirm('onCancel', true);
     }
     _showDialog(){
         const that = this;
@@ -137,11 +137,17 @@ class Modal extends Lego.UI.Baseview {
             }
         });
     }
-    _onConfirm(funName) {
+    _onConfirm(funName, isBackdrop) {
         if (this.options.confirm && this.options[funName]) {
             this._showDialog();
         }else{
-            if(funName !== 'onOk') this.close();
+            if(isBackdrop){
+                let closeAble = true;
+                if(this.options.backdrop == 'static') closeAble = false;
+                if(funName !== 'onOk' && closeAble) this.close();
+            }else{
+                if(funName !== 'onOk') this.close();
+            }
         }
         if (typeof this.options[funName] === 'function') this.options[funName](this);
     }

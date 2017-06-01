@@ -91,16 +91,16 @@ class UploadView extends Lego.View {
                 if (progressbar) {
                     progressbar.options.percent = percent;
                 }
-            }
-            if (typeof this.options.onProgress == "function") {
-                this.options.onProgress(this);
+                if (typeof this.options.onProgress == "function") {
+                    this.options.onProgress(this, file, percent);
+                }
             }
         }, false);
 
         this.xhr.addEventListener("loadstart", (event) => {
             // debug.warn("上传开始");
             if (typeof this.options.onBegin == "function") {
-                this.options.onBegin(file, this);
+                this.options.onBegin(this, file);
             }
         }, false);
 

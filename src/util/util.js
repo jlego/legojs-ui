@@ -14,6 +14,7 @@ const Util = {
     // 取层飘浮方向
     getDirection(el, dropEl) {
         el = el instanceof $ ? el : $(el);
+        dropEl = dropEl instanceof $ ? dropEl : $(dropEl);
         let windowW = $(window).width(),
             windowH = $(window).height(),
             _X = el.offset().left,
@@ -22,13 +23,39 @@ const Util = {
             elH = el.height(),
             dropW = dropEl.width(),
             dropH = dropEl.height(),
-            upDown = dropH > (windowH - _Y - elH) ? 'top' : 'bottom',
-            leftRight = dropW > (windowW - _X - elW) ? 'Right' : 'Left';
-        // console.warn(dropH, windowH, _Y, elH);
-        return {
-            _x: leftRight,
-            _y: upDown
-        };
+            cssObj = {
+                position: 'absolute',
+                top: '100%',
+                right: 'inherit',
+                bottom: 'inherit',
+                left: 0
+            },
+            tb = dropH > (windowH - _Y - elH) ? (dropH > _Y - 120 ? 'fixed' : 'top') : 'bottom',
+            lr = dropW > (windowW - _X - elW) ? 'right' : 'left';
+        if(tb == 'fixed'){
+            if(dropH > windowH){
+                Object.assign(cssObj, {position: 'fixed', bottom: 0, left: _X, overflow: 'auto', top: 0, height: windowH});
+            }else{
+                Object.assign(cssObj, {position: 'fixed', top: 'inherit', bottom: 0, left: _X});
+            }
+        }else{
+            if(tb == 'top'){
+                Object.assign(cssObj, {top: 'inherit', bottom: '100%'});
+            }else{
+                Object.assign(cssObj, {top: '100%'});
+            }
+            if(lr == 'right'){
+                Object.assign(cssObj, {right: 0, left: 'inherit'});
+            }else{
+                Object.assign(cssObj, {right: 'inherit', left: 0});
+            }
+        }
+        dropEl.removeClass('scrollbar');
+        dropEl.css(cssObj);
+        if(tb == 'fixed' && dropH > windowH){
+            dropEl.addClass('scrollbar');
+            if(!dropEl.hasClass('ps-container')) Ps.initialize(dropEl[0]);
+        }
     },
     // 动画
     animateCss(el, animationName, callback) {

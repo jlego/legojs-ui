@@ -1,5 +1,5 @@
 /**
- * chkgroup.js v0.5.29
+ * chkgroup.js v0.7.9
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -24,9 +24,9 @@ var _createClass = function() {
 
 var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-chkgroup">\n        ', "\n        </div>\n        " ], [ '\n        <div class="lego-chkgroup">\n        ', "\n        </div>\n        " ]);
 
-var _templateObject2 = _taggedTemplateLiteral([ '\n                <div class="form-check ', '">\n                  <label class="form-check-label">\n                    <input class="form-check-input" type="', '" name="', '" value="', '" ', " >\n                    ", "\n                  </label>\n                </div>\n                " ], [ '\n                <div class="form-check ', '">\n                  <label class="form-check-label">\n                    <input class="form-check-input" type="', '" name="', '" value="', '" ', " >\n                    ", "\n                  </label>\n                </div>\n                " ]);
+var _templateObject2 = _taggedTemplateLiteral([ '\n                <div class="form-check ', '">\n                  <label class="form-check-label">\n                    <input class="form-check-input lego-', '" type="', '" name="', '" value="', '" ', " >\n                    <span>", "</span>\n                  </label>\n                </div>\n                " ], [ '\n                <div class="form-check ', '">\n                  <label class="form-check-label">\n                    <input class="form-check-input lego-', '" type="', '" name="', '" value="', '" ', " >\n                    <span>", "</span>\n                  </label>\n                </div>\n                " ]);
 
-var _templateObject3 = _taggedTemplateLiteral([ '\n                <div class="form-check form-check-inline ', '">\n                    <label class="form-check-label">\n                      <input class="form-check-input" type="', '" name="', '" value="', '" ', " >\n                      ", "\n                    </label>\n                </div>\n                " ], [ '\n                <div class="form-check form-check-inline ', '">\n                    <label class="form-check-label">\n                      <input class="form-check-input" type="', '" name="', '" value="', '" ', " >\n                      ", "\n                    </label>\n                </div>\n                " ]);
+var _templateObject3 = _taggedTemplateLiteral([ '\n                <div class="form-check form-check-inline ', '">\n                    <label class="form-check-label">\n                      <input class="form-check-input lego-', '" type="', '" name="', '" value="', '" ', " >\n                      <span>", "</span>\n                    </label>\n                </div>\n                " ], [ '\n                <div class="form-check form-check-inline ', '">\n                    <label class="form-check-label">\n                      <input class="form-check-input lego-', '" type="', '" name="', '" value="', '" ', " >\n                      <span>", "</span>\n                    </label>\n                </div>\n                " ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -85,9 +85,9 @@ var Chkgroup = function(_Lego$UI$Baseview) {
             var opts = this.options;
             var vDom = hx(_templateObject, opts.data.map(function(item) {
                 if (opts.layout == "vertical") {
-                    return hx(_templateObject2, item.disabled ? "disabled" : "", opts.type, opts.name, item.value, item.checked ? "checked" : "", val(item.label));
+                    return hx(_templateObject2, item.disabled ? "disabled" : "", opts.type, opts.type, opts.name, item.value, item.checked ? "checked" : "", val(item.label));
                 } else {
-                    return hx(_templateObject3, item.disabled ? "disabled" : "", opts.type, opts.name, item.value, item.checked ? "checked" : "", val(item.label));
+                    return hx(_templateObject3, item.disabled ? "disabled" : "", opts.type, opts.type, opts.name, item.value, item.checked ? "checked" : "", val(item.label));
                 }
             }));
             return vDom;

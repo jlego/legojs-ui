@@ -1,5 +1,5 @@
 /**
- * modal.js v0.5.29
+ * modal.js v0.7.9
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -615,7 +615,7 @@ var Alert = function(_Lego$UI$Baseview) {
                 "click .lego-alert-close-icon": "close"
             },
             type: "info",
-            closable: false,
+            closeAble: false,
             closeText: "",
             message: "",
             description: "",
@@ -648,7 +648,7 @@ var Alert = function(_Lego$UI$Baseview) {
                 iconName = "cross";
                 break;
             }
-            var vDom = hx(_templateObject$1, options.type, options.description ? "lego-alert-with-description" : "", options.showIcon ? "" : "lego-alert-no-icon", options.description ? "anticon-" + iconName + "-circle-o" : "anticon-" + iconName + "-circle", options.showIcon ? "" : "-no", options.showIcon ? "" : "none", options.message, options.description ? hx(_templateObject2$1, typeof options.description == "string" ? options.description : "") : "", options.closable ? hx(_templateObject3$1, options.closeText || hx(_templateObject4$1)) : "");
+            var vDom = hx(_templateObject$1, options.type, options.description ? "lego-alert-with-description" : "", options.showIcon ? "" : "lego-alert-no-icon", options.description ? "anticon-" + iconName + "-circle-o" : "anticon-" + iconName + "-circle", options.showIcon ? "" : "-no", options.showIcon ? "" : "none", options.message, options.description ? hx(_templateObject2$1, typeof options.description == "string" ? options.description : "") : "", options.closeAble ? hx(_templateObject3$1, options.closeText || hx(_templateObject4$1)) : "");
             return vDom;
         }
     }, {
@@ -837,7 +837,7 @@ var Modal = function(_Lego$UI$Baseview) {
         key: "clickBackdrop",
         value: function clickBackdrop(event) {
             event.stopPropagation();
-            this._onConfirm("onCancel");
+            this._onConfirm("onCancel", true);
         }
     }, {
         key: "_showDialog",
@@ -855,11 +855,17 @@ var Modal = function(_Lego$UI$Baseview) {
         }
     }, {
         key: "_onConfirm",
-        value: function _onConfirm(funName) {
+        value: function _onConfirm(funName, isBackdrop) {
             if (this.options.confirm && this.options[funName]) {
                 this._showDialog();
             } else {
-                if (funName !== "onOk") this.close();
+                if (isBackdrop) {
+                    var closeAble = true;
+                    if (this.options.backdrop == "static") closeAble = false;
+                    if (funName !== "onOk" && closeAble) this.close();
+                } else {
+                    if (funName !== "onOk") this.close();
+                }
             }
             if (typeof this.options[funName] === "function") this.options[funName](this);
         }

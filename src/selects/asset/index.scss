@@ -1,149 +1,124 @@
 @import "../../../asset/scss/bootstrap/variables";
 .select {
     margin: 0;
-}
-.select:after {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    display: inline-block;
-    width: 0;
-    height: 0;
-    margin-left: 0.3em;
-    margin-top: -2px;
-    vertical-align: middle;
-    content: "";
-    border-top: 0.3em solid;
-    border-right: 0.3em solid transparent;
-    border-left: 0.3em solid transparent;
-
-    // font-family: 'anticon';
-    // position: absolute;
-    // top: 50%;
-    // right: 18px;
-    // display: inline-block;
-    // margin-top: -9px;
-    // zoom: 0.5;
-    // content: "\E61D";
-}
-.select .dropdown-menu {
-    position: absolute !important;
+    > div > input[type=text],
+    > div > input[type=text]:focus{
+        padding: .5rem 1rem .5rem .5rem;
+    }
+    &:after {
+        position: absolute;
+        top: 50%;
+        right: 8px;
+        display: inline-block !important;
+        width: 0;
+        height: 0;
+        margin-left: 0.3em;
+        margin-top: -2px;
+        vertical-align: middle;
+        content: "";
+        border-top: 0.3em solid;
+        border-right: 0.3em solid transparent;
+        border-left: 0.3em solid transparent;
+    }
+    .select-input.form-control[readonly] {
+        background-color: transparent;
+    }
+    &.multiple {
+        &:after{
+            content: none;
+        }
+        .select-input.select-hasValue {
+            text-indent: -9999px;
+            display: none;
+        }
+        .select-tags-div {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            padding: .2rem;
+            font-size: .9rem;
+            line-height: 1.25;
+            color: #55595c;
+            &.select-tags-div-border {
+                position: inherit;
+                border: 1px solid #ddd;
+                border-radius: .25rem;
+            }
+            ul {
+                margin: 0;
+                padding: 0;
+                li {
+                    user-select: none;
+                    display: inline-block;
+                    font-size: 12px;
+                    &.select-tag {
+                        background-color: #f3f3f3;
+                        border-radius: 4px;
+                        cursor: default;
+                        float: left;
+                        padding: 0 16px;
+                        margin: 2px;
+                        max-width: 99%;
+                        position: relative;
+                        overflow: hidden;
+                        -webkit-transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+                        transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+                        padding: 0 20px 0 10px;
+                    }
+                    .select-tag-content {
+                        padding-top: 2px;
+                        line-height: 18px;
+                        display: inline-block;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        max-width: 100%;
+                        -webkit-transition: margin 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+                        transition: margin 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+                    }
+                    .select-tag-close {
+                        top: 4px;
+                        font-style: normal;
+                        vertical-align: baseline;
+                        text-align: center;
+                        line-height: 1;
+                        color: rgba(0, 0, 0, 0.43);
+                        line-height: inherit;
+                        cursor: pointer;
+                        font-weight: bold;
+                        -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+                        transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+                        display: inline-block;
+                        font-size: 12px;
+                        font-size: 8px \9;
+                        -webkit-transform: scale(0.8) rotate(0deg);
+                        -ms-transform: scale(0.8) rotate(0deg);
+                        transform: scale(0.8) rotate(0deg);
+                        zoom: 1;
+                        position: absolute;
+                        right: 4px;
+                        padding: 0 0 0 8px;
+                        &:before {
+                            content: "\E633";
+                            display: block;
+                            font-family: "anticon" !important;
+                        }
+                    }
+                }
+            }
+        }
+        .select-search-input {
+            border: 0;
+            font-size: 100%;
+            height: 100%;
+            width: 0.75em;
+            background: transparent;
+            outline: 0;
+            border-radius: 4px;
+        }
+    }
 }
 .has-danger .select:after {
     display: none;
-}
-// .select .select-input:focus{
-//     border-color: #66afe9!important;
-// }
-.select.multiple:after {
-    content: none;
-}
-
-.select.multiple .select-input.select-hasValue {
-    text-indent: -9999px;
-    display: none;
-}
-
-.select.multiple .select-tags-div {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    padding: .2rem;
-    font-size: .9rem;
-    line-height: 1.25;
-    color: #55595c;
-}
-
-.select.multiple .select-tags-div.select-tags-div-border {
-    position: inherit;
-    border: 1px solid #ddd;
-    border-radius: .25rem;
-}
-
-.select.multiple .select-tags-div ul {
-    margin: 0;
-    padding: 0;
-}
-
-.select.multiple .select-tags-div li {
-    user-select: none;
-    display: inline-block;
-    font-size: 12px;
-}
-
-.select.multiple .select-tags-div li.select-tag {
-    background-color: #f3f3f3;
-    border-radius: 4px;
-    cursor: default;
-    float: left;
-    padding: 0 16px;
-    margin: 2px;
-    max-width: 99%;
-    position: relative;
-    overflow: hidden;
-    -webkit-transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-    transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-    padding: 0 20px 0 10px;
-}
-
-.select.multiple .select-tags-div li .select-tag-content {
-    padding-top: 2px;
-    line-height: 18px;
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-    -webkit-transition: margin 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-    transition: margin 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.select.multiple .select-tags-div li .select-tag-close {
-    top: 4px;
-    font-style: normal;
-    vertical-align: baseline;
-    text-align: center;
-    line-height: 1;
-    color: rgba(0, 0, 0, 0.43);
-    line-height: inherit;
-    cursor: pointer;
-    font-weight: bold;
-    -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-    display: inline-block;
-    font-size: 12px;
-    font-size: 8px \9;
-    -webkit-transform: scale(0.8) rotate(0deg);
-    -ms-transform: scale(0.8) rotate(0deg);
-    transform: scale(0.8) rotate(0deg);
-    zoom: 1;
-    position: absolute;
-    right: 4px;
-    padding: 0 0 0 8px;
-}
-
-.select.multiple .select-tags-div li .select-tag-close:before {
-    content: "\E633";
-    display: block;
-    font-family: "anticon" !important;
-}
-
-.select.multiple .select-search {
-    float: left;
-    position: static;
-    height: 25px;
-}
-
-.select.multiple .select-search-input {
-    border: 0;
-    font-size: 100%;
-    height: 100%;
-    width: 0.75em;
-    background: transparent;
-    outline: 0;
-    border-radius: 4px;
-}
-.select .select-input.form-control[readonly] {
-    background-color: transparent;
 }

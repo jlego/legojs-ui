@@ -1,5 +1,5 @@
 /**
- * reply.js v0.5.29
+ * reply.js v0.7.9
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -1239,14 +1239,14 @@ var UploadView = function(_Lego$View) {
                     if (progressbar) {
                         progressbar.options.percent = percent;
                     }
-                }
-                if (typeof _this2.options.onProgress == "function") {
-                    _this2.options.onProgress(_this2);
+                    if (typeof _this2.options.onProgress == "function") {
+                        _this2.options.onProgress(_this2, file, percent);
+                    }
                 }
             }, false);
             this.xhr.addEventListener("loadstart", function(event) {
                 if (typeof _this2.options.onBegin == "function") {
-                    _this2.options.onBegin(file, _this2);
+                    _this2.options.onBegin(_this2, file);
                 }
             }, false);
             this.xhr.addEventListener("load", function(event) {
@@ -1425,9 +1425,11 @@ var _templateObject4$3 = _taggedTemplateLiteral$3([ '\n                    <div 
 
 var _templateObject5$2 = _taggedTemplateLiteral$3([ '\n            <div class="lego-upload-photo-item preview-', '" style="background-image:url(', ');">\n                <div class="lego-upload-operate">\n                    <progressbar id="', '"></progressbar>\n                    <a href="javascript:;" class="lego-cancelbtn" id="', '" onclick=', ' title="取消">\n                        <i class="anticon anticon-close-circle"></i>\n                    </a>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="lego-upload-photo-item preview-', '" style="background-image:url(', ');">\n                <div class="lego-upload-operate">\n                    <progressbar id="', '"></progressbar>\n                    <a href="javascript:;" class="lego-cancelbtn" id="', '" onclick=', ' title="取消">\n                        <i class="anticon anticon-close-circle"></i>\n                    </a>\n                </div>\n            </div>\n            ' ]);
 
-var _templateObject6 = _taggedTemplateLiteral$3([ '\n            <div class="lego-upload-photo-item preview-', '" style="background-image:url(', ');">\n                <div class="lego-upload-operate">\n                    <div class="lego-upload-btns">\n                        <a href="javascript:;" class="lego-previewbtn" id="p_', '" title="预览">\n                            <i class="anticon anticon-eye-o"></i>\n                        </a>\n                        ', "\n                    </div>\n                </div>\n            </div>\n            " ], [ '\n            <div class="lego-upload-photo-item preview-', '" style="background-image:url(', ');">\n                <div class="lego-upload-operate">\n                    <div class="lego-upload-btns">\n                        <a href="javascript:;" class="lego-previewbtn" id="p_', '" title="预览">\n                            <i class="anticon anticon-eye-o"></i>\n                        </a>\n                        ', "\n                    </div>\n                </div>\n            </div>\n            " ]);
+var _templateObject6 = _taggedTemplateLiteral$3([ '\n            <div class="lego-upload-photo-item preview-', '" style="background-image:url(', ');">\n                <div class="lego-upload-operate">\n                    <div class="lego-upload-btns">\n                        ', "\n                        ", "\n                    </div>\n                </div>\n            </div>\n            " ], [ '\n            <div class="lego-upload-photo-item preview-', '" style="background-image:url(', ');">\n                <div class="lego-upload-operate">\n                    <div class="lego-upload-btns">\n                        ', "\n                        ", "\n                    </div>\n                </div>\n            </div>\n            " ]);
 
-var _templateObject7 = _taggedTemplateLiteral$3([ '\n                        <a href="javascript:;" class="lego-closebtn" id="', '" onclick=', ' title="删除">\n                            <i class="anticon anticon-delete"></i>\n                        </a>' ], [ '\n                        <a href="javascript:;" class="lego-closebtn" id="', '" onclick=', ' title="删除">\n                            <i class="anticon anticon-delete"></i>\n                        </a>' ]);
+var _templateObject7 = _taggedTemplateLiteral$3([ '\n                        <a href="javascript:;" class="lego-previewbtn" id="p_', '" title="预览">\n                            <i class="anticon anticon-eye-o"></i>\n                        </a>' ], [ '\n                        <a href="javascript:;" class="lego-previewbtn" id="p_', '" title="预览">\n                            <i class="anticon anticon-eye-o"></i>\n                        </a>' ]);
+
+var _templateObject8 = _taggedTemplateLiteral$3([ '\n                        <a href="javascript:;" class="lego-closebtn" id="', '" onclick=', ' title="删除">\n                            <i class="anticon anticon-delete"></i>\n                        </a>' ], [ '\n                        <a href="javascript:;" class="lego-closebtn" id="', '" onclick=', ' title="删除">\n                            <i class="anticon anticon-delete"></i>\n                        </a>' ]);
 
 function _taggedTemplateLiteral$3(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -1475,6 +1477,7 @@ var UploadItem = function(_UploadBase) {
             percent: 0,
             isAuto: true,
             readonly: false,
+            showZoom: true,
             file: {},
             type: "file",
             headers: {},
@@ -1514,7 +1517,7 @@ var UploadItem = function(_UploadBase) {
         key: "renderPhoto",
         value: function renderPhoto() {
             var opts = this.options;
-            var vDom = opts.percent < 100 ? hx(_templateObject5$2, val(opts.type), val(opts.previewImgSrc), "progressbar_" + opts.vid, val(opts.file._id), this.onCancel.bind(this)) : hx(_templateObject6, val(opts.type), val(opts.file.url), val(opts.file._id), !opts.readonly && opts.percent == 100 ? hx(_templateObject7, val(opts.file._id), this.onRemove.bind(this)) : "");
+            var vDom = opts.percent < 100 ? hx(_templateObject5$2, val(opts.type), val(opts.previewImgSrc), "progressbar_" + opts.vid, val(opts.file._id), this.onCancel.bind(this)) : hx(_templateObject6, val(opts.type), val(opts.file.url), opts.showZoom ? hx(_templateObject7, val(opts.file._id)) : "", !opts.readonly && opts.percent == 100 ? hx(_templateObject8, val(opts.file._id), this.onRemove.bind(this)) : "");
             return vDom;
         }
     }, {
@@ -1656,12 +1659,13 @@ var Upload = function(_Lego$UI$Baseview) {
             type: "file",
             buttonText: "添加附件",
             buttonIcon: "",
+            showZoom: true,
             name: "",
             token: "",
             params: {},
             uploadUri: Lego.config.uploadUri || uploadUri,
-            saveUri: "",
-            accept: "",
+            accept: [],
+            acceptSuffix: [],
             previewImg: {
                 width: 0,
                 height: 0,
@@ -1687,6 +1691,15 @@ var Upload = function(_Lego$UI$Baseview) {
             onCancel: function onCancel() {}
         };
         Object.assign(options, opts);
+        if (options.type == "avatar") options.multiple = false;
+        if (options.type !== "file") {
+            options.accept = options.accept || [ "image/gif", "image/jpeg", "image/png", "image/jpg" ];
+            var cssOpts = {
+                width: options.previewImg.width || (options.type == "avatar" ? 150 : 95),
+                height: options.previewImg.height || (options.type == "avatar" ? 150 : 95)
+            };
+            Object.assign(options.previewImg, cssOpts);
+        }
         var _this = _possibleConstructorReturn$3(this, (Upload.__proto__ || Object.getPrototypeOf(Upload)).call(this, options));
         _this.$(".lego-fileInput").on("change", function(event) {
             var target = $(event.currentTarget)[0];
@@ -1704,23 +1717,13 @@ var Upload = function(_Lego$UI$Baseview) {
         value: function components() {
             this.fileList = this.fileList || [];
             var opts = this.options;
-            if (opts.type == "avatar") {
-                opts.multiple = false;
-            }
-            if (opts.type !== "file") {
-                opts.accept = opts.accept || "image/gif,image/jpeg,image/png";
-                var cssOpts = {
-                    width: opts.previewImg.width || (opts.type == "avatar" ? 150 : 95),
-                    height: opts.previewImg.height || (opts.type == "avatar" ? 150 : 95)
-                };
-                Object.assign(opts.previewImg, cssOpts);
-            }
             if (opts.value.length) {
                 opts.value = opts.value.map(function(file) {
                     var options = {
                         el: ".lego-upload-container",
                         readonly: opts.readonly,
                         percent: 100,
+                        showZoom: opts.showZoom,
                         type: opts.type,
                         file: file
                     };
@@ -1734,7 +1737,7 @@ var Upload = function(_Lego$UI$Baseview) {
             var opts = this.options, width = opts.previewImg.width, height = opts.previewImg.height;
             if (width) width = "width:" + (typeof width == "string" ? width : width + "px") + ";";
             if (height) height = "height:" + (typeof height == "string" ? height : height + "px") + ";";
-            var vDom = hx(_templateObject$2, val(opts.type), val(opts.type), width ? width : "", height ? height : "", !opts.readonly && opts.type == "file" ? hx(_templateObject2$2, opts.disabled ? "disabled" : "", opts.buttonIcon ? opts.buttonIcon : hx(_templateObject3$2), val(opts.buttonText)) : "", this.getValue().join(","), val(opts.name), val(opts.accept), opts.showUploadList && opts.type == "file" ? hx(_templateObject4$2) : "", opts.type !== "file" ? hx(_templateObject5$1, val(opts.type), val(opts.type)) : "");
+            var vDom = hx(_templateObject$2, val(opts.type), val(opts.type), width ? width : "", height ? height : "", !opts.readonly && opts.type == "file" ? hx(_templateObject2$2, opts.disabled ? "disabled" : "", opts.buttonIcon ? opts.buttonIcon : hx(_templateObject3$2), val(opts.buttonText)) : "", this.getValue().join(","), val(opts.name), val(opts.accept.join(",")), opts.showUploadList && opts.type == "file" ? hx(_templateObject4$2) : "", opts.type !== "file" ? hx(_templateObject5$1, val(opts.type), val(opts.type)) : "");
             return opts.template ? opts.template : vDom;
         }
     }, {
@@ -1751,7 +1754,7 @@ var Upload = function(_Lego$UI$Baseview) {
             var that = this, opts = this.options, filesCount = uploadFiles.length, maxFilesCount = opts.maxFilesCount;
             if (filesCount) {
                 if (filesCount > maxFilesCount) {
-                    Lego.UI.message("warning", "只能上传" + maxFilesCount + "张图片");
+                    Lego.UI.message("warning", "只能上传" + maxFilesCount + "个文件");
                     return;
                 }
                 uploadFiles = uploadFiles.filter(function(file) {
@@ -1761,13 +1764,31 @@ var Upload = function(_Lego$UI$Baseview) {
                     return !hasFile;
                 });
                 if (this.fileList.length > maxFilesCount) {
-                    Lego.UI.message("warning", "只能上传" + maxFilesCount + "张图片");
+                    Lego.UI.message("warning", "只能上传" + maxFilesCount + "个文件");
                     this.fileList.length = maxFilesCount;
                     if (uploadFiles.length > maxFilesCount) uploadFiles.length = maxFilesCount;
                     return;
                 }
                 if (typeof opts.onAddFile == "function") opts.onAddFile(this.fileList, uploadFiles);
                 uploadFiles.forEach(function(file, i) {
+                    if (opts.accept.length) {
+                        if (!opts.accept.includes(file.type)) {
+                            Lego.UI.message("error", "上传文件格式不正确");
+                            _this2.fileList = _this2.fileList.filter(function(value) {
+                                return value !== file._id;
+                            });
+                            return;
+                        }
+                    }
+                    if (opts.acceptSuffix.length) {
+                        if (!opts.acceptSuffix.includes(Lego.UI.Util.getExtName(file.name))) {
+                            Lego.UI.message("error", "上传文件格式不正确");
+                            _this2.fileList = _this2.fileList.filter(function(value) {
+                                return value !== file._id;
+                            });
+                            return;
+                        }
+                    }
                     if (Math.ceil(file.size / (1024 * 1024)) > parseInt(opts.maxFileSize)) {
                         var msg = "发送文件最大为" + opts.maxFileSize;
                         if (uploadFiles.length == 1) {
@@ -1775,6 +1796,9 @@ var Upload = function(_Lego$UI$Baseview) {
                         } else {
                             debug.warn(msg);
                         }
+                        _this2.fileList = _this2.fileList.filter(function(value) {
+                            return value !== file._id;
+                        });
                         return;
                     }
                     if (i > maxFilesCount - 1) return;
@@ -1786,6 +1810,7 @@ var Upload = function(_Lego$UI$Baseview) {
                         file: file,
                         type: opts.type,
                         percent: 0,
+                        showZoom: opts.showZoom,
                         params: Object.assign({
                             key: opts.key || that.getKey(file.name),
                             token: typeof opts.data == "string" ? opts.data : ""
@@ -1892,6 +1917,150 @@ var Upload = function(_Lego$UI$Baseview) {
 
 Lego.components("upload", Upload);
 
+var _createClass$10 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+var _templateObject$7 = _taggedTemplateLiteral$7([ '\n        <div class="input-group lego-search ', '">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '" name="', '" value="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group lego-search ', '">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '" name="', '" value="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
+
+var _templateObject2$6 = _taggedTemplateLiteral$7([ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ]);
+
+function _taggedTemplateLiteral$7(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+}
+
+function _classCallCheck$10(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$9(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$9(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var Search = function(_Lego$UI$Baseview) {
+    _inherits$9(Search, _Lego$UI$Baseview);
+    function Search() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$10(this, Search);
+        var options = {
+            events: {
+                "click .lego-search-button": "onSearch",
+                "change .lego-search-input": "onChange",
+                "keyup .lego-search-input": "_enterSearch"
+            },
+            placeholder: "请输入关键字",
+            name: "",
+            size: "",
+            keyword: "",
+            activeKey: "",
+            activeValue: "",
+            showSelect: false,
+            onKeyup: function onKeyup() {},
+            onSearch: function onSearch() {},
+            onChange: function onChange() {}
+        };
+        Object.assign(options, opts);
+        return _possibleConstructorReturn$9(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, options));
+    }
+    _createClass$10(Search, [ {
+        key: "components",
+        value: function components() {
+            var opts = this.options;
+            if (typeof opts.value == "string") {
+                opts.keyword = opts.value;
+                opts.value = null;
+            }
+            this.addCom({
+                el: "#dropdown-" + opts.vid,
+                container: "#select-" + opts.vid,
+                data: opts.data,
+                onChange: function onChange(self, model) {
+                    this.context.options.activeKey = model.key;
+                    this.context.options.activeValue = model.value;
+                }
+            });
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            var options = this.options || {};
+            var vDom = hx(_templateObject$7, options.size ? "input-group-" + options.size : "", options.showSelect ? hx(_templateObject2$6, options.vid, options.activeValue || "请选择", options.vid) : "", options.placeholder, options.name, val(options.keyword));
+            return vDom;
+        }
+    }, {
+        key: "_enterSearch",
+        value: function _enterSearch(event) {
+            if (event.keyCode == 13) {
+                this.onSearch(event);
+            } else {
+                if (typeof this.options.onKeyup === "function") this.options.onKeyup(this, this.getValue(event));
+            }
+        }
+    }, {
+        key: "getValue",
+        value: function getValue(event) {
+            var keyword = event ? this.$(".lego-search-input").val() : this.options.keyword;
+            return {
+                key: this.options.activeKey,
+                value: this.options.activeValue,
+                keyword: keyword
+            };
+        }
+    }, {
+        key: "onChange",
+        value: function onChange(event) {
+            if (event) event.stopPropagation();
+            if (typeof this.options.onChange === "function") this.options.onChange(this, this.getValue(event));
+        }
+    }, {
+        key: "onSearch",
+        value: function onSearch(event) {
+            if (event) event.stopPropagation();
+            if (typeof this.options.onSearch === "function") this.options.onSearch(this, this.getValue(event));
+        }
+    } ]);
+    return Search;
+}(Lego.UI.Baseview);
+
+Lego.components("search", Search);
+
 var _createClass$9 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
@@ -1911,13 +2080,15 @@ var _createClass$9 = function() {
 
 var _templateObject$6 = _taggedTemplateLiteral$6([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
 
-var _templateObject2$5 = _taggedTemplateLiteral$6([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">', "</a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">', "</a>\n                    </li>" ]);
+var _templateObject2$5 = _taggedTemplateLiteral$6([ "\n                    <li ", '>\n                    <a id="', '" class="', " ", '" href="', '">', "</a>\n                    </li>" ], [ "\n                    <li ", '>\n                    <a id="', '" class="', " ", '" href="', '">', "</a>\n                    </li>" ]);
 
-var _templateObject3$4 = _taggedTemplateLiteral$6([ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ]);
+var _templateObject3$4 = _taggedTemplateLiteral$6([ '\n            <li class="dropdown" ', '>\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown" ', '>\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ]);
 
 var _templateObject4$4 = _taggedTemplateLiteral$6([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5$3 = _taggedTemplateLiteral$6([ '\n        <ul class="dropdown-menu ', " ", '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', " ", '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject5$3 = _taggedTemplateLiteral$6([ '\n        <ul class="', " ", '"\n        ', ">\n            ", "\n        </ul>\n        " ], [ '\n        <ul class="', " ", '"\n        ', ">\n            ", "\n        </ul>\n        " ]);
+
+var _templateObject6$1 = _taggedTemplateLiteral$6([ '\n            <div class="dropdown-menu">\n                <div class="lego-search-container"><search id="search_', '"></search></div>\n                ', "\n            </div>\n            " ], [ '\n            <div class="dropdown-menu">\n                <div class="lego-search-container"><search id="search_', '"></search></div>\n                ', "\n            </div>\n            " ]);
 
 function _taggedTemplateLiteral$6(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -1962,15 +2133,20 @@ var Dropdown = function(_Lego$UI$Baseview) {
         _classCallCheck$9(this, Dropdown);
         var options = {
             events: {
-                "click li:not(.dropdown)": "clickItem"
+                "click li:not(.dropdown, .lego-search-container)": "clickItem",
+                "click .lego-search-container": function clickLegoSearchContainer(event) {
+                    event.stopPropagation();
+                }
             },
             scrollbar: null,
             disabled: false,
             eventName: "click",
+            searchPlaceholder: "搜索",
             container: "",
             direction: "",
             activeKey: "",
             clickAndClose: true,
+            showSearch: false,
             open: false,
             onChange: function onChange() {},
             data: []
@@ -1979,40 +2155,87 @@ var Dropdown = function(_Lego$UI$Baseview) {
         return _possibleConstructorReturn$8(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
     }
     _createClass$9(Dropdown, [ {
+        key: "components",
+        value: function components() {
+            var _this2 = this;
+            var opts = this.options, that = this;
+            if (opts.showSearch) {
+                (function() {
+                    var searchFun = function searchFun(self, result) {
+                        that.$("li").each(function(index, el) {
+                            if ($(el).text().indexOf(result.keyword) < 0) {
+                                $(el).hide();
+                            } else {
+                                $(el).show();
+                            }
+                        });
+                    };
+                    _this2.addCom({
+                        el: "#search_" + opts.vid,
+                        size: "sm",
+                        placeholder: opts.searchPlaceholder,
+                        onKeyup: function onKeyup(self, result) {
+                            searchFun(self, result);
+                        },
+                        onSearch: function onSearch(self, result) {
+                            searchFun(self, result);
+                        }
+                    });
+                })();
+            }
+        }
+    }, {
         key: "render",
         value: function render() {
-            var options = this.options || {};
+            var opts = this.options, vDom = "";
             function itemNav(item) {
                 if (item.divider) {
                     return hx(_templateObject$6);
                 } else {
                     if (!item.children) {
-                        return hx(_templateObject2$5, val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
+                        return hx(_templateObject2$5, item.isHidden ? 'style="display:none;"' : "", val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
                     } else {
                         return loopNav(item);
                     }
                 }
             }
             function loopNav(item) {
-                return hx(_templateObject3$4, val(item.key), item.key === options.activeKey ? "active" : "", item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", val(item.value), item.children ? hx(_templateObject4$4, item.children.map(function(item) {
+                return hx(_templateObject3$4, item.isHidden ? 'style="display:none;"' : "", val(item.key), item.key === options.activeKey ? "active" : "", item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", val(item.value), item.children ? hx(_templateObject4$4, item.children.map(function(item) {
                     return itemNav(item);
                 })) : "");
             }
-            var vDom = hx(_templateObject5$3, options.scrollbar ? "scrollbar" : "", options.direction ? "drop" + options.direction : "", options.open ? "block" : "none", options.data.map(function(item) {
+            vDom = hx(_templateObject5$3, !opts.showSearch ? "dropdown-menu " : "", opts.scrollbar ? "scrollbar" : "", !opts.showSearch ? 'style="display:' + (opts.open ? "block" : "none") + '"' : "", opts.data.map(function(item) {
                 return itemNav(item);
             }));
+            if (opts.showSearch) {
+                vDom = hx(_templateObject6$1, opts.vid, vDom);
+            }
             return vDom;
         }
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var that = this, _eventName = "click.dropdown-" + this.options.vid;
-            this.container = this.options.container instanceof $ ? this.options.container : this.options.context.$ ? this.options.context.$(this.options.container) : $(this.options.container);
-            if (!this.options.disabled) {
+            var that = this, opts = this.options, _eventName = "click.dropdown-" + opts.vid;
+            this.container = opts.container instanceof $ ? opts.container : opts.context.$ ? opts.context.$(opts.container) : $(opts.container);
+            if (!opts.disabled) {
                 var handler = function handler(event) {
+                    Lego.UI.Util.getDirection(that.container, that.$el);
                     that.$el.slideToggle("fast");
                 };
-                if (this.options.eventName == "click") {
+                var cssObj = {
+                    zIndex: 1e4
+                };
+                if (opts.width) cssObj.width = opts.width;
+                if (opts.maxHeight) {
+                    cssObj.maxHeight = opts.maxHeight;
+                    cssObj.overflow = "auto";
+                }
+                if (opts.showSearch) {
+                    this.$(".lego-search-container").next("ul").css(cssObj);
+                } else {
+                    this.$el.css(cssObj);
+                }
+                if (opts.eventName == "click") {
                     $("body, .modal-body").off(_eventName).on(_eventName, function(event) {
                         if (event.originalEvent) {
                             var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.container[0]);
@@ -2027,16 +2250,6 @@ var Dropdown = function(_Lego$UI$Baseview) {
                         that.close();
                     });
                 }
-            }
-        }
-    }, {
-        key: "_getAlign",
-        value: function _getAlign(parent, el) {
-            var _X = parent.offset().left, _Y = parent.offset().top - el.height(), windowWidth = $(window).width() - 20, elWidth = el.width();
-            if (windowWidth > _X + elWidth) {
-                return "left";
-            } else {
-                return "right";
             }
         }
     }, {
@@ -2136,10 +2349,11 @@ var Dropdownbtn = function(_Lego$UI$Baseview) {
             },
             text: "button name",
             btnType: "secondary",
-            size: "default",
+            size: "",
             direction: "",
             activeKey: "",
             dropdownOption: {},
+            data: [],
             onClick: function onClick() {},
             onChange: function onChange() {},
             components: []
@@ -2152,25 +2366,27 @@ var Dropdownbtn = function(_Lego$UI$Baseview) {
     _createClass$8(Dropdownbtn, [ {
         key: "components",
         value: function components() {
-            var options = this.options;
-            this.addCom($.extend(options.dropdownOption, {
-                el: "#dropdown-" + options.vid,
-                container: "[view-id=" + options.vid + "]",
-                direction: options.direction,
-                activeKey: options.activeKey,
-                data: options.data,
-                onChange: function onChange(self, item, event) {
-                    var theView = self.options.context;
-                    theView.activeItem = item;
-                    if (typeof theView.options.onChange == "function") theView.options.onChange(theView, item);
-                }
-            }));
+            var opts = this.options;
+            if (opts.data.length) {
+                this.addCom($.extend(opts.dropdownOption, {
+                    el: "#dropdown-" + opts.vid,
+                    container: this.$(".dropdown-toggle-split"),
+                    direction: opts.direction,
+                    activeKey: opts.activeKey,
+                    data: opts.data,
+                    onChange: function onChange(self, item, event) {
+                        var theView = self.options.context;
+                        theView.activeItem = item;
+                        if (typeof theView.options.onChange == "function") theView.options.onChange(theView, item);
+                    }
+                }));
+            }
         }
     }, {
         key: "render",
         value: function render() {
-            var options = this.options;
-            var vDom = hx(_templateObject$5, options.size == "large" ? "btn-group-lg" : options.size == "small" ? "btn-group-sm" : "", options.direction == "up" ? "dropup" : "", options.btnType, val(options.html || options.text), options.btnType, options.vid);
+            var opts = this.options;
+            var vDom = hx(_templateObject$5, opts.size == "lg" ? "btn-group-lg" : opts.size == "sm" ? "btn-group-sm" : "", opts.direction == "up" ? "dropup" : "", opts.btnType, val(opts.html || opts.text), opts.btnType, opts.vid);
             return vDom;
         }
     }, {

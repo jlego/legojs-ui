@@ -25,6 +25,7 @@ class Tables extends Lego.UI.Baseview {
             className: '',
             tableWidth: 0,
             loading: true,
+            isNodata: false,
             isNowrap: true, //表格内容是否不换行
             rowSelection: null, //列表行是否可选择
             pagination: null,   //分页器，配置项参考 pagination，设为 false 时不展示和进行分页
@@ -49,7 +50,7 @@ class Tables extends Lego.UI.Baseview {
             // title(){}, //表格标题
             // scroll: {}, //横向或纵向支持滚动，也可用于指定滚动区域的宽高度：{{ x: true, y: 300 }}
             data: [],
-            nodata: {}, //暂无数据配置
+            nodataOption: {}, //暂无数据配置
             onExpandRow(){}, //点击展开图标时触发
             onChange(){}, //分页、排序、筛选变化时触发
             onSelect(){},
@@ -65,7 +66,10 @@ class Tables extends Lego.UI.Baseview {
         this.$('.lego-table-body > .scrollbar').scroll(function() {
             header.scrollLeft($(this).scrollLeft());
         });
-        this.$('.lego-table-tfoot>tr>td').attr('colspan', this.columns.length);
+
+        if(this.options.showFooter && this.columns.length){
+            this.$('.lego-table-tfoot > tr > td').attr('colspan', this.columns.length);
+        }
         $(window).resize(function(){
             that.resizeWidth();
         });
@@ -113,14 +117,24 @@ class Tables extends Lego.UI.Baseview {
     }
     components(){
         let opts = this.options;
-        this.addCom(Object.assign({
-            el: '#pagination-' + opts.vid
-        }, opts.pagination));
         // 暂无数据
         if(!opts.data.length){
             this.addCom(Object.assign({
-                el: '#nodata-' + opts.vid
-            }), Lego.config.nodata || {}, opts.nodata);
+                el: '#nodata_' + opts.vid
+            }), Lego.config.nodataOption || {}, opts.nodataOption);
+        }
+        if(opts.pagination){
+            opts.pagination.el = '#pagination_' + opts.vid;
+            if(this.oldTotalCount !== undefined && this.oldCurrent !== undefined && Lego.getView(opts.pagination.el)){
+                if(this.oldTotalCount !== opts.pagination.totalCount || this.oldCurrent !== opts.pagination.current){
+                    opts.pagination.context = this;
+                    Lego.create(Pagination, opts.pagination);
+                }
+            }else{
+                this.addCom(opts.pagination);
+            }
+            this.oldTotalCount = opts.pagination.totalCount || 0;
+            this.oldCurrent = opts.pagination.current || 1;
         }
     }
     resizeWidth(){
@@ -129,7 +143,7 @@ class Tables extends Lego.UI.Baseview {
     }
     render() {
         this.getColumns();
-        const opts = this.options;
+        let opts = this.options;
         const vDom = hx`
         <div class="lego-table clearfix lego-table-${opts.size} ${opts.bordered ? 'lego-table-bordered' : ''}
         ${opts.showHeader && opts.fixedHeader ? 'lego-table-fixed-header' : ''} ${opts.isNowrap ? 'lego-nr' : ''} lego-table-scroll-position-left">
@@ -146,7 +160,7 @@ class Tables extends Lego.UI.Baseview {
                 </div>
                 ` : ''}
                 <div class="lego-table-body" style="bottom: ${opts.pagination ? '48px' : '0'}">
-                    ${!opts.data.length && !opts.loading ? hx`<nodata id="nodata-${opts.vid}"></nodata>` : hx`<div style="display:none;"></div>`}
+                    ${opts.isNodata ? hx`<nodata id="nodata_${opts.vid}"></nodata>` : hx`<div style="display:none;"></div>`}
                     <div class="${opts.showHeader && opts.fixedHeader ? 'scrollbar' : ''}">
                         <table class="${opts.className}" style="${opts.tableWidth ? ('width:' + opts.tableWidth + 'px') : 'width:1px'}">
                             ${this._renderColgroup()}
@@ -156,27 +170,13 @@ class Tables extends Lego.UI.Baseview {
                         </table>
                     </div>
                 </div>
-                ${opts.pagination && opts.data ? hx`
-                    <div class="lego-table-footer">
-                    <pagination id="pagination-${opts.vid}"></pagination>
-                    </div>
-                ` : ''}
+                <div class="lego-table-footer">${opts.pagination && !opts.isNodata ? hx`<pagination id="pagination_${opts.vid}"></pagination>` : ''}</div>
                 ${opts.showSetting ? hx`<button type="button" class="btn btn-default noborder" title="表格设置"><i class="anticon anticon-ellipsis"></i></button>` : ''}
                 </div>
             </div>
         </div>
         `;
         return vDom;
-    }
-    renderAfter(){
-        let opts = this.options;
-        let pgView = Lego.getView('#pagination-' + opts.vid);
-        if(pgView){
-            Object.assign(pgView.options, opts.pagination);
-        };
-        if(this.options.showFooter && this.columns.length){
-            this.$('.lego-table-tfoot > tr > td').attr('colspan', this.columns.length);
-        }
     }
     _getRowKey(str = ''){
         this.rowKey = this.rowKey || 0;

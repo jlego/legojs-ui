@@ -1,5 +1,5 @@
 /**
- * inputs.js v0.5.29
+ * inputs.js v0.7.9
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -92,14 +92,7 @@ var Inputs = function(_Lego$UI$Baseview) {
             onEnter: function onEnter() {}
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn(this, (Inputs.__proto__ || Object.getPrototypeOf(Inputs)).call(this, options));
-        if (options.preAddon || options.nextAddon) {
-            var onEnterFun = _this.onEnter.bind(_this);
-            var onChangeFun = _this.onChange.bind(_this);
-            _this.$("input").keydown(onEnterFun);
-            _this.$("input").change(onChangeFun);
-        }
-        return _this;
+        return _possibleConstructorReturn(this, (Inputs.__proto__ || Object.getPrototypeOf(Inputs)).call(this, options));
     }
     _createClass(Inputs, [ {
         key: "render",
@@ -118,9 +111,21 @@ var Inputs = function(_Lego$UI$Baseview) {
             return vDom;
         }
     }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            var opts = this.options;
+            if (opts.preAddon || opts.nextAddon) {
+                var onEnterFun = this.onEnter.bind(this);
+                var onChangeFun = this.onChange.bind(this);
+                this.$("input").keyup(onEnterFun);
+                this.$("input").change(onChangeFun);
+            }
+        }
+    }, {
         key: "filterStr",
         value: function filterStr(str) {
-            return str;
+            var opts = this.options, reg = new RegExp(opts.filterReg);
+            return opts.filterReg ? str.replace(reg, "") : str;
         }
     }, {
         key: "onEnter",

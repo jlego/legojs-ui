@@ -2,7 +2,11 @@
 // import Search from '../../../../dist/search';
 // import Selects from '../../../../dist/selects';
 // import Datepicker from '../../../../dist/datepicker';
-// import Inputs from '../../../../dist/inputs';
+import Areapicker from '../../../ux/areapicker/index';
+import '../../../ux/areapicker/index.css';
+import Data from '../../../ux/areapicker/data_static';
+import Geolocation from '../../../ux/geolocation/index';
+import '../../../ux/geolocation/index.css';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -18,6 +22,21 @@ class HomeView extends Lego.UI.Baseview {
         }, {
             key: 'so3',
             value: '选项三'
+        }, {
+            key: 'so4',
+            value: '选项四'
+        }, {
+            key: 'so5',
+            value: '选项二选项二选项二fffdf五'
+        }, {
+            key: 'so6',
+            value: '选项三六'
+        }, {
+            key: 'so7',
+            value: '选项一'
+        }, {
+            key: 'so8',
+            value: '选项二选项二选项二fffdf'
         }];
         const options = {
             components: [{
@@ -29,9 +48,8 @@ class HomeView extends Lego.UI.Baseview {
                 }, {
                     label: '名称1',
                     help: '注意事项',
-                    required: true,
                     rule: {
-                        // required: true
+                        required: true
                     },
                     message: {
                         required: '请先填写名称'
@@ -62,9 +80,8 @@ class HomeView extends Lego.UI.Baseview {
                     }
                 }, {
                     label: '名称3',
-                    required: true,
                     rule: {
-                        // required: true
+                        required: true
                     },
                     message: {
                         required: '请先填写名称3'
@@ -80,9 +97,8 @@ class HomeView extends Lego.UI.Baseview {
                     }
                 }, {
                     label: '名称4',
-                    required: true,
                     rule: {
-                        // required: true
+                        required: true
                     },
                     message: {
                         required: '请先填写名称4'
@@ -116,11 +132,64 @@ class HomeView extends Lego.UI.Baseview {
                         data: [{
                             label: 'sadfa',
                             value: '1',
-                            // checked: true
+                            checked: true
                         }, {
                             label: 'sadfa2',
                             value: '2'
                         }]
+                    }
+                }, {
+                    label: '名称6',
+                    rule: {
+                        required: true
+                    },
+                    message: {
+                        required: '请先选择'
+                    },
+                    component: {
+                        comName: 'switchs',
+                        name: 'ssss',
+                        checked: true,
+                        onChange(self, result){
+                            console.warn(self, result);
+                        }
+                    }
+                }, {
+                    label: '名称7',
+                    component: {
+                        comName: 'slider',
+                        name: 'sss2',
+                        range: true,
+                        value: [2, 6],
+                        // enabled: false,
+                        // orientation: 'vertical',
+                        // ticks: '[1,2,3]',
+                        // ticks_positions: '["short", "medium", "long"]',
+                        // ticks_labels: '["short", "medium", "long"]',
+                        onChange(self, result){
+                            console.warn(self, result);
+                        }
+                    }
+                }, {
+                    label: '名称8',
+                    component: {
+                        comName: 'areapicker',
+                        rootId: '86',
+                        data: Data,
+                        onChange(self, result){
+                            // console.warn(self, result);
+                        }
+                    }
+                }, {
+                    label: '名称9',
+                    component: {
+                        comName: 'geolocation',
+                        name: 'sdfasd',
+                        mapApi: 'https://webapi.amap.com/maps?v=1.3&key=acc8b6f1622ec84e5eb7ad4765b14998',
+                        // data: {},
+                        onChange(self, result){
+                            console.warn(self, result);
+                        }
                     }
                 }],
                 onSubmit(self, data){

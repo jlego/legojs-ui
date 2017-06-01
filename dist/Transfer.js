@@ -1,5 +1,5 @@
 /**
- * transfer.js v0.5.29
+ * transfer.js v0.7.9
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -189,7 +189,6 @@ var Tree = function(_Lego$UI$Baseview) {
             disSelect: "",
             onlySelect: "",
             setting: {},
-            keyNames: [ "id", "name", "type" ],
             value: [],
             data: [],
             onChecked: function onChecked() {},
@@ -201,39 +200,38 @@ var Tree = function(_Lego$UI$Baseview) {
     _createClass$2(Tree, [ {
         key: "components",
         value: function components() {
-            var options = this.options, that = this;
+            var opts = this.options, that = this;
             function selectOrNo(treeNode) {
-                if (options.disSelect) {
-                    if (Object.keys(treeNode).includes(options.disSelect)) return false;
+                if (opts.disSelect) {
+                    if (Object.keys(treeNode).includes(opts.disSelect)) return false;
                 }
-                if (options.onlySelect) {
-                    if (!Object.keys(treeNode).includes(options.onlySelect)) return false;
+                if (opts.onlySelect) {
+                    if (!Object.keys(treeNode).includes(opts.onlySelect)) return false;
                 }
                 return true;
             }
             function selectResult(treeId, treeNode) {
-                var treeObj = $.fn.zTree.getZTreeObj(treeId), nodes = treeObj.getCheckedNodes(true), keyNames = options.keyNames, result = nodes.filter(function(node) {
+                var treeObj = $.fn.zTree.getZTreeObj(treeId), nodes = treeObj.getCheckedNodes(true), result = nodes.filter(function(node) {
                     return selectOrNo(node);
                 });
                 var newValue = [];
                 result.forEach(function(val, index) {
                     newValue.push(Object.assign({
-                        key: val[keyNames[0]],
-                        value: val[keyNames[1]],
-                        type: val[keyNames[2]]
+                        key: val.id,
+                        value: val.name
                     }, val));
                 });
-                if (typeof options.onChecked == "function") options.onChecked(that, newValue, treeNode);
+                if (typeof opts.onChecked == "function") opts.onChecked(that, newValue, treeNode);
             }
-            if (options.setting.check) {
-                options.setting.check = $.extend(true, {
+            if (opts.setting.check) {
+                opts.setting.check = $.extend(true, {
                     enable: true,
                     chkboxType: {
                         Y: "",
                         N: ""
                     }
-                }, options.setting.check || {});
-                options.setting.callback = Object.assign(options.setting.callback || {}, {
+                }, opts.setting.check || {});
+                opts.setting.callback = Object.assign(opts.setting.callback || {}, {
                     onCheck: function onCheck(event, treeId, treeNode) {
                         selectResult(treeId, treeNode);
                     },
@@ -245,21 +243,18 @@ var Tree = function(_Lego$UI$Baseview) {
                     }
                 });
             } else {
-                options.setting.callback = Object.assign(options.setting.callback || {}, {
+                opts.setting.callback = Object.assign(opts.setting.callback || {}, {
                     onClick: function onClick(event, treeId, treeNode) {
                         if (!selectOrNo(treeNode)) return false;
-                        if (typeof options.onClick == "function") options.onClick(that, Object.assign({
-                            key: treeNode[options.keyNames[0]],
-                            value: treeNode[options.keyNames[1]],
-                            type: treeNode[options.keyNames[2]]
+                        if (typeof opts.onClick == "function") opts.onClick(that, Object.assign({
+                            key: treeNode.id,
+                            value: treeNode.name
                         }, treeNode));
                     }
                 });
             }
-            if (options.data.length) {
-                var _ztree = $.fn.zTree.getZTreeObj(this.options.id);
-                if (_ztree) _ztree.destroy();
-                $.fn.zTree.init(this.$el, options.setting, options.data);
+            if (opts.data.length) {
+                this.renderTree();
             }
         }
     }, {
@@ -268,10 +263,31 @@ var Tree = function(_Lego$UI$Baseview) {
             return hx(_templateObject$2);
         }
     }, {
+        key: "renderTree",
+        value: function renderTree() {
+            var opts = this.options, treeObj = $.fn.zTree.getZTreeObj(opts.id);
+            if (treeObj) treeObj.destroy();
+            $.fn.zTree.init(this.$el, opts.setting, opts.data);
+        }
+    }, {
+        key: "search",
+        value: function search() {
+            var keyword = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+            this.$("li").hide();
+            if (keyword == "") {
+                this.$("li").show();
+            } else {
+                this.$("span.node_name").each(function(index, el) {
+                    if ($(el).text().indexOf(keyword) > -1) {
+                        $(el).parents("li").show();
+                    }
+                });
+            }
+        }
+    }, {
         key: "clearChecked",
         value: function clearChecked(key, value) {
-            var ztree$$1 = $.fn.zTree.getZTreeObj(this.options.id);
-            var node = ztree$$1.getNodeByParam(key, value, null);
+            var opts = this.options, ztree$$1 = $.fn.zTree.getZTreeObj(opts.id), node = ztree$$1.getNodeByParam(key, value, null);
             if (node) {
                 ztree$$1.checkNode(node, false, false);
             }
@@ -301,13 +317,15 @@ var _createClass$4 = function() {
 
 var _templateObject$4 = _taggedTemplateLiteral$4([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
 
-var _templateObject2$3 = _taggedTemplateLiteral$4([ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">', "</a>\n                    </li>" ], [ '\n                    <li>\n                    <a id="', '" class="', " ", '" href="', '">', "</a>\n                    </li>" ]);
+var _templateObject2$3 = _taggedTemplateLiteral$4([ "\n                    <li ", '>\n                    <a id="', '" class="', " ", '" href="', '">', "</a>\n                    </li>" ], [ "\n                    <li ", '>\n                    <a id="', '" class="', " ", '" href="', '">', "</a>\n                    </li>" ]);
 
-var _templateObject3$2 = _taggedTemplateLiteral$4([ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown">\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ]);
+var _templateObject3$2 = _taggedTemplateLiteral$4([ '\n            <li class="dropdown" ', '>\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="dropdown" ', '>\n                <a id="', '" class="', " ", ' dropdown-toggle" href="', '">', "</a>\n                ", "\n            </li>\n            " ]);
 
 var _templateObject4 = _taggedTemplateLiteral$4([ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ], [ '\n                <ul class="dropdown-menu">\n                    ', "\n                </ul>\n                " ]);
 
-var _templateObject5 = _taggedTemplateLiteral$4([ '\n        <ul class="dropdown-menu ', " ", '" style="display:', '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="dropdown-menu ', " ", '" style="display:', '">\n            ', "\n        </ul>\n        " ]);
+var _templateObject5 = _taggedTemplateLiteral$4([ '\n        <ul class="', " ", '"\n        ', ">\n            ", "\n        </ul>\n        " ], [ '\n        <ul class="', " ", '"\n        ', ">\n            ", "\n        </ul>\n        " ]);
+
+var _templateObject6 = _taggedTemplateLiteral$4([ '\n            <div class="dropdown-menu">\n                <div class="lego-search-container"><search id="search_', '"></search></div>\n                ', "\n            </div>\n            " ], [ '\n            <div class="dropdown-menu">\n                <div class="lego-search-container"><search id="search_', '"></search></div>\n                ', "\n            </div>\n            " ]);
 
 function _taggedTemplateLiteral$4(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -352,15 +370,20 @@ var Dropdown = function(_Lego$UI$Baseview) {
         _classCallCheck$4(this, Dropdown);
         var options = {
             events: {
-                "click li:not(.dropdown)": "clickItem"
+                "click li:not(.dropdown, .lego-search-container)": "clickItem",
+                "click .lego-search-container": function clickLegoSearchContainer(event) {
+                    event.stopPropagation();
+                }
             },
             scrollbar: null,
             disabled: false,
             eventName: "click",
+            searchPlaceholder: "搜索",
             container: "",
             direction: "",
             activeKey: "",
             clickAndClose: true,
+            showSearch: false,
             open: false,
             onChange: function onChange() {},
             data: []
@@ -369,40 +392,87 @@ var Dropdown = function(_Lego$UI$Baseview) {
         return _possibleConstructorReturn$4(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
     }
     _createClass$4(Dropdown, [ {
+        key: "components",
+        value: function components() {
+            var _this2 = this;
+            var opts = this.options, that = this;
+            if (opts.showSearch) {
+                (function() {
+                    var searchFun = function searchFun(self, result) {
+                        that.$("li").each(function(index, el) {
+                            if ($(el).text().indexOf(result.keyword) < 0) {
+                                $(el).hide();
+                            } else {
+                                $(el).show();
+                            }
+                        });
+                    };
+                    _this2.addCom({
+                        el: "#search_" + opts.vid,
+                        size: "sm",
+                        placeholder: opts.searchPlaceholder,
+                        onKeyup: function onKeyup(self, result) {
+                            searchFun(self, result);
+                        },
+                        onSearch: function onSearch(self, result) {
+                            searchFun(self, result);
+                        }
+                    });
+                })();
+            }
+        }
+    }, {
         key: "render",
         value: function render() {
-            var options = this.options || {};
+            var opts = this.options, vDom = "";
             function itemNav(item) {
                 if (item.divider) {
                     return hx(_templateObject$4);
                 } else {
                     if (!item.children) {
-                        return hx(_templateObject2$3, val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
+                        return hx(_templateObject2$3, item.isHidden ? 'style="display:none;"' : "", val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
                     } else {
                         return loopNav(item);
                     }
                 }
             }
             function loopNav(item) {
-                return hx(_templateObject3$2, val(item.key), item.key === options.activeKey ? "active" : "", item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", val(item.value), item.children ? hx(_templateObject4, item.children.map(function(item) {
+                return hx(_templateObject3$2, item.isHidden ? 'style="display:none;"' : "", val(item.key), item.key === options.activeKey ? "active" : "", item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", val(item.value), item.children ? hx(_templateObject4, item.children.map(function(item) {
                     return itemNav(item);
                 })) : "");
             }
-            var vDom = hx(_templateObject5, options.scrollbar ? "scrollbar" : "", options.direction ? "drop" + options.direction : "", options.open ? "block" : "none", options.data.map(function(item) {
+            vDom = hx(_templateObject5, !opts.showSearch ? "dropdown-menu " : "", opts.scrollbar ? "scrollbar" : "", !opts.showSearch ? 'style="display:' + (opts.open ? "block" : "none") + '"' : "", opts.data.map(function(item) {
                 return itemNav(item);
             }));
+            if (opts.showSearch) {
+                vDom = hx(_templateObject6, opts.vid, vDom);
+            }
             return vDom;
         }
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var that = this, _eventName = "click.dropdown-" + this.options.vid;
-            this.container = this.options.container instanceof $ ? this.options.container : this.options.context.$ ? this.options.context.$(this.options.container) : $(this.options.container);
-            if (!this.options.disabled) {
+            var that = this, opts = this.options, _eventName = "click.dropdown-" + opts.vid;
+            this.container = opts.container instanceof $ ? opts.container : opts.context.$ ? opts.context.$(opts.container) : $(opts.container);
+            if (!opts.disabled) {
                 var handler = function handler(event) {
+                    Lego.UI.Util.getDirection(that.container, that.$el);
                     that.$el.slideToggle("fast");
                 };
-                if (this.options.eventName == "click") {
+                var cssObj = {
+                    zIndex: 1e4
+                };
+                if (opts.width) cssObj.width = opts.width;
+                if (opts.maxHeight) {
+                    cssObj.maxHeight = opts.maxHeight;
+                    cssObj.overflow = "auto";
+                }
+                if (opts.showSearch) {
+                    this.$(".lego-search-container").next("ul").css(cssObj);
+                } else {
+                    this.$el.css(cssObj);
+                }
+                if (opts.eventName == "click") {
                     $("body, .modal-body").off(_eventName).on(_eventName, function(event) {
                         if (event.originalEvent) {
                             var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.container[0]);
@@ -417,16 +487,6 @@ var Dropdown = function(_Lego$UI$Baseview) {
                         that.close();
                     });
                 }
-            }
-        }
-    }, {
-        key: "_getAlign",
-        value: function _getAlign(parent, el) {
-            var _X = parent.offset().left, _Y = parent.offset().top - el.height(), windowWidth = $(window).width() - 20, elWidth = el.width();
-            if (windowWidth > _X + elWidth) {
-                return "left";
-            } else {
-                return "right";
             }
         }
     }, {
@@ -526,7 +586,7 @@ var Search = function(_Lego$UI$Baseview) {
             events: {
                 "click .lego-search-button": "onSearch",
                 "change .lego-search-input": "onChange",
-                "keydown .lego-search-input": "_enterSearch"
+                "keyup .lego-search-input": "_enterSearch"
             },
             placeholder: "请输入关键字",
             name: "",
@@ -535,6 +595,7 @@ var Search = function(_Lego$UI$Baseview) {
             activeKey: "",
             activeValue: "",
             showSelect: false,
+            onKeyup: function onKeyup() {},
             onSearch: function onSearch() {},
             onChange: function onChange() {}
         };
@@ -571,6 +632,8 @@ var Search = function(_Lego$UI$Baseview) {
         value: function _enterSearch(event) {
             if (event.keyCode == 13) {
                 this.onSearch(event);
+            } else {
+                if (typeof this.options.onKeyup === "function") this.options.onKeyup(this, this.getValue(event));
             }
         }
     }, {
@@ -682,7 +745,7 @@ var Transfer = function(_Lego$UI$Baseview) {
             searchPlaceholder: "请输入搜索内容",
             notFoundContent: "列表为空",
             onChange: function onChange() {},
-            onSearch: function onSearch() {}
+            onSearch: null
         };
         Object.assign(options, opts);
         return _possibleConstructorReturn(this, (Transfer.__proto__ || Object.getPrototypeOf(Transfer)).call(this, options));
@@ -771,11 +834,16 @@ var Transfer = function(_Lego$UI$Baseview) {
                     this.addCom({
                         el: "#transfer_search_" + opts.vid,
                         style: {
-                            display: "none"
+                            display: opts.showSearch == "fixed" ? "table" : "none"
                         },
                         size: "sm",
                         onSearch: function onSearch(self, result) {
-                            if (typeof opts.search == "function") opts.search(that, result);
+                            if (typeof opts.onSearch == "function") {
+                                opts.onSearch(that, result);
+                            } else {
+                                var treeView = Lego.getView("#transfer_tree_" + opts.vid);
+                                if (treeView) treeView.search(result.keyword);
+                            }
                         }
                     });
                 }
@@ -785,7 +853,7 @@ var Transfer = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var opts = this.options;
-            var vDom = hx(_templateObject, opts.showSearch ? hx(_templateObject2) : "", val(opts.titles[0]), opts.showSearch ? hx(_templateObject3, opts.vid) : "", opts.vid, val(opts.titles[1]), opts.vid);
+            var vDom = hx(_templateObject, opts.showSearch && opts.showSearch !== "fixed" ? hx(_templateObject2) : "", val(opts.titles[0]), opts.showSearch ? hx(_templateObject3, opts.vid) : "", opts.vid, val(opts.titles[1]), opts.vid);
             return vDom;
         }
     }, {
@@ -813,6 +881,9 @@ var Transfer = function(_Lego$UI$Baseview) {
             this.$el.css({
                 width: opts.width,
                 height: opts.height
+            });
+            this.$("#transfer_search_" + opts.vid).next().css({
+                paddingBottom: 74
             });
         }
     }, {

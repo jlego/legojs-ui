@@ -20,7 +20,8 @@ class Tags extends Lego.UI.Baseview {
             onChange(){},   //点击标签时回调
             onClickBtn(){},    //点击添加按钮
             onClose(){},  //关闭时的回调
-            onAdd(){} //添加时回调
+            onAdd(){}, //添加时回调
+            data: []
         };
         Object.assign(options, opts);
         if(options.value) options.data = Array.from(options.value);

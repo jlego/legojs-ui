@@ -1,5 +1,5 @@
 /**
- * alert.js v0.5.29
+ * alert.js v0.7.9
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -76,7 +76,7 @@ var Alert = function(_Lego$UI$Baseview) {
                 "click .lego-alert-close-icon": "close"
             },
             type: "info",
-            closable: false,
+            closeAble: false,
             closeText: "",
             message: "",
             description: "",
@@ -109,7 +109,7 @@ var Alert = function(_Lego$UI$Baseview) {
                 iconName = "cross";
                 break;
             }
-            var vDom = hx(_templateObject, options.type, options.description ? "lego-alert-with-description" : "", options.showIcon ? "" : "lego-alert-no-icon", options.description ? "anticon-" + iconName + "-circle-o" : "anticon-" + iconName + "-circle", options.showIcon ? "" : "-no", options.showIcon ? "" : "none", options.message, options.description ? hx(_templateObject2, typeof options.description == "string" ? options.description : "") : "", options.closable ? hx(_templateObject3, options.closeText || hx(_templateObject4)) : "");
+            var vDom = hx(_templateObject, options.type, options.description ? "lego-alert-with-description" : "", options.showIcon ? "" : "lego-alert-no-icon", options.description ? "anticon-" + iconName + "-circle-o" : "anticon-" + iconName + "-circle", options.showIcon ? "" : "-no", options.showIcon ? "" : "none", options.message, options.description ? hx(_templateObject2, typeof options.description == "string" ? options.description : "") : "", options.closeAble ? hx(_templateObject3, options.closeText || hx(_templateObject4)) : "");
             return vDom;
         }
     }, {

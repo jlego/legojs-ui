@@ -4,6 +4,7 @@
  * 2017/1/7
  */
 import ztree from 'ztree';
+// import 'ztree/js/jquery.ztree.exhide.min';
 import './asset/index.scss';
 
 class Tree extends Lego.UI.Baseview {
@@ -12,7 +13,6 @@ class Tree extends Lego.UI.Baseview {
             disSelect: '', //禁止选择含有该属性节点, 可以是对象
             onlySelect: '', //只选择含有该属性节点, 可以是对象
             setting: {},
-            keyNames: ['id', 'name', 'type'],
             value: [],
             data: [],
             onChecked() {},
@@ -22,40 +22,38 @@ class Tree extends Lego.UI.Baseview {
         super(options);
     }
     components() {
-        const options = this.options,
+        const opts = this.options,
             that = this;
         function selectOrNo(treeNode) {
-            if (options.disSelect) {
-                if (Object.keys(treeNode).includes(options.disSelect)) return false;
+            if (opts.disSelect) {
+                if (Object.keys(treeNode).includes(opts.disSelect)) return false;
             }
-            if (options.onlySelect) {
-                if (!Object.keys(treeNode).includes(options.onlySelect)) return false;
+            if (opts.onlySelect) {
+                if (!Object.keys(treeNode).includes(opts.onlySelect)) return false;
             }
             return true;
         }
         function selectResult(treeId, treeNode){
             let treeObj = $.fn.zTree.getZTreeObj(treeId),
                 nodes = treeObj.getCheckedNodes(true),
-                keyNames = options.keyNames,
                 result = nodes.filter((node) => {
                     return selectOrNo(node);
                 });
             let newValue = [];
             result.forEach((val, index) => {
                 newValue.push(Object.assign({
-                    key: val[keyNames[0]],
-                    value: val[keyNames[1]],
-                    type: val[keyNames[2]]
+                    key: val.id,
+                    value: val.name
                 }, val));
             });
-            if (typeof options.onChecked == 'function') options.onChecked(that, newValue, treeNode);
+            if (typeof opts.onChecked == 'function') opts.onChecked(that, newValue, treeNode);
         }
-        if (options.setting.check) {
-            options.setting.check = $.extend(true, {
+        if (opts.setting.check) {
+            opts.setting.check = $.extend(true, {
                 enable: true,
                 chkboxType: { "Y": "", "N": "" }
-            }, options.setting.check || {});
-            options.setting.callback = Object.assign(options.setting.callback || {}, {
+            }, opts.setting.check || {});
+            opts.setting.callback = Object.assign(opts.setting.callback || {}, {
                 onCheck: function(event, treeId, treeNode) {
                     selectResult(treeId, treeNode);
                 },
@@ -67,30 +65,47 @@ class Tree extends Lego.UI.Baseview {
                 }
             });
         } else {
-            options.setting.callback = Object.assign(options.setting.callback || {}, {
+            opts.setting.callback = Object.assign(opts.setting.callback || {}, {
                 onClick: function(event, treeId, treeNode) {
                     if (!selectOrNo(treeNode)) return false;
-                    if (typeof options.onClick == 'function') options.onClick(that, Object.assign({
-                        key: treeNode[options.keyNames[0]],
-                        value: treeNode[options.keyNames[1]],
-                        type: treeNode[options.keyNames[2]]
+                    if (typeof opts.onClick == 'function') opts.onClick(that, Object.assign({
+                        key: treeNode.id,
+                        value: treeNode.name
                     }, treeNode));
                 }
             });
         }
-        if(options.data.length){
-            let ztree = $.fn.zTree.getZTreeObj(this.options.id);
-            if(ztree) ztree.destroy();
-            $.fn.zTree.init(this.$el, options.setting, options.data);
+        if(opts.data.length){
+            this.renderTree();
         }
     }
     render() {
         return hx `<ul class="lego-tree"></ul>`;
     }
+    renderTree(){
+        let opts = this.options,
+            treeObj = $.fn.zTree.getZTreeObj(opts.id);
+        if(treeObj) treeObj.destroy();
+        $.fn.zTree.init(this.$el, opts.setting, opts.data);
+    }
+    //搜索树
+    search(keyword = ''){
+        this.$('li').hide();
+        if(keyword == ''){
+            this.$('li').show();
+        }else{
+            this.$('span.node_name').each(function(index, el) {
+                if($(el).text().indexOf(keyword) > -1){
+                    $(el).parents('li').show();
+                }
+            });
+        }
+    }
     // 取消选择
     clearChecked(key, value) {
-        let ztree = $.fn.zTree.getZTreeObj(this.options.id);
-        let node = ztree.getNodeByParam(key, value, null);
+        let opts = this.options,
+            ztree = $.fn.zTree.getZTreeObj(opts.id),
+            node = ztree.getNodeByParam(key, value, null);
         if (node) {
             ztree.checkNode(node, false, false);
         }

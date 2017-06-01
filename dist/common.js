@@ -1,5 +1,5 @@
 /**
- * common.js v0.5.29
+ * common.js v0.7.9
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -105,11 +105,61 @@ var Util = {
     },
     getDirection: function getDirection(el, dropEl) {
         el = el instanceof $ ? el : $(el);
-        var windowW = $(window).width(), windowH = $(window).height(), _X = el.offset().left, _Y = el.offset().top, elW = el.width(), elH = el.height(), dropW = dropEl.width(), dropH = dropEl.height(), upDown = dropH > windowH - _Y - elH ? "top" : "bottom", leftRight = dropW > windowW - _X - elW ? "Right" : "Left";
-        return {
-            _x: leftRight,
-            _y: upDown
-        };
+        dropEl = dropEl instanceof $ ? dropEl : $(dropEl);
+        var windowW = $(window).width(), windowH = $(window).height(), _X = el.offset().left, _Y = el.offset().top, elW = el.width(), elH = el.height(), dropW = dropEl.width(), dropH = dropEl.height(), cssObj = {
+            position: "absolute",
+            top: "100%",
+            right: "inherit",
+            bottom: "inherit",
+            left: 0
+        }, tb = dropH > windowH - _Y - elH ? dropH > _Y - 120 ? "fixed" : "top" : "bottom", lr = dropW > windowW - _X - elW ? "right" : "left";
+        if (tb == "fixed") {
+            if (dropH > windowH) {
+                Object.assign(cssObj, {
+                    position: "fixed",
+                    bottom: 0,
+                    left: _X,
+                    overflow: "auto",
+                    top: 0,
+                    height: windowH
+                });
+            } else {
+                Object.assign(cssObj, {
+                    position: "fixed",
+                    top: "inherit",
+                    bottom: 0,
+                    left: _X
+                });
+            }
+        } else {
+            if (tb == "top") {
+                Object.assign(cssObj, {
+                    top: "inherit",
+                    bottom: "100%"
+                });
+            } else {
+                Object.assign(cssObj, {
+                    top: "100%"
+                });
+            }
+            if (lr == "right") {
+                Object.assign(cssObj, {
+                    right: 0,
+                    left: "inherit"
+                });
+            } else {
+                Object.assign(cssObj, {
+                    right: "inherit",
+                    left: 0
+                });
+            }
+        }
+        dropEl.removeClass("scrollbar");
+        dropEl.css(cssObj);
+        if (tb == "fixed" && dropH > windowH) {
+            dropEl.addClass("scrollbar");
+            if (!dropEl.hasClass("ps-container")) Ps.initialize(dropEl[0]);
+        }
     },
     animateCss: function animateCss(el, animationName, callback) {
         el = el instanceof $ ? el : $(el);
@@ -537,24 +587,27 @@ var Baseview = function(_Lego$View) {
             if (this.loadingView) {
                 this.loadingView.$el.fadeOut("fast");
             }
+            if (Array.isArray(opts.data)) {
+                opts.isNodata = !opts.data.length ? true : false;
+            }
         }
     }, {
         key: "renderScroll",
         value: function renderScroll() {
-            var options = this.options, that = this;
+            var opts = this.options, that = this;
             function initScroll($el) {
                 $el.each(function(index, el) {
                     var container = $(this), eventName = "mousemove.ps" + index;
                     if (!container.hasClass("ps-container")) {
                         container.css("position", "relative");
-                        Ps.initialize(container[0], options.scrollbar);
+                        Ps.initialize(container[0], opts.scrollbar);
                         that.$el.off(eventName).on(eventName, function() {
                             Ps.update(container[0]);
                         });
                     }
                 });
             }
-            if (options.scrollbar) {
+            if (opts.scrollbar) {
                 var scrollbarEl = this.$(".scrollbar").length ? this.$(".scrollbar") : [];
                 if (scrollbarEl.length) {
                     initScroll(scrollbarEl);

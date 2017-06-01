@@ -18,26 +18,18 @@ class Upload extends Lego.UI.Baseview {
             type: 'file',   //file, photos, avatar
             buttonText: '添加附件',
             buttonIcon: '',
+            showZoom: true, //是否放大预览
             name: '', //文件域
             token: '',  //token
             params: {}, //其他参数
             uploadUri: Lego.config.uploadUri || uploadUri,  //文件存储云服务
-            saveUri: '',    //保存到后台地址
-            accept: '',     //接受上传的文件类型
-            previewImg: {
+            accept: [],     //接受上传的文件类型
+            acceptSuffix: [],   //接受的文件后缀
+            previewImg: {//缩略图参数
                 width: 0,
                 height: 0,
                 quality: 1
             },
-            //缩略图参数
-            // previewImg: {
-            // width: 400,//宽度
-            // height: 400,//高度
-            // quality: 1,//质量
-            // success: function (result) {
-            //      result.base64/result.clearBase64
-            // }
-            // }
             multiple: true, //是否多文件
             context: null, //上下文
             template: '',   //模板
@@ -59,6 +51,15 @@ class Upload extends Lego.UI.Baseview {
             onCancel() {}
         };
         Object.assign(options, opts);
+        if(options.type == 'avatar') options.multiple = false;
+        if(options.type !== 'file'){
+            options.accept = options.accept || ['image/gif','image/jpeg','image/png','image/jpg'];
+            let cssOpts = {
+                width: options.previewImg.width || (options.type == 'avatar' ? 150 : 95),
+                height: options.previewImg.height || (options.type == 'avatar' ? 150 : 95),
+            };
+            Object.assign(options.previewImg, cssOpts);
+        }
         super(options);
         this.$('.lego-fileInput').on('change', (event) => {
             var target = $(event.currentTarget)[0];
@@ -73,23 +74,13 @@ class Upload extends Lego.UI.Baseview {
     components(){
         this.fileList = this.fileList || [];
         const opts = this.options;
-        if(opts.type == 'avatar'){
-            opts.multiple = false;
-        }
-        if(opts.type !== 'file'){
-            opts.accept = opts.accept || 'image/gif,image/jpeg,image/png';
-            let cssOpts = {
-                width: opts.previewImg.width || (opts.type == 'avatar' ? 150 : 95),
-                height: opts.previewImg.height || (opts.type == 'avatar' ? 150 : 95),
-            };
-            Object.assign(opts.previewImg, cssOpts);
-        }
         if(opts.value.length){
             opts.value = opts.value.map(file => {
                 let options = {
                     el: '.lego-upload-container',
                     readonly: opts.readonly,
                     percent: 100,
+                    showZoom: opts.showZoom,
                     type: opts.type,
                     file: file
                 };
@@ -115,7 +106,7 @@ class Upload extends Lego.UI.Baseview {
             </button>
             ` : ''}
             <input type="hidden" value="${this.getValue().join(',')}" name="${val(opts.name)}" class="lego-upload-value">
-            <input multiple="multiple" type="file" class="form-control lego-fileInput hide" accept="${val(opts.accept)}" style="display:none">
+            <input multiple="multiple" type="file" class="form-control lego-fileInput hide" accept="${val(opts.accept.join(','))}" style="display:none">
             ${opts.showUploadList && opts.type == 'file' ? hx`<div class="lego-upload-container"></div>` : ''}
             ${opts.type !== 'file' ? hx`
                 <div class="lego-upload-container" title="选择上传照片">
@@ -142,7 +133,7 @@ class Upload extends Lego.UI.Baseview {
             maxFilesCount = opts.maxFilesCount;
         if (filesCount) {
             if (filesCount > maxFilesCount) {
-                Lego.UI.message('warning', '只能上传' + maxFilesCount + '张图片');
+                Lego.UI.message('warning', '只能上传' + maxFilesCount + '个文件');
                 return;
             }
             uploadFiles = uploadFiles.filter(file => {
@@ -152,13 +143,27 @@ class Upload extends Lego.UI.Baseview {
                 return !hasFile;
             });
             if (this.fileList.length > maxFilesCount) {
-                Lego.UI.message('warning', '只能上传' + maxFilesCount + '张图片');
+                Lego.UI.message('warning', '只能上传' + maxFilesCount + '个文件');
                 this.fileList.length = maxFilesCount;
                 if(uploadFiles.length > maxFilesCount) uploadFiles.length = maxFilesCount;
                 return;
             }
             if (typeof opts.onAddFile == 'function') opts.onAddFile(this.fileList, uploadFiles);
             uploadFiles.forEach((file, i) => {
+                if(opts.accept.length){
+                    if(!opts.accept.includes(file.type)){
+                        Lego.UI.message('error', '上传文件格式不正确');
+                        this.fileList = this.fileList.filter(value => value !== file._id);
+                        return;
+                    }
+                }
+                if(opts.acceptSuffix.length){
+                    if(!opts.acceptSuffix.includes(Lego.UI.Util.getExtName(file.name))){
+                        Lego.UI.message('error', '上传文件格式不正确');
+                        this.fileList = this.fileList.filter(value => value !== file._id);
+                        return;
+                    }
+                }
                 if (Math.ceil(file.size / (1024 * 1024)) > parseInt(opts.maxFileSize)) {
                     var msg = "发送文件最大为" + opts.maxFileSize;
                     if (uploadFiles.length == 1) {
@@ -166,6 +171,7 @@ class Upload extends Lego.UI.Baseview {
                     } else {
                         debug.warn(msg);
                     }
+                    this.fileList = this.fileList.filter(value => value !== file._id);
                     return;
                 }
                 if(i > maxFilesCount - 1) return;
@@ -177,6 +183,7 @@ class Upload extends Lego.UI.Baseview {
                     file: file,
                     type: opts.type,
                     percent: 0,
+                    showZoom: opts.showZoom,
                     params: Object.assign({
                         key: opts.key || that.getKey(file.name),
                         token: typeof opts.data == 'string' ? opts.data : ''
