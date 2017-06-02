@@ -3454,8 +3454,6 @@ button.close {
   .modal.fade .modal-dialog {
     transition: transform .3s ease-out;
     transform: translate(0, -25%); }
-  .modal.in .modal-dialog {
-    transform: translate(0, 0); }
 
 .modal-open .modal {
   overflow-x: hidden;

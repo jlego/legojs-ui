@@ -1,6 +1,6 @@
 import '../asset/scss/style.scss';
 
-import { Baseview } from "./common/index";
+import { Baseview, Basedata } from "./common/index";
 import Alert from "./alert/index";
 import Avatar from "./avatar/index";
 import Badge from "./badge/index";
@@ -44,6 +44,7 @@ import Tags from "./tags/index";
 import Upload from "./upload/index";
 
 Lego.components({
+	Basedata: Basedata,
 	Baseview: Baseview,
 	alert: Alert,
 	avatar: Avatar,

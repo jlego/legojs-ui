@@ -1,5 +1,5 @@
 /**
- * forms.js v0.7.9
+ * forms.js v0.8.8
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -84,6 +84,21 @@ function _inherits(subClass, superClass) {
 
 $.fn.validate = validate;
 
+$.validator.addMethod("mobile", function(value, element) {
+    var length = value.length, mobile = /^1(3|4|5|7|8)\d{9}$/;
+    return this.optional(element) || length == 11 && mobile.test(value);
+}, "请正确填写手机号");
+
+$.validator.addMethod("email", function(value, element) {
+    var length = value.length, email = /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g;
+    return this.optional(element) || email.test(value);
+}, "请正确填写邮箱");
+
+$.validator.addMethod("password", function(value, element) {
+    var passwordReg = /^[\w]+$/;
+    return this.optional(element) || passwordReg.test(value);
+}, "请正确填写密码");
+
 var Forms = function(_Lego$UI$Baseview) {
     _inherits(Forms, _Lego$UI$Baseview);
     function Forms() {
@@ -108,6 +123,8 @@ var Forms = function(_Lego$UI$Baseview) {
                     var view = Lego.getView(opts.el);
                     if (view) view.submitForm();
                 },
+                onkeyup: true,
+                ignore: "",
                 rules: {},
                 messages: {}
             },
@@ -182,25 +199,25 @@ var Forms = function(_Lego$UI$Baseview) {
         key: "renderCom",
         value: function renderCom() {
             var _this2 = this;
-            var that = this;
+            var that = this, opts = this.options;
             this.rules = null;
             this.messages = null;
-            var components = this.options.data, comArr = [ "selects", "treeselect" ];
-            components = typeof components == "function" ? components(this.options) : Array.isArray(components) ? components : [ components ];
+            var components = opts.data, comArr = [ "selects", "treeselect" ];
+            components = typeof components == "function" ? components(opts) : Array.isArray(components) ? components : [ components ];
             components.map(function(item, index) {
                 if (!item.text) {
                     (function() {
-                        var comId = [ "component", that.options.vid, index ];
+                        var comId = [ "component", opts.vid, index ];
                         if (item.items) {
                             item.items.map(function(subItem, i) {
                                 if (subItem.component) {
                                     if (subItem.rule && subItem.message) {
-                                        that.rules = that.options.rules || {};
-                                        that.messages = that.options.messages || {};
+                                        that.rules = opts.rules || {};
+                                        that.messages = opts.messages || {};
                                         if (subItem.required) subItem.rule.required = true;
                                         var theName = comArr.includes(subItem.component.comName) ? "hidden_" + subItem.component.name : subItem.component.name;
-                                        that.options.setDefaults.rules[theName] = subItem.rule;
-                                        that.options.setDefaults.messages[theName] = subItem.message;
+                                        opts.setDefaults.rules[theName] = subItem.rule;
+                                        opts.setDefaults.messages[theName] = subItem.message;
                                     }
                                     comId.push(i);
                                     subItem.component.el = "#" + comId.join("_");
@@ -211,12 +228,12 @@ var Forms = function(_Lego$UI$Baseview) {
                         } else {
                             if (item.component) {
                                 if (item.rule && item.message) {
-                                    _this2.rules = _this2.options.rules || {};
-                                    _this2.messages = _this2.options.messages || {};
+                                    _this2.rules = opts.rules || {};
+                                    _this2.messages = opts.messages || {};
                                     if (item.required) item.rule.required = true;
                                     var theName = comArr.includes(item.component.comName) ? "hidden_" + item.component.name : item.component.name;
-                                    _this2.options.setDefaults.rules[theName] = item.rule;
-                                    _this2.options.setDefaults.messages[theName] = item.message;
+                                    opts.setDefaults.rules[theName] = item.rule;
+                                    opts.setDefaults.messages[theName] = item.message;
                                 }
                                 item.component.el = "#" + comId.join("_");
                                 item.component.context = _this2;
@@ -226,9 +243,9 @@ var Forms = function(_Lego$UI$Baseview) {
                     })();
                 }
             });
-            var clickName = "click.form_" + this.options.vid, submitEl = this.options.submitEl, $submitEl = submitEl instanceof $ ? submitEl : $((typeof submitEl == "string" ? submitEl : "") || '[type="submit"]');
+            var clickName = "click.form_" + opts.vid, submitEl = opts.submitEl, $submitEl = submitEl instanceof $ ? submitEl : $((typeof submitEl == "string" ? submitEl : "") || '[type="submit"]');
             if (this.rules && this.messages) {
-                this.$el.validate(this.options.setDefaults);
+                this.$el.validate(opts.setDefaults);
                 if ($submitEl.length) {
                     $submitEl.off(clickName).on(clickName, function(event) {
                         that.$el.submit();

@@ -1,5 +1,5 @@
 /**
- * upload.js v0.7.9
+ * upload.js v0.8.8
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -82,7 +82,7 @@ var UploadView = function(_Lego$View) {
         _this.startDate = 0;
         _this.form = null;
         function createXMLHTTPRequest() {
-            var xmlHttpRequest;
+            var xmlHttpRequest = void 0;
             if (window.XMLHttpRequest) {
                 xmlHttpRequest = new XMLHttpRequest();
                 if (xmlHttpRequest.overrideMimeType) {
@@ -599,37 +599,30 @@ var Upload = function(_Lego$UI$Baseview) {
             Object.assign(options.previewImg, cssOpts);
         }
         var _this = _possibleConstructorReturn(this, (Upload.__proto__ || Object.getPrototypeOf(Upload)).call(this, options));
+        _this.fileList = [];
         _this.$(".lego-fileInput").on("change", function(event) {
             var target = $(event.currentTarget)[0];
             _this.uploadInit(target.files, target);
         });
-        if (_this.options.value.length) {
-            _this.options.value.forEach(function(item, index) {
+        if (options.value.length) {
+            options.value = options.value.map(function(file) {
+                var options = {
+                    el: ".lego-upload-container",
+                    readonly: options.readonly,
+                    percent: 100,
+                    showZoom: options.showZoom,
+                    type: options.type,
+                    file: file
+                };
+                return options;
+            });
+            options.value.forEach(function(item, index) {
                 _this.showItem(item);
             });
         }
         return _this;
     }
     _createClass(Upload, [ {
-        key: "components",
-        value: function components() {
-            this.fileList = this.fileList || [];
-            var opts = this.options;
-            if (opts.value.length) {
-                opts.value = opts.value.map(function(file) {
-                    var options = {
-                        el: ".lego-upload-container",
-                        readonly: opts.readonly,
-                        percent: 100,
-                        showZoom: opts.showZoom,
-                        type: opts.type,
-                        file: file
-                    };
-                    return options;
-                });
-            }
-        }
-    }, {
         key: "render",
         value: function render() {
             var opts = this.options, width = opts.previewImg.width, height = opts.previewImg.height;
@@ -729,7 +722,7 @@ var Upload = function(_Lego$UI$Baseview) {
                                     percent: 100
                                 });
                             }
-                            if (typeof opts.onComplete == "function") opts.onComplete(that, self, resp);
+                            if (typeof opts.onComplete == "function") opts.onComplete(that, resp, self);
                         },
                         onFail: opts.onFail,
                         onCancel: opts.onCancel
