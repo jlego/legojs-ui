@@ -57,10 +57,9 @@ class Forms extends Lego.UI.Baseview {
                     const view = Lego.getView(opts.el);
                     if(view) view.submitForm();
                 },
-                onkeyup: true,
-                // onkeyup(element) {
-                //     $(element).valid();
-                // },
+                onkeyup(element) {
+                    $(element).valid();
+                },
                 ignore: "",
                 rules: {},
                 messages: {},

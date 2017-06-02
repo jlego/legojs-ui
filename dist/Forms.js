@@ -1,5 +1,5 @@
 /**
- * forms.js v0.8.8
+ * forms.js v0.8.12
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -123,7 +123,9 @@ var Forms = function(_Lego$UI$Baseview) {
                     var view = Lego.getView(opts.el);
                     if (view) view.submitForm();
                 },
-                onkeyup: true,
+                onkeyup: function onkeyup(element) {
+                    $(element).valid();
+                },
                 ignore: "",
                 rules: {},
                 messages: {}
