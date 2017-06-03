@@ -23,6 +23,11 @@ $.validator.addMethod("password", function(value, element) {
     let passwordReg = /^[\w]+$/;
     return this.optional(element) || passwordReg.test(value);
 }, "请正确填写密码");
+// 完成组件数
+$.validator.addMethod("coms", function(value, element, num) {
+    let valArr = value.split(',');
+    return this.optional(element) || valArr.length == num;
+}, "请完成所有项");
 // data: [{
 //     label: '',
 //     text: '', //静态文本
@@ -57,7 +62,7 @@ class Forms extends Lego.UI.Baseview {
                     const view = Lego.getView(opts.el);
                     if(view) view.submitForm();
                 },
-                onkeyup(element) {
+                onchange(element) {
                     $(element).valid();
                 },
                 ignore: "",

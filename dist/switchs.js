@@ -1,5 +1,5 @@
 /**
- * switchs.js v0.8.12
+ * switchs.js v0.8.16
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
