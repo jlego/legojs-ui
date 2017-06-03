@@ -75,6 +75,9 @@ class Menu extends Lego.UI.Baseview {
             }, {
                 key: 'nav_tree',
                 value: 'Tree 树型'
+            }, {
+                key: 'nav_grid',
+                value: 'Grid 网格'
             }]
         }, {
             key: 'nav5',

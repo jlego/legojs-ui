@@ -15,6 +15,7 @@ import Datepicker from "./datepicker/index";
 import Editcom from "./editcom/index";
 import Forms from "./forms/index";
 import Facial from "./facial/index";
+import Grid from "./grid/index";
 import Inputs from "./inputs/index";
 import Listgroup from "./listgroup/index";
 import Loading from "./loading/index";

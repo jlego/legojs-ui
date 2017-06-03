@@ -1,5 +1,5 @@
 /**
- * forms.js v0.8.16
+ * forms.js v0.8.18
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -99,9 +99,9 @@ $.validator.addMethod("password", function(value, element) {
     return this.optional(element) || passwordReg.test(value);
 }, "请正确填写密码");
 
-$.validator.addMethod("coms", function(value, element, params) {
+$.validator.addMethod("coms", function(value, element, num) {
     var valArr = value.split(",");
-    return this.optional(element) || valArr.length == params;
+    return this.optional(element) || valArr.length == num;
 }, "请完成所有项");
 
 var Forms = function(_Lego$UI$Baseview) {

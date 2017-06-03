@@ -12,6 +12,7 @@ module.exports = {
         'tables/app': './src/tables/app',
         'navs/app': './src/navs/app',
         'forms/app': './src/forms/app',
+        'grid/app': './src/grid/app',
         'tips/app': './src/tips/app',
         'tree/app': './src/tree/app',
         'transfer/app': './src/transfer/app',

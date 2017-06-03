@@ -11672,6 +11672,8 @@ form button[type="submit"] {
 
 .lego-facial ul li:hover img {
   opacity: 1; }
+.lego-grid {
+  display: block; }
 .modal-backdrop {
   z-index: 9998 !important;
   background-color: #000;
