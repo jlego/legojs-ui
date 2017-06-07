@@ -1,5 +1,5 @@
 /**
- * reply.js v0.8.18
+ * reply.js v0.8.22
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -1706,19 +1706,19 @@ var Upload = function(_Lego$UI$Baseview) {
             var target = $(event.currentTarget)[0];
             _this.uploadInit(target.files, target);
         });
-        if (options.value.length) {
-            options.value = options.value.map(function(file) {
-                var options = {
+        var opt = _this.options;
+        if (opt.value.length) {
+            _this.options.value = opt.value.map(function(file) {
+                return {
                     el: ".lego-upload-container",
-                    readonly: options.readonly,
+                    readonly: opt.readonly,
                     percent: 100,
-                    showZoom: options.showZoom,
-                    type: options.type,
+                    showZoom: opt.showZoom,
+                    type: opt.type,
                     file: file
                 };
-                return options;
             });
-            options.value.forEach(function(item, index) {
+            _this.options.value.forEach(function(item, index) {
                 _this.showItem(item);
             });
         }

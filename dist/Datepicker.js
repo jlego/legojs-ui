@@ -1,5 +1,5 @@
 /**
- * datepicker.js v0.8.18
+ * datepicker.js v0.8.22
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -103,8 +103,7 @@ var Datepicker = function(_Lego$UI$Baseview) {
         var options = {
             events: {
                 click: "onclick",
-                "click .input-group-addon": "showpanel",
-                "blur input": "onBlur"
+                "click .input-group-addon": "showpanel"
             },
             type: "date",
             name: "",
@@ -127,7 +126,6 @@ var Datepicker = function(_Lego$UI$Baseview) {
             endPlaceholder: "结束时间",
             useCurrent: false,
             setting: {},
-            onBlur: function onBlur() {},
             onChange: function onChange() {}
         };
         Object.assign(options, opts);
@@ -139,54 +137,58 @@ var Datepicker = function(_Lego$UI$Baseview) {
         key: "initDatepicker",
         value: function initDatepicker() {
             var _this2 = this;
-            var options = this.options;
-            this.oldValue = formatDate(options.value, options.format);
-            Object.assign(options.setting, {
-                format: options.format,
-                keepOpen: options.keepOpen,
-                showClose: options.showClose,
-                showClear: options.showClear,
-                inline: options.inline
+            var opts = this.options;
+            this.oldValue = formatDate(opts.value, opts.format);
+            Object.assign(opts.setting, {
+                format: opts.format,
+                keepOpen: opts.keepOpen,
+                showClose: opts.showClose,
+                showClear: opts.showClear,
+                inline: opts.inline
             });
-            var that = this, theEl = options.inline ? options.el : ".input-group input";
-            if (options.type !== "range") {
+            var that = this, theEl = opts.inline ? opts.el : ".input-group input";
+            if (opts.type !== "range") {
                 var $theEl = this.$(theEl);
-                if (options.inline) $theEl = this.$el;
-                $theEl.datepicker(options.setting);
+                if (opts.inline) $theEl = this.$el;
+                $theEl.datepicker(opts.setting);
                 $theEl.on("dp.change", function(event) {
                     var value = $(this).val();
-                    if (typeof options.onChange == "function") options.onChange(that, formatDate(value, options.format));
+                    if (typeof opts.onChange == "function") opts.onChange(that, formatDate(value, opts.format));
                 });
             } else {
                 (function() {
                     var startEl = ".startDate", endEl = ".endDate";
-                    if (!options.startInputEl && !options.endInputEl) {
-                        var startDateOpts = Object.assign({}, options.setting);
-                        var endDateOpts = Object.assign({}, _extends({}, options.setting, {
-                            useCurrent: options.useCurrent
+                    if (!opts.startInputEl && !opts.endInputEl) {
+                        var startDateOpts = Object.assign({}, opts.setting);
+                        var endDateOpts = Object.assign({}, _extends({}, opts.setting, {
+                            useCurrent: opts.useCurrent
                         }));
                         var startDate = _this2.$(startEl).datepicker(startDateOpts);
                         var endDate = _this2.$(endEl).datepicker(endDateOpts);
                         _this2.$(startEl).on("dp.change", function(e) {
                             that.$(endEl).data("DateTimePicker").minDate(e.date);
+                            if (typeof opts.onChange == "function") opts.onChange(that, formatDate(that.$(startEl).val(), opts.format), "start");
                         });
                         _this2.$(endEl).on("dp.change", function(e) {
                             that.$(startEl).data("DateTimePicker").maxDate(e.date);
+                            if (typeof opts.onChange == "function") opts.onChange(that, formatDate(that.$(endEl).val(), opts.format), "end");
                         });
-                    } else if (options.startInputEl || options.endInputEl) {
+                    } else if (opts.startInputEl || opts.endInputEl) {
                         (function() {
-                            var selector = options.startInputEl || options.endInputEl;
-                            if (options.startInputEl) options.setting.useCurrent = false;
-                            _this2.$(theEl).datepicker(options.setting);
-                            if (options.endInputEl) {
+                            var selector = opts.startInputEl || opts.endInputEl;
+                            if (opts.startInputEl) opts.setting.useCurrent = false;
+                            _this2.$(theEl).datepicker(opts.setting);
+                            if (opts.endInputEl) {
                                 _this2.$(theEl).on("dp.change", function(e) {
                                     var _el = selector instanceof $ ? selector : $(selector).find(theEl);
                                     _el.data("DateTimePicker").maxDate(e.date);
+                                    if (typeof opts.onChange == "function") opts.onChange(that, formatDate(_el.val(), opts.format), "start");
                                 });
-                            } else if (options.startInputEl) {
+                            } else if (opts.startInputEl) {
                                 _this2.$(theEl).on("dp.change", function(e) {
                                     var _el = selector instanceof $ ? selector : $(selector).find(theEl);
                                     _el.data("DateTimePicker").minDate(e.date);
+                                    if (typeof opts.onChange == "function") opts.onChange(that, formatDate(_el.val(), opts.format), "end");
                                 });
                             }
                         })();
@@ -197,15 +199,15 @@ var Datepicker = function(_Lego$UI$Baseview) {
     }, {
         key: "render",
         value: function render() {
-            var options = this.options || {};
+            var opts = this.options || {};
             var vDom = "";
-            if (options.type == "range" && !options.startInputEl && !options.endInputEl) {
-                vDom = hx(_templateObject, options.disabled ? "disabled" : "", formatDate(options.startValue, options.format), options.startName, options.startPlaceholder, options.disabled ? "disabled" : "", formatDate(options.endValue, options.format), options.endName, options.endPlaceholder);
+            if (opts.type == "range" && !opts.startInputEl && !opts.endInputEl) {
+                vDom = hx(_templateObject, opts.disabled ? "disabled" : "", formatDate(opts.startValue, opts.format), opts.startName, opts.startPlaceholder, opts.disabled ? "disabled" : "", formatDate(opts.endValue, opts.format), opts.endName, opts.endPlaceholder);
             }
-            if (options.type !== "range" || options.type == "range" && options.startInputEl && options.endInputEl) {
-                vDom = hx(_templateObject2, options.disabled ? "disabled" : "", formatDate(val(options.value), options.format), options.name, options.placeholder, options.type == "time" ? "clock-circle-o" : "calendar");
+            if (opts.type !== "range" || opts.type == "range" && opts.startInputEl && opts.endInputEl) {
+                vDom = hx(_templateObject2, opts.disabled ? "disabled" : "", formatDate(val(opts.value), opts.format), opts.name, opts.placeholder, opts.type == "time" ? "clock-circle-o" : "calendar");
             }
-            if (options.inline) vDom = hx(_templateObject3);
+            if (opts.inline) vDom = hx(_templateObject3);
             return vDom;
         }
     }, {
@@ -218,13 +220,6 @@ var Datepicker = function(_Lego$UI$Baseview) {
         value: function showpanel(event) {
             var target = $(event.currentTarget), input = target.prev("input");
             input.focus();
-        }
-    }, {
-        key: "onBlur",
-        value: function onBlur(event) {
-            event.stopPropagation();
-            var target = $(event.currentTarget), value = target.val();
-            if (typeof this.options.onBlur == "function") this.options.onBlur(this, formatDate(value, this.options.format));
         }
     } ]);
     return Datepicker;

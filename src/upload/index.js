@@ -66,19 +66,19 @@ class Upload extends Lego.UI.Baseview {
             var target = $(event.currentTarget)[0];
             this.uploadInit(target.files, target);
         });
-        if(options.value.length){
-            options.value = options.value.map(file => {
-                let options = {
+        let opt = this.options;
+        if(opt.value.length){
+            this.options.value = opt.value.map(file => {
+                return {
                     el: '.lego-upload-container',
-                    readonly: options.readonly,
+                    readonly: opt.readonly,
                     percent: 100,
-                    showZoom: options.showZoom,
-                    type: options.type,
+                    showZoom: opt.showZoom,
+                    type: opt.type,
                     file: file
                 };
-                return options;
             });
-            options.value.forEach((item, index) => {
+            this.options.value.forEach((item, index) => {
                 this.showItem(item);
             });
         }

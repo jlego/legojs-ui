@@ -38,7 +38,10 @@ class HomeView extends Lego.UI.Baseview {
                       <div class="caption">
                         <h3>${item.name}</h3>
                         <p>${item.description}</p>
-                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                        <p>
+                            <a href="#" class="btn btn-primary">Button</a>
+                            <a href="#" class="btn btn-danger">Button</a>
+                        </p>
                       </div>
                     </div>
                     `;
