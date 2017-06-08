@@ -19,7 +19,6 @@ class Treeselect extends Selects {
             fieldName: 'key',  //表单域名称
             disSelect: '', //禁止选择含有该属性节点, 可以是对象
             onlySelect: '', //只选择含有该属性节点, 可以是对象
-            treeDataSource: null,   //树型动态数据源
             tags: false, //可以把随意输入的条目作为 tag，输入项不需要与下拉选项匹配
             placeholder: '', //选择框默认文字
             searchPlaceholder: '搜索',
@@ -52,11 +51,13 @@ class Treeselect extends Selects {
     components(){
         let opts = this.options,
             that = this,
-            treeSetting = {
-                simpleData: {
-                    enable: true
+            treeSetting = $.extend(true, {
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
                 }
-            };
+            }, opts.treeSetting);
         if(opts.multiple){
             treeSetting = $.extend(true, {
                 check: {

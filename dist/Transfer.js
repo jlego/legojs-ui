@@ -1,5 +1,5 @@
 /**
- * transfer.js v0.8.22
+ * transfer.js v0.8.25
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -125,6 +125,12 @@ var Listgroup = function(_Lego$UI$Baseview) {
 
 Lego.components("listgroup", Listgroup);
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
+    return typeof obj;
+} : function(obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
 var _createClass$2 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
@@ -203,10 +209,18 @@ var Tree = function(_Lego$UI$Baseview) {
             var opts = this.options, that = this;
             function selectOrNo(treeNode) {
                 if (opts.disSelect) {
-                    if (Object.keys(treeNode).includes(opts.disSelect)) return false;
+                    if (_typeof(opts.disSelect) == "object") {
+                        if (treeNode[Object.keys(opts.disSelect)[0]] == Object.values(opts.disSelect)[0]) return false;
+                    } else {
+                        if (Object.keys(treeNode).includes(opts.disSelect)) return false;
+                    }
                 }
                 if (opts.onlySelect) {
-                    if (!Object.keys(treeNode).includes(opts.onlySelect)) return false;
+                    if (_typeof(opts.onlySelect) == "object") {
+                        if (treeNode[Object.keys(opts.onlySelect)[0]] !== Object.values(opts.onlySelect)[0]) return false;
+                    } else {
+                        if (!Object.keys(treeNode).includes(opts.onlySelect)) return false;
+                    }
                 }
                 return true;
             }

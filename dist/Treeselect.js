@@ -1,5 +1,5 @@
 /**
- * treeselect.js v0.8.22
+ * treeselect.js v0.8.25
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -627,6 +627,12 @@ var Selects = function(_Lego$UI$Baseview) {
 
 Lego.components("selects", Selects);
 
+var _typeof$2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
+    return typeof obj;
+} : function(obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
 var _createClass$4 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
@@ -705,10 +711,18 @@ var Tree = function(_Lego$UI$Baseview) {
             var opts = this.options, that = this;
             function selectOrNo(treeNode) {
                 if (opts.disSelect) {
-                    if (Object.keys(treeNode).includes(opts.disSelect)) return false;
+                    if (_typeof$2(opts.disSelect) == "object") {
+                        if (treeNode[Object.keys(opts.disSelect)[0]] == Object.values(opts.disSelect)[0]) return false;
+                    } else {
+                        if (Object.keys(treeNode).includes(opts.disSelect)) return false;
+                    }
                 }
                 if (opts.onlySelect) {
-                    if (!Object.keys(treeNode).includes(opts.onlySelect)) return false;
+                    if (_typeof$2(opts.onlySelect) == "object") {
+                        if (treeNode[Object.keys(opts.onlySelect)[0]] !== Object.values(opts.onlySelect)[0]) return false;
+                    } else {
+                        if (!Object.keys(treeNode).includes(opts.onlySelect)) return false;
+                    }
                 }
                 return true;
             }
@@ -884,7 +898,6 @@ var Treeselect = function(_Selects) {
             fieldName: "key",
             disSelect: "",
             onlySelect: "",
-            treeDataSource: null,
             tags: false,
             placeholder: "",
             searchPlaceholder: "搜索",
@@ -917,11 +930,13 @@ var Treeselect = function(_Selects) {
         key: "components",
         value: function components() {
             var _this2 = this;
-            var opts = this.options, that = this, treeSetting = {
-                simpleData: {
-                    enable: true
+            var opts = this.options, that = this, treeSetting = $.extend(true, {
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
                 }
-            };
+            }, opts.treeSetting);
             if (opts.multiple) {
                 treeSetting = $.extend(true, {
                     check: {
