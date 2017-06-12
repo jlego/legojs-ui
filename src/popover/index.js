@@ -48,6 +48,7 @@ let Popover = function(opts = {}) {
             offset: options.offset
         });
         el.on('hidden.bs.popover', function() {
+            el.attr('data-isopen', '');
             if (typeof options.onClose === 'function') options.onClose(event);
         });
         if(options.showNow){

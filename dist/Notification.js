@@ -1,5 +1,5 @@
 /**
- * notification.js v0.8.25
+ * notification.js v0.8.28
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

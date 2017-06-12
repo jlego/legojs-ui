@@ -4,7 +4,6 @@
         color: #999;
     }
     .form-control {
-        text-align: center;
         &.dp-input {
             border-right: none !important;
         }
@@ -19,5 +18,8 @@
         border-radius: .25rem !important;
         border-bottom-left-radius: 0 !important;
         border-top-left-radius: 0 !important;
+    }
+    &.datepicker .form-control{
+        text-align: center;
     }
 }

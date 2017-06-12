@@ -11580,19 +11580,22 @@ div.dropdown-menu > ul {
   background-color: transparent !important;
   color: #999; }
 
-.input-group.date .form-control {
-  text-align: center; }
-  .input-group.date .form-control.dp-input {
-    border-right: none !important; }
-  .input-group.date .form-control:focus {
-    border-color: #66afe9; }
-  .input-group.date .form-control:focus ~ .input-group-addon {
-    border-left: none !important; }
+.input-group.date .form-control.dp-input {
+  border-right: none !important; }
+
+.input-group.date .form-control:focus {
+  border-color: #66afe9; }
+
+.input-group.date .form-control:focus ~ .input-group-addon {
+  border-left: none !important; }
 
 .input-group.date .endDate {
   border-radius: .25rem !important;
   border-bottom-left-radius: 0 !important;
   border-top-left-radius: 0 !important; }
+
+.input-group.date.datepicker .form-control {
+  text-align: center; }
 .lego-editcom {
   display: flex;
   align-items: center;

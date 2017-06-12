@@ -1,5 +1,5 @@
 /**
- * popover.js v0.8.25
+ * popover.js v0.8.28
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -846,6 +846,7 @@ var Popover = function Popover() {
             offset: options.offset
         });
         el.on("hidden.bs.popover", function() {
+            el.attr("data-isopen", "");
             if (typeof options.onClose === "function") options.onClose(event);
         });
         if (options.showNow) {
