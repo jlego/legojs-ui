@@ -1,5 +1,5 @@
 /**
- * avatar.js v0.8.28
+ * avatar.js v0.8.29
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

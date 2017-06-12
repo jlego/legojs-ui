@@ -121,7 +121,7 @@ class Navs extends Lego.UI.Baseview {
             this.options.activeKey = key;
             let model = this.options.data.find(item => item.key === key);
             if (typeof this.options.onClick === 'function'){
-                this.options.onClick(this, model || {});
+                this.options.onClick(this, model || {}, event);
             }
         }
     }
@@ -150,7 +150,7 @@ class Navs extends Lego.UI.Baseview {
         }
         this.$('.dropdown-menu a').removeClass('active');
         this.$('#' + key).addClass('active');
-        if (typeof this.options.onClick === 'function') this.options.onClick(this, subModel);
+        if (typeof this.options.onClick === 'function') this.options.onClick(this, subModel, event);
     }
 }
 Lego.components('navs', Navs);
