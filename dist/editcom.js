@@ -1,5 +1,5 @@
 /**
- * editcom.js v0.8.29
+ * editcom.js v0.8.34
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -98,12 +98,12 @@ var Editcom = function(_Lego$UI$Baseview) {
         return _possibleConstructorReturn(this, (Editcom.__proto__ || Object.getPrototypeOf(Editcom)).call(this, options));
     }
     _createClass(Editcom, [ {
-        key: "renderBefore",
-        value: function renderBefore() {
+        key: "components",
+        value: function components() {
             var opts = this.options;
             if (opts.components.length) {
-                opts.components.forEach(function(item) {
-                    item.key = (item.key || "editcom_") + opts.vid;
+                opts.components.forEach(function(item, index) {
+                    item.key = "editcom_" + opts.vid;
                     item.el = "#" + item.key;
                     item.size = opts.size;
                     if (opts.width) {
@@ -140,8 +140,9 @@ var Editcom = function(_Lego$UI$Baseview) {
     }, {
         key: "close",
         value: function close(value, htmlStr) {
-            var opts = {};
-            opts.clicked = false;
+            var opts = {
+                clicked: false
+            };
             if (value) {
                 if ((typeof value === "undefined" ? "undefined" : _typeof(value)) == "object") {
                     if (value.value) opts.value = opts.text = value.value;
@@ -151,7 +152,6 @@ var Editcom = function(_Lego$UI$Baseview) {
                 if (htmlStr) opts.html = htmlStr;
             }
             Object.assign(this.options, opts);
-            this.refresh();
             if (typeof this.options.onFinish == "function") this.options.onFinish(this);
         }
     } ]);

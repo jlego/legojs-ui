@@ -14,6 +14,9 @@ import './asset/index.scss';
 class Chkgroup extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
+            events: {
+                'change .form-check-input': 'onChange'
+            },
             layout: 'vertical', //Inline
             type: 'checkbox',   //radio
             name: '',
@@ -52,14 +55,19 @@ class Chkgroup extends Lego.UI.Baseview {
         `;
         return vDom;
     }
-    renderAfter(){
+    onChange(event){
         let opts = this.options,
-            that = this;
-        this.$(".form-check-input").change(function(){
-            let val = that.$("input.form-check-input:checked").val(),
-                findOne = opts.data.find(item => item.value == val);
-            if(typeof opts.onChange == 'function') opts.onChange(that, findOne);
+            valArr = [],
+            result = [];
+        this.$("input.form-check-input:checked").each(function(index, el){
+            valArr.push($(el).val());
         });
+        opts.data.forEach((item, index) => {
+            if(valArr.includes(item.value)){
+                result.push(item);
+            }
+        });
+        if(typeof opts.onChange == 'function') opts.onChange(this, result.length == 1 ? result[0] : result, event);
     }
 }
 Lego.components('chkgroup', Chkgroup);

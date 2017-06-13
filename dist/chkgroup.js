@@ -1,5 +1,5 @@
 /**
- * chkgroup.js v0.8.29
+ * chkgroup.js v0.8.34
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -70,6 +70,9 @@ var Chkgroup = function(_Lego$UI$Baseview) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Chkgroup);
         var options = {
+            events: {
+                "change .form-check-input": "onChange"
+            },
             layout: "vertical",
             type: "checkbox",
             name: "",
@@ -93,15 +96,18 @@ var Chkgroup = function(_Lego$UI$Baseview) {
             return vDom;
         }
     }, {
-        key: "renderAfter",
-        value: function renderAfter() {
-            var opts = this.options, that = this;
-            this.$(".form-check-input").change(function() {
-                var val = that.$("input.form-check-input:checked").val(), findOne = opts.data.find(function(item) {
-                    return item.value == val;
-                });
-                if (typeof opts.onChange == "function") opts.onChange(that, findOne);
+        key: "onChange",
+        value: function onChange(event) {
+            var opts = this.options, valArr = [], result = [];
+            this.$("input.form-check-input:checked").each(function(index, el) {
+                valArr.push($(el).val());
             });
+            opts.data.forEach(function(item, index) {
+                if (valArr.includes(item.value)) {
+                    result.push(item);
+                }
+            });
+            if (typeof opts.onChange == "function") opts.onChange(this, result.length == 1 ? result[0] : result, event);
         }
     } ]);
     return Chkgroup;

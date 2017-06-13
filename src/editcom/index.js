@@ -33,11 +33,11 @@ class Editcom extends Lego.UI.Baseview {
         Object.assign(options, opts);
         super(options);
     }
-    renderBefore(){
+    components(){
         let opts = this.options;
         if(opts.components.length){
-            opts.components.forEach(item => {
-                item.key = (item.key || 'editcom_') + opts.vid;
+            opts.components.forEach((item, index) => {
+                item.key = 'editcom_' + opts.vid;
                 item.el = '#' + item.key;
                 item.size = opts.size;
                 if(opts.width){
@@ -77,8 +77,7 @@ class Editcom extends Lego.UI.Baseview {
         if(typeof this.options.onCancel == 'function') this.options.onCancel(this, event);
     }
     close(value, htmlStr){
-        let opts = {};
-        opts.clicked = false;
+        let opts = {clicked: false};
         if(value){
             if(typeof value == 'object'){
                 if(value.value) opts.value = opts.text = value.value;
@@ -88,7 +87,6 @@ class Editcom extends Lego.UI.Baseview {
             if(htmlStr) opts.html = htmlStr;
         }
         Object.assign(this.options, opts);
-        this.refresh();
         if(typeof this.options.onFinish == 'function') this.options.onFinish(this);
     }
 }

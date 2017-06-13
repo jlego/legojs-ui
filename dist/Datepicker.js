@@ -1,5 +1,5 @@
 /**
- * datepicker.js v0.8.29
+ * datepicker.js v0.8.34
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

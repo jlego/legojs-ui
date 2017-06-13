@@ -1,5 +1,5 @@
 /**
- * selects.js v0.8.29
+ * selects.js v0.8.34
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -178,6 +178,17 @@ var _templateObject5 = _taggedTemplateLiteral$1([ '\n        <ul class="', " ", 
 
 var _templateObject6 = _taggedTemplateLiteral$1([ '\n            <div class="dropdown-menu">\n                <div class="lego-search-container"><search id="search_', '"></search></div>\n                ', "\n            </div>\n            " ], [ '\n            <div class="dropdown-menu">\n                <div class="lego-search-container"><search id="search_', '"></search></div>\n                ', "\n            </div>\n            " ]);
 
+function _toConsumableArray(arr) {
+    if (Array.isArray(arr)) {
+        for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+            arr2[i] = arr[i];
+        }
+        return arr2;
+    } else {
+        return Array.from(arr);
+    }
+}
+
 function _taggedTemplateLiteral$1(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
         raw: {
@@ -303,11 +314,12 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var that = this, opts = this.options, _eventName = "click.dropdown-" + opts.vid;
+            var that = this, opts = this.options, _eventName = "click.dropdown-" + opts.vid, directionArr = opts.direction ? opts.direction.split("_") : [];
             this.container = opts.container instanceof $ ? opts.container : opts.context.$ ? opts.context.$(opts.container) : $(opts.container);
             if (!opts.disabled) {
                 var handler = function handler(event) {
-                    Lego.UI.Util.getDirection(that.container, that.$el);
+                    var _Lego$UI$Util;
+                    (_Lego$UI$Util = Lego.UI.Util).getDirection.apply(_Lego$UI$Util, [ that.container, that.$el ].concat(_toConsumableArray(directionArr)));
                     that.$el.slideToggle("fast");
                 };
                 var cssObj = {

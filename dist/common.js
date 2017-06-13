@@ -1,5 +1,5 @@
 /**
- * common.js v0.8.29
+ * common.js v0.8.34
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -103,7 +103,7 @@ var Util = {
         }
         return S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4();
     },
-    getDirection: function getDirection(el, dropEl) {
+    getDirection: function getDirection(el, dropEl, topOrBottom, rightOrLeft) {
         el = el instanceof $ ? el : $(el);
         dropEl = dropEl instanceof $ ? dropEl : $(dropEl);
         var windowW = $(window).width(), windowH = $(window).height(), _X = el.offset().left, _Y = el.offset().top, elW = el.width(), elH = el.height(), dropW = dropEl.width(), dropH = dropEl.height(), cssObj = {
@@ -112,7 +112,7 @@ var Util = {
             right: "inherit",
             bottom: "inherit",
             left: 0
-        }, tb = dropH > windowH - _Y - elH ? dropH > _Y - 120 ? "fixed" : "top" : "bottom", lr = dropW > windowW - _X ? "right" : "left";
+        }, tb = topOrBottom ? topOrBottom : dropH > windowH - _Y - elH ? dropH > _Y - 120 ? "fixed" : "top" : "bottom", lr = rightOrLeft ? rightOrLeft : dropW > windowW - _X ? "right" : "left";
         if (tb == "fixed") {
             if (dropH > windowH) {
                 Object.assign(cssObj, {
