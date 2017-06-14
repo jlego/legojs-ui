@@ -4,6 +4,7 @@ import perfectScrollbar from 'perfect-scrollbar';
 import "../notification/index";
 import "../message/index";
 import "../util/util";
+export Basedata from "./basedata";
 export Baseview from "./baseview";
 
 window.Ps = perfectScrollbar;

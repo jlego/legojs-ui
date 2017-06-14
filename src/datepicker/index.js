@@ -13,8 +13,7 @@ class Datepicker extends Lego.UI.Baseview {
         const options = {
             events: {
                 'click': 'onclick',
-                'click .input-group-addon': 'showpanel',
-                'blur input': 'onBlur'
+                'click .input-group-addon': 'showpanel'
             },
             type: 'date', //date, time, range
             name: '',
@@ -35,9 +34,10 @@ class Datepicker extends Lego.UI.Baseview {
             endName: '',
             endValue: '',
             endPlaceholder: '结束时间',
+            minDate: '',
+            maxDate: '',
             useCurrent: false,
             setting: {},
-            onBlur(){},
             onChange() {} //
         };
         Object.assign(options, opts);
@@ -45,86 +45,92 @@ class Datepicker extends Lego.UI.Baseview {
         this.initDatepicker();
     }
     initDatepicker() {
-        const options = this.options;
-        this.oldValue = formatDate(options.value, options.format);
-        Object.assign(options.setting, {
-            format: options.format,
-            keepOpen: options.keepOpen,
-            showClose: options.showClose,
-            showClear: options.showClear,
-            inline: options.inline
+        const opts = this.options;
+        this.oldValue = formatDate(opts.value, opts.format);
+        Object.assign(opts.setting, {
+            format: opts.format,
+            keepOpen: opts.keepOpen,
+            showClose: opts.showClose,
+            showClear: opts.showClear,
+            inline: opts.inline
         });
         const that = this,
-            theEl = options.inline ? options.el : '.input-group input';
-        if (options.type !== 'range') {
+            theEl = opts.inline ? opts.el : '.input-group input';
+        if (opts.type !== 'range') {
             let $theEl = this.$(theEl);
-            if(options.inline) $theEl = this.$el;
-            $theEl.datepicker(options.setting);
+            if(opts.inline) $theEl = this.$el;
+            $theEl.datepicker(opts.setting);
             $theEl.on('dp.change', function(event) {
                 let value = $(this).val();
-                if (typeof options.onChange == 'function') options.onChange(that, formatDate(value, options.format));
+                if (typeof opts.onChange == 'function') opts.onChange(that, formatDate(value, opts.format));
             });
         } else {
             const startEl = '.startDate',
                 endEl = '.endDate';
-            if (!options.startInputEl && !options.endInputEl) {
-                const startDateOpts = Object.assign({}, options.setting);
-                const endDateOpts = Object.assign({},{...options.setting, useCurrent: options.useCurrent});
+            if (!opts.startInputEl && !opts.endInputEl) {
+                const startDateOpts = Object.assign({}, opts.setting);
+                if(opts.minDate) startDateOpts.minDate = opts.minDate;
+                const endDateOpts = Object.assign({},{...opts.setting, useCurrent: opts.useCurrent});
+                if(opts.maxDate) startDateOpts.maxDate = opts.maxDate;
                 const startDate = this.$(startEl).datepicker(startDateOpts);
                 const endDate = this.$(endEl).datepicker(endDateOpts);
                 this.$(startEl).on('dp.change', function(e) {
                     that.$(endEl).data("DateTimePicker").minDate(e.date);
+                    if(typeof opts.onChange == 'function') opts.onChange(that, formatDate(that.$(startEl).val(), opts.format), 'start');
                 });
                 this.$(endEl).on('dp.change', function(e) {
                     that.$(startEl).data("DateTimePicker").maxDate(e.date);
+                    if(typeof opts.onChange == 'function') opts.onChange(that, formatDate(that.$(endEl).val(), opts.format), 'end');
                 });
-            } else if (options.startInputEl || options.endInputEl) {
-                const selector = options.startInputEl || options.endInputEl;
-                if (options.startInputEl) options.setting.useCurrent = false;
-                this.$(theEl).datepicker(options.setting);
-                if (options.endInputEl) {
+            } else if (opts.startInputEl || opts.endInputEl) {
+                const selector = opts.startInputEl || opts.endInputEl;
+                if (opts.startInputEl) opts.setting.useCurrent = false;
+                this.$(theEl).datepicker(opts.setting);
+                if (opts.endInputEl) {
                     this.$(theEl).on("dp.change", function(e) {
                         const _el = selector instanceof $ ? selector : $(selector).find(theEl);
                         _el.data("DateTimePicker").maxDate(e.date);
+                        if(typeof opts.onChange == 'function') opts.onChange(that, formatDate(_el.val(), opts.format), 'start');
                     });
-                } else if (options.startInputEl) {
+                } else if (opts.startInputEl) {
                     this.$(theEl).on("dp.change", function(e) {
                         const _el = selector instanceof $ ? selector : $(selector).find(theEl);
                         _el.data("DateTimePicker").minDate(e.date);
+                        if(typeof opts.onChange == 'function') opts.onChange(that, formatDate(_el.val(), opts.format), 'end');
                     });
                 }
             }
         }
     }
     render() {
-        const options = this.options || {};
+        const opts = this.options || {};
         let vDom = '';
-        if (options.type == 'range' && !options.startInputEl && !options.endInputEl) {
+        if (opts.type == 'range' && !opts.startInputEl && !opts.endInputEl) {
             vDom = hx `
             <div class="lego-datepicker">
                 <div class="input-group input-daterange datepicker date">
-                    <input type="text" class="form-control startDate ${options.disabled ? 'disabled' : ''}" value="${formatDate(options.startValue, options.format)}" name="${options.startName}" placeholder="${options.startPlaceholder}">
+                    <input type="text" class="form-control startDate ${opts.disabled ? 'disabled' : ''}" value="${formatDate(opts.startValue, opts.format)}" name="${opts.startName}" placeholder="${opts.startPlaceholder}">
                     <span class="input-group-addon">
                         至
                     </span>
-                    <input type="text" class="form-control endDate ${options.disabled ? 'disabled' : ''}" value="${formatDate(options.endValue, options.format)}" name="${options.endName}" placeholder="${options.endPlaceholder}">
+                    <input type="text" class="form-control endDate ${opts.disabled ? 'disabled' : ''}" value="${formatDate(opts.endValue, opts.format)}" name="${opts.endName}" placeholder="${opts.endPlaceholder}">
                 </div>
             </div>
             `;
         }
-        if(options.type !== 'range' || (options.type == 'range' && options.startInputEl && options.endInputEl)){
+        if(opts.type !== 'range' || (opts.type == 'range' && opts.startInputEl && opts.endInputEl)){
             vDom = hx `
             <div class="lego-datepicker">
                 <div class="input-group date">
-                    <input class="form-control dp-input ${options.disabled ? 'disabled' : ''}" type="text" value="${formatDate(val(options.value), options.format)}" name="${options.name}" placeholder="${options.placeholder}">
+                    <input class="form-control dp-input ${opts.disabled ? 'disabled' : ''}" type="text" value="${formatDate(val(opts.value), opts.format)}" name="${opts.name}" placeholder="${opts.placeholder}">
                     <span class="input-group-addon">
-                        <i class="anticon anticon-${options.type == 'time' ? 'clock-circle-o' : 'calendar'}"></i>
+                        <i class="anticon anticon-${opts.type == 'time' ? 'clock-circle-o' : 'calendar'}"></i>
                     </span>
                 </div>
             </div>
             `;
         }
-        if(options.inline) vDom = hx`<div></div>`;
+        if(opts.inline) vDom = hx`<div></div>`;
         return vDom;
     }
     onclick(event){
@@ -134,12 +140,6 @@ class Datepicker extends Lego.UI.Baseview {
         let target = $(event.currentTarget),
             input = target.prev('input');
         input.focus();
-    }
-    onBlur(event){
-        event.stopPropagation();
-        let target = $(event.currentTarget),
-            value = target.val();
-        if(typeof this.options.onBlur == 'function') this.options.onBlur(this, formatDate(value, this.options.format));
     }
 }
 Lego.components('datepicker', Datepicker);

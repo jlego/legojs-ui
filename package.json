@@ -1,7 +1,7 @@
 {
   "name": "lego-ui",
-  "version": "0.7.9",
-  "description": "legojs ui library",
+  "version": "0.8.44",
+  "description": "基于legojs的基础组件库",
   "main": "dist/legoui.js",
   "directories": {
     "example": "example"

@@ -51,6 +51,7 @@ build([{
 {alias: 'editcom'},
 {alias: 'forms'},
 {alias: 'facial'},
+{alias: 'grid'},
 {alias: 'inputs'},
 {alias: 'listgroup'},
 {alias: 'loading'},

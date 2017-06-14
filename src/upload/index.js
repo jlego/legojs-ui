@@ -61,30 +61,25 @@ class Upload extends Lego.UI.Baseview {
             Object.assign(options.previewImg, cssOpts);
         }
         super(options);
+        this.fileList = [];
         this.$('.lego-fileInput').on('change', (event) => {
             var target = $(event.currentTarget)[0];
             this.uploadInit(target.files, target);
         });
-        if(this.options.value.length){
-            this.options.value.forEach((item, index) => {
-                this.showItem(item);
-            });
-        }
-    }
-    components(){
-        this.fileList = this.fileList || [];
-        const opts = this.options;
-        if(opts.value.length){
-            opts.value = opts.value.map(file => {
-                let options = {
+        let opt = this.options;
+        if(opt.value.length){
+            this.options.value = opt.value.map(file => {
+                return {
                     el: '.lego-upload-container',
-                    readonly: opts.readonly,
+                    readonly: opt.readonly,
                     percent: 100,
-                    showZoom: opts.showZoom,
-                    type: opts.type,
+                    showZoom: opt.showZoom,
+                    type: opt.type,
                     file: file
                 };
-                return options;
+            });
+            this.options.value.forEach((item, index) => {
+                this.showItem(item);
             });
         }
     }
@@ -202,7 +197,7 @@ class Upload extends Lego.UI.Baseview {
                                 percent: 100
                             });
                         }
-                        if(typeof opts.onComplete == 'function') opts.onComplete(that, self, resp);
+                        if(typeof opts.onComplete == 'function') opts.onComplete(that, resp, self);
                     },
                     onFail: opts.onFail,
                     onCancel: opts.onCancel
@@ -237,8 +232,11 @@ class Upload extends Lego.UI.Baseview {
             if(type == 'cancel'){
                 if(typeof opts.onCancel == 'function') opts.onCancel(this, _id);
             }else{
+                let hasOne = opts.value.find(item => item.file._id == _id),
+                    removeFile = {};
+                if(hasOne) removeFile = $.extend({}, hasOne.file || {});
+                if(typeof opts.onRemove == 'function') opts.onRemove(this, removeFile);
                 opts.value = opts.value.filter(item => item.file._id !== _id);
-                if(typeof opts.onRemove == 'function') opts.onRemove(this, _id);
             }
             if(opts.type == 'avatar'){
                 let html = ['<div class="lego-upload-add preview-' + val(opts.type) + '">',

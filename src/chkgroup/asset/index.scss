@@ -108,9 +108,10 @@
         border-radius: 3px;
     }
     .lego-checkbox + span:after {
-        top: 1px;
+        top: 50%;
         left: 6px;
         box-sizing: border-box;
+        margin-top: -8px;
         width: 6px;
         height: 12px;
         transform: rotate(45deg);

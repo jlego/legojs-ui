@@ -6,6 +6,33 @@
 import validate from 'jquery-validation-cjs';
 $.fn.validate = validate;
 import './asset/index.scss';
+export let regObj = {
+    mobile: /^1(3|4|5|7|8)\d{9}$/,
+    email: /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g,
+    password: /^[\w]+$/
+};
+// 手机号码验证
+$.validator.addMethod("mobile", function(value, element) {
+    let length = value.length,
+        mobile = regObj.mobile;
+    return this.optional(element) || (length == 11 && mobile.test(value));
+}, "请正确填写手机号");
+// 手机号码验证
+$.validator.addMethod("email", function(value, element) {
+    let length = value.length,
+        email = regObj.email;
+    return this.optional(element) || email.test(value);
+}, "请正确填写邮箱");
+// 密码
+$.validator.addMethod("password", function(value, element) {
+    let passwordReg = regObj.password;
+    return this.optional(element) || passwordReg.test(value);
+}, "请正确填写密码");
+// 完成组件数
+$.validator.addMethod("coms", function(value, element, num) {
+    let valArr = value.split(',');
+    return this.optional(element) || valArr.length == num;
+}, "请完成所有项");
 // data: [{
 //     label: '',
 //     text: '', //静态文本
@@ -40,6 +67,10 @@ class Forms extends Lego.UI.Baseview {
                     const view = Lego.getView(opts.el);
                     if(view) view.submitForm();
                 },
+                onchange(element) {
+                    $(element).valid();
+                },
+                ignore: "",
                 rules: {},
                 messages: {},
             },
@@ -141,25 +172,26 @@ class Forms extends Lego.UI.Baseview {
         return vDom;
     }
     renderCom(){
-        const that = this;
+        let that = this,
+            opts = this.options;
         this.rules = null;
         this.messages = null;
-        let components = this.options.data,
+        let components = opts.data,
             comArr = ['selects', 'treeselect'];
-        components = typeof components == 'function' ? components(this.options) : (Array.isArray(components) ? components : [components]);
+        components = typeof components == 'function' ? components(opts) : (Array.isArray(components) ? components : [components]);
         components.map((item, index) => {
             if(!item.text){
-                const comId = ['component', that.options.vid, index];
+                const comId = ['component', opts.vid, index];
                 if(item.items){
                     item.items.map((subItem, i) => {
                         if(subItem.component){
                             if(subItem.rule && subItem.message){
-                                that.rules = that.options.rules || {};
-                                that.messages = that.options.messages || {};
+                                that.rules = opts.rules || {};
+                                that.messages = opts.messages || {};
                                 if(subItem.required) subItem.rule.required = true;
                                 let theName = comArr.includes(subItem.component.comName) ? ('hidden_' + subItem.component.name) : subItem.component.name;
-                                that.options.setDefaults.rules[theName] = subItem.rule;
-                                that.options.setDefaults.messages[theName] = subItem.message;
+                                opts.setDefaults.rules[theName] = subItem.rule;
+                                opts.setDefaults.messages[theName] = subItem.message;
                             }
                             comId.push(i);
                             subItem.component.el = '#' + comId.join('_');
@@ -170,12 +202,12 @@ class Forms extends Lego.UI.Baseview {
                 }else{
                     if(item.component){
                         if(item.rule && item.message){
-                            this.rules = this.options.rules || {};
-                            this.messages = this.options.messages || {};
+                            this.rules = opts.rules || {};
+                            this.messages = opts.messages || {};
                             if(item.required) item.rule.required = true;
                             let theName = comArr.includes(item.component.comName) ? ('hidden_' + item.component.name) : item.component.name;
-                            this.options.setDefaults.rules[theName] = item.rule;
-                            this.options.setDefaults.messages[theName] = item.message;
+                            opts.setDefaults.rules[theName] = item.rule;
+                            opts.setDefaults.messages[theName] = item.message;
                         }
                         item.component.el = '#' + comId.join('_');
                         item.component.context = this;
@@ -184,11 +216,11 @@ class Forms extends Lego.UI.Baseview {
                 }
             }
         });
-        const clickName = 'click.form_' + this.options.vid,
-            submitEl = this.options.submitEl,
+        const clickName = 'click.form_' + opts.vid,
+            submitEl = opts.submitEl,
             $submitEl = submitEl instanceof $ ? submitEl : $((typeof submitEl == 'string' ? submitEl : '') || '[type="submit"]');
         if (this.rules && this.messages) {
-            this.$el.validate(this.options.setDefaults);
+            this.$el.validate(opts.setDefaults);
             if($submitEl.length){
                 $submitEl.off(clickName).on(clickName, function(event) {
                     that.$el.submit();

@@ -6,6 +6,7 @@ class HomeView extends Lego.UI.Baseview {
                 name: 'editcomname',
                 size: 'sm',
                 text: '点击了编辑组件',
+                validation: 'mobile',
                 components: [{
                     key: 'inputs1',
                     comName: 'inputs',

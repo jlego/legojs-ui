@@ -31,15 +31,15 @@ class UploadView extends Lego.View {
         this.form = null;
 
         function createXMLHTTPRequest() {
-            var xmlHttpRequest;
+            let xmlHttpRequest;
             if (window.XMLHttpRequest) {
                 xmlHttpRequest = new XMLHttpRequest();
                 if (xmlHttpRequest.overrideMimeType) {
                     xmlHttpRequest.overrideMimeType("text/xml");
                 }
             } else if (window.ActiveXObject) {
-                var activexName = ["MSXML2.XMLHTTP", "Microsoft.XMLHTTP"];
-                for (var i = 0; i < activexName.length; i++) {
+                let activexName = ["MSXML2.XMLHTTP", "Microsoft.XMLHTTP"];
+                for (let i = 0; i < activexName.length; i++) {
                     try {
                         xmlHttpRequest = new ActiveXObject(activexName[i]);
                         if (xmlHttpRequest) {

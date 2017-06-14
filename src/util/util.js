@@ -12,7 +12,7 @@ const Util = {
         return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
     },
     // 取层飘浮方向
-    getDirection(el, dropEl) {
+    getDirection(el, dropEl, topOrBottom, rightOrLeft) {
         el = el instanceof $ ? el : $(el);
         dropEl = dropEl instanceof $ ? dropEl : $(dropEl);
         let windowW = $(window).width(),
@@ -30,8 +30,8 @@ const Util = {
                 bottom: 'inherit',
                 left: 0
             },
-            tb = dropH > (windowH - _Y - elH) ? (dropH > _Y - 120 ? 'fixed' : 'top') : 'bottom',
-            lr = dropW > (windowW - _X - elW) ? 'right' : 'left';
+            tb = topOrBottom ? topOrBottom : (dropH > (windowH - _Y - elH) ? (dropH > _Y - 120 ? 'fixed' : 'top') : 'bottom'),
+            lr = rightOrLeft ? rightOrLeft : (dropW > (windowW - _X) ? 'right' : 'left');
         if(tb == 'fixed'){
             if(dropH > windowH){
                 Object.assign(cssObj, {position: 'fixed', bottom: 0, left: _X, overflow: 'auto', top: 0, height: windowH});

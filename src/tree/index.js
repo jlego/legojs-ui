@@ -26,10 +26,18 @@ class Tree extends Lego.UI.Baseview {
             that = this;
         function selectOrNo(treeNode) {
             if (opts.disSelect) {
-                if (Object.keys(treeNode).includes(opts.disSelect)) return false;
+                if(typeof opts.disSelect == 'object'){
+                    if(treeNode[Object.keys(opts.disSelect)[0]] == Object.values(opts.disSelect)[0]) return false;
+                }else{
+                    if (Object.keys(treeNode).includes(opts.disSelect)) return false;
+                }
             }
             if (opts.onlySelect) {
-                if (!Object.keys(treeNode).includes(opts.onlySelect)) return false;
+                if(typeof opts.onlySelect == 'object'){
+                    if(treeNode[Object.keys(opts.onlySelect)[0]] !== Object.values(opts.onlySelect)[0]) return false;
+                }else{
+                    if (!Object.keys(treeNode).includes(opts.onlySelect)) return false;
+                }
             }
             return true;
         }

@@ -1,5 +1,5 @@
 /**
- * treeselect.js v0.7.9
+ * treeselect.js v0.8.44
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -180,6 +180,17 @@ var _templateObject5$1 = _taggedTemplateLiteral$2([ '\n        <ul class="', " "
 
 var _templateObject6 = _taggedTemplateLiteral$2([ '\n            <div class="dropdown-menu">\n                <div class="lego-search-container"><search id="search_', '"></search></div>\n                ', "\n            </div>\n            " ], [ '\n            <div class="dropdown-menu">\n                <div class="lego-search-container"><search id="search_', '"></search></div>\n                ', "\n            </div>\n            " ]);
 
+function _toConsumableArray(arr) {
+    if (Array.isArray(arr)) {
+        for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+            arr2[i] = arr[i];
+        }
+        return arr2;
+    } else {
+        return Array.from(arr);
+    }
+}
+
 function _taggedTemplateLiteral$2(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
         raw: {
@@ -305,11 +316,12 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var that = this, opts = this.options, _eventName = "click.dropdown-" + opts.vid;
+            var that = this, opts = this.options, _eventName = "click.dropdown-" + opts.vid, directionArr = opts.direction ? opts.direction.split("_") : [];
             this.container = opts.container instanceof $ ? opts.container : opts.context.$ ? opts.context.$(opts.container) : $(opts.container);
             if (!opts.disabled) {
                 var handler = function handler(event) {
-                    Lego.UI.Util.getDirection(that.container, that.$el);
+                    var _Lego$UI$Util;
+                    (_Lego$UI$Util = Lego.UI.Util).getDirection.apply(_Lego$UI$Util, [ that.container, that.$el ].concat(_toConsumableArray(directionArr)));
                     that.$el.slideToggle("fast");
                 };
                 var cssObj = {
@@ -627,6 +639,12 @@ var Selects = function(_Lego$UI$Baseview) {
 
 Lego.components("selects", Selects);
 
+var _typeof$2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
+    return typeof obj;
+} : function(obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
 var _createClass$4 = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
@@ -705,10 +723,18 @@ var Tree = function(_Lego$UI$Baseview) {
             var opts = this.options, that = this;
             function selectOrNo(treeNode) {
                 if (opts.disSelect) {
-                    if (Object.keys(treeNode).includes(opts.disSelect)) return false;
+                    if (_typeof$2(opts.disSelect) == "object") {
+                        if (treeNode[Object.keys(opts.disSelect)[0]] == Object.values(opts.disSelect)[0]) return false;
+                    } else {
+                        if (Object.keys(treeNode).includes(opts.disSelect)) return false;
+                    }
                 }
                 if (opts.onlySelect) {
-                    if (!Object.keys(treeNode).includes(opts.onlySelect)) return false;
+                    if (_typeof$2(opts.onlySelect) == "object") {
+                        if (treeNode[Object.keys(opts.onlySelect)[0]] !== Object.values(opts.onlySelect)[0]) return false;
+                    } else {
+                        if (!Object.keys(treeNode).includes(opts.onlySelect)) return false;
+                    }
                 }
                 return true;
             }
@@ -884,7 +910,6 @@ var Treeselect = function(_Selects) {
             fieldName: "key",
             disSelect: "",
             onlySelect: "",
-            treeDataSource: null,
             tags: false,
             placeholder: "",
             searchPlaceholder: "搜索",
@@ -917,11 +942,13 @@ var Treeselect = function(_Selects) {
         key: "components",
         value: function components() {
             var _this2 = this;
-            var opts = this.options, that = this, treeSetting = {
-                simpleData: {
-                    enable: true
+            var opts = this.options, that = this, treeSetting = $.extend(true, {
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
                 }
-            };
+            }, opts.treeSetting);
             if (opts.multiple) {
                 treeSetting = $.extend(true, {
                     check: {

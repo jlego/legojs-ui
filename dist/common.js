@@ -1,5 +1,5 @@
 /**
- * common.js v0.7.9
+ * common.js v0.8.44
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -103,7 +103,7 @@ var Util = {
         }
         return S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4();
     },
-    getDirection: function getDirection(el, dropEl) {
+    getDirection: function getDirection(el, dropEl, topOrBottom, rightOrLeft) {
         el = el instanceof $ ? el : $(el);
         dropEl = dropEl instanceof $ ? dropEl : $(dropEl);
         var windowW = $(window).width(), windowH = $(window).height(), _X = el.offset().left, _Y = el.offset().top, elW = el.width(), elH = el.height(), dropW = dropEl.width(), dropH = dropEl.height(), cssObj = {
@@ -112,7 +112,7 @@ var Util = {
             right: "inherit",
             bottom: "inherit",
             left: 0
-        }, tb = dropH > windowH - _Y - elH ? dropH > _Y - 120 ? "fixed" : "top" : "bottom", lr = dropW > windowW - _X - elW ? "right" : "left";
+        }, tb = topOrBottom ? topOrBottom : dropH > windowH - _Y - elH ? dropH > _Y - 120 ? "fixed" : "top" : "bottom", lr = rightOrLeft ? rightOrLeft : dropW > windowW - _X ? "right" : "left";
         if (tb == "fixed") {
             if (dropH > windowH) {
                 Object.assign(cssObj, {
@@ -386,90 +386,6 @@ window.val = function(value, defaultValue) {
 
 Lego.components("Util", Util);
 
-var _createClass$1 = function() {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];
-            descriptor.enumerable = descriptor.enumerable || false;
-            descriptor.configurable = true;
-            if ("value" in descriptor) descriptor.writable = true;
-            Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }
-    return function(Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);
-        if (staticProps) defineProperties(Constructor, staticProps);
-        return Constructor;
-    };
-}();
-
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-loading">\n            <div class="lego-icon ', "\n            ", " lego-spin-", '">\n            </div>\n            ', "\n        </div>\n        " ], [ '\n        <div class="lego-loading">\n            <div class="lego-icon ', "\n            ", " lego-spin-", '">\n            </div>\n            ', "\n        </div>\n        " ]);
-
-var _templateObject2 = _taggedTemplateLiteral([ '<div class="lego-spin-text">', "</div>" ], [ '<div class="lego-spin-text">', "</div>" ]);
-
-function _taggedTemplateLiteral(strings, raw) {
-    return Object.freeze(Object.defineProperties(strings, {
-        raw: {
-            value: Object.freeze(raw)
-        }
-    }));
-}
-
-function _classCallCheck$1(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-    }
-}
-
-function _possibleConstructorReturn$1(self, call) {
-    if (!self) {
-        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-    return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits$1(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-    }
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
-        constructor: {
-            value: subClass,
-            enumerable: false,
-            writable: true,
-            configurable: true
-        }
-    });
-    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-var Loading = function(_Lego$View) {
-    _inherits$1(Loading, _Lego$View);
-    function Loading() {
-        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$1(this, Loading);
-        var options = {
-            spinning: true,
-            size: "",
-            tip: "",
-            icon: "anticon anticon-loading-3-quarters"
-        };
-        Object.assign(options, opts);
-        return _possibleConstructorReturn$1(this, (Loading.__proto__ || Object.getPrototypeOf(Loading)).call(this, options));
-    }
-    _createClass$1(Loading, [ {
-        key: "render",
-        value: function render() {
-            var opts = this.options;
-            this.vDom = hx(_templateObject, Lego.config.spinning && opts.spinning ? "lego-spin" : "", val(opts.icon), val(opts.size), opts.tip ? hx(_templateObject2, opts.tip) : "");
-            return this.vDom;
-        }
-    } ]);
-    return Loading;
-}(Lego.View);
-
-Lego.components("loading", Loading);
-
 var _createClass = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
@@ -515,22 +431,351 @@ function _inherits(subClass, superClass) {
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
+var Basedata = function(_Lego$Data) {
+    _inherits(Basedata, _Lego$Data);
+    function Basedata() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck(this, Basedata);
+        var options = {};
+        Object.assign(options, opts);
+        return _possibleConstructorReturn(this, (Basedata.__proto__ || Object.getPrototypeOf(Basedata)).call(this, options));
+    }
+    _createClass(Basedata, [ {
+        key: "parse",
+        value: function parse(datas, apiName, view) {
+            if (datas.error) {
+                Lego.UI.message("error", datas.error);
+            }
+            if (typeof this[apiName] == "function") return this[apiName](datas, view);
+            return datas;
+        }
+    } ]);
+    return Basedata;
+}(Lego.Data);
+
+var _createClass$2 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-loading">\n            <div class="lego-icon ', "\n            ", " lego-spin-", '">\n            </div>\n            ', "\n        </div>\n        " ], [ '\n        <div class="lego-loading">\n            <div class="lego-icon ', "\n            ", " lego-spin-", '">\n            </div>\n            ', "\n        </div>\n        " ]);
+
+var _templateObject2 = _taggedTemplateLiteral([ '<div class="lego-spin-text">', "</div>" ], [ '<div class="lego-spin-text">', "</div>" ]);
+
+function _taggedTemplateLiteral(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+}
+
+function _classCallCheck$2(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$2(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$2(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var Loading = function(_Lego$View) {
+    _inherits$2(Loading, _Lego$View);
+    function Loading() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        _classCallCheck$2(this, Loading);
+        var options = {
+            spinning: true,
+            size: "",
+            tip: "",
+            icon: "anticon anticon-loading-3-quarters"
+        };
+        Object.assign(options, opts);
+        return _possibleConstructorReturn$2(this, (Loading.__proto__ || Object.getPrototypeOf(Loading)).call(this, options));
+    }
+    _createClass$2(Loading, [ {
+        key: "render",
+        value: function render() {
+            var opts = this.options;
+            this.vDom = hx(_templateObject, Lego.config.spinning && opts.spinning ? "lego-spin" : "", val(opts.icon), val(opts.size), opts.tip ? hx(_templateObject2, opts.tip) : "");
+            return this.vDom;
+        }
+    } ]);
+    return Loading;
+}(Lego.View);
+
+Lego.components("loading", Loading);
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
+    return typeof obj;
+} : function(obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+var _createClass$3 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+function _classCallCheck$3(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+var Permis = function() {
+    function Permis() {
+        _classCallCheck$3(this, Permis);
+        this.options = {
+            userId: 0,
+            operateHash: {},
+            manageHash: {},
+            adminHash: {},
+            users: {},
+            isSuper: false,
+            isAdmin: false,
+            message: function message(msg) {
+                Lego.UI.Util.message("error", msg);
+            }
+        };
+    }
+    _createClass$3(Permis, [ {
+        key: "init",
+        value: function init() {
+            var _this = this;
+            var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+            if (opts.operateHash) opts.operateHash = typeof opts.operateHash == "function" ? opts.operateHash() : opts.operateHash;
+            if (opts.manageHash) opts.manageHash = typeof opts.manageHash == "function" ? opts.manageHash() : opts.manageHash;
+            if (opts.adminHash) opts.adminHash = typeof opts.adminHash == "function" ? opts.adminHash() : opts.adminHash;
+            if (opts.users) opts.users = typeof opts.users == "function" ? opts.users() : opts.users;
+            Object.assign(this.options, opts);
+            if (Array.isArray(this.options.users)) {
+                (function() {
+                    var usersObj = {};
+                    _this.options.users.forEach(function(user, index) {
+                        usersObj[user.id] = user;
+                    });
+                    _this.options.users = usersObj;
+                })();
+            }
+        }
+    }, {
+        key: "check",
+        value: function check(module, operate, userId) {
+            var user_id = this.options.userId, operateHash = this.options.operateHash, manageHash = this.options.manageHash, adminHash = this.options.adminHash, users = this.options.users;
+            if (!this.options.isSuper) {
+                if (!userId || userId === user_id) {
+                    if (this.options.isAdmin) {
+                        if (adminHash[module]) {
+                            return adminHash[module][operate];
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        if (operateHash[module]) {
+                            return operateHash[module][operate];
+                        } else {
+                            return false;
+                        }
+                    }
+                } else {
+                    var theDepartment = void 0, result = users[userId];
+                    if (result) theDepartment = result.departmentId;
+                    if (!this.options.isAdmin) {
+                        if (theDepartment) {
+                            if (manageHash[theDepartment]) {
+                                if (manageHash[theDepartment][module]) {
+                                    return manageHash[theDepartment][module][operate];
+                                } else {
+                                    return manageHash[theDepartment][module + ":" + operate];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+    } ]);
+    return Permis;
+}();
+
+var permisObj = new Permis();
+
+function _on(elem, types, selector, data, fn, one) {
+    var origFn = void 0, type = void 0;
+    if ((typeof types === "undefined" ? "undefined" : _typeof(types)) === "object") {
+        if (typeof selector !== "string") {
+            data = data || selector;
+            selector = undefined;
+        }
+        for (type in types) {
+            _on(elem, type, selector, data, types[type], one);
+        }
+        return elem;
+    }
+    if (data == null && fn == null) {
+        fn = selector;
+        data = selector = undefined;
+    } else if (fn == null) {
+        if (typeof selector === "string") {
+            fn = data;
+            data = undefined;
+        } else {
+            fn = data;
+            data = selector;
+            selector = undefined;
+        }
+    }
+    if (fn === false) {
+        fn = function fn() {
+            return false;
+        };
+    } else if (!fn) {
+        return elem;
+    }
+    if (one === 1) {
+        origFn = fn;
+        fn = function fn(event) {
+            jQuery().off(event);
+            return origFn.apply(this, arguments);
+        };
+        fn.guid = origFn.guid || (origFn.guid = jQuery.guid++);
+    }
+    return elem.each(function() {
+        var callback = function callback(event) {
+            var thePermis = $(this).data("permis");
+            if ((typeof thePermis === "undefined" ? "undefined" : _typeof(thePermis)) == "object") {
+                var module = thePermis.module, operate = thePermis.operate, msg = thePermis.message, userId = thePermis.userid;
+                if (!Lego.UI.permis.check(module, operate, userId)) {
+                    if (msg) Lego.UI.permis.options.message(msg);
+                    event.stopPropagation();
+                    return;
+                }
+            }
+            var _fn = fn.bind(this);
+            _fn(event);
+        };
+        if (types.indexOf("click") == 0) {
+            jQuery.event.add(this, types, callback, data, selector);
+        } else {
+            jQuery.event.add(this, types, fn, data, selector);
+        }
+    });
+}
+
+$.fn.extend({
+    on: function on(types, selector, data, fn) {
+        return _on(this, types, selector, data, fn);
+    }
+});
+
+Lego.components("permis", permisObj);
+
+var _createClass$1 = function() {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);
+        if (staticProps) defineProperties(Constructor, staticProps);
+        return Constructor;
+    };
+}();
+
+function _classCallCheck$1(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+function _possibleConstructorReturn$1(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits$1(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
 var Baseview = function(_Lego$View) {
-    _inherits(Baseview, _Lego$View);
+    _inherits$1(Baseview, _Lego$View);
     function Baseview() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck(this, Baseview);
+        _classCallCheck$1(this, Baseview);
         var options = {
             events: null,
             loading: false
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn(this, (Baseview.__proto__ || Object.getPrototypeOf(Baseview)).call(this, options));
+        var _this = _possibleConstructorReturn$1(this, (Baseview.__proto__ || Object.getPrototypeOf(Baseview)).call(this, options));
         _this.setEvent();
         _this.renderScroll();
         return _this;
     }
-    _createClass(Baseview, [ {
+    _createClass$1(Baseview, [ {
         key: "setEvent",
         value: function setEvent() {
             this.unBindEvents();
@@ -641,5 +886,7 @@ var Baseview = function(_Lego$View) {
 Lego.components("Baseview", Baseview);
 
 window.Ps = perfectScrollbar;
+
+exports.Basedata = Basedata;
 
 exports.Baseview = Baseview;

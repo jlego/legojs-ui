@@ -1,5 +1,5 @@
 /**
- * reply.js v0.7.9
+ * reply.js v0.8.44
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -1081,6 +1081,7 @@ var Popover = function Popover() {
             offset: options.offset
         });
         el.on("hidden.bs.popover", function() {
+            el.attr("data-isopen", "");
             if (typeof options.onClose === "function") options.onClose(event);
         });
         if (options.showNow) {
@@ -1184,7 +1185,7 @@ var UploadView = function(_Lego$View) {
         _this.startDate = 0;
         _this.form = null;
         function createXMLHTTPRequest() {
-            var xmlHttpRequest;
+            var xmlHttpRequest = void 0;
             if (window.XMLHttpRequest) {
                 xmlHttpRequest = new XMLHttpRequest();
                 if (xmlHttpRequest.overrideMimeType) {
@@ -1701,11 +1702,23 @@ var Upload = function(_Lego$UI$Baseview) {
             Object.assign(options.previewImg, cssOpts);
         }
         var _this = _possibleConstructorReturn$3(this, (Upload.__proto__ || Object.getPrototypeOf(Upload)).call(this, options));
+        _this.fileList = [];
         _this.$(".lego-fileInput").on("change", function(event) {
             var target = $(event.currentTarget)[0];
             _this.uploadInit(target.files, target);
         });
-        if (_this.options.value.length) {
+        var opt = _this.options;
+        if (opt.value.length) {
+            _this.options.value = opt.value.map(function(file) {
+                return {
+                    el: ".lego-upload-container",
+                    readonly: opt.readonly,
+                    percent: 100,
+                    showZoom: opt.showZoom,
+                    type: opt.type,
+                    file: file
+                };
+            });
             _this.options.value.forEach(function(item, index) {
                 _this.showItem(item);
             });
@@ -1713,25 +1726,6 @@ var Upload = function(_Lego$UI$Baseview) {
         return _this;
     }
     _createClass$4(Upload, [ {
-        key: "components",
-        value: function components() {
-            this.fileList = this.fileList || [];
-            var opts = this.options;
-            if (opts.value.length) {
-                opts.value = opts.value.map(function(file) {
-                    var options = {
-                        el: ".lego-upload-container",
-                        readonly: opts.readonly,
-                        percent: 100,
-                        showZoom: opts.showZoom,
-                        type: opts.type,
-                        file: file
-                    };
-                    return options;
-                });
-            }
-        }
-    }, {
         key: "render",
         value: function render() {
             var opts = this.options, width = opts.previewImg.width, height = opts.previewImg.height;
@@ -1831,7 +1825,7 @@ var Upload = function(_Lego$UI$Baseview) {
                                     percent: 100
                                 });
                             }
-                            if (typeof opts.onComplete == "function") opts.onComplete(that, self, resp);
+                            if (typeof opts.onComplete == "function") opts.onComplete(that, resp, self);
                         },
                         onFail: opts.onFail,
                         onCancel: opts.onCancel
@@ -1873,10 +1867,14 @@ var Upload = function(_Lego$UI$Baseview) {
                 if (type == "cancel") {
                     if (typeof opts.onCancel == "function") opts.onCancel(_this3, _id);
                 } else {
+                    var hasOne = opts.value.find(function(item) {
+                        return item.file._id == _id;
+                    }), removeFile = {};
+                    if (hasOne) removeFile = $.extend({}, hasOne.file || {});
+                    if (typeof opts.onRemove == "function") opts.onRemove(_this3, removeFile);
                     opts.value = opts.value.filter(function(item) {
                         return item.file._id !== _id;
                     });
-                    if (typeof opts.onRemove == "function") opts.onRemove(_this3, _id);
                 }
                 if (opts.type == "avatar") {
                     var html = [ '<div class="lego-upload-add preview-' + val(opts.type) + '">', '<i class="anticon anticon-plus avatar-uploader-trigger preview-' + val(opts.type) + '"></i></div>' ].join("");
@@ -2090,6 +2088,17 @@ var _templateObject5$3 = _taggedTemplateLiteral$6([ '\n        <ul class="', " "
 
 var _templateObject6$1 = _taggedTemplateLiteral$6([ '\n            <div class="dropdown-menu">\n                <div class="lego-search-container"><search id="search_', '"></search></div>\n                ', "\n            </div>\n            " ], [ '\n            <div class="dropdown-menu">\n                <div class="lego-search-container"><search id="search_', '"></search></div>\n                ', "\n            </div>\n            " ]);
 
+function _toConsumableArray(arr) {
+    if (Array.isArray(arr)) {
+        for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+            arr2[i] = arr[i];
+        }
+        return arr2;
+    } else {
+        return Array.from(arr);
+    }
+}
+
 function _taggedTemplateLiteral$6(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
         raw: {
@@ -2215,11 +2224,12 @@ var Dropdown = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var that = this, opts = this.options, _eventName = "click.dropdown-" + opts.vid;
+            var that = this, opts = this.options, _eventName = "click.dropdown-" + opts.vid, directionArr = opts.direction ? opts.direction.split("_") : [];
             this.container = opts.container instanceof $ ? opts.container : opts.context.$ ? opts.context.$(opts.container) : $(opts.container);
             if (!opts.disabled) {
                 var handler = function handler(event) {
-                    Lego.UI.Util.getDirection(that.container, that.$el);
+                    var _Lego$UI$Util;
+                    (_Lego$UI$Util = Lego.UI.Util).getDirection.apply(_Lego$UI$Util, [ that.container, that.$el ].concat(_toConsumableArray(directionArr)));
                     that.$el.slideToggle("fast");
                 };
                 var cssObj = {

@@ -3454,8 +3454,6 @@ button.close {
   .modal.fade .modal-dialog {
     transition: transform .3s ease-out;
     transform: translate(0, -25%); }
-  .modal.in .modal-dialog {
-    transform: translate(0, 0); }
 
 .modal-open .modal {
   overflow-x: hidden;
@@ -11370,9 +11368,10 @@ input[type=text] {
   border-radius: 3px; }
 
 .lego-chkgroup .lego-checkbox + span:after {
-  top: 1px;
+  top: 50%;
   left: 6px;
   box-sizing: border-box;
+  margin-top: -8px;
   width: 6px;
   height: 12px;
   transform: rotate(45deg);
@@ -11585,19 +11584,19 @@ div.dropdown-menu > ul {
 .input-group.date .form-control.dp-input {
   border-right: none !important; }
 
-.input-group.date .form-control:focus,
-.input-group.date .form-control:focus ~ .input-group-addon,
-.input-group.date .input-group-addon:focus,
-.input-group.date .input-group-addon:active {
+.input-group.date .form-control:focus {
   border-color: #66afe9; }
 
 .input-group.date .form-control:focus ~ .input-group-addon {
   border-left: none !important; }
 
-.endDate {
+.input-group.date .endDate {
   border-radius: .25rem !important;
   border-bottom-left-radius: 0 !important;
   border-top-left-radius: 0 !important; }
+
+.input-group.date.datepicker .form-control {
+  text-align: center; }
 .lego-editcom {
   display: flex;
   align-items: center;
@@ -11652,28 +11651,28 @@ form button[type="submit"] {
   height: 160px;
   padding: 7px;
   overflow: hidden; }
-
-.lego-facial ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: url(./face_icons/facebackground.png);
-  background-size: cover; }
-
-.lego-facial ul li {
-  float: left;
-  margin: 0; }
-
-.lego-facial ul li img {
-  width: 24px;
-  height: 24px;
-  opacity: 0; }
-
-.lego-facial ul li:hover img {
-  opacity: 1; }
+  .lego-facial .dropdown-menu .lego-facial-item a {
+    padding: 0; }
+  .lego-facial .dropdown-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: url(./face_icons/facebackground.png);
+    background-size: cover; }
+    .lego-facial .dropdown-menu ul li {
+      float: left;
+      margin: 0; }
+      .lego-facial .dropdown-menu ul li img {
+        width: 24px;
+        height: 24px;
+        opacity: 0; }
+      .lego-facial .dropdown-menu ul li:hover img {
+        opacity: 1; }
+.lego-grid {
+  display: block; }
 .modal-backdrop {
   z-index: 9998 !important;
   background-color: #000;
