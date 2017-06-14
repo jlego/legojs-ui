@@ -232,8 +232,11 @@ class Upload extends Lego.UI.Baseview {
             if(type == 'cancel'){
                 if(typeof opts.onCancel == 'function') opts.onCancel(this, _id);
             }else{
+                let hasOne = opts.value.find(item => item.file._id == _id),
+                    removeFile = {};
+                if(hasOne) removeFile = $.extend({}, hasOne.file || {});
+                if(typeof opts.onRemove == 'function') opts.onRemove(this, removeFile);
                 opts.value = opts.value.filter(item => item.file._id !== _id);
-                if(typeof opts.onRemove == 'function') opts.onRemove(this, _id);
             }
             if(opts.type == 'avatar'){
                 let html = ['<div class="lego-upload-add preview-' + val(opts.type) + '">',

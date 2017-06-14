@@ -1,5 +1,5 @@
 /**
- * permis.js v0.8.34
+ * permis.js v0.8.44
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -41,6 +41,7 @@ var Permis = function() {
             userId: 0,
             operateHash: {},
             manageHash: {},
+            adminHash: {},
             users: {},
             isSuper: false,
             isAdmin: false,
@@ -56,6 +57,7 @@ var Permis = function() {
             var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
             if (opts.operateHash) opts.operateHash = typeof opts.operateHash == "function" ? opts.operateHash() : opts.operateHash;
             if (opts.manageHash) opts.manageHash = typeof opts.manageHash == "function" ? opts.manageHash() : opts.manageHash;
+            if (opts.adminHash) opts.adminHash = typeof opts.adminHash == "function" ? opts.adminHash() : opts.adminHash;
             if (opts.users) opts.users = typeof opts.users == "function" ? opts.users() : opts.users;
             Object.assign(this.options, opts);
             if (Array.isArray(this.options.users)) {
@@ -71,17 +73,22 @@ var Permis = function() {
     }, {
         key: "check",
         value: function check(module, operate, userId) {
-            var user_id = this.options.userId, operateHash = this.options.operateHash, manageHash = this.options.manageHash, users = this.options.users;
+            var user_id = this.options.userId, operateHash = this.options.operateHash, manageHash = this.options.manageHash, adminHash = this.options.adminHash, users = this.options.users;
             if (!this.options.isSuper) {
                 if (!userId || userId === user_id) {
-                    if (module) {
+                    if (this.options.isAdmin) {
+                        if (adminHash[module]) {
+                            return adminHash[module][operate];
+                        } else {
+                            return false;
+                        }
+                    } else {
                         if (operateHash[module]) {
-                            return this.options.isAdmin || operateHash[module][operate];
+                            return operateHash[module][operate];
                         } else {
                             return false;
                         }
                     }
-                    return true;
                 } else {
                     var theDepartment = void 0, result = users[userId];
                     if (result) theDepartment = result.departmentId;
@@ -96,11 +103,9 @@ var Permis = function() {
                             }
                         }
                     }
-                    return true;
                 }
-            } else {
-                return true;
             }
+            return true;
         }
     } ]);
     return Permis;

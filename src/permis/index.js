@@ -7,6 +7,7 @@ class Permis {
             userId: 0, //当前用户ID
             operateHash: {}, //操作权限对象
             manageHash: {}, //管理权限对象
+            adminHash: {},  //管理员权限
             users: {}, //所有用户列表 (array 或 function)
             isSuper: false,  //超级管理员
             isAdmin: false,  //管理员
@@ -23,6 +24,7 @@ class Permis {
     init(opts = {}) {
         if(opts.operateHash) opts.operateHash = typeof opts.operateHash == 'function' ? opts.operateHash() : opts.operateHash;
         if(opts.manageHash) opts.manageHash = typeof opts.manageHash == 'function' ? opts.manageHash() : opts.manageHash;
+        if(opts.adminHash) opts.adminHash = typeof opts.adminHash == 'function' ? opts.adminHash() : opts.adminHash;
         if(opts.users) opts.users = typeof opts.users == 'function' ? opts.users() : opts.users;
         Object.assign(this.options, opts);
         if(Array.isArray(this.options.users)){
@@ -44,18 +46,24 @@ class Permis {
         let user_id = this.options.userId,
             operateHash = this.options.operateHash,
             manageHash = this.options.manageHash,
+            adminHash = this.options.adminHash,
             users = this.options.users;
         if(!this.options.isSuper){
             if (!userId || userId === user_id) {
                 // 当前用户操作
-                if (module) {
+                if(this.options.isAdmin){
+                    if (adminHash[module]) {
+                        return adminHash[module][operate];
+                    } else {
+                        return false;
+                    }
+                }else{
                     if (operateHash[module]) {
-                        return this.options.isAdmin || operateHash[module][operate];
+                        return operateHash[module][operate];
                     } else {
                         return false;
                     }
                 }
-                return true;
             } else {
                 // 管理操作
                 let theDepartment,
@@ -74,11 +82,9 @@ class Permis {
                         }
                     }
                 }
-                return true;
             }
-        }else{
-            return true;
         }
+        return true;
     }
 }
 const permisObj = new Permis();

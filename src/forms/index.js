@@ -6,21 +6,26 @@
 import validate from 'jquery-validation-cjs';
 $.fn.validate = validate;
 import './asset/index.scss';
+export let regObj = {
+    mobile: /^1(3|4|5|7|8)\d{9}$/,
+    email: /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g,
+    password: /^[\w]+$/
+};
 // 手机号码验证
 $.validator.addMethod("mobile", function(value, element) {
     let length = value.length,
-        mobile = /^1(3|4|5|7|8)\d{9}$/;
+        mobile = regObj.mobile;
     return this.optional(element) || (length == 11 && mobile.test(value));
 }, "请正确填写手机号");
 // 手机号码验证
 $.validator.addMethod("email", function(value, element) {
     let length = value.length,
-        email = /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g;
+        email = regObj.email;
     return this.optional(element) || email.test(value);
 }, "请正确填写邮箱");
 // 密码
 $.validator.addMethod("password", function(value, element) {
-    let passwordReg = /^[\w]+$/;
+    let passwordReg = regObj.password;
     return this.optional(element) || passwordReg.test(value);
 }, "请正确填写密码");
 // 完成组件数

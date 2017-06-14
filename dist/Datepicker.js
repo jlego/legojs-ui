@@ -1,5 +1,5 @@
 /**
- * datepicker.js v0.8.34
+ * datepicker.js v0.8.44
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -124,6 +124,8 @@ var Datepicker = function(_Lego$UI$Baseview) {
             endName: "",
             endValue: "",
             endPlaceholder: "结束时间",
+            minDate: "",
+            maxDate: "",
             useCurrent: false,
             setting: {},
             onChange: function onChange() {}
@@ -160,9 +162,11 @@ var Datepicker = function(_Lego$UI$Baseview) {
                     var startEl = ".startDate", endEl = ".endDate";
                     if (!opts.startInputEl && !opts.endInputEl) {
                         var startDateOpts = Object.assign({}, opts.setting);
+                        if (opts.minDate) startDateOpts.minDate = opts.minDate;
                         var endDateOpts = Object.assign({}, _extends({}, opts.setting, {
                             useCurrent: opts.useCurrent
                         }));
+                        if (opts.maxDate) startDateOpts.maxDate = opts.maxDate;
                         var startDate = _this2.$(startEl).datepicker(startDateOpts);
                         var endDate = _this2.$(endEl).datepicker(endDateOpts);
                         _this2.$(startEl).on("dp.change", function(e) {

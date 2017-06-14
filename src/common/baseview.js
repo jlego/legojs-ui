@@ -1,4 +1,5 @@
 import Loading from '../loading/index';
+import Permis from '../permis/index';
 
 class Baseview extends Lego.View {
     constructor(opts = {}) {

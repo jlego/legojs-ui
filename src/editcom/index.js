@@ -8,6 +8,7 @@
  * }
  */
 import './asset/index.scss';
+import { regObj } from '../forms/index';
 
 class Editcom extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -25,6 +26,7 @@ class Editcom extends Lego.UI.Baseview {
             data: [],
             icon: 'edit',  //设置按钮的图标
             size: '',    //设置按钮大小，可选值为 sm lg 或者不设
+            validation: '', //验证输入内容  function或string, 'mobile/email'
             onEdit(){},   //编辑回调
             onCancel(){},
             onFinish(){},
@@ -77,17 +79,29 @@ class Editcom extends Lego.UI.Baseview {
         if(typeof this.options.onCancel == 'function') this.options.onCancel(this, event);
     }
     close(value, htmlStr){
-        let opts = {clicked: false};
+        let options = {clicked: false},
+            opts = this.options;
         if(value){
-            if(typeof value == 'object'){
-                if(value.value) opts.value = opts.text = value.value;
-            }else{
-                opts.value = opts.text = value;
+            // 验证输入的内容
+            if(typeof opts.validation == 'function') {
+                let result = opts.validation(this, value);
+                if(!result) return false;
+            }else if(typeof opts.validation == 'string'){
+                if(!regObj[opts.validation].test(value)){
+                    return false;
+                }
             }
-            if(htmlStr) opts.html = htmlStr;
+            // 更改输入的内容
+            if(typeof value == 'object'){
+                if(value.value) options.value = options.text = value.value;
+            }else{
+                options.value = options.text = value;
+            }
+            if(htmlStr) options.html = htmlStr;
         }
-        Object.assign(this.options, opts);
-        if(typeof this.options.onFinish == 'function') this.options.onFinish(this);
+        Object.assign(this.options, options);
+        if(typeof opts.onFinish == 'function') opts.onFinish(this);
+        return true;
     }
 }
 Lego.components('editcom', Editcom);

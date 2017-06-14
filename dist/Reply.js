@@ -1,5 +1,5 @@
 /**
- * reply.js v0.8.34
+ * reply.js v0.8.44
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -1867,10 +1867,14 @@ var Upload = function(_Lego$UI$Baseview) {
                 if (type == "cancel") {
                     if (typeof opts.onCancel == "function") opts.onCancel(_this3, _id);
                 } else {
+                    var hasOne = opts.value.find(function(item) {
+                        return item.file._id == _id;
+                    }), removeFile = {};
+                    if (hasOne) removeFile = $.extend({}, hasOne.file || {});
+                    if (typeof opts.onRemove == "function") opts.onRemove(_this3, removeFile);
                     opts.value = opts.value.filter(function(item) {
                         return item.file._id !== _id;
                     });
-                    if (typeof opts.onRemove == "function") opts.onRemove(_this3, _id);
                 }
                 if (opts.type == "avatar") {
                     var html = [ '<div class="lego-upload-add preview-' + val(opts.type) + '">', '<i class="anticon anticon-plus avatar-uploader-trigger preview-' + val(opts.type) + '"></i></div>' ].join("");

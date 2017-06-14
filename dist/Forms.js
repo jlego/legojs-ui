@@ -1,9 +1,13 @@
 /**
- * forms.js v0.8.34
+ * forms.js v0.8.44
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
 "use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
 function _interopDefault(ex) {
     return ex && typeof ex === "object" && "default" in ex ? ex["default"] : ex;
@@ -84,18 +88,24 @@ function _inherits(subClass, superClass) {
 
 $.fn.validate = validate;
 
+var regObj = {
+    mobile: /^1(3|4|5|7|8)\d{9}$/,
+    email: /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g,
+    password: /^[\w]+$/
+};
+
 $.validator.addMethod("mobile", function(value, element) {
-    var length = value.length, mobile = /^1(3|4|5|7|8)\d{9}$/;
+    var length = value.length, mobile = regObj.mobile;
     return this.optional(element) || length == 11 && mobile.test(value);
 }, "请正确填写手机号");
 
 $.validator.addMethod("email", function(value, element) {
-    var length = value.length, email = /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g;
+    var length = value.length, email = regObj.email;
     return this.optional(element) || email.test(value);
 }, "请正确填写邮箱");
 
 $.validator.addMethod("password", function(value, element) {
-    var passwordReg = /^[\w]+$/;
+    var passwordReg = regObj.password;
     return this.optional(element) || passwordReg.test(value);
 }, "请正确填写密码");
 
@@ -310,4 +320,6 @@ var Forms = function(_Lego$UI$Baseview) {
 
 Lego.components("forms", Forms);
 
-module.exports = Forms;
+exports.regObj = regObj;
+
+exports["default"] = Forms;

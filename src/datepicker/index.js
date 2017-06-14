@@ -34,6 +34,8 @@ class Datepicker extends Lego.UI.Baseview {
             endName: '',
             endValue: '',
             endPlaceholder: '结束时间',
+            minDate: '',
+            maxDate: '',
             useCurrent: false,
             setting: {},
             onChange() {} //
@@ -67,7 +69,9 @@ class Datepicker extends Lego.UI.Baseview {
                 endEl = '.endDate';
             if (!opts.startInputEl && !opts.endInputEl) {
                 const startDateOpts = Object.assign({}, opts.setting);
+                if(opts.minDate) startDateOpts.minDate = opts.minDate;
                 const endDateOpts = Object.assign({},{...opts.setting, useCurrent: opts.useCurrent});
+                if(opts.maxDate) startDateOpts.maxDate = opts.maxDate;
                 const startDate = this.$(startEl).datepicker(startDateOpts);
                 const endDate = this.$(endEl).datepicker(endDateOpts);
                 this.$(startEl).on('dp.change', function(e) {
