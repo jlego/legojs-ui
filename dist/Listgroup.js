@@ -1,5 +1,5 @@
 /**
- * listgroup.js v0.8.44
+ * listgroup.js v0.8.46
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

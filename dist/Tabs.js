@@ -1,5 +1,5 @@
 /**
- * tabs.js v0.8.44
+ * tabs.js v0.8.46
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

@@ -1,5 +1,5 @@
 /**
- * editcom.js v0.8.44
+ * editcom.js v0.8.46
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -400,7 +400,7 @@ var Editcom = function(_Lego$UI$Baseview) {
             data: [],
             icon: "edit",
             size: "",
-            validation: "",
+            validation: false,
             onEdit: function onEdit() {},
             onCancel: function onCancel() {},
             onFinish: function onFinish() {},

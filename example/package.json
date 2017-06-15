@@ -38,6 +38,8 @@
   "dependencies": {
     "bootstrap-datetimepicker-cjs": "0.0.3",
     "bootstrap-rating": "0.0.1",
+    "com-areapicker": "0.0.27",
+    "com-geolocation": "0.0.34",
     "core-decorators": "^0.14.0",
     "director": "^1.2.8",
     "events": "^1.1.1",

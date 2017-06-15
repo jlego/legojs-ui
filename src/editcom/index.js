@@ -26,7 +26,7 @@ class Editcom extends Lego.UI.Baseview {
             data: [],
             icon: 'edit',  //设置按钮的图标
             size: '',    //设置按钮大小，可选值为 sm lg 或者不设
-            validation: '', //验证输入内容  function或string, 'mobile/email'
+            validation: false, //验证输入内容  function或string, 'mobile/email'
             onEdit(){},   //编辑回调
             onCancel(){},
             onFinish(){},
