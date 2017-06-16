@@ -1,5 +1,5 @@
 /**
- * permis.js v0.8.46
+ * permis.js v0.8.51
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -76,18 +76,22 @@ var Permis = function() {
             var user_id = this.options.userId, operateHash = this.options.operateHash, manageHash = this.options.manageHash, adminHash = this.options.adminHash, users = this.options.users;
             if (!this.options.isSuper) {
                 if (!userId || userId === user_id) {
-                    if (this.options.isAdmin) {
-                        if (adminHash[module]) {
+                    if (adminHash[module]) {
+                        if (this.options.isAdmin) {
                             return adminHash[module][operate];
                         } else {
-                            return false;
+                            if (adminHash[module][operate]) {
+                                if (operateHash[module]) {
+                                    return operateHash[module][operate];
+                                } else {
+                                    return false;
+                                }
+                            } else {
+                                return false;
+                            }
                         }
                     } else {
-                        if (operateHash[module]) {
-                            return operateHash[module][operate];
-                        } else {
-                            return false;
-                        }
+                        return false;
                     }
                 } else {
                     var theDepartment = void 0, result = users[userId];

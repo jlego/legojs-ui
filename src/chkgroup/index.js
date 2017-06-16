@@ -35,8 +35,7 @@ class Chkgroup extends Lego.UI.Baseview {
                 return hx`
                 <div class="form-check ${item.disabled ? 'disabled' : ''}">
                   <label class="form-check-label">
-                    <input class="form-check-input lego-${opts.type}" type="${opts.type}"
-                    name="${opts.name}" value="${item.value}" ${item.checked ? 'checked' : ''} ${item.disabled ? 'disabled' : ''}>
+                    <input class="form-check-input lego-${opts.type}" type="${opts.type}" name="${opts.name}" value="${item.value}" ${item.checked ? 'checked' : ''} >
                     <span>${val(item.label)}</span>
                   </label>
                 </div>
@@ -45,8 +44,7 @@ class Chkgroup extends Lego.UI.Baseview {
                 return hx`
                 <div class="form-check form-check-inline ${item.disabled ? 'disabled' : ''}">
                     <label class="form-check-label">
-                      <input class="form-check-input lego-${opts.type}" type="${opts.type}"
-                      name="${opts.name}" value="${item.value}" ${item.checked ? 'checked' : ''} ${item.disabled ? 'disabled' : ''}>
+                      <input class="form-check-input lego-${opts.type}" type="${opts.type}" name="${opts.name}" value="${item.value}" ${item.checked ? 'checked' : ''} >
                       <span>${val(item.label)}</span>
                     </label>
                 </div>
@@ -56,6 +54,19 @@ class Chkgroup extends Lego.UI.Baseview {
         </div>
         `;
         return vDom;
+    }
+    renderAfter(){
+        let opts = this.options,
+            inputEl = this.$('[name=' + opts.name + ']');
+        if(inputEl.length){
+            opts.data.forEach((item, index) => {
+                if(item.disabled){
+                    inputEl.each(function(i, el){
+                        if(index == i) $(el).attr('disabled', 'disabled');
+                    });
+                }
+            });
+        }
     }
     onChange(event){
         let opts = this.options,

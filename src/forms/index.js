@@ -218,7 +218,7 @@ class Forms extends Lego.UI.Baseview {
         });
         const clickName = 'click.form_' + opts.vid,
             submitEl = opts.submitEl,
-            $submitEl = submitEl instanceof $ ? submitEl : $((typeof submitEl == 'string' ? submitEl : '') || '[type="submit"]');
+            $submitEl = submitEl instanceof $ ? submitEl : $(typeof submitEl == 'string' ? submitEl : '[type="submit"]');
         if (this.rules && this.messages) {
             this.$el.validate(opts.setDefaults);
             if($submitEl.length){

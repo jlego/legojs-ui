@@ -1,5 +1,5 @@
 /**
- * tables.js v0.8.46
+ * tables.js v0.8.51
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -965,7 +965,7 @@ var Tables = function(_Lego$UI$Baseview) {
             if (!opts.data) return;
             var vDom = hx(_templateObject18, opts.data.map(function(row, i) {
                 row.key = row.id || _this5._getRowKey("row_");
-                return hx(_templateObject19, opts.rowClassName, row.key, opts.rowSelection ? _this5._renderSelection(row, "td") : "", _this5.columns.map(function(col) {
+                return hx(_templateObject19, row.className || opts.rowClassName, row.key, opts.rowSelection ? _this5._renderSelection(row, "td") : "", _this5.columns.map(function(col) {
                     return !col.isHide ? hx(_templateObject20, typeof col.format === "function" ? col.format(row[col.dataIndex], row, col) : row[col.dataIndex]) : "";
                 }));
             }));

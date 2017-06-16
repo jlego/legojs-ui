@@ -245,7 +245,7 @@ class Tables extends Lego.UI.Baseview {
         <tbody class="lego-table-tbody">
             ${opts.data.map((row, i) => {
                 row.key = row.id || this._getRowKey('row_');
-                return hx`<tr class="${opts.rowClassName}" id="${row.key}">
+                return hx`<tr class="${row.className || opts.rowClassName}" id="${row.key}">
                 ${opts.rowSelection ? this._renderSelection(row, 'td') : ''}
                 ${this.columns.map(col => {
                     return !col.isHide ? hx`<td>${typeof col.format === 'function' ? col.format(row[col.dataIndex], row, col) : row[col.dataIndex]}</td>` : '';
