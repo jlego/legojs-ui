@@ -84,34 +84,39 @@ class Tables extends Lego.UI.Baseview {
         this.columnsObj = this.columnsObj || {};
         if(options.columns){
             this.allColumns = typeof options.columns == 'function' ? options.columns(this) : options.columns;
+            this.allColumns.forEach((col, index) => {
+                col.fieldName = col.fieldName || col.dataIndex;
+                col.key = col.key || col.fieldName;
+            });
             this.columns = Array.from(this.allColumns);
         }
         this.tableRealWidth = this.options.rowSelection ? 30 : 0;    //表格实宽
-        this.columns.forEach((col, index) => {
-            col.key = col.key || index;
-            if(this.columnsObj[col.key]){
-                Object.assign(col, this.columnsObj[col.key]);
-            }else{
-                this.columnsObj[col.key] = col;
-            }
-            if(!col.isHide) this.tableRealWidth += parseInt(col.width || 200);
-            // {
-            //     title: '',  //列头显示文字
-            //     key: index,
-            //     isHide: false, //是否隐藏
-            //     (废弃,改用fieldName)dataIndex: '',  //列数据在数据项中对应的 key，支持 a.b.c 的嵌套写法
-            //     // format(value, row, col){ return value; },  //生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return里面可以设置表格行/列合并
-            //     // filter(){},  //表头的筛选项
-            //     // sorter(){},  //排序函数，本地排序使用一个函数，需要服务端排序可设为 true
-            //     colSpan: 0,  //表头列合并,设置为 0 时，不渲染
-            //     width: '',  //列宽度
-            //     className: '',  //列的 className
-            //     fixed: false,  //列是否固定，可选 true(等效于 left) 'left' 'right'
-            //     sortOrder: '',  //排序的受控属性，外界可用此控制列的排序，可设置为 'asc' 'desc' false
-            //     // onCellClick(){}  //单元格点击回调
-            // }
-        });
-        this.columns = this.columns.filter(col => !col.isHide);
+        if(this.columns.length){
+            this.columns.forEach((col, index) => {
+                if(this.columnsObj[col.key]){
+                    Object.assign(col, this.columnsObj[col.key]);
+                }else{
+                    this.columnsObj[col.key] = col;
+                }
+                if(!col.isHide) this.tableRealWidth += parseInt(col.width || 200);
+                // {
+                //     title: '',  //列头显示文字
+                //     key: index,
+                //     isHide: false, //是否隐藏
+                //     (废弃,改用fieldName)dataIndex: '',  //列数据在数据项中对应的 key，支持 a.b.c 的嵌套写法
+                //     // format(value, row, col){ return value; },  //生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return里面可以设置表格行/列合并
+                //     // filter(){},  //表头的筛选项
+                //     // sorter(){},  //排序函数，本地排序使用一个函数，需要服务端排序可设为 true
+                //     colSpan: 0,  //表头列合并,设置为 0 时，不渲染
+                //     width: '',  //列宽度
+                //     className: '',  //列的 className
+                //     fixed: false,  //列是否固定，可选 true(等效于 left) 'left' 'right'
+                //     sortOrder: '',  //排序的受控属性，外界可用此控制列的排序，可设置为 'asc' 'desc' false
+                //     // onCellClick(){}  //单元格点击回调
+                // }
+            });
+            this.columns = this.columns.filter(col => !col.isHide);
+        }
         if(this.tableRealWidth !== oldWidth) this.resizeWidth();
         return this.columns;
     }
@@ -244,11 +249,11 @@ class Tables extends Lego.UI.Baseview {
         const vDom = hx`
         <tbody class="lego-table-tbody">
             ${opts.data.map((row, i) => {
-                let fieldName = row[col.fieldName || col.dataIndex];
                 row.key = row.id || this._getRowKey('row_');
                 return hx`<tr class="${row.className || opts.rowClassName}" id="${row.key}">
                 ${opts.rowSelection ? this._renderSelection(row, 'td') : ''}
                 ${this.columns.map(col => {
+                    let fieldName = row[col.fieldName || col.dataIndex];
                     return !col.isHide ? hx`<td>${typeof col.format === 'function' ? col.format(fieldName, row, col) : fieldName}</td>` : '';
                 })}
                 </tr>`;

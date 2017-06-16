@@ -1,5 +1,5 @@
 /**
- * tables.js v0.8.52
+ * tables.js v0.8.55
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -860,21 +860,26 @@ var Tables = function(_Lego$UI$Baseview) {
             this.columnsObj = this.columnsObj || {};
             if (options.columns) {
                 this.allColumns = typeof options.columns == "function" ? options.columns(this) : options.columns;
+                this.allColumns.forEach(function(col, index) {
+                    col.fieldName = col.fieldName || col.dataIndex;
+                    col.key = col.key || col.fieldName;
+                });
                 this.columns = Array.from(this.allColumns);
             }
             this.tableRealWidth = this.options.rowSelection ? 30 : 0;
-            this.columns.forEach(function(col, index) {
-                col.key = col.key || index;
-                if (_this2.columnsObj[col.key]) {
-                    Object.assign(col, _this2.columnsObj[col.key]);
-                } else {
-                    _this2.columnsObj[col.key] = col;
-                }
-                if (!col.isHide) _this2.tableRealWidth += parseInt(col.width || 200);
-            });
-            this.columns = this.columns.filter(function(col) {
-                return !col.isHide;
-            });
+            if (this.columns.length) {
+                this.columns.forEach(function(col, index) {
+                    if (_this2.columnsObj[col.key]) {
+                        Object.assign(col, _this2.columnsObj[col.key]);
+                    } else {
+                        _this2.columnsObj[col.key] = col;
+                    }
+                    if (!col.isHide) _this2.tableRealWidth += parseInt(col.width || 200);
+                });
+                this.columns = this.columns.filter(function(col) {
+                    return !col.isHide;
+                });
+            }
             if (this.tableRealWidth !== oldWidth) this.resizeWidth();
             return this.columns;
         }
@@ -964,9 +969,9 @@ var Tables = function(_Lego$UI$Baseview) {
             var opts = this.options;
             if (!opts.data) return;
             var vDom = hx(_templateObject18, opts.data.map(function(row, i) {
-                var fieldName = row[col.fieldName || col.dataIndex];
                 row.key = row.id || _this5._getRowKey("row_");
                 return hx(_templateObject19, row.className || opts.rowClassName, row.key, opts.rowSelection ? _this5._renderSelection(row, "td") : "", _this5.columns.map(function(col) {
+                    var fieldName = row[col.fieldName || col.dataIndex];
                     return !col.isHide ? hx(_templateObject20, typeof col.format === "function" ? col.format(fieldName, row, col) : fieldName) : "";
                 }));
             }));
