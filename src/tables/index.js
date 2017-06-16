@@ -99,7 +99,7 @@ class Tables extends Lego.UI.Baseview {
             //     title: '',  //列头显示文字
             //     key: index,
             //     isHide: false, //是否隐藏
-            //     dataIndex: '',  //列数据在数据项中对应的 key，支持 a.b.c 的嵌套写法
+            //     (废弃,改用fieldName)dataIndex: '',  //列数据在数据项中对应的 key，支持 a.b.c 的嵌套写法
             //     // format(value, row, col){ return value; },  //生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return里面可以设置表格行/列合并
             //     // filter(){},  //表头的筛选项
             //     // sorter(){},  //排序函数，本地排序使用一个函数，需要服务端排序可设为 true
@@ -244,11 +244,12 @@ class Tables extends Lego.UI.Baseview {
         const vDom = hx`
         <tbody class="lego-table-tbody">
             ${opts.data.map((row, i) => {
+                let fieldName = row[col.fieldName || col.dataIndex];
                 row.key = row.id || this._getRowKey('row_');
                 return hx`<tr class="${row.className || opts.rowClassName}" id="${row.key}">
                 ${opts.rowSelection ? this._renderSelection(row, 'td') : ''}
                 ${this.columns.map(col => {
-                    return !col.isHide ? hx`<td>${typeof col.format === 'function' ? col.format(row[col.dataIndex], row, col) : row[col.dataIndex]}</td>` : '';
+                    return !col.isHide ? hx`<td>${typeof col.format === 'function' ? col.format(fieldName, row, col) : fieldName}</td>` : '';
                 })}
                 </tr>`;
             })}

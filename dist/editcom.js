@@ -1,5 +1,5 @@
 /**
- * editcom.js v0.8.51
+ * editcom.js v0.8.52
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -256,7 +256,7 @@ var Forms = function(_Lego$UI$Baseview) {
                     })();
                 }
             });
-            var clickName = "click.form_" + opts.vid, submitEl = opts.submitEl, $submitEl = submitEl instanceof $ ? submitEl : $((typeof submitEl == "string" ? submitEl : "") || '[type="submit"]');
+            var clickName = "click.form_" + opts.vid, submitEl = opts.submitEl, $submitEl = submitEl instanceof $ ? submitEl : $(typeof submitEl == "string" ? submitEl : '[type="submit"]');
             if (this.rules && this.messages) {
                 this.$el.validate(opts.setDefaults);
                 if ($submitEl.length) {
