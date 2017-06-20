@@ -1,5 +1,5 @@
 /**
- * transfer.js v0.8.55
+ * transfer.js v0.9.6
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -659,7 +659,7 @@ var Search = function(_Lego$UI$Baseview) {
             if (event.keyCode == 13) {
                 this.onSearch(event);
             } else {
-                if (typeof this.options.onKeyup === "function") this.options.onKeyup(this, this.getValue(event));
+                if (typeof this.options.onKeyup === "function") this.options.onKeyup(this, this.getValue(event), event);
             }
         }
     }, {
@@ -676,13 +676,13 @@ var Search = function(_Lego$UI$Baseview) {
         key: "onChange",
         value: function onChange(event) {
             if (event) event.stopPropagation();
-            if (typeof this.options.onChange === "function") this.options.onChange(this, this.getValue(event));
+            if (typeof this.options.onChange === "function") this.options.onChange(this, this.getValue(event), event);
         }
     }, {
         key: "onSearch",
         value: function onSearch(event) {
             if (event) event.stopPropagation();
-            if (typeof this.options.onSearch === "function") this.options.onSearch(this, this.getValue(event));
+            if (typeof this.options.onSearch === "function") this.options.onSearch(this, this.getValue(event), event);
         }
     } ]);
     return Search;
@@ -863,7 +863,7 @@ var Transfer = function(_Lego$UI$Baseview) {
                             display: opts.showSearch == "fixed" ? "table" : "none"
                         },
                         size: "sm",
-                        onSearch: function onSearch(self, result) {
+                        onKeyup: function onKeyup(self, result, event) {
                             if (typeof opts.onSearch == "function") {
                                 opts.onSearch(that, result);
                             } else {

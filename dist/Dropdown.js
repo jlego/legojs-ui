@@ -1,5 +1,5 @@
 /**
- * dropdown.js v0.8.55
+ * dropdown.js v0.9.6
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -118,7 +118,7 @@ var Search = function(_Lego$UI$Baseview) {
             if (event.keyCode == 13) {
                 this.onSearch(event);
             } else {
-                if (typeof this.options.onKeyup === "function") this.options.onKeyup(this, this.getValue(event));
+                if (typeof this.options.onKeyup === "function") this.options.onKeyup(this, this.getValue(event), event);
             }
         }
     }, {
@@ -135,13 +135,13 @@ var Search = function(_Lego$UI$Baseview) {
         key: "onChange",
         value: function onChange(event) {
             if (event) event.stopPropagation();
-            if (typeof this.options.onChange === "function") this.options.onChange(this, this.getValue(event));
+            if (typeof this.options.onChange === "function") this.options.onChange(this, this.getValue(event), event);
         }
     }, {
         key: "onSearch",
         value: function onSearch(event) {
             if (event) event.stopPropagation();
-            if (typeof this.options.onSearch === "function") this.options.onSearch(this, this.getValue(event));
+            if (typeof this.options.onSearch === "function") this.options.onSearch(this, this.getValue(event), event);
         }
     } ]);
     return Search;

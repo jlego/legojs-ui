@@ -1,5 +1,5 @@
 /**
- * editcom.js v0.8.55
+ * editcom.js v0.9.6
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -465,7 +465,10 @@ var Editcom = function(_Lego$UI$Baseview) {
                     }
                 }
                 if ((typeof value === "undefined" ? "undefined" : _typeof(value)) == "object") {
-                    if (value.value) options.value = options.text = value.value;
+                    if (value.value) {
+                        options.value = value;
+                        options.text = value.value;
+                    }
                 } else {
                     options.value = options.text = value;
                 }

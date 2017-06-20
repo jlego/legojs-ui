@@ -1,5 +1,5 @@
 /**
- * inputs.js v0.8.55
+ * inputs.js v0.9.6
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -100,7 +100,7 @@ var Inputs = function(_Lego$UI$Baseview) {
             var options = this.options || {};
             var vDom = hx(_templateObject), value = options.value ? Lego.UI.Util.unFilterTag(options.value.toString()) : "";
             if (options.preAddon || options.nextAddon) {
-                vDom = hx(_templateObject2, options.size ? "input-group-" + options.size : "", options.preAddon ? hx(_templateObject3, options.preAddon) : "", options.type, options.placeholder, val(value), options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", options.nextAddon ? hx(_templateObject3, options.nextAddon) : "");
+                vDom = hx(_templateObject2, options.size ? "input-group-" + options.size : "", options.preAddon ? hx(_templateObject3, options.preAddon) : "", options.type, options.placeholder, value !== 0 ? val(value) : value, options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", options.nextAddon ? hx(_templateObject3, options.nextAddon) : "");
             } else {
                 if (options.type == "textarea") {
                     vDom = hx(_templateObject4, options.size ? "form-control-" + options.size : "", options.placeholder, options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", val(value));

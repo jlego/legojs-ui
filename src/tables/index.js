@@ -22,33 +22,25 @@ class Tables extends Lego.UI.Baseview {
                 'click .lego-table-scroll > button': 'clickSetting'
             },
             scrollbar: {},
-            className: '',
-            tableWidth: 0,
+            style: {},
+            className: '',  //
+            width: 0,   //表格宽度
+            height: 0,  //表格高度
             loading: true,
-            isNodata: false,
-            isNowrap: true, //表格内容是否不换行
-            rowSelection: null, //列表行是否可选择
-            pagination: null,   //分页器，配置项参考 pagination，设为 false 时不展示和进行分页
-            size: 'default', //正常或迷你类型，default or small middle
-            columns: [],    //表格列的配置描述，具体项见下表
-            rowClassName: '',    //表格行的类名
-            expandedRowKeys: [], //展开的行，控制属性
-            expandAllRows: false, //初始时，是否展开所有行
-            locale: { //默认文案设置，目前包括排序、过滤、空数据文案
-                filterConfirm: '确定',
-                filterReset: '重置',
-                emptyText: '暂无数据'
-            },
-            // indentSize: 0, //展示树形数据时，每层缩进的宽度，以 px 为单位
+            nodata: false,
+            wordBreak: true, //表格内空换行
             bordered: false, //是否展示外边框和列边框
-            showHeader: false, //是否显示表头
-            showBodyer: true, //是否显示表体
-            showFooter: false, //是否显示表尾
+            striped: true,
+            rowSelection: null, //列表行是否可选择
+            rowClassName: '',    //表格行的类名
+            pagination: null,   //分页器，配置项参考 pagination，设为 false 时不展示和进行分页
+            size: '', //表格大小，xs, sm, lg
+            columns: [],    //表格列的配置描述，具体项见下表
+            expandAllRows: false, //初始时，是否展开所有行
             showSetting: false, //是否显示设置
-            fixedHeader: true, //是否固定表头
-            // footer(){}, //表格尾部
-            // title(){}, //表格标题
-            // scroll: {}, //横向或纵向支持滚动，也可用于指定滚动区域的宽高度：{{ x: true, y: 300 }}
+            footer: false, //表格尾部  function
+            title: false, //表格标题   function
+            scrollOption: {}, //横向或纵向支持滚动，也可用于指定滚动区域的宽高度：{{ x: true, y: 300 }}
             data: [],
             nodataOption: {}, //暂无数据配置
             onExpandRow(){}, //点击展开图标时触发
@@ -61,15 +53,6 @@ class Tables extends Lego.UI.Baseview {
         Object.assign(options, opts);
         super(options);
         let that = this;
-        // 同步横向滚动
-        const header = this.$('.lego-table-header');
-        this.$('.lego-table-body > .scrollbar').scroll(function() {
-            header.scrollLeft($(this).scrollLeft());
-        });
-
-        if(this.options.showFooter && this.columns.length){
-            this.$('.lego-table-tfoot > tr > td').attr('colspan', this.columns.length);
-        }
         $(window).resize(function(){
             that.resizeWidth();
         });
@@ -79,11 +62,11 @@ class Tables extends Lego.UI.Baseview {
     // 列宽更新
     getColumns(){
         this.columns = [];
-        let options = this.options,
+        let opts = this.options,
             oldWidth = this.tableRealWidth;
         this.columnsObj = this.columnsObj || {};
-        if(options.columns){
-            this.allColumns = typeof options.columns == 'function' ? options.columns(this) : options.columns;
+        if(opts.columns){
+            this.allColumns = typeof opts.columns == 'function' ? opts.columns(this) : opts.columns;
             this.allColumns.forEach((col, index) => {
                 col.fieldName = col.fieldName || col.dataIndex;
                 col.key = col.key || col.fieldName;
@@ -122,6 +105,8 @@ class Tables extends Lego.UI.Baseview {
     }
     components(){
         let opts = this.options;
+        if(opts.style.height && !opts.height) opts.height = opts.style.height;
+        if(!opts.style.height && opts.height) opts.style.height = opts.height;
         // 暂无数据
         if(!opts.data.length){
             this.addCom(Object.assign({
@@ -144,44 +129,57 @@ class Tables extends Lego.UI.Baseview {
     }
     resizeWidth(){
         let tableWidth = $(this.options.el).parent().width();
-        this.options.tableWidth = this.tableRealWidth > tableWidth ? this.tableRealWidth : 0;
+        this.options.width = this.tableRealWidth > tableWidth ? this.tableRealWidth : 0;
     }
     render() {
         this.getColumns();
         let opts = this.options;
-        const vDom = hx`
-        <div class="lego-table clearfix lego-table-${opts.size} ${opts.bordered ? 'lego-table-bordered' : ''}
-        ${opts.showHeader && opts.fixedHeader ? 'lego-table-fixed-header' : ''} ${opts.isNowrap ? 'lego-nr' : ''} lego-table-scroll-position-left">
+        let vDom = hx`
+        <div class="lego-table clearfix ${opts.size ? ('table-' + opts.size) : ''}
+        ${opts.height ? 'lego-table-fixed-header' : ''}
+        ${opts.bordered ? 'lego-table-bordered' : ''}
+        ${opts.wordBreak ? 'lego-nowrap' : ''}">
             <loading id="lego-loading-${opts.vid}"></loading>
-            ${opts.title ? hx`<div class="lego-table-title">${typeof opts.title == 'function' ? opts.title() : opts.title}</div>` : ''}
+            ${opts.title ? hx`<div class="lego-table-title">${val(opts.title)}</div>` : ''}
             <div class="lego-table-content" style="${!opts.title ? 'padding-bottom:0' : ''}">
                 <div class="lego-table-scroll">
-                ${opts.showHeader && opts.fixedHeader ? hx`
-                <div class="lego-table-header">
-                    <table class="" style="${opts.tableWidth ? ('width:' + opts.tableWidth + 'px') : 'width:1px'}">
-                        ${this._renderColgroup()}
-                        ${this._renderHeader()}
-                    </table>
-                </div>
-                ` : ''}
-                <div class="lego-table-body" style="bottom: ${opts.pagination ? '48px' : '0'}">
-                    ${opts.isNodata ? hx`<nodata id="nodata_${opts.vid}"></nodata>` : hx`<div style="display:none;"></div>`}
-                    <div class="${opts.showHeader && opts.fixedHeader ? 'scrollbar' : ''}">
-                        <table class="${opts.className}" style="${opts.tableWidth ? ('width:' + opts.tableWidth + 'px') : 'width:1px'}">
+                    ${opts.height ? hx`
+                    <div class="lego-table-header">
+                        <table class="table ${opts.bordered ? 'table-bordered' : ''} ${opts.striped ? 'table-striped' : ''}"
+                        style="${opts.width ? ('width:' + opts.width + 'px') : ''}">
                             ${this._renderColgroup()}
-                            ${!(opts.showHeader && opts.fixedHeader) && opts.showHeader ? this._renderHeader() : ''}
-                            ${opts.showBodyer ? this._renderBodyer() : ''}
-                            ${opts.showFooter ? this._renderFooter() : ''}
+                            ${this._renderHeader()}
                         </table>
                     </div>
-                </div>
-                <div class="lego-table-footer">${opts.pagination && !opts.isNodata ? hx`<pagination id="pagination_${opts.vid}"></pagination>` : ''}</div>
-                ${opts.showSetting ? hx`<button type="button" class="btn btn-default noborder" title="表格设置"><i class="anticon anticon-ellipsis"></i></button>` : ''}
+                    ` : ''}
+                    <div class="lego-table-body" style="bottom: ${opts.pagination ? '48px' : '0'}; ${opts.nodata ? 'min-height: 120px;' : ''}">
+                        ${opts.nodata ? hx`<nodata id="nodata_${opts.vid}"></nodata>` : hx`<div style="display:none;"></div>`}
+                        <div class="scrollbar">
+                            <table class="table ${opts.bordered ? 'table-bordered' : ''} ${opts.striped ? 'table-striped' : ''}"
+                            style="${opts.width ? ('width:' + opts.width + 'px') : ''}">
+                                ${this._renderColgroup()}
+                                ${!opts.height ? this._renderHeader() : ''}
+                                ${this._renderBodyer()}
+                            </table>
+                        </div>
+                    </div>
+                    ${!opts.nodata ? hx`
+                    <div class="lego-table-footer">
+                        ${opts.footer ? val(opts.footer) : (opts.pagination && !opts.nodata ? hx`<pagination id="pagination_${opts.vid}"></pagination>` : '')}
+                    </div>` : ''}
+                    ${opts.showSetting ? hx`<button type="button" class="btn btn-default table-setting" title="setting"><i class="anticon anticon-ellipsis"></i></button>` : ''}
                 </div>
             </div>
         </div>
         `;
         return vDom;
+    }
+    renderAfter(){
+        // 同步横向滚动
+        const header = this.$('.lego-table-header');
+        this.$('.lego-table-body > .scrollbar').scroll(function() {
+            header.scrollLeft($(this).scrollLeft());
+        });
     }
     _getRowKey(str = ''){
         this.rowKey = this.rowKey || 0;
@@ -189,11 +187,11 @@ class Tables extends Lego.UI.Baseview {
         return str + this.rowKey;
     }
     _renderColgroup(){
-        const vDom = hx`
+        let vDom = hx`
         <colgroup>
             ${this.options.rowSelection ? hx`<col style="width: 30px;">` : ''}
             ${this.columns.map((col, index) => {
-                let w = index !== this.columns.length - 1 || this.options.tableWidth ?
+                let w = index !== this.columns.length - 1 || this.options.width ?
                     ('width:' + (typeof col.width == 'number' ? (col.width + 'px') : col.width.toString())) : '';
                 return hx`<col style="${w}">`
             })}
@@ -203,11 +201,11 @@ class Tables extends Lego.UI.Baseview {
     }
     // 渲染选择框
     _renderSelection(row = {}, tagName = 'td', isHarf){
-        const opts = this.options,
+        let opts = this.options,
             theType = opts.rowSelection.type || 'checkbox',
             isCheckbox = theType == 'checkbox',
             that = this;
-        const isChecked = row._selected || (tagName === 'th' && this.getSelectedStatus() === 1);
+        let isChecked = row._selected || (tagName === 'th' && this.getSelectedStatus() === 1);
         function getHx(){
             return hx`
             <span>
@@ -221,15 +219,15 @@ class Tables extends Lego.UI.Baseview {
             </span>
             `;
         }
-        const vDom = hx`
-        ${tagName == 'th' ? hx`<th class="lego-table-selection-column">${getHx()}</th>` : hx`<td class="lego-table-selection-column">${getHx()}</td>`}
+        let vDom = hx`
+        ${tagName == 'th' ? hx`<th class="lego-table-selection">${getHx()}</th>` : hx`<td class="lego-table-selection">${getHx()}</td>`}
         `;
         return vDom;
     }
     // 渲染表头
     _renderHeader(){
-        const opts = this.options;
-        const vDom = hx`
+        let opts = this.options;
+        let vDom = hx`
         <thead class="lego-table-thead">
             <tr>
             ${opts.rowSelection ? this._renderSelection({}, 'th', this.getSelectedStatus() === 2 ? true : false) : ''}
@@ -244,9 +242,9 @@ class Tables extends Lego.UI.Baseview {
     }
     // 渲染表主体
     _renderBodyer(){
-        const opts = this.options;
+        let opts = this.options;
         if(!opts.data) return;
-        const vDom = hx`
+        let vDom = hx`
         <tbody class="lego-table-tbody">
             ${opts.data.map((row, i) => {
                 row.key = row.id || this._getRowKey('row_');
@@ -262,18 +260,10 @@ class Tables extends Lego.UI.Baseview {
         `;
         return vDom;
     }
-    // 渲染表尾
-    _renderFooter(){
-        const opts = this.options;
-        const vDom = hx`
-        <tfoot class="lego-table-tfoot"><tr><td>${opts.footer ? options.footer() : ''}</td></tr></tfoot>
-        `;
-        return vDom;
-    }
     // 渲染排序
     _renderSorter(col = {}){
-        const opts = this.options;
-        const vDom = hx`
+        let opts = this.options;
+        let vDom = hx`
         <div class="lego-table-column-sorter">
             <span class="lego-table-column-sorter-up ${col.sortOrder == 'asc' ? 'on' : 'off'}" title="↑">
                 <i class="anticon anticon-caret-up"></i>
@@ -290,7 +280,7 @@ class Tables extends Lego.UI.Baseview {
     }
     clickSorter(event){
         event.stopPropagation();
-        const target = $(event.currentTarget),
+        let target = $(event.currentTarget),
             key = target.closest('th').attr('id'),
             col = this.columnsObj[key],
             oldCol = this.columns.find(item => item.key == key);
@@ -315,11 +305,11 @@ class Tables extends Lego.UI.Baseview {
     }
     clickItem(event){
         event.stopPropagation();
-        const target = $(event.currentTarget),
+        let target = $(event.currentTarget),
             rowKey = target.parent().attr('id'),
             colKey = this.$el.find('thead').find('th').eq(event.currentTarget.cellIndex).attr('id');
-        const row = this.options.data.find(val => val.key == rowKey);
-        const col = this.columns.find(val => val.key == colKey);
+        let row = this.options.data.find(val => val.key == rowKey);
+        let col = this.columns.find(val => val.key == colKey);
         if(row && col){
             if(this.options.onRowClick){
                 if(typeof col.onRowClick == 'function') col.onRowClick(this, row, event);
@@ -331,7 +321,7 @@ class Tables extends Lego.UI.Baseview {
     }
     clickFilter(event){
         event.stopPropagation();
-        const target = $(event.currentTarget),
+        let target = $(event.currentTarget),
             colKey = target.closest('th').attr('id'),
             col = this.columns.find(val => val.key == colKey);
         if(col){
@@ -346,7 +336,7 @@ class Tables extends Lego.UI.Baseview {
     }
     // 选中一条
     selectOne(event) {
-        const target = $(event.currentTarget),
+        let target = $(event.currentTarget),
             trEl = target.closest('tr'),
             id = trEl.attr('id'),
             options = this.options,
@@ -384,10 +374,10 @@ class Tables extends Lego.UI.Baseview {
     // 选择全部
     selectAll(event){
         event.stopPropagation();
-        const target = $(event.currentTarget);
+        let target = $(event.currentTarget);
         if (this.options.rowSelection) {
-            const isChecked = target.is(':checked');
-            const isSelected = isChecked ? 1 : 0;
+            let isChecked = target.is(':checked');
+            let isSelected = isChecked ? 1 : 0;
             this.selectedAll = isSelected;
             this.options.data.map((row, index) => {
                 row._selected = !!isSelected;

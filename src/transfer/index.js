@@ -109,7 +109,7 @@ class Transfer extends Lego.UI.Baseview {
                     el: '#transfer_search_' + opts.vid,
                     style: {display: opts.showSearch == 'fixed' ? 'table' : 'none'},
                     size: 'sm',
-                    onSearch(self, result) {
+                    onKeyup(self, result, event) {
                         if(typeof opts.onSearch == 'function'){
                             opts.onSearch(that, result);
                         }else{

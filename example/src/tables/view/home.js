@@ -104,9 +104,11 @@ class HomeView extends Lego.UI.Baseview {
                 style: {
                     height: '100%'
                 },
-                className: 'table-striped',
+                size: 'xs',
+                bordered: false,
+                striped: true,
                 pagination: {
-                    totalCount: 300,
+                    totalCount: 60,
                     pageRang: 5,
                     pageSize: 20,
                     onChange(self, num){
@@ -115,21 +117,18 @@ class HomeView extends Lego.UI.Baseview {
                         view.refresh();
                     }
                 },
-                showHeader: true,
                 data: getData(),
                 columns: [{
                     title: '姓名',
-                    dataIndex: 'name',
-                    key: 'name',
-                    width: '400px',
+                    fieldName: 'name',
+                    width: 300,
                     filter(self, col){
                         console.warn('点击了筛选', col);
                     }
                 }, {
                     title: '年龄',
-                    dataIndex: 'age',
-                    key: 'age',
-                    width: '300px',
+                    fieldName: 'age',
+                    width: 300,
                     onCellClick(self, row, col){
                         console.warn(row, col);
                     },
@@ -141,9 +140,8 @@ class HomeView extends Lego.UI.Baseview {
                     }
                 }, {
                     title: '住址',
-                    dataIndex: 'address',
-                    key: 'address',
-                    width: '300px',
+                    fieldName: 'address',
+                    width: 300,
                 }],
             }]
         }, {

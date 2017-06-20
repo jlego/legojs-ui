@@ -70,7 +70,7 @@ class Search extends Lego.UI.Baseview {
         if (event.keyCode == 13) {
             this.onSearch(event);
         }else{
-            if (typeof this.options.onKeyup === 'function') this.options.onKeyup(this, this.getValue(event));
+            if (typeof this.options.onKeyup === 'function') this.options.onKeyup(this, this.getValue(event), event);
         }
     }
     getValue(event){
@@ -83,11 +83,11 @@ class Search extends Lego.UI.Baseview {
     }
     onChange(event) {
         if(event) event.stopPropagation();
-        if (typeof this.options.onChange === 'function') this.options.onChange(this, this.getValue(event));
+        if (typeof this.options.onChange === 'function') this.options.onChange(this, this.getValue(event), event);
     }
     onSearch(event) {
         if(event) event.stopPropagation();
-        if (typeof this.options.onSearch === 'function') this.options.onSearch(this, this.getValue(event));
+        if (typeof this.options.onSearch === 'function') this.options.onSearch(this, this.getValue(event), event);
     }
 }
 Lego.components('search', Search);

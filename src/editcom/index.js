@@ -93,7 +93,10 @@ class Editcom extends Lego.UI.Baseview {
             }
             // 更改输入的内容
             if(typeof value == 'object'){
-                if(value.value) options.value = options.text = value.value;
+                if(value.value) {
+                    options.value = value;
+                    options.text = value.value;
+                }
             }else{
                 options.value = options.text = value;
             }

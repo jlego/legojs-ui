@@ -126,7 +126,7 @@ class HomeView extends Lego.UI.Baseview {
                     },
                     component: {
                         comName: 'chkgroup',
-                        // type: 'radio',
+                        type: 'radio',
                         layout: 'inline',
                         name: 'dddd',
                         data: [{
@@ -137,7 +137,7 @@ class HomeView extends Lego.UI.Baseview {
                             label: 'sadfa2',
                             value: '2'
                         }],
-                        onChange(self, result){
+                        onChange(self, result, event){
                             console.warn(result);
                         }
                     }

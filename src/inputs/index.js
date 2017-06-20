@@ -37,7 +37,7 @@ class Inputs extends Lego.UI.Baseview {
             <div class="input-group ${options.size ? ('input-group-' + options.size) : ''}">
               ${options.preAddon ? hx`<span class="input-group-addon">${options.preAddon}</span>` : ''}
               <input type="${options.type}" class="form-control" placeholder="${options.placeholder}"
-              value="${val(value)}" name="${options.name}" ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}/>
+              value="${value !== 0 ? val(value) : value}" name="${options.name}" ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}/>
               ${options.nextAddon ? hx`<span class="input-group-addon">${options.nextAddon}</span>` : ''}
             </div>
             `;
