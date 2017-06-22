@@ -2,245 +2,479 @@
     font-size: 0;
     width: 100%;
     line-height: 1.5;
+    .lego-steps-item {
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        // 等待中
+        &.lego-steps-status-wait {
+            .lego-steps-head-inner {
+                border-color: #ccc;
+                background-color: #fff;
+                > .lego-steps-icon {
+                    color: #ccc;
+                }
+            }
+            .lego-steps-title {
+                color: #999;
+            }
+            .lego-steps-description {
+                color: #999;
+            }
+            .lego-steps-tail {
+                > i {
+                    background-color: #e9e9e9;
+                }
+            }
+        }
+        // 进行中
+        &.lego-steps-status-process {
+            .lego-steps-head-inner {
+                border-color: #03a9f4;
+                background-color: #03a9f4;
+                > .lego-steps-icon {
+                    color: #fff;
+                }
+            }
+            .lego-steps-title {
+                color: #666;
+            }
+            .lego-steps-description {
+                color: #666;
+            }
+            .lego-steps-tail {
+                > i {
+                    background-color: #e9e9e9;
+                }
+            }
+        }
+        // 完成
+        &.lego-steps-status-finish {
+            .lego-steps-head-inner {
+                border-color: #03a9f4;
+                background-color: #fff;
+                > .lego-steps-icon {
+                    color: #03a9f4;
+                }
+            }
+            .lego-steps-tail{
+                > i {
+                    &:after {
+                        width: 100%;
+                        background: #03a9f4;
+                        -webkit-transition: all 0.6s;
+                        transition: all 0.6s;
+                        opacity: 1;
+                    }
+                }
+            }
+            .lego-steps-title {
+                color: #999;
+            }
+            .lego-steps-description {
+                color: #999;
+            }
+        }
+        &.lego-steps-status-error {
+            .lego-steps-head-inner {
+                border-color: #f50;
+                background-color: #fff;
+                > .lego-steps-icon {
+                    color: #f50;
+                }
+            }
+            .lego-steps-title {
+                color: #f50;
+            }
+            .lego-steps-description {
+                color: #f50;
+            }
+            .lego-steps-tail {
+                > i {
+                    background-color: #e9e9e9;
+                }
+            }
+        }
+        &.lego-steps-next-error {
+            .lego-steps-tail {
+                > i {
+                   background-color: #f50;
+                   &:after {
+                      background-color: #f50;
+                  }
+               }
+            }
+        }
+        &.lego-steps-custom {
+            .lego-steps-head-inner {
+                background: none;
+                border: 0;
+                width: auto;
+                height: auto;
+                > .lego-steps-icon {
+                    font-size: 26px;
+                    width: 26px;
+                    height: 26px;
+                }
+            }
+            &.lego-steps-status-process .lego-steps-head-inner > .lego-steps-icon {
+                color: #03a9f4;
+            }
+        }
+    }
+    .lego-steps-head {
+        position: relative;
+        vertical-align: top;
+        background: #fff;
+        display: inline-block;
+    }
+    .lego-steps-main {
+        position: relative;
+        vertical-align: top;
+        margin-top: 2.5px;
+    }
+    .lego-steps-title {
+        font-size: 14px;
+        margin-bottom: 4px;
+        color: #666;
+        // font-weight: bold;
+        background: #fff;
+        display: inline-block;
+        padding-right: 10px;
+        > a:first-child:last-child {
+            color: #666;
+        }
+    }
+    .lego-steps-head-inner {
+        display: block;
+        border: 1px solid #ccc;
+        width: 26px;
+        height: 26px;
+        line-height: 23px;
+        text-align: center;
+        border-radius: 26px;
+        font-size: 14px;
+        // margin-right: 8px;
+        -webkit-transition: background-color 0.3s ease, border-color 0.3s ease;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+        > .lego-steps-icon {
+            line-height: 1;
+            color: #03a9f4;
+            position: relative;
+            &.anticon {
+                font-size: 12px;
+            }
+            &.anticon-cross,
+            &.anticon-check {
+                font-weight: bold;
+            }
+        }
+    }
+    .lego-steps-item-last {
+        .lego-steps-title {
+            padding-right: 0;
+            width: 100%;
+        }
+    }
+    .lego-steps-description {
+        font-size: 12px;
+        color: #999;
+    }
+    .lego-steps-tail {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        top: 11px;
+        padding: 0;
+        > i {
+            display: inline-block;
+            vertical-align: top;
+            background: #e9e9e9;
+            height: 4px;
+            border-radius: 1px;
+            width: 100%;
+            position: relative;
+            &:after {
+                position: absolute;
+                content: '';
+                top: 0;
+                width: 0;
+                background: #e9e9e9;
+                height: 100%;
+                opacity: 0;
+            }
+        }
+    }
+    &.lego-steps-small {
+        .lego-steps-head-inner {
+            border: 1px solid #ccc;
+            width: 18px;
+            height: 18px;
+            line-height: 15px;
+            text-align: center;
+            border-radius: 18px;
+            font-size: 12px;
+            margin-right: 10px;
+            > .lego-steps-icon.anticon {
+                display: inline-block;
+                font-size: 12px;
+                font-size: 9px \9;
+                -webkit-transform: scale(0.75) rotate(0deg);
+                -ms-transform: scale(0.75) rotate(0deg);
+                transform: scale(0.75) rotate(0deg);
+                /* IE6-IE8 */
+                -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=1, M12=0, M21=0, M22=1)";
+                zoom: 1;
+                top: 0;
+            }
+        }
+        .lego-steps-main {
+            margin-top: 0;
+        }
+        .lego-steps-title {
+            font-size: 12px;
+            margin-bottom: 4px;
+            color: #666;
+        }
+        .lego-steps-description {
+            font-size: 12px;
+            color: #999;
+        }
+        .lego-steps-tail {
+            top: 8px;
+            padding: 0 8px;
+            > i {
+                height: 1px;
+                border-radius: 1px;
+                width: 100%;
+            }
+        }
+        .lego-steps-custom .lego-steps-head-inner > .lego-steps-icon {
+            font-size: 18px;
+            width: 18px;
+            height: 18px;
+        }
+    }
+    &.lego-steps-vertical {
+        .lego-steps-head {
+            float: left;
+        }
+        .lego-steps-head-inner {
+            margin-right: 16px;
+        }
+        .lego-steps-main {
+            min-height: 47px;
+            overflow: hidden;
+            display: block;
+            .lego-steps-title {
+                line-height: 26px;
+            }
+            .lego-steps-description {
+                padding-bottom: 12px;
+            }
+        }
+        .lego-steps-item {
+            display: block;
+        }
+        .lego-steps-tail {
+            position: absolute;
+            left: 13px;
+            top: 0;
+            height: 100%;
+            width: 1px;
+            padding: 30px 0 4px 0;
+            > i {
+                height: 100%;
+                width: 1px;
+                &:after {
+                    height: 0;
+                    width: 100%;
+                }
+            }
+        }
+        .lego-steps-status-finish .lego-steps-tail > i:after {
+            height: 100%;
+        }
+        &.lego-steps-small {
+            .lego-steps-tail {
+                position: absolute;
+                left: 9px;
+                top: 0;
+                padding: 22px 0 4px 0;
+                > i {
+                    height: 100%;
+                }
+            }
+            .lego-steps-title {
+                line-height: 18px;
+            }
+        }
+    }
+    &.lego-steps-horizontal {
+        &.lego-steps-hidden {
+            visibility: hidden;
+        }
+        .lego-steps-description {
+            max-width: 120px;
+        }
+    }
+    &.lego-steps-sm {
+        .lego-steps-head {
+        	top: 5px;
+            margin-bottom: 8px;
+        }
+        .lego-steps-head-inner {
+        	width: 15px;
+            height: 15px;
+        }
+        .lego-steps-status-finish .lego-steps-head-inner,
+        .lego-steps-status-process .lego-steps-head-inner{
+            background-color: #03a9f4;
+        }
+        .lego-steps-status-wait .lego-steps-head-inner {
+            background-color: #e9e9e9;
+            border-color: #e9e9e9;
+        }
+    }
+    // 箭形风格
+    &.lego-steps-arrow{
+        border-radius: 6px 0 0 6px;
+        overflow: hidden;
+        padding: 1px 0 1px 1px;
+        .lego-steps-main {
+            position: relative;
+            vertical-align: middle;
+            margin-top: 0;
+            .lego-steps-title{
+                background: transparent;
+                margin-bottom: 0;
+                width: 100%;
+                text-align: center;
+            }
+            .lego-steps-description{
+                display: none;
+            }
+        }
+        .lego-steps-item{
+            // margin-right: -4px !important;
+            &:first-child .lego-steps-step:before{
+                content: none;
+            }
+            .lego-steps-tail{
+                padding-right: 11px !important;
+            }
+        }
+        .lego-steps-tail{
+            height: 100%;
+            top: 0;
+            min-height: 36px;
+            > i{
+                height: 100%;
+                &:after {
+                    -webkit-transition: none !important;
+                    transition: none !important;
+                    opacity: 1;
+                }
+            }
+        }
+        .lego-steps-step{
+            padding: 8px;
+            &:before {
+                content: '';
+                height: 100%;
+                width: 10px;
+                border-left: 10px solid transparent;
+                border-top: 18px solid #e9e9e9;
+                border-bottom: 18px solid #e9e9e9;
+                position: absolute;
+                top: 0;
+                left: -10px;
+            }
+            .lego-steps-head{
+                background: transparent;
+                position: absolute;
+                top: 0;
+                right: 1px;
+                bottom: 0;
+                margin-bottom: 0;
+                .lego-steps-head-inner{
+                    width: 10px;
+                    height: 100%;
+                    border-radius: 0;
+                    margin-right: 0px;
+                    border-top: 18px solid transparent !important;
+                    border-bottom: 18px solid transparent !important;
+                    border-left: 10px solid #e9e9e9;
+                    border-right: 0;
+                    background-color: transparent !important;
+                    -webkit-transition: none !important;
+                    transition: none !important;
+                }
+            }
+        }
+        .lego-steps-status-finish{
+            .lego-steps-title{
+                color: #fff;
+            }
+            .lego-steps-step{
+                .lego-steps-head{
+                    .lego-steps-head-inner{
+                        border-color: #03a9f4;
+                    }
+                }
+                &:before {
+                    border-top-color: #03a9f4;
+                    border-bottom-color: #03a9f4;
+                }
+            }
+        }
+    }
+    &.lego-steps-o{
+        background-color: #ddd;
+        position: relative;
+        &:after{
+            content: '';
+            width: 12px;
+            border-left: 10px solid transparent;
+            border-top: 18px solid #fff;
+            border-bottom: 18px solid #fff;
+            position: absolute;
+            top: -1px;
+            bottom: -1px;
+            right: -1px;
+        }
+        .lego-steps-item{
+            &.lego-steps-status-process,
+            &.lego-steps-status-wait{
+                .lego-steps-tail{
+                    > i{
+                        background-color: #fff;
+                    }
+                }
+            }
+        }
+        .lego-steps-step{
+            &:before {
+                border-top: 18px solid #fff;
+                border-bottom: 18px solid #fff;
+            }
+            .lego-steps-head{
+                .lego-steps-head-inner{
+                    border-color: #fff;
+                }
+            }
+        }
+        .lego-steps-status-finish{
+            .lego-steps-step{
+                .lego-steps-head{
+                    .lego-steps-head-inner{
+                        border-color: #03a9f4;
+                    }
+                }
+            }
+        }
+    }
 }
-
-.lego-steps .lego-steps-item {
-    position: relative;
-    display: inline-block;
-    vertical-align: top;
-}
-
-.lego-steps .lego-steps-item.lego-steps-status-wait .lego-steps-head-inner {
-    border-color: #ccc;
-    background-color: #fff;
-}
-
-.lego-steps .lego-steps-item.lego-steps-status-wait .lego-steps-head-inner > .lego-steps-icon {
-    color: #ccc;
-}
-
-.lego-steps .lego-steps-item.lego-steps-status-wait .lego-steps-title {
-    color: #999;
-}
-
-.lego-steps .lego-steps-item.lego-steps-status-wait .lego-steps-description {
-    color: #999;
-}
-
-.lego-steps .lego-steps-item.lego-steps-status-wait .lego-steps-tail > i {
-    background-color: #e9e9e9;
-}
-
-.lego-steps .lego-steps-item.lego-steps-status-process .lego-steps-head-inner {
-    border-color: #03a9f4;
-    background-color: #03a9f4;
-}
-
-.lego-steps .lego-steps-item.lego-steps-status-process .lego-steps-head-inner > .lego-steps-icon {
-    color: #fff;
-}
-
-.lego-steps .lego-steps-item.lego-steps-status-process .lego-steps-title {
-    color: #666;
-}
-
-.lego-steps .lego-steps-item.lego-steps-status-process .lego-steps-description {
-    color: #666;
-}
-
-.lego-steps .lego-steps-item.lego-steps-status-process .lego-steps-tail > i {
-    background-color: #e9e9e9;
-}
-
-.lego-steps .lego-steps-item.lego-steps-status-finish .lego-steps-head-inner {
-    border-color: #03a9f4;
-    background-color: #fff;
-}
-
-.lego-steps .lego-steps-item.lego-steps-status-finish .lego-steps-head-inner > .lego-steps-icon {
-    color: #03a9f4;
-}
-
-.lego-steps .lego-steps-item.lego-steps-status-finish .lego-steps-tail > i:after {
-    width: 100%;
-    background: #03a9f4;
-    -webkit-transition: all 0.6s;
-    transition: all 0.6s;
-    opacity: 1;
-}
-
-.lego-steps .lego-steps-item.lego-steps-status-finish .lego-steps-title {
-    color: #999;
-}
-
-.lego-steps .lego-steps-item.lego-steps-status-finish .lego-steps-description {
-    color: #999;
-}
-
-.lego-steps .lego-steps-item.lego-steps-status-error .lego-steps-head-inner {
-    border-color: #f50;
-    background-color: #fff;
-}
-
-.lego-steps .lego-steps-item.lego-steps-status-error .lego-steps-head-inner > .lego-steps-icon {
-    color: #f50;
-}
-
-.lego-steps .lego-steps-item.lego-steps-status-error .lego-steps-title {
-    color: #f50;
-}
-
-.lego-steps .lego-steps-item.lego-steps-status-error .lego-steps-description {
-    color: #f50;
-}
-
-.lego-steps .lego-steps-item.lego-steps-status-error .lego-steps-tail > i {
-    background-color: #e9e9e9;
-}
-
-.lego-steps .lego-steps-item.lego-steps-next-error .lego-steps-tail > i,
-.lego-steps .lego-steps-item.lego-steps-next-error .lego-steps-tail > i:after {
-    background-color: #f50;
-}
-
-.lego-steps .lego-steps-item.lego-steps-custom .lego-steps-head-inner {
-    background: none;
-    border: 0;
-    width: auto;
-    height: auto;
-}
-
-.lego-steps .lego-steps-item.lego-steps-custom .lego-steps-head-inner > .lego-steps-icon {
-    font-size: 26px;
-    width: 26px;
-    height: 26px;
-}
-
-.lego-steps .lego-steps-item.lego-steps-custom.lego-steps-status-process .lego-steps-head-inner > .lego-steps-icon {
-    color: #03a9f4;
-}
-
-.lego-steps .lego-steps-head,
-.lego-steps .lego-steps-main {
-    position: relative;
-    // display: inline-block;
-    vertical-align: top;
-}
-
-.lego-steps .lego-steps-head {
-    background: #fff;
-    display: inline-block;
-}
-
-.lego-steps .lego-steps-head-inner {
-    display: block;
-    border: 1px solid #ccc;
-    width: 26px;
-    height: 26px;
-    line-height: 23px;
-    text-align: center;
-    border-radius: 26px;
-    font-size: 14px;
-    // margin-right: 8px;
-    -webkit-transition: background-color 0.3s ease, border-color 0.3s ease;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.lego-steps .lego-steps-head-inner > .lego-steps-icon {
-    line-height: 1;
-    color: #03a9f4;
-    position: relative;
-}
-
-.lego-steps .lego-steps-head-inner > .lego-steps-icon.anticon {
-    font-size: 12px;
-}
-
-.lego-steps .lego-steps-head-inner > .lego-steps-icon.anticon-cross,
-.lego-steps .lego-steps-head-inner > .lego-steps-icon.anticon-check {
-    font-weight: bold;
-}
-
-.lego-steps .lego-steps-main {
-    margin-top: 2.5px;
-}
-
-.lego-steps .lego-steps-title {
-    font-size: 14px;
-    margin-bottom: 4px;
-    color: #666;
-    // font-weight: bold;
-    background: #fff;
-    display: inline-block;
-    padding-right: 10px;
-}
-
-.lego-steps .lego-steps-title > a:first-child:last-child {
-    color: #666;
-}
-
-.lego-steps .lego-steps-item-last .lego-steps-title {
-    padding-right: 0;
-    width: 100%;
-}
-
-.lego-steps .lego-steps-description {
-    font-size: 12px;
-    color: #999;
-}
-
-.lego-steps .lego-steps-tail {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    top: 11px;
-    padding: 0;
-}
-
-.lego-steps .lego-steps-tail > i {
-    display: inline-block;
-    vertical-align: top;
-    background: #e9e9e9;
-    height: 4px;
-    border-radius: 1px;
-    width: 100%;
-    position: relative;
-}
-
-.lego-steps .lego-steps-tail > i:after {
-    position: absolute;
-    content: '';
-    top: 0;
-    width: 0;
-    background: #e9e9e9;
-    height: 100%;
-    opacity: 0;
-}
-
-.lego-steps.lego-steps-small .lego-steps-head-inner {
-    border: 1px solid #ccc;
-    width: 18px;
-    height: 18px;
-    line-height: 15px;
-    text-align: center;
-    border-radius: 18px;
-    font-size: 12px;
-    margin-right: 10px;
-}
-
-.lego-steps.lego-steps-small .lego-steps-head-inner > .lego-steps-icon.anticon {
-    display: inline-block;
-    font-size: 12px;
-    font-size: 9px \9;
-    -webkit-transform: scale(0.75) rotate(0deg);
-    -ms-transform: scale(0.75) rotate(0deg);
-    transform: scale(0.75) rotate(0deg);
-    /* IE6-IE8 */
-    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=1, M12=0, M21=0, M22=1)";
-    zoom: 1;
-    top: 0;
-}
-
 :root .lego-steps.lego-steps-small .lego-steps-head-inner > .lego-steps-icon.anticon {
     -webkit-filter: none;
     filter: none;
@@ -249,126 +483,3 @@
 :root .lego-steps.lego-steps-small .lego-steps-head-inner > .lego-steps-icon.anticon {
     font-size: 12px;
 }
-
-.lego-steps.lego-steps-small .lego-steps-main {
-    margin-top: 0;
-}
-
-.lego-steps.lego-steps-small .lego-steps-title {
-    font-size: 12px;
-    margin-bottom: 4px;
-    color: #666;
-    // font-weight: bold;
-}
-
-.lego-steps.lego-steps-small .lego-steps-description {
-    font-size: 12px;
-    color: #999;
-}
-
-.lego-steps.lego-steps-small .lego-steps-tail {
-    top: 8px;
-    padding: 0 8px;
-}
-
-.lego-steps.lego-steps-small .lego-steps-tail > i {
-    height: 1px;
-    border-radius: 1px;
-    width: 100%;
-}
-
-.lego-steps.lego-steps-small .lego-steps-custom .lego-steps-head-inner > .lego-steps-icon {
-    font-size: 18px;
-    width: 18px;
-    height: 18px;
-}
-
-.lego-steps-vertical .lego-steps-item {
-    display: block;
-}
-
-.lego-steps-vertical .lego-steps-tail {
-    position: absolute;
-    left: 13px;
-    top: 0;
-    height: 100%;
-    width: 1px;
-    padding: 30px 0 4px 0;
-}
-
-.lego-steps-vertical .lego-steps-tail > i {
-    height: 100%;
-    width: 1px;
-}
-
-.lego-steps-vertical .lego-steps-tail > i:after {
-    height: 0;
-    width: 100%;
-}
-
-.lego-steps-vertical .lego-steps-status-finish .lego-steps-tail > i:after {
-    height: 100%;
-}
-
-.lego-steps-vertical .lego-steps-head {
-    float: left;
-}
-
-.lego-steps-vertical .lego-steps-head-inner {
-    margin-right: 16px;
-}
-
-.lego-steps-vertical .lego-steps-main {
-    min-height: 47px;
-    overflow: hidden;
-    display: block;
-}
-
-.lego-steps-vertical .lego-steps-main .lego-steps-title {
-    line-height: 26px;
-}
-
-.lego-steps-vertical .lego-steps-main .lego-steps-description {
-    padding-bottom: 12px;
-}
-
-.lego-steps-vertical.lego-steps-small .lego-steps-tail {
-    position: absolute;
-    left: 9px;
-    top: 0;
-    padding: 22px 0 4px 0;
-}
-
-.lego-steps-vertical.lego-steps-small .lego-steps-tail > i {
-    height: 100%;
-}
-
-.lego-steps-vertical.lego-steps-small .lego-steps-title {
-    line-height: 18px;
-}
-
-.lego-steps-horizontal.lego-steps-hidden {
-    visibility: hidden;
-}
-
-.lego-steps-horizontal .lego-steps-description {
-    max-width: 120px;
-}
-
-.lego-steps-sm .lego-steps-head {
-	top: 5px;
-    margin-bottom: 8px;
-}
-.lego-steps-sm .lego-steps-head-inner {
-	width: 15px;
-    height: 15px;
-}
-.lego-steps-sm .lego-steps-status-finish .lego-steps-head-inner,
-.lego-steps-sm .lego-steps-status-process .lego-steps-head-inner {
-    background-color: #03a9f4 !important;
-}
-.lego-steps-sm .lego-steps-status-wait .lego-steps-head-inner {
-    background-color: #e9e9e9 !important;
-    border-color: #e9e9e9 !important;
-}
-

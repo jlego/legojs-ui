@@ -13,6 +13,10 @@
         &:focus ~ .input-group-addon {
             border-left: none !important;
         }
+        &.dp-input:focus ~ .input-group-addon {
+            border-color: #66afe9;
+            border-left: none !important;
+        }
     }
     .endDate {
         border-radius: .25rem !important;

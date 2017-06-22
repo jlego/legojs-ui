@@ -1,5 +1,5 @@
 /**
- * steps.js v0.9.6
+ * steps.js v0.9.21
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -22,7 +22,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-steps lego-steps-', " lego-steps-label-", " ", '">\n        ', "\n        </div>\n        " ], [ '\n        <div class="lego-steps lego-steps-', " lego-steps-label-", " ", '">\n        ', "\n        </div>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-steps lego-steps-', " lego-steps-", " lego-steps-", "\n        ", '">\n        ', "\n        </div>\n        " ], [ '\n        <div class="lego-steps lego-steps-', " lego-steps-", " lego-steps-", "\n        ", '">\n        ', "\n        </div>\n        " ]);
 
 var _templateObject2 = _taggedTemplateLiteral([ '\n            <div class="lego-steps-item lego-steps-status-', '"\n            style="', " margin-right:-", 'px;">\n                ', '\n                <div class="lego-steps-step">\n                    <div class="lego-steps-head">\n                        <div class="lego-steps-head-inner">\n                        ', '\n                        </div>\n                    </div>\n                    <div class="lego-steps-main">\n                        <div class="lego-steps-title">', "</div>\n                        ", "\n                    </div>\n                </div>\n            </div>\n            " ], [ '\n            <div class="lego-steps-item lego-steps-status-', '"\n            style="', " margin-right:-", 'px;">\n                ', '\n                <div class="lego-steps-step">\n                    <div class="lego-steps-head">\n                        <div class="lego-steps-head-inner">\n                        ', '\n                        </div>\n                    </div>\n                    <div class="lego-steps-main">\n                        <div class="lego-steps-title">', "</div>\n                        ", "\n                    </div>\n                </div>\n            </div>\n            " ]);
 
@@ -76,9 +76,11 @@ var Steps = function(_Lego$UI$Baseview) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         _classCallCheck(this, Steps);
         var options = {
+            type: "line",
+            color: "light",
             current: 0,
             status: "process",
-            size: "default",
+            size: "",
             direction: "horizontal",
             titleWidth: 120,
             showDescription: true,
@@ -92,41 +94,47 @@ var Steps = function(_Lego$UI$Baseview) {
         return _possibleConstructorReturn(this, (Steps.__proto__ || Object.getPrototypeOf(Steps)).call(this, options));
     }
     _createClass(Steps, [ {
+        key: "components",
+        value: function components() {
+            var opts = this.options;
+            if (opts.type == "arrow") opts.titleWidth = 0;
+        }
+    }, {
         key: "render",
         value: function render() {
-            var options = this.options, dataLength = options.data.length, widthPercent = 10 / (dataLength - 1) * 10;
-            var vDom = hx(_templateObject, options.direction, options.direction, !options.showNum ? "lego-steps-sm" : "", options.data.map(function(item, index) {
-                return hx(_templateObject2, options.current == index ? options.status : item.status ? item.status : options.current > index ? "finish" : "wait", index == dataLength - 1 ? "" : "width:" + widthPercent + "%;", options.titleWidth / 2, index < dataLength ? hx(_templateObject3, index == dataLength - 1 ? "padding-right:" + options.titleWidth + "px" : "padding-right:" + options.titleWidth / 2 + "px") : "", options.showIcon ? hx(_templateObject4, item.icon ? item.icon : item.status == "finish" ? "anticon-check" : "", item.status !== "finish" ? item.icon ? item.icon : options.showNum ? index + 1 : "" : "") : hx(_templateObject5, options.showNum ? index + 1 : ""), val(item.title), options.showDescription ? hx(_templateObject6, val(item.description)) : "");
+            var opts = this.options, dataLength = opts.data.length, widthPercent = 10 / (dataLength - (opts.type == "arrow" ? 0 : 1)) * 10;
+            var vDom = hx(_templateObject, opts.direction, opts.type, !opts.showNum ? "sm" : opts.size, opts.type == "arrow" && opts.color == "light" ? "lego-steps-o" : "", opts.data.map(function(item, index) {
+                return hx(_templateObject2, opts.current == index ? opts.status : item.status ? item.status : opts.current > index ? "finish" : "wait", index == dataLength - (opts.type == "arrow" ? 0 : 1) ? "" : "width:" + widthPercent + "%;", opts.titleWidth / 2, index < dataLength ? hx(_templateObject3, index == dataLength - (opts.type == "arrow" ? 0 : 1) ? "padding-right:" + opts.titleWidth + "px" : "padding-right:" + opts.titleWidth / 2 + "px") : "", opts.showIcon ? hx(_templateObject4, item.icon ? item.icon : item.status == "finish" ? "anticon-check" : "", item.status !== "finish" ? item.icon ? item.icon : opts.showNum ? index + 1 : "" : "") : hx(_templateObject5, opts.showNum ? index + 1 : ""), val(item.title), opts.showDescription ? hx(_templateObject6, val(item.description)) : "");
             }));
             return vDom;
         }
     }, {
         key: "changeStatus",
         value: function changeStatus() {
-            var options = this.options;
-            if (options.current > options.data.length) options.current = options.data.length;
-            options.data.forEach(function(item, index) {
+            var opts = this.options;
+            if (opts.current > opts.data.length) opts.current = opts.data.length;
+            opts.data.forEach(function(item, index) {
                 item.status = "wait";
-                if (index < options.current) item.status = "finish";
-                if (options.current == index) item.status = options.status;
+                if (index < opts.current) item.status = "finish";
+                if (opts.current == index) item.status = opts.status;
             });
             this.refresh();
         }
     }, {
         key: "next",
         value: function next() {
-            var options = this.options;
-            options.current++;
+            var opts = this.options;
+            opts.current++;
             this.changeStatus();
-            if (typeof options.onNext == "function") options.onNext(this, options.current);
+            if (typeof opts.onNext == "function") opts.onNext(this, opts.current);
         }
     }, {
         key: "previous",
         value: function previous() {
-            var options = this.options;
-            options.current--;
+            var opts = this.options;
+            opts.current--;
             this.changeStatus();
-            if (typeof options.onPrevious == "function") options.onPrevious(this, options.current);
+            if (typeof opts.onPrevious == "function") opts.onPrevious(this, opts.current);
         }
     } ]);
     return Steps;

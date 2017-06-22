@@ -1,5 +1,5 @@
 /**
- * upload.js v0.9.6
+ * upload.js v0.9.21
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

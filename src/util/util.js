@@ -343,7 +343,7 @@ const Util = {
 };
 // 判断是否空值(主要用于视图模板)
 window.val = function(value, defaultValue){
-    return value ? (typeof value == 'function' ? value() : value) : (defaultValue || '');
+    return value ? (typeof value == 'function' ? value(defaultValue) : value) : (defaultValue || '');
 };
 Lego.components('Util', Util);
 export default Util;

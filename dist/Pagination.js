@@ -1,5 +1,5 @@
 /**
- * pagination.js v0.9.6
+ * pagination.js v0.9.21
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -22,9 +22,11 @@ var _createClass$2 = function() {
     };
 }();
 
-var _templateObject$2 = _taggedTemplateLiteral$2([ '\n        <div class="input-group lego-search ', '">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '" name="', '" value="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ], [ '\n        <div class="input-group lego-search ', '">\n        ', '\n          <input type="text" class="form-control lego-search-input" placeholder="', '" name="', '" value="', '">\n          <div class="input-group-btn">\n            <button type="button" class="btn lego-search-button">\n              <i class="anticon anticon-search"></i>\n            </button>\n          </div>\n        </div>\n        ' ]);
+var _templateObject$2 = _taggedTemplateLiteral$2([ '\n        <div class="lego-search ', '" style="', '">\n            <div class="input-group">\n                ', '\n              <input type="text" class="form-control lego-search-input" id="searchInput_', '" placeholder="', '" name="', '" value="', '">\n              <div class="input-group-btn">\n                <button type="button" class="btn lego-search-button">\n                  <i class="anticon anticon-search"></i>\n                </button>\n              </div>\n          </div>\n          ', "\n        </div>\n        " ], [ '\n        <div class="lego-search ', '" style="', '">\n            <div class="input-group">\n                ', '\n              <input type="text" class="form-control lego-search-input" id="searchInput_', '" placeholder="', '" name="', '" value="', '">\n              <div class="input-group-btn">\n                <button type="button" class="btn lego-search-button">\n                  <i class="anticon anticon-search"></i>\n                </button>\n              </div>\n          </div>\n          ', "\n        </div>\n        " ]);
 
-var _templateObject2$2 = _taggedTemplateLiteral$2([ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ], [ '\n          <div class="input-group-btn dropdown" id="select-', '">\n            <button type="button" class="btn btn-secondary dropdown-toggle">\n              ', '\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n          </div>\n        ' ]);
+var _templateObject2$2 = _taggedTemplateLiteral$2([ '\n              <div class="input-group-btn dropdown" id="select-', '">\n                <button type="button" class="btn btn-secondary dropdown-toggle">\n                  ', '\n                </button>\n                <dropdown id="dropdown-', '"></dropdown>\n              </div>\n              ' ], [ '\n              <div class="input-group-btn dropdown" id="select-', '">\n                <button type="button" class="btn btn-secondary dropdown-toggle">\n                  ', '\n                </button>\n                <dropdown id="dropdown-', '"></dropdown>\n              </div>\n              ' ]);
+
+var _templateObject3$2 = _taggedTemplateLiteral$2([ '<dropdown id="autocomplete_', '"></dropdown>' ], [ '<dropdown id="autocomplete_', '"></dropdown>' ]);
 
 function _taggedTemplateLiteral$2(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -79,6 +81,7 @@ var Search = function(_Lego$UI$Baseview) {
             keyword: "",
             activeKey: "",
             activeValue: "",
+            autoComplete: false,
             showSelect: false,
             onKeyup: function onKeyup() {},
             onSearch: function onSearch() {},
@@ -90,7 +93,8 @@ var Search = function(_Lego$UI$Baseview) {
     _createClass$2(Search, [ {
         key: "components",
         value: function components() {
-            var opts = this.options;
+            var opts = this.options, that = this;
+            this.showDropdown = false;
             if (typeof opts.value == "string") {
                 opts.keyword = opts.value;
                 opts.value = null;
@@ -104,21 +108,71 @@ var Search = function(_Lego$UI$Baseview) {
                     this.context.options.activeValue = model.value;
                 }
             });
+            if (opts.autoComplete) {
+                var autoCompleteOpts = {
+                    el: "#autocomplete_" + opts.vid,
+                    container: this.$el,
+                    disabled: true,
+                    maxCount: opts.autoComplete.maxCount || 5,
+                    style: {
+                        width: "100%"
+                    },
+                    onChange: function onChange(self, result) {
+                        opts.keyword = opts.value = result.value;
+                        result.keyword = result.value;
+                        if (typeof opts.onSearch === "function") opts.onSearch(this, result, self);
+                    },
+                    renderAfter: function renderAfter() {
+                        if (opts.autoComplete && this.options.data) {
+                            if (that.showDropdown && this.options.data.length) {
+                                this.show();
+                            } else {
+                                this.close();
+                            }
+                        }
+                    }
+                };
+                if (opts.autoComplete.data) autoCompleteOpts.data = opts.autoComplete.data;
+                if (opts.autoComplete.dataSource) autoCompleteOpts.dataSource = opts.autoComplete.dataSource;
+                this.addCom(autoCompleteOpts);
+            }
         }
     }, {
         key: "render",
         value: function render() {
-            var options = this.options || {};
-            var vDom = hx(_templateObject$2, options.size ? "input-group-" + options.size : "", options.showSelect ? hx(_templateObject2$2, options.vid, options.activeValue || "请选择", options.vid) : "", options.placeholder, options.name, val(options.keyword));
+            var opts = this.options;
+            var vDom = hx(_templateObject$2, opts.size ? "input-group-" + opts.size : "", opts.autoComplete ? "position: relative;" : "", opts.showSelect ? hx(_templateObject2$2, opts.vid, opts.activeValue || "请选择", opts.vid) : "", opts.vid, opts.placeholder, opts.name, val(opts.keyword), opts.autoComplete ? hx(_templateObject3$2, opts.vid) : "");
             return vDom;
         }
     }, {
         key: "_enterSearch",
         value: function _enterSearch(event) {
+            var opts = this.options, view = null, result = this.getValue(event);
             if (event.keyCode == 13) {
                 this.onSearch(event);
             } else {
-                if (typeof this.options.onKeyup === "function") this.options.onKeyup(this, this.getValue(event), event);
+                if (opts.autoComplete) {
+                    view = Lego.getView("#autocomplete_" + opts.vid);
+                    if (!opts.autoComplete.dataSource && opts.autoComplete.data) {
+                        if (result.keyword) {
+                            view.options.data = opts.autoComplete.data.filter(function(item) {
+                                return item.value.indexOf(value.keyword) > -1;
+                            });
+                            this.showDropdown = !!view.options.data.length;
+                            view.refresh();
+                        } else {
+                            view.close();
+                            return;
+                        }
+                    } else {
+                        this.showDropdown = !!result.keyword;
+                        if (!this.showDropdown) {
+                            view.close();
+                            return;
+                        }
+                    }
+                }
+                if (typeof opts.onKeyup === "function") opts.onKeyup(this, result, view || event);
             }
         }
     }, {
@@ -176,7 +230,7 @@ var _templateObject4$1 = _taggedTemplateLiteral$1([ '\n                <ul class
 
 var _templateObject5$1 = _taggedTemplateLiteral$1([ '\n        <ul class="', " ", '"\n        ', ">\n            ", "\n        </ul>\n        " ], [ '\n        <ul class="', " ", '"\n        ', ">\n            ", "\n        </ul>\n        " ]);
 
-var _templateObject6$1 = _taggedTemplateLiteral$1([ '\n            <div class="dropdown-menu">\n                <div class="lego-search-container"><search id="search_', '"></search></div>\n                ', "\n            </div>\n            " ], [ '\n            <div class="dropdown-menu">\n                <div class="lego-search-container"><search id="search_', '"></search></div>\n                ', "\n            </div>\n            " ]);
+var _templateObject6$1 = _taggedTemplateLiteral$1([ '\n            <div class="dropdown-menu" style="display:', '">\n                <div class="lego-search-container"><search id="search_', '"></search></div>\n                ', "\n            </div>\n            " ], [ '\n            <div class="dropdown-menu" style="display:', '">\n                <div class="lego-search-container"><search id="search_', '"></search></div>\n                ', "\n            </div>\n            " ]);
 
 function _toConsumableArray(arr) {
     if (Array.isArray(arr)) {
@@ -244,6 +298,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             container: "",
             direction: "",
             activeKey: "",
+            maxCount: 0,
             clickAndClose: true,
             showSearch: false,
             open: false,
@@ -254,6 +309,14 @@ var Dropdown = function(_Lego$UI$Baseview) {
         return _possibleConstructorReturn$1(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, options));
     }
     _createClass$1(Dropdown, [ {
+        key: "dataReady",
+        value: function dataReady() {
+            var opts = this.options, that = this;
+            if (opts.data.length && opts.maxCount) {
+                opts.data.length = opts.data.length > opts.maxCount ? opts.maxCount : opts.data.length;
+            }
+        }
+    }, {
         key: "components",
         value: function components() {
             var _this2 = this;
@@ -292,14 +355,14 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     return hx(_templateObject$1);
                 } else {
                     if (!item.children) {
-                        return hx(_templateObject2$1, item.isHidden ? 'style="display:none;"' : "", val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value));
+                        return hx(_templateObject2$1, item.isHidden ? 'style="display:none;"' : "", val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value, item));
                     } else {
                         return loopNav(item);
                     }
                 }
             }
             function loopNav(item) {
-                return hx(_templateObject3$1, item.isHidden ? 'style="display:none;"' : "", val(item.key), item.key === options.activeKey ? "active" : "", item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", val(item.value), item.children ? hx(_templateObject4$1, item.children.map(function(item) {
+                return hx(_templateObject3$1, item.isHidden ? 'style="display:none;"' : "", val(item.key), item.key === options.activeKey ? "active" : "", item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", val(item.value, item), item.children ? hx(_templateObject4$1, item.children.map(function(item) {
                     return itemNav(item);
                 })) : "");
             }
@@ -307,19 +370,20 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 return itemNav(item);
             }));
             if (opts.showSearch) {
-                vDom = hx(_templateObject6$1, opts.vid, vDom);
+                vDom = hx(_templateObject6$1, opts.open ? "block" : "none", opts.vid, vDom);
             }
             return vDom;
         }
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var that = this, opts = this.options, _eventName = "click.dropdown-" + opts.vid, directionArr = opts.direction ? opts.direction.split("_") : [];
+            var that = this, opts = this.options, _eventName = "click.dropdown-" + opts.vid;
+            this.directionArr = opts.direction ? opts.direction.split("_") : [];
             this.container = opts.container instanceof $ ? opts.container : opts.context.$ ? opts.context.$(opts.container) : $(opts.container);
-            if (!opts.disabled) {
+            if (!opts.disabled && opts.container) {
                 var handler = function handler(event) {
                     var _Lego$UI$Util;
-                    (_Lego$UI$Util = Lego.UI.Util).getDirection.apply(_Lego$UI$Util, [ that.container, that.$el ].concat(_toConsumableArray(directionArr)));
+                    (_Lego$UI$Util = Lego.UI.Util).getDirection.apply(_Lego$UI$Util, [ that.container, that.$el ].concat(_toConsumableArray(that.directionArr)));
                     that.$el.slideToggle("fast");
                 };
                 var cssObj = {
@@ -336,14 +400,6 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     this.$el.css(cssObj);
                 }
                 if (opts.eventName == "click") {
-                    $("body, .modal-body").off(_eventName).on(_eventName, function(event) {
-                        if (event.originalEvent) {
-                            var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.container[0]);
-                            if (index_a <= index_b) {} else {
-                                that.close();
-                            }
-                        }
-                    });
                     this.container.off(_eventName).on(_eventName, handler);
                 } else {
                     this.container.mouseenter(handler).mouseleave(function() {
@@ -351,11 +407,21 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     });
                 }
             }
+            $("body, .modal-body").off(_eventName).on(_eventName, function(event) {
+                if (event.originalEvent) {
+                    var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.container[0]);
+                    if (index_a <= index_b) {} else {
+                        that.close();
+                    }
+                }
+            });
         }
     }, {
         key: "show",
         value: function show() {
-            this.$el.slideDown("fast");
+            var _Lego$UI$Util2;
+            if (this.container) (_Lego$UI$Util2 = Lego.UI.Util).getDirection.apply(_Lego$UI$Util2, [ this.container, this.$el ].concat(_toConsumableArray(this.directionArr)));
+            if (this.$el.css("display") == "none") this.$el.slideDown("fast");
         }
     }, {
         key: "close",

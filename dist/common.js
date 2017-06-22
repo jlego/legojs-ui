@@ -1,5 +1,5 @@
 /**
- * common.js v0.9.6
+ * common.js v0.9.21
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -381,7 +381,7 @@ var Util = {
 };
 
 window.val = function(value, defaultValue) {
-    return value ? typeof value == "function" ? value() : value : defaultValue || "";
+    return value ? typeof value == "function" ? value(defaultValue) : value : defaultValue || "";
 };
 
 Lego.components("Util", Util);

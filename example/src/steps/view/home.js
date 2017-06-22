@@ -65,6 +65,30 @@ class HomeView extends Lego.UI.Baseview {
                     console.warn('上一步', result);
                 }
             }, {
+                el: '#steps3',
+                type: 'arrow',
+                // color: 'dark',
+                // titleWidth: 40,    //标题宽度
+                showDescription: true,  //显示描述
+                showIcon: false, //是否显示图标
+                showNum: false, //是否显示序号
+                data: [{
+                    title: '步骤一',
+                    description: '这是描述内容这是描述内容',
+                }, {
+                    title: '步骤二',
+                    description: '这是描述内容这是描述内容',
+                }, {
+                    title: '步骤三',
+                    description: '这是描述内容这是描述内容',
+                }],
+                onNext(self, result) {
+                    console.warn('下一步', result);
+                },
+                onPrevious(self, result) {
+                    console.warn('上一步', result);
+                }
+            }, {
                 el: '#button1',
                 text: '上一步',
                 onClick(self){
@@ -90,6 +114,20 @@ class HomeView extends Lego.UI.Baseview {
                 text: '下一步',
                 onClick(self){
                     const view = Lego.getView('#steps2');
+                    if(view) view.next();
+                }
+            }, {
+                el: '#button5',
+                text: '上一步',
+                onClick(self){
+                    const view = Lego.getView('#steps3');
+                    if(view) view.previous();
+                }
+            }, {
+                el: '#button6',
+                text: '下一步',
+                onClick(self){
+                    const view = Lego.getView('#steps3');
                     if(view) view.next();
                 }
             }, {
@@ -134,6 +172,15 @@ class HomeView extends Lego.UI.Baseview {
             <div class="col-sm-6">
               <buttons id="button3"></buttons>
               <buttons id="button4"></buttons>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 40px;">
+            <div class="col-sm-6">
+              <steps id="steps3"></steps>
+            </div>
+            <div class="col-sm-6">
+              <buttons id="button5"></buttons>
+              <buttons id="button6"></buttons>
             </div>
           </div>
           <div class="row" style="margin-bottom: 40px;">

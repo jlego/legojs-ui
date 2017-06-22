@@ -14,9 +14,11 @@ import './asset/index.scss';
 class Steps extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
+            type: 'line',   //风格 line/arrow
+            color: 'light',  //dark/light
             current: 0, //指定当前步骤，从 0 开始记数。在子 Step 元素中，可以通过 status 属性覆盖状态
             status: 'process', //指定当前步骤的状态，可选 wait process finish error
-            size: 'default', //指定大小，目前支持普通（default）和迷你（small）
+            size: '', //指定大小，sm
             direction: 'horizontal', //指定步骤条方向。目前支持水平（horizontal）和竖直（vertical）两种方向
             titleWidth: 120,    //标题宽度
             showDescription: true,  //显示描述
@@ -29,31 +31,37 @@ class Steps extends Lego.UI.Baseview {
         Object.assign(options, opts);
         super(options);
     }
+    components(){
+        let opts = this.options;
+        if(opts.type == 'arrow') opts.titleWidth = 0;
+    }
     render() {
-        const options = this.options,
-            dataLength = options.data.length,
-            widthPercent = 10 / (dataLength - 1) * 10;
-        const vDom = hx`
-        <div class="lego-steps lego-steps-${options.direction} lego-steps-label-${options.direction} ${!options.showNum ? 'lego-steps-sm' : ''}">
-        ${options.data.map((item, index) => {
+        let opts = this.options,
+            dataLength = opts.data.length,
+            widthPercent = 10 / (dataLength - (opts.type == 'arrow' ? 0 : 1)) * 10;
+        let vDom = hx`
+        <div class="lego-steps lego-steps-${opts.direction} lego-steps-${opts.type} lego-steps-${!opts.showNum ? 'sm' : opts.size}
+        ${opts.type == 'arrow' && opts.color == 'light' ? 'lego-steps-o' : ''}">
+        ${opts.data.map((item, index) => {
             return hx`
-            <div class="lego-steps-item lego-steps-status-${options.current == index ? options.status : (item.status ? item.status : (options.current > index ? 'finish': 'wait'))}"
-            style="${index == dataLength - 1 ? '' : ('width:' + widthPercent + '%;')} margin-right:-${(options.titleWidth)/2}px;">
+            <div class="lego-steps-item lego-steps-status-${opts.current == index ? opts.status : (item.status ? item.status : (opts.current > index ? 'finish': 'wait'))}"
+            style="${index == dataLength - (opts.type == 'arrow' ? 0 : 1) ? '' : ('width:' + widthPercent + '%;')} margin-right:-${(opts.titleWidth)/2}px;">
                 ${index < dataLength ? hx`<div class="lego-steps-tail"
-                style="${index == dataLength - 1 ? ('padding-right:' + options.titleWidth + 'px') : ('padding-right:' + options.titleWidth/2 + 'px')}"><i></i></div>` : ''}
+                style="${index == dataLength - (opts.type == 'arrow' ? 0 : 1) ? ('padding-right:' + opts.titleWidth + 'px') : ('padding-right:' + opts.titleWidth/2 + 'px')}"><i></i></div>` : ''}
                 <div class="lego-steps-step">
                     <div class="lego-steps-head">
                         <div class="lego-steps-head-inner">
-                        ${options.showIcon ?
+                        ${opts.showIcon ?
                             hx`<span class="lego-steps-icon anticon ${item.icon ? item.icon : (item.status == 'finish' ? 'anticon-check' : '')}">
-                            ${item.status !== 'finish' ? (item.icon ? item.icon : (options.showNum ? (index + 1) : '')) : ''}
+                            ${item.status !== 'finish' ? (item.icon ? item.icon : (opts.showNum ? (index + 1) : '')) : ''}
                             </span>` :
-                            hx`<span class="lego-steps-icon">${options.showNum ? (index + 1) : ''}</span>`}
+                            hx`<span class="lego-steps-icon">${opts.showNum ? (index + 1) : ''}</span>`
+                        }
                         </div>
                     </div>
                     <div class="lego-steps-main">
                         <div class="lego-steps-title">${val(item.title)}</div>
-                        ${options.showDescription ? hx`<div class="lego-steps-description">${val(item.description)}</div>` : ''}
+                        ${opts.showDescription ? hx`<div class="lego-steps-description">${val(item.description)}</div>` : ''}
                     </div>
                 </div>
             </div>
@@ -64,26 +72,26 @@ class Steps extends Lego.UI.Baseview {
         return vDom;
     }
     changeStatus(){
-        const options = this.options;
-        if(options.current > options.data.length) options.current = options.data.length;
-        options.data.forEach((item, index) => {
+        let opts = this.options;
+        if(opts.current > opts.data.length) opts.current = opts.data.length;
+        opts.data.forEach((item, index) => {
             item.status = 'wait';
-            if(index < options.current) item.status = 'finish';
-            if(options.current == index) item.status = options.status;
+            if(index < opts.current) item.status = 'finish';
+            if(opts.current == index) item.status = opts.status;
         });
         this.refresh();
     }
     next(){
-        const options = this.options;
-        options.current ++;
+        let opts = this.options;
+        opts.current ++;
         this.changeStatus();
-        if(typeof options.onNext == 'function') options.onNext(this, options.current);
+        if(typeof opts.onNext == 'function') opts.onNext(this, opts.current);
     }
     previous(){
-        const options = this.options;
-        options.current --;
+        let opts = this.options;
+        opts.current --;
         this.changeStatus();
-        if(typeof options.onPrevious == 'function') options.onPrevious(this, options.current);
+        if(typeof opts.onPrevious == 'function') opts.onPrevious(this, opts.current);
     }
 }
 Lego.components('steps', Steps);

@@ -2,6 +2,7 @@
 // import Selects from '../../../../dist/selects';
 // import Datepicker from '../../../../dist/datepicker';
 // import Inputs from '../../../../dist/inputs';
+import Data from '../data/data';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -38,6 +39,36 @@ class HomeView extends Lego.UI.Baseview {
             }, {
                 el: '#search2',
                 placeholder: '输入关键字',
+                autoComplete: {
+                    maxCount: 5,
+                    dataSource: {
+                        server: Data,
+                        isAjax: true,
+                        api: 'search'
+                    }
+                    // data: [{
+                    //     key: '01',
+                    //     value: 'a'
+                    // }, {
+                    //     key: '02',
+                    //     value: 'ab'
+                    // }, {
+                    //     key: '03',
+                    //     value: 'abc'
+                    // }]
+                },
+                onKeyup(self, result, dropdownView){
+                    console.warn(result, dropdownView);
+                    dropdownView.fetch({
+                        body: {
+                            "filters": [{
+                        		"operation": "like",
+                        		"property": "t.name",
+                        		"value": result.keyword
+                        	}]
+                        }
+                    });
+                },
                 onSearch(self, result) {
                     console.warn('点击了搜索框2', result);
                 }
