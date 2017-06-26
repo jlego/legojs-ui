@@ -1,5 +1,5 @@
 /**
- * inputs.js v0.9.21
+ * inputs.js v0.9.32
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -24,13 +24,13 @@ var _createClass = function() {
 
 var _templateObject = _taggedTemplateLiteral([ "<div></div>" ], [ "<div></div>" ]);
 
-var _templateObject2 = _taggedTemplateLiteral([ '\n            <div class="input-group ', '">\n              ', '\n              <input type="', '" class="form-control" placeholder="', '"\n              value="', '" name="', '" ', " ", "/>\n              ", "\n            </div>\n            " ], [ '\n            <div class="input-group ', '">\n              ', '\n              <input type="', '" class="form-control" placeholder="', '"\n              value="', '" name="', '" ', " ", "/>\n              ", "\n            </div>\n            " ]);
+var _templateObject2 = _taggedTemplateLiteral([ '\n            <div class="input-group ', '">\n              ', '\n              <input type="', '" class="form-control" placeholder="', '"\n              value="', '" name="', '" ', "/>\n              ", "\n            </div>\n            " ], [ '\n            <div class="input-group ', '">\n              ', '\n              <input type="', '" class="form-control" placeholder="', '"\n              value="', '" name="', '" ', "/>\n              ", "\n            </div>\n            " ]);
 
 var _templateObject3 = _taggedTemplateLiteral([ '<span class="input-group-addon">', "</span>" ], [ '<span class="input-group-addon">', "</span>" ]);
 
-var _templateObject4 = _taggedTemplateLiteral([ '\n                  <textarea type="textarea" class="form-control ', '" placeholder="', '" name="', '"\n                  ', " ", ">", "</textarea>\n                " ], [ '\n                  <textarea type="textarea" class="form-control ', '" placeholder="', '" name="', '"\n                  ', " ", ">", "</textarea>\n                " ]);
+var _templateObject4 = _taggedTemplateLiteral([ '\n                  <textarea type="textarea" class="form-control ', '" placeholder="', '" name="', '"\n                  ', ">", "</textarea>\n                " ], [ '\n                  <textarea type="textarea" class="form-control ', '" placeholder="', '" name="', '"\n                  ', ">", "</textarea>\n                " ]);
 
-var _templateObject5 = _taggedTemplateLiteral([ '\n                  <input type="', '" class="form-control ', '" placeholder="', '"\n                  value="', '" name="', '" ', " ", "/>\n                " ], [ '\n                  <input type="', '" class="form-control ', '" placeholder="', '"\n                  value="', '" name="', '" ', " ", "/>\n                " ]);
+var _templateObject5 = _taggedTemplateLiteral([ '\n                  <input type="', '" class="form-control ', '" placeholder="', '"\n                  value="', '" name="', '" ', "/>\n                " ], [ '\n                  <input type="', '" class="form-control ', '" placeholder="', '"\n                  value="', '" name="', '" ', "/>\n                " ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -97,15 +97,15 @@ var Inputs = function(_Lego$UI$Baseview) {
     _createClass(Inputs, [ {
         key: "render",
         value: function render() {
-            var options = this.options || {};
-            var vDom = hx(_templateObject), value = options.value ? Lego.UI.Util.unFilterTag(options.value.toString()) : "";
-            if (options.preAddon || options.nextAddon) {
-                vDom = hx(_templateObject2, options.size ? "input-group-" + options.size : "", options.preAddon ? hx(_templateObject3, options.preAddon) : "", options.type, options.placeholder, value !== 0 ? val(value) : value, options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", options.nextAddon ? hx(_templateObject3, options.nextAddon) : "");
+            var opts = this.options;
+            var vDom = hx(_templateObject), value = opts.value ? Lego.UI.Util.unFilterTag(opts.value.toString()) : "";
+            if (opts.preAddon || opts.nextAddon) {
+                vDom = hx(_templateObject2, opts.size ? "input-group-" + opts.size : "", opts.preAddon ? hx(_templateObject3, opts.preAddon) : "", opts.type, opts.placeholder, value !== 0 ? val(value) : value, opts.name, opts.disabled ? "disabled" : "", opts.nextAddon ? hx(_templateObject3, opts.nextAddon) : "");
             } else {
-                if (options.type == "textarea") {
-                    vDom = hx(_templateObject4, options.size ? "form-control-" + options.size : "", options.placeholder, options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "", val(value));
+                if (opts.type == "textarea") {
+                    vDom = hx(_templateObject4, opts.size ? "form-control-" + opts.size : "", opts.placeholder, opts.name, opts.disabled ? "disabled" : "", val(value));
                 } else {
-                    vDom = hx(_templateObject5, options.type, options.size ? "form-control-" + options.size : "", options.placeholder, val(options.value), options.name, options.disabled ? "disabled" : "", options.readonly ? "readonly" : "");
+                    vDom = hx(_templateObject5, opts.type, opts.size ? "form-control-" + opts.size : "", opts.placeholder, val(opts.value), opts.name, opts.disabled ? "disabled" : "");
                 }
             }
             return vDom;
@@ -113,13 +113,14 @@ var Inputs = function(_Lego$UI$Baseview) {
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var opts = this.options;
+            var opts = this.options, inputEl = opts.preAddon || opts.nextAddon ? this.$("input") : this.$el;
             if (opts.preAddon || opts.nextAddon) {
                 var onEnterFun = this.onEnter.bind(this);
                 var onChangeFun = this.onChange.bind(this);
-                this.$("input").keyup(onEnterFun);
-                this.$("input").change(onChangeFun);
+                inputEl.keyup(onEnterFun);
+                inputEl.change(onChangeFun);
             }
+            if (opts.readonly) inputEl.attr("readonly", "readonly");
         }
     }, {
         key: "filterStr",

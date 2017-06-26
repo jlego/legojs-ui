@@ -64,6 +64,7 @@
         -webkit-transition: opacity 0.3s ease;
         transition: opacity 0.3s ease;
         > td {
+            padding-left: 8px;
             position: relative;
             &.lego-table-selection{
                 text-align: center;

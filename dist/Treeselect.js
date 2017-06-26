@@ -1,5 +1,5 @@
 /**
- * treeselect.js v0.9.21
+ * treeselect.js v0.9.32
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -790,14 +790,14 @@ var Tree = function(_Lego$UI$Baseview) {
             function selectOrNo(treeNode) {
                 if (opts.disSelect) {
                     if (_typeof$2(opts.disSelect) == "object") {
-                        if (treeNode[Object.keys(opts.disSelect)[0]] == Object.values(opts.disSelect)[0]) return false;
+                        if (treeNode[Object.keys(opts.disSelect)[0]] == opts.disSelect[Object.keys(opts.disSelect)[0]]) return false;
                     } else {
                         if (Object.keys(treeNode).includes(opts.disSelect)) return false;
                     }
                 }
                 if (opts.onlySelect) {
                     if (_typeof$2(opts.onlySelect) == "object") {
-                        if (treeNode[Object.keys(opts.onlySelect)[0]] !== Object.values(opts.onlySelect)[0]) return false;
+                        if (treeNode[Object.keys(opts.onlySelect)[0]] !== opts.onlySelect[Object.keys(opts.onlySelect)[0]]) return false;
                     } else {
                         if (!Object.keys(treeNode).includes(opts.onlySelect)) return false;
                     }

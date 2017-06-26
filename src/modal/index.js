@@ -67,25 +67,25 @@ class Modal extends Lego.UI.Baseview {
         super(options);
     }
     render() {
-        const options = this.options || {};
-        const vDom = hx`
-        <div class="modal ${options.type == 'layer' ? 'right-modal' : ''}
-        ${options.msgType ? 'dialog-modal' : ''}
-        ${options.size ? ('modal-size-' + options.size) : ''}
-        ${options.isMiddle ? 'middle' : ''}" id="${options.el.replace(/#/, '')}">
+        let opts = this.options;
+        let vDom = hx`
+        <div class="modal ${opts.type == 'layer' ? 'right-modal' : ''}
+        ${opts.msgType ? 'dialog-modal' : ''}
+        ${opts.size ? ('modal-size-' + opts.size) : ''}
+        ${opts.isMiddle ? 'middle' : ''}" id="${opts.el.replace(/#/, '')}">
           <div class="modal-dialog">
             <div class="modal-content">
-              ${options.showHeader ? hx`<div class="modal-header">
-              ${options.closable ? hx`<button type="button" class="close"><span class="anticon anticon-close"></span></button>` : ''}
-                <h5 class="modal-title">${options.title}</h5>
+              ${opts.showHeader ? hx`<div class="modal-header">
+              ${opts.closable ? hx`<button type="button" class="close"><span class="anticon anticon-close"></span></button>` : ''}
+                <h5 class="modal-title">${opts.title}</h5>
               </div>` : ''}
-              <div class="modal-body ${!options.msgType && options.scrollAble ? 'scrollbar' : ''}" style="${!options.showHeader && options.type == 'layer' ? 'top:0;' : ''}
-              ${!options.showFooter && options.type == 'layer' ? 'bottom:0;' : ''}">
-                ${options.content}
+              <div class="modal-body ${!opts.msgType && opts.scrollAble ? 'scrollbar' : ''}" style="${!opts.showHeader && opts.type == 'layer' ? 'top:0;' : ''}
+              ${!opts.showFooter && opts.type == 'layer' ? 'bottom:0;' : ''}">
+                ${val(opts.content)}
               </div>
-              ${options.showFooter ? hx`<div class="modal-footer">
-              ${options.footer ? val(options.footer) : hx`<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">${options.cancelText}</button>
-                <button type="button" class="btn btn-primary ok">${options.okText}</button></div>`}
+              ${opts.showFooter ? hx`<div class="modal-footer">
+              ${opts.footer ? val(opts.footer) : hx`<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">${opts.cancelText}</button>
+                <button type="button" class="btn btn-primary ok">${opts.okText}</button></div>`}
               </div>` : ''}
             </div>
           </div>
@@ -94,7 +94,7 @@ class Modal extends Lego.UI.Baseview {
         return vDom;
     }
     renderAfter(){
-        const that = this,
+        let that = this,
             opts = this.options;
         this.$el.modal({
             backdrop: opts.type !== 'layer' ? opts.backdrop : false,
@@ -111,7 +111,7 @@ class Modal extends Lego.UI.Baseview {
     }
     // 关闭窗口
     close() {
-        const that = this;
+        let that = this;
         if (this.options.animateOut) {
             Lego.UI.Util.animateCss(that.$el, that.options.animateOut, () => {
                 that.$el.modal('hide');
@@ -126,7 +126,7 @@ class Modal extends Lego.UI.Baseview {
         this._onConfirm('onCancel', true);
     }
     _showDialog(){
-        const that = this;
+        let that = this;
         Lego.create(Modal, {
             msgType: this.options.confirm.msgType || 'warning',
             content: this.options.confirm.content || '',

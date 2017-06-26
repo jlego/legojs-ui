@@ -1,5 +1,5 @@
 .modal-backdrop {
-    z-index: 9998 !important;
+    z-index: 100 !important;
     background-color: #000;
     bottom: 0;
     position: fixed;
@@ -8,9 +8,9 @@
     }
 }
 .modal {
-    z-index: 9999 !important;
+    z-index: 1000 !important;
     .modal-dialog {
-        z-index: 9999 !important;
+        z-index: 1000 !important;
         .modal-content {
             border: none;
             box-shadow: 0 2px 10px rgba(0,0,0,.3);

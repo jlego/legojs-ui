@@ -1,5 +1,5 @@
 /**
- * modal.js v0.9.21
+ * modal.js v0.9.32
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -799,8 +799,8 @@ var Modal = function(_Lego$UI$Baseview) {
     _createClass(Modal, [ {
         key: "render",
         value: function render() {
-            var options = this.options || {};
-            var vDom = hx(_templateObject, options.type == "layer" ? "right-modal" : "", options.msgType ? "dialog-modal" : "", options.size ? "modal-size-" + options.size : "", options.isMiddle ? "middle" : "", options.el.replace(/#/, ""), options.showHeader ? hx(_templateObject2, options.closable ? hx(_templateObject3) : "", options.title) : "", !options.msgType && options.scrollAble ? "scrollbar" : "", !options.showHeader && options.type == "layer" ? "top:0;" : "", !options.showFooter && options.type == "layer" ? "bottom:0;" : "", options.content, options.showFooter ? hx(_templateObject4, options.footer ? val(options.footer) : hx(_templateObject5, options.cancelText, options.okText)) : "");
+            var opts = this.options;
+            var vDom = hx(_templateObject, opts.type == "layer" ? "right-modal" : "", opts.msgType ? "dialog-modal" : "", opts.size ? "modal-size-" + opts.size : "", opts.isMiddle ? "middle" : "", opts.el.replace(/#/, ""), opts.showHeader ? hx(_templateObject2, opts.closable ? hx(_templateObject3) : "", opts.title) : "", !opts.msgType && opts.scrollAble ? "scrollbar" : "", !opts.showHeader && opts.type == "layer" ? "top:0;" : "", !opts.showFooter && opts.type == "layer" ? "bottom:0;" : "", val(opts.content), opts.showFooter ? hx(_templateObject4, opts.footer ? val(opts.footer) : hx(_templateObject5, opts.cancelText, opts.okText)) : "");
             return vDom;
         }
     }, {
