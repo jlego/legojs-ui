@@ -1,5 +1,5 @@
 /**
- * selects.js v0.9.32
+ * selects.js v0.9.35
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -563,7 +563,7 @@ var Selects = function(_Lego$UI$Baseview) {
     _createClass(Selects, [ {
         key: "components",
         value: function components() {
-            var opts = this.options;
+            var opts = this.options, that = this;
             if (opts.data.length) {
                 this.addCom({
                     el: "#dropdown-" + opts.vid,
@@ -580,22 +580,21 @@ var Selects = function(_Lego$UI$Baseview) {
                     direction: opts.direction,
                     data: opts.data || [],
                     onChange: function onChange(self, model) {
-                        var that = this.context;
                         that.$(".select-input").focus();
                         if (model.key !== "0" && opts.multiple) {
-                            that.options.data.forEach(function(item) {
+                            opts.data.forEach(function(item, index) {
                                 if (item.key == "0") item.selected = false;
                             });
                             that.getValue();
-                            if (!that.options.value.includes(model)) {
+                            if (!opts.value.includes(model)) {
                                 model.selected = true;
-                                that.options.value.push(model);
+                                opts.value.push(model);
                             }
                         } else {
-                            that.options.data.forEach(function(item) {
-                                return item.selected = false;
+                            opts.data.forEach(function(item, index) {
+                                item.selected = false;
                             });
-                            that.options.value = [ model ];
+                            opts.value = [ model ];
                             that.refresh();
                         }
                         that.options.onChange(that, model);

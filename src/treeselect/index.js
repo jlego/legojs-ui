@@ -41,8 +41,9 @@ class Treeselect extends Selects {
         };
         Object.assign(options, opts);
         if (options.value) {
-            if (!Array.isArray(options.value)) options.value = [options.value];
-            options.value.forEach(item => {
+            let thevalue = typeof options.value == 'function' ? options.value() : options.value;
+            if (!Array.isArray(thevalue)) options.value = [thevalue];
+            options.value.forEach((item, index) => {
                 item.selected = true;
             });
         }
@@ -68,42 +69,43 @@ class Treeselect extends Selects {
             if(opts.treeChkStyle) treeSetting.check.chkStyle = opts.treeChkStyle;
         }
         if(opts.data.length){
+            if(!Array.isArray(opts.value)) opts.value = [opts.value];
             this.addCom({
                 el: '#tree_' + opts.vid,
                 disSelect: opts.disSelect, //禁止选择含有该属性节点, 可以是对象
                 onlySelect: opts.onlySelect, //只选择含有该属性节点, 可以是对象
                 setting: treeSetting,
-                value: opts.value || [],
+                value: Array.from(opts.value),
                 data: opts.data || [],
                 onChecked(self, result, treeNode) {
-                    const _that = this.context;
                     if (treeSetting.check) {
                         if (result.length) {
-                            that.options.value = [];
+                            opts.value = [];
                             result.forEach((val, index) => {
                                 if(val.key !== '0'){
                                     val.selected = true;
-                                    that.options.value.push(Object.assign({}, val));
+                                    opts.value.push(Object.assign({}, val));
                                 }
                             });
                         }else{
-                            that.options.value = [];
+                            opts.value = [];
                         }
                     }
-                    that.options.onChange(that, result);
+                    opts.onChange(that, result);
                     that.refresh();
                 },
                 onClick(self, result) {
-                    const that = this.context;
-                    that.options.value.forEach(item => item.selected = false);
-                    that.options.value = [Object.assign({
+                    opts.value.forEach((item, index) => {
+                        item.selected = false
+                    });
+                    opts.value = [Object.assign({
                         key: result.key,
                         value: result.value,
                         type: result.type,
                         selected: true
                     }, result)];
-                    that.options.onChange(that, result);
-                    if(that.options.clickAndClose) that.close();
+                    opts.onChange(that, result);
+                    if(opts.clickAndClose) that.close();
                 },
                 disabled: opts.disabled || false
             });

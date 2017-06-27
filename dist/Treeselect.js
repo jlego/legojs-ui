@@ -1,5 +1,5 @@
 /**
- * treeselect.js v0.9.32
+ * treeselect.js v0.9.35
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -565,7 +565,7 @@ var Selects = function(_Lego$UI$Baseview) {
     _createClass$1(Selects, [ {
         key: "components",
         value: function components() {
-            var opts = this.options;
+            var opts = this.options, that = this;
             if (opts.data.length) {
                 this.addCom({
                     el: "#dropdown-" + opts.vid,
@@ -582,22 +582,21 @@ var Selects = function(_Lego$UI$Baseview) {
                     direction: opts.direction,
                     data: opts.data || [],
                     onChange: function onChange(self, model) {
-                        var that = this.context;
                         that.$(".select-input").focus();
                         if (model.key !== "0" && opts.multiple) {
-                            that.options.data.forEach(function(item) {
+                            opts.data.forEach(function(item, index) {
                                 if (item.key == "0") item.selected = false;
                             });
                             that.getValue();
-                            if (!that.options.value.includes(model)) {
+                            if (!opts.value.includes(model)) {
                                 model.selected = true;
-                                that.options.value.push(model);
+                                opts.value.push(model);
                             }
                         } else {
-                            that.options.data.forEach(function(item) {
-                                return item.selected = false;
+                            opts.data.forEach(function(item, index) {
+                                item.selected = false;
                             });
-                            that.options.value = [ model ];
+                            opts.value = [ model ];
                             that.refresh();
                         }
                         that.options.onChange(that, model);
@@ -997,8 +996,9 @@ var Treeselect = function(_Selects) {
         };
         Object.assign(options, opts);
         if (options.value) {
-            if (!Array.isArray(options.value)) options.value = [ options.value ];
-            options.value.forEach(function(item) {
+            var thevalue = typeof options.value == "function" ? options.value() : options.value;
+            if (!Array.isArray(thevalue)) options.value = [ thevalue ];
+            options.value.forEach(function(item, index) {
                 item.selected = true;
             });
         }
@@ -1028,44 +1028,43 @@ var Treeselect = function(_Selects) {
                 if (opts.treeChkStyle) treeSetting.check.chkStyle = opts.treeChkStyle;
             }
             if (opts.data.length) {
+                if (!Array.isArray(opts.value)) opts.value = [ opts.value ];
                 this.addCom({
                     el: "#tree_" + opts.vid,
                     disSelect: opts.disSelect,
                     onlySelect: opts.onlySelect,
                     setting: treeSetting,
-                    value: opts.value || [],
+                    value: Array.from(opts.value),
                     data: opts.data || [],
                     onChecked: function onChecked(self, result, treeNode) {
-                        var _that = this.context;
                         if (treeSetting.check) {
                             if (result.length) {
-                                that.options.value = [];
+                                opts.value = [];
                                 result.forEach(function(val, index) {
                                     if (val.key !== "0") {
                                         val.selected = true;
-                                        that.options.value.push(Object.assign({}, val));
+                                        opts.value.push(Object.assign({}, val));
                                     }
                                 });
                             } else {
-                                that.options.value = [];
+                                opts.value = [];
                             }
                         }
-                        that.options.onChange(that, result);
+                        opts.onChange(that, result);
                         that.refresh();
                     },
                     onClick: function onClick(self, result) {
-                        var that = this.context;
-                        that.options.value.forEach(function(item) {
-                            return item.selected = false;
+                        opts.value.forEach(function(item, index) {
+                            item.selected = false;
                         });
-                        that.options.value = [ Object.assign({
+                        opts.value = [ Object.assign({
                             key: result.key,
                             value: result.value,
                             type: result.type,
                             selected: true
                         }, result) ];
-                        that.options.onChange(that, result);
-                        if (that.options.clickAndClose) that.close();
+                        opts.onChange(that, result);
+                        if (opts.clickAndClose) that.close();
                     },
                     disabled: opts.disabled || false
                 });
