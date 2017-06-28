@@ -1,5 +1,5 @@
 /**
- * reply.js v0.9.35
+ * reply.js v0.9.40
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -1708,20 +1708,22 @@ var Upload = function(_Lego$UI$Baseview) {
             _this.uploadInit(target.files, target);
         });
         var opt = _this.options;
-        if (opt.value.length) {
-            _this.options.value = opt.value.map(function(file) {
-                return {
-                    el: ".lego-upload-container",
-                    readonly: opt.readonly,
-                    percent: 100,
-                    showZoom: opt.showZoom,
-                    type: opt.type,
-                    file: file
-                };
-            });
-            _this.options.value.forEach(function(item, index) {
-                _this.showItem(item);
-            });
+        if (opt.showUploadList) {
+            if (opt.value.length) {
+                opt.value = opt.value.map(function(file) {
+                    return {
+                        el: ".lego-upload-container",
+                        readonly: opt.readonly,
+                        percent: 100,
+                        showZoom: opt.showZoom,
+                        type: opt.type,
+                        file: file
+                    };
+                });
+                opt.value.forEach(function(item, index) {
+                    _this.showItem(item);
+                });
+            }
         }
         return _this;
     }
@@ -1733,6 +1735,18 @@ var Upload = function(_Lego$UI$Baseview) {
             if (height) height = "height:" + (typeof height == "string" ? height : height + "px") + ";";
             var vDom = hx(_templateObject$2, val(opts.type), val(opts.type), width ? width : "", height ? height : "", !opts.readonly && opts.type == "file" ? hx(_templateObject2$2, opts.disabled ? "disabled" : "", opts.buttonIcon ? opts.buttonIcon : hx(_templateObject3$2), val(opts.buttonText)) : "", this.getValue().join(","), val(opts.name), val(opts.accept.join(",")), opts.showUploadList && opts.type == "file" ? hx(_templateObject4$2) : "", opts.type !== "file" ? hx(_templateObject5$1, val(opts.type), val(opts.type)) : "");
             return opts.template ? opts.template : vDom;
+        }
+    }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            var opts = this.options;
+            if (opts.showUploadList && !opts.value.length) {
+                if (opts.type == "photos") {
+                    this.$(".lego-upload-photo-item").remove();
+                } else {
+                    this.$(".lego-upload-container").html("");
+                }
+            }
         }
     }, {
         key: "uploadInit",
@@ -1907,6 +1921,7 @@ var Upload = function(_Lego$UI$Baseview) {
         value: function reset() {
             this.fileList = [];
             this.options.value = [];
+            this.refresh();
             return this;
         }
     } ]);

@@ -63,24 +63,26 @@ class Upload extends Lego.UI.Baseview {
         super(options);
         this.fileList = [];
         this.$('.lego-fileInput').on('change', (event) => {
-            var target = $(event.currentTarget)[0];
+            let target = $(event.currentTarget)[0];
             this.uploadInit(target.files, target);
         });
         let opt = this.options;
-        if(opt.value.length){
-            this.options.value = opt.value.map(file => {
-                return {
-                    el: '.lego-upload-container',
-                    readonly: opt.readonly,
-                    percent: 100,
-                    showZoom: opt.showZoom,
-                    type: opt.type,
-                    file: file
-                };
-            });
-            this.options.value.forEach((item, index) => {
-                this.showItem(item);
-            });
+        if(opt.showUploadList){
+            if(opt.value.length){
+                opt.value = opt.value.map(file => {
+                    return {
+                        el: '.lego-upload-container',
+                        readonly: opt.readonly,
+                        percent: 100,
+                        showZoom: opt.showZoom,
+                        type: opt.type,
+                        file: file
+                    };
+                });
+                opt.value.forEach((item, index) => {
+                    this.showItem(item);
+                });
+            }
         }
     }
     render() {
@@ -113,6 +115,16 @@ class Upload extends Lego.UI.Baseview {
         </div>
         `;
         return opts.template ? opts.template : vDom;
+    }
+    renderAfter(){
+        let opts = this.options;
+        if(opts.showUploadList && !opts.value.length){
+            if(opts.type == 'photos') {
+                this.$('.lego-upload-photo-item').remove();
+            }else{
+                this.$('.lego-upload-container').html('');
+            }
+        }
     }
     uploadInit(files, fileInput) {
         let uploadFiles = [];
@@ -264,6 +276,7 @@ class Upload extends Lego.UI.Baseview {
     reset(){
         this.fileList = [];   //已经添加了的文件列表
         this.options.value = [];
+        this.refresh();
         return this;
     }
 }

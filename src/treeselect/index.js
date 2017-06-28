@@ -26,7 +26,6 @@ class Treeselect extends Selects {
             notFoundContent: '', //当下拉列表为空时显示的内容
             dropdownWidth: '100%', //下拉菜单和选择器同宽
             dropdownHeight: 'auto', //下拉菜单高度
-            combobox: false, //输入框自动提示模式
             treeSetting: {},
             treeChkStyle: '',  //checkbox或radio
             size: '', //支持多选

@@ -1,5 +1,5 @@
 /**
- * tabs.js v0.9.35
+ * tabs.js v0.9.40
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -597,16 +597,17 @@ var Navs = function(_Lego$UI$Baseview) {
             if (this.options.accordion) {
                 this.closeDropdown(this.$(".nav-item.open .dropdown-menu"));
             }
-            this.closeDropdown(dropdownEl);
-            dropdownEl.slideToggle("fast", function() {
-                if ($(this).css("display") == "none") {
-                    $(this).parent().removeClass("open");
-                } else {
-                    $(this).parent().addClass("open");
-                }
-            });
-            this.clickItem(event);
-            this.$(".dropdown-menu a").removeClass("active");
+            if (!targetEl.parent().hasClass("open")) {
+                dropdownEl.slideToggle("fast", function() {
+                    if ($(this).css("display") == "none") {
+                        $(this).parent().removeClass("open");
+                    } else {
+                        $(this).parent().addClass("open");
+                    }
+                });
+                this.clickItem(event);
+                this.$(".dropdown-menu a").removeClass("active");
+            }
         }
     }, {
         key: "clickItem",

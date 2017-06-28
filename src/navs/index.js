@@ -98,17 +98,18 @@ class Navs extends Lego.UI.Baseview {
         if(this.options.accordion){
             this.closeDropdown(this.$('.nav-item.open .dropdown-menu'));
         }
-        this.closeDropdown(dropdownEl);
-        dropdownEl.slideToggle('fast', function(){
-            if($(this).css('display') == 'none'){
-                $(this).parent().removeClass('open');
-            }else{
-                $(this).parent().addClass('open');
-            }
-        });
-        this.clickItem(event);
-        this.$('.dropdown-menu a').removeClass('active');
-        // }
+        if(!targetEl.parent().hasClass('open')){
+            // this.closeDropdown(dropdownEl);
+            dropdownEl.slideToggle('fast', function(){
+                if($(this).css('display') == 'none'){
+                    $(this).parent().removeClass('open');
+                }else{
+                    $(this).parent().addClass('open');
+                }
+            });
+            this.clickItem(event);
+            this.$('.dropdown-menu a').removeClass('active');
+        }
     }
     clickItem(event, target) {
         event.stopPropagation();

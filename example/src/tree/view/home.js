@@ -225,6 +225,7 @@ class HomeView extends Lego.UI.Baseview {
                 },
                 showSearch: true,
                 dropdownHeight: 100,
+                value: [{key: 'tree1_1', value: 'test1_1'}],
                 data: [{
                     id: 'tree1',
                     name: "test1",
