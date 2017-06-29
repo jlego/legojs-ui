@@ -103,12 +103,10 @@ class Selects extends Lego.UI.Baseview {
                 return '';
             }
         }
-        let theValueArr, realValueArr;
-        if(Array.isArray(opts.value)){
-            theValueArr = opts.value.length ? opts.value.map(item => item.value) : [];
-            realValueArr = opts.value.length ? opts.value.map(item => item[opts.fieldName]) : [];
-        }else{
-            theValueArr = realValueArr = [typeof opts.value == 'object' ? opts.value.value : opts.value];
+        let theValueArr = [], realValueArr = [];
+        if(opts.value.length){
+            theValueArr = opts.value.map(item => item.value);
+            realValueArr = opts.value.map(item => item[opts.fieldName]);
         }
         if(!opts.multiple){
             vDom = hx`

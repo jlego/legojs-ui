@@ -1,5 +1,5 @@
 /**
- * selects.js v0.9.40
+ * selects.js v0.9.47
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -449,12 +449,6 @@ var Dropdown = function(_Lego$UI$Baseview) {
 
 Lego.components("dropdown", Dropdown);
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
-    return typeof obj;
-} : function(obj) {
-    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-};
-
 var _createClass = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
@@ -616,16 +610,14 @@ var Selects = function(_Lego$UI$Baseview) {
                     return "";
                 }
             }
-            var theValueArr = void 0, realValueArr = void 0;
-            if (Array.isArray(opts.value)) {
-                theValueArr = opts.value.length ? opts.value.map(function(item) {
+            var theValueArr = [], realValueArr = [];
+            if (opts.value.length) {
+                theValueArr = opts.value.map(function(item) {
                     return item.value;
-                }) : [];
-                realValueArr = opts.value.length ? opts.value.map(function(item) {
+                });
+                realValueArr = opts.value.map(function(item) {
                     return item[opts.fieldName];
-                }) : [];
-            } else {
-                theValueArr = realValueArr = [ _typeof(opts.value) == "object" ? opts.value.value : opts.value ];
+                });
             }
             if (!opts.multiple) {
                 vDom = hx(_templateObject3, opts.size, opts.vid, opts.size ? "form-control-" + opts.size : "", opts.disabled ? "disabled" : "", opts.placeholder, theValueArr.join(","), opts.name, opts.name, realValueArr.join(","), opts.vid);

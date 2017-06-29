@@ -119,7 +119,7 @@ class Upload extends Lego.UI.Baseview {
     renderAfter(){
         let opts = this.options;
         if(opts.showUploadList && !opts.value.length){
-            if(opts.type == 'photos') {
+            if(opts.type !== 'file') {
                 this.$('.lego-upload-photo-item').remove();
             }else{
                 this.$('.lego-upload-container').html('');

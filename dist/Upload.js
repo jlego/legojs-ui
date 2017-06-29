@@ -1,5 +1,5 @@
 /**
- * upload.js v0.9.40
+ * upload.js v0.9.47
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -638,7 +638,7 @@ var Upload = function(_Lego$UI$Baseview) {
         value: function renderAfter() {
             var opts = this.options;
             if (opts.showUploadList && !opts.value.length) {
-                if (opts.type == "photos") {
+                if (opts.type !== "file") {
                     this.$(".lego-upload-photo-item").remove();
                 } else {
                     this.$(".lego-upload-container").html("");

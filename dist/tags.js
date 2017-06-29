@@ -1,5 +1,5 @@
 /**
- * tags.js v0.9.40
+ * tags.js v0.9.47
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -163,6 +163,7 @@ var Tags = function(_Lego$UI$Baseview) {
             });
             if (!hasOne) {
                 opts.data.push(obj);
+                this.refresh();
             }
         }
     }, {

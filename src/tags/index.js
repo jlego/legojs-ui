@@ -111,6 +111,7 @@ class Tags extends Lego.UI.Baseview {
         let hasOne = opts.data.find(item => item.key == obj.key);
         if(!hasOne){
             opts.data.push(obj);
+            this.refresh();
         }
     }
     removeItem(id){

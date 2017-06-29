@@ -4,10 +4,9 @@
  * 2017/1/10
  */
 import './asset/index.scss';
-import Selects from '../selects/index';
 import Tree from '../tree/index';
 
-class Treeselect extends Selects {
+class Treeselect extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             name: '',
@@ -39,13 +38,8 @@ class Treeselect extends Selects {
             onSearch() {}, //文本框值变化时回调
         };
         Object.assign(options, opts);
-        if (options.value) {
-            let thevalue = typeof options.value == 'function' ? options.value() : options.value;
-            if (!Array.isArray(thevalue)) options.value = [thevalue];
-            options.value.forEach((item, index) => {
-                item.selected = true;
-            });
-        }
+        options.value = val(options.value);
+        if(!Array.isArray(options.value)) options.value = [options.value];
         super(options);
     }
     components(){
@@ -67,8 +61,12 @@ class Treeselect extends Selects {
             }, opts.treeSetting);
             if(opts.treeChkStyle) treeSetting.check.chkStyle = opts.treeChkStyle;
         }
+        if (opts.value.length) {
+            opts.value.forEach((item, index) => {
+                item.selected = true;
+            });
+        }
         if(opts.data.length){
-            if(!Array.isArray(opts.value)) opts.value = [opts.value];
             this.addCom({
                 el: '#tree_' + opts.vid,
                 disSelect: opts.disSelect, //禁止选择含有该属性节点, 可以是对象
@@ -93,7 +91,7 @@ class Treeselect extends Selects {
                     opts.onChange(that, result);
                     that.refresh();
                 },
-                onClick(self, result) {
+                onClick(self, result = {}) {
                     opts.value.forEach((item, index) => {
                         item.selected = false
                     });
@@ -148,12 +146,10 @@ class Treeselect extends Selects {
                 return '';
             }
         }
-        let theValueArr, realValueArr;
-        if(Array.isArray(opts.value)){
-            theValueArr = opts.value.length ? opts.value.map(item => item.value) : [];
-            realValueArr = opts.value.length ? opts.value.map(item => item[opts.fieldName]) : [];
-        }else{
-            theValueArr = realValueArr = [typeof opts.value == 'object' ? opts.value.value : opts.value];
+        let theValueArr = [], realValueArr = [];
+        if(opts.value.length){
+            theValueArr = opts.value.map(item => item.value);
+            realValueArr = opts.value.map(item => item[opts.fieldName]);
         }
         if(!opts.multiple){
             vDom = hx`
@@ -175,7 +171,7 @@ class Treeselect extends Selects {
             vDom = hx`
             <div class="select dropdown treeselect multiple">
                 <div id="select-${opts.vid}">
-                    <input type="text" class="form-control select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${theValueArr.length ? '' : opts.placeholder}" value="${theValueArr.join(',')}" name="hidden_${opts.name}">
+                    <input type="text" class="form-control select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${opts.placeholder}" value="${theValueArr.join(',')}" name="hidden_${opts.name}">
                     <input type="hidden" name="${opts.name}" value="${realValueArr.join(',')}">
                     <div class="select-tags-div clearfix ${theValueArr.length ? 'select-tags-div-border' : ''}">
                         ${getTags(opts.value)}
@@ -202,7 +198,11 @@ class Treeselect extends Selects {
         if(!opts.inputAble) this.$('.select-input').attr('readonly', 'readonly');
         if(!opts.disabled){
             function handler(event){
-                that.$('.dropdown-menu').slideToggle('fast');
+                if(that.$('.dropdown-menu').css('display') == 'none'){
+                    that.show();
+                }else{
+                    that.close();
+                }
             }
             if(opts.eventName == 'click'){
                 $('body, .modal-body').off(_eventName).on(_eventName, function(event){
@@ -234,6 +234,9 @@ class Treeselect extends Selects {
         }
     }
     show(event){
+        let opts = this.options;
+        this.container = this.container || opts.context.$('#select-' + opts.vid);
+        Lego.UI.Util.getDirection(this.container, this.$('.dropdown-menu'));
         this.$('.dropdown-menu').slideDown('fast');
     }
     close(event){
