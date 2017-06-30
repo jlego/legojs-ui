@@ -1,5 +1,5 @@
 /**
- * tags.js v0.9.47
+ * tags.js v0.9.52
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -22,7 +22,7 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-tags">\n            <div class="lego-tags-list">\n                <div class="', '">\n                ', "\n                ", '\n                </div>\n            </div>\n            <div class="lego-tags-btns">\n            ', "\n            ", "\n            </div>\n        </div>\n        " ], [ '\n        <div class="lego-tags">\n            <div class="lego-tags-list">\n                <div class="', '">\n                ', "\n                ", '\n                </div>\n            </div>\n            <div class="lego-tags-btns">\n            ', "\n            ", "\n            </div>\n        </div>\n        " ]);
+var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-tags">\n            <div class="lego-tags-list">\n                <div class="', '">\n                ', "\n                ", "\n                </div>\n            </div>\n            ", "\n        </div>\n        " ], [ '\n        <div class="lego-tags">\n            <div class="lego-tags-list">\n                <div class="', '">\n                ', "\n                ", "\n                </div>\n            </div>\n            ", "\n        </div>\n        " ]);
 
 var _templateObject2 = _taggedTemplateLiteral([ '\n                    <div class="lego-tag ', '" id="', '" title="', '" onclick=', '>\n                        <div class="lego-tag-text">\n                            <span>', "</span>\n                            ", "\n                        </div>\n                    </div>\n                " ], [ '\n                    <div class="lego-tag ', '" id="', '" title="', '" onclick=', '>\n                        <div class="lego-tag-text">\n                            <span>', "</span>\n                            ", "\n                        </div>\n                    </div>\n                " ]);
 
@@ -30,9 +30,11 @@ var _templateObject3 = _taggedTemplateLiteral([ '<i title="移除" class="antico
 
 var _templateObject4 = _taggedTemplateLiteral([ '<buttons id="add_', '"></buttons>' ], [ '<buttons id="add_', '"></buttons>' ]);
 
-var _templateObject5 = _taggedTemplateLiteral([ '<i class="anticon anticon-down-circle-o btn-more" id="more_', '"></i>' ], [ '<i class="anticon anticon-down-circle-o btn-more" id="more_', '"></i>' ]);
+var _templateObject5 = _taggedTemplateLiteral([ '\n            <div class="lego-tags-btns">\n            ', "\n            ", "\n            </div>\n            " ], [ '\n            <div class="lego-tags-btns">\n            ', "\n            ", "\n            </div>\n            " ]);
 
-var _templateObject6 = _taggedTemplateLiteral([ '<buttons id="clean_', '"></buttons>' ], [ '<buttons id="clean_', '"></buttons>' ]);
+var _templateObject6 = _taggedTemplateLiteral([ '<i class="anticon anticon-down-circle-o btn-more" id="more_', '"></i>' ], [ '<i class="anticon anticon-down-circle-o btn-more" id="more_', '"></i>' ]);
+
+var _templateObject7 = _taggedTemplateLiteral([ '<buttons id="clean_', '"></buttons>' ], [ '<buttons id="clean_', '"></buttons>' ]);
 
 function _taggedTemplateLiteral(strings, raw) {
     return Object.freeze(Object.defineProperties(strings, {
@@ -137,7 +139,7 @@ var Tags = function(_Lego$UI$Baseview) {
             var opts = this.options;
             this.vDom = hx(_templateObject, opts.showMoreBtn ? "lego-tags-" + (opts.open ? "open" : "close") : "", opts.data.map(function(item) {
                 return hx(_templateObject2, item.selected ? "lego-tag-" + item.selected : "", item.key, item.value, _this2.onSelected.bind(_this2), item.value, opts.deleteAble ? hx(_templateObject3, _this2.onDelete.bind(_this2)) : "");
-            }), !opts.readonly && opts.showAddBtn ? hx(_templateObject4, opts.vid) : "", opts.showMoreBtn ? opts.moreBtnText ? val(opts.moreBtnText) : hx(_templateObject5, opts.vid) : "", !opts.readonly && opts.showCleanBtn ? hx(_templateObject6, opts.vid) : "");
+            }), !opts.readonly && opts.showAddBtn ? hx(_templateObject4, opts.vid) : "", opts.showMoreBtn || !opts.readonly && opts.showCleanBtn ? hx(_templateObject5, opts.showMoreBtn ? opts.moreBtnText ? val(opts.moreBtnText) : hx(_templateObject6, opts.vid) : "", !opts.readonly && opts.showCleanBtn ? hx(_templateObject7, opts.vid) : "") : "");
             return this.vDom;
         }
     }, {

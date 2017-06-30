@@ -6,6 +6,7 @@
 import validate from 'jquery-validation-cjs';
 $.fn.validate = validate;
 import './asset/index.scss';
+
 export let regObj = {
     mobile: /^1(3[0-9]|4[57]|5[0-35-9]|7[0135678]|8[0-9])\d{8}$/,
     email: /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g,

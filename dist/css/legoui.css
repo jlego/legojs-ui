@@ -11637,6 +11637,11 @@ form legend {
   margin-bottom: 15px;
   padding-top: 20px; }
 
+form .form-group.row > div {
+  line-height: 35px; }
+  form .form-group.row > div > * {
+    line-height: 1.25; }
+
 form button[type="submit"] {
   margin-right: 10px; }
 .lego-facial > i {
@@ -12711,15 +12716,11 @@ form button[type="submit"] {
     .lego-switch > span.sm {
       width: 40px;
       height: 20px;
-      margin-top: 7px;
       border-radius: 10px;
       line-height: 20px; }
       .lego-switch > span.sm .slider {
         width: 18px;
         height: 18px; }
-
-.form-group > div > .lego-switch .sm {
-  margin-top: 7px; }
 .lego-slider {
   display: inline-block;
   vertical-align: middle; }
@@ -12778,9 +12779,6 @@ form button[type="submit"] {
     background-color: #999; }
   .lego-slider .slider.slider-disabled .slider-handle {
     border: 2px solid #999; }
-
-.form-group > div > .lego-slider {
-  margin-top: 12px; }
 .lego-tabs .dropdown-menu {
   min-width: 160px; }
 .lego-table {

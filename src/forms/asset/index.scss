@@ -1,9 +1,19 @@
-form legend{
-	font-size: 16px;
-    color: #333;
-    margin-bottom: 15px;
-    padding-top: 20px;
-}
-form button[type="submit"]{
-	margin-right: 10px;
+form{
+	legend{
+		font-size: 16px;
+	    color: #333;
+	    margin-bottom: 15px;
+	    padding-top: 20px;
+	}
+	.form-group.row{
+		> div{
+			line-height: 35px;
+			> *{
+				line-height: 1.25;
+			}
+		}
+	}
+	button[type="submit"]{
+		margin-right: 10px;
+	}
 }

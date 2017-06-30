@@ -83,10 +83,12 @@ class Tags extends Lego.UI.Baseview {
                 ${!opts.readonly && opts.showAddBtn ? hx`<buttons id="add_${opts.vid}"></buttons>` : ''}
                 </div>
             </div>
+            ${opts.showMoreBtn || (!opts.readonly && opts.showCleanBtn) ? hx`
             <div class="lego-tags-btns">
             ${opts.showMoreBtn ? (opts.moreBtnText ? val(opts.moreBtnText) : hx`<i class="anticon anticon-down-circle-o btn-more" id="more_${opts.vid}"></i>`) : ''}
             ${!opts.readonly && opts.showCleanBtn ? hx`<buttons id="clean_${opts.vid}"></buttons>` : ''}
             </div>
+            ` : ''}
         </div>
         `;
         return this.vDom;
