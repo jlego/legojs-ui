@@ -1,5 +1,5 @@
 /**
- * tree.js v0.9.52
+ * tree.js v0.9.54
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -13,7 +13,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
 
-var _createClass = function() {
+var classCallCheck = function(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+};
+
+var createClass = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -30,30 +36,28 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '<ul class="lego-tree"></ul>' ], [ '<ul class="lego-tree"></ul>' ]);
-
-function _taggedTemplateLiteral(strings, raw) {
-    return Object.freeze(Object.defineProperties(strings, {
-        raw: {
-            value: Object.freeze(raw)
+var get = function get(object, property, receiver) {
+    if (object === null) object = Function.prototype;
+    var desc = Object.getOwnPropertyDescriptor(object, property);
+    if (desc === undefined) {
+        var parent = Object.getPrototypeOf(object);
+        if (parent === null) {
+            return undefined;
+        } else {
+            return get(parent, property, receiver);
         }
-    }));
-}
-
-function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
+    } else if ("value" in desc) {
+        return desc.value;
+    } else {
+        var getter = desc.get;
+        if (getter === undefined) {
+            return undefined;
+        }
+        return getter.call(receiver);
     }
-}
+};
 
-function _possibleConstructorReturn(self, call) {
-    if (!self) {
-        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-    return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
+var inherits = function(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -66,13 +70,48 @@ function _inherits(subClass, superClass) {
         }
     });
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+};
+
+var possibleConstructorReturn = function(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+};
+
+var set = function set(object, property, value, receiver) {
+    var desc = Object.getOwnPropertyDescriptor(object, property);
+    if (desc === undefined) {
+        var parent = Object.getPrototypeOf(object);
+        if (parent !== null) {
+            set(parent, property, value, receiver);
+        }
+    } else if ("value" in desc && desc.writable) {
+        desc.value = value;
+    } else {
+        var setter = desc.set;
+        if (setter !== undefined) {
+            setter.call(receiver, value);
+        }
+    }
+    return value;
+};
+
+var taggedTemplateLiteral = function(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+};
+
+var _templateObject = taggedTemplateLiteral([ '<ul class="lego-tree"></ul>' ], [ '<ul class="lego-tree"></ul>' ]);
 
 var Tree = function(_Lego$UI$Baseview) {
-    _inherits(Tree, _Lego$UI$Baseview);
+    inherits(Tree, _Lego$UI$Baseview);
     function Tree() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck(this, Tree);
+        classCallCheck(this, Tree);
         var options = {
             disSelect: "",
             onlySelect: "",
@@ -83,9 +122,9 @@ var Tree = function(_Lego$UI$Baseview) {
             onClick: function onClick() {}
         };
         $.extend(true, options, opts);
-        return _possibleConstructorReturn(this, (Tree.__proto__ || Object.getPrototypeOf(Tree)).call(this, options));
+        return possibleConstructorReturn(this, (Tree.__proto__ || Object.getPrototypeOf(Tree)).call(this, options));
     }
-    _createClass(Tree, [ {
+    createClass(Tree, [ {
         key: "components",
         value: function components() {
             var opts = this.options, that = this;

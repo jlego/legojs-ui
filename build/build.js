@@ -184,6 +184,7 @@ function genConfig(opts) {
             // }),
             babel({
                 exclude: 'node_modules/**',
+                presets: [ "es2015-rollup" ]
             }),
             // buble(),
             uglify({

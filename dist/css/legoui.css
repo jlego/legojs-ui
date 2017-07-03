@@ -13382,12 +13382,13 @@ ul.lego-tree.zTreeDragUL {
       height: 26px; }
     .lego-tags .lego-tags-list .lego-tags-open {
       position: absolute;
+      z-index: 100;
       top: 0;
       left: 0;
       right: 0;
       height: auto;
       background-color: #fff;
-      padding: 5px;
+      padding: 0 5px 5px 0;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
   .lego-tags .lego-tags-btns {
     display: inline-table;

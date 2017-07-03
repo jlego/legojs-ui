@@ -1,5 +1,5 @@
 /**
- * popover.js v0.9.52
+ * popover.js v0.9.54
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -119,13 +119,19 @@ var Util = function($) {
     return Util;
 }(jQuery);
 
-var _typeof$1 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
     return typeof obj;
 } : function(obj) {
     return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
 
-var _createClass$1 = function() {
+var classCallCheck = function(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+};
+
+var createClass = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -142,11 +148,66 @@ var _createClass$1 = function() {
     };
 }();
 
-function _classCallCheck$1(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
+var get$1 = function get$1(object, property, receiver) {
+    if (object === null) object = Function.prototype;
+    var desc = Object.getOwnPropertyDescriptor(object, property);
+    if (desc === undefined) {
+        var parent = Object.getPrototypeOf(object);
+        if (parent === null) {
+            return undefined;
+        } else {
+            return get$1(parent, property, receiver);
+        }
+    } else if ("value" in desc) {
+        return desc.value;
+    } else {
+        var getter = desc.get;
+        if (getter === undefined) {
+            return undefined;
+        }
+        return getter.call(receiver);
     }
-}
+};
+
+var inherits = function(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+};
+
+var possibleConstructorReturn = function(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+};
+
+var set = function set(object, property, value, receiver) {
+    var desc = Object.getOwnPropertyDescriptor(object, property);
+    if (desc === undefined) {
+        var parent = Object.getPrototypeOf(object);
+        if (parent !== null) {
+            set(parent, property, value, receiver);
+        }
+    } else if ("value" in desc && desc.writable) {
+        desc.value = value;
+    } else {
+        var setter = desc.set;
+        if (setter !== undefined) {
+            setter.call(receiver, value);
+        }
+    }
+    return value;
+};
 
 window.Tether = Tether;
 
@@ -227,7 +288,7 @@ var Tooltip = function($) {
     };
     var Tooltip = function() {
         function Tooltip(element, config) {
-            _classCallCheck$1(this, Tooltip);
+            classCallCheck(this, Tooltip);
             this._isEnabled = true;
             this._timeout = 0;
             this._hoverState = "";
@@ -238,7 +299,7 @@ var Tooltip = function($) {
             this.tip = null;
             this._setListeners();
         }
-        _createClass$1(Tooltip, [ {
+        createClass(Tooltip, [ {
             key: "enable",
             value: function enable() {
                 this._isEnabled = true;
@@ -398,7 +459,7 @@ var Tooltip = function($) {
             key: "setElementContent",
             value: function setElementContent($element, content) {
                 var html = this.config.html;
-                if ((typeof content === "undefined" ? "undefined" : _typeof$1(content)) === "object" && (content.nodeType || content.jquery)) {
+                if ((typeof content === "undefined" ? "undefined" : _typeof(content)) === "object" && (content.nodeType || content.jquery)) {
                     if (html) {
                         if (!$(content).parent().is($element)) {
                             $element.empty().append(content);
@@ -457,7 +518,7 @@ var Tooltip = function($) {
         }, {
             key: "_fixTitle",
             value: function _fixTitle() {
-                var titleType = _typeof$1(this.element.getAttribute("data-original-title"));
+                var titleType = _typeof(this.element.getAttribute("data-original-title"));
                 if (this.element.getAttribute("title") || titleType !== "string") {
                     this.element.setAttribute("data-original-title", this.element.getAttribute("title") || "");
                     this.element.setAttribute("title", "");
@@ -559,7 +620,7 @@ var Tooltip = function($) {
             value: function _jQueryInterface(config) {
                 return this.each(function() {
                     var data = $(this).data(DATA_KEY);
-                    var _config = (typeof config === "undefined" ? "undefined" : _typeof$1(config)) === "object" ? config : null;
+                    var _config = (typeof config === "undefined" ? "undefined" : _typeof(config)) === "object" ? config : null;
                     if (!data && /dispose|hide/.test(config)) {
                         return;
                     }
@@ -622,57 +683,6 @@ var Tooltip = function($) {
     return Tooltip;
 }(jQuery);
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
-    return typeof obj;
-} : function(obj) {
-    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-};
-
-var _createClass = function() {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];
-            descriptor.enumerable = descriptor.enumerable || false;
-            descriptor.configurable = true;
-            if ("value" in descriptor) descriptor.writable = true;
-            Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }
-    return function(Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);
-        if (staticProps) defineProperties(Constructor, staticProps);
-        return Constructor;
-    };
-}();
-
-function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-    }
-}
-
-function _possibleConstructorReturn(self, call) {
-    if (!self) {
-        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-    return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-    }
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
-        constructor: {
-            value: subClass,
-            enumerable: false,
-            writable: true,
-            configurable: true
-        }
-    });
-    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
 var Popover$1 = function($) {
     var NAME = "popover";
     var VERSION = "4.0.0-alpha.5";
@@ -709,12 +719,12 @@ var Popover$1 = function($) {
         MOUSELEAVE: "mouseleave" + EVENT_KEY
     };
     var Popover = function(_Tooltip) {
-        _inherits(Popover, _Tooltip);
+        inherits(Popover, _Tooltip);
         function Popover() {
-            _classCallCheck(this, Popover);
-            return _possibleConstructorReturn(this, (Popover.__proto__ || Object.getPrototypeOf(Popover)).apply(this, arguments));
+            classCallCheck(this, Popover);
+            return possibleConstructorReturn(this, (Popover.__proto__ || Object.getPrototypeOf(Popover)).apply(this, arguments));
         }
-        _createClass(Popover, [ {
+        createClass(Popover, [ {
             key: "isWithContent",
             value: function isWithContent() {
                 return this.getTitle() || this._getContent();

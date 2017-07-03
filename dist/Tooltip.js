@@ -1,5 +1,5 @@
 /**
- * tooltip.js v0.9.52
+ * tooltip.js v0.9.54
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -125,7 +125,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
 
-var _createClass$1 = function() {
+var classCallCheck = function(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+};
+
+var createClass = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -142,11 +148,44 @@ var _createClass$1 = function() {
     };
 }();
 
-function _classCallCheck$1(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
+var get$1 = function get$1(object, property, receiver) {
+    if (object === null) object = Function.prototype;
+    var desc = Object.getOwnPropertyDescriptor(object, property);
+    if (desc === undefined) {
+        var parent = Object.getPrototypeOf(object);
+        if (parent === null) {
+            return undefined;
+        } else {
+            return get$1(parent, property, receiver);
+        }
+    } else if ("value" in desc) {
+        return desc.value;
+    } else {
+        var getter = desc.get;
+        if (getter === undefined) {
+            return undefined;
+        }
+        return getter.call(receiver);
     }
-}
+};
+
+var set = function set(object, property, value, receiver) {
+    var desc = Object.getOwnPropertyDescriptor(object, property);
+    if (desc === undefined) {
+        var parent = Object.getPrototypeOf(object);
+        if (parent !== null) {
+            set(parent, property, value, receiver);
+        }
+    } else if ("value" in desc && desc.writable) {
+        desc.value = value;
+    } else {
+        var setter = desc.set;
+        if (setter !== undefined) {
+            setter.call(receiver, value);
+        }
+    }
+    return value;
+};
 
 window.Tether = Tether;
 
@@ -227,7 +266,7 @@ var Tooltip$1 = function($) {
     };
     var Tooltip = function() {
         function Tooltip(element, config) {
-            _classCallCheck$1(this, Tooltip);
+            classCallCheck(this, Tooltip);
             this._isEnabled = true;
             this._timeout = 0;
             this._hoverState = "";
@@ -238,7 +277,7 @@ var Tooltip$1 = function($) {
             this.tip = null;
             this._setListeners();
         }
-        _createClass$1(Tooltip, [ {
+        createClass(Tooltip, [ {
             key: "enable",
             value: function enable() {
                 this._isEnabled = true;
@@ -622,33 +661,10 @@ var Tooltip$1 = function($) {
     return Tooltip;
 }(jQuery);
 
-var _createClass = function() {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];
-            descriptor.enumerable = descriptor.enumerable || false;
-            descriptor.configurable = true;
-            if ("value" in descriptor) descriptor.writable = true;
-            Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }
-    return function(Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);
-        if (staticProps) defineProperties(Constructor, staticProps);
-        return Constructor;
-    };
-}();
-
-function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-    }
-}
-
 var Tooltip = function() {
     function Tooltip() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck(this, Tooltip);
+        classCallCheck(this, Tooltip);
         var options = {
             el: "",
             selector: false,
@@ -684,7 +700,7 @@ var Tooltip = function() {
         };
         this.render();
     }
-    _createClass(Tooltip, [ {
+    createClass(Tooltip, [ {
         key: "render",
         value: function render() {
             var that = this;

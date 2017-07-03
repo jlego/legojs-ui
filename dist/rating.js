@@ -1,5 +1,5 @@
 /**
- * rating.js v0.9.52
+ * rating.js v0.9.54
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -127,7 +127,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
 
-var _createClass$2 = function() {
+var classCallCheck = function(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+};
+
+var createClass = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -144,11 +150,74 @@ var _createClass$2 = function() {
     };
 }();
 
-function _classCallCheck$2(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
+var get$1 = function get$1(object, property, receiver) {
+    if (object === null) object = Function.prototype;
+    var desc = Object.getOwnPropertyDescriptor(object, property);
+    if (desc === undefined) {
+        var parent = Object.getPrototypeOf(object);
+        if (parent === null) {
+            return undefined;
+        } else {
+            return get$1(parent, property, receiver);
+        }
+    } else if ("value" in desc) {
+        return desc.value;
+    } else {
+        var getter = desc.get;
+        if (getter === undefined) {
+            return undefined;
+        }
+        return getter.call(receiver);
     }
-}
+};
+
+var inherits = function(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+};
+
+var possibleConstructorReturn = function(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+};
+
+var set = function set(object, property, value, receiver) {
+    var desc = Object.getOwnPropertyDescriptor(object, property);
+    if (desc === undefined) {
+        var parent = Object.getPrototypeOf(object);
+        if (parent !== null) {
+            set(parent, property, value, receiver);
+        }
+    } else if ("value" in desc && desc.writable) {
+        desc.value = value;
+    } else {
+        var setter = desc.set;
+        if (setter !== undefined) {
+            setter.call(receiver, value);
+        }
+    }
+    return value;
+};
+
+var taggedTemplateLiteral = function(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+};
 
 window.Tether = Tether;
 
@@ -229,7 +298,7 @@ var Tooltip$1 = function($) {
     };
     var Tooltip = function() {
         function Tooltip(element, config) {
-            _classCallCheck$2(this, Tooltip);
+            classCallCheck(this, Tooltip);
             this._isEnabled = true;
             this._timeout = 0;
             this._hoverState = "";
@@ -240,7 +309,7 @@ var Tooltip$1 = function($) {
             this.tip = null;
             this._setListeners();
         }
-        _createClass$2(Tooltip, [ {
+        createClass(Tooltip, [ {
             key: "enable",
             value: function enable() {
                 this._isEnabled = true;
@@ -624,33 +693,10 @@ var Tooltip$1 = function($) {
     return Tooltip;
 }(jQuery);
 
-var _createClass$1 = function() {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];
-            descriptor.enumerable = descriptor.enumerable || false;
-            descriptor.configurable = true;
-            if ("value" in descriptor) descriptor.writable = true;
-            Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }
-    return function(Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);
-        if (staticProps) defineProperties(Constructor, staticProps);
-        return Constructor;
-    };
-}();
-
-function _classCallCheck$1(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-    }
-}
-
 var Tooltip = function() {
     function Tooltip() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck$1(this, Tooltip);
+        classCallCheck(this, Tooltip);
         var options = {
             el: "",
             selector: false,
@@ -686,7 +732,7 @@ var Tooltip = function() {
         };
         this.render();
     }
-    _createClass$1(Tooltip, [ {
+    createClass(Tooltip, [ {
         key: "render",
         value: function render() {
             var that = this;
@@ -709,68 +755,15 @@ var fun = function fun(opts) {
 
 Lego.components("tooltip", fun);
 
-var _createClass = function() {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];
-            descriptor.enumerable = descriptor.enumerable || false;
-            descriptor.configurable = true;
-            if ("value" in descriptor) descriptor.writable = true;
-            Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }
-    return function(Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);
-        if (staticProps) defineProperties(Constructor, staticProps);
-        return Constructor;
-    };
-}();
+var _templateObject = taggedTemplateLiteral([ '<div class="lego-rating ', '">\n        <input type="hidden" name="', '" id="rating-', '" class="', '" value="', '"/>\n        ', "\n        </div>\n        " ], [ '<div class="lego-rating ', '">\n        <input type="hidden" name="', '" id="rating-', '" class="', '" value="', '"/>\n        ', "\n        </div>\n        " ]);
 
-var _templateObject = _taggedTemplateLiteral([ '<div class="lego-rating ', '">\n        <input type="hidden" name="', '" id="rating-', '" class="', '" value="', '"/>\n        ', "\n        </div>\n        " ], [ '<div class="lego-rating ', '">\n        <input type="hidden" name="', '" id="rating-', '" class="', '" value="', '"/>\n        ', "\n        </div>\n        " ]);
-
-var _templateObject2 = _taggedTemplateLiteral([ '<span class="badge badge-default">', "</span>" ], [ '<span class="badge badge-default">', "</span>" ]);
-
-function _taggedTemplateLiteral(strings, raw) {
-    return Object.freeze(Object.defineProperties(strings, {
-        raw: {
-            value: Object.freeze(raw)
-        }
-    }));
-}
-
-function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-    }
-}
-
-function _possibleConstructorReturn(self, call) {
-    if (!self) {
-        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-    return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-    }
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
-        constructor: {
-            value: subClass,
-            enumerable: false,
-            writable: true,
-            configurable: true
-        }
-    });
-    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+var _templateObject2 = taggedTemplateLiteral([ '<span class="badge badge-default">', "</span>" ], [ '<span class="badge badge-default">', "</span>" ]);
 
 var Rating = function(_Lego$UI$Baseview) {
-    _inherits(Rating, _Lego$UI$Baseview);
+    inherits(Rating, _Lego$UI$Baseview);
     function Rating() {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck(this, Rating);
+        classCallCheck(this, Rating);
         var options = {
             fractions: 0,
             step: 2,
@@ -794,11 +787,11 @@ var Rating = function(_Lego$UI$Baseview) {
             onChange: function onChange() {}
         };
         Object.assign(options, opts);
-        var _this = _possibleConstructorReturn(this, (Rating.__proto__ || Object.getPrototypeOf(Rating)).call(this, options));
+        var _this = possibleConstructorReturn(this, (Rating.__proto__ || Object.getPrototypeOf(Rating)).call(this, options));
         _this.init();
         return _this;
     }
-    _createClass(Rating, [ {
+    createClass(Rating, [ {
         key: "render",
         value: function render() {
             var options = this.options;

@@ -15,12 +15,13 @@
         }
         .lego-tags-open{
             position: absolute;
+            z-index: 100;
             top: 0;
             left: 0;
             right: 0;
             height: auto;
             background-color: #fff;
-            padding: 5px;
+            padding: 0 5px 5px 0;
             // border-radius: 0 0 6px 6px;
             box-shadow: 0 2px 4px rgba(0,0,0,.1);
         }
@@ -70,7 +71,7 @@
             zoom: 1;
             width: 0;
             line-height: 20px;
-            vertical-align: bottom;
+            vertical-align: top;
             color: #999;
             -webkit-transition: all .3s cubic-bezier(.645,.045,.355,1);
             transition: all .3s cubic-bezier(.645,.045,.355,1);

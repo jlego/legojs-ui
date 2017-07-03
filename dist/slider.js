@@ -1,5 +1,5 @@
 /**
- * slider.js v0.9.52
+ * slider.js v0.9.54
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -13,7 +13,13 @@ var Slider = _interopDefault(require("bootstrap-slider"));
 
 var bootstrapSlider_dist_css_bootstrapSlider_css = require("bootstrap-slider/dist/css/bootstrap-slider.css");
 
-var _createClass = function() {
+var classCallCheck = function(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+};
+
+var createClass = function() {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -30,30 +36,28 @@ var _createClass = function() {
     };
 }();
 
-var _templateObject = _taggedTemplateLiteral([ '\n        <div class="lego-slider">\n            <input id="input_', '" name="', '" type="text" />\n        </div>\n        ' ], [ '\n        <div class="lego-slider">\n            <input id="input_', '" name="', '" type="text" />\n        </div>\n        ' ]);
-
-function _taggedTemplateLiteral(strings, raw) {
-    return Object.freeze(Object.defineProperties(strings, {
-        raw: {
-            value: Object.freeze(raw)
+var get = function get(object, property, receiver) {
+    if (object === null) object = Function.prototype;
+    var desc = Object.getOwnPropertyDescriptor(object, property);
+    if (desc === undefined) {
+        var parent = Object.getPrototypeOf(object);
+        if (parent === null) {
+            return undefined;
+        } else {
+            return get(parent, property, receiver);
         }
-    }));
-}
-
-function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
+    } else if ("value" in desc) {
+        return desc.value;
+    } else {
+        var getter = desc.get;
+        if (getter === undefined) {
+            return undefined;
+        }
+        return getter.call(receiver);
     }
-}
+};
 
-function _possibleConstructorReturn(self, call) {
-    if (!self) {
-        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-    return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
+var inherits = function(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -66,13 +70,48 @@ function _inherits(subClass, superClass) {
         }
     });
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+};
+
+var possibleConstructorReturn = function(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+};
+
+var set = function set(object, property, value, receiver) {
+    var desc = Object.getOwnPropertyDescriptor(object, property);
+    if (desc === undefined) {
+        var parent = Object.getPrototypeOf(object);
+        if (parent !== null) {
+            set(parent, property, value, receiver);
+        }
+    } else if ("value" in desc && desc.writable) {
+        desc.value = value;
+    } else {
+        var setter = desc.set;
+        if (setter !== undefined) {
+            setter.call(receiver, value);
+        }
+    }
+    return value;
+};
+
+var taggedTemplateLiteral = function(strings, raw) {
+    return Object.freeze(Object.defineProperties(strings, {
+        raw: {
+            value: Object.freeze(raw)
+        }
+    }));
+};
+
+var _templateObject = taggedTemplateLiteral([ '\n        <div class="lego-slider">\n            <input id="input_', '" name="', '" type="text" />\n        </div>\n        ' ], [ '\n        <div class="lego-slider">\n            <input id="input_', '" name="', '" type="text" />\n        </div>\n        ' ]);
 
 var SliderView = function(_Lego$UI$Baseview) {
-    _inherits(SliderView, _Lego$UI$Baseview);
+    inherits(SliderView, _Lego$UI$Baseview);
     function SliderView() {
         var option = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        _classCallCheck(this, SliderView);
+        classCallCheck(this, SliderView);
         var options = {
             value: 5,
             min: 0,
@@ -106,11 +145,11 @@ var SliderView = function(_Lego$UI$Baseview) {
             onStop: function onStop() {}
         };
         Object.assign(options, option);
-        var _this = _possibleConstructorReturn(this, (SliderView.__proto__ || Object.getPrototypeOf(SliderView)).call(this, options));
+        var _this = possibleConstructorReturn(this, (SliderView.__proto__ || Object.getPrototypeOf(SliderView)).call(this, options));
         _this.initSlider();
         return _this;
     }
-    _createClass(SliderView, [ {
+    createClass(SliderView, [ {
         key: "render",
         value: function render() {
             var opts = this.options;
