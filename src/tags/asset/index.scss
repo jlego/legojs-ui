@@ -5,41 +5,46 @@
     .lego-tags-list{
         position: relative;
         width: 100%;
-        .lego-tags-close{
+        > div{
+            height: 26px;
+        }
+        .lego-tags-div{
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
             -webkit-line-clamp: 1;
             -webkit-box-orient: vertical;
-            height: 26px;
-        }
-        .lego-tags-open{
-            position: absolute;
-            z-index: 100;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: auto;
-            background-color: #fff;
-            padding: 0 5px 5px 0;
-            // border-radius: 0 0 6px 6px;
-            box-shadow: 0 2px 4px rgba(0,0,0,.1);
-        }
-    }
-    .lego-tags-btns{
-        display: inline-table;
-        min-width: 80px;
-    }
-    .btn-more{
-        cursor: pointer;
-        margin: 5px 8px;
-        &:hover {
-            color: #3399fe;
-            &:before {
-                content: "\E60B" !important;
+            padding-left: 5px;
+            &:hover{
+                position: absolute;
+                z-index: 100;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: auto;
+                background-color: #fff;
+                padding: 0 5px 5px 5px;
+                display: block;
+                height: auto;
+                // border-radius: 0 0 6px 6px;
+                box-shadow: 0 2px 4px rgba(0,0,0,.1);
             }
         }
     }
+    // .lego-tags-btns{
+    //     display: inline-table;
+    //     min-width: 30px;
+    // }
+    // .btn-more{
+    //     cursor: pointer;
+    //     margin: 5px 8px;
+    //     &:hover {
+    //         color: #3399fe;
+    //         &:before {
+    //             content: "\E60B" !important;
+    //         }
+    //     }
+    // }
     .lego-tag {
         display: inline-block;
         line-height: 20px;

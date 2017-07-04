@@ -13,16 +13,12 @@ import './asset/index.scss';
 class Tags extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
-            events: {
-                'click .btn-more': 'showMore'
-            },
             color: '', //标签色
             deleteAble: true,    //标签是否可以关闭
             readonly: false,    //是否只读
             showMoreBtn: false,     //显示更多按钮
             showAddBtn: true,     //显示添加按钮
             showCleanBtn: false,   //显示清空按钮
-            moreBtnText: '',
             addBtnText: '添加标签 +',   //添加按钮文本
             addBtnOption: {},
             cleanBtnText: '清空',   //清空按钮文本
@@ -71,9 +67,10 @@ class Tags extends Lego.UI.Baseview {
         this.vDom = hx`
         <div class="lego-tags">
             <div class="lego-tags-list">
-                <div class="${opts.showMoreBtn ? ('lego-tags-' + (opts.open ? 'open' : 'close')) : ''}">
+                <div class="${opts.showMoreBtn ? 'lego-tags-div' : ''}">
                 ${opts.data.map(item => hx`
-                    <div class="lego-tag ${item.selected ? ('lego-tag-' + item.selected) : ''}" id="${item.key}" title="${item.value}" onclick=${this.onSelected.bind(this)}>
+                    <div class="lego-tag ${item.selected ? ('lego-tag-' + item.selected) : ''}" id="${item.key}"
+                    title="${typeof item.value !== 'object' ? item.value : ''}" onclick=${this.onSelected.bind(this)}>
                         <div class="lego-tag-text">
                             <span>${item.value}</span>
                             ${opts.deleteAble ? hx`<i title="移除" class="anticon anticon-close-circle lego-tag-close" onclick=${this.onDelete.bind(this)}></i>` : ''}
@@ -81,14 +78,9 @@ class Tags extends Lego.UI.Baseview {
                     </div>
                 `)}
                 ${!opts.readonly && opts.showAddBtn ? hx`<buttons id="add_${opts.vid}"></buttons>` : ''}
+                ${!opts.readonly && opts.showCleanBtn ? hx`<buttons id="clean_${opts.vid}"></buttons>` : ''}
                 </div>
             </div>
-            ${opts.showMoreBtn || (!opts.readonly && opts.showCleanBtn) ? hx`
-            <div class="lego-tags-btns">
-            ${opts.showMoreBtn ? (opts.moreBtnText ? val(opts.moreBtnText) : hx`<i class="anticon anticon-down-circle-o btn-more" id="more_${opts.vid}"></i>`) : ''}
-            ${!opts.readonly && opts.showCleanBtn ? hx`<buttons id="clean_${opts.vid}"></buttons>` : ''}
-            </div>
-            ` : ''}
         </div>
         `;
         return this.vDom;

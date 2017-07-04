@@ -1,5 +1,5 @@
 /**
- * tags.js v0.9.54
+ * tags.js v0.9.56
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -97,7 +97,7 @@ var taggedTemplateLiteral = function(strings, raw) {
     }));
 };
 
-var _templateObject = taggedTemplateLiteral([ '\n        <div class="lego-tags">\n            <div class="lego-tags-list">\n                <div class="', '">\n                ', "\n                ", "\n                </div>\n            </div>\n            ", "\n        </div>\n        " ], [ '\n        <div class="lego-tags">\n            <div class="lego-tags-list">\n                <div class="', '">\n                ', "\n                ", "\n                </div>\n            </div>\n            ", "\n        </div>\n        " ]);
+var _templateObject = taggedTemplateLiteral([ '\n        <div class="lego-tags">\n            <div class="lego-tags-list">\n                <div class="', '">\n                ', "\n                ", "\n                ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="lego-tags">\n            <div class="lego-tags-list">\n                <div class="', '">\n                ', "\n                ", "\n                ", "\n                </div>\n            </div>\n        </div>\n        " ]);
 
 var _templateObject2 = taggedTemplateLiteral([ '\n                    <div class="lego-tag ', '" id="', '" title="', '" onclick=', '>\n                        <div class="lego-tag-text">\n                            <span>', "</span>\n                            ", "\n                        </div>\n                    </div>\n                " ], [ '\n                    <div class="lego-tag ', '" id="', '" title="', '" onclick=', '>\n                        <div class="lego-tag-text">\n                            <span>', "</span>\n                            ", "\n                        </div>\n                    </div>\n                " ]);
 
@@ -105,11 +105,7 @@ var _templateObject3 = taggedTemplateLiteral([ '<i title="移除" class="anticon
 
 var _templateObject4 = taggedTemplateLiteral([ '<buttons id="add_', '"></buttons>' ], [ '<buttons id="add_', '"></buttons>' ]);
 
-var _templateObject5 = taggedTemplateLiteral([ '\n            <div class="lego-tags-btns">\n            ', "\n            ", "\n            </div>\n            " ], [ '\n            <div class="lego-tags-btns">\n            ', "\n            ", "\n            </div>\n            " ]);
-
-var _templateObject6 = taggedTemplateLiteral([ '<i class="anticon anticon-down-circle-o btn-more" id="more_', '"></i>' ], [ '<i class="anticon anticon-down-circle-o btn-more" id="more_', '"></i>' ]);
-
-var _templateObject7 = taggedTemplateLiteral([ '<buttons id="clean_', '"></buttons>' ], [ '<buttons id="clean_', '"></buttons>' ]);
+var _templateObject5 = taggedTemplateLiteral([ '<buttons id="clean_', '"></buttons>' ], [ '<buttons id="clean_', '"></buttons>' ]);
 
 var Tags = function(_Lego$UI$Baseview) {
     inherits(Tags, _Lego$UI$Baseview);
@@ -117,16 +113,12 @@ var Tags = function(_Lego$UI$Baseview) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         classCallCheck(this, Tags);
         var options = {
-            events: {
-                "click .btn-more": "showMore"
-            },
             color: "",
             deleteAble: true,
             readonly: false,
             showMoreBtn: false,
             showAddBtn: true,
             showCleanBtn: false,
-            moreBtnText: "",
             addBtnText: "添加标签 +",
             addBtnOption: {},
             cleanBtnText: "清空",
@@ -176,9 +168,9 @@ var Tags = function(_Lego$UI$Baseview) {
         value: function render() {
             var _this2 = this;
             var opts = this.options;
-            this.vDom = hx(_templateObject, opts.showMoreBtn ? "lego-tags-" + (opts.open ? "open" : "close") : "", opts.data.map(function(item) {
+            this.vDom = hx(_templateObject, opts.showMoreBtn ? "lego-tags-div" : "", opts.data.map(function(item) {
                 return hx(_templateObject2, item.selected ? "lego-tag-" + item.selected : "", item.key, item.value, _this2.onSelected.bind(_this2), item.value, opts.deleteAble ? hx(_templateObject3, _this2.onDelete.bind(_this2)) : "");
-            }), !opts.readonly && opts.showAddBtn ? hx(_templateObject4, opts.vid) : "", opts.showMoreBtn || !opts.readonly && opts.showCleanBtn ? hx(_templateObject5, opts.showMoreBtn ? opts.moreBtnText ? val(opts.moreBtnText) : hx(_templateObject6, opts.vid) : "", !opts.readonly && opts.showCleanBtn ? hx(_templateObject7, opts.vid) : "") : "");
+            }), !opts.readonly && opts.showAddBtn ? hx(_templateObject4, opts.vid) : "", !opts.readonly && opts.showCleanBtn ? hx(_templateObject5, opts.vid) : "");
             return this.vDom;
         }
     }, {
