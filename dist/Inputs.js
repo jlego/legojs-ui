@@ -1,5 +1,5 @@
 /**
- * inputs.js v0.9.56
+ * inputs.js v0.9.58
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -171,8 +171,6 @@ var Inputs = function(_Lego$UI$Baseview) {
         key: "onEnter",
         value: function onEnter(event) {
             var target = $(event.currentTarget), value = this.filterStr(target.val());
-            this.options.value = value;
-            if (this.options.type == "textarea") target.val(value);
             if (event.keyCode == 13) {
                 if (typeof this.options.onEnter === "function") this.options.onEnter(this, value, event);
             }

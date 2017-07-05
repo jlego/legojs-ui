@@ -76,8 +76,8 @@ class Inputs extends Lego.UI.Baseview {
     onEnter(event) {
         const target = $(event.currentTarget),
             value = this.filterStr(target.val());
-        this.options.value = value;
-        if(this.options.type == 'textarea') target.val(value);
+        // this.options.value = value;
+        // if(this.options.type == 'textarea') target.val(value);
         if (event.keyCode == 13) {
             if(typeof this.options.onEnter === 'function') this.options.onEnter(this, value, event);
         }

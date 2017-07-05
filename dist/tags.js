@@ -1,9 +1,15 @@
 /**
- * tags.js v0.9.56
+ * tags.js v0.9.58
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
 "use strict";
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
+    return typeof obj;
+} : function(obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
 
 var classCallCheck = function(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -99,7 +105,7 @@ var taggedTemplateLiteral = function(strings, raw) {
 
 var _templateObject = taggedTemplateLiteral([ '\n        <div class="lego-tags">\n            <div class="lego-tags-list">\n                <div class="', '">\n                ', "\n                ", "\n                ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="lego-tags">\n            <div class="lego-tags-list">\n                <div class="', '">\n                ', "\n                ", "\n                ", "\n                </div>\n            </div>\n        </div>\n        " ]);
 
-var _templateObject2 = taggedTemplateLiteral([ '\n                    <div class="lego-tag ', '" id="', '" title="', '" onclick=', '>\n                        <div class="lego-tag-text">\n                            <span>', "</span>\n                            ", "\n                        </div>\n                    </div>\n                " ], [ '\n                    <div class="lego-tag ', '" id="', '" title="', '" onclick=', '>\n                        <div class="lego-tag-text">\n                            <span>', "</span>\n                            ", "\n                        </div>\n                    </div>\n                " ]);
+var _templateObject2 = taggedTemplateLiteral([ '\n                    <div class="lego-tag ', '" id="', '"\n                    title="', '" onclick=', '>\n                        <div class="lego-tag-text">\n                            <span>', "</span>\n                            ", "\n                        </div>\n                    </div>\n                " ], [ '\n                    <div class="lego-tag ', '" id="', '"\n                    title="', '" onclick=', '>\n                        <div class="lego-tag-text">\n                            <span>', "</span>\n                            ", "\n                        </div>\n                    </div>\n                " ]);
 
 var _templateObject3 = taggedTemplateLiteral([ '<i title="移除" class="anticon anticon-close-circle lego-tag-close" onclick=', "></i>" ], [ '<i title="移除" class="anticon anticon-close-circle lego-tag-close" onclick=', "></i>" ]);
 
@@ -169,7 +175,7 @@ var Tags = function(_Lego$UI$Baseview) {
             var _this2 = this;
             var opts = this.options;
             this.vDom = hx(_templateObject, opts.showMoreBtn ? "lego-tags-div" : "", opts.data.map(function(item) {
-                return hx(_templateObject2, item.selected ? "lego-tag-" + item.selected : "", item.key, item.value, _this2.onSelected.bind(_this2), item.value, opts.deleteAble ? hx(_templateObject3, _this2.onDelete.bind(_this2)) : "");
+                return hx(_templateObject2, item.selected ? "lego-tag-" + item.selected : "", item.key, _typeof(item.value) !== "object" ? item.value : "", _this2.onSelected.bind(_this2), item.value, opts.deleteAble ? hx(_templateObject3, _this2.onDelete.bind(_this2)) : "");
             }), !opts.readonly && opts.showAddBtn ? hx(_templateObject4, opts.vid) : "", !opts.readonly && opts.showCleanBtn ? hx(_templateObject5, opts.vid) : "");
             return this.vDom;
         }

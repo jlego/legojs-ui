@@ -1,5 +1,5 @@
 /**
- * navs.js v0.9.56
+ * navs.js v0.9.58
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
