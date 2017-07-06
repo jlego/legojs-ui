@@ -12854,7 +12854,7 @@ form button[type="submit"] {
         .lego-table .lego-table-thead > tr > th i.anticon-filter:hover {
           color: #666; }
       .lego-table .lego-table-thead > tr > th.lego-table-selection {
-        text-align: center;
+        padding-right: 0;
         width: 40px; }
         .lego-table .lego-table-thead > tr > th.lego-table-selection label {
           margin: 0; }
@@ -12865,7 +12865,7 @@ form button[type="submit"] {
       padding-left: 8px;
       position: relative; }
       .lego-table .lego-table-tbody > tr > td.lego-table-selection {
-        text-align: center;
+        padding-right: 0;
         width: 40px; }
         .lego-table .lego-table-tbody > tr > td.lego-table-selection label {
           margin: 0; }

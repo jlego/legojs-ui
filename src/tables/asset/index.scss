@@ -52,7 +52,8 @@
                 }
             }
             &.lego-table-selection{
-                text-align: center;
+                padding-right: 0;
+                // text-align: center;
                 width: 40px;
                 label{
                     margin: 0;
@@ -67,7 +68,8 @@
             padding-left: 8px;
             position: relative;
             &.lego-table-selection{
-                text-align: center;
+                padding-right: 0;
+                // text-align: center;
                 width: 40px;
                 label{
                     margin: 0;
