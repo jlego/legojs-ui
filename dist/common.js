@@ -1,5 +1,5 @@
 /**
- * common.js v0.9.58
+ * common.js v0.9.63
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -54,7 +54,9 @@ Lego.components("notification", Notification);
 function Message() {
     var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "info";
     var content = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+    var opts = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
     toastr.options = {
+        containerId: "toast-container",
         closeButton: false,
         debug: false,
         newestOnTop: false,
@@ -71,6 +73,7 @@ function Message() {
         showMethod: "fadeIn",
         hideMethod: "fadeOut"
     };
+    Object.assign(toastr.options, opts);
     var typeArr = [ "success", "info", "warning", "error" ];
     if (typeArr.indexOf(type) >= 0 || content) {
         if (this.toastr) this.toastr.remove();

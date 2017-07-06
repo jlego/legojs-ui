@@ -7,8 +7,9 @@ import toastr from 'toastr-cjs';
 import 'toastr-cjs/toastr.css';
 import './asset/index.scss';
 
-function Message(type='info', content='') {
+function Message(type='info', content='', opts = {}) {
     toastr.options = {
+        "containerId": "toast-container",
         "closeButton": false,
         "debug": false,
         "newestOnTop": false,
@@ -25,6 +26,7 @@ function Message(type='info', content='') {
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     };
+    Object.assign(toastr.options, opts);
     const typeArr = ['success', 'info', 'warning', 'error'];
     if (typeArr.indexOf(type) >= 0 || content) {
         if(this.toastr) this.toastr.remove();
