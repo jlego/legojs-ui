@@ -2,11 +2,11 @@
 // import Search from '../../../../dist/search';
 // import Selects from '../../../../dist/selects';
 // import Datepicker from '../../../../dist/datepicker';
-import Areapicker from 'com-areapicker';
-import 'com-areapicker/dist/index.css';
-import Data from 'com-areapicker/dist/data';
-import Geolocation from 'com-geolocation';
-import 'com-geolocation/dist/index.css';
+// import Areapicker from 'com-areapicker';
+// import 'com-areapicker/dist/index.css';
+// import Data from 'com-areapicker/dist/data';
+// import Geolocation from 'com-geolocation';
+// import 'com-geolocation/dist/index.css';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {

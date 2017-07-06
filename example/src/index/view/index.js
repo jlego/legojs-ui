@@ -43,22 +43,6 @@ class Viewport extends Lego.UI.Baseview {
                                 </ul>
                             </li>
                         </ul>
-                        <div class="search-form" style="display:none;">
-                            <a class="s-open" href="#">
-                                <i class="ti-search"></i>
-                            </a>
-                            <form class="navbar-form" role="search">
-                                <a class="s-remove" href="#" target=".navbar-form">
-                                    <i class="ti-close"></i>
-                                </a>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="搜索">
-                                    <button class="btn search-button" type="submit">
-                                        <i class="ti-search"></i>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
                     </div>
                 </header>
                 <div class="main-content">
