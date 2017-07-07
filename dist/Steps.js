@@ -1,5 +1,5 @@
 /**
- * steps.js v0.9.64
+ * steps.js v0.10.3
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -99,9 +99,9 @@ var taggedTemplateLiteral = function(strings, raw) {
 
 var _templateObject = taggedTemplateLiteral([ '\n        <div class="lego-steps lego-steps-', " lego-steps-", " lego-steps-", "\n        ", '">\n        ', "\n        </div>\n        " ], [ '\n        <div class="lego-steps lego-steps-', " lego-steps-", " lego-steps-", "\n        ", '">\n        ', "\n        </div>\n        " ]);
 
-var _templateObject2 = taggedTemplateLiteral([ '\n            <div class="lego-steps-item lego-steps-status-', '"\n            style="', " margin-right:-", 'px;">\n                ', '\n                <div class="lego-steps-step">\n                    <div class="lego-steps-head">\n                        <div class="lego-steps-head-inner">\n                        ', '\n                        </div>\n                    </div>\n                    <div class="lego-steps-main">\n                        <div class="lego-steps-title">', "</div>\n                        ", "\n                    </div>\n                </div>\n            </div>\n            " ], [ '\n            <div class="lego-steps-item lego-steps-status-', '"\n            style="', " margin-right:-", 'px;">\n                ', '\n                <div class="lego-steps-step">\n                    <div class="lego-steps-head">\n                        <div class="lego-steps-head-inner">\n                        ', '\n                        </div>\n                    </div>\n                    <div class="lego-steps-main">\n                        <div class="lego-steps-title">', "</div>\n                        ", "\n                    </div>\n                </div>\n            </div>\n            " ]);
+var _templateObject2 = taggedTemplateLiteral([ '\n            <div class="lego-steps-item lego-steps-status-', '">\n                ', '\n                <div class="lego-steps-step">\n                    <div class="lego-steps-head">\n                        <div class="lego-steps-head-inner">\n                        ', '\n                        </div>\n                    </div>\n                    <div class="lego-steps-main">\n                        <div class="lego-steps-title">', "</div>\n                        ", "\n                    </div>\n                </div>\n            </div>\n            " ], [ '\n            <div class="lego-steps-item lego-steps-status-', '">\n                ', '\n                <div class="lego-steps-step">\n                    <div class="lego-steps-head">\n                        <div class="lego-steps-head-inner">\n                        ', '\n                        </div>\n                    </div>\n                    <div class="lego-steps-main">\n                        <div class="lego-steps-title">', "</div>\n                        ", "\n                    </div>\n                </div>\n            </div>\n            " ]);
 
-var _templateObject3 = taggedTemplateLiteral([ '<div class="lego-steps-tail"\n                style="', '"><i></i></div>' ], [ '<div class="lego-steps-tail"\n                style="', '"><i></i></div>' ]);
+var _templateObject3 = taggedTemplateLiteral([ '<div class="lego-steps-tail"><i></i></div>' ], [ '<div class="lego-steps-tail"><i></i></div>' ]);
 
 var _templateObject4 = taggedTemplateLiteral([ '<span class="lego-steps-icon anticon ', '">\n                            ', "\n                            </span>" ], [ '<span class="lego-steps-icon anticon ', '">\n                            ', "\n                            </span>" ]);
 
@@ -143,9 +143,25 @@ var Steps = function(_Lego$UI$Baseview) {
         value: function render() {
             var opts = this.options, dataLength = opts.data.length, widthPercent = 10 / (dataLength - (opts.type == "arrow" ? 0 : 1)) * 10;
             var vDom = hx(_templateObject, opts.direction, opts.type, !opts.showNum ? "sm" : opts.size, opts.type == "arrow" && opts.color == "light" ? "lego-steps-o" : "", opts.data.map(function(item, index) {
-                return hx(_templateObject2, opts.current == index ? opts.status : item.status ? item.status : opts.current > index ? "finish" : "wait", index == dataLength - (opts.type == "arrow" ? 0 : 1) ? "" : "width:" + widthPercent + "%;", opts.titleWidth / 2, index < dataLength ? hx(_templateObject3, index == dataLength - (opts.type == "arrow" ? 0 : 1) ? "padding-right:" + opts.titleWidth + "px" : "padding-right:" + opts.titleWidth / 2 + "px") : "", opts.showIcon ? hx(_templateObject4, item.icon ? item.icon : item.status == "finish" ? "anticon-check" : "", item.status !== "finish" ? item.icon ? item.icon : opts.showNum ? index + 1 : "" : "") : hx(_templateObject5, opts.showNum ? index + 1 : ""), val(item.title), opts.showDescription ? hx(_templateObject6, val(item.description)) : "");
+                return hx(_templateObject2, opts.current == index ? opts.status : item.status ? item.status : opts.current > index ? "finish" : "wait", index < dataLength ? hx(_templateObject3) : "", opts.showIcon ? hx(_templateObject4, item.icon ? item.icon : item.status == "finish" ? "anticon-check" : "", item.status !== "finish" ? item.icon ? item.icon : opts.showNum ? index + 1 : "" : "") : hx(_templateObject5, opts.showNum ? index + 1 : ""), val(item.title), opts.showDescription ? hx(_templateObject6, val(item.description)) : "");
             }));
             return vDom;
+        }
+    }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            var opts = this.options, dataLength = opts.data.length, widthPercent = 10 / (dataLength - (opts.type == "arrow" ? 0 : 1)) * 10;
+            this.$(".lego-steps-item").each(function(index, el) {
+                $(el).css({
+                    width: index == dataLength - (opts.type == "arrow" ? 0 : 1) ? "" : widthPercent + "%",
+                    marginRight: -opts.titleWidth / 2
+                });
+            });
+            this.$(".lego-steps-tail").each(function(index, el) {
+                $(el).css({
+                    paddingRight: index == dataLength - (opts.type == "arrow" ? 0 : 1) ? opts.titleWidth : opts.titleWidth / 2
+                });
+            });
         }
     }, {
         key: "changeStatus",

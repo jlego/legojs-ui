@@ -1,5 +1,6 @@
 @import "../../../asset/scss/bootstrap/variables";
 .select {
+    position: relative;
     margin: 0;
     > div > input[type=text],
     > div > input[type=text]:focus{

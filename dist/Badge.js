@@ -1,5 +1,5 @@
 /**
- * badge.js v0.9.64
+ * badge.js v0.10.3
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

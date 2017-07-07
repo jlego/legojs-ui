@@ -141,22 +141,20 @@ class Tables extends Lego.UI.Baseview {
         ${opts.wordBreak ? 'lego-nowrap' : ''}">
             <loading id="lego-loading-${opts.vid}"></loading>
             ${opts.title ? hx`<div class="lego-table-title">${val(opts.title)}</div>` : ''}
-            <div class="lego-table-content" style="${!opts.title ? 'padding-bottom:0' : ''}">
+            <div class="lego-table-content">
                 <div class="lego-table-scroll">
                     ${opts.height ? hx`
                     <div class="lego-table-header">
-                        <table class="table ${opts.bordered ? 'table-bordered' : ''} ${opts.striped ? 'table-striped' : ''}"
-                        style="${opts.width ? ('width:' + opts.width + 'px') : ''}">
+                        <table class="table ${opts.bordered ? 'table-bordered' : ''} ${opts.striped ? 'table-striped' : ''}">
                             ${this._renderColgroup()}
                             ${this._renderHeader()}
                         </table>
                     </div>
                     ` : ''}
-                    <div class="lego-table-body" style="bottom: ${opts.pagination ? '48px' : '0'}; ${opts.nodata ? 'min-height: 120px;' : ''}">
-                        ${opts.nodata ? hx`<nodata id="nodata_${opts.vid}"></nodata>` : hx`<div style="display:none;"></div>`}
+                    <div class="lego-table-body">
+                        ${opts.nodata ? hx`<nodata id="nodata_${opts.vid}"></nodata>` : hx`<div class="hide"></div>`}
                         <div class="scrollbar">
-                            <table class="table ${opts.bordered ? 'table-bordered' : ''} ${opts.striped ? 'table-striped' : ''}"
-                            style="${opts.width ? ('width:' + opts.width + 'px') : ''}">
+                            <table class="table ${opts.bordered ? 'table-bordered' : ''} ${opts.striped ? 'table-striped' : ''}">
                                 ${this._renderColgroup()}
                                 ${!opts.height ? this._renderHeader() : ''}
                                 ${this._renderBodyer()}
@@ -175,8 +173,28 @@ class Tables extends Lego.UI.Baseview {
         return vDom;
     }
     renderAfter(){
+        let opts = this.options,
+            columns = this.columns,
+            header = this.$('.lego-table-header');
+        this.$('.lego-table-body').css({
+            bottom: opts.pagination ? 48 : 0,
+            minHeight: opts.nodata ? 120 : 0
+        });
+        if(opts.width) this.$('.table').width(opts.width);
+        if(!opts.title) this.$('.lego-table-content').css({paddingBottom: 0});
+        // 兼容IE及低版本浏览器
+        this.$('colgroup').each(function(index, el){
+            $(el).children('col').each(function(i, e){
+                if(opts.rowSelection && i == 0){
+                    $(e).width(30);
+                }else{
+                    if(i !== columns.length - 1 || opts.width){
+                        if(columns[i]) $(e).width(parseInt(columns[i].width));
+                    }
+                }
+            });
+        });
         // 同步横向滚动
-        const header = this.$('.lego-table-header');
         this.$('.lego-table-body > .scrollbar').scroll(function() {
             header.scrollLeft($(this).scrollLeft());
         });

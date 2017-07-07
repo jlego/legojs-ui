@@ -1,5 +1,5 @@
 /**
- * common.js v0.9.64
+ * common.js v0.10.3
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -264,12 +264,16 @@ var Util = {
     },
     animateCss: function animateCss(el, animationName, callback) {
         el = el instanceof $ ? el : $(el);
-        animationName = /\s/g.test(animationName) ? animationName : "animated " + animationName;
-        var animationEnd = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
-        el.addClass(animationName).one(animationEnd, function() {
-            el.removeClass(animationName);
+        if (!this.checkBrowser().msie || animationName !== "fadeIn") {
+            animationName = /\s/g.test(animationName) ? animationName : "animated " + animationName;
+            var animationEnd = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
+            el.addClass(animationName).one(animationEnd, function() {
+                el.removeClass(animationName);
+                if (typeof callback == "function") callback();
+            });
+        } else {
             if (typeof callback == "function") callback();
-        });
+        }
     },
     convertByteUnit: function convertByteUnit(size, unit, decimals, direction, targetunit) {
         var units = [ "B", "KB", "MB", "GB", "TB", "PB", "EB" ], index = void 0, targetIndex = void 0, i = void 0, l = units.length, num = void 0, regFloat = /(^[+-]?\d*(?:\.\d+)?(?:[Ee][-+]?\d+)?)([kKMmGgTtpPeE]?[bB])?$/;

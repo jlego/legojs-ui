@@ -13,6 +13,9 @@ import './asset/index.scss';
 class Tags extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
+            events: {
+                'click': function(event){event.stopPropagation();}
+            },
             color: '', //标签色
             deleteAble: true,    //标签是否可以关闭
             readonly: false,    //是否只读
@@ -90,14 +93,7 @@ class Tags extends Lego.UI.Baseview {
             opts = this.options,
             _eventName = 'click.tagslist_' + opts.vid;
         $('body, .modal-body').off(_eventName).on(_eventName, function(event){
-            if(event.originalEvent){
-                let index_a = event.originalEvent.path.indexOf(event.target),
-                    index_b = event.originalEvent.path.indexOf(that.el);
-                if(index_a <= index_b){
-                }else{
-                    opts.open = false;
-                }
-            }
+            opts.open = false;
         });
     }
     addItem(obj = {}){

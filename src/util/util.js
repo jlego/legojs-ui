@@ -60,12 +60,16 @@ const Util = {
     // 动画
     animateCss(el, animationName, callback) {
         el = el instanceof $ ? el : $(el);
-        animationName = /\s/g.test(animationName) ? animationName : ('animated ' + animationName);
-        const animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-        el.addClass(animationName).one(animationEnd, function() {
-            el.removeClass(animationName);
+        if(!this.checkBrowser().msie || animationName !== 'fadeIn'){
+            animationName = /\s/g.test(animationName) ? animationName : ('animated ' + animationName);
+            const animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+            el.addClass(animationName).one(animationEnd, function() {
+                el.removeClass(animationName);
+                if (typeof callback == 'function') callback();
+            });
+        }else{
             if (typeof callback == 'function') callback();
-        });
+        }
     },
     /**
      * 容量单位计算，支持定义小数保留长度；定义起始和目标单位，或按1024自动进位

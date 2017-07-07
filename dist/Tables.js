@@ -1,5 +1,5 @@
 /**
- * tables.js v0.9.64
+ * tables.js v0.10.3
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -367,6 +367,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             if (!opts.disabled && opts.container) {
                 var handler = function handler(event) {
                     var _Lego$UI$Util;
+                    event.stopPropagation();
                     (_Lego$UI$Util = Lego.UI.Util).getDirection.apply(_Lego$UI$Util, [ that.container, that.$el ].concat(toConsumableArray(that.directionArr)));
                     that.$el.slideToggle("fast");
                 };
@@ -392,12 +393,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 }
             }
             $("body, .modal-body").off(_eventName).on(_eventName, function(event) {
-                if (event.originalEvent) {
-                    var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.container[0]);
-                    if (index_a <= index_b) {} else {
-                        that.close();
-                    }
-                }
+                that.close();
             });
         }
     }, {
@@ -633,15 +629,15 @@ var Nodata = function(_Lego$View) {
 
 Lego.components("nodata", Nodata);
 
-var _templateObject = taggedTemplateLiteral([ '\n        <div class="lego-table clearfix ', "\n        ", "\n        ", "\n        ", '">\n            <loading id="lego-loading-', '"></loading>\n            ', '\n            <div class="lego-table-content" style="', '">\n                <div class="lego-table-scroll">\n                    ', '\n                    <div class="lego-table-body" style="bottom: ', "; ", '">\n                        ', '\n                        <div class="scrollbar">\n                            <table class="table ', " ", '"\n                            style="', '">\n                                ', "\n                                ", "\n                                ", "\n                            </table>\n                        </div>\n                    </div>\n                    ", "\n                    ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="lego-table clearfix ', "\n        ", "\n        ", "\n        ", '">\n            <loading id="lego-loading-', '"></loading>\n            ', '\n            <div class="lego-table-content" style="', '">\n                <div class="lego-table-scroll">\n                    ', '\n                    <div class="lego-table-body" style="bottom: ', "; ", '">\n                        ', '\n                        <div class="scrollbar">\n                            <table class="table ', " ", '"\n                            style="', '">\n                                ', "\n                                ", "\n                                ", "\n                            </table>\n                        </div>\n                    </div>\n                    ", "\n                    ", "\n                </div>\n            </div>\n        </div>\n        " ]);
+var _templateObject = taggedTemplateLiteral([ '\n        <div class="lego-table clearfix ', "\n        ", "\n        ", "\n        ", '">\n            <loading id="lego-loading-', '"></loading>\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                    ', '\n                    <div class="lego-table-body">\n                        ', '\n                        <div class="scrollbar">\n                            <table class="table ', " ", '">\n                                ', "\n                                ", "\n                                ", "\n                            </table>\n                        </div>\n                    </div>\n                    ", "\n                    ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="lego-table clearfix ', "\n        ", "\n        ", "\n        ", '">\n            <loading id="lego-loading-', '"></loading>\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                    ', '\n                    <div class="lego-table-body">\n                        ', '\n                        <div class="scrollbar">\n                            <table class="table ', " ", '">\n                                ', "\n                                ", "\n                                ", "\n                            </table>\n                        </div>\n                    </div>\n                    ", "\n                    ", "\n                </div>\n            </div>\n        </div>\n        " ]);
 
 var _templateObject2 = taggedTemplateLiteral([ '<div class="lego-table-title">', "</div>" ], [ '<div class="lego-table-title">', "</div>" ]);
 
-var _templateObject3 = taggedTemplateLiteral([ '\n                    <div class="lego-table-header">\n                        <table class="table ', " ", '"\n                        style="', '">\n                            ', "\n                            ", "\n                        </table>\n                    </div>\n                    " ], [ '\n                    <div class="lego-table-header">\n                        <table class="table ', " ", '"\n                        style="', '">\n                            ', "\n                            ", "\n                        </table>\n                    </div>\n                    " ]);
+var _templateObject3 = taggedTemplateLiteral([ '\n                    <div class="lego-table-header">\n                        <table class="table ', " ", '">\n                            ', "\n                            ", "\n                        </table>\n                    </div>\n                    " ], [ '\n                    <div class="lego-table-header">\n                        <table class="table ', " ", '">\n                            ', "\n                            ", "\n                        </table>\n                    </div>\n                    " ]);
 
 var _templateObject4 = taggedTemplateLiteral([ '<nodata id="nodata_', '"></nodata>' ], [ '<nodata id="nodata_', '"></nodata>' ]);
 
-var _templateObject5 = taggedTemplateLiteral([ '<div style="display:none;"></div>' ], [ '<div style="display:none;"></div>' ]);
+var _templateObject5 = taggedTemplateLiteral([ '<div class="hide"></div>' ], [ '<div class="hide"></div>' ]);
 
 var _templateObject6 = taggedTemplateLiteral([ '\n                    <div class="lego-table-footer">\n                        ', "\n                    </div>" ], [ '\n                    <div class="lego-table-footer">\n                        ', "\n                    </div>" ]);
 
@@ -799,13 +795,32 @@ var Tables = function(_Lego$UI$Baseview) {
         value: function render() {
             this.getColumns();
             var opts = this.options;
-            var vDom = hx(_templateObject, opts.size ? "table-" + opts.size : "", opts.height ? "lego-table-fixed-header" : "", opts.bordered ? "lego-table-bordered" : "", opts.wordBreak ? "lego-nowrap" : "", opts.vid, opts.title ? hx(_templateObject2, val(opts.title)) : "", !opts.title ? "padding-bottom:0" : "", opts.height ? hx(_templateObject3, opts.bordered ? "table-bordered" : "", opts.striped ? "table-striped" : "", opts.width ? "width:" + opts.width + "px" : "", this._renderColgroup(), this._renderHeader()) : "", opts.pagination ? "48px" : "0", opts.nodata ? "min-height: 120px;" : "", opts.nodata ? hx(_templateObject4, opts.vid) : hx(_templateObject5), opts.bordered ? "table-bordered" : "", opts.striped ? "table-striped" : "", opts.width ? "width:" + opts.width + "px" : "", this._renderColgroup(), !opts.height ? this._renderHeader() : "", this._renderBodyer(), !opts.nodata ? hx(_templateObject6, opts.footer ? val(opts.footer) : opts.pagination && !opts.nodata ? hx(_templateObject7, opts.vid) : "") : "", opts.showSetting ? hx(_templateObject8) : "");
+            var vDom = hx(_templateObject, opts.size ? "table-" + opts.size : "", opts.height ? "lego-table-fixed-header" : "", opts.bordered ? "lego-table-bordered" : "", opts.wordBreak ? "lego-nowrap" : "", opts.vid, opts.title ? hx(_templateObject2, val(opts.title)) : "", opts.height ? hx(_templateObject3, opts.bordered ? "table-bordered" : "", opts.striped ? "table-striped" : "", this._renderColgroup(), this._renderHeader()) : "", opts.nodata ? hx(_templateObject4, opts.vid) : hx(_templateObject5), opts.bordered ? "table-bordered" : "", opts.striped ? "table-striped" : "", this._renderColgroup(), !opts.height ? this._renderHeader() : "", this._renderBodyer(), !opts.nodata ? hx(_templateObject6, opts.footer ? val(opts.footer) : opts.pagination && !opts.nodata ? hx(_templateObject7, opts.vid) : "") : "", opts.showSetting ? hx(_templateObject8) : "");
             return vDom;
         }
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var header = this.$(".lego-table-header");
+            var opts = this.options, columns = this.columns, header = this.$(".lego-table-header");
+            this.$(".lego-table-body").css({
+                bottom: opts.pagination ? 48 : 0,
+                minHeight: opts.nodata ? 120 : 0
+            });
+            if (opts.width) this.$(".table").width(opts.width);
+            if (!opts.title) this.$(".lego-table-content").css({
+                paddingBottom: 0
+            });
+            this.$("colgroup").each(function(index, el) {
+                $(el).children("col").each(function(i, e) {
+                    if (opts.rowSelection && i == 0) {
+                        $(e).width(30);
+                    } else {
+                        if (i !== columns.length - 1 || opts.width) {
+                            if (columns[i]) $(e).width(parseInt(columns[i].width));
+                        }
+                    }
+                });
+            });
             this.$(".lego-table-body > .scrollbar").scroll(function() {
                 header.scrollLeft($(this).scrollLeft());
             });

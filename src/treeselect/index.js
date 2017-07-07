@@ -9,6 +9,9 @@ import Tree from '../tree/index';
 class Treeselect extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
+            events: {
+                'click': function(event){event.stopPropagation();}
+            },
             name: '',
             value: [], //指定当前选中的条目object/Array
             data: [],
@@ -206,14 +209,7 @@ class Treeselect extends Lego.UI.Baseview {
             }
             if(opts.eventName == 'click'){
                 $('body, .modal-body').off(_eventName).on(_eventName, function(event){
-                    if(event.originalEvent){
-                        let index_a = event.originalEvent.path.indexOf(event.target),
-                            index_b = event.originalEvent.path.indexOf(trigger[0]);
-                        if(index_a <= index_b){
-                        }else{
-                            that.close();
-                        }
-                    }
+                    that.close();
                 });
                 trigger.off(_eventName).on(_eventName, handler);
             }else{

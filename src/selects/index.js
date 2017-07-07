@@ -7,6 +7,9 @@ import Dropdown from '../dropdown/index';
 class Selects extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
+            events: {
+                'click': function(event){event.stopPropagation();}
+            },
             name: '',
             value: [],   //指定当前选中的条目object/Array
             multiple: false,  //支持多选

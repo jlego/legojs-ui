@@ -142,7 +142,11 @@
         }
     }
 }
-
+.lego-table-column-sort {
+    > span{
+        cursor: pointer;
+    }
+}
 .lego-table-column-sorter {
     margin-left: 4px;
     display: inline-block;
@@ -150,9 +154,6 @@
     height: 14px;
     vertical-align: middle;
     text-align: center;
-    > span{
-        cursor: pointer;
-    }
     .lego-table-column-sorter-up,
     .lego-table-column-sorter-down {
         line-height: 7px;

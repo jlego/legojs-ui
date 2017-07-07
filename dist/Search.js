@@ -1,5 +1,5 @@
 /**
- * search.js v0.9.64
+ * search.js v0.10.3
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -222,6 +222,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             if (!opts.disabled && opts.container) {
                 var handler = function handler(event) {
                     var _Lego$UI$Util;
+                    event.stopPropagation();
                     (_Lego$UI$Util = Lego.UI.Util).getDirection.apply(_Lego$UI$Util, [ that.container, that.$el ].concat(toConsumableArray(that.directionArr)));
                     that.$el.slideToggle("fast");
                 };
@@ -247,12 +248,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
                 }
             }
             $("body, .modal-body").off(_eventName).on(_eventName, function(event) {
-                if (event.originalEvent) {
-                    var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.container[0]);
-                    if (index_a <= index_b) {} else {
-                        that.close();
-                    }
-                }
+                that.close();
             });
         }
     }, {

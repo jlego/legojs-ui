@@ -126,6 +126,7 @@ class Dropdown extends Lego.UI.Baseview {
                 this.$el.css(cssObj);
             }
             function handler(event){
+                event.stopPropagation();
                 Lego.UI.Util.getDirection(that.container, that.$el, ...that.directionArr);
                 that.$el.slideToggle('fast');
             }
@@ -138,14 +139,7 @@ class Dropdown extends Lego.UI.Baseview {
             }
         }
         $('body, .modal-body').off(_eventName).on(_eventName, function(event){
-            if(event.originalEvent){
-                let index_a = event.originalEvent.path.indexOf(event.target),
-                    index_b = event.originalEvent.path.indexOf(that.container[0]);
-                if(index_a <= index_b){
-                }else{
-                    that.close();
-                }
-            }
+            that.close();
         });
     }
     show(){

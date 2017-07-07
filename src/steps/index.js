@@ -44,10 +44,8 @@ class Steps extends Lego.UI.Baseview {
         ${opts.type == 'arrow' && opts.color == 'light' ? 'lego-steps-o' : ''}">
         ${opts.data.map((item, index) => {
             return hx`
-            <div class="lego-steps-item lego-steps-status-${opts.current == index ? opts.status : (item.status ? item.status : (opts.current > index ? 'finish': 'wait'))}"
-            style="${index == dataLength - (opts.type == 'arrow' ? 0 : 1) ? '' : ('width:' + widthPercent + '%;')} margin-right:-${(opts.titleWidth)/2}px;">
-                ${index < dataLength ? hx`<div class="lego-steps-tail"
-                style="${index == dataLength - (opts.type == 'arrow' ? 0 : 1) ? ('padding-right:' + opts.titleWidth + 'px') : ('padding-right:' + opts.titleWidth/2 + 'px')}"><i></i></div>` : ''}
+            <div class="lego-steps-item lego-steps-status-${opts.current == index ? opts.status : (item.status ? item.status : (opts.current > index ? 'finish': 'wait'))}">
+                ${index < dataLength ? hx`<div class="lego-steps-tail"><i></i></div>` : ''}
                 <div class="lego-steps-step">
                     <div class="lego-steps-head">
                         <div class="lego-steps-head-inner">
@@ -70,6 +68,22 @@ class Steps extends Lego.UI.Baseview {
         </div>
         `;
         return vDom;
+    }
+    renderAfter(){
+        let opts = this.options,
+            dataLength = opts.data.length,
+            widthPercent = 10 / (dataLength - (opts.type == 'arrow' ? 0 : 1)) * 10;
+        this.$('.lego-steps-item').each(function(index, el){
+            $(el).css({
+                width: index == dataLength - (opts.type == 'arrow' ? 0 : 1) ? '' : (widthPercent + '%'),
+                marginRight: -(opts.titleWidth)/2
+            });
+        });
+        this.$('.lego-steps-tail').each(function(index, el){
+            $(el).css({
+                paddingRight: index == dataLength - (opts.type == 'arrow' ? 0 : 1) ? opts.titleWidth : opts.titleWidth/2
+            });
+        });
     }
     changeStatus(){
         let opts = this.options;

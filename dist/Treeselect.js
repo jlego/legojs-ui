@@ -1,5 +1,5 @@
 /**
- * treeselect.js v0.9.64
+ * treeselect.js v0.10.3
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -249,6 +249,11 @@ var Treeselect = function(_Lego$UI$Baseview) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         classCallCheck(this, Treeselect);
         var options = {
+            events: {
+                click: function click(event) {
+                    event.stopPropagation();
+                }
+            },
             name: "",
             value: [],
             data: [],
@@ -416,12 +421,7 @@ var Treeselect = function(_Lego$UI$Baseview) {
                 };
                 if (opts.eventName == "click") {
                     $("body, .modal-body").off(_eventName).on(_eventName, function(event) {
-                        if (event.originalEvent) {
-                            var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(trigger[0]);
-                            if (index_a <= index_b) {} else {
-                                that.close();
-                            }
-                        }
+                        that.close();
                     });
                     trigger.off(_eventName).on(_eventName, handler);
                 } else {

@@ -1,5 +1,5 @@
 /**
- * tags.js v0.9.64
+ * tags.js v0.10.3
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -119,6 +119,11 @@ var Tags = function(_Lego$UI$Baseview) {
         var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         classCallCheck(this, Tags);
         var options = {
+            events: {
+                click: function click(event) {
+                    event.stopPropagation();
+                }
+            },
             color: "",
             deleteAble: true,
             readonly: false,
@@ -184,12 +189,7 @@ var Tags = function(_Lego$UI$Baseview) {
         value: function renderAfter() {
             var that = this, opts = this.options, _eventName = "click.tagslist_" + opts.vid;
             $("body, .modal-body").off(_eventName).on(_eventName, function(event) {
-                if (event.originalEvent) {
-                    var index_a = event.originalEvent.path.indexOf(event.target), index_b = event.originalEvent.path.indexOf(that.el);
-                    if (index_a <= index_b) {} else {
-                        opts.open = false;
-                    }
-                }
+                opts.open = false;
             });
         }
     }, {
