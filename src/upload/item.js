@@ -108,7 +108,8 @@ class UploadItem extends UploadBase {
     renderPhoto(){
         let opts = this.options;
         let vDom = opts.percent < 100 ? hx`
-            <div class="lego-upload-photo-item preview-${val(opts.type)}" style="background-image:url(${val(opts.previewImgSrc)});">
+            <div class="lego-upload-photo-item preview-${val(opts.type)}" id="preview_${opts.vid}">
+                <style>#preview_${opts.vid}{background-image:url(${val(opts.previewImgSrc)});}</style>
                 <div class="lego-upload-operate">
                     <progressbar id="${'progressbar_' + opts.vid}"></progressbar>
                     <a href="javascript:;" class="lego-cancelbtn" id="${val(opts.file._id)}" onclick=${this.onCancel.bind(this)} title="取消">
@@ -117,7 +118,8 @@ class UploadItem extends UploadBase {
                 </div>
             </div>
             ` : hx`
-            <div class="lego-upload-photo-item preview-${val(opts.type)}" style="background-image:url(${val(opts.file.url)});">
+            <div class="lego-upload-photo-item preview-${val(opts.type)}" id="preview_${opts.vid}">
+                <style>#preview_${opts.vid}{background-image:url(${val(opts.file.url)});}</style>
                 <div class="lego-upload-operate">
                     <div class="lego-upload-btns">
                         ${opts.showZoom ? hx`

@@ -45,6 +45,7 @@
             width: 1% !important;
             &:not(:first-child)>.btn,
             &:not(:first-child)>.btn-group {
+                height: 36px;
                 margin-left: -2px;
             }
         }
@@ -52,11 +53,12 @@
     &.input-group-sm input,
     &.input-group-sm input:focus {
         height: auto;
-        padding: .27rem .5rem;
+        padding: 3px 6px;
         font-size: .875rem;
         border-radius: .2rem;
     }
     &.input-group-sm .input-group-btn > .btn{
         padding: 3px 6px;
+        height: 28px !important;
     }
 }

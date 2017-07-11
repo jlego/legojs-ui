@@ -1,5 +1,5 @@
 /**
- * treeselect.js v0.10.3
+ * treeselect.js v0.10.14
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -432,7 +432,7 @@ var Treeselect = function(_Lego$UI$Baseview) {
                 this.$(".select-tag-close").off(_eventName).on(_eventName, this.clickItemClose.bind(this));
                 this.$(".dropdown-menu").off(_eventName).on(_eventName, function(event) {
                     event.stopPropagation();
-                });
+                }).width("100%");
                 if (opts.dropdownHeight) {
                     this.$(".dropdown-menu > .scrollbar").css({
                         maxHeight: opts.dropdownHeight,

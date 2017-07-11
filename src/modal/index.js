@@ -111,15 +111,27 @@ class Modal extends Lego.UI.Baseview {
     }
     // 关闭窗口
     close() {
-        let that = this;
-        if (this.options.animateOut) {
-            Lego.UI.Util.animateCss(that.$el, that.options.animateOut, () => {
-                that.$el.modal('hide');
-            });
-            if(this.options.backdrop) $('.modal-backdrop').fadeOut();
+        let that = this,
+            opts = this.options,
+            ieV = Lego.UI.Util.checkBrowser().ieversion;
+        if (opts.animateOut) {
+            if(ieV <= 9 && ieV > 0){
+                this.$el.remove();
+                if(typeof opts.onClose === 'function') opts.onClose(that);
+            }else{
+                Lego.UI.Util.animateCss(that.$el, opts.animateOut, () => {
+                    that.$el.modal('hide');
+                });
+            }
         } else {
-            this.$el.modal('hide');
+            if(ieV <= 9 && ieV > 0){
+                this.$el.remove();
+                if(typeof opts.onClose === 'function') opts.onClose(that);
+            }else{
+                this.$el.modal('hide');
+            }
         }
+        if(opts.backdrop) $('.modal-backdrop').fadeOut();
     }
     clickBackdrop(event){
         event.stopPropagation();

@@ -60,7 +60,7 @@ const Util = {
     // 动画
     animateCss(el, animationName, callback) {
         el = el instanceof $ ? el : $(el);
-        if(!this.checkBrowser().msie || animationName !== 'fadeIn'){
+        if((!this.checkBrowser().msie && !this.checkBrowser().edge)){
             animationName = /\s/g.test(animationName) ? animationName : ('animated ' + animationName);
             const animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
             el.addClass(animationName).one(animationEnd, function() {
@@ -68,7 +68,20 @@ const Util = {
                 if (typeof callback == 'function') callback();
             });
         }else{
-            if (typeof callback == 'function') callback();
+            if(window.$){
+                if(animationName.indexOf('slide') > -1){
+                    el.slideToggle("fast", function(){
+                        if (typeof callback == 'function') callback();
+                    });
+                }
+                if(animationName.indexOf('fadeIn') > -1){
+                    el.fadeIn("fast", function(){
+                        if (typeof callback == 'function') callback();
+                    });
+                }
+            }else{
+                if (typeof callback == 'function') callback();
+            }
         }
     },
     /**
@@ -200,12 +213,20 @@ const Util = {
     },
     //判断浏览器
     checkBrowser() {
-        const u = navigator.userAgent;
+        let u = navigator.userAgent,
+            IEVersion = 0;
+        if (/msie/.test(u.toLowerCase())){
+           let reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+           reIE.test(u);
+           IEVersion = parseFloat(RegExp["$1"]);
+        }
         return {
             mozilla: /firefox/.test(u.toLowerCase()),
             webkit: /webkit/.test(u.toLowerCase()),
             opera: /opera/.test(u.toLowerCase()),
-            msie: /msie/.test(u.toLowerCase())
+            edge: /edge/.test(u.toLowerCase()),
+            msie: /msie/.test(u.toLowerCase()),
+            ieversion: IEVersion
         };
     },
     // 转为超链接
