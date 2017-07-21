@@ -220,7 +220,7 @@ class Treeselect extends Lego.UI.Baseview {
             this.$('.select-tag-close').off(_eventName).on(_eventName, this.clickItemClose.bind(this));
             this.$('.dropdown-menu').off(_eventName).on(_eventName, function(event){
                 event.stopPropagation();
-            });
+            }).width('100%');
             if(opts.dropdownHeight){
                 this.$('.dropdown-menu > .scrollbar').css({
                     maxHeight: opts.dropdownHeight,

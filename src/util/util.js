@@ -60,7 +60,7 @@ const Util = {
     // 动画
     animateCss(el, animationName, callback) {
         el = el instanceof $ ? el : $(el);
-        if(!this.checkBrowser().msie || animationName !== 'fadeIn'){
+        if((!this.checkBrowser().msie && !this.checkBrowser().edge)){
             animationName = /\s/g.test(animationName) ? animationName : ('animated ' + animationName);
             const animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
             el.addClass(animationName).one(animationEnd, function() {
@@ -68,6 +68,21 @@ const Util = {
                 if (typeof callback == 'function') callback();
             });
         }else{
+            if(window.$){
+                if(animationName.indexOf('slide') > -1){
+                    if(animationName.indexOf('slideIn') > -1) el.css({right: -1000});
+                    el.animate({right: animationName.indexOf('slideIn') > -1 ? 0 : -1000}, function(){
+                        if (typeof callback == 'function') callback();
+                    });
+                    return;
+                }
+                if(animationName.indexOf('fade') > -1){
+                    el[animationName]("fast", function(){
+                        if (typeof callback == 'function') callback();
+                    });
+                    return;
+                }
+            }
             if (typeof callback == 'function') callback();
         }
     },
@@ -138,47 +153,47 @@ const Util = {
     /*
      * 获取文件对应的class
      * */
-    getFileIcon(name, isExt) {
-        const extMap = {
-            bmp: 'fa fa-file-o',
-            gif: 'fa fa-file-image-o',
-            png: 'fa fa-file-image-o',
-            jpg: 'fa fa-file-image-o',
-            jpeg: 'fa fa-file-image-o',
-            tif: 'fa fa-file-text-o',
-            psd: 'fa fa-file-image-o',
-            pdg: 'fa fa-file-o',
-            ai: 'fa fa-file-image-o',
-            ico: 'fa fa-file-image-o',
-            css: 'fa fa-file-text-o',
-            doc: 'fa fa-file-word-o',
-            docx: 'fa fa-file-word-o',
-            ppt: 'fa fa-file-powerpoint-o',
-            pptx: 'fa fa-file-powerpoint-o',
-            rar: 'fa fa-file-zip-o',
-            '7z': 'fa fa-file-zip-o',
-            gz: 'fa fa-file-zip-o',
-            bz: 'fa fa-file-zip-o',
-            ace: 'fa fa-file-zip-o',
-            uha: 'fa fa-file-zip-o',
-            zpaq: 'fa fa-file-zip-o',
-            rar: 'fa fa-file-zip-o',
-            txt: 'fa fa-file-text-o',
-            yml: 'fa fa-file-code-o',
-            ini: 'fa fa-file-code-o',
-            js: 'fa fa-file-code-o',
-            url: 'fa fa-file-code-o',
-            xls: 'fa fa-file-excel-o',
-            xlsx: 'fa fa-file-excel-o',
-            et: 'fa fa-file-excel-o',
-            mp3: 'fa fa-file-audio-o',
-            mp4: 'fa fa-file-video-o',
-            zip: 'fa fa-file-zip-o',
-            pdf: 'fa fa-file-pdf-o',
-            none: 'fa fa-file-o'
+    getFileIcon(name) {
+        let extMap = {
+            bmp: 'jpg',
+            gif: 'gif',
+            png: 'png',
+            jpg: 'jpg',
+            jpeg: 'jpg',
+            tif: 'txt',
+            psd: 'png',
+            pdg: 'pdf',
+            pdf: 'pdf',
+            ai: 'gif',
+            ico: 'ics',
+            css: 'txt',
+            doc: 'doc',
+            docx: 'doc',
+            ppt: 'ppt',
+            pptx: 'ppt',
+            rar: 'rar',
+            '7z': 'zip',
+            gz: 'zip',
+            bz: 'zip',
+            ace: 'zip',
+            uha: 'zip',
+            zpaq: 'zip',
+            zip: 'zip',
+            txt: 'txt',
+            yml: 'txt',
+            ini: 'txt',
+            js: 'txt',
+            url: 'link',
+            xls: 'xls',
+            xlsx: 'xls',
+            et: 'xls',
+            mp3: 'mp3',
+            apk: 'apk',
+            mp4: 'mov',
+            swf: 'mov'
         },
-        ext = isExt ? name : this.getExtName(name);
-        return (ext !== false && extMap[ext]) ? extMap[ext] : 'file';
+        ext = typeof name == 'string' ? (name.indexOf('.') > -1 ? this.getExtName(name) : name) : '';
+        return ext ? extMap[ext] : 'file';
     },
 
     /*
@@ -200,12 +215,20 @@ const Util = {
     },
     //判断浏览器
     checkBrowser() {
-        const u = navigator.userAgent;
+        let u = navigator.userAgent,
+            IEVersion = 0;
+        if (/msie/.test(u.toLowerCase())){
+           let reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+           reIE.test(u);
+           IEVersion = parseFloat(RegExp["$1"]);
+        }
         return {
             mozilla: /firefox/.test(u.toLowerCase()),
             webkit: /webkit/.test(u.toLowerCase()),
             opera: /opera/.test(u.toLowerCase()),
-            msie: /msie/.test(u.toLowerCase())
+            edge: /edge/.test(u.toLowerCase()),
+            msie: /msie/.test(u.toLowerCase()),
+            ieversion: IEVersion
         };
     },
     // 转为超链接

@@ -1,5 +1,5 @@
 /**
- * common.js v0.10.3
+ * common.js v0.10.14
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -264,7 +264,7 @@ var Util = {
     },
     animateCss: function animateCss(el, animationName, callback) {
         el = el instanceof $ ? el : $(el);
-        if (!this.checkBrowser().msie || animationName !== "fadeIn") {
+        if (!this.checkBrowser().msie && !this.checkBrowser().edge) {
             animationName = /\s/g.test(animationName) ? animationName : "animated " + animationName;
             var animationEnd = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
             el.addClass(animationName).one(animationEnd, function() {
@@ -272,7 +272,20 @@ var Util = {
                 if (typeof callback == "function") callback();
             });
         } else {
-            if (typeof callback == "function") callback();
+            if (window.$) {
+                if (animationName.indexOf("slide") > -1) {
+                    el.slideToggle("fast", function() {
+                        if (typeof callback == "function") callback();
+                    });
+                }
+                if (animationName.indexOf("fade") > -1) {
+                    el.fadeToggle("fast", function() {
+                        if (typeof callback == "function") callback();
+                    });
+                }
+            } else {
+                if (typeof callback == "function") callback();
+            }
         }
     },
     convertByteUnit: function convertByteUnit(size, unit, decimals, direction, targetunit) {
@@ -368,12 +381,19 @@ var Util = {
         return ext !== false && extMap.indexOf(ext) >= 0 ? true : false;
     },
     checkBrowser: function checkBrowser() {
-        var u = navigator.userAgent;
+        var u = navigator.userAgent, IEVersion = 0;
+        if (/msie/.test(u.toLowerCase())) {
+            var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+            reIE.test(u);
+            IEVersion = parseFloat(RegExp["$1"]);
+        }
         return {
             mozilla: /firefox/.test(u.toLowerCase()),
             webkit: /webkit/.test(u.toLowerCase()),
             opera: /opera/.test(u.toLowerCase()),
-            msie: /msie/.test(u.toLowerCase())
+            edge: /edge/.test(u.toLowerCase()),
+            msie: /msie/.test(u.toLowerCase()),
+            ieversion: IEVersion
         };
     },
     urlToHref: function urlToHref(str) {

@@ -1,5 +1,5 @@
 /**
- * modal.js v0.10.3
+ * modal.js v0.10.14
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -786,15 +786,25 @@ var Modal = function(_Lego$UI$Baseview) {
     }, {
         key: "close",
         value: function close() {
-            var that = this;
-            if (this.options.animateOut) {
-                Lego.UI.Util.animateCss(that.$el, that.options.animateOut, function() {
-                    that.$el.modal("hide");
-                });
-                if (this.options.backdrop) $(".modal-backdrop").fadeOut();
+            var that = this, opts = this.options, ieV = Lego.UI.Util.checkBrowser().ieversion;
+            if (opts.animateOut) {
+                if (ieV <= 9 && ieV > 0) {
+                    this.$el.remove();
+                    if (typeof opts.onClose === "function") opts.onClose(that);
+                } else {
+                    Lego.UI.Util.animateCss(that.$el, opts.animateOut, function() {
+                        that.$el.modal("hide");
+                    });
+                }
             } else {
-                this.$el.modal("hide");
+                if (ieV <= 9 && ieV > 0) {
+                    this.$el.remove();
+                    if (typeof opts.onClose === "function") opts.onClose(that);
+                } else {
+                    this.$el.modal("hide");
+                }
             }
+            if (opts.backdrop) $(".modal-backdrop").fadeOut();
         }
     }, {
         key: "clickBackdrop",

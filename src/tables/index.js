@@ -129,7 +129,7 @@ class Tables extends Lego.UI.Baseview {
     }
     resizeWidth(){
         let tableWidth = $(this.options.el).parent().width();
-        this.options.width = this.tableRealWidth > tableWidth ? this.tableRealWidth : 0;
+        this.options.width = this.tableRealWidth >= tableWidth ? this.tableRealWidth : 0;
     }
     render() {
         this.getColumns();
@@ -180,7 +180,7 @@ class Tables extends Lego.UI.Baseview {
             bottom: opts.pagination ? 48 : 0,
             minHeight: opts.nodata ? 120 : 0
         });
-        if(opts.width) this.$('.table').width(opts.width);
+        this.$('.table').width(opts.width || '100%');
         if(!opts.title) this.$('.lego-table-content').css({paddingBottom: 0});
         // 兼容IE及低版本浏览器
         this.$('colgroup').each(function(index, el){

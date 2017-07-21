@@ -72,6 +72,7 @@ class Search extends Lego.UI.Baseview {
             };
             if(opts.autoComplete.data) autoCompleteOpts.data = opts.autoComplete.data;
             if(opts.autoComplete.dataSource) autoCompleteOpts.dataSource = opts.autoComplete.dataSource;
+            autoCompleteOpts.stopFetch = true;
             this.addCom(autoCompleteOpts);
         }
     }

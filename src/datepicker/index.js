@@ -111,7 +111,7 @@ class Datepicker extends Lego.UI.Baseview {
                 <div class="input-group input-daterange datepicker date">
                     <input type="text" class="form-control startDate ${opts.disabled ? 'disabled' : ''}" value="${formatDate(opts.startValue, opts.format)}" name="${opts.startName}" placeholder="${opts.startPlaceholder}">
                     <span class="input-group-addon">
-                        至
+                        ~
                     </span>
                     <input type="text" class="form-control endDate ${opts.disabled ? 'disabled' : ''}" value="${formatDate(opts.endValue, opts.format)}" name="${opts.endName}" placeholder="${opts.endPlaceholder}">
                 </div>

@@ -68,7 +68,7 @@ class Dropdown extends Lego.UI.Baseview {
                 if(!item.children){
                     return hx`
                     <li ${item.isHidden ? 'style="display:none;"' : ''}>
-                    <a id="${val(item.key)}" class="${item.disabled || item.selected ? 'disabled' : ''} ${item.active ? 'active' : ''}" href="${item.href ? item.href : 'javascript:;'}">${val(item.value, item)}</a>
+                    <a id="${val(item.key)}" class="${item.disabled || item.selected ? 'disabled' : ''} ${item.active ? 'active' : ''}" href="${item.href ? item.href : 'javascript:;'}">${val(item.html || item.value, item)}</a>
                     </li>`;
                 }else{
                     return loopNav(item);
@@ -78,7 +78,7 @@ class Dropdown extends Lego.UI.Baseview {
         function loopNav(item){
             return hx`
             <li class="dropdown" ${item.isHidden ? 'style="display:none;"' : ''}>
-                <a id="${val(item.key)}" class="${item.key === options.activeKey ? 'active' : ''} ${item.disabled ? 'disabled' : ''} dropdown-toggle" href="${item.href ? item.href : 'javascript:;'}">${val(item.value, item)}</a>
+                <a id="${val(item.key)}" class="${item.key === options.activeKey ? 'active' : ''} ${item.disabled ? 'disabled' : ''} dropdown-toggle" href="${item.href ? item.href : 'javascript:;'}">${val(item.html || item.value, item)}</a>
                 ${item.children ? hx`
                 <ul class="dropdown-menu">
                     ${item.children.map((item) => {
@@ -127,8 +127,14 @@ class Dropdown extends Lego.UI.Baseview {
             }
             function handler(event){
                 event.stopPropagation();
-                Lego.UI.Util.getDirection(that.container, that.$el, ...that.directionArr);
-                that.$el.slideToggle('fast');
+                $('.dropdown-menu').each(function(index, el){
+                    if(el === that.el){
+                        Lego.UI.Util.getDirection(that.container, that.$el, ...that.directionArr);
+                        that.$el.slideToggle('fast');
+                    }else{
+                        $(el).slideUp('fast');
+                    }
+                });
             }
             if(opts.eventName == 'click'){
                 this.container.off(_eventName).on(_eventName, handler);
