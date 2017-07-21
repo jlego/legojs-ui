@@ -2,6 +2,8 @@
     .input-group-addon {
         background-color: transparent !important;
         color: #999;
+        border: none;
+        padding: 8px;
     }
     .form-control {
         &.dp-input {
@@ -18,12 +20,13 @@
             border-left: none !important;
         }
     }
-    .endDate {
-        border-radius: .25rem !important;
-        border-bottom-left-radius: 0 !important;
-        border-top-left-radius: 0 !important;
-    }
+    // .endDate {
+        // border-radius: .25rem !important;
+        // border-bottom-left-radius: 0 !important;
+        // border-top-left-radius: 0 !important;
+    // }
     &.datepicker .form-control{
         text-align: center;
+        border-radius: .25rem !important;
     }
 }

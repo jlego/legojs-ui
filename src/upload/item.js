@@ -25,6 +25,7 @@
  * }
  */
 // import './asset/index.scss';
+import './iconfont.js';
 import UploadBase from './upload';
 import Progressbar from '../progressbar/index';
 
@@ -67,7 +68,7 @@ class UploadItem extends UploadBase {
         const vDom = hx`
         <div class="media lego-upload-item">
             <div class="media-left">
-                <i class="${Lego.UI.Util.getFileIcon(opts.file.name)}"></i>
+                <i class="file-icon ${Lego.UI.Util.getFileIcon(opts.file.name)}"></i>
             </div>
             ${opts.percent < 100 ? hx`
             <div class="media-body">
@@ -150,6 +151,42 @@ class UploadItem extends UploadBase {
                 break;
             default:
                 return this.renderFile();
+        }
+    }
+    renderAfter(){
+        function before(el, target) {
+            target.parentNode.insertBefore(el, target)
+        }
+        function prepend(el, target) {
+            if (target.firstChild) {
+                before(el, target.firstChild)
+            } else {
+                target.appendChild(el)
+            }
+        }
+        function appendSvg() {
+            let div, svg;
+            div = document.createElement("div");
+            div.innerHTML = window.svgSprite;
+            window.svgSprite = null;
+            svg = div.getElementsByTagName("svg")[0];
+            if (svg) {
+                svg.setAttribute("aria-hidden", "true");
+                svg.style.position = "absolute";
+                svg.style.width = 0;
+                svg.style.height = 0;
+                svg.style.overflow = "hidden";
+                prepend(svg, document.body)
+            }
+        }
+        let iconEl = this.$('.file-icon');
+        if(iconEl.length){
+            iconEl.each(function(index, el) {
+                let classStr = $(el).attr('class'),
+                    fileExtArr = classStr.split(' ');
+                $(el).parent().html('<svg class="icon" aria-hidden="true"><use xlink:href="#icon-' + (fileExtArr[1] || 'file') + '"></use></svg>');
+            });
+            appendSvg();
         }
     }
     removeFun(){

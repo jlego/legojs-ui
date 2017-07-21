@@ -1,5 +1,12 @@
 @import "../../../asset/scss/bootstrap/variables";
 .lego-upload {
+    .icon {
+       width: 42px;
+       height: 42px;
+       vertical-align: -0.15em;
+       fill: currentColor;
+       overflow: hidden;
+    }
     .lego-upload-container {
         margin-top: 8px;
     }
@@ -7,6 +14,7 @@
         i {
             font-size: 16px;
             display: inline-block;
+            vertical-align: middle;
         }
     }
     .lego-cancelbtn {

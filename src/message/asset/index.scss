@@ -1,3 +1,5 @@
+@import "../../../asset/scss/bootstrap/variables";
+
 .toast-top-center {
     top: 0;
     right: 0;
@@ -37,11 +39,11 @@
 }
 
 .toast-success {
-    background-color: #48d9a1;
+    background-color: $green;
 }
 
 .toast-error {
-    background-color: #f85774;
+    background-color: $red;
 }
 
 .toast-info {
@@ -49,7 +51,7 @@
 }
 
 .toast-warning {
-    background-color: #ffbf00;
+    background-color: $orange;
 }
 .toast-info:before,
 .toast-error:before,
