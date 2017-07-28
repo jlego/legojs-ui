@@ -6,5 +6,6 @@ import "../message/index";
 import "../util/util";
 export Basedata from "./basedata";
 export Baseview from "./baseview";
+export Baseupload from "../upload/upload";
 
 window.Ps = perfectScrollbar;

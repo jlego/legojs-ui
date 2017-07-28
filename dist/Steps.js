@@ -1,5 +1,5 @@
 /**
- * steps.js v0.10.14
+ * steps.js v0.11.6
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

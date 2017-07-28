@@ -3,6 +3,8 @@ import 'com-areapicker/dist/index.css';
 import Data from 'com-areapicker/dist/data';
 import Geolocation from 'com-geolocation';
 import 'com-geolocation/dist/index.css';
+import Colorpicker from 'com-colorpicker';
+import 'com-colorpicker/dist/index.css';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -192,6 +194,21 @@ class HomeView extends Lego.UI.Baseview {
                         name: 'sdfasd',
                         mapApi: 'https://webapi.amap.com/maps?v=1.3&key=acc8b6f1622ec84e5eb7ad4765b14998',
                         // data: {},
+                        onChange(self, result){
+                            console.warn(self, result);
+                        }
+                    }
+                }, {
+                    label: '名称10',
+                    rule: {
+                        required: true
+                    },
+                    message: {
+                        required: '请先选择'
+                    },
+                    component: {
+                        comName: 'colorpicker',
+                        name: 'colorpicker',
                         onChange(self, result){
                             console.warn(self, result);
                         }

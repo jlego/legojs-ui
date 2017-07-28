@@ -27,7 +27,7 @@ class HomeView extends Lego.UI.Baseview {
                 }]
             }, {
                 el: '#tree2',
-                setting: {
+                treeSetting: {
                     check: {
                         enable: true
                     }
@@ -59,7 +59,7 @@ class HomeView extends Lego.UI.Baseview {
                 }]
             }, {
                 el: '#tree3',
-                setting: {
+                treeSetting: {
                     check: {
                         enable: true,
                         chkStyle: "radio"
@@ -93,9 +93,11 @@ class HomeView extends Lego.UI.Baseview {
                 view: {
                     showIcon: false
                 },
-                data: {
-                    simpleData: {
-                        enable: true
+                treeSetting: {
+                    data: {
+                        simpleData: {
+                            enable: true
+                        }
                     }
                 },
                 onChecked(self, result){

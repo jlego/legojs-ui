@@ -1,5 +1,5 @@
 /**
- * facial.js v0.10.14
+ * facial.js v0.11.6
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -97,13 +97,15 @@ var taggedTemplateLiteral = function(strings, raw) {
     }));
 };
 
-var _templateObject = taggedTemplateLiteral([ '\n        <div class="lego-facial">\n            ', '\n            <div class="dropdown-menu clearfix ', '">\n                <ul>\n                ', "\n                </ul>\n            </div>\n        </div>\n        " ], [ '\n        <div class="lego-facial">\n            ', '\n            <div class="dropdown-menu clearfix ', '">\n                <ul>\n                ', "\n                </ul>\n            </div>\n        </div>\n        " ]);
+var _templateObject = taggedTemplateLiteral([ '\n        <div class="lego-facial">\n            ', "\n            ", '\n            <i class="lego-facial-trigger ', '"></i>\n            <div class="dropdown-menu clearfix ', '">\n                <ul>\n                ', "\n                </ul>\n            </div>\n            ", "\n        </div>\n        " ], [ '\n        <div class="lego-facial">\n            ', "\n            ", '\n            <i class="lego-facial-trigger ', '"></i>\n            <div class="dropdown-menu clearfix ', '">\n                <ul>\n                ', "\n                </ul>\n            </div>\n            ", "\n        </div>\n        " ]);
 
-var _templateObject2 = taggedTemplateLiteral([ '<i class="lego-facial-trigger">', "</i>" ], [ '<i class="lego-facial-trigger">', "</i>" ]);
+var _templateObject2 = taggedTemplateLiteral([ '<input type="hidden" name="', '" value="', '"/>' ], [ '<input type="hidden" name="', '" value="', '"/>' ]);
 
-var _templateObject3 = taggedTemplateLiteral([ '<i class="lego-facial-trigger ', '"></i>' ], [ '<i class="lego-facial-trigger ', '"></i>' ]);
+var _templateObject3 = taggedTemplateLiteral([ '<span id="face_', '">', "</span>" ], [ '<span id="face_', '">', "</span>" ]);
 
 var _templateObject4 = taggedTemplateLiteral([ '\n                    <li class="lego-facial-item ', "", '"><a href="javascript:void(0);"\n                    title="', '"><img src="', "", '.gif" /></a></li>\n                ' ], [ '\n                    <li class="lego-facial-item ', "", '"><a href="javascript:void(0);"\n                    title="', '"><img src="', "", '.gif" /></a></li>\n                ' ]);
+
+var _templateObject5 = taggedTemplateLiteral([ '<a class="face-remove" href="javascript:;">删除</a>' ], [ '<a class="face-remove" href="javascript:;">删除</a>' ]);
 
 var Facial = function(_Lego$UI$Baseview) {
     inherits(Facial, _Lego$UI$Baseview);
@@ -112,19 +114,23 @@ var Facial = function(_Lego$UI$Baseview) {
         classCallCheck(this, Facial);
         var options = {
             events: {
-                "click .lego-facial-item a": "clickItem"
+                "click .lego-facial-item a": "clickItem",
+                "click .face-remove": "removeFace"
             },
+            name: "",
             target: "",
             targetType: "textarea",
             icon: "anticon anticon-smile-o",
-            text: "",
             eventName: "click",
-            iconsUrl: "",
+            dropdownOption: {},
+            iconsUrl: Lego.config.faceIconUri || "",
             itemClassPrefix: "f0",
             direction: "bottom",
+            value: [],
             data: Lego.UI.Util.faceTags
         };
         Object.assign(options, opts);
+        options.value = Array.isArray(options.value) ? options.value : [ options.value ];
         var _this = possibleConstructorReturn(this, (Facial.__proto__ || Object.getPrototypeOf(Facial)).call(this, options));
         _this.cursorPos = null;
         _this.cursorContainer = null;
@@ -137,16 +143,16 @@ var Facial = function(_Lego$UI$Baseview) {
     createClass(Facial, [ {
         key: "render",
         value: function render() {
-            var options = this.options, dataLength = options.data.length, widthPercent = 10 / (dataLength - 1) * 10;
-            var vDom = hx(_templateObject, options.text ? hx(_templateObject2, val(options.text)) : hx(_templateObject3, options.icon), options.direction ? "drop" + options.direction : "", options.data.map(function(item, index) {
-                return hx(_templateObject4, options.itemClassPrefix, index, item, options.iconsUrl || Lego.config.faceIconUri, index);
-            }));
+            var opts = this.options, dataLength = opts.data.length, widthPercent = 10 / (dataLength - 1) * 10;
+            var vDom = hx(_templateObject, !opts.target ? hx(_templateObject2, val(opts.name), opts.value.join(",")) : "", !opts.target ? hx(_templateObject3, opts.vid, opts.value.join(",")) : "", opts.icon, opts.direction ? "drop" + opts.direction : "", opts.data.map(function(item, index) {
+                return hx(_templateObject4, opts.itemClassPrefix, index, item, opts.iconsUrl, index);
+            }), !opts.target && opts.value.length ? hx(_templateObject5) : "");
             return vDom;
         }
     }, {
         key: "renderAfter",
         value: function renderAfter() {
-            var target = this.$el, that = this, targetEl = this.options.target instanceof $ ? this.options.target : $(this.options.target);
+            var target = this.$el, that = this, opts = this.options, targetEl = opts.target instanceof $ ? opts.target : opts.target ? $(opts.target) : this.$("input");
             function handler(event) {
                 event.stopPropagation();
                 that.$el.toggleClass("dropdown open");
@@ -156,26 +162,39 @@ var Facial = function(_Lego$UI$Baseview) {
                     });
                 }
             }
-            if (this.options.eventName == "click") {
-                var _eventName = "click.dropdown_" + this.options.vid;
+            if (opts.eventName == "click") {
+                var _eventName = "click.dropdown_" + opts.vid;
                 target.off(_eventName).on(_eventName, handler);
             } else {
-                target[this.options.eventName](handler);
+                target[opts.eventName](handler);
             }
             targetEl.off("click keyup").on("click keyup", function(event) {
                 var el = $(event.currentTarget);
                 that.getCursorPos(el);
             });
+            if (opts.dropdownOption) {
+                this.$(".dropdown-menu > ul").css(opts.dropdownOption);
+            }
+        }
+    }, {
+        key: "removeFace",
+        value: function removeFace(event) {
+            event.stopPropagation();
+            this.options.value = [];
         }
     }, {
         key: "clickItem",
         value: function clickItem(event) {
             event.stopPropagation();
-            var target = $(event.currentTarget), targetEl = this.options.target instanceof $ ? this.options.target : $(this.options.target);
-            if (this.options.targetType == "div") {
-                this.addComma(targetEl, target.attr("title"));
+            var target = $(event.currentTarget), opts = this.options, targetEl = opts.target instanceof $ ? opts.target : opts.target ? $(opts.target) : this.$("input"), value = target.attr("title");
+            if (opts.target) {
+                if (opts.targetType == "div") {
+                    this.addComma(targetEl, value);
+                } else {
+                    this.addOnPos(targetEl, value);
+                }
             } else {
-                this.addOnPos(targetEl, target.attr("title"));
+                opts.value = [ value ];
             }
             this.close();
         }

@@ -1,5 +1,5 @@
 /**
- * pagination.js v0.10.14
+ * pagination.js v0.11.6
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -182,6 +182,7 @@ var Search = function(_Lego$UI$Baseview) {
                 };
                 if (opts.autoComplete.data) autoCompleteOpts.data = opts.autoComplete.data;
                 if (opts.autoComplete.dataSource) autoCompleteOpts.dataSource = opts.autoComplete.dataSource;
+                autoCompleteOpts.stopFetch = true;
                 this.addCom(autoCompleteOpts);
             }
         }
@@ -339,14 +340,14 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     return hx(_templateObject$1);
                 } else {
                     if (!item.children) {
-                        return hx(_templateObject2$1, item.isHidden ? 'style="display:none;"' : "", val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value, item));
+                        return hx(_templateObject2$1, item.isHidden ? 'style="display:none;"' : "", val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.html || item.value, item));
                     } else {
                         return loopNav(item);
                     }
                 }
             }
             function loopNav(item) {
-                return hx(_templateObject3$1, item.isHidden ? 'style="display:none;"' : "", val(item.key), item.key === options.activeKey ? "active" : "", item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", val(item.value, item), item.children ? hx(_templateObject4$1, item.children.map(function(item) {
+                return hx(_templateObject3$1, item.isHidden ? 'style="display:none;"' : "", val(item.key), item.key === options.activeKey ? "active" : "", item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", val(item.html || item.value, item), item.children ? hx(_templateObject4$1, item.children.map(function(item) {
                     return itemNav(item);
                 })) : "");
             }
@@ -366,10 +367,16 @@ var Dropdown = function(_Lego$UI$Baseview) {
             this.container = opts.container instanceof $ ? opts.container : opts.context.$ ? opts.context.$(opts.container) : $(opts.container);
             if (!opts.disabled && opts.container) {
                 var handler = function handler(event) {
-                    var _Lego$UI$Util;
                     event.stopPropagation();
-                    (_Lego$UI$Util = Lego.UI.Util).getDirection.apply(_Lego$UI$Util, [ that.container, that.$el ].concat(toConsumableArray(that.directionArr)));
-                    that.$el.slideToggle("fast");
+                    $(".dropdown-menu").each(function(index, el) {
+                        if (el === that.el) {
+                            var _Lego$UI$Util;
+                            (_Lego$UI$Util = Lego.UI.Util).getDirection.apply(_Lego$UI$Util, [ that.container, that.$el ].concat(toConsumableArray(that.directionArr)));
+                            that.$el.slideToggle("fast");
+                        } else {
+                            $(el).slideUp("fast");
+                        }
+                    });
                 };
                 var cssObj = {
                     zIndex: 1e4

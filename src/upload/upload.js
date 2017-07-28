@@ -61,6 +61,7 @@ class UploadView extends Lego.View {
     uploadInit() {
         let taking = 0,
             file = this.options.file,
+            opts = this.options,
             params = this.options.params;
         this.xhr.crossDomain = true;
         // file.id = file.id || Lego.randomKey(32);

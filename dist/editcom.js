@@ -1,5 +1,5 @@
 /**
- * editcom.js v0.10.14
+ * editcom.js v0.11.6
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -230,9 +230,9 @@ var Forms = function(_Lego$UI$Baseview) {
                     }
                 }
                 if (layout == "vertical") {
-                    vDom = hx(_templateObject4, id, val(item.label), item.rule || item.required ? item.rule.required || item.required ? hx(_templateObject5) : "" : "", comTag, item.help ? hx(_templateObject6, val(item.help)) : "");
+                    vDom = hx(_templateObject4, id, item.rule || item.required ? item.rule.required || item.required ? hx(_templateObject5) : "" : "", val(item.label), comTag, item.help ? hx(_templateObject6, val(item.help)) : "");
                 } else {
-                    vDom = hx(_templateObject7, id, that.options.labelCols, val(item.label), item.rule || item.required ? item.rule.required || item.required ? hx(_templateObject5) : "" : "", that.options.comCols, comTag, item.help ? hx(_templateObject6, val(item.help)) : "");
+                    vDom = hx(_templateObject7, id, that.options.labelCols, item.rule || item.required ? item.rule.required || item.required ? hx(_templateObject5) : "" : "", val(item.label), that.options.comCols, comTag, item.help ? hx(_templateObject6, val(item.help)) : "");
                 }
                 return vDom;
             }

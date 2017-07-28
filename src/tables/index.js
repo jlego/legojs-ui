@@ -322,7 +322,7 @@ class Tables extends Lego.UI.Baseview {
         }
     }
     clickItem(event){
-        event.stopPropagation();
+        // event.stopPropagation();
         let target = $(event.currentTarget),
             rowKey = target.parent().attr('id'),
             colKey = this.$el.find('thead').find('th').eq(event.currentTarget.cellIndex).attr('id');

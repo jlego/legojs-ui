@@ -149,8 +149,8 @@ class Transfer extends Lego.UI.Baseview {
                     </div>
                 </div>
             </div>
-            <i class="anticon anticon-double-right"></i>
-            <i class="anticon anticon-double-left"></i>
+            <i class="anticon anticon-right"></i>
+            <i class="anticon anticon-left"></i>
         </div>
         `;
         return vDom;

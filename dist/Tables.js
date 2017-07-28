@@ -1,5 +1,5 @@
 /**
- * tables.js v0.10.14
+ * tables.js v0.11.6
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -182,6 +182,7 @@ var Search = function(_Lego$UI$Baseview) {
                 };
                 if (opts.autoComplete.data) autoCompleteOpts.data = opts.autoComplete.data;
                 if (opts.autoComplete.dataSource) autoCompleteOpts.dataSource = opts.autoComplete.dataSource;
+                autoCompleteOpts.stopFetch = true;
                 this.addCom(autoCompleteOpts);
             }
         }
@@ -339,14 +340,14 @@ var Dropdown = function(_Lego$UI$Baseview) {
                     return hx(_templateObject$2);
                 } else {
                     if (!item.children) {
-                        return hx(_templateObject2$2, item.isHidden ? 'style="display:none;"' : "", val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.value, item));
+                        return hx(_templateObject2$2, item.isHidden ? 'style="display:none;"' : "", val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.html || item.value, item));
                     } else {
                         return loopNav(item);
                     }
                 }
             }
             function loopNav(item) {
-                return hx(_templateObject3$2, item.isHidden ? 'style="display:none;"' : "", val(item.key), item.key === options.activeKey ? "active" : "", item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", val(item.value, item), item.children ? hx(_templateObject4$2, item.children.map(function(item) {
+                return hx(_templateObject3$2, item.isHidden ? 'style="display:none;"' : "", val(item.key), item.key === options.activeKey ? "active" : "", item.disabled ? "disabled" : "", item.href ? item.href : "javascript:;", val(item.html || item.value, item), item.children ? hx(_templateObject4$2, item.children.map(function(item) {
                     return itemNav(item);
                 })) : "");
             }
@@ -366,10 +367,16 @@ var Dropdown = function(_Lego$UI$Baseview) {
             this.container = opts.container instanceof $ ? opts.container : opts.context.$ ? opts.context.$(opts.container) : $(opts.container);
             if (!opts.disabled && opts.container) {
                 var handler = function handler(event) {
-                    var _Lego$UI$Util;
                     event.stopPropagation();
-                    (_Lego$UI$Util = Lego.UI.Util).getDirection.apply(_Lego$UI$Util, [ that.container, that.$el ].concat(toConsumableArray(that.directionArr)));
-                    that.$el.slideToggle("fast");
+                    $(".dropdown-menu").each(function(index, el) {
+                        if (el === that.el) {
+                            var _Lego$UI$Util;
+                            (_Lego$UI$Util = Lego.UI.Util).getDirection.apply(_Lego$UI$Util, [ that.container, that.$el ].concat(toConsumableArray(that.directionArr)));
+                            that.$el.slideToggle("fast");
+                        } else {
+                            $(el).slideUp("fast");
+                        }
+                    });
                 };
                 var cssObj = {
                     zIndex: 1e4
@@ -788,7 +795,7 @@ var Tables = function(_Lego$UI$Baseview) {
         key: "resizeWidth",
         value: function resizeWidth() {
             var tableWidth = $(this.options.el).parent().width();
-            this.options.width = this.tableRealWidth > tableWidth ? this.tableRealWidth : 0;
+            this.options.width = this.tableRealWidth >= tableWidth ? this.tableRealWidth : 0;
         }
     }, {
         key: "render",
@@ -806,7 +813,7 @@ var Tables = function(_Lego$UI$Baseview) {
                 bottom: opts.pagination ? 48 : 0,
                 minHeight: opts.nodata ? 120 : 0
             });
-            if (opts.width) this.$(".table").width(opts.width);
+            this.$(".table").width(opts.width || "100%");
             if (!opts.title) this.$(".lego-table-content").css({
                 paddingBottom: 0
             });
@@ -927,7 +934,6 @@ var Tables = function(_Lego$UI$Baseview) {
     }, {
         key: "clickItem",
         value: function clickItem(event) {
-            event.stopPropagation();
             var target = $(event.currentTarget), rowKey = target.parent().attr("id"), colKey = this.$el.find("thead").find("th").eq(event.currentTarget.cellIndex).attr("id");
             var row = this.options.data.find(function(val) {
                 return val.key == rowKey;

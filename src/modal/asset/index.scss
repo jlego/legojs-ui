@@ -91,8 +91,8 @@
 .middle,
 .dialog-modal {
     display: flex !important;
-    justify-content: center;
-    align-items: center;
+    -webkit-justify-content: center;
+    -webkit-align-items: center;
 }
 
 .dialog-modal {

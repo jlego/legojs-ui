@@ -1,5 +1,5 @@
 /**
- * modal.js v0.10.14
+ * modal.js v0.11.6
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -735,7 +735,8 @@ var Modal = function(_Lego$UI$Baseview) {
             scrollAble: true,
             okText: "确定",
             cancelText: "取消",
-            onClose: function onClose() {}
+            onClose: function onClose() {},
+            onShow: function onShow() {}
         };
         Object.assign(options, opts);
         if (options.msgType) options.type = "dialog";
@@ -775,11 +776,18 @@ var Modal = function(_Lego$UI$Baseview) {
                 keyboard: opts.keyboard,
                 show: true
             });
+            this.$el.on("hidden.bs.modal", function(e) {
+                that.remove();
+                if (typeof opts.onClose === "function") opts.onClose(that);
+            });
+            this.$el.on("show.bs.modal", function(e) {
+                if (typeof opts.onShow === "function") opts.onShow(that);
+            });
+            this.bindKeyup();
             if (opts.width) this.$(".modal-dialog").width(opts.width);
             if (opts.height) this.$(".modal-body").height(opts.height);
-            this.$el.on("hidden.bs.modal", function(e) {
-                that.$el.remove();
-                if (typeof opts.onClose === "function") opts.onClose(that);
+            if (!opts.showFooter && opts.type !== "dialog") this.$(".modal-body").css({
+                padding: 15
             });
             if (opts.animateIn) Lego.UI.Util.animateCss(this.$el, opts.animateIn);
         }
@@ -788,17 +796,13 @@ var Modal = function(_Lego$UI$Baseview) {
         value: function close() {
             var that = this, opts = this.options, ieV = Lego.UI.Util.checkBrowser().ieversion;
             if (opts.animateOut) {
-                if (ieV <= 9 && ieV > 0) {
-                    this.$el.remove();
-                    if (typeof opts.onClose === "function") opts.onClose(that);
-                } else {
-                    Lego.UI.Util.animateCss(that.$el, opts.animateOut, function() {
-                        that.$el.modal("hide");
-                    });
-                }
+                Lego.UI.Util.animateCss(that.$el, opts.animateOut, function() {
+                    that.$el.modal("hide");
+                });
             } else {
                 if (ieV <= 9 && ieV > 0) {
-                    this.$el.remove();
+                    this.unbindKeyup();
+                    this.remove();
                     if (typeof opts.onClose === "function") opts.onClose(that);
                 } else {
                     this.$el.modal("hide");
@@ -816,7 +820,7 @@ var Modal = function(_Lego$UI$Baseview) {
         key: "_showDialog",
         value: function _showDialog() {
             var that = this;
-            Lego.create(Modal, {
+            var dialogView = Lego.create(Modal, {
                 msgType: this.options.confirm.msgType || "warning",
                 content: this.options.confirm.content || "",
                 backdrop: this.options.confirm.backdrop,
@@ -835,12 +839,56 @@ var Modal = function(_Lego$UI$Baseview) {
                 if (isBackdrop) {
                     var closeAble = true;
                     if (this.options.backdrop == "static") closeAble = false;
-                    if (funName !== "onOk" && closeAble) this.close();
+                    if (funName !== "onOk" && closeAble) {
+                        this.unbindKeyup();
+                        this.close();
+                    }
                 } else {
-                    if (funName !== "onOk") this.close();
+                    if (funName !== "onOk") {
+                        this.unbindKeyup();
+                        this.close();
+                    }
                 }
             }
             if (typeof this.options[funName] === "function") this.options[funName](this);
+        }
+    }, {
+        key: "documentKeyEvent",
+        value: function documentKeyEvent(eventName, callback) {
+            $(document).off(eventName).on(eventName, function(event) {
+                switch (event.keyCode) {
+                  case 27:
+                    callback("onCancel");
+                    debug.log("on click ESC key");
+                    break;
+
+                  case 13:
+                    callback("onOk");
+                    debug.log("on click Enter key");
+                    break;
+                }
+            });
+        }
+    }, {
+        key: "unbindKeyup",
+        value: function unbindKeyup() {
+            $(document).off("keyup." + this.options.vid);
+            var prevModal = this.$el.prev();
+            if (prevModal.length && prevModal.hasClass("modal")) {
+                var eventName = "keyup." + prevModal.attr("view-id"), modalView = Lego.getView("#" + prevModal.attr("id"));
+                if (modalView) {
+                    modalView.$el.focus();
+                    this.documentKeyEvent(eventName, modalView._onConfirm.bind(modalView));
+                }
+            }
+        }
+    }, {
+        key: "bindKeyup",
+        value: function bindKeyup() {
+            this.$el.focus();
+            var eventName = "keyup." + this.options.vid, callback = this._onConfirm.bind(this), prevModal = this.$el.prev();
+            if (prevModal.length && prevModal.hasClass("modal")) $(document).off("keyup." + prevModal.attr("view-id"));
+            this.documentKeyEvent(eventName, callback);
         }
     }, {
         key: "clickOk",
@@ -866,7 +914,7 @@ var theModal = function theModal() {
         var view = Lego.getView("#lego-" + type + "-" + vid);
         if (view) view.close();
     } else {
-        Lego.create(Modal, opts);
+        var modalView = Lego.create(Modal, opts);
     }
 };
 

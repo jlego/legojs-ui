@@ -1,5 +1,5 @@
 /**
- * loading.js v0.10.14
+ * loading.js v0.11.6
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
