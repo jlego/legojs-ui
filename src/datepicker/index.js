@@ -141,6 +141,33 @@ class Datepicker extends Lego.UI.Baseview {
             input = target.prev('input');
         input.focus();
     }
+    // 取时间段
+    getPeriod(type) {
+        let startDate, endDate;
+        if(moment){
+            switch(type){
+                case 0:  //今天
+                    startDate = moment().format("YYYY-MM-DD");
+                    endDate = moment().format("YYYY-MM-DD");
+                    break;
+                case 1:  //本周
+                    startDate = moment().day(0).format("YYYY-MM-DD");
+                    endDate = moment().day(6).format("YYYY-MM-DD");
+                    break;
+                case 2:  //本月
+                    startDate = moment().format("YYYY-MM-01");
+                    endDate = moment(startDate).add(1, 'months').subtract(1, 'days').format("YYYY-MM-DD");
+                    break;
+                case 3:  //本年
+                    startDate = moment().format("YYYY-01-01");
+                    endDate = moment().format("YYYY-12-31");
+                    break;
+            }
+        }else{
+            debug.warn('依赖的moment.js插件还没安装');
+        }
+        return {startDate: startDate, endDate: endDate};
+    }
 }
 Lego.components('datepicker', Datepicker);
 export default Datepicker;

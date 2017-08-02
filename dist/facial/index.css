@@ -1,0 +1,36 @@
+.lego-facial > i {
+  font-size: 20px;
+  cursor: pointer; }
+
+.lego-facial .anticon {
+  vertical-align: middle; }
+
+.lego-facial .face-remove {
+  margin-left: 5px; }
+
+.lego-facial .dropdown-menu {
+  padding: 0px;
+  overflow: hidden; }
+  .lego-facial .dropdown-menu .lego-facial-item a {
+    padding: 0; }
+  .lego-facial .dropdown-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 429px;
+    height: 175px;
+    overflow: hidden;
+    background: url(./face_icons/facebackground.png);
+    background-size: cover; }
+    .lego-facial .dropdown-menu ul li {
+      float: left;
+      margin: 0;
+      width: 28.5px;
+      height: 28.5px; }
+      .lego-facial .dropdown-menu ul li img {
+        width: 98%;
+        height: auto;
+        margin-left: 0.2px;
+        opacity: 0; }
+      .lego-facial .dropdown-menu ul li:hover img {
+        opacity: 1; }

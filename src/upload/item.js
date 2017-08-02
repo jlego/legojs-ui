@@ -26,8 +26,8 @@
  */
 // import './asset/index.scss';
 import './iconfont.js';
-import UploadBase from './upload';
-import Progressbar from '../progressbar/index';
+import UploadBase from '../baseupload';
+import Progressbar from '../progressbar';
 
 class UploadItem extends UploadBase {
     constructor(opts = {}) {

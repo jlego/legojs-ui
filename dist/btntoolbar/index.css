@@ -1,0 +1,6 @@
+.lego-btngroup {
+  width: auto; }
+input[type=text] {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap; }

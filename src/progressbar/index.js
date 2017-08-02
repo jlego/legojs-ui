@@ -3,7 +3,7 @@
  * ronghui Yu
  * 2017/1/10
  */
-// import './asset/index.scss';
+import './asset/index.scss';
 
 class Progressbar extends Lego.UI.Baseview {
     constructor(opts = {}) {

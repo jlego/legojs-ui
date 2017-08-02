@@ -172,6 +172,5 @@ $.fn.extend({
         return on(this, types, selector, data, fn);
     }
 });
-
 Lego.components('permis', permisObj);
 export default permisObj;

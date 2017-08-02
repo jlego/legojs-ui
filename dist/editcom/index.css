@@ -1,0 +1,54 @@
+.lego-editcom {
+  display: flex;
+  align-items: center;
+  line-height: 25px;
+  min-width: 20px;
+  min-height: 20px; }
+
+.lego-editcom > * {
+  display: inline-block;
+  float: left; }
+
+.lego-editcom > i {
+  display: none;
+  cursor: pointer;
+  margin-left: 5px; }
+
+.lego-editcom > span {
+  padding-top: .5rem; }
+
+.lego-editcom.sm > i {
+  line-height: 25px;
+  padding-top: .3rem; }
+
+.lego-editcom:hover > i {
+  padding-top: .3rem;
+  display: inline-block;
+  vertical-align: middle; }
+
+.lego-editcom > i.edit {
+  padding-top: .5rem;
+  vertical-align: middle;
+  font-size: 20px; }
+
+.lego-editcom > i.edit:hover {
+  color: #48d9a1; }
+
+.lego-editcom > i.cancel {
+  color: #999; }
+
+.lego-editcom > i.cancel:hover {
+  color: #f85774; }
+form legend {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 15px;
+  padding-top: 20px; }
+
+form .form-group.row > div {
+  line-height: 35px; }
+  form .form-group.row > div > * {
+    line-height: 1.25; }
+
+form button[type="submit"] {
+  margin-right: 10px; }

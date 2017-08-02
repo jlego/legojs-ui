@@ -3,6 +3,8 @@
  * ronghui Yu
  * 2017/1/17
  */
+ import './asset/index.scss';
+
 class Collapse {
     constructor(opts, callback) {
         const options = {
@@ -65,4 +67,4 @@ const fun = function(opts, callback) {
     return new Collapse(opts, callback);
 };
 Lego.components('collapse', fun);
-export default fun;
+export default  fun;

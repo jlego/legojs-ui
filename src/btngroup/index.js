@@ -3,7 +3,7 @@
  * ronghui Yu
  * 2017/1/3
  */
-// import './asset/index.scss';
+import './asset/index.scss';
 
 class Btngroup extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -21,7 +21,7 @@ class Btngroup extends Lego.UI.Baseview {
     render() {
         const options = this.options;
         const vDom = hx`
-        <div class="btn-group btn-group-${options.size}">
+        <div class="lego-btngroup btn-group btn-group-${options.size}">
         ${options.data.map(item => hx`
         <button type="button" class="btn btn-${item.type || 'secondary'}">
             ${val(item.html || item.text)}
