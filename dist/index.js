@@ -1,5 +1,5 @@
 /**
- * legoui.js v0.12.0
+ * legoui.js v0.12.1
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -481,7 +481,7 @@ var Baseview = function(_Lego$View) {
             var opts = this.options, that = this;
             function initScroll($el) {
                 $el.each(function(index, el) {
-                    var container = $(this), eventName = "mousemove.ps" + index;
+                    var container = $(this), eventName = "scroll.ps" + index;
                     if (!container.hasClass("ps-container")) {
                         container.css("position", "relative");
                         Ps.initialize(container[0], opts.scrollbar);

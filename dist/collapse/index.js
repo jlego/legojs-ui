@@ -1,5 +1,5 @@
 /**
- * collapse.js v0.12.0
+ * collapse.js v0.12.1
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
