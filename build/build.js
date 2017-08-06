@@ -47,6 +47,7 @@ let modules = [{
     {alias: 'btntoolbar'},
     {alias: 'chkgroup'},
     {alias: 'collapse'},
+    {alias: 'colorpicker'},
     {alias: 'datepicker'},
     {alias: 'dropdown'},
     {alias: 'dropdownbtn'},

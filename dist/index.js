@@ -1,5 +1,5 @@
 /**
- * legoui.js v0.12.1
+ * legoui.js v0.12.4
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -16,6 +16,10 @@ function _interopDefault(ex) {
 var perfectScrollbar = _interopDefault(require("perfect-scrollbar"));
 
 var perfectScrollbar_dist_css_perfectScrollbar_css = require("perfect-scrollbar/dist/css/perfect-scrollbar.css");
+
+var spectrumColorpickerCjs = require("spectrum-colorpicker-cjs");
+
+var spectrumColorpickerCjs_spectrum_css = require("spectrum-colorpicker-cjs/spectrum.css");
 
 var moment = _interopDefault(require("moment"));
 
@@ -1257,7 +1261,7 @@ Lego.components("buttons", Buttons);
 
 var _templateObject$5 = taggedTemplateLiteral([ '\n        <div class="lego-btngroup btn-group btn-group-', '">\n        ', "\n        </div>\n        " ], [ '\n        <div class="lego-btngroup btn-group btn-group-', '">\n        ', "\n        </div>\n        " ]);
 
-var _templateObject2$5 = taggedTemplateLiteral([ '\n        <button type="button" class="btn btn-', '">\n            ', "\n        </button>\n        " ], [ '\n        <button type="button" class="btn btn-', '">\n            ', "\n        </button>\n        " ]);
+var _templateObject2$5 = taggedTemplateLiteral([ '\n        <button type="button" class="btn btn-', " ", '">\n            ', "\n        </button>\n        " ], [ '\n        <button type="button" class="btn btn-', " ", '">\n            ', "\n        </button>\n        " ]);
 
 var Btngroup = function(_Lego$UI$Baseview) {
     inherits(Btngroup, _Lego$UI$Baseview);
@@ -1280,7 +1284,7 @@ var Btngroup = function(_Lego$UI$Baseview) {
         value: function render() {
             var options = this.options;
             var vDom = hx(_templateObject$5, options.size, options.data.map(function(item) {
-                return hx(_templateObject2$5, item.type || "secondary", val(item.html || item.text));
+                return hx(_templateObject2$5, item.type || "secondary", item.active ? "active" : "", val(item.html || item.text));
             }));
             return vDom;
         }
@@ -1603,7 +1607,154 @@ var fun = function fun(opts, callback) {
 
 Lego.components("collapse", fun);
 
-var _templateObject$10 = taggedTemplateLiteral([ '\n        <div class="lego-search ', '" style="', '">\n            <div class="input-group">\n                ', '\n              <input type="text" class="form-control lego-search-input" id="searchInput_', '" placeholder="', '" name="', '" value="', '">\n              <div class="input-group-btn">\n                <button type="button" class="btn lego-search-button">\n                  <i class="anticon anticon-search"></i>\n                </button>\n              </div>\n          </div>\n          ', "\n        </div>\n        " ], [ '\n        <div class="lego-search ', '" style="', '">\n            <div class="input-group">\n                ', '\n              <input type="text" class="form-control lego-search-input" id="searchInput_', '" placeholder="', '" name="', '" value="', '">\n              <div class="input-group-btn">\n                <button type="button" class="btn lego-search-button">\n                  <i class="anticon anticon-search"></i>\n                </button>\n              </div>\n          </div>\n          ', "\n        </div>\n        " ]);
+var _templateObject$9 = taggedTemplateLiteral([ '<div class="lego-colorpicker">\n            <input type="text" id="input_', '" value="', '" name="', '" />\n        </div>' ], [ '<div class="lego-colorpicker">\n            <input type="text" id="input_', '" value="', '" name="', '" />\n        </div>' ]);
+
+var ComView = function(_Lego$UI$Baseview) {
+    inherits(ComView, _Lego$UI$Baseview);
+    function ComView() {
+        var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        classCallCheck(this, ComView);
+        var options = {
+            name: "",
+            type: 1,
+            readonly: false,
+            value: "",
+            flat: false,
+            showInput: false,
+            allowEmpty: false,
+            showButtons: true,
+            clickoutFiresChange: true,
+            showInitial: true,
+            showPalette: false,
+            showPaletteOnly: false,
+            hideAfterPaletteSelect: false,
+            togglePaletteOnly: false,
+            showSelectionPalette: true,
+            localStorageKey: false,
+            appendTo: "parent",
+            maxSelectionSize: 16,
+            cancelText: "取消",
+            chooseText: "确定",
+            togglePaletteMoreText: "more",
+            togglePaletteLessText: "less",
+            clearText: "清除已选择颜色",
+            noColorSelectedText: "没有选中的颜色",
+            preferredFormat: "hex3",
+            className: "",
+            containerClassName: "",
+            replacerClassName: "",
+            showAlpha: false,
+            theme: "sp-light",
+            palette: [ [ "#ffffff", "#000000", "#ff0000", "#ff8000", "#ffff00", "#008000", "#0000ff", "#4b0082", "#9400d3" ] ],
+            selectionPalette: [],
+            disabled: false,
+            offset: null,
+            onChange: function onChange() {}
+        };
+        Object.assign(options, opts);
+        return possibleConstructorReturn(this, (ComView.__proto__ || Object.getPrototypeOf(ComView)).call(this, options));
+    }
+    createClass(ComView, [ {
+        key: "render",
+        value: function render() {
+            var opts = this.options, vDom = hx(_templateObject$9, opts.vid, opts.value, opts.name);
+            return vDom;
+        }
+    }, {
+        key: "renderAfter",
+        value: function renderAfter() {
+            this.result = this.result || "";
+            var opts = this.options, that = this, inputEl = this.$("#input_" + opts.vid), spectrumOption = {
+                change: function change(color) {
+                    that.result = color;
+                    if (typeof opts.onChange == "function") {
+                        opts.onChange(that, that.getValue());
+                    }
+                },
+                move: function move(color) {
+                    if (typeof opts.onMove == "function") {
+                        opts.onMove(that, color);
+                    }
+                },
+                show: function show(color) {
+                    if (typeof opts.onShow == "function") {
+                        opts.onShow(that, color);
+                    }
+                },
+                hide: function hide(color) {
+                    if (typeof opts.onHide == "function") {
+                        opts.onHide(that, color);
+                    }
+                },
+                beforeShow: function beforeShow(color) {
+                    if (typeof opts.onBeforeShow == "function") {
+                        opts.onBeforeShow(that, color);
+                    }
+                }
+            };
+            Object.assign(spectrumOption, opts);
+            if (opts.value) {
+                spectrumOption.color = opts.value;
+            }
+            var palette = [ [ "#000", "#444", "#666", "#999", "#ccc", "#eee", "#f3f3f3", "#fff" ], [ "#f00", "#f90", "#ff0", "#0f0", "#0ff", "#00f", "#90f", "#f0f" ], [ "#f4cccc", "#fce5cd", "#fff2cc", "#d9ead3", "#d0e0e3", "#cfe2f3", "#d9d2e9", "#ead1dc" ], [ "#ea9999", "#f9cb9c", "#ffe599", "#b6d7a8", "#a2c4c9", "#9fc5e8", "#b4a7d6", "#d5a6bd" ], [ "#e06666", "#f6b26b", "#ffd966", "#93c47d", "#76a5af", "#6fa8dc", "#8e7cc3", "#c27ba0" ], [ "#c00", "#e69138", "#f1c232", "#6aa84f", "#45818e", "#3d85c6", "#674ea7", "#a64d79" ], [ "#900", "#b45f06", "#bf9000", "#38761d", "#134f5c", "#0b5394", "#351c75", "#741b47" ], [ "#600", "#783f04", "#7f6000", "#274e13", "#0c343d", "#073763", "#20124d", "#4c1130" ] ];
+            switch (opts.type) {
+              case 1:
+                spectrumOption.showPalette = false;
+                break;
+
+              case 2:
+                spectrumOption.showPalette = false;
+                spectrumOption.showInput = true;
+                spectrumOption.allowEmpty = true;
+                spectrumOption.showAlpha = true;
+                break;
+
+              case 3:
+                spectrumOption.showPalette = true;
+                spectrumOption.showPaletteOnly = true;
+                spectrumOption.showSelectionPalette = false;
+                spectrumOption.palette = palette;
+                break;
+
+              case 4:
+                spectrumOption.showAlpha = true;
+                spectrumOption.showInput = true;
+                spectrumOption.allowEmpty = true;
+                spectrumOption.showPalette = true;
+                spectrumOption.showPaletteOnly = false;
+                spectrumOption.showSelectionPalette = true;
+                spectrumOption.localStorageKey = "spectrum." + opts.vid;
+                spectrumOption.palette = palette;
+                break;
+            }
+            if (inputEl.length) {
+                if (!this.spectrum) {
+                    this.spectrum = inputEl.spectrum(spectrumOption);
+                }
+            }
+        }
+    }, {
+        key: "getValue",
+        value: function getValue() {
+            var opts = this.options, inputEl = this.$("#input_" + opts.vid);
+            inputEl.valid();
+            return this.result;
+        }
+    }, {
+        key: "colorpicker",
+        value: function colorpicker(method) {
+            var opts = this.options, that = this, inputEl = this.$("#input_" + opts.vid);
+            if (inputEl.length) {
+                inputEl.spectrum(method);
+            }
+        }
+    } ]);
+    return ComView;
+}(Lego.UI.Baseview);
+
+Lego.components("colorpicker", ComView);
+
+var _templateObject$11 = taggedTemplateLiteral([ '\n        <div class="lego-search ', '" style="', '">\n            <div class="input-group">\n                ', '\n              <input type="text" class="form-control lego-search-input" id="searchInput_', '" placeholder="', '" name="', '" value="', '">\n              <div class="input-group-btn">\n                <button type="button" class="btn lego-search-button">\n                  <i class="anticon anticon-search"></i>\n                </button>\n              </div>\n          </div>\n          ', "\n        </div>\n        " ], [ '\n        <div class="lego-search ', '" style="', '">\n            <div class="input-group">\n                ', '\n              <input type="text" class="form-control lego-search-input" id="searchInput_', '" placeholder="', '" name="', '" value="', '">\n              <div class="input-group-btn">\n                <button type="button" class="btn lego-search-button">\n                  <i class="anticon anticon-search"></i>\n                </button>\n              </div>\n          </div>\n          ', "\n        </div>\n        " ]);
 
 var _templateObject2$10 = taggedTemplateLiteral([ '\n              <div class="input-group-btn dropdown" id="select-', '">\n                <button type="button" class="btn btn-secondary dropdown-toggle">\n                  ', '\n                </button>\n                <dropdown id="dropdown-', '"></dropdown>\n              </div>\n              ' ], [ '\n              <div class="input-group-btn dropdown" id="select-', '">\n                <button type="button" class="btn btn-secondary dropdown-toggle">\n                  ', '\n                </button>\n                <dropdown id="dropdown-', '"></dropdown>\n              </div>\n              ' ]);
 
@@ -1693,7 +1844,7 @@ var Search = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var opts = this.options;
-            var vDom = hx(_templateObject$10, opts.size ? "input-group-" + opts.size : "", opts.autoComplete ? "position: relative;" : "", opts.showSelect ? hx(_templateObject2$10, opts.vid, opts.activeValue || "请选择", opts.vid) : "", opts.vid, opts.placeholder, opts.name, val(opts.keyword), opts.autoComplete ? hx(_templateObject3$6, opts.vid) : "");
+            var vDom = hx(_templateObject$11, opts.size ? "input-group-" + opts.size : "", opts.autoComplete ? "position: relative;" : "", opts.showSelect ? hx(_templateObject2$10, opts.vid, opts.activeValue || "请选择", opts.vid) : "", opts.vid, opts.placeholder, opts.name, val(opts.keyword), opts.autoComplete ? hx(_templateObject3$6, opts.vid) : "");
             return vDom;
         }
     }, {
@@ -1765,7 +1916,7 @@ var Search = function(_Lego$UI$Baseview) {
 
 Lego.components("search", Search);
 
-var _templateObject$9 = taggedTemplateLiteral([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
+var _templateObject$10 = taggedTemplateLiteral([ '<li class="divider"></li>' ], [ '<li class="divider"></li>' ]);
 
 var _templateObject2$9 = taggedTemplateLiteral([ "\n                    <li ", '>\n                    <a id="', '" class="', " ", '" href="', '">', "</a>\n                    </li>" ], [ "\n                    <li ", '>\n                    <a id="', '" class="', " ", '" href="', '">', "</a>\n                    </li>" ]);
 
@@ -1850,7 +2001,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
             var opts = this.options, vDom = "";
             function itemNav(item) {
                 if (item.divider) {
-                    return hx(_templateObject$9);
+                    return hx(_templateObject$10);
                 } else {
                     if (!item.children) {
                         return hx(_templateObject2$9, item.isHidden ? 'style="display:none;"' : "", val(item.key), item.disabled || item.selected ? "disabled" : "", item.active ? "active" : "", item.href ? item.href : "javascript:;", val(item.html || item.value, item));
@@ -1957,7 +2108,7 @@ var Dropdown = function(_Lego$UI$Baseview) {
 
 Lego.components("dropdown", Dropdown);
 
-var _templateObject$11 = taggedTemplateLiteral([ '\n        <div class="btn-group ', " ", '">\n            <button type="button" class="btn btn-', ' dropdownbtn">', '</button>\n            <button type="button" class="btn btn-', ' dropdown-toggle dropdown-toggle-split">\n                <span class="sr-only">Toggle Dropdown</span>\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n        </div>\n        ' ], [ '\n        <div class="btn-group ', " ", '">\n            <button type="button" class="btn btn-', ' dropdownbtn">', '</button>\n            <button type="button" class="btn btn-', ' dropdown-toggle dropdown-toggle-split">\n                <span class="sr-only">Toggle Dropdown</span>\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n        </div>\n        ' ]);
+var _templateObject$12 = taggedTemplateLiteral([ '\n        <div class="btn-group ', " ", '">\n            <button type="button" class="btn btn-', ' dropdownbtn">', '</button>\n            <button type="button" class="btn btn-', ' dropdown-toggle dropdown-toggle-split">\n                <span class="sr-only">Toggle Dropdown</span>\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n        </div>\n        ' ], [ '\n        <div class="btn-group ', " ", '">\n            <button type="button" class="btn btn-', ' dropdownbtn">', '</button>\n            <button type="button" class="btn btn-', ' dropdown-toggle dropdown-toggle-split">\n                <span class="sr-only">Toggle Dropdown</span>\n            </button>\n            <dropdown id="dropdown-', '"></dropdown>\n        </div>\n        ' ]);
 
 var Dropdownbtn = function(_Lego$UI$Baseview) {
     inherits(Dropdownbtn, _Lego$UI$Baseview);
@@ -2009,7 +2160,7 @@ var Dropdownbtn = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var opts = this.options;
-            var vDom = hx(_templateObject$11, opts.size == "lg" ? "btn-group-lg" : opts.size == "sm" ? "btn-group-sm" : "", opts.direction == "up" ? "dropup" : "", opts.btnType, val(opts.html || opts.text), opts.btnType, opts.vid);
+            var vDom = hx(_templateObject$12, opts.size == "lg" ? "btn-group-lg" : opts.size == "sm" ? "btn-group-sm" : "", opts.direction == "up" ? "dropup" : "", opts.btnType, val(opts.html || opts.text), opts.btnType, opts.vid);
             return vDom;
         }
     }, {
@@ -2033,7 +2184,7 @@ var Dropdownbtn = function(_Lego$UI$Baseview) {
 
 Lego.components("dropdownbtn", Dropdownbtn);
 
-var _templateObject$12 = taggedTemplateLiteral([ '\n            <div class="lego-datepicker">\n                <div class="input-group input-daterange datepicker date">\n                    <input type="text" class="form-control startDate ', '" value="', '" name="', '" placeholder="', '">\n                    <span class="input-group-addon">\n                        ~\n                    </span>\n                    <input type="text" class="form-control endDate ', '" value="', '" name="', '" placeholder="', '">\n                </div>\n            </div>\n            ' ], [ '\n            <div class="lego-datepicker">\n                <div class="input-group input-daterange datepicker date">\n                    <input type="text" class="form-control startDate ', '" value="', '" name="', '" placeholder="', '">\n                    <span class="input-group-addon">\n                        ~\n                    </span>\n                    <input type="text" class="form-control endDate ', '" value="', '" name="', '" placeholder="', '">\n                </div>\n            </div>\n            ' ]);
+var _templateObject$13 = taggedTemplateLiteral([ '\n            <div class="lego-datepicker">\n                <div class="input-group input-daterange datepicker date">\n                    <input type="text" class="form-control startDate ', '" value="', '" name="', '" placeholder="', '">\n                    <span class="input-group-addon">\n                        ~\n                    </span>\n                    <input type="text" class="form-control endDate ', '" value="', '" name="', '" placeholder="', '">\n                </div>\n            </div>\n            ' ], [ '\n            <div class="lego-datepicker">\n                <div class="input-group input-daterange datepicker date">\n                    <input type="text" class="form-control startDate ', '" value="', '" name="', '" placeholder="', '">\n                    <span class="input-group-addon">\n                        ~\n                    </span>\n                    <input type="text" class="form-control endDate ', '" value="', '" name="', '" placeholder="', '">\n                </div>\n            </div>\n            ' ]);
 
 var _templateObject2$11 = taggedTemplateLiteral([ '\n            <div class="lego-datepicker">\n                <div class="input-group date">\n                    <input class="form-control dp-input ', '" type="text" value="', '" name="', '" placeholder="', '">\n                    <span class="input-group-addon">\n                        <i class="anticon anticon-', '"></i>\n                    </span>\n                </div>\n            </div>\n            ' ], [ '\n            <div class="lego-datepicker">\n                <div class="input-group date">\n                    <input class="form-control dp-input ', '" type="text" value="', '" name="', '" placeholder="', '">\n                    <span class="input-group-addon">\n                        <i class="anticon anticon-', '"></i>\n                    </span>\n                </div>\n            </div>\n            ' ]);
 
@@ -2175,7 +2326,7 @@ var Datepicker = function(_Lego$UI$Baseview) {
             var opts = this.options || {};
             var vDom = "";
             if (opts.type == "range" && !opts.startInputEl && !opts.endInputEl) {
-                vDom = hx(_templateObject$12, opts.disabled ? "disabled" : "", formatDate(opts.startValue, opts.format), opts.startName, opts.startPlaceholder, opts.disabled ? "disabled" : "", formatDate(opts.endValue, opts.format), opts.endName, opts.endPlaceholder);
+                vDom = hx(_templateObject$13, opts.disabled ? "disabled" : "", formatDate(opts.startValue, opts.format), opts.startName, opts.startPlaceholder, opts.disabled ? "disabled" : "", formatDate(opts.endValue, opts.format), opts.endName, opts.endPlaceholder);
             }
             if (opts.type !== "range" || opts.type == "range" && opts.startInputEl && opts.endInputEl) {
                 vDom = hx(_templateObject2$11, opts.disabled ? "disabled" : "", formatDate(val(opts.value), opts.format), opts.name, opts.placeholder, opts.type == "time" ? "clock-circle-o" : "calendar");
@@ -2236,7 +2387,7 @@ var Datepicker = function(_Lego$UI$Baseview) {
 
 Lego.components("datepicker", Datepicker);
 
-var _templateObject$14 = taggedTemplateLiteral([ '<div>\n                    <button type="submit" class="btn btn-primary">', '</button>\n                    <button type="reset" class="btn btn-secondary">', "</button>\n                    </div>" ], [ '<div>\n                    <button type="submit" class="btn btn-primary">', '</button>\n                    <button type="reset" class="btn btn-secondary">', "</button>\n                    </div>" ]);
+var _templateObject$15 = taggedTemplateLiteral([ '<div>\n                    <button type="submit" class="btn btn-primary">', '</button>\n                    <button type="reset" class="btn btn-secondary">', "</button>\n                    </div>" ], [ '<div>\n                    <button type="submit" class="btn btn-primary">', '</button>\n                    <button type="reset" class="btn btn-secondary">', "</button>\n                    </div>" ]);
 
 var _templateObject2$13 = taggedTemplateLiteral([ '\n                    <div class="form-group row">\n                      <div class="offset-sm-', " col-sm-", '">\n                        <button type="submit" class="btn btn-primary">', '</button>\n                        <button type="reset" class="btn btn-secondary">', "</button>\n                      </div>\n                    </div>\n                    " ], [ '\n                    <div class="form-group row">\n                      <div class="offset-sm-', " col-sm-", '">\n                        <button type="submit" class="btn btn-primary">', '</button>\n                        <button type="reset" class="btn btn-secondary">', "</button>\n                      </div>\n                    </div>\n                    " ]);
 
@@ -2340,7 +2491,7 @@ var Forms = function(_Lego$UI$Baseview) {
                 var submit = "";
                 if (!options.submitEl && options.showSubmit) {
                     if (options.layout == "vertical") {
-                        submit = hx(_templateObject$14, options.submitText, options.resetText);
+                        submit = hx(_templateObject$15, options.submitText, options.resetText);
                     } else {
                         submit = hx(_templateObject2$13, options.labelCols, options.comCols, options.submitText, options.resetText);
                     }
@@ -2504,7 +2655,7 @@ var Forms = function(_Lego$UI$Baseview) {
 
 Lego.components("forms", Forms);
 
-var _templateObject$13 = taggedTemplateLiteral([ '\n        <div class="lego-editcom clearfix ', '">\n            <span>', "\n            </span>\n            ", "\n            ", "\n        </div>\n        " ], [ '\n        <div class="lego-editcom clearfix ', '">\n            <span>', "\n            </span>\n            ", "\n            ", "\n        </div>\n        " ]);
+var _templateObject$14 = taggedTemplateLiteral([ '\n        <div class="lego-editcom clearfix ', '">\n            <span>', "\n            </span>\n            ", "\n            ", "\n        </div>\n        " ], [ '\n        <div class="lego-editcom clearfix ', '">\n            <span>', "\n            </span>\n            ", "\n            ", "\n        </div>\n        " ]);
 
 var _templateObject2$12 = taggedTemplateLiteral([ '<i class="anticon anticon-', ' edit" title="编辑"></i>' ], [ '<i class="anticon anticon-', ' edit" title="编辑"></i>' ]);
 
@@ -2559,7 +2710,7 @@ var Editcom = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var opts = this.options;
-            var vDom = hx(_templateObject$13, opts.size, opts.clicked ? opts.template ? val(opts.template) : opts.components.map(function(item) {
+            var vDom = hx(_templateObject$14, opts.size, opts.clicked ? opts.template ? val(opts.template) : opts.components.map(function(item) {
                 return hx("<" + item.comName + " id=" + item.key + "></" + item.comName + ">");
             }) : val(opts.html || opts.text), !opts.readonly && !opts.clicked ? hx(_templateObject2$12, val(opts.icon)) : "", !opts.readonly && opts.clicked ? hx(_templateObject3$8) : "");
             return vDom;
@@ -2623,7 +2774,7 @@ var Editcom = function(_Lego$UI$Baseview) {
 
 Lego.components("editcom", Editcom);
 
-var _templateObject$15 = taggedTemplateLiteral([ '\n        <div class="lego-facial">\n            ', "\n            ", '\n            <i class="lego-facial-trigger ', '"></i>\n            <div class="dropdown-menu clearfix ', '">\n                <ul>\n                ', "\n                </ul>\n            </div>\n            ", "\n        </div>\n        " ], [ '\n        <div class="lego-facial">\n            ', "\n            ", '\n            <i class="lego-facial-trigger ', '"></i>\n            <div class="dropdown-menu clearfix ', '">\n                <ul>\n                ', "\n                </ul>\n            </div>\n            ", "\n        </div>\n        " ]);
+var _templateObject$16 = taggedTemplateLiteral([ '\n        <div class="lego-facial">\n            ', "\n            ", '\n            <i class="lego-facial-trigger ', '"></i>\n            <div class="dropdown-menu clearfix ', '">\n                <ul>\n                ', "\n                </ul>\n            </div>\n            ", "\n        </div>\n        " ], [ '\n        <div class="lego-facial">\n            ', "\n            ", '\n            <i class="lego-facial-trigger ', '"></i>\n            <div class="dropdown-menu clearfix ', '">\n                <ul>\n                ', "\n                </ul>\n            </div>\n            ", "\n        </div>\n        " ]);
 
 var _templateObject2$14 = taggedTemplateLiteral([ '<input type="hidden" name="', '" value="', '"/>' ], [ '<input type="hidden" name="', '" value="', '"/>' ]);
 
@@ -2670,7 +2821,7 @@ var Facial = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var opts = this.options, dataLength = opts.data.length, widthPercent = 10 / (dataLength - 1) * 10;
-            var vDom = hx(_templateObject$15, !opts.target ? hx(_templateObject2$14, val(opts.name), opts.value.join(",")) : "", !opts.target ? hx(_templateObject3$10, opts.vid, opts.value.join(",")) : "", opts.icon, opts.direction ? "drop" + opts.direction : "", opts.data.map(function(item, index) {
+            var vDom = hx(_templateObject$16, !opts.target ? hx(_templateObject2$14, val(opts.name), opts.value.join(",")) : "", !opts.target ? hx(_templateObject3$10, opts.vid, opts.value.join(",")) : "", opts.icon, opts.direction ? "drop" + opts.direction : "", opts.data.map(function(item, index) {
                 return hx(_templateObject4$5, opts.itemClassPrefix, index, item, opts.iconsUrl, index);
             }), !opts.target && opts.value.length ? hx(_templateObject5$4) : "");
             return vDom;
@@ -2824,7 +2975,7 @@ var Facial = function(_Lego$UI$Baseview) {
 
 Lego.components("facial", Facial);
 
-var _templateObject$16 = taggedTemplateLiteral([ '\n        <div class="row lego-grid">\n            ', "\n        </div>" ], [ '\n        <div class="row lego-grid">\n            ', "\n        </div>" ]);
+var _templateObject$17 = taggedTemplateLiteral([ '\n        <div class="row lego-grid">\n            ', "\n        </div>" ], [ '\n        <div class="row lego-grid">\n            ', "\n        </div>" ]);
 
 var _templateObject2$15 = taggedTemplateLiteral([ '<div class="lego-item ', '" id="lego-item_', '">\n                ', "\n                </div>" ], [ '<div class="lego-item ', '" id="lego-item_', '">\n                ', "\n                </div>" ]);
 
@@ -2855,7 +3006,7 @@ var GridView = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var opts = this.options, index = 0;
-            var vDom = hx(_templateObject$16, opts.data.map(function(item) {
+            var vDom = hx(_templateObject$17, opts.data.map(function(item) {
                 index++;
                 return hx(_templateObject2$15, opts.itemClass, val(item.key), typeof opts.itemContent == "function" ? opts.itemContent(item, index - 1) : opts.itemContent);
             }));
@@ -2910,7 +3061,7 @@ var GridView = function(_Lego$UI$Baseview) {
 
 Lego.components("grid", GridView);
 
-var _templateObject$17 = taggedTemplateLiteral([ '\n        <ul class="list-group">\n        ', "\n        </ul>\n        " ], [ '\n        <ul class="list-group">\n        ', "\n        </ul>\n        " ]);
+var _templateObject$18 = taggedTemplateLiteral([ '\n        <ul class="list-group">\n        ', "\n        </ul>\n        " ], [ '\n        <ul class="list-group">\n        ', "\n        </ul>\n        " ]);
 
 var _templateObject2$16 = taggedTemplateLiteral([ '<li class="list-group-item ', " ", " ", '"\n                id="', '">\n                ', "\n                ", "\n                </li>" ], [ '<li class="list-group-item ', " ", " ", '"\n                id="', '">\n                ', "\n                ", "\n                </li>" ]);
 
@@ -2940,7 +3091,7 @@ var Listgroup = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options || {};
-            var vDom = hx(_templateObject$17, options.data.map(function(item, index) {
+            var vDom = hx(_templateObject$18, options.data.map(function(item, index) {
                 if (item.template) {
                     return item.template;
                 } else {
@@ -3489,7 +3640,7 @@ var Modal$1 = function($) {
     return Modal;
 }(jQuery);
 
-var _templateObject$18 = taggedTemplateLiteral([ '\n        <div class="modal ', "\n        ", "\n        ", "\n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              ', '\n              <div class="modal-body ', '" style="', "\n              ", '">\n                ', "\n              </div>\n              ", "\n            </div>\n          </div>\n        </div>\n        " ], [ '\n        <div class="modal ', "\n        ", "\n        ", "\n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              ', '\n              <div class="modal-body ', '" style="', "\n              ", '">\n                ', "\n              </div>\n              ", "\n            </div>\n          </div>\n        </div>\n        " ]);
+var _templateObject$19 = taggedTemplateLiteral([ '\n        <div class="modal ', "\n        ", "\n        ", "\n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              ', '\n              <div class="modal-body ', '" style="', "\n              ", '">\n                ', "\n              </div>\n              ", "\n            </div>\n          </div>\n        </div>\n        " ], [ '\n        <div class="modal ', "\n        ", "\n        ", "\n        ", '" id="', '">\n          <div class="modal-dialog">\n            <div class="modal-content">\n              ', '\n              <div class="modal-body ', '" style="', "\n              ", '">\n                ', "\n              </div>\n              ", "\n            </div>\n          </div>\n        </div>\n        " ]);
 
 var _templateObject2$17 = taggedTemplateLiteral([ '<div class="modal-header">\n              ', '\n                <h5 class="modal-title">', "</h5>\n              </div>" ], [ '<div class="modal-header">\n              ', '\n                <h5 class="modal-title">', "</h5>\n              </div>" ]);
 
@@ -3572,7 +3723,7 @@ var Modal = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var opts = this.options;
-            var vDom = hx(_templateObject$18, opts.type == "layer" ? "right-modal" : "", opts.msgType ? "dialog-modal" : "", opts.size ? "modal-size-" + opts.size : "", opts.isMiddle ? "middle" : "", opts.el.replace(/#/, ""), opts.showHeader ? hx(_templateObject2$17, opts.closable ? hx(_templateObject3$12) : "", opts.title) : "", !opts.msgType && opts.scrollAble ? "scrollbar" : "", !opts.showHeader && opts.type == "layer" ? "top:0;" : "", !opts.showFooter && opts.type == "layer" ? "bottom:0;" : "", val(opts.content), opts.showFooter ? hx(_templateObject4$6, opts.footer ? val(opts.footer) : hx(_templateObject5$5, opts.cancelText, opts.okText)) : "");
+            var vDom = hx(_templateObject$19, opts.type == "layer" ? "right-modal" : "", opts.msgType ? "dialog-modal" : "", opts.size ? "modal-size-" + opts.size : "", opts.isMiddle ? "middle" : "", opts.el.replace(/#/, ""), opts.showHeader ? hx(_templateObject2$17, opts.closable ? hx(_templateObject3$12) : "", opts.title) : "", !opts.msgType && opts.scrollAble ? "scrollbar" : "", !opts.showHeader && opts.type == "layer" ? "top:0;" : "", !opts.showFooter && opts.type == "layer" ? "bottom:0;" : "", val(opts.content), opts.showFooter ? hx(_templateObject4$6, opts.footer ? val(opts.footer) : hx(_templateObject5$5, opts.cancelText, opts.okText)) : "");
             return vDom;
         }
     }, {
@@ -3786,7 +3937,7 @@ function Message() {
 
 Lego.components("message", Message);
 
-var _templateObject$19 = taggedTemplateLiteral([ '\n            <li class="nav-item ', " ", '">\n                <a class="nav-link ', " ", " ", '" href="', '" id="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="nav-item ', " ", '">\n                <a class="nav-link ', " ", " ", '" href="', '" id="', '">', "</a>\n                ", "\n            </li>\n            " ]);
+var _templateObject$20 = taggedTemplateLiteral([ '\n            <li class="nav-item ', " ", '">\n                <a class="nav-link ', " ", " ", '" href="', '" id="', '">', "</a>\n                ", "\n            </li>\n            " ], [ '\n            <li class="nav-item ', " ", '">\n                <a class="nav-link ', " ", " ", '" href="', '" id="', '">', "</a>\n                ", "\n            </li>\n            " ]);
 
 var _templateObject2$18 = taggedTemplateLiteral([ '\n        <ul class="lego-nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ], [ '\n        <ul class="lego-nav ', "\n        ", '">\n            ', "\n        </ul>\n        " ]);
 
@@ -3820,7 +3971,7 @@ var Navs = function(_Lego$UI$Baseview) {
         value: function render() {
             var options = this.options;
             function makeItem(item, i) {
-                var itemDom = hx(_templateObject$19, item.children ? "dropdown" : "", item.open ? "open" : "", item.key === options.activeKey ? "active" : "", item.disabled ? "disabled" : "", item.children ? "dropdown-toggle" : "", item.href ? item.href : "javascript:;", item.key ? item.key : "nav-item-" + i, val(item.value), Array.isArray(item.children) ? Lego.create(Dropdown, {
+                var itemDom = hx(_templateObject$20, item.children ? "dropdown" : "", item.open ? "open" : "", item.key === options.activeKey ? "active" : "", item.disabled ? "disabled" : "", item.children ? "dropdown-toggle" : "", item.href ? item.href : "javascript:;", item.key ? item.key : "nav-item-" + i, val(item.value), Array.isArray(item.children) ? Lego.create(Dropdown, {
                     direction: options.direction,
                     open: item.open,
                     data: item.children
@@ -3981,7 +4132,7 @@ function Notification() {
 
 Lego.components("notification", Notification);
 
-var _templateObject$20 = taggedTemplateLiteral([ '\n        <div class="lego-nodata">\n            <div class="lego-icon ', " ", '"></div>\n            ', "\n        </div>\n        " ], [ '\n        <div class="lego-nodata">\n            <div class="lego-icon ', " ", '"></div>\n            ', "\n        </div>\n        " ]);
+var _templateObject$21 = taggedTemplateLiteral([ '\n        <div class="lego-nodata">\n            <div class="lego-icon ', " ", '"></div>\n            ', "\n        </div>\n        " ], [ '\n        <div class="lego-nodata">\n            <div class="lego-icon ', " ", '"></div>\n            ', "\n        </div>\n        " ]);
 
 var _templateObject2$19 = taggedTemplateLiteral([ '<div class="lego-tip-text" style="', '">', "</div>" ], [ '<div class="lego-tip-text" style="', '">', "</div>" ]);
 
@@ -4002,7 +4153,7 @@ var Nodata = function(_Lego$View) {
         key: "render",
         value: function render() {
             var opts = this.options;
-            this.vDom = hx(_templateObject$20, val(opts.icon), opts.size ? "lego-icon-" + opts.size : "", opts.tip ? hx(_templateObject2$19, opts.icon ? "margin-top:40px;" : "", opts.tip) : "");
+            this.vDom = hx(_templateObject$21, val(opts.icon), opts.size ? "lego-icon-" + opts.size : "", opts.tip ? hx(_templateObject2$19, opts.icon ? "margin-top:40px;" : "", opts.tip) : "");
             return this.vDom;
         }
     } ]);
@@ -4695,7 +4846,7 @@ var fun$2 = function fun$2(opts) {
 
 Lego.components("popover", fun$2);
 
-var _templateObject$21 = taggedTemplateLiteral([ '\n        <div class="progress">\n            ', '\n            <progress class="progress progress-', '" value="', '" max="100"></progress>\n        </div>\n        ' ], [ '\n        <div class="progress">\n            ', '\n            <progress class="progress progress-', '" value="', '" max="100"></progress>\n        </div>\n        ' ]);
+var _templateObject$22 = taggedTemplateLiteral([ '\n        <div class="progress">\n            ', '\n            <progress class="progress progress-', '" value="', '" max="100"></progress>\n        </div>\n        ' ], [ '\n        <div class="progress">\n            ', '\n            <progress class="progress progress-', '" value="', '" max="100"></progress>\n        </div>\n        ' ]);
 
 var _templateObject2$20 = taggedTemplateLiteral([ '<div class="text-xs-center">', "</div>" ], [ '<div class="text-xs-center">', "</div>" ]);
 
@@ -4723,7 +4874,7 @@ var Progressbar = function(_Lego$UI$Baseview) {
                     options.onComplete(this);
                 }
             }
-            var vDom = hx(_templateObject$21, options.showInfo ? hx(_templateObject2$20, this.format(options.percent)) : "", options.status ? options.status : "primary", options.percent);
+            var vDom = hx(_templateObject$22, options.showInfo ? hx(_templateObject2$20, this.format(options.percent)) : "", options.status ? options.status : "primary", options.percent);
             return vDom;
         }
     }, {
@@ -4741,7 +4892,7 @@ var Progressbar = function(_Lego$UI$Baseview) {
 
 Lego.components("progressbar", Progressbar);
 
-var _templateObject$22 = taggedTemplateLiteral([ "<div></div>" ], [ "<div></div>" ]);
+var _templateObject$23 = taggedTemplateLiteral([ "<div></div>" ], [ "<div></div>" ]);
 
 var _templateObject2$21 = taggedTemplateLiteral([ '\n        <ul class="lego-pagination ', " ", '">\n            <li class="prev ', '">\n                <a href="javascript:void(0)" title="上一页"><i class="anticon anticon-left"></i></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ], [ '\n        <ul class="lego-pagination ', " ", '">\n            <li class="prev ', '">\n                <a href="javascript:void(0)" title="上一页"><i class="anticon anticon-left"></i></a>\n            </li>\n            ', "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n            ", "\n        </ul>\n        " ]);
 
@@ -4826,7 +4977,7 @@ var Pagination = function(_Lego$UI$Baseview) {
     }, {
         key: "render",
         value: function render() {
-            var opts = this.options, vDom = hx(_templateObject$22), current = parseInt(opts.current), pageRang = parseInt(opts.pageRang), totalCount = val(opts.totalCount);
+            var opts = this.options, vDom = hx(_templateObject$23), current = parseInt(opts.current), pageRang = parseInt(opts.pageRang), totalCount = val(opts.totalCount);
             opts.totalPages = Math.ceil(totalCount / opts.pageSize);
             pageRang = pageRang >= opts.totalPages ? opts.totalPages : pageRang;
             var baseTimes = pageRang ? Math.floor((current - 1) / pageRang) : 0, startPage = baseTimes * pageRang + 1, endPage = startPage + pageRang - 1, showEllipsis = Math.ceil(current / pageRang) !== Math.ceil(opts.totalPages / pageRang) && totalCount ? true : false, pagesArr = [];
@@ -4919,7 +5070,7 @@ Lego.components("pagination", Pagination);
 
 window.svgSprite = "<svg>" + "" + '<symbol id="icon-gif" viewBox="0 0 1024 1024">' + "" + '<path d="M689.7 65L148 64.9c-18.3 0-33.2 14.8-33.2 33.1v828.4c0 18.3 14.8 33.1 33.2 33.1h729.5c18.3 0 33.2-14.8 33.2-33.1V284.2" fill="#48D9A1" ></path>' + "" + '<path d="M689 65l-1.1 178c0 21.9 19.9 39.6 44.4 39.6l177.6 1.7L689 65z" fill="#7FE4BD" ></path>' + "" + '<path d="M660.9 511.7l-156.4-226-139.1 226h295.5zM539.2 563.9h191.2v191.2H539.2V563.9zM374.1 563.9c52.8 0 95.6 42.8 95.6 95.6s-42.8 95.6-95.6 95.6-95.6-42.8-95.6-95.6 42.8-95.6 95.6-95.6z" fill="#C8F4E3" ></path>' + "" + "</symbol>" + "" + '<symbol id="icon-doc" viewBox="0 0 1024 1024">' + "" + '<path d="M259 383h500v40H259zM259 503h500v40H259zM259 622h500v40H259zM259 741h500v40H259z" fill="#C6EDFF" ></path>' + "" + '<path d="M897.8 268.7L893 264H735.4c-20.1 0-36.4-16.2-36.4-36.1V70.2l-4.2-4.2H151.5c-18 0-32.5 14.8-32.5 33.1v827.8c0 18.3 14.5 33.1 32.5 33.1h715c17.9 0 32.5-14.8 32.5-33.1M259 264h400v40H259v-40z m500 517H259v-40h500v40z m0-119H259v-40h500v40z m0-119H259v-40h500v40z m0-120H259v-40h500v40z" fill="#40C4FF" ></path>' + "" + '<path d="M899 264z" fill="#27C78B" ></path>' + "" + '<path d="M259 264h400v40H259z" fill="#C6EDFF" ></path>' + "" + '<path d="M699 231.9c0 20.5 16.7 37.1 37.3 37.1H898L699 70.2v161.7z" fill="#7AD6FF" ></path>' + "" + "</symbol>" + "" + '<symbol id="icon-jpg" viewBox="0 0 1024 1024">' + "" + '<path d="M689.7 65L148 64.9c-18.3 0-33.2 14.8-33.2 33.1v828.4c0 18.3 14.8 33.1 33.2 33.1h729.5c18.3 0 33.2-14.8 33.2-33.1V284.2" fill="#7594E2" ></path>' + "" + '<path d="M689 65l-1.1 178c0 21.9 19.9 39.6 44.4 39.6l177.6 1.7L689 65z" fill="#9FB4EB" ></path>' + "" + '<path d="M248.8 736.6V336.1h527.9v400.5H248.8z m473.3-236.7V390.7H303.4v291.2l109.2-163.8L540 663.8l91-72.8 91 91V499.9z" fill="#D6DFF6" ></path>' + "" + "</symbol>" + "" + '<symbol id="icon-zip" viewBox="0 0 1024 1024">' + "" + '<path d="M686 64.3H471.1c13.5 0 24.4 11.1 24.4 24.9 0 13.7-10.9 24.9-24.4 24.9h-16.2c-13.5 0-8.1-2.8-8.1-16.6 0-13.7-5.3-33.2 8.1-33.2H147.2c-18.3 0-33.2 14.8-33.2 33.2v829c0 18.3 14.8 33.2 33.2 33.2h729.5c18.3 0 33.2-14.8 33.2-33.2V280.2L686 64.3zM454.8 180.4H471c13.5 0 24.4 11.1 24.4 24.9 0 13.7-10.9 24.9-24.4 24.9h-16.2c-13.5 0-8.1-2.8-8.1-16.6s-5.3-33.2 8.1-33.2z m0 99.5H471c13.5 0 24.4 11.1 24.4 24.9 0 13.7-10.9 24.9-24.4 24.9h-16.2c-13.5 0-8.1-2.8-8.1-16.6s-5.3-33.2 8.1-33.2z m0 99.5H471c13.5 0 24.4 11.1 24.4 24.9 0 13.7-10.9 24.9-24.4 24.9h-16.2c-13.5 0-8.1-2.8-8.1-16.6s-5.3-33.2 8.1-33.2z m7.5 331.6l-82.9 99.5h82.9v33.2H329.6v-33.2l82.9-99.5h-82.9v-33.2h132.6V711z m82.9 132.6H512V727.5h33.2v116.1z m0-132.6H512v-33.2h33.2V711z m-8.3-132.7h-16.6c-4.8 0-13.3-0.4-22.4-1.4-11.6 1-22.1 1.4-26.8 1.4h-16.2c-13.5 0-8.1-2.8-8.1-16.6 0-13.7-5.3-33.2 8.1-33.2-13.5 0-8.1-2.8-8.1-16.6 0-13.7-5.3-33.2 8.1-33.2h16.2c13.5 0 24.4 11.1 24.4 24.9 0 13.7-10.9 24.9-24.4 24.9 4.7 0 15.2 2.4 26.8 6.1 9.1-3.7 17.6-6.1 22.4-6.1h16.6c13.7 0 8.3 19.4 8.3 33.2 0 13.8 5.4 16.6-8.3 16.6z m0-99.5h-16.6c-13.7 0-24.9-11.1-24.9-24.9 0-13.7 11.1-24.9 24.9-24.9h16.6c13.7 0 8.3 19.4 8.3 33.2 0 13.8 5.4 16.6-8.3 16.6z m0-99.4h-16.6c-13.7 0-24.9-11.1-24.9-24.9 0-13.7 11.1-24.9 24.9-24.9h16.6c13.7 0 8.3 19.4 8.3 33.2 0 13.7 5.4 16.6-8.3 16.6z m0-99.5h-16.6c-13.7 0-24.9-11.1-24.9-24.9 0-13.7 11.1-24.9 24.9-24.9h16.6c13.7 0 8.3 19.4 8.3 33.2 0 13.7 5.4 16.6-8.3 16.6z m0-116.1h-16.6c-13.7 0-24.9-11.1-24.9-24.9 0-13.7 11.1-24.9 24.9-24.9h16.6c13.7 0 8.3 19.4 8.3 33.2 0 13.8 5.4 16.6-8.3 16.6z m124.3 679.8c-12.1 0-23.4-3.5-33.2-9.2v42.4h-33.2v-99.5c0-7-0.2-13.7 0-20.1V711H628v3.1c8.6-2 19.5-3.1 33.2-3.1 36.6 0 66.3 29.7 66.3 66.3 0 36.6-29.6 66.3-66.3 66.3z" fill="#62D35F" ></path>' + "" + '<path d="M329.6 711h82.9l-82.9 99.4v33.2h132.7v-33.2h-82.9l82.9-99.4v-33.2H329.6zM512 677.8h33.2V711H512zM512 727.5h33.2v116.1H512zM661.2 711c-13.7 0-24.5 1.1-33.2 3.1V711h-33.2v46.3c-0.2 6.3 0 13.1 0 20.1v99.5H628v-42.4c9.8 5.7 21 9.2 33.2 9.2 36.6 0 66.3-29.7 66.3-66.3 0-36.7-29.6-66.4-66.3-66.4z m0 99.4c-18.3 0-33.2-14.8-33.2-33.2 0-18.3 14.8-33.2 33.2-33.2 18.3 0 33.2 14.8 33.2 33.2 0 18.4-14.9 33.2-33.2 33.2z" fill="#FFFFFF" ></path>' + "" + '<path d="M661.2 777.3m-33.2 0a33.2 33.2 0 1 0 66.4 0 33.2 33.2 0 1 0-66.4 0Z" fill="#62D35F" ></path>' + "" + '<path d="M536.9 114.1h-16.6c-13.7 0-24.9 11.1-24.9 24.9 0 13.7 11.1 24.9 24.9 24.9h16.6c13.7 0 8.3-2.8 8.3-16.6s5.4-33.2-8.3-33.2z" fill="#62D35F" ></path>' + "" + '<path d="M536.9 114.1h-16.6c-13.7 0-24.9 11.1-24.9 24.9 0 13.7 11.1 24.9 24.9 24.9h16.6c13.7 0 8.3-2.8 8.3-16.6s5.4-33.2-8.3-33.2z" fill="#FFFFFF" ></path>' + "" + '<path d="M536.9 230.1h-16.6c-13.7 0-24.9 11.1-24.9 24.9 0 13.7 11.1 24.9 24.9 24.9h16.6c13.7 0 8.3-2.8 8.3-16.6 0-13.7 5.4-33.2-8.3-33.2z" fill="#62D35F" ></path>' + "" + '<path d="M536.9 230.1h-16.6c-13.7 0-24.9 11.1-24.9 24.9 0 13.7 11.1 24.9 24.9 24.9h16.6c13.7 0 8.3-2.8 8.3-16.6 0-13.7 5.4-33.2-8.3-33.2z" fill="#FFFFFF" ></path>' + "" + '<path d="M536.9 329.6h-16.6c-13.7 0-24.9 11.1-24.9 24.9 0 13.7 11.1 24.9 24.9 24.9h16.6c13.7 0 8.3-2.8 8.3-16.6s5.4-33.2-8.3-33.2z" fill="#62D35F" ></path>' + "" + '<path d="M536.9 329.6h-16.6c-13.7 0-24.9 11.1-24.9 24.9 0 13.7 11.1 24.9 24.9 24.9h16.6c13.7 0 8.3-2.8 8.3-16.6s5.4-33.2-8.3-33.2z" fill="#FFFFFF" ></path>' + "" + '<path d="M497.9 576.9c9.1 1 17.6 1.4 22.4 1.4h16.6c13.7 0 8.3-2.8 8.3-16.6 0 9-25.7 13.3-47.3 15.2z" fill="#62D35F" ></path>' + "" + '<path d="M536.9 528.6h-16.6c-4.8 0-13.3 2.4-22.4 6.1 21.6 6.8 47.3 18.2 47.3 27.1 0-13.8 5.4-33.2-8.3-33.2zM446.7 97.5c0 13.7-5.3 16.6 8.1 16.6H471c13.5 0 24.4-11.1 24.4-24.9 0-13.7-10.9-24.9-24.4-24.9h-16.2c-13.4 0-8.1 19.5-8.1 33.2z" fill="#62D35F" ></path>' + "" + '<path d="M446.7 97.5c0 13.7-5.3 16.6 8.1 16.6H471c13.5 0 24.4-11.1 24.4-24.9 0-13.7-10.9-24.9-24.4-24.9h-16.2c-13.4 0-8.1 19.5-8.1 33.2z" fill="#FFFFFF" ></path>' + "" + '<path d="M454.8 230.1H471c13.5 0 24.4-11.1 24.4-24.9 0-13.7-10.9-24.9-24.4-24.9h-16.2c-13.5 0-8.1 19.4-8.1 33.2 0 13.8-5.3 16.6 8.1 16.6z" fill="#62D35F" ></path>' + "" + '<path d="M454.8 230.1H471c13.5 0 24.4-11.1 24.4-24.9 0-13.7-10.9-24.9-24.4-24.9h-16.2c-13.5 0-8.1 19.4-8.1 33.2 0 13.8-5.3 16.6 8.1 16.6z" fill="#FFFFFF" ></path>' + "" + '<path d="M454.8 329.6H471c13.5 0 24.4-11.1 24.4-24.9 0-13.7-10.9-24.9-24.4-24.9h-16.2c-13.5 0-8.1 19.4-8.1 33.2 0 13.8-5.3 16.6 8.1 16.6z" fill="#62D35F" ></path>' + "" + '<path d="M454.8 329.6H471c13.5 0 24.4-11.1 24.4-24.9 0-13.7-10.9-24.9-24.4-24.9h-16.2c-13.5 0-8.1 19.4-8.1 33.2 0 13.8-5.3 16.6 8.1 16.6z" fill="#FFFFFF" ></path>' + "" + '<path d="M454.8 429.1H471c13.5 0 24.4-11.1 24.4-24.9 0-13.7-10.9-24.9-24.4-24.9h-16.2c-13.5 0-8.1 19.4-8.1 33.2 0 13.8-5.3 16.6 8.1 16.6z" fill="#62D35F" ></path>' + "" + '<path d="M454.8 429.1H471c13.5 0 24.4-11.1 24.4-24.9 0-13.7-10.9-24.9-24.4-24.9h-16.2c-13.5 0-8.1 19.4-8.1 33.2 0 13.8-5.3 16.6 8.1 16.6z" fill="#FFFFFF" ></path>' + "" + '<path d="M462.3 561.7c0-8.9 18.7-20.3 35.6-27.1-11.6-3.7-22.1-6.1-26.8-6.1 13.5 0 24.4-11.1 24.4-24.9 0-13.7-10.9-24.9-24.4-24.9h-16.2c-13.5 0-8.1 19.4-8.1 33.2 0 13.7-5.3 16.6 8.1 16.6-13.5 0-8.1 19.4-8.1 33.2 0 13.7-5.3 16.6 8.1 16.6h16.2c4.7 0 15.2-0.4 26.8-1.4-16.9-1.9-35.6-6.2-35.6-15.2z" fill="#62D35F" ></path>' + "" + '<path d="M497.9 534.7c-16.9 6.8-35.6 18.2-35.6 27.1 0 8.9 18.7 13.2 35.6 15.2 21.6-1.9 47.3-6.2 47.3-15.2s-25.7-20.3-47.3-27.1z" fill="#62D35F" ></path>' + "" + '<path d="M536.9 528.6h-16.6c-4.8 0-13.3 2.4-22.4 6.1-11.6-3.7-22.1-6.1-26.8-6.1 13.5 0 24.4-11.1 24.4-24.9 0-13.7-10.9-24.9-24.4-24.9h-16.2c-13.5 0-8.1 19.4-8.1 33.2 0 13.7-5.3 16.6 8.1 16.6-13.5 0-8.1 19.4-8.1 33.2 0 13.7-5.3 16.6 8.1 16.6h16.2c4.7 0 15.2-0.4 26.8-1.4 9.1 1 17.6 1.4 22.4 1.4h16.6c13.7 0 8.3-2.8 8.3-16.6s5.4-33.2-8.3-33.2z" fill="#FFFFFF" ></path>' + "" + '<path d="M536.9 429.1h-16.6c-13.7 0-24.9 11.1-24.9 24.9 0 13.7 11.1 24.9 24.9 24.9h16.6c13.7 0 8.3-2.8 8.3-16.6s5.4-33.2-8.3-33.2z" fill="#62D35F" ></path>' + "" + '<path d="M536.9 429.1h-16.6c-13.7 0-24.9 11.1-24.9 24.9 0 13.7 11.1 24.9 24.9 24.9h16.6c13.7 0 8.3-2.8 8.3-16.6s5.4-33.2-8.3-33.2z" fill="#FFFFFF" ></path>' + "" + '<path d="M685.8 64.4l1 173.9c0 23.3 18.9 42.2 42.2 42.2h181.8" fill="#91E08F" ></path>' + "" + "</symbol>" + "" + '<symbol id="icon-mov" viewBox="0 0 1024 1024">' + "" + '<path d="M689.7 65L148 64.9c-18.3 0-33.2 14.8-33.2 33.1v828.4c0 18.3 14.8 33.1 33.2 33.1h729.5c18.3 0 33.2-14.8 33.2-33.1V284.2" fill="#FF5353" ></path>' + "" + '<path d="M693.2 791.5v-15.3h-45.9v15.3h-30.6v-91.8H387.3v91.8H280.2V256.2h30.6v30.6h45.9v-30.6h30.6v76.5h229.4v-76.5h107.1v535.3h-30.6zM356.7 317.4h-45.9V348h45.9v-30.6z m0 61.2h-45.9v30.6h45.9v-30.6z m0 61.1h-45.9v30.6h45.9v-30.6z m0 61.2h-45.9v30.6h45.9v-30.6z m0 61.2h-45.9v30.6h45.9v-30.6z m0 61.2h-45.9v30.6h45.9v-30.6z m0 61.2h-45.9v30.6h45.9v-30.6z m0 61.1h-45.9v30.6h45.9v-30.6z m260-367H387.3v275.3h229.4V378.6z m76.5-91.8h-45.9v30.6h45.9v-30.6z m0 61.2h-45.9v30.6h45.9V348z m0 61.1h-45.9v30.6h45.9v-30.6z m0 61.2h-45.9v30.6h45.9v-30.6z m0 61.2h-45.9v30.6h45.9v-30.6z m0 61.2h-45.9v30.6h45.9v-30.6z m0 61.2h-45.9v30.6h45.9v-30.6z m0 61.2h-45.9v30.6h45.9v-30.6zM448.6 592.8V439.9l137.6 76.5-137.6 76.4z" fill="#FFCCCC" ></path>' + "" + '<path d="M689 65l-1.1 178c0 21.9 19.9 39.6 44.4 39.6l177.6 1.7L689 65z" fill="#FF8787" ></path>' + "" + "</symbol>" + "" + '<symbol id="icon-ppt" viewBox="0 0 1024 1024">' + "" + '<path d="M689 65l-541.8-0.1C128.9 64.9 114 79.7 114 98v828.4c0 18.3 14.8 33.1 33.2 33.1h729.5c18.3 0 33.2-14.8 33.2-33.1V284.2" fill="#FFBA34" ></path>' + "" + '<path d="M316.7 363.1h386.9c19.4 0 35.2 14.8 35.2 33.1v232c0 18.3-15.7 33.1-35.2 33.1H316.7c-19.4 0-35.2-14.8-35.2-33.1v-232c0.1-18.3 15.8-33.1 35.2-33.1zM246.4 313.4h527.5c9.7 0 17.6 7.4 17.6 16.6 0 9.2-7.9 16.6-17.6 16.6H246.4c-9.7 0-17.6-7.4-17.6-16.6 0-9.2 7.9-16.6 17.6-16.6z" fill="#FFEAC2" ></path>' + "" + '<path d="M492.6 827V330c0-9.2 7.9-16.6 17.6-16.6 9.7 0 17.6 7.4 17.6 16.6v497c0 9.2-7.9 16.6-17.6 16.6-9.8 0-17.6-7.4-17.6-16.6z" fill="#FFEAC2" ></path>' + "" + '<path d="M536.8 713.3l122.7 66.3c8.5 4.6 11.4 14.7 6.5 22.6-4.9 7.9-15.7 10.6-24.2 6.1L519.1 742c-8.5-4.6-11.4-14.7-6.5-22.6 4.9-8 15.7-10.7 24.2-6.1z" fill="#FFEAC2" ></path>' + "" + '<path d="M483.5 713.3l-122.7 66.3c-8.5 4.6-11.4 14.7-6.5 22.6 4.9 7.9 15.7 10.6 24.2 6.1L501.2 742c8.5-4.6 11.4-14.7 6.5-22.6-4.9-8-15.7-10.7-24.2-6.1z" fill="#FFEAC2" ></path>' + "" + '<path d="M689 65l-1.1 178c0 21.9 19.9 39.6 44.4 39.6l177.6 1.7L689 65z" fill="#FFCF71" ></path>' + "" + "</symbol>" + "" + '<symbol id="icon-xls" viewBox="0 0 1024 1024">' + "" + '<path d="M686 62.8H147.2C128.9 62.8 114 77.6 114 96v829c0 18.3 14.8 33.2 33.2 33.2h729.5c18.3 0 33.2-14.8 33.2-33.2V278.6L686 62.8z" fill="#62D35F" ></path>' + "" + '<path d="M684.9 62.8l1 174.9c0 23.3 18.9 42.2 42.2 42.2h181.8" fill="#91E08F" ></path>' + "" + '<path d="M808.5 729.3l-563.7 0.2h-31.3v-30.8l-0.1-353.4h38.4v345.5h57.6V537.4h76.8V691h57.6V479.8h76.8V691h57.6V556.6H655V691h57.6V383.8h76.8v307.1h19.2v38.4z" fill="#D0F2CF" ></path>' + "" + "</symbol>" + "" + '<symbol id="icon-mp3" viewBox="0 0 1024 1024">' + "" + '<path d="M689 65l-541.8-0.1C128.9 64.9 114 79.7 114 98v828.4c0 18.3 14.8 33.1 33.2 33.1h729.5c18.3 0 33.2-14.8 33.2-33.1V284.2" fill="#62D35F" ></path>' + "" + '<path d="M689 65l-1.1 178c0 21.9 19.9 39.6 44.4 39.6l177.6 1.7L689 65z" fill="#91E08F" ></path>' + "" + '<path d="M652.6 634.2c0 1.1 0.1 2.1 0 3.2v1.7h-0.2c-2.3 26.4-25.8 50.6-58.9 57.6-39.2 8.4-76.8-10.4-83.9-42-7.1-31.6 18.9-64 58.2-72.4 13.8-3 27.4-2.4 39.5 0.8V407.3c-27.9-1.6-65.3-1.6-102.7 5.2-35 6.3-68.3 19.1-93.7 30.9v256.2h-3.5c-3.3 26.9-27.1 51.4-60.4 58.6-40.4 8.8-79.2-10.9-86.5-44.1-7.3-33.1 19.5-67.1 60-75.9 15.9-3.5 31.4-2.4 44.9 2V467.3c-0.6 0.4-1 0.6-1 0.6V352.3s0.4-0.2 1-0.6v-6.3l16.7-3.3c24.5-13.3 71.6-36.1 122-45.1 74.2-13.4 148.9-0.5 148.9-0.5V412h-0.2v222.2z" fill="#D0F2CF" ></path>' + "" + "</symbol>" + "" + '<symbol id="icon-ics" viewBox="0 0 1024 1024">' + "" + '<path d="M689 65l-541.8-0.1C128.9 64.9 114 79.7 114 98v828.4c0 18.3 14.8 33.1 33.2 33.1h729.5c18.3 0 33.2-14.8 33.2-33.1V284.2" fill="#FFBA34" ></path>' + "" + '<path d="M689 65l-1.1 178c0 21.9 19.9 39.6 44.4 39.6l177.6 1.7L689 65z" fill="#FFCF71" ></path>' + "" + '<path d="M730.6 355.6H293.4c-12.4 0-22.4 9.9-22.4 22.2V744c0 12.3 10 22.2 22.4 22.2h437.1c12.4 0 22.4-9.9 22.4-22.2V377.8c0.1-12.3-10-22.2-22.3-22.2z m-31.4 346.7c0 5.5-4.5 10-10 10H334.8c-5.5 0-10-4.5-10-10V419.4c0-5.5 4.5-10 10-10h354.3c5.5 0 10 4.5 10 10v282.9z" fill="#FFEAC2" ></path>' + "" + '<path d="M406 319.9h33.6c5.5 0 10 4.5 10 10v105c0 5.5-4.5 10-10 10H406c-5.5 0-10-4.5-10-10v-105c0-5.6 4.4-10 10-10zM495.2 319.9h33.6c5.5 0 10 4.5 10 10v105c0 5.5-4.5 10-10 10h-33.6c-5.5 0-10-4.5-10-10v-105c0-5.6 4.5-10 10-10zM584.5 319.9H618c5.5 0 10 4.5 10 10v105c0 5.5-4.5 10-10 10h-33.6c-5.5 0-10-4.5-10-10v-105c0.1-5.6 4.6-10 10.1-10z" fill="#FFEAC2" ></path>' + "" + '<path d="M467.7 498.4l-71.8 5.7v24.3h36.5v130.8h35.3V498.4zM628 498.4H521.2l-0.3 35.6h71.4c-14.8 18.1-19.7 25.6-27.5 44-7.8 18.4-11.6 38.8-11.6 61.2v19.9h30.5v-19.9c0-22 2.5-34.6 8.6-51.6 6.2-17 18.5-32.3 35.7-53.6v-35.6z" fill="#FFEAC2" ></path>' + "" + "</symbol>" + "" + '<symbol id="icon-pdf" viewBox="0 0 1024 1024">' + "" + '<path d="M689 65l-541.8-0.1C128.9 64.9 114 79.7 114 98v828.4c0 18.3 14.8 33.1 33.2 33.1h729.5c18.3 0 33.2-14.8 33.2-33.1V284.2" fill="#FF5353" ></path>' + "" + '<path d="M689 65l-1.1 178c0 21.9 19.9 39.6 44.4 39.6l177.6 1.7L689 65z" fill="#FF8787" ></path>' + "" + '<path d="M347.3 655.8c-56.1 41.2-94.7 99.7-79.5 108.9l-13.3-6.6c-7.7-9.3 9.8-58.9 92.8-102.3zM768.7 609.6c28.7-60.1-207.6-51.1-380.3 27.7 134.4-50.9 383.2-72.9 380.3-27.7z" fill="#FFC5C5" ></path>' + "" + '<path d="M501.4 289.3c6.5-33.4-10.1-32.2-14.8-32.2l-10.5-0.1c-5.8 0-11 4.6-13.5 13.8-16.4 60.1 13.3 212.7 96.7 283.3 73.6 62.3 201.9 90.8 207 60.7-26.6 12.6-126.7-19.1-194-71.8-79.5-64.2-113.5-222.5-96.4-272 1.7-4.9 5.8-10.7 7.7-12 7.2 3.6 15.8 12.2 17.8 30.3z" fill="#FFC5C5" ></path>' + "" + '<path d="M500 298.9c-7.3 35.4-10.5 119.2-80 256.8C345.3 703.6 290.8 772.6 254.5 758l13 6.5c28.4 14.3 80.7-32.7 167.6-197.2 66.8-126.6 63.2-191.8 64.9-268.4z" fill="#FFC5C5" ></path>' + "" + "</symbol>" + "" + '<symbol id="icon-apk" viewBox="0 0 1024 1024">' + "" + '<path d="M689 65l-541.8-0.1C128.9 64.9 114 79.7 114 98v828.4c0 18.3 14.8 33.1 33.2 33.1h729.5c18.3 0 33.2-14.8 33.2-33.1V284.2" fill="#62D35F" ></path>' + "" + '<path d="M689 65l-1.1 178c0 21.9 19.9 39.6 44.4 39.6l177.6 1.7L689 65z" fill="#91E08F" ></path>' + "" + '<path d="M757.3 767.8c-13.1 0-23.7-10.6-23.7-23.7V585.8c0-13.1 10.6-23.7 23.7-23.7s23.7 10.6 23.7 23.7v158.3c0.1 13.1-10.6 23.7-23.7 23.7z m-53.7-260.4c0 1.6-0.2 3.1-0.2 4.6-0.5 0-0.9-0.1-1.4-0.1h-0.3c0.1 0.9 0.3 1.8 0.3 2.7 0 17.5-14.2 31.7-31.7 31.7H353.7c-17.5 0-31.7-14.2-31.7-31.7 0-0.8 0.2-1.5 0.2-2.2-0.4 0.1-0.9 0.1-1.4 0.1 0-1.7-0.3-3.4-0.3-5.1 0-62.6 30.2-118.1 76.7-153l-48.9-48.9c-9.3-9.3-9.3-24.3 0-33.6s24.3-9.3 33.6 0l56 56c0.7 0.7 1 1.6 1.6 2.3 22.4-9.2 46.8-14.3 72.5-14.3 25.5 0 49.7 5.1 71.9 14.1 0.5-0.7 0.8-1.5 1.4-2.1l56-56c9.3-9.3 24.3-9.3 33.6 0s9.3 24.3 0 33.6L626.4 354c46.8 35 77.2 90.6 77.2 153.4zM512 361.4c-72.2 0-132 52.6-143.6 121.5h17.1c-8.7 0-15.8 7.1-15.8 15.8 0 8.7 7.1 15.8 15.8 15.8h253.2c8.7 0 15.8-7.1 15.8-15.8 0-8.7-7.1-15.8-15.8-15.8h17C644 414 584.2 361.4 512 361.4z m71.2 105.7c-13.1 0-23.7-10.6-23.7-23.7s10.6-23.7 23.7-23.7 23.7 10.6 23.7 23.7c0.1 13-10.6 23.7-23.7 23.7z m-142.4 0c-13.1 0-23.7-10.6-23.7-23.7s10.6-23.7 23.7-23.7 23.7 10.6 23.7 23.7c0 13-10.6 23.7-23.7 23.7zM266.7 767.8c-13.1 0-23.7-10.6-23.7-23.7V585.8c0-13.1 10.6-23.7 23.7-23.7s23.7 10.6 23.7 23.7v158.3c0 13.1-10.6 23.7-23.7 23.7zM337.9 562h348.2c8.7 0 15.8 7.1 15.8 15.8V752c0 8.7-14.7 6.1-23.4 6.1 0 0-2.3 9.7-18.6 9.7-7.4 0-18.3-16.2-28.1-16.2-9.6 0-17.9 16.2-29.2 16.2-14.5 0-30.2-21.6-46.5-21.6-15.5 0-31.6 21.6-47.6 21.6-13.8 0-25.5-19.5-38.9-19.5-15.4 0-32.6 19.5-46.5 19.5-19.4 0-36.8-18.4-50.8-18.4-21.3 0-34.6 18.4-34.6 18.4-8.7 0-15.8-7.1-15.8-15.8V577.9c0.2-8.8 7.3-15.9 16-15.9z" fill="#D0F2CF" ></path>' + "" + "</symbol>" + "" + '<symbol id="icon-png" viewBox="0 0 1024 1024">' + "" + '<path d="M689 65l-541.8-0.1C128.9 64.9 114 79.7 114 98v828.4c0 18.3 14.8 33.1 33.2 33.1h729.5c18.3 0 33.2-14.8 33.2-33.1V284.2" fill="#7594E2" ></path>' + "" + '<path d="M689 65l-1.1 178c0 21.9 19.9 39.6 44.4 39.6l177.6 1.7L689 65z" fill="#9FB4EB" ></path>' + "" + '<path d="M717.1 737.1h-82v-82h82v82zM553 655v-82h82v82h-82z m0-246h82v82h-82v-82z m-164 82v-82h82v82h-82z m82 164h-82v-82h82v82z m0-164h82v82h-82v-82z m82 246.1h-82v-82h82v82z m-246.1 0v-82h82v82h-82z m0-164.1v-82h82v82h-82z m0-246.1h82v82h-82v-82z m164.1 0h82v82h-82v-82z m246.1 0v82h-82v-82h82z m0 164.1v82h-82v-82h82z" fill="#D6DFF6" ></path>' + "" + "</symbol>" + "" + '<symbol id="icon-link" viewBox="0 0 1024 1024">' + "" + '<path d="M689 65l-541.8-0.1C128.9 64.9 114 79.7 114 98v828.4c0 18.3 14.8 33.1 33.2 33.1h729.5c18.3 0 33.2-14.8 33.2-33.1V284.2" fill="#40C4FF" ></path>' + "" + '<path d="M689 65l-1.1 178c0 21.9 19.9 39.6 44.4 39.6l177.6 1.7L689 65z" fill="#7AD6FF" ></path>' + "" + '<path d="M741.6 673.1l-68.5 68.5c-19.1 19.1-91 5-110.2-14.2l-81.7-81.7c-19.2-19.2-26-70-6.9-89.1l20.6-20.6 48 48c-7.6 7.6-9.2 18.2-3.6 23.8l75.8 75.8c5.6 5.6 16.2 4 23.8-3.6l41.1-41.1c7.6-7.6 9.2-18.2 3.6-23.8l-75.8-75.8c-3.7-3.7-9.6-4-15.4-1.7L542.8 488l13.7-13.7c19.1-19.1 69.9-12.4 89.1 6.9l81.7 81.7c19.3 19.2 33.5 91.1 14.3 110.2zM419.5 419.5l6.9-6.9c7.6-7.6 19.8-7.6 27.4 0l164.5 164.5c7.6 7.6 7.6 19.8 0 27.4l-6.9 6.9c-7.6 7.6-19.8 7.6-27.4 0L419.5 446.9c-7.6-7.6-7.6-19.9 0-27.4zM536 481.2l-49.5-49.5c2.3-5.8 2-11.7-1.7-15.4L409 340.5c-5.6-5.6-16.2-4-23.8 3.6l-41.1 41.1c-7.6 7.6-9.2 18.2-3.6 23.8l75.8 75.8c5.6 5.6 16.2 4 23.8-3.6l48 48-20.6 20.6c-19.1 19.1-69.9 12.4-89.1-6.9l-81.7-81.7c-19.2-19.2-33.4-91.1-14.2-110.2l68.5-68.5c19.1-19.1 91-5 110.2 14.2l81.7 81.7c19.2 19.2 26 70 6.9 89.1L536 481.2z" fill="#C6EDFF" ></path>' + "" + "</symbol>" + "" + '<symbol id="icon-file" viewBox="0 0 1024 1024">' + "" + '<path d="M863.3 201.6H622.5c-8.2 0-15.6 5-18.6 12.6-8.2 20.6-28.3 35.2-51.8 35.3H160.7c-17.6 0-31.9 14.3-31.9 31.9v509.1c0 17.6 14.3 31.9 31.9 31.9h702.7c17.6 0 31.9-14.3 31.9-31.9v-557c0-17.6-14.3-31.9-32-31.9z" fill="#FFE88C" ></path>' + "" + '<path d="M176.6 295.4h670.8V487H176.6z" fill="#FFFFFF" ></path>' + "" + '<path d="M863.3 343.3H160.7c-17.6 0-31.9 14.3-31.9 31.9v415.2c0 17.6 14.3 31.9 31.9 31.9h702.7c17.6 0 31.9-14.3 31.9-31.9V375.3c0-17.7-14.3-32-32-32z" fill="#FFE88C" ></path>' + "" + "</symbol>" + "" + '<symbol id="icon-txt" viewBox="0 0 1024 1024">' + "" + '<path d="M689 65l-541.8-0.1C128.9 64.9 114 79.7 114 98v828.4c0 18.3 14.8 33.1 33.2 33.1h729.5c18.3 0 33.2-14.8 33.2-33.1V284.2" fill="#885CA6" ></path>' + "" + '<path d="M689 65l-1.1 178c0 21.9 19.9 39.6 44.4 39.6l177.6 1.7L689 65z" fill="#AC8DC1" ></path>' + "" + '<path d="M688.2 616.7v102.8h-44.1V616.7h-58.7v-44.1H747v44.1h-58.8zM277 469.8h470v44.1H277v-44.1z m0-102.8h470v44.1H277V367z m249.7 249.7H277v-44.1h249.7v44.1z m0 102.8H277v-44.1h249.7v44.1z" fill="#DCCEE4" ></path>' + "" + "</symbol>" + "" + '<symbol id="icon-rar" viewBox="0 0 1024 1024">' + "" + '<path d="M689 65l-541.8-0.1C128.9 64.9 114 79.7 114 98v828.4c0 18.3 14.8 33.1 33.2 33.1h729.5c18.3 0 33.2-14.8 33.2-33.1V284.2" fill="#FF5353" ></path>' + "" + '<path d="M689 65l-1.1 178c0 21.9 19.9 39.6 44.4 39.6l177.6 1.7L689 65z" fill="#FF8787" ></path>' + "" + '<path d="M307.6 851v-66.9l3.8 4c7.1 0 12.3 0.6 15.6 1.7 3.3 1.1 6.4 3.2 9.3 6.3 2.9 3 8.4 10.4 16.3 22.1L375 851h37l-18.7-29.4c-7.4-11.7-13.3-19.9-17.6-24.4-4.4-4.6-9.9-8.8-16.6-12.6 13.4-1.9 23.5-6.6 30.3-13.9 6.8-7.4 10.1-16.7 10.1-28 0-8.9-2.2-16.8-6.7-23.7-4.5-6.9-10.4-11.7-17.8-14.4-7.4-2.7-19.3-4.1-35.7-4.1h-65.1V851h33.4z m-2.4-125.1h24.1c12.5 0 20.1 0.2 22.6 0.5 5 0.8 8.9 2.8 11.6 5.9 2.7 3.1 4.1 7.2 4.1 12.3 0 4.5-1 8.3-3.1 11.3s-5 5.1-8.7 6.4c-3.7 1.2-13 1.8-27.8 1.8h-22.9v-38.2zM516.2 700.4h-32.7L423.8 851h32.8l12.6-34.2h61.2l13.4 34.2h33.6l-61.2-150.6z m-37.4 91l20.7-55.9 21.1 55.9h-41.8zM625.4 851v-66.9l3.8 4c7.1 0 12.3 0.6 15.6 1.7 3.3 1.1 6.4 3.2 9.3 6.3 2.9 3 8.4 10.4 16.3 22.1l22.4 32.8h37L711 821.6c-7.4-11.7-13.2-19.9-17.6-24.4-4.4-4.6-9.9-8.8-16.6-12.6 13.4-1.9 23.5-6.6 30.3-13.9 6.8-7.4 10.1-16.7 10.1-28 0-8.9-2.2-16.8-6.7-23.7-4.5-6.9-10.4-11.7-17.8-14.4-7.4-2.7-19.3-4.1-35.7-4.1h-65V851h33.4z m-2.5-125.1H647c12.5 0 20.1 0.2 22.6 0.5 5 0.8 8.9 2.8 11.6 5.9 2.8 3.1 4.1 7.2 4.1 12.3 0 4.5-1 8.3-3.1 11.3s-5 5.1-8.7 6.4c-3.7 1.2-13 1.8-27.8 1.8h-22.9v-38.2z" fill="#FFFFFF" ></path>' + "" + '<path d="M533.4 583.4h-16.7c-4.8 0-13.5-0.4-22.6-1.4-11.7 1-22.3 1.4-27.1 1.4h-16.4c-13.6 0-8.2-2.9-8.2-16.7s-5.4-33.4 8.2-33.4c-13.6 0-8.2-2.9-8.2-16.7 0-13.9-5.4-33.4 8.2-33.4H467c13.6 0 24.6 11.2 24.6 25.1 0 13.9-11 25.1-24.6 25.1 4.7 0 15.3 2.4 27.1 6.1 9.1-3.7 17.8-6.1 22.6-6.1h16.7c13.9 0 8.4 19.6 8.4 33.4s5.5 16.6-8.4 16.6z m0-100.3h-16.7c-13.9 0-25.1-11.2-25.1-25.1s11.2-25.1 25.1-25.1h16.7c13.9 0 8.4 19.6 8.4 33.4 0 13.9 5.5 16.8-8.4 16.8z m0-100.4h-16.7c-13.9 0-25.1-11.2-25.1-25.1s11.2-25.1 25.1-25.1h16.7c13.9 0 8.4 19.6 8.4 33.4 0 14 5.5 16.8-8.4 16.8z m0-100.3h-16.7c-13.9 0-25.1-11.2-25.1-25.1 0-13.9 11.2-25.1 25.1-25.1h16.7c13.9 0 8.4 19.6 8.4 33.4 0 13.9 5.5 16.8-8.4 16.8z m0-117.1h-16.7c-13.9 0-25.1-11.2-25.1-25.1 0-13.9 11.2-25.1 25.1-25.1h16.7c13.9 0 8.4 19.6 8.4 33.4s5.5 16.8-8.4 16.8zM467 115.2h-16.4c-13.6 0-8.2-2.9-8.2-16.7 0-13.9-5.4-33.4 8.2-33.4H467c13.6 0 24.6 11.2 24.6 25.1s-11 25-24.6 25z m-16.4 66.9H467c13.6 0 24.6 11.2 24.6 25.1s-11 25.1-24.6 25.1h-16.4c-13.6 0-8.2-2.9-8.2-16.7 0.1-13.9-5.3-33.5 8.2-33.5z m0 100.3H467c13.6 0 24.6 11.2 24.6 25.1 0 13.9-11 25.1-24.6 25.1h-16.4c-13.6 0-8.2-2.9-8.2-16.7 0.1-13.9-5.3-33.5 8.2-33.5z m0 100.3H467c13.6 0 24.6 11.2 24.6 25.1 0 13.9-11 25.1-24.6 25.1h-16.4c-13.6 0-8.2-2.9-8.2-16.7s-5.3-33.5 8.2-33.5z" fill="#FFBABA" ></path>' + "" + "</symbol>" + "" + "</svg>";
 
-var _templateObject$25 = taggedTemplateLiteral([ '\n        <div class="media lego-upload-item">\n            <div class="media-left">\n                <i class="file-icon ', '"></i>\n            </div>\n            ', "\n        </div>\n        " ], [ '\n        <div class="media lego-upload-item">\n            <div class="media-left">\n                <i class="file-icon ', '"></i>\n            </div>\n            ', "\n        </div>\n        " ]);
+var _templateObject$26 = taggedTemplateLiteral([ '\n        <div class="media lego-upload-item">\n            <div class="media-left">\n                <i class="file-icon ', '"></i>\n            </div>\n            ', "\n        </div>\n        " ], [ '\n        <div class="media lego-upload-item">\n            <div class="media-left">\n                <i class="file-icon ', '"></i>\n            </div>\n            ', "\n        </div>\n        " ]);
 
 var _templateObject2$24 = taggedTemplateLiteral([ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="lego-cancelbtn" id="', '" onclick=', '>\n                            <i class="anticon anticon-close-circle float-xs-right"></i>\n                        </a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ], [ '\n            <div class="media-body">\n                <h4 class="media-heading">\n                    <div class="right">\n                        <a href="javascript:;" class="lego-cancelbtn" id="', '" onclick=', '>\n                            <i class="anticon anticon-close-circle float-xs-right"></i>\n                        </a>\n                    </div>\n                    ', '\n                </h4>\n                <progressbar id="', '"></progressbar>\n            </div>' ]);
 
@@ -4978,7 +5129,7 @@ var UploadItem = function(_UploadBase) {
         key: "renderFile",
         value: function renderFile() {
             var opts = this.options;
-            var vDom = hx(_templateObject$25, Lego.UI.Util.getFileIcon(opts.file.name), opts.percent < 100 ? hx(_templateObject2$24, val(opts.file._id), this.onCancel.bind(this), val(opts.file.name), "progressbar_" + opts.vid) : hx(_templateObject3$16, !opts.readonly && opts.percent == 100 ? hx(_templateObject4$10, val(opts.file._id), this.onRemove.bind(this)) : "", val(opts.file.name), Lego.UI.Util.convertByteUnit(opts.file.size), val(opts.file.url), val(opts.file.name)));
+            var vDom = hx(_templateObject$26, Lego.UI.Util.getFileIcon(opts.file.name), opts.percent < 100 ? hx(_templateObject2$24, val(opts.file._id), this.onCancel.bind(this), val(opts.file.name), "progressbar_" + opts.vid) : hx(_templateObject3$16, !opts.readonly && opts.percent == 100 ? hx(_templateObject4$10, val(opts.file._id), this.onRemove.bind(this)) : "", val(opts.file.name), Lego.UI.Util.convertByteUnit(opts.file.size), val(opts.file.url), val(opts.file.name)));
             return vDom;
         }
     }, {
@@ -5085,7 +5236,7 @@ var UploadItem = function(_UploadBase) {
     return UploadItem;
 }(UploadView);
 
-var _templateObject$24 = taggedTemplateLiteral([ '\n        <div class="lego-upload lego-upload-', '">\n            <style>\n                .lego-upload .preview-', "{", "", "}\n            </style>\n            ", '\n            <input type="hidden" value="', '" name="', '" class="lego-upload-value">\n            <input multiple="multiple" type="file" class="form-control lego-fileInput hide" accept="', '" style="display:none">\n            ', "\n            ", "\n        </div>\n        " ], [ '\n        <div class="lego-upload lego-upload-', '">\n            <style>\n                .lego-upload .preview-', "{", "", "}\n            </style>\n            ", '\n            <input type="hidden" value="', '" name="', '" class="lego-upload-value">\n            <input multiple="multiple" type="file" class="form-control lego-fileInput hide" accept="', '" style="display:none">\n            ', "\n            ", "\n        </div>\n        " ]);
+var _templateObject$25 = taggedTemplateLiteral([ '\n        <div class="lego-upload lego-upload-', '">\n            <style>\n                .lego-upload .preview-', "{", "", "}\n            </style>\n            ", '\n            <input type="hidden" value="', '" name="', '" class="lego-upload-value">\n            <input multiple="multiple" type="file" class="form-control lego-fileInput hide" accept="', '" style="display:none">\n            ', "\n            ", "\n        </div>\n        " ], [ '\n        <div class="lego-upload lego-upload-', '">\n            <style>\n                .lego-upload .preview-', "{", "", "}\n            </style>\n            ", '\n            <input type="hidden" value="', '" name="', '" class="lego-upload-value">\n            <input multiple="multiple" type="file" class="form-control lego-fileInput hide" accept="', '" style="display:none">\n            ', "\n            ", "\n        </div>\n        " ]);
 
 var _templateObject2$23 = taggedTemplateLiteral([ '\n            <button class="btn btn-secondary lego-addbtn" type="button" ', ">\n                ", "\n                ", "\n            </button>\n            " ], [ '\n            <button class="btn btn-secondary lego-addbtn" type="button" ', ">\n                ", "\n                ", "\n            </button>\n            " ]);
 
@@ -5194,7 +5345,7 @@ var Upload = function(_Lego$UI$Baseview) {
             if (height) {
                 height = "height:" + (typeof height == "string" ? height : height + "px") + ";";
             }
-            var vDom = hx(_templateObject$24, val(opts.type), val(opts.type), width ? width : "", height ? height : "", !opts.readonly && opts.type !== "photos" && opts.type !== "avatar" ? hx(_templateObject2$23, opts.disabled ? "disabled" : "", opts.buttonIcon ? opts.buttonIcon : hx(_templateObject3$15), val(opts.buttonText)) : "", this.getValue().join(","), val(opts.name), val(opts.accept.join(",")), opts.showUploadList && opts.type == "file" ? hx(_templateObject4$9) : "", opts.type == "photos" || opts.type == "avatar" ? hx(_templateObject5$8, val(opts.type), val(opts.type)) : "");
+            var vDom = hx(_templateObject$25, val(opts.type), val(opts.type), width ? width : "", height ? height : "", !opts.readonly && opts.type !== "photos" && opts.type !== "avatar" ? hx(_templateObject2$23, opts.disabled ? "disabled" : "", opts.buttonIcon ? opts.buttonIcon : hx(_templateObject3$15), val(opts.buttonText)) : "", this.getValue().join(","), val(opts.name), val(opts.accept.join(",")), opts.showUploadList && opts.type == "file" ? hx(_templateObject4$9) : "", opts.type == "photos" || opts.type == "avatar" ? hx(_templateObject5$8, val(opts.type), val(opts.type)) : "");
             return opts.template ? opts.template : vDom;
         }
     }, {
@@ -5412,7 +5563,7 @@ var Upload = function(_Lego$UI$Baseview) {
 
 Lego.components("upload", Upload);
 
-var _templateObject$23 = taggedTemplateLiteral([ '\n        <div class="lego-reply">\n            <textarea placeholder="', '" class="form-control lego-reply-content" id="content-', '"></textarea>\n            ', '\n            <div class="lego-reply-toolbar">\n                ', "\n                ", '\n            </div>\n            <div class="popover popover-bottom" style="display:none;">\n                <div class="popover-arrow"></div><h3 class="popover-title">上传附件 <i class="anticon anticon-close" style="float:right"></i></h3>\n                <div class="popover-content"><upload id="upload-', '"></upload></div>\n            </div>\n        </div>\n        ' ], [ '\n        <div class="lego-reply">\n            <textarea placeholder="', '" class="form-control lego-reply-content" id="content-', '"></textarea>\n            ', '\n            <div class="lego-reply-toolbar">\n                ', "\n                ", '\n            </div>\n            <div class="popover popover-bottom" style="display:none;">\n                <div class="popover-arrow"></div><h3 class="popover-title">上传附件 <i class="anticon anticon-close" style="float:right"></i></h3>\n                <div class="popover-content"><upload id="upload-', '"></upload></div>\n            </div>\n        </div>\n        ' ]);
+var _templateObject$24 = taggedTemplateLiteral([ '\n        <div class="lego-reply">\n            <textarea placeholder="', '" class="form-control lego-reply-content" id="content-', '"></textarea>\n            ', '\n            <div class="lego-reply-toolbar">\n                ', "\n                ", '\n            </div>\n            <div class="popover popover-bottom" style="display:none;">\n                <div class="popover-arrow"></div><h3 class="popover-title">上传附件 <i class="anticon anticon-close" style="float:right"></i></h3>\n                <div class="popover-content"><upload id="upload-', '"></upload></div>\n            </div>\n        </div>\n        ' ], [ '\n        <div class="lego-reply">\n            <textarea placeholder="', '" class="form-control lego-reply-content" id="content-', '"></textarea>\n            ', '\n            <div class="lego-reply-toolbar">\n                ', "\n                ", '\n            </div>\n            <div class="popover popover-bottom" style="display:none;">\n                <div class="popover-arrow"></div><h3 class="popover-title">上传附件 <i class="anticon anticon-close" style="float:right"></i></h3>\n                <div class="popover-content"><upload id="upload-', '"></upload></div>\n            </div>\n        </div>\n        ' ]);
 
 var _templateObject2$22 = taggedTemplateLiteral([ '\n            <dropdownbtn id="dropdownbtn-', '"></dropdownbtn>\n            ' ], [ '\n            <dropdownbtn id="dropdownbtn-', '"></dropdownbtn>\n            ' ]);
 
@@ -5483,7 +5634,7 @@ var Reply = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options;
-            var vDom = hx(_templateObject$23, val(options.placeholder), options.vid, options.dropdownbtn ? hx(_templateObject2$22, options.vid) : hx(_templateObject3$14, options.submitType, val(options.submitText)), options.showFacial ? hx(_templateObject4$8, options.vid) : "", options.showUpload ? hx(_templateObject5$7, options.vid) : "", options.vid);
+            var vDom = hx(_templateObject$24, val(options.placeholder), options.vid, options.dropdownbtn ? hx(_templateObject2$22, options.vid) : hx(_templateObject3$14, options.submitType, val(options.submitText)), options.showFacial ? hx(_templateObject4$8, options.vid) : "", options.showUpload ? hx(_templateObject5$7, options.vid) : "", options.vid);
             return vDom;
         }
     }, {
@@ -5643,7 +5794,7 @@ var fun$4 = function fun$4(opts) {
 
 Lego.components("tooltip", fun$4);
 
-var _templateObject$26 = taggedTemplateLiteral([ '<div class="lego-rating ', '">\n        <input type="hidden" name="', '" id="rating-', '" class="', '" value="', '"/>\n        ', "\n        </div>\n        " ], [ '<div class="lego-rating ', '">\n        <input type="hidden" name="', '" id="rating-', '" class="', '" value="', '"/>\n        ', "\n        </div>\n        " ]);
+var _templateObject$27 = taggedTemplateLiteral([ '<div class="lego-rating ', '">\n        <input type="hidden" name="', '" id="rating-', '" class="', '" value="', '"/>\n        ', "\n        </div>\n        " ], [ '<div class="lego-rating ', '">\n        <input type="hidden" name="', '" id="rating-', '" class="', '" value="', '"/>\n        ', "\n        </div>\n        " ]);
 
 var _templateObject2$25 = taggedTemplateLiteral([ '<span class="badge badge-default">', "</span>" ], [ '<span class="badge badge-default">', "</span>" ]);
 
@@ -5683,7 +5834,7 @@ var Rating = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var options = this.options;
-            var vDom = hx(_templateObject$26, options.size ? "lego-rating-" + options.size : "", val(options.name), options.vid, options.showTip ? "rating-tooltip" : "rating", options.value, options.showLabel ? hx(_templateObject2$25, val(options.value)) : "");
+            var vDom = hx(_templateObject$27, options.size ? "lego-rating-" + options.size : "", val(options.name), options.vid, options.showTip ? "rating-tooltip" : "rating", options.value, options.showLabel ? hx(_templateObject2$25, val(options.value)) : "");
             return vDom;
         }
     }, {
@@ -5747,7 +5898,7 @@ var Rating = function(_Lego$UI$Baseview) {
 
 Lego.components("rating", Rating);
 
-var _templateObject$27 = taggedTemplateLiteral([ "\n                <ul>", "\n                </ul>\n                " ], [ "\n                <ul>", "\n                </ul>\n                " ]);
+var _templateObject$28 = taggedTemplateLiteral([ "\n                <ul>", "\n                </ul>\n                " ], [ "\n                <ul>", "\n                </ul>\n                " ]);
 
 var _templateObject2$26 = taggedTemplateLiteral([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
 
@@ -5857,7 +6008,7 @@ var Selects = function(_Lego$UI$Baseview) {
             var vDom = "";
             function getTags(data) {
                 if (data.length) {
-                    return hx(_templateObject$27, data.map(function(item) {
+                    return hx(_templateObject$28, data.map(function(item) {
                         return hx(_templateObject2$26, item.key, item.value, item.value);
                     }));
                 } else {
@@ -5956,7 +6107,7 @@ var Selects = function(_Lego$UI$Baseview) {
 
 Lego.components("selects", Selects);
 
-var _templateObject$28 = taggedTemplateLiteral([ '\n        <div class="lego-steps lego-steps-', " lego-steps-", " lego-steps-", "\n        ", '">\n        ', "\n        </div>\n        " ], [ '\n        <div class="lego-steps lego-steps-', " lego-steps-", " lego-steps-", "\n        ", '">\n        ', "\n        </div>\n        " ]);
+var _templateObject$29 = taggedTemplateLiteral([ '\n        <div class="lego-steps lego-steps-', " lego-steps-", " lego-steps-", "\n        ", '">\n        ', "\n        </div>\n        " ], [ '\n        <div class="lego-steps lego-steps-', " lego-steps-", " lego-steps-", "\n        ", '">\n        ', "\n        </div>\n        " ]);
 
 var _templateObject2$27 = taggedTemplateLiteral([ '\n            <div class="lego-steps-item lego-steps-status-', '">\n                ', '\n                <div class="lego-steps-step">\n                    <div class="lego-steps-head">\n                        <div class="lego-steps-head-inner">\n                        ', '\n                        </div>\n                    </div>\n                    <div class="lego-steps-main">\n                        <div class="lego-steps-title">', "</div>\n                        ", "\n                    </div>\n                </div>\n            </div>\n            " ], [ '\n            <div class="lego-steps-item lego-steps-status-', '">\n                ', '\n                <div class="lego-steps-step">\n                    <div class="lego-steps-head">\n                        <div class="lego-steps-head-inner">\n                        ', '\n                        </div>\n                    </div>\n                    <div class="lego-steps-main">\n                        <div class="lego-steps-title">', "</div>\n                        ", "\n                    </div>\n                </div>\n            </div>\n            " ]);
 
@@ -6003,7 +6154,7 @@ var Steps = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var opts = this.options, dataLength = opts.data.length, widthPercent = 10 / (dataLength - (opts.type == "arrow" ? 0 : 1)) * 10;
-            var vDom = hx(_templateObject$28, opts.direction, opts.type, !opts.showNum ? "sm" : opts.size, opts.type == "arrow" && opts.color == "light" ? "lego-steps-o" : "", opts.data.map(function(item, index) {
+            var vDom = hx(_templateObject$29, opts.direction, opts.type, !opts.showNum ? "sm" : opts.size, opts.type == "arrow" && opts.color == "light" ? "lego-steps-o" : "", opts.data.map(function(item, index) {
                 return hx(_templateObject2$27, opts.current == index ? opts.status : item.status ? item.status : opts.current > index ? "finish" : "wait", index < dataLength ? hx(_templateObject3$18) : "", opts.showIcon ? hx(_templateObject4$12, item.icon ? item.icon : item.status == "finish" ? "anticon-check" : "", item.status !== "finish" ? item.icon ? item.icon : opts.showNum ? index + 1 : "" : "") : hx(_templateObject5$10, opts.showNum ? index + 1 : ""), val(item.title), opts.showDescription ? hx(_templateObject6$5, val(item.description)) : "");
             }));
             return vDom;
@@ -6068,7 +6219,7 @@ var Steps = function(_Lego$UI$Baseview) {
 
 Lego.components("steps", Steps);
 
-var _templateObject$29 = taggedTemplateLiteral([ '\n        <div class="lego-switch">\n            <input type="hidden" name="', '" value="', '" />\n            <span class="switch-', " ", " ", '"\n            onclick=', ">\n                <span class='slider'></span>\n            </span>\n        </div>\n        " ], [ '\n        <div class="lego-switch">\n            <input type="hidden" name="', '" value="', '" />\n            <span class="switch-', " ", " ", '"\n            onclick=', ">\n                <span class='slider'></span>\n            </span>\n        </div>\n        " ]);
+var _templateObject$30 = taggedTemplateLiteral([ '\n        <div class="lego-switch">\n            <input type="hidden" name="', '" value="', '" />\n            <span class="switch-', " ", " ", '"\n            onclick=', ">\n                <span class='slider'></span>\n            </span>\n        </div>\n        " ], [ '\n        <div class="lego-switch">\n            <input type="hidden" name="', '" value="', '" />\n            <span class="switch-', " ", " ", '"\n            onclick=', ">\n                <span class='slider'></span>\n            </span>\n        </div>\n        " ]);
 
 var Switchs = function(_Lego$UI$Baseview) {
     inherits(Switchs, _Lego$UI$Baseview);
@@ -6089,7 +6240,7 @@ var Switchs = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var opts = this.options;
-            var vDom = hx(_templateObject$29, opts.name, opts.checked ? 1 : "", opts.checked ? "on" : "off", opts.disable ? "switch-disabled" : "", opts.size, this.onClick.bind(this));
+            var vDom = hx(_templateObject$30, opts.name, opts.checked ? 1 : "", opts.checked ? "on" : "off", opts.disable ? "switch-disabled" : "", opts.size, this.onClick.bind(this));
             return vDom;
         }
     }, {
@@ -6148,7 +6299,7 @@ var Switchs = function(_Lego$UI$Baseview) {
 
 Lego.components("switchs", Switchs);
 
-var _templateObject$30 = taggedTemplateLiteral([ '\n        <div class="lego-slider">\n            <input id="input_', '" name="', '" type="text" />\n        </div>\n        ' ], [ '\n        <div class="lego-slider">\n            <input id="input_', '" name="', '" type="text" />\n        </div>\n        ' ]);
+var _templateObject$31 = taggedTemplateLiteral([ '\n        <div class="lego-slider">\n            <input id="input_', '" name="', '" type="text" />\n        </div>\n        ' ], [ '\n        <div class="lego-slider">\n            <input id="input_', '" name="', '" type="text" />\n        </div>\n        ' ]);
 
 var SliderView = function(_Lego$UI$Baseview) {
     inherits(SliderView, _Lego$UI$Baseview);
@@ -6196,7 +6347,7 @@ var SliderView = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var opts = this.options;
-            var vDom = hx(_templateObject$30, opts.vid, opts.name);
+            var vDom = hx(_templateObject$31, opts.vid, opts.name);
             return vDom;
         }
     }, {
@@ -6253,7 +6404,7 @@ var SliderView = function(_Lego$UI$Baseview) {
 
 Lego.components("slider", SliderView);
 
-var _templateObject$31 = taggedTemplateLiteral([ '\n        <div class="lego-tabs">\n            <navs id="navs-', '"></navs>\n            <div class="tab-content ', '">\n                ', "\n            </div>\n        </div>\n        " ], [ '\n        <div class="lego-tabs">\n            <navs id="navs-', '"></navs>\n            <div class="tab-content ', '">\n                ', "\n            </div>\n        </div>\n        " ]);
+var _templateObject$32 = taggedTemplateLiteral([ '\n        <div class="lego-tabs">\n            <navs id="navs-', '"></navs>\n            <div class="tab-content ', '">\n                ', "\n            </div>\n        </div>\n        " ], [ '\n        <div class="lego-tabs">\n            <navs id="navs-', '"></navs>\n            <div class="tab-content ', '">\n                ', "\n            </div>\n        </div>\n        " ]);
 
 var _templateObject2$28 = taggedTemplateLiteral([ '<div class="tab-pane ', " ", '">\n                            ', "\n                        </div>" ], [ '<div class="tab-pane ', " ", '">\n                            ', "\n                        </div>" ]);
 
@@ -6333,7 +6484,7 @@ var Tabs = function(_Lego$UI$Baseview) {
                 }
             }
             getNewData(options.data);
-            var vDom = hx(_templateObject$31, options.vid, options.contentScrollbar ? "scrollbar" : "", newData.map(function(item) {
+            var vDom = hx(_templateObject$32, options.vid, options.contentScrollbar ? "scrollbar" : "", newData.map(function(item) {
                 if (!item.disabled) {
                     return hx(_templateObject2$28, val(options.animate), item.key == options.activeKey ? "active" : "", item.key == options.activeKey ? options.activeContent : "");
                 }
@@ -6354,7 +6505,7 @@ var Tabs = function(_Lego$UI$Baseview) {
 
 Lego.components("tabs", Tabs);
 
-var _templateObject$32 = taggedTemplateLiteral([ '\n        <div class="lego-table clearfix ', "\n        ", "\n        ", "\n        ", '">\n            <loading id="lego-loading-', '"></loading>\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                    ', '\n                    <div class="lego-table-body">\n                        ', '\n                        <div class="scrollbar">\n                            <table class="table ', " ", '">\n                                ', "\n                                ", "\n                                ", "\n                            </table>\n                        </div>\n                    </div>\n                    ", "\n                    ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="lego-table clearfix ', "\n        ", "\n        ", "\n        ", '">\n            <loading id="lego-loading-', '"></loading>\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                    ', '\n                    <div class="lego-table-body">\n                        ', '\n                        <div class="scrollbar">\n                            <table class="table ', " ", '">\n                                ', "\n                                ", "\n                                ", "\n                            </table>\n                        </div>\n                    </div>\n                    ", "\n                    ", "\n                </div>\n            </div>\n        </div>\n        " ]);
+var _templateObject$33 = taggedTemplateLiteral([ '\n        <div class="lego-table clearfix ', "\n        ", "\n        ", "\n        ", '">\n            <loading id="lego-loading-', '"></loading>\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                    ', '\n                    <div class="lego-table-body">\n                        ', '\n                        <div class="scrollbar">\n                            <table class="table ', " ", '">\n                                ', "\n                                ", "\n                                ", "\n                            </table>\n                        </div>\n                    </div>\n                    ", "\n                    ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="lego-table clearfix ', "\n        ", "\n        ", "\n        ", '">\n            <loading id="lego-loading-', '"></loading>\n            ', '\n            <div class="lego-table-content">\n                <div class="lego-table-scroll">\n                    ', '\n                    <div class="lego-table-body">\n                        ', '\n                        <div class="scrollbar">\n                            <table class="table ', " ", '">\n                                ', "\n                                ", "\n                                ", "\n                            </table>\n                        </div>\n                    </div>\n                    ", "\n                    ", "\n                </div>\n            </div>\n        </div>\n        " ]);
 
 var _templateObject2$29 = taggedTemplateLiteral([ '<div class="lego-table-title">', "</div>" ], [ '<div class="lego-table-title">', "</div>" ]);
 
@@ -6528,7 +6679,7 @@ var Tables = function(_Lego$UI$Baseview) {
         value: function render() {
             this.getColumns();
             var opts = this.options;
-            var vDom = hx(_templateObject$32, opts.size ? "table-" + opts.size : "", opts.height ? "lego-table-fixed-header" : "", opts.bordered ? "lego-table-bordered" : "", opts.wordBreak ? "lego-nowrap" : "", opts.vid, opts.title ? hx(_templateObject2$29, val(opts.title)) : "", opts.height ? hx(_templateObject3$19, opts.bordered ? "table-bordered" : "", opts.striped ? "table-striped" : "", this._renderColgroup(), this._renderHeader()) : "", opts.nodata ? hx(_templateObject4$13, opts.vid) : hx(_templateObject5$11), opts.bordered ? "table-bordered" : "", opts.striped ? "table-striped" : "", this._renderColgroup(), !opts.height ? this._renderHeader() : "", this._renderBodyer(), !opts.nodata ? hx(_templateObject6$6, opts.footer ? val(opts.footer) : opts.pagination && !opts.nodata ? hx(_templateObject7$4, opts.vid) : "") : "", opts.showSetting ? hx(_templateObject8$4) : "");
+            var vDom = hx(_templateObject$33, opts.size ? "table-" + opts.size : "", opts.height ? "lego-table-fixed-header" : "", opts.bordered ? "lego-table-bordered" : "", opts.wordBreak ? "lego-nowrap" : "", opts.vid, opts.title ? hx(_templateObject2$29, val(opts.title)) : "", opts.height ? hx(_templateObject3$19, opts.bordered ? "table-bordered" : "", opts.striped ? "table-striped" : "", this._renderColgroup(), this._renderHeader()) : "", opts.nodata ? hx(_templateObject4$13, opts.vid) : hx(_templateObject5$11), opts.bordered ? "table-bordered" : "", opts.striped ? "table-striped" : "", this._renderColgroup(), !opts.height ? this._renderHeader() : "", this._renderBodyer(), !opts.nodata ? hx(_templateObject6$6, opts.footer ? val(opts.footer) : opts.pagination && !opts.nodata ? hx(_templateObject7$4, opts.vid) : "") : "", opts.showSetting ? hx(_templateObject8$4) : "");
             return vDom;
         }
     }, {
@@ -6786,7 +6937,7 @@ var Tables = function(_Lego$UI$Baseview) {
 
 Lego.components("tables", Tables);
 
-var _templateObject$33 = taggedTemplateLiteral([ '<ul class="lego-tree"></ul>' ], [ '<ul class="lego-tree"></ul>' ]);
+var _templateObject$34 = taggedTemplateLiteral([ '<ul class="lego-tree"></ul>' ], [ '<ul class="lego-tree"></ul>' ]);
 
 var Tree = function(_Lego$UI$Baseview) {
     inherits(Tree, _Lego$UI$Baseview);
@@ -6892,7 +7043,7 @@ var Tree = function(_Lego$UI$Baseview) {
     }, {
         key: "render",
         value: function render() {
-            return hx(_templateObject$33);
+            return hx(_templateObject$34);
         }
     }, {
         key: "renderTree",
@@ -6932,7 +7083,7 @@ var Tree = function(_Lego$UI$Baseview) {
 
 Lego.components("tree", Tree);
 
-var _templateObject$34 = taggedTemplateLiteral([ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ], [ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ]);
+var _templateObject$35 = taggedTemplateLiteral([ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ], [ "\n                <ul>", '\n                    <li class="select-search">\n                        <input value="" class="select-search-input">\n                    </li>\n                </ul>\n                ' ]);
 
 var _templateObject2$30 = taggedTemplateLiteral([ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ], [ '\n                    <li class="select-tag" id="', '" title="', '">\n                        <div class="select-tag-content">', '</div>\n                        <span class="select-tag-close"></span>\n                    </li>\n                    ' ]);
 
@@ -7090,7 +7241,7 @@ var Treeselect = function(_Lego$UI$Baseview) {
             var vDom = "";
             function getTags(data) {
                 if (data.length) {
-                    return hx(_templateObject$34, data.map(function(item) {
+                    return hx(_templateObject$35, data.map(function(item) {
                         return hx(_templateObject2$30, item.key, item.value, item.value);
                     }));
                 } else {
@@ -7202,7 +7353,7 @@ var Treeselect = function(_Lego$UI$Baseview) {
 
 Lego.components("treeselect", Treeselect);
 
-var _templateObject$35 = taggedTemplateLiteral([ '\n        <div class="row transfer">\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5>\n                        ', "\n                        <span>", "</span>\n                    </h5>\n                    ", '\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <tree id="transfer_tree_', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5><span>', '</span></h5>\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <listgroup id="transfer_list_', '"></listgroup>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <i class="anticon anticon-right"></i>\n            <i class="anticon anticon-left"></i>\n        </div>\n        ' ], [ '\n        <div class="row transfer">\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5>\n                        ', "\n                        <span>", "</span>\n                    </h5>\n                    ", '\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <tree id="transfer_tree_', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5><span>', '</span></h5>\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <listgroup id="transfer_list_', '"></listgroup>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <i class="anticon anticon-right"></i>\n            <i class="anticon anticon-left"></i>\n        </div>\n        ' ]);
+var _templateObject$36 = taggedTemplateLiteral([ '\n        <div class="row transfer">\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5>\n                        ', "\n                        <span>", "</span>\n                    </h5>\n                    ", '\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <tree id="transfer_tree_', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5><span>', '</span></h5>\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <listgroup id="transfer_list_', '"></listgroup>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <i class="anticon anticon-right"></i>\n            <i class="anticon anticon-left"></i>\n        </div>\n        ' ], [ '\n        <div class="row transfer">\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5>\n                        ', "\n                        <span>", "</span>\n                    </h5>\n                    ", '\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <tree id="transfer_tree_', '"></tree>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class="col-sm-6">\n                <div class="transfer-col">\n                    <h5><span>', '</span></h5>\n                    <div class="transfer-col-content">\n                        <div class="scrollbar">\n                            <listgroup id="transfer_list_', '"></listgroup>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <i class="anticon anticon-right"></i>\n            <i class="anticon anticon-left"></i>\n        </div>\n        ' ]);
 
 var _templateObject2$31 = taggedTemplateLiteral([ '<button class="btn btn-link float-right">搜索</button>' ], [ '<button class="btn btn-link float-right">搜索</button>' ]);
 
@@ -7346,7 +7497,7 @@ var Transfer = function(_Lego$UI$Baseview) {
         key: "render",
         value: function render() {
             var opts = this.options;
-            var vDom = hx(_templateObject$35, opts.showSearch && opts.showSearch !== "fixed" ? hx(_templateObject2$31) : "", val(opts.titles[0]), opts.showSearch ? hx(_templateObject3$21, opts.vid) : "", opts.vid, val(opts.titles[1]), opts.vid);
+            var vDom = hx(_templateObject$36, opts.showSearch && opts.showSearch !== "fixed" ? hx(_templateObject2$31) : "", val(opts.titles[0]), opts.showSearch ? hx(_templateObject3$21, opts.vid) : "", opts.vid, val(opts.titles[1]), opts.vid);
             return vDom;
         }
     }, {
@@ -7394,7 +7545,7 @@ var Transfer = function(_Lego$UI$Baseview) {
 
 Lego.components("transfer", Transfer);
 
-var _templateObject$36 = taggedTemplateLiteral([ '\n        <div class="lego-tags">\n            <div class="lego-tags-list">\n                <div class="', '">\n                ', "\n                ", "\n                ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="lego-tags">\n            <div class="lego-tags-list">\n                <div class="', '">\n                ', "\n                ", "\n                ", "\n                </div>\n            </div>\n        </div>\n        " ]);
+var _templateObject$37 = taggedTemplateLiteral([ '\n        <div class="lego-tags">\n            <div class="lego-tags-list">\n                <div class="', '">\n                ', "\n                ", "\n                ", "\n                </div>\n            </div>\n        </div>\n        " ], [ '\n        <div class="lego-tags">\n            <div class="lego-tags-list">\n                <div class="', '">\n                ', "\n                ", "\n                ", "\n                </div>\n            </div>\n        </div>\n        " ]);
 
 var _templateObject2$32 = taggedTemplateLiteral([ '\n                    <div class="lego-tag ', '" id="', '"\n                    title="', '" onclick=', '>\n                        <div class="lego-tag-text">\n                            <span>', "</span>\n                            ", "\n                        </div>\n                    </div>\n                " ], [ '\n                    <div class="lego-tag ', '" id="', '"\n                    title="', '" onclick=', '>\n                        <div class="lego-tag-text">\n                            <span>', "</span>\n                            ", "\n                        </div>\n                    </div>\n                " ]);
 
@@ -7474,7 +7625,7 @@ var Tags = function(_Lego$UI$Baseview) {
         value: function render() {
             var _this2 = this;
             var opts = this.options;
-            this.vDom = hx(_templateObject$36, opts.showMoreBtn ? "lego-tags-div" : "", opts.data.map(function(item) {
+            this.vDom = hx(_templateObject$37, opts.showMoreBtn ? "lego-tags-div" : "", opts.data.map(function(item) {
                 return hx(_templateObject2$32, item.selected ? "lego-tag-" + item.selected : "", item.key, _typeof(item.value) !== "object" ? item.value : "", _this2.onSelected.bind(_this2), item.value, opts.deleteAble ? hx(_templateObject3$22, _this2.onDelete.bind(_this2)) : "");
             }), !opts.readonly && opts.showAddBtn ? hx(_templateObject4$15, opts.vid) : "", !opts.readonly && opts.showCleanBtn ? hx(_templateObject5$13, opts.vid) : "");
             return this.vDom;
@@ -7577,6 +7728,8 @@ exports.Btntoolbar = Btntoolbar;
 exports.Chkgroup = Chkgroup;
 
 exports.Collapse = fun;
+
+exports.Colorpicker = ComView;
 
 exports.Dropdown = Dropdown;
 

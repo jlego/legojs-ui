@@ -1,5 +1,5 @@
 /**
- * btntoolbar.js v0.12.1
+ * btntoolbar.js v0.12.4
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -99,7 +99,7 @@ var taggedTemplateLiteral = function(strings, raw) {
 
 var _templateObject$1 = taggedTemplateLiteral([ '\n        <div class="lego-btngroup btn-group btn-group-', '">\n        ', "\n        </div>\n        " ], [ '\n        <div class="lego-btngroup btn-group btn-group-', '">\n        ', "\n        </div>\n        " ]);
 
-var _templateObject2$1 = taggedTemplateLiteral([ '\n        <button type="button" class="btn btn-', '">\n            ', "\n        </button>\n        " ], [ '\n        <button type="button" class="btn btn-', '">\n            ', "\n        </button>\n        " ]);
+var _templateObject2$1 = taggedTemplateLiteral([ '\n        <button type="button" class="btn btn-', " ", '">\n            ', "\n        </button>\n        " ], [ '\n        <button type="button" class="btn btn-', " ", '">\n            ', "\n        </button>\n        " ]);
 
 var Btngroup = function(_Lego$UI$Baseview) {
     inherits(Btngroup, _Lego$UI$Baseview);
@@ -122,7 +122,7 @@ var Btngroup = function(_Lego$UI$Baseview) {
         value: function render() {
             var options = this.options;
             var vDom = hx(_templateObject$1, options.size, options.data.map(function(item) {
-                return hx(_templateObject2$1, item.type || "secondary", val(item.html || item.text));
+                return hx(_templateObject2$1, item.type || "secondary", item.active ? "active" : "", val(item.html || item.text));
             }));
             return vDom;
         }

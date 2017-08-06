@@ -12,6 +12,7 @@ export Btngroup from "./btngroup";
 export Btntoolbar from "./btntoolbar";
 export Chkgroup from "./chkgroup";
 export Collapse from "./collapse";
+export Colorpicker from "./colorpicker";
 export Dropdown from "./dropdown";
 export Dropdownbtn from "./dropdownbtn";
 export Datepicker from "./datepicker";

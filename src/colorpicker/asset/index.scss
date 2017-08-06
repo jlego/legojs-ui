@@ -1,0 +1,46 @@
+.lego-colorpicker{
+	width: auto;
+	.sp-replacer {
+		border: none;
+		background: none;
+		padding: 0;
+		.sp-dd{
+			display: none;
+		}
+		.sp-preview {
+		    width: 28px;
+		    height: 28px;
+		    border: none;
+			border-radius: 4px;
+			overflow: hidden;
+		}
+	}
+	.sp-container {
+		border-radius: 3px;
+		background-color: #fff;
+		border: 1px solid #ccc;
+		box-shadow: 0 1px 8px rgba(0,0,0,.2);
+	}
+	.sp-cancel {
+	    font-size: 14px;
+	    color: #01a8fe !important;
+	    margin-right: 10px;
+		&:hover {
+		    color: #0176b2 !important;
+		    text-decoration: none;
+		}
+	}
+	.sp-container button{
+		background-image: none;
+		padding: 5px 8px;
+	}
+	.sp-input {
+		border: 1px solid #ccc;
+		&:focus{
+			border: 1px solid #66afe9!important;
+		}
+	}
+	.sp-palette {
+	    max-width: 160px;
+	}
+}

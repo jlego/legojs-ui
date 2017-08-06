@@ -1,5 +1,5 @@
 /**
- * util.js v0.12.1
+ * util.js v0.12.4
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

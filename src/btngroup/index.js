@@ -23,7 +23,7 @@ class Btngroup extends Lego.UI.Baseview {
         const vDom = hx`
         <div class="lego-btngroup btn-group btn-group-${options.size}">
         ${options.data.map(item => hx`
-        <button type="button" class="btn btn-${item.type || 'secondary'}">
+        <button type="button" class="btn btn-${item.type || 'secondary'} ${item.active ? 'active' : ''}">
             ${val(item.html || item.text)}
         </button>
         `)}
