@@ -1,5 +1,5 @@
 /**
- * baseview.js v0.12.4
+ * baseview.js v0.12.6
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -404,7 +404,7 @@ var Baseview = function(_Lego$View) {
             var opts = this.options, that = this;
             function initScroll($el) {
                 $el.each(function(index, el) {
-                    var container = $(this), eventName = "scroll.ps" + index;
+                    var container = $(this), eventName = "mouseover.ps" + index;
                     if (!container.hasClass("ps-container")) {
                         container.css("position", "relative");
                         Ps.initialize(container[0], opts.scrollbar);

@@ -81,7 +81,7 @@ class Baseview extends Lego.View {
         function initScroll($el){
             $el.each(function(index, el){
                 let container = $(this),
-                    eventName = "scroll.ps" + index;
+                    eventName = "mouseover.ps" + index;
                 if(!container.hasClass('ps-container')){
                     container.css('position', 'relative');
                     Ps.initialize(container[0], opts.scrollbar);

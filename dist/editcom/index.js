@@ -1,5 +1,5 @@
 /**
- * editcom.js v0.12.4
+ * editcom.js v0.12.6
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

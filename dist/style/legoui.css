@@ -13116,10 +13116,10 @@ form button[type="submit"] {
     border: 1px #ddd solid; }
 
 .table-xs th, .table-xs td {
-  padding: 8px; }
+  padding: 5px; }
 
 .table-sm th, .table-sm td {
-  padding: 10px 8px; }
+  padding: 8px; }
 
 .table-lg th, .table-lg td {
   padding: 10px 8px;
