@@ -1,91 +1,49 @@
 import '../asset/scss/style.scss';
 
-import { Baseview, Basedata } from "./common/index";
-import Alert from "./alert/index";
-import Avatar from "./avatar/index";
-import Badge from "./badge/index";
-import Buttons from "./buttons/index";
-import Btngroup from "./btngroup/index";
-import Btntoolbar from "./btntoolbar/index";
-import Chkgroup from "./chkgroup/index";
-import Collapse from "./collapse/index";
-import Dropdown from "./dropdown/index";
-import Dropdownbtn from "./dropdownbtn/index";
-import Datepicker from "./datepicker/index";
-import Editcom from "./editcom/index";
-import Forms from "./forms/index";
-import Facial from "./facial/index";
-import Grid from "./grid/index";
-import Inputs from "./inputs/index";
-import Listgroup from "./listgroup/index";
-import Loading from "./loading/index";
-import Modal from "./modal/index";
-import Message from "./message/index";
-import Navs from "./navs/index";
-import Notification from "./notification/index";
-import Nodata from "./nodata/index";
-import Popover from "./popover/index";
-import Progressbar from "./progressbar/index";
-import Pagination from "./pagination/index";
-import Permis from "./permis/index";
-import Reply from "./reply/index";
-import Rating from "./rating/index";
-import Search from "./search/index";
-import Selects from "./selects/index";
-import Steps from "./steps/index";
-import Switchs from "./switchs/index";
-import Slider from "./slider/index";
-import Tabs from "./tabs/index";
-import Tables from "./tables/index";
-import Tooltip from "./tooltip/index";
-import Tree from "./tree/index";
-import Treeselect from "./treeselect/index";
-import Transfer from "./transfer/index";
-import Tags from "./tags/index";
-import Upload from "./upload/index";
-
-Lego.components({
-	Basedata: Basedata,
-	Baseview: Baseview,
-	alert: Alert,
-	avatar: Avatar,
-	badge: Badge,
-	buttons: Buttons,
-	btngroup: Btngroup,
-	btntoolbar: Btntoolbar,
-	chkgroup: Chkgroup,
-	collapse: Collapse,
-	dropdown: Dropdown,
-	dropdownbtn: Dropdownbtn,
-	datepicker: Datepicker,
-	editcom: Editcom,
-	forms: Forms,
-	facial: Facial,
-	inputs: Inputs,
-	listgroup: Listgroup,
-	loading: Loading,
-	modal: Modal,
-	message: Message,
-	navs: Navs,
-	notification: Notification,
-	popover: Popover,
-	progressbar: Progressbar,
-	permis: Permis,
-	pagination: Pagination,
-	reply: Reply,
-	rating: Rating,
-	search: Search,
-	selects: Selects,
-	steps: Steps,
-	switchs: Switchs,
-	slider: Slider,
-	tooltip: Tooltip,
-	tables: Tables,
-	tabs: Tabs,
-	tree: Tree,
-	treeselect: Treeselect,
-	tags: Tags,
-	transfer: Transfer,
-	upload: Upload
-});
-export default Lego.UI;
+export Basedata from "./basedata";
+export Baseview from "./baseview";
+export Baseupload from "./baseupload";
+export Util from "./util";
+export Alert from "./alert";
+export Avatar from "./avatar";
+export Badge from "./badge";
+export Buttons from "./buttons";
+export Btngroup from "./btngroup";
+export Btntoolbar from "./btntoolbar";
+export Chkgroup from "./chkgroup";
+export Collapse from "./collapse";
+export Colorpicker from "./colorpicker";
+export Dropdown from "./dropdown";
+export Dropdownbtn from "./dropdownbtn";
+export Datepicker from "./datepicker";
+export Editcom from "./editcom";
+export Forms from "./forms";
+export Facial from "./facial";
+export Grid from "./grid";
+export Inputs from "./inputs";
+export Listgroup from "./listgroup";
+export Loading from "./loading";
+export Modal from "./modal";
+export Message from "./message";
+export Navs from "./navs";
+export Notification from "./notification";
+export Nodata from "./nodata";
+export Popover from "./popover";
+export Progressbar from "./progressbar";
+export Pagination from "./pagination";
+export Permis from "./permis";
+export Reply from "./reply";
+export Rating from "./rating";
+export Search from "./search";
+export Selects from "./selects";
+export Steps from "./steps";
+export Switchs from "./switchs";
+export Slider from "./slider";
+export Tabs from "./tabs";
+export Tables from "./tables";
+export Tooltip from "./tooltip";
+export Tree from "./tree";
+export Treeselect from "./treeselect";
+export Transfer from "./transfer";
+export Tags from "./tags";
+export Upload from "./upload";

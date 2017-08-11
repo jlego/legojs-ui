@@ -9,19 +9,23 @@ class Facial extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
             events: {
-                'click .lego-facial-item a': 'clickItem'
+                'click .lego-facial-item a': 'clickItem',
+                'click .face-remove': 'removeFace'
             },
+            name: '',
             target: '', //插入目标节点
             targetType: 'textarea',
             icon: 'anticon anticon-smile-o',
-            text: '',
             eventName: 'click', //['click'] or ['hover']
-            iconsUrl: '', //图标地址
+            dropdownOption: {},
+            iconsUrl: Lego.config.faceIconUri || '', //图标地址
             itemClassPrefix: 'f0',  //节点样式前缀
             direction: 'bottom',
+            value: [],
             data: Lego.UI.Util.faceTags
         };
         Object.assign(options, opts);
+        options.value = Array.isArray(options.value) ? options.value : [options.value];
         super(options);
         this.cursorPos = null;
         this.cursorContainer = null;
@@ -31,28 +35,32 @@ class Facial extends Lego.UI.Baseview {
         });
     }
     render() {
-        const options = this.options,
-            dataLength = options.data.length,
+        let opts = this.options,
+            dataLength = opts.data.length,
             widthPercent = 10 / (dataLength - 1) * 10;
         const vDom = hx`
         <div class="lego-facial">
-            ${options.text ? hx`<i class="lego-facial-trigger">${val(options.text)}</i>` : hx`<i class="lego-facial-trigger ${options.icon}"></i>`}
-            <div class="dropdown-menu clearfix ${options.direction ? ('drop' + options.direction) : ''}">
+            ${!opts.target ? hx`<input type="hidden" name="${val(opts.name)}" value="${opts.value.join(',')}"/>` : ''}
+            ${!opts.target ? hx`<span id="face_${opts.vid}">${opts.value.join(',')}</span>` : ''}
+            <i class="lego-facial-trigger ${opts.icon}"></i>
+            <div class="dropdown-menu clearfix ${opts.direction ? ('drop' + opts.direction) : ''}">
                 <ul>
-                ${options.data.map((item, index) => hx`
-                    <li class="lego-facial-item ${options.itemClassPrefix}${index}"><a href="javascript:void(0);"
-                    title="${item}"><img src="${options.iconsUrl || Lego.config.faceIconUri}${index}.gif" /></a></li>
+                ${opts.data.map((item, index) => hx`
+                    <li class="lego-facial-item ${opts.itemClassPrefix}${index}"><a href="javascript:void(0);"
+                    title="${item}"><img src="${opts.iconsUrl}${index}.gif" /></a></li>
                 `)}
                 </ul>
             </div>
+            ${!opts.target && opts.value.length ? hx`<a class="face-remove" href="javascript:;">删除</a>` : ''}
         </div>
         `;
         return vDom;
     }
     renderAfter(){
-        const target = this.$el,
+        let target = this.$el,
             that = this,
-            targetEl = this.options.target instanceof $ ? this.options.target : $(this.options.target);
+            opts = this.options,
+            targetEl = opts.target instanceof $ ? opts.target : (opts.target ? $(opts.target) : this.$('input'));
         function handler(event){
             event.stopPropagation();
             that.$el.toggleClass('dropdown open');
@@ -62,25 +70,38 @@ class Facial extends Lego.UI.Baseview {
                 });
             }
         }
-        if(this.options.eventName == 'click'){
-            const _eventName = 'click.dropdown_' + this.options.vid;
+        if(opts.eventName == 'click'){
+            const _eventName = 'click.dropdown_' + opts.vid;
             target.off(_eventName).on(_eventName, handler);
         }else{
-            target[this.options.eventName](handler);
+            target[opts.eventName](handler);
         }
         targetEl.off('click keyup').on('click keyup', function(event){
             const el = $(event.currentTarget);
             that.getCursorPos(el);
         });
+        if(opts.dropdownOption){
+            this.$('.dropdown-menu > ul').css(opts.dropdownOption);
+        }
+    }
+    removeFace(event){
+        event.stopPropagation();
+        this.options.value = [];
     }
     clickItem(event){
         event.stopPropagation();
-        const target = $(event.currentTarget),
-            targetEl = this.options.target instanceof $ ? this.options.target : $(this.options.target);
-        if(this.options.targetType == 'div'){
-            this.addComma(targetEl, target.attr('title'));
+        let target = $(event.currentTarget),
+            opts = this.options,
+            targetEl = opts.target instanceof $ ? opts.target : (opts.target ? $(opts.target) : this.$('input')),
+            value = target.attr('title');
+        if(opts.target){
+            if(opts.targetType == 'div'){
+                this.addComma(targetEl, value);
+            }else{
+                this.addOnPos(targetEl, value);
+            }
         }else{
-            this.addOnPos(targetEl, target.attr('title'));
+            opts.value = [value];
         }
         this.close();
     }

@@ -17,6 +17,12 @@ pre {
 pre p {
     margin: 0;
 }
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}
 .float-right{
     float: right !important;
 }

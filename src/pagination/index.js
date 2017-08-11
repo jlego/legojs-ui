@@ -103,7 +103,7 @@ class Pagination extends Lego.UI.Baseview {
             ${!opts.simple && opts.showSizeChanger ? hx`
             <li class="pageSize">
                 <span class="info" id="select-${opts.vid}">
-                    <button class="btn dropdown-toggle" type="button" style="padding: 5px 10px;">${opts.pageSize} / 页 </button>
+                    <button class="btn dropdown-toggle" type="button">${opts.pageSize} / 页 </button>
                     <dropdown id="dropdown-${opts.vid}"></dropdown>
                 </span>
             </li>

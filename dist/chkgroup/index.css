@@ -1,0 +1,126 @@
+.lego-chkgroup .form-check-label {
+  padding-left: 0; }
+
+.lego-chkgroup .form-check + .form-check {
+  margin-top: inherit; }
+
+.lego-chkgroup .form-check.form-check-inline {
+  padding-left: 0;
+  line-height: 35px; }
+
+.lego-chkgroup .lego-radio,
+.lego-chkgroup .lego-checkbox {
+  position: absolute;
+  display: none; }
+
+.lego-chkgroup .lego-radio[disabled],
+.lego-chkgroup .lego-checkbox[disabled] {
+  cursor: not-allowed; }
+
+.lego-chkgroup .lego-radio + span,
+.lego-chkgroup .lego-checkbox + span {
+  position: relative;
+  display: block;
+  padding-left: 25px;
+  cursor: pointer;
+  vertical-align: middle; }
+
+.lego-chkgroup .lego-radio + span:hover:before,
+.lego-chkgroup .lego-checkbox + span:hover:before {
+  animation-duration: 0.4s;
+  animation-fill-mode: both;
+  animation-name: hover-color; }
+
+.lego-chkgroup .lego-radio + span:before,
+.lego-chkgroup .lego-checkbox + span:before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -8px;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  content: '';
+  border: 1px solid #c0c0c0; }
+
+.lego-chkgroup .lego-radio + span:after,
+.lego-chkgroup .lego-checkbox + span:after {
+  position: absolute;
+  display: none;
+  content: ''; }
+
+.lego-chkgroup .lego-radio[disabled] + span,
+.lego-chkgroup .lego-checkbox[disabled] + span {
+  cursor: not-allowed;
+  color: #e4e4e4; }
+
+.lego-chkgroup .lego-radio[disabled] + span:hover,
+.lego-chkgroup .lego-radio[disabled] + span:before,
+.lego-chkgroup .lego-radio[disabled] + span:after,
+.lego-chkgroup .lego-checkbox[disabled] + span:hover,
+.lego-chkgroup .lego-checkbox[disabled] + span:before,
+.lego-chkgroup .lego-checkbox[disabled] + span:after {
+  cursor: not-allowed; }
+
+.lego-chkgroup .lego-radio[disabled] + span:hover:before,
+.lego-chkgroup .lego-checkbox[disabled] + span:hover:before {
+  border: 1px solid #e4e4e4;
+  animation-name: none; }
+
+.lego-chkgroup .lego-radio[disabled] + span:before,
+.lego-chkgroup .lego-checkbox[disabled] + span:before {
+  border-color: #e4e4e4; }
+
+.lego-chkgroup .lego-radio:checked + span:before,
+.lego-chkgroup .lego-checkbox:checked + span:before {
+  animation-name: none; }
+
+.lego-chkgroup .lego-radio:checked + span:after,
+.lego-chkgroup .lego-checkbox:checked + span:after {
+  display: block; }
+
+.lego-chkgroup .lego-radio + span:before {
+  border-radius: 50%; }
+
+.lego-chkgroup .lego-radio + span:after {
+  top: 50%;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: #01a8fe; }
+
+.lego-chkgroup .lego-radio:checked + span:before {
+  border: 1px solid #01a8fe; }
+
+.lego-chkgroup .lego-radio:checked[disabled] + span:before {
+  border: 1px solid #c9e2f9; }
+
+.lego-chkgroup .lego-radio:checked[disabled] + span:after {
+  background: #c9e2f9; }
+
+.lego-chkgroup .lego-checkbox + span:before {
+  border-radius: 3px; }
+
+.lego-chkgroup .lego-checkbox + span:after {
+  top: 50%;
+  left: 6px;
+  box-sizing: border-box;
+  margin-top: -8px;
+  width: 6px;
+  height: 12px;
+  transform: rotate(45deg);
+  border-width: 2px;
+  border-style: solid;
+  border-color: #fff;
+  border-top: 0;
+  border-left: 0; }
+
+.lego-chkgroup .lego-checkbox:checked + span:before {
+  border: #01a8fe;
+  background: #01a8fe; }
+
+.lego-chkgroup .lego-checkbox:checked[disabled] + span:before {
+  border: #c9e2f9;
+  background: #c9e2f9; }

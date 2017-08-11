@@ -1,0 +1,23 @@
+.btn-sm, .btn-group-sm > .btn {
+  padding: 0.1rem 0.3rem;
+  font-size: 0.75rem;
+  border-radius: 0.2rem; }
+
+.lego-btn-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%; }
+
+.lego-btn-circle.btn-lg {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%; }
+
+.lego-btn-capsule {
+  border-radius: 19px; }
+
+.lego-btn-capsule.btn-lg {
+  border-radius: 27px; }
+
+.lego-btn-dashed {
+  border-style: dashed; }

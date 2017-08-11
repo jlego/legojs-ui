@@ -1,0 +1,54 @@
+.lego-switch {
+  display: inline-block;
+  vertical-align: middle; }
+  .lego-switch > span {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 30px;
+    border-radius: 16px;
+    line-height: 30px;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0); }
+    .lego-switch > span .slider {
+      position: absolute;
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      background: white;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+      border-radius: 50%;
+      left: 0;
+      top: 0; }
+    .lego-switch > span.switch-on {
+      border: 1px solid white;
+      box-shadow: white 0px 0px 0px 16px inset;
+      transition: border 0.4s, box-shadow 0.2s, background-color 1.2s;
+      background-color: white;
+      cursor: pointer; }
+      .lego-switch > span.switch-on.switch-disabled {
+        opacity: .5;
+        cursor: auto; }
+      .lego-switch > span.switch-on .slider {
+        left: 20px;
+        transition: background-color 0.4s, left 0.2s; }
+    .lego-switch > span.switch-off {
+      border: 1px solid #ddd;
+      transition: border 0.4s, box-shadow 0.4s;
+      background-color: white;
+      box-shadow: #dfdfdf 0px 0px 0px 0px inset;
+      background-color: #ddd;
+      cursor: pointer; }
+      .lego-switch > span.switch-off .slider {
+        left: 0;
+        transition: background-color 0.4s, left 0.2s; }
+      .lego-switch > span.switch-off.switch-disabled {
+        background-color: #F0F0F0 !important;
+        cursor: auto; }
+    .lego-switch > span.sm {
+      width: 40px;
+      height: 20px;
+      border-radius: 10px;
+      line-height: 20px; }
+      .lego-switch > span.sm .slider {
+        width: 18px;
+        height: 18px; }

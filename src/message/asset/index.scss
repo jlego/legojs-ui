@@ -1,3 +1,5 @@
+@import "../../../asset/scss/bootstrap/variables";
+
 .toast-top-center {
     top: 0;
     right: 0;
@@ -8,27 +10,28 @@
     top: 30px;
 }
 
-#toast-container > div {
-    position: relative;
-    pointer-events: auto;
-    overflow: hidden;
-    margin: 0 0 6px;
-    padding: 15px 15px 15px 50px;
-    width: 300px;
-    -moz-border-radius: 3px 3px 3px 3px;
-    -webkit-border-radius: 3px 3px 3px 3px;
-    border-radius: 3px 3px 3px 3px;
-    background-position: 15px center;
-    background-repeat: no-repeat;
-    color: #ffffff;
-    opacity: 1;
-}
-
-#toast-container >:hover {
-    -moz-box-shadow: 0 0 12px #000000;
-    -webkit-box-shadow: 0 0 12px #000000;
-    box-shadow: 0 0 12px #000000;
-    opacity: 1;
+#toast-container {
+    > div {
+        position: relative;
+        pointer-events: auto;
+        overflow: hidden;
+        margin: 0 0 6px;
+        padding: 15px 15px 15px 50px;
+        width: 300px;
+        -moz-border-radius: 3px 3px 3px 3px;
+        -webkit-border-radius: 3px 3px 3px 3px;
+        border-radius: 3px 3px 3px 3px;
+        background-position: 15px center;
+        background-repeat: no-repeat;
+        color: #ffffff;
+        opacity: 1;
+    }
+    >:hover {
+        -moz-box-shadow: 0 0 12px #000000;
+        -webkit-box-shadow: 0 0 12px #000000;
+        box-shadow: 0 0 12px #000000;
+        opacity: 1;
+    }
 }
 
 .toast {
@@ -36,11 +39,11 @@
 }
 
 .toast-success {
-    background-color: #62d35d;
+    background-color: $green;
 }
 
 .toast-error {
-    background-color: #d9534f;
+    background-color: $red;
 }
 
 .toast-info {
@@ -48,5 +51,34 @@
 }
 
 .toast-warning {
-    background-color: #eea236;
+    background-color: $orange;
+}
+.toast-info:before,
+.toast-error:before,
+.toast-success:before,
+.toast-warning:before{
+    content: "";
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    line-height: 32px;
+    position: absolute;
+    left: 10px;
+    top: 9px;
+    color: #fff;
+    font-family: 'anticon';
+    font-size: 26px;
+    // margin-top: -18px;
+}
+.toast-info:before{
+    content: "\E628";
+}
+.toast-error:before{
+    content: "\E62E";
+}
+.toast-success:before{
+    content: "\E630";
+}
+.toast-warning:before{
+    content: "\E62C";
 }

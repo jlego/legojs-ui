@@ -42,6 +42,8 @@ class Upload extends Lego.UI.Baseview {
             showUploadList: true,  //是否展示 uploadList, 默认开启
             // data: opts.token, //返回上传动态token
             value: [],  //已上传文件
+            previewContainer: '.lego-upload-container',
+            uploadItem: UploadItem,
             onAddFile() {},
             onBegin() {},
             onProgress() {},
@@ -63,24 +65,28 @@ class Upload extends Lego.UI.Baseview {
         super(options);
         this.fileList = [];
         this.$('.lego-fileInput').on('change', (event) => {
-            var target = $(event.currentTarget)[0];
+            let target = $(event.currentTarget)[0];
             this.uploadInit(target.files, target);
         });
         let opt = this.options;
         if(opt.value.length){
-            this.options.value = opt.value.map(file => {
-                return {
-                    el: '.lego-upload-container',
+            opt.value = opt.value.map(file => {
+                let item = {
+                    el: opt.previewContainer,
                     readonly: opt.readonly,
                     percent: 100,
                     showZoom: opt.showZoom,
                     type: opt.type,
                     file: file
                 };
+                if(!file._id && file.id) item._id = file.id;
+                return item;
             });
-            this.options.value.forEach((item, index) => {
-                this.showItem(item);
-            });
+            if(opt.showUploadList){
+                opt.value.forEach((item, index) => {
+                    this.showItem(item);
+                });
+            }
         }
     }
     render() {
@@ -94,7 +100,7 @@ class Upload extends Lego.UI.Baseview {
             <style>
                 .lego-upload .preview-${val(opts.type)}{${width ? width : ''}${height ? height : ''}}
             </style>
-            ${!opts.readonly && opts.type == 'file' ? hx`
+            ${!opts.readonly && opts.type !== 'photos' && opts.type !== 'avatar' ? hx`
             <button class="btn btn-secondary lego-addbtn" type="button" ${opts.disabled ? 'disabled' : ''}>
                 ${opts.buttonIcon ? opts.buttonIcon : hx`<i class="anticon anticon-upload"></i>`}
                 ${val(opts.buttonText)}
@@ -103,7 +109,7 @@ class Upload extends Lego.UI.Baseview {
             <input type="hidden" value="${this.getValue().join(',')}" name="${val(opts.name)}" class="lego-upload-value">
             <input multiple="multiple" type="file" class="form-control lego-fileInput hide" accept="${val(opts.accept.join(','))}" style="display:none">
             ${opts.showUploadList && opts.type == 'file' ? hx`<div class="lego-upload-container"></div>` : ''}
-            ${opts.type !== 'file' ? hx`
+            ${opts.type == 'photos' || opts.type == 'avatar' ? hx`
                 <div class="lego-upload-container" title="选择上传照片">
                     <div class="lego-upload-add preview-${val(opts.type)}">
                         <i class="anticon anticon-plus avatar-uploader-trigger preview-${val(opts.type)}"></i>
@@ -113,6 +119,16 @@ class Upload extends Lego.UI.Baseview {
         </div>
         `;
         return opts.template ? opts.template : vDom;
+    }
+    renderAfter(){
+        let opts = this.options;
+        if(opts.showUploadList && !opts.value.length){
+            if(opts.type !== 'file') {
+                this.$('.lego-upload-photo-item').remove();
+            }else{
+                this.$('.lego-upload-container').html('');
+            }
+        }
     }
     uploadInit(files, fileInput) {
         let uploadFiles = [];
@@ -137,13 +153,14 @@ class Upload extends Lego.UI.Baseview {
                 if(!hasFile) this.fileList.push(file._id);
                 return !hasFile;
             });
+            if(!opts.multiple) this.fileList = [this.fileList.pop()];
             if (this.fileList.length > maxFilesCount) {
                 Lego.UI.message('warning', '只能上传' + maxFilesCount + '个文件');
                 this.fileList.length = maxFilesCount;
                 if(uploadFiles.length > maxFilesCount) uploadFiles.length = maxFilesCount;
                 return;
             }
-            if (typeof opts.onAddFile == 'function') opts.onAddFile(this.fileList, uploadFiles);
+            if (typeof opts.onAddFile == 'function') opts.onAddFile(this, uploadFiles);
             uploadFiles.forEach((file, i) => {
                 if(opts.accept.length){
                     if(!opts.accept.includes(file.type)){
@@ -171,7 +188,7 @@ class Upload extends Lego.UI.Baseview {
                 }
                 if(i > maxFilesCount - 1) return;
                 let uploadOption = {
-                    el: '.lego-upload-container',
+                    el: opts.previewContainer,
                     uploadUri: opts.uploadUri,
                     readonly: opts.readonly,
                     isAuto: opts.isAuto,
@@ -181,7 +198,7 @@ class Upload extends Lego.UI.Baseview {
                     showZoom: opts.showZoom,
                     params: Object.assign({
                         key: opts.key || that.getKey(file.name),
-                        token: typeof opts.data == 'string' ? opts.data : ''
+                        token: opts.token ? opts.token : (typeof opts.data == 'string' ? opts.data : '')
                     }, opts.params || {}),
                     needToken: true,
                     onBegin: opts.onBegin,
@@ -249,7 +266,7 @@ class Upload extends Lego.UI.Baseview {
         uploadOption.insert = opts.multiple ? (opts.type == 'photos' ? 'prepend' : 'append') : 'html';
         uploadOption.onCancel = callback;
         uploadOption.onRemove = callback;
-        Lego.create(UploadItem, uploadOption);
+        Lego.create(opts.uploadItem, uploadOption);
     }
     // 返回上传结果
     getValue() {
@@ -264,6 +281,7 @@ class Upload extends Lego.UI.Baseview {
     reset(){
         this.fileList = [];   //已经添加了的文件列表
         this.options.value = [];
+        this.refresh();
         return this;
     }
 }

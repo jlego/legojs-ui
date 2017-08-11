@@ -55,6 +55,19 @@ class Chkgroup extends Lego.UI.Baseview {
         `;
         return vDom;
     }
+    renderAfter(){
+        let opts = this.options,
+            inputEl = this.$('[name=' + opts.name + ']');
+        if(inputEl.length){
+            opts.data.forEach((item, index) => {
+                if(item.disabled){
+                    inputEl.each(function(i, el){
+                        if(index == i) $(el).attr('disabled', 'disabled');
+                    });
+                }
+            });
+        }
+    }
     onChange(event){
         let opts = this.options,
             valArr = [],

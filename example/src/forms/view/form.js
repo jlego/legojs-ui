@@ -1,12 +1,10 @@
-// import Forms from '../../../../dist/forms';
-// import Search from '../../../../dist/search';
-// import Selects from '../../../../dist/selects';
-// import Datepicker from '../../../../dist/datepicker';
-import Areapicker from '../../../ux/areapicker/index';
-import '../../../ux/areapicker/index.css';
-import Data from '../../../ux/areapicker/data_static';
-import Geolocation from '../../../ux/geolocation/index';
-import '../../../ux/geolocation/index.css';
+import Areapicker from 'com-areapicker';
+import 'com-areapicker/dist/index.css';
+import Data from 'com-areapicker/dist/data';
+import Geolocation from 'com-geolocation';
+import 'com-geolocation/dist/index.css';
+import Colorpicker from 'com-colorpicker';
+import 'com-colorpicker/dist/index.css';
 
 class HomeView extends Lego.UI.Baseview {
     constructor(opts = {}) {
@@ -126,7 +124,7 @@ class HomeView extends Lego.UI.Baseview {
                     },
                     component: {
                         comName: 'chkgroup',
-                        // type: 'radio',
+                        type: 'radio',
                         layout: 'inline',
                         name: 'dddd',
                         data: [{
@@ -137,7 +135,7 @@ class HomeView extends Lego.UI.Baseview {
                             label: 'sadfa2',
                             value: '2'
                         }],
-                        onChange(self, result){
+                        onChange(self, result, event){
                             console.warn(result);
                         }
                     }
@@ -177,10 +175,16 @@ class HomeView extends Lego.UI.Baseview {
                     label: '名称8',
                     component: {
                         comName: 'areapicker',
-                        rootId: '86',
+                        rootId: '117',
                         data: Data,
+                        name: 'agent_address',
+                        nameArr: ['province', 'city', 'area'],
                         onChange(self, result){
-                            // console.warn(self, result);
+                            console.warn(self, result);
+                            let mapView = Lego.getView('.lego-geolocation');
+                            if(mapView){
+                                mapView.options.data.address = result.join('');
+                            }
                         }
                     }
                 }, {
@@ -190,6 +194,21 @@ class HomeView extends Lego.UI.Baseview {
                         name: 'sdfasd',
                         mapApi: 'https://webapi.amap.com/maps?v=1.3&key=acc8b6f1622ec84e5eb7ad4765b14998',
                         // data: {},
+                        onChange(self, result){
+                            console.warn(self, result);
+                        }
+                    }
+                }, {
+                    label: '名称10',
+                    rule: {
+                        required: true
+                    },
+                    message: {
+                        required: '请先选择'
+                    },
+                    component: {
+                        comName: 'colorpicker',
+                        name: 'colorpicker',
                         onChange(self, result){
                             console.warn(self, result);
                         }

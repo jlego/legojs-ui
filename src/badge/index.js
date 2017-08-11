@@ -1,3 +1,5 @@
+import './asset/index.scss';
+
 class Badge extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
@@ -22,4 +24,5 @@ class Badge extends Lego.UI.Baseview {
         Lego.trigger('data_update', {aa: 1});
     }
 }
+Lego.components('badge', Badge);
 export default Badge;

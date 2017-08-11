@@ -7,6 +7,9 @@ import Dropdown from '../dropdown/index';
 class Selects extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
+            events: {
+                'click': function(event){event.stopPropagation();}
+            },
             name: '',
             value: [],   //指定当前选中的条目object/Array
             multiple: false,  //支持多选
@@ -45,7 +48,8 @@ class Selects extends Lego.UI.Baseview {
         this.$('.select-tags-div').on('click', '.select-tag-close', this.clickItemClose.bind(this));
     }
     components(){
-        let opts = this.options;
+        let opts = this.options,
+            that = this;
         if(opts.data.length){
             this.addCom({
                 el: '#dropdown-' + opts.vid,
@@ -62,20 +66,21 @@ class Selects extends Lego.UI.Baseview {
                 direction: opts.direction,
                 data: opts.data || [],
                 onChange(self, model){
-                    const that = this.context;
                     that.$('.select-input').focus();
                     if(model.key !== '0' && opts.multiple){
-                        that.options.data.forEach(item => {
+                        opts.data.forEach((item, index) => {
                             if(item.key == '0') item.selected = false;
                         });
                         that.getValue();
-                        if(!that.options.value.includes(model)){
+                        if(!opts.value.includes(model)){
                             model.selected = true;
-                            that.options.value.push(model);
+                            opts.value.push(model);
                         }
                     }else{
-                        that.options.data.forEach(item => item.selected = false);
-                        that.options.value = [model];
+                        opts.data.forEach((item, index) => {
+                            item.selected = false;
+                        });
+                        opts.value = [model];
                         that.refresh();
                     }
                     that.options.onChange(that, model);
@@ -101,12 +106,10 @@ class Selects extends Lego.UI.Baseview {
                 return '';
             }
         }
-        let theValueArr, realValueArr;
-        if(Array.isArray(opts.value)){
-            theValueArr = opts.value.length ? opts.value.map(item => item.value) : [];
-            realValueArr = opts.value.length ? opts.value.map(item => item[opts.fieldName]) : [];
-        }else{
-            theValueArr = realValueArr = [typeof opts.value == 'object' ? opts.value.value : opts.value];
+        let theValueArr = [], realValueArr = [];
+        if(opts.value.length){
+            theValueArr = opts.value.map(item => item.value);
+            realValueArr = opts.value.map(item => item[opts.fieldName]);
         }
         if(!opts.multiple){
             vDom = hx`

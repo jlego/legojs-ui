@@ -41,8 +41,8 @@
 // Colors
 $white:  #fff !default;
 $black:  #000 !default;
-$red:    #f85774 !default;
-$orange: #fdd835 !default;
+$red:    #ff5353 !default;  //f85774
+$orange: #ffba34 !default;  //fdd835
 $yellow: #ffd500 !default;
 $green:  #48d9a1 !default;
 $blue:   #01a8fe !default;
@@ -278,7 +278,7 @@ $table-border-color:            $gray-lighter !default;
 // For each of Bootstrap's buttons, define text, background and border color.
 
 $btn-padding-x:                  1rem !default;
-$btn-padding-y:                  .5rem !default;
+$btn-padding-y:                  .4rem !default;
 $btn-line-height:                1.4 !default;
 $btn-font-weight:                normal !default;
 $btn-box-shadow:                 inset 0 1px 0 rgba(255,255,255,.15), 0 1px 1px rgba(0,0,0,.075) !default;

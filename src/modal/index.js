@@ -17,7 +17,7 @@ class Modal extends Lego.UI.Baseview {
                 'click .modal-footer button.cancel': 'clickCancel',
                 'click .close': 'clickCancel',
                 'click .modal-dialog': function(event){event.stopPropagation()},
-                'click': 'clickBackdrop',
+                'click': 'clickBackdrop'
             },
             msgType: '',    //有此属性的是dialog
             title: '提示',
@@ -41,7 +41,8 @@ class Modal extends Lego.UI.Baseview {
             cancelText: '取消',
             // onOk() {},
             // onCancel() {},
-            onClose() {}
+            onClose() {},
+            onShow(){}
         };
         Object.assign(options, opts);
         if(options.msgType) options.type = 'dialog';
@@ -67,25 +68,25 @@ class Modal extends Lego.UI.Baseview {
         super(options);
     }
     render() {
-        const options = this.options || {};
-        const vDom = hx`
-        <div class="modal ${options.type == 'layer' ? 'right-modal' : ''}
-        ${options.msgType ? 'dialog-modal' : ''}
-        ${options.size ? ('modal-size-' + options.size) : ''}
-        ${options.isMiddle ? 'middle' : ''}" id="${options.el.replace(/#/, '')}">
+        let opts = this.options;
+        let vDom = hx`
+        <div class="modal ${opts.type == 'layer' ? 'right-modal' : ''}
+        ${opts.msgType ? 'dialog-modal' : ''}
+        ${opts.size ? ('modal-size-' + opts.size) : ''}
+        ${opts.isMiddle ? 'middle' : ''}" id="${opts.el.replace(/#/, '')}">
           <div class="modal-dialog">
             <div class="modal-content">
-              ${options.showHeader ? hx`<div class="modal-header">
-              ${options.closable ? hx`<button type="button" class="close"><span class="anticon anticon-close"></span></button>` : ''}
-                <h5 class="modal-title">${options.title}</h5>
+              ${opts.showHeader ? hx`<div class="modal-header">
+              ${opts.closable ? hx`<button type="button" class="close"><span class="anticon anticon-close"></span></button>` : ''}
+                <h5 class="modal-title">${opts.title}</h5>
               </div>` : ''}
-              <div class="modal-body ${!options.msgType && options.scrollAble ? 'scrollbar' : ''}" style="${!options.showHeader && options.type == 'layer' ? 'top:0;' : ''}
-              ${!options.showFooter && options.type == 'layer' ? 'bottom:0;' : ''}">
-                ${options.content}
+              <div class="modal-body ${!opts.msgType && opts.scrollAble ? 'scrollbar' : ''}" style="${!opts.showHeader && opts.type == 'layer' ? 'top:0;' : ''}
+              ${!opts.showFooter && opts.type == 'layer' ? 'bottom:0;' : ''}">
+                ${val(opts.content)}
               </div>
-              ${options.showFooter ? hx`<div class="modal-footer">
-              ${options.footer ? val(options.footer) : hx`<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">${options.cancelText}</button>
-                <button type="button" class="btn btn-primary ok">${options.okText}</button></div>`}
+              ${opts.showFooter ? hx`<div class="modal-footer">
+              ${opts.footer ? val(opts.footer) : hx`<div><button type="button" class="btn btn-secondary cancel" data-dismiss="modal">${opts.cancelText}</button>
+                <button type="button" class="btn btn-primary ok">${opts.okText}</button></div>`}
               </div>` : ''}
             </div>
           </div>
@@ -94,40 +95,54 @@ class Modal extends Lego.UI.Baseview {
         return vDom;
     }
     renderAfter(){
-        const that = this,
+        let that = this,
             opts = this.options;
         this.$el.modal({
             backdrop: opts.type !== 'layer' ? opts.backdrop : false,
             keyboard: opts.keyboard,
             show: true
         });
-        if(opts.width) this.$('.modal-dialog').width(opts.width);
-        if(opts.height) this.$('.modal-body').height(opts.height);
         this.$el.on('hidden.bs.modal', function (e) {
-            that.$el.remove();
+            that.remove();
             if(typeof opts.onClose === 'function') opts.onClose(that);
         });
+        this.$el.on('show.bs.modal', function (e) {
+            if(typeof opts.onShow === 'function') opts.onShow(that);
+        });
+
+        this.bindKeyup();
+        if(opts.width) this.$('.modal-dialog').width(opts.width);
+        if(opts.height) this.$('.modal-body').height(opts.height);
+        if(!opts.showFooter && opts.type !== 'dialog') this.$('.modal-body').css({padding: 15});
         if (opts.animateIn) Lego.UI.Util.animateCss(this.$el, opts.animateIn);
     }
     // 关闭窗口
     close() {
-        const that = this;
-        if (this.options.animateOut) {
-            Lego.UI.Util.animateCss(that.$el, that.options.animateOut, () => {
+        let that = this,
+            opts = this.options,
+            ieV = Lego.UI.Util.checkBrowser().ieversion;
+        if (opts.animateOut) {
+            Lego.UI.Util.animateCss(that.$el, opts.animateOut, () => {
                 that.$el.modal('hide');
             });
-            if(this.options.backdrop) $('.modal-backdrop').fadeOut();
         } else {
-            this.$el.modal('hide');
+            if(ieV <= 9 && ieV > 0){
+                this.unbindKeyup();
+                this.remove();
+                if(typeof opts.onClose === 'function') opts.onClose(that);
+            }else{
+                this.$el.modal('hide');
+            }
         }
+        if(opts.backdrop) $('.modal-backdrop').fadeOut();
     }
     clickBackdrop(event){
         event.stopPropagation();
         this._onConfirm('onCancel', true);
     }
     _showDialog(){
-        const that = this;
-        Lego.create(Modal, {
+        let that = this;
+        let dialogView = Lego.create(Modal, {
             msgType: this.options.confirm.msgType || 'warning',
             content: this.options.confirm.content || '',
             backdrop: this.options.confirm.backdrop,
@@ -144,12 +159,52 @@ class Modal extends Lego.UI.Baseview {
             if(isBackdrop){
                 let closeAble = true;
                 if(this.options.backdrop == 'static') closeAble = false;
-                if(funName !== 'onOk' && closeAble) this.close();
+                if(funName !== 'onOk' && closeAble){
+                    this.unbindKeyup();
+                    this.close();
+                }
             }else{
-                if(funName !== 'onOk') this.close();
+                if(funName !== 'onOk'){
+                    this.unbindKeyup();
+                    this.close();
+                }
             }
         }
         if (typeof this.options[funName] === 'function') this.options[funName](this);
+    }
+    documentKeyEvent(eventName, callback){
+        $(document).off(eventName).on(eventName, function(event){
+            switch(event.keyCode) {
+                case 27:
+                    callback('onCancel');
+                    debug.log('on click ESC key');
+                    break;
+                case 13:
+                    callback('onOk');
+                    debug.log('on click Enter key');
+                    break;
+            }
+        });
+    }
+    unbindKeyup(){
+        $(document).off('keyup.' + this.options.vid);
+        let prevModal = this.$el.prev();
+        if(prevModal.length && prevModal.hasClass('modal')) {
+            let eventName = 'keyup.' + prevModal.attr('view-id'),
+                modalView = Lego.getView('#' + prevModal.attr('id'));
+            if(modalView) {
+                modalView.$el.focus();
+                this.documentKeyEvent(eventName, modalView._onConfirm.bind(modalView));
+            }
+        }
+    }
+    bindKeyup(){
+        this.$el.focus();
+        let eventName = 'keyup.' + this.options.vid,
+            callback = this._onConfirm.bind(this),
+            prevModal = this.$el.prev();
+        if(prevModal.length && prevModal.hasClass('modal')) $(document).off('keyup.' + prevModal.attr('view-id'));
+        this.documentKeyEvent(eventName, callback);
     }
     clickOk(event) {
         event.stopPropagation();
@@ -166,7 +221,7 @@ const theModal = function(opts = {}, vid){
         let view = Lego.getView(`#lego-${type}-${vid}`);
         if(view) view.close();
     }else{
-        Lego.create(Modal, opts);
+        let modalView = Lego.create(Modal, opts);
     }
 };
 Lego.components('modal', theModal);

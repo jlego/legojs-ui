@@ -3,7 +3,7 @@
  * ronghui Yu
  * 2017/2/9
  */
-// import './asset/index.scss';
+import './asset/index.scss';
 import Dropdown from '../dropdown/index';
 
 class Dropdownbtn extends Lego.UI.Baseview {

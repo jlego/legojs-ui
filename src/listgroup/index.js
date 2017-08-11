@@ -14,7 +14,7 @@
  *     value: ''
  * }
  */
-// import './asset/index.scss';
+import './asset/index.scss';
 
 class Listgroup extends Lego.UI.Baseview {
     constructor(opts = {}) {

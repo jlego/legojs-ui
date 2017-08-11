@@ -109,7 +109,7 @@ class Transfer extends Lego.UI.Baseview {
                     el: '#transfer_search_' + opts.vid,
                     style: {display: opts.showSearch == 'fixed' ? 'table' : 'none'},
                     size: 'sm',
-                    onSearch(self, result) {
+                    onKeyup(self, result, event) {
                         if(typeof opts.onSearch == 'function'){
                             opts.onSearch(that, result);
                         }else{
@@ -149,8 +149,8 @@ class Transfer extends Lego.UI.Baseview {
                     </div>
                 </div>
             </div>
-            <i class="anticon anticon-double-right"></i>
-            <i class="anticon anticon-double-left"></i>
+            <i class="anticon anticon-right"></i>
+            <i class="anticon anticon-left"></i>
         </div>
         `;
         return vDom;

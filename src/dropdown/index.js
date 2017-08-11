@@ -15,6 +15,7 @@ class Dropdown extends Lego.UI.Baseview {
             container: '', //触发容器
             direction: '',  //显示方向 如：top_right
             activeKey: '',
+            maxCount: 0,    //最大记录数
             clickAndClose: true,  //点击后关闭
             showSearch: false,  //是否显示搜索框
             open: false,    //展开
@@ -23,6 +24,13 @@ class Dropdown extends Lego.UI.Baseview {
         };
         Object.assign(options, opts);
         super(options);
+    }
+    dataReady(){
+        let opts = this.options,
+            that = this;
+        if(opts.data.length && opts.maxCount){
+            opts.data.length = opts.data.length > opts.maxCount ? opts.maxCount : opts.data.length;
+        }
     }
     components(){
         let opts = this.options,
@@ -60,7 +68,7 @@ class Dropdown extends Lego.UI.Baseview {
                 if(!item.children){
                     return hx`
                     <li ${item.isHidden ? 'style="display:none;"' : ''}>
-                    <a id="${val(item.key)}" class="${item.disabled || item.selected ? 'disabled' : ''} ${item.active ? 'active' : ''}" href="${item.href ? item.href : 'javascript:;'}">${val(item.value)}</a>
+                    <a id="${val(item.key)}" class="${item.disabled || item.selected ? 'disabled' : ''} ${item.active ? 'active' : ''}" href="${item.href ? item.href : 'javascript:;'}">${val(item.html || item.value, item)}</a>
                     </li>`;
                 }else{
                     return loopNav(item);
@@ -70,7 +78,7 @@ class Dropdown extends Lego.UI.Baseview {
         function loopNav(item){
             return hx`
             <li class="dropdown" ${item.isHidden ? 'style="display:none;"' : ''}>
-                <a id="${val(item.key)}" class="${item.key === options.activeKey ? 'active' : ''} ${item.disabled ? 'disabled' : ''} dropdown-toggle" href="${item.href ? item.href : 'javascript:;'}">${val(item.value)}</a>
+                <a id="${val(item.key)}" class="${item.key === options.activeKey ? 'active' : ''} ${item.disabled ? 'disabled' : ''} dropdown-toggle" href="${item.href ? item.href : 'javascript:;'}">${val(item.html || item.value, item)}</a>
                 ${item.children ? hx`
                 <ul class="dropdown-menu">
                     ${item.children.map((item) => {
@@ -91,7 +99,7 @@ class Dropdown extends Lego.UI.Baseview {
         `;
         if(opts.showSearch){
             vDom = hx`
-            <div class="dropdown-menu">
+            <div class="dropdown-menu" style="display:${opts.open ? 'block' : 'none'}">
                 <div class="lego-search-container"><search id="search_${opts.vid}"></search></div>
                 ${vDom}
             </div>
@@ -102,10 +110,10 @@ class Dropdown extends Lego.UI.Baseview {
     renderAfter(){
         let that = this,
             opts = this.options,
-            _eventName = 'click.dropdown-' + opts.vid,
-            directionArr = opts.direction ? opts.direction.split('_') : [];
+            _eventName = 'click.dropdown-' + opts.vid;
+        this.directionArr = opts.direction ? opts.direction.split('_') : [];
         this.container = opts.container instanceof $ ? opts.container : (opts.context.$ ? opts.context.$(opts.container) : $(opts.container));
-        if(!opts.disabled){
+        if(!opts.disabled && opts.container){
             let cssObj = {zIndex: 10000};
             if(opts.width) cssObj.width = opts.width;
             if(opts.maxHeight){
@@ -118,20 +126,17 @@ class Dropdown extends Lego.UI.Baseview {
                 this.$el.css(cssObj);
             }
             function handler(event){
-                Lego.UI.Util.getDirection(that.container, that.$el, ...directionArr);
-                that.$el.slideToggle('fast');
-            }
-            if(opts.eventName == 'click'){
-                $('body, .modal-body').off(_eventName).on(_eventName, function(event){
-                    if(event.originalEvent){
-                        let index_a = event.originalEvent.path.indexOf(event.target),
-                            index_b = event.originalEvent.path.indexOf(that.container[0]);
-                        if(index_a <= index_b){
-                        }else{
-                            that.close();
-                        }
+                event.stopPropagation();
+                $('.dropdown-menu').each(function(index, el){
+                    if(el === that.el){
+                        Lego.UI.Util.getDirection(that.container, that.$el, ...that.directionArr);
+                        that.$el.slideToggle('fast');
+                    }else{
+                        $(el).slideUp('fast');
                     }
                 });
+            }
+            if(opts.eventName == 'click'){
                 this.container.off(_eventName).on(_eventName, handler);
             }else{
                 this.container.mouseenter(handler).mouseleave(function(){
@@ -139,9 +144,13 @@ class Dropdown extends Lego.UI.Baseview {
                 });
             }
         }
+        $('body, .modal-body').off(_eventName).on(_eventName, function(event){
+            that.close();
+        });
     }
     show(){
-        this.$el.slideDown('fast');
+        if(this.container) Lego.UI.Util.getDirection(this.container, this.$el, ...this.directionArr);
+        if(this.$el.css('display') == 'none') this.$el.slideDown('fast');
     }
     close(){
         this.$el.slideUp('fast');

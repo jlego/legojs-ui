@@ -29,41 +29,43 @@ class Inputs extends Lego.UI.Baseview {
         super(options);
     }
     render() {
-        const options = this.options || {};
+        let opts = this.options;
         let vDom = hx`<div></div>`,
-            value = options.value ? Lego.UI.Util.unFilterTag(options.value.toString()) : '';
-        if(options.preAddon || options.nextAddon){
+            value = opts.value ? Lego.UI.Util.unFilterTag(opts.value.toString()) : '';
+        if(opts.preAddon || opts.nextAddon){
             vDom = hx`
-            <div class="input-group ${options.size ? ('input-group-' + options.size) : ''}">
-              ${options.preAddon ? hx`<span class="input-group-addon">${options.preAddon}</span>` : ''}
-              <input type="${options.type}" class="form-control" placeholder="${options.placeholder}"
-              value="${val(value)}" name="${options.name}" ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}/>
-              ${options.nextAddon ? hx`<span class="input-group-addon">${options.nextAddon}</span>` : ''}
+            <div class="input-group ${opts.size ? ('input-group-' + opts.size) : ''}">
+              ${opts.preAddon ? hx`<span class="input-group-addon">${opts.preAddon}</span>` : ''}
+              <input type="${opts.type}" class="form-control" placeholder="${opts.placeholder}"
+              value="${value !== 0 ? val(value) : value}" name="${opts.name}" ${opts.disabled ? 'disabled' : ''}/>
+              ${opts.nextAddon ? hx`<span class="input-group-addon">${opts.nextAddon}</span>` : ''}
             </div>
             `;
         }else{
-            if(options.type == 'textarea'){
+            if(opts.type == 'textarea'){
                 vDom = hx`
-                  <textarea type="textarea" class="form-control ${options.size ? ('form-control-' + options.size) : ''}" placeholder="${options.placeholder}" name="${options.name}"
-                  ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}>${val(value)}</textarea>
+                  <textarea type="textarea" class="form-control ${opts.size ? ('form-control-' + opts.size) : ''}" placeholder="${opts.placeholder}" name="${opts.name}"
+                  ${opts.disabled ? 'disabled' : ''}>${val(value)}</textarea>
                 `;
             }else{
                 vDom = hx`
-                  <input type="${options.type}" class="form-control ${options.size ? ('form-control-' + options.size) : ''}" placeholder="${options.placeholder}"
-                  value="${val(options.value)}" name="${options.name}" ${options.disabled ? 'disabled' : ''} ${options.readonly ? 'readonly' : ''}/>
+                  <input type="${opts.type}" class="form-control ${opts.size ? ('form-control-' + opts.size) : ''}" placeholder="${opts.placeholder}"
+                  value="${val(opts.value)}" name="${opts.name}" ${opts.disabled ? 'disabled' : ''}/>
                 `;
             }
         }
         return vDom;
     }
     renderAfter(){
-        let opts = this.options;
+        let opts = this.options,
+            inputEl = opts.preAddon || opts.nextAddon ? this.$('input') : this.$el;
         if(opts.preAddon || opts.nextAddon){
             const onEnterFun = this.onEnter.bind(this);
             const onChangeFun = this.onChange.bind(this);
-            this.$('input').keyup(onEnterFun);
-            this.$('input').change(onChangeFun);
+            inputEl.keyup(onEnterFun);
+            inputEl.change(onChangeFun);
         }
+        if(opts.readonly) inputEl.attr('readonly', 'readonly');
     }
     // 过滤特殊字符
     filterStr(str){
@@ -74,8 +76,8 @@ class Inputs extends Lego.UI.Baseview {
     onEnter(event) {
         const target = $(event.currentTarget),
             value = this.filterStr(target.val());
-        this.options.value = value;
-        if(this.options.type == 'textarea') target.val(value);
+        // this.options.value = value;
+        // if(this.options.type == 'textarea') target.val(value);
         if (event.keyCode == 13) {
             if(typeof this.options.onEnter === 'function') this.options.onEnter(this, value, event);
         }

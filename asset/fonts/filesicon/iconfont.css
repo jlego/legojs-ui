@@ -1,0 +1,49 @@
+
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1500256608706'); /* IE9*/
+  src: url('iconfont.eot?t=1500256608706#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1500256608706') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1500256608706') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1500256608706#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-gif:before { content: "\e600"; }
+
+.icon-doc:before { content: "\e601"; }
+
+.icon-jpg:before { content: "\e602"; }
+
+.icon-zip:before { content: "\e603"; }
+
+.icon-mov:before { content: "\e604"; }
+
+.icon-ppt:before { content: "\e605"; }
+
+.icon-xls:before { content: "\e606"; }
+
+.icon-mp3:before { content: "\e607"; }
+
+.icon-ics:before { content: "\e608"; }
+
+.icon-pdf:before { content: "\e609"; }
+
+.icon-apk:before { content: "\e60a"; }
+
+.icon-png:before { content: "\e60b"; }
+
+.icon-link:before { content: "\e60c"; }
+
+.icon-file:before { content: "\e60d"; }
+
+.icon-txt:before { content: "\e60e"; }
+
+.icon-rar:before { content: "\e60f"; }
+

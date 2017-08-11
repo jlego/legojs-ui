@@ -51,18 +51,22 @@ class Permis {
         if(!this.options.isSuper){
             if (!userId || userId === user_id) {
                 // 当前用户操作
-                if(this.options.isAdmin){
-                    if (adminHash[module]) {
+                if (adminHash[module]) {
+                    if(this.options.isAdmin){
                         return adminHash[module][operate];
-                    } else {
-                        return false;
+                    }else{
+                        if(adminHash[module][operate]){
+                            if (operateHash[module]) {
+                                return operateHash[module][operate];
+                            } else {
+                                return false;
+                            }
+                        }else{
+                            return false;
+                        }
                     }
-                }else{
-                    if (operateHash[module]) {
-                        return operateHash[module][operate];
-                    } else {
-                        return false;
-                    }
+                } else {
+                    return false;
                 }
             } else {
                 // 管理操作
@@ -168,6 +172,5 @@ $.fn.extend({
         return on(this, types, selector, data, fn);
     }
 });
-
 Lego.components('permis', permisObj);
 export default permisObj;

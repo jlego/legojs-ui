@@ -4,12 +4,14 @@
  * 2017/1/10
  */
 import './asset/index.scss';
-import Selects from '../selects/index';
 import Tree from '../tree/index';
 
-class Treeselect extends Selects {
+class Treeselect extends Lego.UI.Baseview {
     constructor(opts = {}) {
         const options = {
+            events: {
+                'click': function(event){event.stopPropagation();}
+            },
             name: '',
             value: [], //指定当前选中的条目object/Array
             data: [],
@@ -26,7 +28,6 @@ class Treeselect extends Selects {
             notFoundContent: '', //当下拉列表为空时显示的内容
             dropdownWidth: '100%', //下拉菜单和选择器同宽
             dropdownHeight: 'auto', //下拉菜单高度
-            combobox: false, //输入框自动提示模式
             treeSetting: {},
             treeChkStyle: '',  //checkbox或radio
             size: '', //支持多选
@@ -40,12 +41,8 @@ class Treeselect extends Selects {
             onSearch() {}, //文本框值变化时回调
         };
         Object.assign(options, opts);
-        if (options.value) {
-            if (!Array.isArray(options.value)) options.value = [options.value];
-            options.value.forEach(item => {
-                item.selected = true;
-            });
-        }
+        options.value = val(options.value);
+        if(!Array.isArray(options.value)) options.value = [options.value];
         super(options);
     }
     components(){
@@ -67,43 +64,48 @@ class Treeselect extends Selects {
             }, opts.treeSetting);
             if(opts.treeChkStyle) treeSetting.check.chkStyle = opts.treeChkStyle;
         }
+        if (opts.value.length) {
+            opts.value.forEach((item, index) => {
+                item.selected = true;
+            });
+        }
         if(opts.data.length){
             this.addCom({
                 el: '#tree_' + opts.vid,
                 disSelect: opts.disSelect, //禁止选择含有该属性节点, 可以是对象
                 onlySelect: opts.onlySelect, //只选择含有该属性节点, 可以是对象
                 setting: treeSetting,
-                value: opts.value || [],
+                value: Array.from(opts.value),
                 data: opts.data || [],
                 onChecked(self, result, treeNode) {
-                    const _that = this.context;
                     if (treeSetting.check) {
                         if (result.length) {
-                            that.options.value = [];
+                            opts.value = [];
                             result.forEach((val, index) => {
                                 if(val.key !== '0'){
                                     val.selected = true;
-                                    that.options.value.push(Object.assign({}, val));
+                                    opts.value.push(Object.assign({}, val));
                                 }
                             });
                         }else{
-                            that.options.value = [];
+                            opts.value = [];
                         }
                     }
-                    that.options.onChange(that, result);
+                    opts.onChange(that, result);
                     that.refresh();
                 },
-                onClick(self, result) {
-                    const that = this.context;
-                    that.options.value.forEach(item => item.selected = false);
-                    that.options.value = [Object.assign({
+                onClick(self, result = {}) {
+                    opts.value.forEach((item, index) => {
+                        item.selected = false
+                    });
+                    opts.value = [Object.assign({
                         key: result.key,
                         value: result.value,
                         type: result.type,
                         selected: true
                     }, result)];
-                    that.options.onChange(that, result);
-                    if(that.options.clickAndClose) that.close();
+                    opts.onChange(that, result);
+                    if(opts.clickAndClose) that.close();
                 },
                 disabled: opts.disabled || false
             });
@@ -147,12 +149,10 @@ class Treeselect extends Selects {
                 return '';
             }
         }
-        let theValueArr, realValueArr;
-        if(Array.isArray(opts.value)){
-            theValueArr = opts.value.length ? opts.value.map(item => item.value) : [];
-            realValueArr = opts.value.length ? opts.value.map(item => item[opts.fieldName]) : [];
-        }else{
-            theValueArr = realValueArr = [typeof opts.value == 'object' ? opts.value.value : opts.value];
+        let theValueArr = [], realValueArr = [];
+        if(opts.value.length){
+            theValueArr = opts.value.map(item => item.value);
+            realValueArr = opts.value.map(item => item[opts.fieldName]);
         }
         if(!opts.multiple){
             vDom = hx`
@@ -174,7 +174,7 @@ class Treeselect extends Selects {
             vDom = hx`
             <div class="select dropdown treeselect multiple">
                 <div id="select-${opts.vid}">
-                    <input type="text" class="form-control select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${theValueArr.length ? '' : opts.placeholder}" value="${theValueArr.join(',')}" name="hidden_${opts.name}">
+                    <input type="text" class="form-control select-input ${theValueArr.length ? 'select-hasValue' : ''}" placeholder="${opts.placeholder}" value="${theValueArr.join(',')}" name="hidden_${opts.name}">
                     <input type="hidden" name="${opts.name}" value="${realValueArr.join(',')}">
                     <div class="select-tags-div clearfix ${theValueArr.length ? 'select-tags-div-border' : ''}">
                         ${getTags(opts.value)}
@@ -201,18 +201,15 @@ class Treeselect extends Selects {
         if(!opts.inputAble) this.$('.select-input').attr('readonly', 'readonly');
         if(!opts.disabled){
             function handler(event){
-                that.$('.dropdown-menu').slideToggle('fast');
+                if(that.$('.dropdown-menu').css('display') == 'none'){
+                    that.show();
+                }else{
+                    that.close();
+                }
             }
             if(opts.eventName == 'click'){
                 $('body, .modal-body').off(_eventName).on(_eventName, function(event){
-                    if(event.originalEvent){
-                        let index_a = event.originalEvent.path.indexOf(event.target),
-                            index_b = event.originalEvent.path.indexOf(trigger[0]);
-                        if(index_a <= index_b){
-                        }else{
-                            that.close();
-                        }
-                    }
+                    that.close();
                 });
                 trigger.off(_eventName).on(_eventName, handler);
             }else{
@@ -223,7 +220,7 @@ class Treeselect extends Selects {
             this.$('.select-tag-close').off(_eventName).on(_eventName, this.clickItemClose.bind(this));
             this.$('.dropdown-menu').off(_eventName).on(_eventName, function(event){
                 event.stopPropagation();
-            });
+            }).width('100%');
             if(opts.dropdownHeight){
                 this.$('.dropdown-menu > .scrollbar').css({
                     maxHeight: opts.dropdownHeight,
@@ -233,6 +230,9 @@ class Treeselect extends Selects {
         }
     }
     show(event){
+        let opts = this.options;
+        this.container = this.container || opts.context.$('#select-' + opts.vid);
+        Lego.UI.Util.getDirection(this.container, this.$('.dropdown-menu'));
         this.$('.dropdown-menu').slideDown('fast');
     }
     close(event){

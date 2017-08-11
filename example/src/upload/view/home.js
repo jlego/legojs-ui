@@ -37,7 +37,7 @@ class HomeView extends Lego.UI.Baseview {
                     "extension": "png",
                     "height": 474,
                     "mime_type": "image/png",
-                    "name": "2017-01-10_183019.png",
+                    "name": "2017-01-10_183019.doc",
                     "size": 124290,
                     "url": "https://dn-openwinbons.qbox.me/1/oss/05b49736-44ad-2daa-af59-1d6781681067.png" ,
                     "width": 473
@@ -50,6 +50,26 @@ class HomeView extends Lego.UI.Baseview {
                     "size": 124290,
                     "url": "https://dn-openwinbons.qbox.me/1/oss/05b49736-44ad-2daa-af59-1d6781681068.png" ,
                     "width": 473
+                }, {
+                    "id": 100124028003,
+                    "size": 124290,
+                    "name": "2017-01-10_183018.jpg"
+                }, {
+                    "id": 100124028004,
+                    "size": 124290,
+                    "name": "2017-01-10_183018.gif"
+                }, {
+                    "id": 100124028005,
+                    "size": 124290,
+                    "name": "2017-01-10_183018.pdf"
+                }, {
+                    "id": 100124028006,
+                    "size": 124290,
+                    "name": "2017-01-10_183018.rar"
+                }, {
+                    "id": 100124028007,
+                    "size": 124290,
+                    "name": "2017-01-10_183018.zip"
                 }],
                 onComplete(result) {
                     console.warn('上传成功了3', result);

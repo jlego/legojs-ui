@@ -1,0 +1,31 @@
+.lego-rating .rating-symbol {
+  cursor: pointer; }
+
+.lego-rating.lego-rating-sm .rating-symbol > * {
+  font-size: 12px;
+  line-height: 12px; }
+
+.lego-rating.lego-rating-sm .badge {
+  font-size: 10px; }
+
+.lego-rating .rating-symbol > * {
+  font-size: 18px;
+  line-height: 18px; }
+
+.lego-rating .badge {
+  font-size: 14px; }
+
+.lego-rating.lego-rating-lg .rating-symbol > * {
+  font-size: 30px;
+  line-height: 30px; }
+
+.lego-rating.lego-rating-lg .badge {
+  font-size: 22px; }
+
+.lego-rating .rating-symbol-background {
+  color: #ccc; }
+
+.lego-rating .rating-symbol-foreground span {
+  color: #f5a623; }
+.lego-tooltip {
+  width: auto; }

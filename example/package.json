@@ -33,17 +33,21 @@
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.14.0"
+    "webpack": "^1.14.0",
+    "whatwg-fetch": "^2.0.3"
   },
   "dependencies": {
     "bootstrap-datetimepicker-cjs": "0.0.3",
     "bootstrap-rating": "0.0.1",
+    "com-areapicker": "0.0.27",
+    "com-colorpicker": "0.0.11",
+    "com-geolocation": "0.0.34",
     "core-decorators": "^0.14.0",
     "director": "^1.2.8",
     "events": "^1.1.1",
     "highlight.js": "^9.9.0",
     "jquery": "^3.1.1",
-    "lego-core": "^1.11.9",
+    "lego-core": "^1.12.44",
     "lego-ui": "^0.3.36",
     "lodash": "^4.17.3",
     "moment": "^2.17.1",

@@ -1,28 +1,37 @@
 var path = require("path");
 var webpack = require("webpack");
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+require("babel-polyfill");
+var modules = [
+    'index',
+    'home',
+    'buttons',
+    'alert',
+    'tables',
+    'navs',
+    'forms',
+    'grid',
+    'tips',
+    'tree',
+    'transfer',
+    'upload',
+    'avatar',
+    'steps',
+    'editcom',
+    'rating',
+    'tags'
+];
 
+function getEntry(modules){
+    var result = {'main': ['babel-polyfill', './src/main']};
+    for(var i = 0; i < modules.length; i++){
+        var name = modules[i];
+        result[name + '/app'] = ['./src/' + name + '/app'];
+    }
+    return result;
+}
 module.exports = {
-    entry: {
-        'main': './src/main',
-        'index/app': './src/index/app',
-        'home/app': './src/home/app',
-        'buttons/app': './src/buttons/app',
-        'alert/app': './src/alert/app',
-        'tables/app': './src/tables/app',
-        'navs/app': './src/navs/app',
-        'forms/app': './src/forms/app',
-        'grid/app': './src/grid/app',
-        'tips/app': './src/tips/app',
-        'tree/app': './src/tree/app',
-        'transfer/app': './src/transfer/app',
-        'upload/app': './src/upload/app',
-        'avatar/app': './src/avatar/app',
-        'steps/app': './src/steps/app',
-        'editcom/app': './src/editcom/app',
-        'rating/app': './src/rating/app',
-        'tags/app': './src/tags/app',
-    },
+    entry: getEntry(modules),
     output: {
         path: path.join(__dirname, 'dist'), //打包输出的路径
         publicPath: "./", //发布地址。

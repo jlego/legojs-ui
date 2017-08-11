@@ -6,8 +6,9 @@
 import validate from 'jquery-validation-cjs';
 $.fn.validate = validate;
 import './asset/index.scss';
+
 export let regObj = {
-    mobile: /^1(3|4|5|7|8)\d{9}$/,
+    mobile: /^1(3[0-9]|4[57]|5[0-35-9]|7[0135678]|8[0-9])\d{8}$/,
     email: /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g,
     password: /^[\w]+$/
 };
@@ -128,7 +129,7 @@ class Forms extends Lego.UI.Baseview {
             if(layout == 'vertical'){
                 vDom = hx`
                 <div class="form-group">
-                    <label for="${id}">${val(item.label)}${item.rule || item.required ? (item.rule.required || item.required ? hx`<span class="symbol required">*</span>` : '') : ''}</label>
+                    <label for="${id}">${item.rule || item.required ? (item.rule.required || item.required ? hx`<span class="symbol required">*</span>` : '') : ''}${val(item.label)}</label>
                     ${comTag}
                     ${item.help ? hx`<small class="form-text text-muted">${val(item.help)}</small>` : ''}
                 </div>
@@ -136,7 +137,7 @@ class Forms extends Lego.UI.Baseview {
             }else{
                 vDom = hx`
                 <div class="form-group row">
-                  <label for="${id}" class="col-sm-${that.options.labelCols} col-form-label">${val(item.label)}${item.rule || item.required ? (item.rule.required || item.required ? hx`<span class="symbol required">*</span>` : '') : ''}</label>
+                  <label for="${id}" class="col-sm-${that.options.labelCols} col-form-label">${item.rule || item.required ? (item.rule.required || item.required ? hx`<span class="symbol required">*</span>` : '') : ''}${val(item.label)}</label>
                   <div class="col-sm-${that.options.comCols}">
                     ${comTag}
                     ${item.help ? hx`<small class="form-text text-muted">${val(item.help)}</small>` : ''}
@@ -218,7 +219,7 @@ class Forms extends Lego.UI.Baseview {
         });
         const clickName = 'click.form_' + opts.vid,
             submitEl = opts.submitEl,
-            $submitEl = submitEl instanceof $ ? submitEl : $((typeof submitEl == 'string' ? submitEl : '') || '[type="submit"]');
+            $submitEl = submitEl instanceof $ ? submitEl : $(typeof submitEl == 'string' ? submitEl : '[type="submit"]');
         if (this.rules && this.messages) {
             this.$el.validate(opts.setDefaults);
             if($submitEl.length){

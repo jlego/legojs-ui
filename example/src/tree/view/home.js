@@ -1,4 +1,4 @@
-// import Tree from '../../../../dist/tree';
+import Data from '../data/data';
 // import Treeselect from '../../../../dist/treeselect';
 
 class HomeView extends Lego.UI.Baseview {
@@ -27,7 +27,7 @@ class HomeView extends Lego.UI.Baseview {
                 }]
             }, {
                 el: '#tree2',
-                setting: {
+                treeSetting: {
                     check: {
                         enable: true
                     }
@@ -59,7 +59,7 @@ class HomeView extends Lego.UI.Baseview {
                 }]
             }, {
                 el: '#tree3',
-                setting: {
+                treeSetting: {
                     check: {
                         enable: true,
                         chkStyle: "radio"
@@ -93,9 +93,11 @@ class HomeView extends Lego.UI.Baseview {
                 view: {
                     showIcon: false
                 },
-                data: {
-                    simpleData: {
-                        enable: true
+                treeSetting: {
+                    data: {
+                        simpleData: {
+                            enable: true
+                        }
                     }
                 },
                 onChecked(self, result){
@@ -225,6 +227,7 @@ class HomeView extends Lego.UI.Baseview {
                 },
                 showSearch: true,
                 dropdownHeight: 100,
+                value: [{key: 'tree1_1', value: 'test1_1'}],
                 data: [{
                     id: 'tree1',
                     name: "test1",
@@ -244,6 +247,20 @@ class HomeView extends Lego.UI.Baseview {
                         { id: 'tree2_1',name: "test2_1" }, { id: 'tree3_1',name: "test3_2" }
                     ]
                 }]
+            }, {
+                el: '#treeselect5',
+                placeholder: '请选择',
+                onChange(self, result) {
+                    console.warn('点击了树型选项框5', result);
+                },
+                showSearch: true,
+                dropdownHeight: 300,
+                value: [{key: 2910001, value: '英雄联盟'}],
+                dataSource: {
+                    server: Data,
+                    isAjax: true,
+                    api: 'treedata'
+                }
             }]
         };
         Object.assign(options, opts);
@@ -280,6 +297,14 @@ class HomeView extends Lego.UI.Baseview {
             </div>
             <div class="col-sm-6">
               <treeselect id="treeselect4"></treeselect>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 40px;">
+            <div class="col-sm-6">
+              <treeselect id="treeselect5"></treeselect>
+            </div>
+            <div class="col-sm-6">
+              <treeselect id="treeselect6"></treeselect>
             </div>
           </div>
         </div>
