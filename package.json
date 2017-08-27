@@ -1,6 +1,6 @@
 {
   "name": "lego-ui",
-  "version": "0.12.6",
+  "version": "0.12.11",
   "description": "基于legojs的基础组件库",
   "main": "dist/index.js",
   "directories": {
@@ -30,7 +30,7 @@
     "file-loader": "^0.9.0",
     "fs": "0.0.1-security",
     "json-loader": "^0.5.4",
-    "lego-core": "^0.2.0",
+    "lego-core": "^1.13.16",
     "livereload": "^0.6.0",
     "lodash": "^4.17.2",
     "node-sass": "^4.5.1",
@@ -71,7 +71,6 @@
     "highlight.js": "^9.9.0",
     "html5-history-api": "^4.2.8",
     "jquery-validation-cjs": "^1.0.0",
-    "lego-core": "^1.10.16",
     "localresizeimg-cjs": "^1.0.3",
     "lodash": "^4.17.3",
     "moment": "^2.17.1",

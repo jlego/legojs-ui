@@ -1,5 +1,5 @@
 /**
- * facial.js v0.12.6
+ * facial.js v0.12.11
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
