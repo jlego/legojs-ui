@@ -1,5 +1,5 @@
 /**
- * grid.js v0.12.11
+ * grid.js v0.12.12
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

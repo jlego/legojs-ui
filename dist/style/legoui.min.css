@@ -11325,7 +11325,7 @@ input[type=text] {
     .lego-colorpicker .sp-replacer .sp-preview {
       width: 28px;
       height: 28px;
-      border: none;
+      border-color: #ddd;
       border-radius: 4px;
       overflow: hidden; }
   .lego-colorpicker .sp-container {
