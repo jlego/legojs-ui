@@ -20,7 +20,7 @@ class ComView extends Lego.UI.Baseview {
                 showInput: false,
                 allowEmpty: false,
                 showButtons: true,
-                clickoutFiresChange: false,
+                clickoutFiresChange: true,
                 showInitial: true,
                 showPalette: false,
                 showPaletteOnly: false,
@@ -56,7 +56,7 @@ class ComView extends Lego.UI.Baseview {
         let opts = this.options,
             vDom = hx`
         <div class="lego-colorpicker">
-            <input type="text" id="input_${opts.vid}" value="${opts.value}" name="${opts.name}" />
+            <input type="text" id="input_${opts.vid}" value="${val(opts.value)}" name="${opts.name}" />
         </div>`;
         return vDom;
     }
@@ -71,6 +71,7 @@ class ComView extends Lego.UI.Baseview {
                         change(color){
                             that.result = color;
                             // color.toHexString();
+                            this.color = that.getValue().toString();
                             if(typeof opts.onChange == 'function') opts.onChange(that, that.getValue());
                         },
                         move(color){
@@ -87,7 +88,7 @@ class ComView extends Lego.UI.Baseview {
                         }
                     };
                 Object.assign(defaults, opts.spectrumOption);
-                if(opts.value) defaults.color = opts.value;
+                if(opts.value) defaults.color = val(opts.value);
                 let palette = [
                     ["#000","#444","#666","#999","#ccc","#eee","#f3f3f3","#fff"],
                     ["#f00","#f90","#ff0","#0f0","#0ff","#00f","#90f","#f0f"],
@@ -134,6 +135,7 @@ class ComView extends Lego.UI.Baseview {
         let opts = this.options,
             inputEl = $('#input_' + opts.vid);
         if(inputEl.length){
+            inputEl.spectrum("set", inputEl.val());
             inputEl.valid();
         }
         return this.result;
