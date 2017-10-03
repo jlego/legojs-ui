@@ -1,5 +1,5 @@
 /**
- * slider.js v0.12.17
+ * slider.js v0.12.19
  * (c) 2017 Ronghui Yu
  * @license MIT
  */

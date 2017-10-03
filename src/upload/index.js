@@ -102,7 +102,7 @@ class Upload extends Lego.UI.Baseview {
             </style>
             ${!opts.readonly && opts.type !== 'photos' && opts.type !== 'avatar' ? hx`
             <button class="btn btn-secondary lego-addbtn" type="button" ${opts.disabled ? 'disabled' : ''}>
-                ${opts.buttonIcon ? opts.buttonIcon : hx`<i class="anticon anticon-upload"></i>`}
+                ${opts.buttonIcon ? opts.buttonIcon : hx`<i class="anticon anticon-cloud-upload-o"></i>`}
                 ${val(opts.buttonText)}
             </button>
             ` : ''}

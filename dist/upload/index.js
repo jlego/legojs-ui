@@ -1,5 +1,5 @@
 /**
- * upload.js v0.12.17
+ * upload.js v0.12.19
  * (c) 2017 Ronghui Yu
  * @license MIT
  */
@@ -475,7 +475,7 @@ var _templateObject = taggedTemplateLiteral([ '\n        <div class="lego-upload
 
 var _templateObject2 = taggedTemplateLiteral([ '\n            <button class="btn btn-secondary lego-addbtn" type="button" ', ">\n                ", "\n                ", "\n            </button>\n            " ], [ '\n            <button class="btn btn-secondary lego-addbtn" type="button" ', ">\n                ", "\n                ", "\n            </button>\n            " ]);
 
-var _templateObject3 = taggedTemplateLiteral([ '<i class="anticon anticon-upload"></i>' ], [ '<i class="anticon anticon-upload"></i>' ]);
+var _templateObject3 = taggedTemplateLiteral([ '<i class="anticon anticon-cloud-upload-o"></i>' ], [ '<i class="anticon anticon-cloud-upload-o"></i>' ]);
 
 var _templateObject4 = taggedTemplateLiteral([ '<div class="lego-upload-container"></div>' ], [ '<div class="lego-upload-container"></div>' ]);
 
